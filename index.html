@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>IconVoid - 134,000+ Icons | Premium SVG Search</title>
+  <meta name="description" content="Search, compare, customize, copy, and download 134,000+ SVG icons in a fast frontend-only design tool.">
+  <meta property="og:title" content="IconVoid - Premium SVG icon search">
+  <meta property="og:description" content="Search, customize, copy, and download 134,000+ SVG icons in a frontend-only design tool.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" defer></script>
+</head>
+<body>
+  <div id="network-gate" class="network-gate hidden" role="alert">
+    <div class="network-card">
+      <span class="network-mark"></span>
+      <h1>Internet connection required</h1>
+      <p>IconVoid deliberately does not install a service worker or offline cache. Reconnect and retry.</p>
+      <button class="gradient-btn" id="network-retry">Retry connection</button>
+    </div>
+  </div>
+
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="mesh-orb orb-1"></div>
+    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-orb orb-3"></div>
+    <div class="mesh-orb orb-4"></div>
+    <div class="corner-glow glow-tl"></div>
+    <div class="corner-glow glow-br"></div>
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+  <div id="cursor-trail" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header id="main-header">
+      <div class="header-left">
+        <button class="icon-btn mobile-only" id="sidebar-toggle" title="Open filters" aria-label="Open filters">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <a class="logo" id="logo-btn" href="#/" aria-label="IconVoid home">
+          <svg class="logo-icon" viewBox="0 0 24 24"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+          <span class="logo-text">IconVoid</span>
+        </a>
+      </div>
+
+      <div class="header-center">
+        <div class="search-container" id="search-shell">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.4-4.4"/></svg>
+            <input id="main-search" type="search" placeholder="" autocomplete="off" spellcheck="false" aria-label="Search icons">
+            <button class="search-clear hidden" id="search-clear" aria-label="Clear search">x</button>
+            <span class="search-shortcut">/</span>
+          </div>
+          <div id="search-autocomplete" class="autocomplete hidden" role="listbox"></div>
+        </div>
+        <div class="search-results-count" id="result-count">0</div>
+      </div>
+
+      <div class="header-right">
+        <button class="icon-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+          <svg class="theme-glyph" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="icon-btn" id="collections-toggle" title="Collections" aria-label="Collections">
+          <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"/></svg>
+          <span class="badge pulse-badge hidden" id="collection-badge">0</span>
+        </button>
+        <button class="icon-btn" id="compare-toggle" title="Compare mode" aria-label="Compare mode">
+          <svg viewBox="0 0 24 24"><path d="M7 3H3v4M21 7V3h-4M3 17v4h4M17 21h4v-4M8 8l8 8M16 8l-8 8"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <button class="sidebar-collapse" id="sidebar-collapse" title="Collapse filters" aria-label="Collapse filters" aria-expanded="true">
+        <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <aside id="left-sidebar" aria-label="Filters">
+        <div class="sidebar-content">
+          <section class="filter-section">
+            <div class="filter-header">
+              <h2 class="gradient-text">Libraries</h2>
+              <span class="muted" id="selected-libs-count">All</span>
+            </div>
+            <input type="search" id="lib-search" class="mini-search" placeholder="Filter libraries..." autocomplete="off">
+            <div class="lib-list" id="lib-list-container"></div>
+          </section>
+
+          <section class="filter-section">
+            <div class="filter-header"><h2>Styles</h2></div>
+            <div class="style-pills" id="style-pills-container">
+              <button class="style-pill active" data-style="all">All</button>
+              <button class="style-pill" data-style="outline">Outline</button>
+              <button class="style-pill" data-style="solid">Solid</button>
+              <button class="style-pill" data-style="duotone">Duotone</button>
+              <button class="style-pill" data-style="fill">Fill</button>
+              <button class="style-pill" data-style="bold">Bold</button>
+              <button class="style-pill" data-style="thin">Thin</button>
+              <button class="style-pill" data-style="light">Light</button>
+            </div>
+          </section>
+
+          <section class="filter-section expandable open" id="category-section">
+            <button class="filter-header category-toggle" id="category-toggle" aria-expanded="true">
+              <h2>Categories</h2>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <div class="category-list" id="category-list-container"></div>
+          </section>
+
+          <section class="filter-section">
+            <div class="filter-header">
+              <h2 id="preview-size-label">Preview Size: 24px</h2>
+            </div>
+            <input type="range" id="preview-size-slider" class="neon-slider" min="16" max="128" value="24">
+          </section>
+
+          <section class="filter-section">
+            <div class="filter-header"><h2>Sort</h2></div>
+            <label class="custom-select-wrapper">
+              <select id="sort-select" class="glass-select">
+                <option value="relevance">Relevance</option>
+                <option value="popular">Most Popular</option>
+                <option value="newest">Newest</option>
+                <option value="az">A to Z</option>
+                <option value="za">Z to A</option>
+              </select>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+            </label>
+          </section>
+
+          <button id="clear-filters-btn" class="outlined-neon-btn">Clear All Filters</button>
+        </div>
+      </aside>
+
+      <main id="main-content">
+        <section id="homepage-view" class="route-view active">
+          <div class="hero-section">
+            <h1 class="hero-heading" aria-label="134,000+ Icons. One Search.">
+              <span class="word-reveal">134,000+</span> <span class="word-reveal">Icons.</span><br>
+              <span class="word-reveal delay">One</span> <span class="word-reveal delay">Search.</span>
+            </h1>
+            <p class="hero-copy">A frontend-only SVG command center for search, editing, copy, and export.</p>
+          </div>
+
+          <div class="marquee-container" aria-hidden="true">
+            <div class="marquee-row marquee-left" id="marquee-1"></div>
+            <div class="marquee-row marquee-right" id="marquee-2"></div>
+          </div>
+
+          <div class="stats-bar" id="stats-bar">
+            <div class="stat-item"><span class="stat-num" data-target="134701">0</span><span class="stat-label">Indexed Icons</span></div>
+            <div class="stat-item"><span class="stat-num" id="indexed-stat" data-target="134701">0</span><span class="stat-label">Indexed Records</span></div>
+            <div class="stat-item"><span class="stat-num" data-target="28">0</span><span class="stat-label">Libraries</span></div>
+          </div>
+
+          <section class="home-band">
+            <div class="section-title-row">
+              <h2 class="gradient-text">Categories</h2>
+              <button class="glass-btn" id="browse-all-btn">Browse Icons</button>
+            </div>
+            <div class="category-card-grid" id="home-categories"></div>
+          </section>
+
+          <section class="home-band">
+            <div class="section-title-row">
+              <h2 class="gradient-text">Featured Libraries</h2>
+              <span class="muted">Tier 1 bundles render immediately</span>
+            </div>
+            <div class="featured-libraries" id="featured-libraries"></div>
+          </section>
+
+          <section class="home-band how-band">
+            <div class="how-step"><span>01</span><h3>Search</h3><p>Fuse-powered fuzzy matching over loaded icon metadata.</p></div>
+            <div class="how-step"><span>02</span><h3>Customize</h3><p>Adjust color, size, stroke, background, and export format.</p></div>
+            <div class="how-step"><span>03</span><h3>Download</h3><p>Copy code, export PNG/SVG, or generate ZIP bundles in the browser.</p></div>
+          </section>
+
+          <section class="home-band">
+            <div class="section-title-row">
+              <h2 class="gradient-text">Trending Icons</h2>
+              <span class="muted">Loaded from inline Tier 1 data</span>
+            </div>
+            <div class="trending-strip" id="trending-icons"></div>
+          </section>
+
+          <footer class="footer-links">
+            <a id="sitemap-download" class="sitemap-link" href="/sitemap.xml">Sitemap</a>
+          </footer>
+        </section>
+
+        <section id="grid-view" class="route-view hidden">
+          <div class="seo-header hidden" id="seo-header">
+            <h1 id="seo-title" class="gradient-text">Icons</h1>
+            <p id="seo-description"></p>
+          </div>
+
+          <div class="main-toolbar">
+            <div class="toolbar-left">
+              <span id="grid-status" class="gradient-text">Showing 0 icons</span>
+              <span class="muted" id="load-status"></span>
+            </div>
+            <div class="toolbar-right">
+              <div class="density-toggle" aria-label="Grid density">
+                <button class="density-btn" data-density="compact" title="Compact"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg></button>
+                <button class="density-btn active" data-density="default" title="Default"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z"/></svg></button>
+                <button class="density-btn" data-density="comfortable" title="Comfortable"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg></button>
+              </div>
+              <button id="select-mode-btn" class="glass-btn">Select</button>
+            </div>
+          </div>
+
+          <div class="ad-slot top-ad">
+            <div class="ad-placeholder">Ad Space 728 x 90</div>
+          </div>
+
+          <div id="library-error-card" class="error-card hidden">
+            <div>
+              <h2>Library failed to load</h2>
+              <p id="library-error-text"></p>
+            </div>
+            <button class="outlined-neon-btn" id="library-retry-btn">Retry</button>
+          </div>
+
+          <div id="virtual-grid-container">
+            <div id="virtual-grid-spacer"></div>
+            <div id="icon-grid" class="density-default"></div>
+            <div id="loading-more" class="hidden"><div class="neon-spinner"></div></div>
+            <div id="no-results" class="hidden">
+              <svg class="broken-glass-svg" viewBox="0 0 64 64"><path d="M28 10a18 18 0 0 1 12 31L55 56"/><path d="M20 16 30 28l-8 7 14-1-4-14 18 7"/><path d="M13 45 5 53M18 51l-3 8M8 36l-7 2"/></svg>
+              <p class="no-results-text" id="no-results-text">No icons found.</p>
+              <div class="suggestion-chips" id="suggestion-chips"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside id="detail-panel" class="closed" aria-label="Icon detail panel">
+        <div class="panel-header">
+          <div>
+            <span class="eyebrow" id="dp-library-name">IconVoid</span>
+            <h2 id="dp-title">Icon Details</h2>
+          </div>
+          <button class="close-btn" id="dp-close" aria-label="Close details"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        </div>
+
+        <div class="panel-content">
+          <section class="dp-preview-area">
+            <div class="preview-box" id="dp-preview-box"></div>
+            <div class="preview-controls">
+              <button class="bg-toggle active" data-bg="dark" title="Dark background"></button>
+              <button class="bg-toggle" data-bg="light" title="Light background"></button>
+              <button class="bg-toggle checkered-dot" data-bg="checkered" title="Checkered background"></button>
+            </div>
+            <label class="range-label">Preview Size <span id="dp-size-val">128px</span></label>
+            <input type="range" id="dp-size-slider" class="neon-slider" min="16" max="256" value="128">
+            <div class="variant-swatches" id="dp-variants"></div>
+          </section>
+
+          <section class="dp-section">
+            <h3>Customize</h3>
+            <div class="color-picker-row" id="color-preset-row">
+              <button class="color-preset" data-color="#2563eb" style="background:#2563eb"></button>
+              <button class="color-preset" data-color="#475569" style="background:#475569"></button>
+              <button class="color-preset" data-color="#16a34a" style="background:#16a34a"></button>
+              <button class="color-preset" data-color="#9333ea" style="background:#9333ea"></button>
+              <button class="color-preset" data-color="#dc2626" style="background:#dc2626"></button>
+              <button class="color-preset" data-color="#0891b2" style="background:#0891b2"></button>
+              <button class="color-preset bordered" data-color="#ffffff" style="background:#ffffff"></button>
+              <button class="color-preset bordered" data-color="#000000" style="background:#000000"></button>
+              <input type="color" id="dp-color-input" value="#2563eb" title="Custom color">
+            </div>
+            <label class="range-label">Stroke Width <span id="dp-stroke-val">2px</span></label>
+            <input type="range" id="dp-stroke-slider" class="neon-slider" min="0.5" max="3" step="0.1" value="2">
+            <label class="exact-size-row">Exact Size <input id="dp-exact-size" type="number" min="16" max="512" value="128"> px</label>
+          </section>
+
+          <section class="dp-section">
+            <h3>This icon in other libraries</h3>
+            <div class="matches-grid" id="dp-matches"></div>
+          </section>
+
+          <section class="dp-tabs">
+            <div class="tab-headers">
+              <button class="tab-btn active" data-tab="copy">Copy Code</button>
+              <button class="tab-btn" data-tab="download">Download</button>
+              <button class="tab-btn" data-tab="project">Use</button>
+              <button class="tab-btn" data-tab="meta">Meta</button>
+            </div>
+
+            <div class="tab-content active" id="tab-copy">
+              <div class="code-formats">
+                <button class="format-btn active" data-fmt="svg">SVG</button>
+                <button class="format-btn" data-fmt="xml">XML</button>
+                <button class="format-btn" data-fmt="jsx">JSX</button>
+                <button class="format-btn" data-fmt="vue">Vue</button>
+                <button class="format-btn" data-fmt="svelte">Svelte</button>
+                <button class="format-btn" data-fmt="angular">Angular</button>
+                <button class="format-btn" data-fmt="html">HTML img</button>
+                <button class="format-btn" data-fmt="css">CSS bg</button>
+                <button class="format-btn" data-fmt="base64">Base64</button>
+              </div>
+              <div class="code-preview-box">
+                <code id="dp-code-preview"></code>
+                <button class="copy-btn" id="dp-copy-code">Copy SVG</button>
+              </div>
+            </div>
+
+            <div class="tab-content" id="tab-download">
+              <div class="png-sizes">
+                <button class="size-btn" data-size="16">16</button>
+                <button class="size-btn" data-size="32">32</button>
+                <button class="size-btn" data-size="48">48</button>
+                <button class="size-btn" data-size="64">64</button>
+                <button class="size-btn" data-size="128">128</button>
+                <button class="size-btn" data-size="256">256</button>
+                <button class="size-btn" data-size="512">512</button>
+              </div>
+              <button class="outlined-neon-btn" id="dp-dl-svg">Download SVG</button>
+              <button class="gradient-btn" id="dp-dl-zip">Download ZIP</button>
+            </div>
+
+            <div class="tab-content" id="tab-project">
+              <div class="code-preview-box slim"><code id="dp-install-code"></code><button class="copy-btn" data-copy-target="dp-install-code">Copy</button></div>
+              <div class="code-preview-box slim"><code id="dp-import-code"></code><button class="copy-btn" data-copy-target="dp-import-code">Copy</button></div>
+              <a id="dp-docs-link" class="docs-link" href="#" target="_blank" rel="noreferrer">Open official docs</a>
+            </div>
+
+            <div class="tab-content" id="tab-meta">
+              <div class="meta-badges">
+                <span class="meta-badge" id="dp-lib-badge">Library</span>
+              </div>
+              <div class="popularity-meter"><span>Popularity</span><i id="dp-popularity-bar"></i></div>
+              <div class="tags-container" id="dp-tags"></div>
+              <button class="monospace-id" id="dp-icon-id" title="Copy icon ID"></button>
+              <div class="detail-actions-row">
+                <button class="glass-btn" id="dp-share">Share</button>
+                <button class="glass-btn" id="dp-compare">Compare across libraries</button>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </aside>
+    </div>
+
+    <div id="bulk-action-bar" class="hidden">
+      <div class="bulk-count"><span id="bulk-num">0</span> icons selected</div>
+      <div class="bulk-actions">
+        <label class="glass-btn bulk-color-label">Set Color <input id="bulk-color" type="color" value="#00c3ff"></label>
+        <button class="gradient-btn" id="bulk-download">Download ZIP</button>
+        <button class="glass-btn" id="bulk-collect">Add to Collection</button>
+        <button class="glass-btn" id="bulk-clear">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modal-backdrop"></div>
+
+  <section class="modal hidden" id="collections-modal" aria-modal="true" role="dialog">
+    <div class="modal-header">
+      <h2 class="gradient-text">Collections</h2>
+      <button class="close-btn modal-close" aria-label="Close collections"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-content">
+      <div class="collection-create">
+        <input id="collection-name-input" class="mini-search" placeholder="New collection name">
+        <button class="gradient-btn" id="collection-create-btn">Create</button>
+      </div>
+      <div id="collections-list" class="collections-list"></div>
+    </div>
+  </section>
+
+  <section class="modal compare-modal hidden" id="compare-modal" aria-modal="true" role="dialog">
+    <div class="modal-header">
+      <h2 class="gradient-text" id="compare-title">Compare</h2>
+      <button class="close-btn modal-close" aria-label="Close compare"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-content">
+      <div class="compare-toolbar">
+        <button class="style-pill active" data-compare-labels="on">With labels</button>
+        <button class="style-pill" data-compare-labels="off">Without labels</button>
+        <button class="style-pill active" data-compare-bg="dark">Dark bg</button>
+        <button class="style-pill" data-compare-bg="light">Light bg</button>
+        <button class="gradient-btn" id="compare-download">Download all as ZIP</button>
+      </div>
+      <div class="compare-grid" id="compare-grid"></div>
+    </div>
+  </section>
+
+  <section class="modal hidden" id="shortcuts-modal" aria-modal="true" role="dialog">
+    <div class="modal-header">
+      <h2 class="gradient-text">Keyboard Shortcuts</h2>
+      <button class="close-btn modal-close" aria-label="Close shortcuts"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-content shortcuts-list">
+      <div class="shortcut-row"><span>Focus search</span><kbd>/</kbd></div>
+      <div class="shortcut-row"><span>Close detail, modal, or clear search</span><kbd>Esc</kbd></div>
+      <div class="shortcut-row"><span>Navigate grid</span><kbd>Arrow keys</kbd></div>
+      <div class="shortcut-row"><span>Copy focused SVG</span><kbd>Ctrl+C</kbd></div>
+      <div class="shortcut-row"><span>Favorite focused icon</span><kbd>F</kbd></div>
+      <div class="shortcut-row"><span>Select all visible</span><kbd>Ctrl+A</kbd></div>
+      <div class="shortcut-row"><span>Download focused SVG</span><kbd>Ctrl+D</kbd></div>
+      <div class="shortcut-row"><span>Open shortcuts</span><kbd>?</kbd></div>
+    </div>
+  </section>
+
+  <div id="toast-container" aria-live="polite"></div>
+  <script src="icons.js" defer></script>
+  <script src="search.js" defer></script>
+  <script src="collections.js" defer></script>
+  <script src="ui.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
