@@ -79,6 +79,15 @@
     batchSize: 160,
     renderedCount: 0,
     inlineAdRendered: false,
+    prerender: {
+      manifest: null,
+      active: false,
+      mode: "",
+      libraryIndex: 0,
+      chunkIndex: -1,
+      slug: "",
+      loading: false
+    },
     rowHeight: 88,
     cardMin: 80,
     cols: 8,
@@ -198,7 +207,7 @@
   }
 
   function request(url, options = {}) {
-    return fetch(url, { cache: "force-cache", ...options });
+    return fetch(url, options);
   }
 
   async function loadIndex() {
@@ -333,6 +342,10 @@
   }
 
   function renderHome() {
+    // Skip re-rendering if content is already pre-rendered and we have no new data
+    const isPrerendered = document.documentElement.hasAttribute("data-prerendered");
+    const hasIcons = state.icons.size > 0;
+    if (isPrerendered && !hasIcons) return;
     els.homeCategories.innerHTML = CATEGORY_META.map(([name, sub, path, color], index) => `
       <article class="category-card" data-home-category="${escapeHtml(name)}" style="background:linear-gradient(135deg, ${color}18, transparent 60%), var(--glass-2);animation-delay:${index * 35}ms">
         <svg viewBox="0 0 24 24" style="color:${color}"><path d="${path}"></path></svg>
@@ -348,13 +361,15 @@
       </article>
     `).join("");
     const trending = Array.from(state.icons.values()).sort((a, b) => (b.popularity || 0) - (a.popularity || 0)).slice(0, 24);
-    els.trendingIcons.innerHTML = trending.map((icon) => `
-      <button class="trend-card" data-icon-id="${icon.id}">
-        ${iconTools().renderSVG(icon)}
-        <span>${escapeHtml(icon.name)}</span>
-      </button>
-    `).join("");
-    renderMarquee(trending);
+    if (trending.length) {
+      els.trendingIcons.innerHTML = trending.map((icon) => `
+        <button class="trend-card" data-icon-id="${icon.id}">
+          ${iconTools().renderSVG(icon)}
+          <span>${escapeHtml(icon.name)}</span>
+        </button>
+      `).join("");
+      renderMarquee(trending);
+    }
   }
 
   function renderMarquee(source) {
@@ -364,6 +379,179 @@
     const m2 = $("marquee-2");
     if (m1) m1.innerHTML = row;
     if (m2) m2.innerHTML = icons.slice().reverse().concat(icons).map((icon) => `<span class="mq-icon">${iconTools().renderSVG(icon)}</span>`).join("");
+  }
+
+  async function loadPrerenderManifest() {
+    try {
+      const response = await request("data/prerender/manifest.json");
+      if (!response.ok) return;
+      state.prerender.manifest = await response.json();
+    } catch (_error) {
+      state.prerender.manifest = null;
+    }
+  }
+
+  function prerenderLibraryBySlug(slug) {
+    return state.prerender.manifest?.libraries?.find((lib) => lib.slug === slug) || null;
+  }
+
+  function shouldUsePrerenderBrowse() {
+    return Boolean(state.prerender.manifest) &&
+      !state.searchQuery &&
+      !state.activeCategory &&
+      (!state.activeStyle || state.activeStyle === "all") &&
+      (!state.sort || state.sort === "relevance");
+  }
+
+  function resetPrerenderGrid() {
+    if (!state.prerender.active) return;
+    state.prerender.active = false;
+    state.prerender.mode = "";
+    state.prerender.slug = "";
+    state.prerender.chunkIndex = -1;
+    state.prerender.loading = false;
+  }
+
+  function setGridCountLabel(label, count) {
+    ui().animateNumber(els.resultCount, Number(count || 0));
+    els.gridStatus.innerHTML = "<strong>" + escapeHtml(label) + "</strong> <span>" + Number(count || 0).toLocaleString() + " icons</span>";
+    updateFilterCounters();
+  }
+
+  function inlinePrerenderChunk(slug, chunkIndex) {
+    const firstSlug = state.prerender.manifest?.libraries?.[0]?.slug;
+    if (chunkIndex !== 0 || slug !== firstSlug) return "";
+    const template = $("prerender-all-initial");
+    return template ? template.innerHTML.trim() : "";
+  }
+
+  async function fetchPrerenderChunk(slug, chunkIndex) {
+    const inline = inlinePrerenderChunk(slug, chunkIndex);
+    if (inline) return inline;
+    const lib = prerenderLibraryBySlug(slug);
+    if (!lib || chunkIndex < 0 || chunkIndex >= lib.chunks) return "";
+    const response = await request("data/prerender/libraries/" + encodeURIComponent(slug) + "/chunk-" + chunkIndex + ".html");
+    if (!response.ok) return "";
+    return response.text();
+  }
+
+  async function showPrerenderedGrid(options = {}) {
+    const manifest = state.prerender.manifest;
+    if (!manifest?.libraries?.length) return false;
+    const mode = options.mode || "all";
+    const lib = mode === "library" ? prerenderLibraryBySlug(options.slug) : manifest.libraries[0];
+    if (!lib) return false;
+    const html = await fetchPrerenderChunk(lib.slug, 0);
+    if (!html) return false;
+    state.prerender.active = true;
+    state.prerender.mode = mode;
+    state.prerender.slug = lib.slug;
+    state.prerender.libraryIndex = Math.max(0, manifest.libraries.findIndex((item) => item.slug === lib.slug));
+    state.prerender.chunkIndex = 0;
+    state.prerender.loading = false;
+    state.filteredIcons = [];
+    state.renderedCount = 0;
+    state.inlineAdRendered = false;
+    if (options.resetScroll) els.gridContainer.scrollTop = 0;
+    els.iconGrid.innerHTML = html;
+    els.loadingMore.classList.add("hidden");
+    els.noResults.classList.add("hidden");
+    const label = mode === "library" ? lib.name : "All icons";
+    const count = mode === "library" ? lib.count : (manifest.totalCount || totalLibraryCount());
+    setGridCountLabel(label, count);
+    updateSeoForRoute();
+    return true;
+  }
+
+  async function appendNextPrerenderChunk() {
+    const manifest = state.prerender.manifest;
+    if (!state.prerender.active || state.prerender.loading || !manifest?.libraries?.length) return;
+    let libIndex = state.prerender.libraryIndex;
+    let lib = manifest.libraries[libIndex];
+    if (!lib) return;
+    let nextChunk = state.prerender.chunkIndex + 1;
+    if (nextChunk >= lib.chunks) {
+      if (state.prerender.mode === "library") return;
+      libIndex += 1;
+      lib = manifest.libraries[libIndex];
+      if (!lib) return;
+      nextChunk = 0;
+    }
+    state.prerender.loading = true;
+    els.loadingMore.classList.remove("hidden");
+    try {
+      const html = await fetchPrerenderChunk(lib.slug, nextChunk);
+      if (html) {
+        els.iconGrid.insertAdjacentHTML("beforeend", html);
+        state.prerender.libraryIndex = libIndex;
+        state.prerender.slug = lib.slug;
+        state.prerender.chunkIndex = nextChunk;
+        ui().qsa(".icon-wrap", els.iconGrid).forEach((wrap) => {
+          wrap.style.width = state.previewSize + "px";
+          wrap.style.height = state.previewSize + "px";
+        });
+      }
+    } finally {
+      state.prerender.loading = false;
+      els.loadingMore.classList.add("hidden");
+    }
+  }
+
+  function iconSlugFromId(id) {
+    const value = String(id || "");
+    return state.libraries
+      .map((lib) => lib.slug)
+      .sort((a, b) => b.length - a.length)
+      .find((slug) => value === slug || value.startsWith(slug + "-")) || "";
+  }
+  function iconFromPrerenderCard(card) {
+    if (!card) return null;
+    const id = card.dataset.id || "";
+    const slug = card.dataset.library || iconSlugFromId(id);
+    const lib = libraryBySlug(slug) || prerenderLibraryBySlug(slug) || { slug, name: slug, version: "" };
+    const svg = card.querySelector("svg");
+    if (!id || !slug || !svg) return null;
+    const label = (svg.getAttribute("aria-label") || "").replace(/\s+icon$/i, "").trim();
+    const rawName = id.startsWith(slug + "-") ? id.slice(slug.length + 1) : id;
+    const name = label || rawName.replace(/[-_]+/g, " ");
+    const viewBox = svg.getAttribute("viewBox") || "0 0 24 24";
+    const [, , width = 24, height = 24] = viewBox.split(/\s+/).map(Number);
+    const style = svg.getAttribute("fill") && svg.getAttribute("fill") !== "none" ? "fill" : deriveStyle(name, slug);
+    const [category, subCategory] = categorize(name);
+    return completeIcon({
+      id,
+      name,
+      library: lib.name || slug,
+      librarySlug: slug,
+      libraryVersion: lib.version || "",
+      style,
+      tags: tagsFor(name, category, subCategory, lib),
+      category,
+      subCategory,
+      svgPath: svg.innerHTML,
+      viewBox,
+      width: Number(width) || 24,
+      height: Number(height) || 24,
+      strokeWidth: Number(svg.getAttribute("stroke-width")) || 2,
+      popularity: 5000
+    }, lib, 0);
+  }
+
+  function hydratePrerenderIcon(card) {
+    const icon = iconFromPrerenderCard(card);
+    if (!icon) return null;
+    if (!state.icons.has(icon.id)) state.icons.set(icon.id, icon);
+    return state.icons.get(icon.id) || icon;
+  }
+
+  function warmLibraryAfterPrerenderClick(slug, id) {
+    if (!slug || state.loadedLibraries.has(slug) || state.loadingLibraries.has(slug)) return;
+    loadLibrary(slug).then(() => {
+      const hydrated = state.icons.get(id);
+      if (hydrated && state.currentIconId === id && !els.detailPanel.classList.contains("closed")) {
+        renderDetail(hydrated);
+      }
+    });
   }
 
   function nextUnloadedLibrary() {
@@ -581,6 +769,7 @@
   }
 
   function applyFilters(options = {}) {
+    resetPrerenderGrid();
     const filters = {
       librarySlugs: state.selectedLibraries,
       style: state.activeStyle,
@@ -755,15 +944,25 @@
       state.selectedLibraries.clear();
       state.activeCategory = "";
       renderSidebarLibraries();
+      if (shouldUsePrerenderBrowse() && await showPrerenderedGrid({ mode: "all", resetScroll: true })) {
+        closeDetail(false);
+        renderCategories();
+        return;
+      }
       await ensureInitialBrowseLibrary();
       applyFilters({ resetScroll: true });
       ensureDesktopDetail();
     } else if (hash.startsWith("#/library/")) {
       const slug = decodeURIComponent(hash.split("/")[2] || "");
       state.selectedLibraries = new Set([slug]);
-      renderSidebarLibraries();
-      await loadLibrary(slug);
       state.activeCategory = "";
+      renderSidebarLibraries();
+      if (shouldUsePrerenderBrowse() && await showPrerenderedGrid({ mode: "library", slug, resetScroll: true })) {
+        closeDetail(false);
+        renderCategories();
+        return;
+      }
+      await loadLibrary(slug);
       applyFilters({ resetScroll: true });
       ensureDesktopDetail();
     } else if (hash.startsWith("#/category/")) {
@@ -813,6 +1012,8 @@
   }
 
   async function prepareInitialIconsForRoute() {
+    const hash = currentRouteHash();
+    if (shouldUsePrerenderBrowse() && (hash === "#/search" || hash === "#/all" || hash === "#/icons" || hash.startsWith("#/library/"))) return;
     const slug = slugForInitialRoute();
     if (!slug || state.loadedLibraries.has(slug)) return;
     ui().createSkeletonRows(els.iconGrid, 3, Math.max(4, state.cols || 8));
@@ -924,6 +1125,7 @@
   function ensureDesktopDetail() {
     if (!window.matchMedia("(min-width: 768px)").matches) return;
     if (els.gridView.classList.contains("hidden")) return;
+    if (state.prerender.active) return;
     if (!state.filteredIcons.length) {
       closeDetail(false);
       return;
@@ -945,6 +1147,10 @@
     setRouteView("grid");
     document.body.classList.remove("sidebar-open");
     if (location.hash !== "#/search") history.replaceState(null, "", "#/search");
+    if (shouldUsePrerenderBrowse() && await showPrerenderedGrid({ mode: "all", resetScroll: true })) {
+      closeDetail(false);
+      return;
+    }
     await ensureInitialBrowseLibrary();
     applyFilters({ resetScroll: true });
     ensureDesktopDetail();
@@ -1140,7 +1346,7 @@
     if (state.selectedIcons.has(id)) state.selectedIcons.delete(id);
     else state.selectedIcons.add(id);
     updateBulkBar();
-    updateVirtualScroll(true);
+    if (!state.prerender.active) updateVirtualScroll(true);
   }
 
   function focusRelative(delta) {
@@ -1190,7 +1396,7 @@
     });
     els.logo.addEventListener("click", (event) => {
       event.preventDefault();
-      clearAllFilters();
+      clearAllFilters({ skipRender: true });
       window.location.hash = "#/";
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -1270,6 +1476,10 @@
     els.gridContainer.addEventListener("scroll", () => {
       const nearBottom = els.gridContainer.scrollTop + els.gridContainer.clientHeight > els.gridContainer.scrollHeight - 900;
       if (nearBottom) {
+        if (state.prerender.active) {
+          appendNextPrerenderChunk();
+          return;
+        }
         if (state.visibleLimit < state.filteredIcons.length) {
           state.visibleLimit = Math.min(state.filteredIcons.length, state.visibleLimit + state.batchSize);
           updateVirtualScroll(false);
@@ -1281,7 +1491,7 @@
     window.addEventListener("resize", () => {
       calculateGrid();
       buildRows();
-      updateVirtualScroll(true);
+      if (!state.prerender.active) updateVirtualScroll(true);
       ensureDesktopDetail();
     });
     els.iconGrid.addEventListener("click", handleGridClick);
@@ -1297,7 +1507,7 @@
       els.selectMode.classList.toggle("active", state.selectMode);
       if (!state.selectMode) state.selectedIcons.clear();
       updateBulkBar();
-      updateVirtualScroll(true);
+      if (!state.prerender.active) updateVirtualScroll(true);
     });
     ui().qsa(".density-btn").forEach((button) => {
       button.addEventListener("click", () => {
@@ -1305,7 +1515,7 @@
         ui().qsa(".density-btn").forEach((node) => node.classList.toggle("active", node === button));
         calculateGrid();
         buildRows();
-        updateVirtualScroll(true);
+        if (!state.prerender.active) updateVirtualScroll(true);
       });
     });
     els.dpClose.addEventListener("click", () => closeDetail());
@@ -1319,7 +1529,7 @@
       els.sidebarCollapse.setAttribute("aria-expanded", String(!collapsed));
       requestAnimationFrame(() => {
         calculateGrid();
-        updateVirtualScroll(true);
+        if (!state.prerender.active) updateVirtualScroll(true);
       });
     });
     els.compareToggle.addEventListener("click", () => {
@@ -1347,16 +1557,25 @@
   async function handleGridClick(event) {
     const card = event.target.closest(".icon-card");
     if (!card) return;
-    const icon = state.icons.get(card.dataset.id);
+    const id = card.dataset.id;
+    const slug = card.dataset.library || iconSlugFromId(id);
+    let icon = state.icons.get(id) || hydratePrerenderIcon(card);
+    if (!icon && slug) {
+      await loadLibrary(slug);
+      icon = state.icons.get(id);
+    }
     if (!icon) return;
-    const action = event.target.closest("[data-action]")?.dataset.action;
     if (state.selectMode) {
       toggleSelect(icon.id);
     } else {
-      openGridDetail(icon.id);
+      els.autocomplete.classList.add("hidden");
+      state.currentIconId = icon.id;
+      els.detailPanel.classList.remove("closed");
+      renderDetail(icon);
+      updateFocusedCard();
+      warmLibraryAfterPrerenderClick(slug, icon.id);
     }
   }
-
   function addRipple(card, event) {
     return;
     const rect = card.getBoundingClientRect();
@@ -1499,14 +1718,14 @@
       ui().toast(`Added ${state.selectedIcons.size} icons to Favorites`, "success");
       state.selectedIcons.clear();
       updateBulkBar();
-      updateVirtualScroll(true);
+      if (!state.prerender.active) updateVirtualScroll(true);
     });
     els.bulkClear.addEventListener("click", () => {
       state.selectedIcons.clear();
       state.selectMode = false;
       els.selectMode.classList.remove("active");
       updateBulkBar();
-      updateVirtualScroll(true);
+      if (!state.prerender.active) updateVirtualScroll(true);
     });
     els.bulkDownload.addEventListener("click", async () => {
       const icons = Array.from(state.selectedIcons).map((id) => state.icons.get(id)).filter(Boolean);
@@ -1514,7 +1733,7 @@
     });
     els.bulkColor.addEventListener("input", () => {
       state.detail.color = els.bulkColor.value;
-      updateVirtualScroll(true);
+      if (!state.prerender.active) updateVirtualScroll(true);
     });
   }
 
@@ -1557,7 +1776,7 @@
         event.preventDefault();
         state.filteredIcons.forEach((icon) => state.selectedIcons.add(icon.id));
         updateBulkBar();
-        updateVirtualScroll(true);
+        if (!state.prerender.active) updateVirtualScroll(true);
       } else if (event.key.toLowerCase() === "f" && !editing) {
         const icon = focusedIcon();
         if (icon) {
@@ -1586,7 +1805,7 @@
     els.autocomplete.classList.remove("hidden");
   }
 
-  function clearAllFilters() {
+  async function clearAllFilters(options = {}) {
     state.selectedLibraries.clear();
     state.activeStyle = "all";
     state.activeCategory = "";
@@ -1598,9 +1817,16 @@
     ui().qsa(".style-pill", els.stylePills).forEach((pill) => pill.classList.toggle("active", pill.dataset.style === "all"));
     renderSidebarLibraries();
     renderCategories();
+    if (options.skipRender) return;
     if (location.hash.startsWith("#/library/") || location.hash.startsWith("#/category/") || location.hash.startsWith("#/icon/")) {
       history.replaceState(null, "", "#/search");
     }
+    setRouteView("grid");
+    if (shouldUsePrerenderBrowse() && await showPrerenderedGrid({ mode: "all", resetScroll: true })) {
+      closeDetail(false);
+      return;
+    }
+    await ensureInitialBrowseLibrary();
     applyFilters({ resetScroll: true });
   }
 
@@ -1696,6 +1922,7 @@
     setupEvents();
     calculateGrid();
     await loadIndex();
+    await loadPrerenderManifest();
     normalizeStartupRoute();
     renderSidebarLibraries();
     renderCategories();

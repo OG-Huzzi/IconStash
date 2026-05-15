@@ -4,12 +4,14 @@
     "**/icons/**": true,
     "**/seo/**": true,
     "**/sitemaps/**": true,
-    "**/data/pseo-keywords.json": true
+    "**/data/pseo-keywords.json": true,
+    "**/data/prerender/**": true
   },
   "search.exclude": {
     "**/icons/**": true,
     "**/seo/**": true,
     "**/sitemaps/**": true,
-    "**/data/pseo-keywords.json": true
+    "**/data/pseo-keywords.json": true,
+    "**/data/prerender/**": true
   }
 }
