@@ -118,12 +118,15 @@ function renderLibraryHeader(lib, count) {
 }
 function renderCard(icon, index) {
   const delay = Math.min(400, index * 15);
-  return '<article class="icon-card prerender-card" data-id="' + esc(icon.id) + '" data-library="' + esc(icon.librarySlug) + '" tabindex="0" style="animation-delay:' + delay + 'ms"><div class="icon-wrap" style="width:24px;height:24px">' + renderSvg(icon) + '</div></article>';
+  return '<article class="icon-card prerender-card" data-id="' + esc(icon.id) + '" data-library="' + esc(icon.librarySlug) + '" tabindex="0" style="animation-delay:' + delay + 'ms"><button class="card-favorite-btn" data-favorite-id="' + esc(icon.id) + '" aria-label="Add to collection" title="Add to collection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button><div class="icon-wrap" style="width:24px;height:24px">' + renderSvg(icon) + '</div></article>';
 }
 function replaceElement(html, id, content) {
   const startRx = new RegExp('<([a-zA-Z][\\w:-]*)([^>]*)\\bid="' + id + '"([^>]*)>');
   const start = startRx.exec(html);
-  if (!start) throw new Error("Missing element #" + id);
+  if (!start) {
+    console.warn("Warning: Missing element #" + id + ", skipping.");
+    return html;
+  }
   const tag = start[1];
   const openStart = start.index;
   const openEnd = openStart + start[0].length;
@@ -178,6 +181,13 @@ function main() {
   const marquee = trending.slice(0, 20);
   const marqueeLeft = marquee.concat(marquee).map((icon) => '<span class="mq-icon">' + renderSvg(icon) + '</span>').join('');
   const marqueeRight = marquee.slice().reverse().concat(marquee).map((icon) => '<span class="mq-icon">' + renderSvg(icon) + '</span>').join('');
+  const allRow = '<a class="lib-row all-icons-row active" href="#/search" data-all-icons="true">\n    <span class="lib-badge">' + libIconSvg("default") + '</span>\n    <span class="lib-name">All Icons</span>\n    <span class="lib-count">' + total.toLocaleString() + '</span>\n  </a>';
+  const libRowsHtml = libraries.map((lib, index) => {
+    return '<label class="lib-row" data-slug="' + lib.slug + '" style="animation-delay:' + Math.min(index * 30, 1000) + 'ms">\n      <span class="lib-badge">' + libIconSvg(lib.slug) + '</span>\n      <span class="lib-name">' + esc(lib.name) + '</span>\n      <span class="lib-count">' + Number(lib.count || 0).toLocaleString() + '</span>\n      <input class="lib-check" type="checkbox" value="' + lib.slug + '">\n    </label>';
+  }).join("\n");
+
+  const sidebarLibrariesHtml = allRow + '\n  <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="true" style="margin-top: 10px; margin-bottom: 5px; cursor: pointer; background: transparent; border: none; padding: 0 7px; width: 100%; display: flex; align-items: center; justify-content: space-between;">\n    <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries</h2>\n    <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: rotate(90deg);"><path d="m9 18 6-6-6-6"/></svg>\n  </button>\n  <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: 700px; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">\n    ' + libRowsHtml + '\n  </div>';
+
   let html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8").replace(/\r\n/g, "\n");
   html = html.replace(/\n\s*<link rel="preload" href="data\/[^\"]+\.json" as="fetch" crossorigin>/g, '');
   html = html.replace(/\n\s*<script>\s*\/\/ Pre-render bootstrap:[\s\S]*?window\.__PRELOAD_ALL_LIBS__ = true;\s*<\/script>/g, '');
@@ -190,7 +200,21 @@ function main() {
   html = replaceElement(html, "trending-icons", trendingHtml);
   html = replaceElement(html, "marquee-1", marqueeLeft);
   html = replaceElement(html, "marquee-2", marqueeRight);
+  html = replaceElement(html, "lib-list-container", sidebarLibrariesHtml);
+  html = replaceElement(html, "icon-grid", firstChunk);
   html = replaceTemplate(html, "prerender-all-initial", firstChunk);
+  
+  // Remove existing inlined prerender-data script block if present to ensure idempotent rebuilds
+  html = html.replace(/\s*<script id="prerender-data">[\s\S]*?<\/script>/g, '');
+  
+  const inlinedScripts = `
+  <script id="prerender-data">
+    window.__INDEX_DATA__ = ${JSON.stringify(indexData)};
+    window.__PRERENDER_MANIFEST__ = ${JSON.stringify(manifest)};
+  </script>
+  <script src="icons.js" defer></script>`;
+  html = html.replace('<script src="icons.js" defer></script>', inlinedScripts);
+  
   fs.writeFileSync(path.join(ROOT, "index.html"), html, "utf8");
   console.log("Generated " + manifest.libraries.length + " prerendered libraries, " + total.toLocaleString() + " icons");
 }

@@ -61,6 +61,7 @@
     loadingLibraries: new Map(),
     failedLibraries: new Map(),
     selectedLibraries: new Set(),
+    librariesExpanded: false,
     selectedIcons: new Set(),
     filteredIcons: [],
     activeStyle: "all",
@@ -182,6 +183,7 @@
       dpIconId: $("dp-icon-id"),
       dpShare: $("dp-share"),
       dpCompare: $("dp-compare"),
+      dpFavorite: $("dp-favorite"),
       dpDownloadSvg: $("dp-dl-svg"),
       dpDownloadZip: $("dp-dl-zip"),
       themeToggle: $("theme-toggle"),
@@ -212,15 +214,22 @@
 
   async function loadIndex() {
     try {
+      if (window.__INDEX_DATA__) {
+        const data = window.__INDEX_DATA__;
+        const index = Array.isArray(data) ? { libraries: data } : data;
+        state.libraries = (index.libraries || []).map((lib) => ({ ...lib, loaded: false }));
+        if (els.indexedStat) els.indexedStat.dataset.target = String(index.actualIndexed || state.libraries.reduce((total, lib) => total + (lib.count || 0), 0));
+        return;
+      }
       const response = await request("data/index.json");
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       const index = Array.isArray(data) ? { libraries: data } : data;
       state.libraries = (index.libraries || []).map((lib) => ({ ...lib, loaded: false }));
-      els.indexedStat.dataset.target = String(index.actualIndexed || state.libraries.reduce((total, lib) => total + (lib.count || 0), 0));
+      if (els.indexedStat) els.indexedStat.dataset.target = String(index.actualIndexed || state.libraries.reduce((total, lib) => total + (lib.count || 0), 0));
     } catch (error) {
       state.libraries = INDEX_FALLBACK.libraries.map((lib) => ({ ...lib, loaded: false }));
-      els.indexedStat.dataset.target = String(INDEX_FALLBACK.actualIndexed);
+      if (els.indexedStat) els.indexedStat.dataset.target = String(INDEX_FALLBACK.actualIndexed);
       ui().toast("Using built-in library index fallback", "warning");
     }
   }
@@ -278,24 +287,103 @@
 
   function renderSidebarLibraries() {
     const filter = (els.libSearch.value || "").toLowerCase();
+    
+    // Check if we can perform in-place DOM updates to prevent scroll resetting & flickering!
+    if (!filter) {
+      const listContainer = els.libList.querySelector(".lib-collapse-list");
+      const allIconsRow = els.libList.querySelector(".all-icons-row");
+      if (listContainer && allIconsRow) {
+        const isAllIconsActive = state.selectedLibraries.size === 0 && !state.activeCategory;
+        allIconsRow.classList.toggle("active", isAllIconsActive);
+        
+        state.libraries.forEach(lib => {
+          const row = listContainer.querySelector(`[data-slug="${lib.slug}"]`);
+          if (row) {
+            const active = state.selectedLibraries.has(lib.slug);
+            const loading = state.loadingLibraries.has(lib.slug);
+            const failed = state.failedLibraries.has(lib.slug);
+            
+            row.classList.toggle("active", active);
+            row.classList.toggle("loading", loading);
+            
+            const check = row.querySelector(".lib-check");
+            if (check) check.checked = active;
+            
+            const countEl = row.querySelector(".lib-count");
+            if (countEl) {
+              if (loading) {
+                if (!countEl.querySelector(".lib-loading-spinner")) {
+                  countEl.innerHTML = `<svg class="lib-loading-spinner" viewBox="0 0 24 24" width="12" height="12"><circle class="spinner-path" cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></circle></svg>`;
+                }
+              } else if (failed) {
+                countEl.textContent = "retry";
+              } else {
+                countEl.textContent = Number(lib.count || 0).toLocaleString();
+              }
+            }
+          }
+        });
+        
+        const toggle = els.libList.querySelector(".lib-toggle");
+        if (toggle) {
+          toggle.setAttribute("aria-expanded", state.librariesExpanded);
+          const chevron = toggle.querySelector(".chevron");
+          if (chevron) {
+            chevron.style.transform = state.librariesExpanded ? "rotate(90deg)" : "rotate(0deg)";
+          }
+        }
+        listContainer.style.maxHeight = state.librariesExpanded ? "700px" : "0";
+        
+        updateFilterCounters();
+        return;
+      }
+    }
+
     const allRow = !filter ? `<a class="lib-row all-icons-row ${state.selectedLibraries.size === 0 && !state.activeCategory ? "active" : ""}" href="#/search" data-all-icons="true">
       <span class="lib-badge">${libraryIconSvg("default")}</span>
       <span class="lib-name">All Icons</span>
       <span class="lib-count">${totalLibraryCount().toLocaleString()}</span>
     </a>` : "";
-    els.libList.innerHTML = allRow + state.libraries
+    const libRows = state.libraries
       .filter((lib) => !filter || `${lib.name} ${lib.slug}`.toLowerCase().includes(filter))
       .map((lib, index) => {
         const active = state.selectedLibraries.has(lib.slug);
         const loading = state.loadingLibraries.has(lib.slug);
         const failed = state.failedLibraries.has(lib.slug);
+        
+        let countDisplay = Number(lib.count || 0).toLocaleString();
+        if (loading) {
+          countDisplay = `<svg class="lib-loading-spinner" viewBox="0 0 24 24" width="12" height="12"><circle class="spinner-path" cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></circle></svg>`;
+        } else if (failed) {
+          countDisplay = "retry";
+        }
+        
         return `<label class="lib-row ${active ? "active" : ""} ${loading ? "loading" : ""}" data-slug="${lib.slug}" style="animation-delay:${Math.min(index * 30, 1000)}ms">
           <span class="lib-badge">${libraryIconSvg(lib.slug)}</span>
           <span class="lib-name">${escapeHtml(lib.name)}</span>
-          <span class="lib-count">${failed ? "retry" : Number(lib.count || 0).toLocaleString()}</span>
+          <span class="lib-count">${countDisplay}</span>
           <input class="lib-check" type="checkbox" value="${lib.slug}" ${active ? "checked" : ""}>
         </label>`;
       }).join("");
+
+    if (filter) {
+      els.libList.innerHTML = libRows;
+    } else {
+      const isExpanded = state.librariesExpanded;
+      const toggleHtml = `
+        <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="${isExpanded}" style="margin-top: 10px; margin-bottom: 5px; cursor: pointer; background: transparent; border: none; padding: 0 7px; width: 100%; display: flex; align-items: center; justify-content: space-between;">
+          <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries</h2>
+          <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: ${isExpanded ? "rotate(90deg)" : "rotate(0deg)"};"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      `;
+      els.libList.innerHTML = `
+        ${allRow}
+        ${toggleHtml}
+        <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: ${isExpanded ? "700px" : "0"}; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">
+          ${libRows}
+        </div>
+      `;
+    }
     updateFilterCounters();
   }
 
@@ -320,15 +408,12 @@
     for (const icon of state.icons.values()) {
       counts.set(icon.category, (counts.get(icon.category) || 0) + 1);
     }
-    els.categoryList.innerHTML = CATEGORY_META.map(([name, sub, , color]) => {
+    els.categoryList.innerHTML = CATEGORY_META.map(([name, , , color]) => {
       const active = state.activeCategory === name;
       return `<button class="category-item ${active ? "active" : ""}" data-category="${escapeHtml(name)}">
         <span class="category-dot" style="background:${color};color:${color}"></span>
         <span>${escapeHtml(name)}</span>
         <span class="category-count">${Number(counts.get(name) || 0).toLocaleString()}</span>
-      </button>
-      <button class="category-item sub-category ${active ? "active" : ""}" data-category="${escapeHtml(name)}">
-        <span></span><span>${escapeHtml(sub)}</span><span></span>
       </button>`;
     }).join("");
   }
@@ -383,6 +468,10 @@
 
   async function loadPrerenderManifest() {
     try {
+      if (window.__PRERENDER_MANIFEST__) {
+        state.prerender.manifest = window.__PRERENDER_MANIFEST__;
+        return;
+      }
       const response = await request("data/prerender/manifest.json");
       if (!response.ok) return;
       state.prerender.manifest = await response.json();
@@ -413,8 +502,12 @@
   }
 
   function setGridCountLabel(label, count) {
-    ui().animateNumber(els.resultCount, Number(count || 0));
-    els.gridStatus.innerHTML = "<strong>" + escapeHtml(label) + "</strong> <span>" + Number(count || 0).toLocaleString() + " icons</span>";
+    const val = Number(count || 0);
+    ui().animateNumber(els.resultCount, val);
+    if (els.resultCount) {
+      els.resultCount.classList.toggle("hidden", val === 0 || state.route === "#/" || state.route === "#");
+    }
+    els.gridStatus.innerHTML = "<strong>" + escapeHtml(label) + "</strong> <span>" + val.toLocaleString() + " icons</span>";
     updateFilterCounters();
   }
 
@@ -441,8 +534,17 @@
     const mode = options.mode || "all";
     const lib = mode === "library" ? prerenderLibraryBySlug(options.slug) : manifest.libraries[0];
     if (!lib) return false;
-    const html = await fetchPrerenderChunk(lib.slug, 0);
-    if (!html) return false;
+
+    // Check if we can reuse the initial DOM prerender
+    const isInitialDomPrerender = mode === "all" && !state.prerender.active && els.iconGrid.querySelector(".icon-card");
+    let html = "";
+    if (isInitialDomPrerender) {
+      html = els.iconGrid.innerHTML;
+    } else {
+      html = await fetchPrerenderChunk(lib.slug, 0);
+      if (!html) return false;
+    }
+
     state.prerender.active = true;
     state.prerender.mode = mode;
     state.prerender.slug = lib.slug;
@@ -453,13 +555,21 @@
     state.renderedCount = 0;
     state.inlineAdRendered = false;
     if (options.resetScroll) els.gridContainer.scrollTop = 0;
-    els.iconGrid.innerHTML = html;
+
+    if (!isInitialDomPrerender) {
+      els.iconGrid.innerHTML = html;
+    }
+
     els.loadingMore.classList.add("hidden");
     els.noResults.classList.add("hidden");
     const label = mode === "library" ? lib.name : "All icons";
     const count = mode === "library" ? lib.count : (manifest.totalCount || totalLibraryCount());
     setGridCountLabel(label, count);
     updateSeoForRoute();
+
+    // Sync the favorites hearts to show active heart states instantly
+    syncPrerenderFavoriteButtons();
+
     return true;
   }
 
@@ -490,11 +600,29 @@
           wrap.style.width = state.previewSize + "px";
           wrap.style.height = state.previewSize + "px";
         });
+        
+        // Sync favorite states on the newly appended chunk nodes
+        syncPrerenderFavoriteButtons();
       }
     } finally {
       state.prerender.loading = false;
       els.loadingMore.classList.add("hidden");
     }
+  }
+
+  function syncPrerenderFavoriteButtons() {
+    const allCollections = window.IconVoidCollections.all();
+    const collectedIds = new Set(allCollections.flatMap(col => col.icons));
+    const btns = els.iconGrid.querySelectorAll(".card-favorite-btn");
+    btns.forEach(btn => {
+      const id = btn.dataset.favoriteId;
+      const isCollected = collectedIds.has(id);
+      btn.classList.toggle("collected", isCollected);
+      const svg = btn.querySelector("svg");
+      if (svg) {
+        svg.setAttribute("fill", isCollected ? "currentColor" : "none");
+      }
+    });
   }
 
   function iconSlugFromId(id) {
@@ -605,7 +733,7 @@
     return lazyLibraryLoad;
   }
 
-  async function loadLibrary(slug) {
+  async function loadLibrary(slug, options = {}) {
     if (state.loadedLibraries.has(slug)) return Array.from(state.icons.values()).filter((icon) => icon.librarySlug === slug);
     if (state.loadingLibraries.has(slug)) return state.loadingLibraries.get(slug);
     const lib = libraryBySlug(slug);
@@ -621,12 +749,34 @@
         lib.loaded = true;
         scheduleCategoriesRender();
         scheduleSearchIndex();
+
+        // Refresh currently active comparison and matches
+        if (state.currentIconId) {
+          const icon = state.icons.get(state.currentIconId);
+          if (icon) {
+            if (els.detailPanel && !els.detailPanel.classList.contains("hidden")) {
+              renderMatches(icon);
+            }
+            const compModal = document.getElementById("compare-modal");
+            if (compModal && !compModal.classList.contains("hidden")) {
+              renderCompare(icon);
+            }
+          }
+        }
+
+        // Apply filters in background to include newly loaded icons in the search grid
+        scheduleBackgroundFilter(slug);
+
         return icons;
       } catch (error) {
         state.failedLibraries.set(slug, error);
         state.lastFailedSlug = slug;
-        showLibraryError(slug, error);
-        ui().toast(`Failed to load ${lib.name}`, "error");
+        if (!options.isBackground) {
+          showLibraryError(slug, error);
+          ui().toast(`Failed to load ${lib.name}`, "error");
+        } else {
+          console.error(`Background load failed for ${lib.name}:`, error);
+        }
         return [];
       } finally {
         state.loadingLibraries.delete(slug);
@@ -635,6 +785,26 @@
     })();
     state.loadingLibraries.set(slug, task);
     return task;
+  }
+
+  async function loadAllLibrariesInBackground() {
+    // Wait a brief moment to let the main UI settle down
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    
+    // Prioritize loading based on tiers (Tiers 1 & 2 first, followed by 3 & 4)
+    const priorityList = state.libraries
+      .filter((lib) => !state.loadedLibraries.has(lib.slug) && !state.loadingLibraries.has(lib.slug))
+      .sort((a, b) => (a.tier || 4) - (b.tier || 4));
+
+    for (const lib of priorityList) {
+      try {
+        // Yield to the main thread briefly between downloads to prevent UI stutters
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        await loadLibrary(lib.slug, { isBackground: true });
+      } catch (e) {
+        console.error(`Background load error for ${lib.slug}:`, e);
+      }
+    }
   }
 
   async function loadLocalLibrary(lib) {
@@ -726,10 +896,36 @@
   }
 
   function setLibraryLoading(slug, loading) {
-    renderSidebarLibraries();
     const row = els.libList.querySelector(`[data-slug="${CSS.escape(slug)}"]`);
-    if (row) row.classList.toggle("loading", loading);
-    els.loadStatus.textContent = loading ? `Loading ${libraryBySlug(slug)?.name || slug}...` : "";
+    if (row) {
+      row.classList.toggle("loading", loading);
+      const countEl = row.querySelector(".lib-count");
+      if (countEl) {
+        if (loading) {
+          countEl.innerHTML = `<svg class="lib-loading-spinner" viewBox="0 0 24 24" width="12" height="12"><circle class="spinner-path" cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></circle></svg>`;
+        } else {
+          const lib = libraryBySlug(slug);
+          const failed = state.failedLibraries.has(slug);
+          if (failed) {
+            countEl.textContent = "retry";
+          } else {
+            countEl.textContent = Number(lib?.count || 0).toLocaleString();
+          }
+        }
+      }
+    }
+    
+    // Elegant background sync text
+    const loadedCount = state.loadedLibraries.size;
+    const totalCount = state.libraries.length;
+    if (loadedCount < totalCount) {
+      els.loadStatus.textContent = `Syncing libraries: ${loadedCount}/${totalCount} loaded...`;
+    } else {
+      els.loadStatus.textContent = `All ${totalLibraryCount().toLocaleString()} icons are available`;
+      setTimeout(() => {
+        if (els.loadStatus.textContent.includes("available")) els.loadStatus.textContent = "";
+      }, 2500);
+    }
   }
 
   function showLibraryError(slug, error) {
@@ -751,12 +947,24 @@
     }, 240);
   }
 
-  function scheduleBackgroundFilter() {
+  function scheduleBackgroundFilter(slug) {
     clearTimeout(backgroundFilterTimer);
     backgroundFilterTimer = setTimeout(() => {
       backgroundFilterTimer = 0;
-      if (!els.gridView.classList.contains("hidden")) applyFilters({ preserveLimit: true });
-      else updateCounts();
+      if (state.prerender.active) {
+        updateCounts();
+        return;
+      }
+      
+      const hasSearch = Boolean(state.searchQuery);
+      const hasCategory = Boolean(state.activeCategory);
+      const isViewingLoadedLib = slug && state.selectedLibraries.has(slug);
+      
+      if (!els.gridView.classList.contains("hidden") && (hasSearch || hasCategory || isViewingLoadedLib)) {
+        applyFilters({ preserveLimit: true });
+      } else {
+        updateCounts();
+      }
     }, 180);
   }
 
@@ -803,6 +1011,9 @@
   function updateCounts() {
     const count = displayedCount();
     ui().animateNumber(els.resultCount, count);
+    if (els.resultCount) {
+      els.resultCount.classList.toggle("hidden", count === 0 || state.route === "#/" || state.route === "#");
+    }
     const label = state.selectedLibraries.size === 1
       ? `${libraryBySlug(Array.from(state.selectedLibraries)[0])?.name || "Library"}`
       : state.activeCategory || "All icons";
@@ -904,7 +1115,19 @@
     const selected = state.selectedIcons.has(icon.id);
     const focused = state.filteredIcons[state.focusedIndex]?.id === icon.id;
     const delay = Math.min(400, visualIndex * 15);
+    
+    const allCollections = window.IconVoidCollections.all();
+    const collectedIds = new Set(allCollections.flatMap(col => col.icons));
+    const isCollected = collectedIds.has(icon.id);
+    const fillAttr = isCollected ? 'fill="currentColor"' : 'fill="none"';
+    const collectedClass = isCollected ? "collected" : "";
+
     return `<article class="icon-card ${selected ? "selected" : ""} ${focused ? "focused" : ""}" data-id="${icon.id}" tabindex="0" style="animation-delay:${delay}ms">
+      <button class="card-favorite-btn ${collectedClass}" data-favorite-id="${icon.id}" aria-label="Add to collection" title="Add to collection">
+        <svg viewBox="0 0 24 24" ${fillAttr} stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </button>
       <div class="icon-wrap" style="width:${state.previewSize}px;height:${state.previewSize}px">${iconTools().renderSVG(icon)}</div>
       ${state.density === "comfortable" ? `<div class="card-name">${escapeHtml(icon.name)}</div>` : ""}
       ${selected ? '<span class="select-check"><svg viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"></path></svg></span>' : ""}
@@ -926,6 +1149,10 @@
     els.home.classList.toggle("active", showHome);
     els.gridView.classList.toggle("hidden", showHome);
     els.gridView.classList.toggle("active", !showHome);
+    if (els.resultCount) {
+      const count = displayedCount();
+      els.resultCount.classList.toggle("hidden", showHome || count === 0);
+    }
   }
 
   async function handleRoute() {
@@ -1305,26 +1532,45 @@
     els.collectionsList.innerHTML = collections.map((collection) => {
       const previews = collection.icons.slice(0, 5).map((id) => state.icons.get(id)).filter(Boolean);
       return `<article class="collection-row" data-collection-id="${collection.id}">
-        <div>
-          <h3 class="gradient-text">${escapeHtml(collection.name)}</h3>
+        <div class="collection-row-info">
+          <h3 class="collection-name-title">${escapeHtml(collection.name)}</h3>
           <p class="muted">${collection.icons.length} icons</p>
           <div class="collection-preview">${previews.map((icon) => `<span class="mini-icon">${iconTools().renderSVG(icon)}</span>`).join("")}</div>
         </div>
-        <div class="collection-actions">
-          <button class="glass-btn" data-collection-action="rename">Rename</button>
-          <button class="glass-btn" data-collection-action="json">JSON list</button>
-          <button class="glass-btn" data-collection-action="css">CSS sprite</button>
-          <button class="glass-btn" data-collection-action="react">React file</button>
-          <button class="glass-btn" data-collection-action="vue">Vue component</button>
-          <button class="glass-btn" data-collection-action="sprite">Sprite SVG</button>
-          <button class="gradient-btn" data-collection-action="zip">Download ZIP</button>
-          ${collection.id !== "favorites" ? '<button class="glass-btn" data-collection-action="delete">Delete</button>' : ""}
+        <div class="collection-actions-group">
+          <div class="actions-primary">
+            <button class="glass-btn text-btn" data-collection-action="rename">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"/></svg>
+              <span>Rename</span>
+            </button>
+            <button class="gradient-btn text-btn" data-collection-action="zip">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <span>Download ZIP</span>
+            </button>
+            ${collection.id !== "favorites" ? `
+            <button class="glass-btn delete-btn" data-collection-action="delete" title="Delete Collection">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
+            </button>` : ""}
+          </div>
+          <div class="actions-exports">
+            <span class="export-label">Developer Exports</span>
+            <div class="export-buttons">
+              <button class="glass-btn mini-export-btn" data-collection-action="react" title="Export React JSX components">React JSX</button>
+              <button class="glass-btn mini-export-btn" data-collection-action="vue" title="Export Vue component snippets">Vue</button>
+              <button class="glass-btn mini-export-btn" data-collection-action="sprite" title="Export SVG Symbol Sprite">SVG Sprite</button>
+              <button class="glass-btn mini-export-btn" data-collection-action="css" title="Export CSS mask-image sprite">CSS Sprite</button>
+              <button class="glass-btn mini-export-btn" data-collection-action="json" title="Export JSON list of icon data">JSON list</button>
+            </div>
+          </div>
         </div>
       </article>`;
     }).join("");
   }
 
   function renderCompare(icon) {
+    const toolbar = document.querySelector(".compare-toolbar");
+    if (toolbar) toolbar.style.display = "flex";
+    
     const base = window.IconVoidSearch.baseName(icon.name);
     const matches = Array.from(state.icons.values()).filter((candidate) => window.IconVoidSearch.baseName(candidate.name) === base).slice(0, 80);
     els.compareTitle.textContent = `${icon.name} - across ${matches.length} libraries`;
@@ -1333,6 +1579,58 @@
       <span>${escapeHtml(candidate.library)}<br>${escapeHtml(candidate.style)}</span>
     </button>`).join("");
     els.compareDownload.onclick = () => downloadZip(matches);
+    ui().openModal("compare-modal");
+  }
+
+  function renderComparePlaceholder() {
+    const toolbar = document.querySelector(".compare-toolbar");
+    if (toolbar) toolbar.style.display = "none";
+    
+    els.compareTitle.textContent = "Compare Mode";
+    els.compareGrid.innerHTML = `
+      <div class="compare-placeholder-card">
+        <div class="placeholder-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3H3v4M21 7V3h-4M3 17v4h4M17 21h4v-4M8 8l8 8M16 8l-8 8"/></svg>
+        </div>
+        <h3>Audit & Compare Across Libraries</h3>
+        <p class="placeholder-desc">Compare Mode lets you cross-examine the exact same icon across all 80+ loaded icon libraries (e.g. Lucide, Feather, FontAwesome, etc.) in real-time. Customize stroke weights, colors, compare layouts, and download the full matching bundle in one click.</p>
+        
+        <div class="placeholder-steps">
+          <div class="placeholder-step">
+            <span class="step-badge">1</span>
+            <div>
+              <h4>Select an Icon</h4>
+              <p>Close this modal and click any icon card in the main grid to view its details.</p>
+            </div>
+          </div>
+          <div class="placeholder-step">
+            <span class="step-badge">2</span>
+            <div>
+              <h4>Click Compare Mode</h4>
+              <p>With the icon open, click the Compare Mode button (crosshair) in the top-right header.</p>
+            </div>
+          </div>
+          <div class="placeholder-step">
+            <span class="step-badge">3</span>
+            <div>
+              <h4>Audit and Download</h4>
+              <p>Customize stroke widths, check contrast, and download all matching styles at once.</p>
+            </div>
+          </div>
+        </div>
+        
+        <button class="gradient-btn close-compare-btn" id="close-compare-placeholder">Start Browsing Icons</button>
+      </div>
+    `;
+    
+    // Bind the start browsing button
+    const closeBtn = document.getElementById("close-compare-placeholder");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        ui().closeModals();
+      });
+    }
+    
     ui().openModal("compare-modal");
   }
 
@@ -1362,6 +1660,107 @@
 
   function focusedIcon() {
     return state.filteredIcons[state.focusedIndex] || state.filteredIcons[0];
+  }
+
+  function showCollectionSelector(anchor, iconIds, onComplete) {
+    const ids = Array.isArray(iconIds) ? iconIds : [iconIds];
+    if (ids.length === 0) return;
+
+    // Remove any existing popovers
+    const existing = document.querySelector(".collection-popover");
+    if (existing) existing.remove();
+
+    // Create the popover element
+    const popover = document.createElement("div");
+    popover.className = "collection-popover glass-panel";
+    
+    const collections = window.IconVoidCollections.all();
+    
+    let html = `<div class="popover-header">Add to Collection</div>`;
+    
+    collections.forEach(col => {
+      const hasAll = ids.every(id => col.icons.includes(id));
+      const statusIcon = hasAll ? "✓" : "";
+      html += `
+        <button class="popover-item" data-id="${col.id}">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" class="popover-folder-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="col-name">${escapeHtml(col.name)}</span>
+          <span class="col-check">${statusIcon}</span>
+        </button>
+      `;
+    });
+    
+    html += `
+      <div class="popover-divider"></div>
+      <button class="popover-item create-new">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span>Create New Folder</span>
+      </button>
+    `;
+    
+    popover.innerHTML = html;
+    document.body.appendChild(popover);
+    
+    const rect = anchor.getBoundingClientRect();
+    const popoverWidth = 200;
+    
+    let top = rect.bottom + window.scrollY + 6;
+    let left = rect.left + window.scrollX + (rect.width / 2) - (popoverWidth / 2);
+    
+    if (left < 10) left = 10;
+    if (left + popoverWidth > window.innerWidth - 10) {
+      left = window.innerWidth - popoverWidth - 10;
+    }
+    
+    // Position check: if it goes below screen height, place it above
+    const popoverHeight = 160; // approximate
+    if (rect.bottom + popoverHeight > window.innerHeight && rect.top - popoverHeight > 0) {
+      top = rect.top + window.scrollY - popoverHeight - 6;
+    }
+    
+    popover.style.top = `${top}px`;
+    popover.style.left = `${left}px`;
+    popover.style.width = `${popoverWidth}px`;
+    
+    popover.querySelectorAll(".popover-item").forEach(item => {
+      item.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (item.classList.contains("create-new")) {
+          const name = prompt("Enter new folder name:");
+          if (name && name.trim()) {
+            const col = window.IconVoidCollections.create(name);
+            window.IconVoidCollections.addIcons(col.id, ids);
+            ui().toast(`Created "${col.name}" & added ${ids.length} icon(s)`, "success");
+            renderCollections();
+            if (onComplete) onComplete(col.id);
+            popover.remove();
+          }
+        } else {
+          const colId = item.dataset.id;
+          const col = window.IconVoidCollections.getCollection(colId);
+          if (col) {
+            window.IconVoidCollections.addIcons(colId, ids);
+            ui().toast(`Added ${ids.length} icon(s) to "${col.name}"`, "success");
+            renderCollections();
+            if (onComplete) onComplete(colId);
+            popover.remove();
+          }
+        }
+      });
+    });
+    
+    popover.addEventListener("click", (e) => e.stopPropagation());
+    
+    const closePopover = () => {
+      popover.remove();
+      document.removeEventListener("click", closePopover);
+      window.removeEventListener("scroll", closePopover, true);
+    };
+    
+    setTimeout(() => {
+      document.addEventListener("click", closePopover);
+      window.addEventListener("scroll", closePopover, true);
+    }, 10);
   }
 
   function setupEvents() {
@@ -1417,6 +1816,25 @@
       document.body.classList.remove("sidebar-open");
     });
     els.libList.addEventListener("click", async (event) => {
+      const toggle = event.target.closest("#lib-toggle");
+      if (toggle) {
+        event.preventDefault();
+        state.librariesExpanded = !state.librariesExpanded;
+        const collapseList = $("lib-collapse-list");
+        const chevron = toggle.querySelector(".chevron");
+        if (collapseList) {
+          if (state.librariesExpanded) {
+            collapseList.style.maxHeight = "700px";
+            if (chevron) chevron.style.transform = "rotate(90deg)";
+            toggle.setAttribute("aria-expanded", "true");
+          } else {
+            collapseList.style.maxHeight = "0";
+            if (chevron) chevron.style.transform = "rotate(0deg)";
+            toggle.setAttribute("aria-expanded", "false");
+          }
+        }
+        return;
+      }
       const allRow = event.target.closest("[data-all-icons='true']");
       if (allRow) {
         event.preventDefault();
@@ -1505,6 +1923,7 @@
     els.selectMode.addEventListener("click", () => {
       state.selectMode = !state.selectMode;
       els.selectMode.classList.toggle("active", state.selectMode);
+      els.iconGrid.classList.toggle("select-mode-active", state.selectMode);
       if (!state.selectMode) state.selectedIcons.clear();
       updateBulkBar();
       if (!state.prerender.active) updateVirtualScroll(true);
@@ -1520,6 +1939,7 @@
     });
     els.dpClose.addEventListener("click", () => closeDetail());
     setupDetailEvents();
+    setupCompareEvents();
     setupCollectionEvents();
     setupKeyboard();
     els.themeToggle.addEventListener("click", toggleTheme);
@@ -1533,9 +1953,17 @@
       });
     });
     els.compareToggle.addEventListener("click", () => {
-      state.compareMode = !state.compareMode;
-      els.compareToggle.classList.toggle("active", state.compareMode);
-      if (state.currentIconId) renderCompare(state.icons.get(state.currentIconId));
+      if (state.currentIconId) {
+        const isActive = els.compareToggle.classList.toggle("active");
+        if (isActive) {
+          renderCompare(state.icons.get(state.currentIconId));
+        } else {
+          ui().closeModals();
+        }
+      } else {
+        els.compareToggle.classList.add("active");
+        renderComparePlaceholder();
+      }
     });
     els.libraryRetry.addEventListener("click", () => {
       if (!state.lastFailedSlug) return;
@@ -1550,11 +1978,25 @@
       state.searchQuery = chip.dataset.suggest;
       applyFilters({ resetScroll: true });
     });
-    window.addEventListener("iconvoid:collections-changed", renderCollections);
+    window.addEventListener("iconvoid:collections-changed", () => {
+      renderCollections();
+      syncPrerenderFavoriteButtons();
+    });
     window.addEventListener("hashchange", handleRoute);
   }
 
   async function handleGridClick(event) {
+    const favBtn = event.target.closest(".card-favorite-btn");
+    if (favBtn) {
+      event.stopPropagation();
+      event.preventDefault();
+      const id = favBtn.dataset.favoriteId;
+      showCollectionSelector(favBtn, id, () => {
+        syncPrerenderFavoriteButtons();
+      });
+      return;
+    }
+
     const card = event.target.closest(".icon-card");
     if (!card) return;
     const id = card.dataset.id;
@@ -1664,6 +2106,11 @@
       await iconTools().copyText(`${location.origin}${location.pathname}#/icon/${state.currentIconId}`);
       ui().successButton(els.dpShare, "Shared");
     });
+    els.dpFavorite.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (!state.currentIconId) return;
+      showCollectionSelector(els.dpFavorite, state.currentIconId);
+    });
     els.dpCompare.addEventListener("click", () => {
       const icon = state.icons.get(state.currentIconId);
       if (icon) renderCompare(icon);
@@ -1674,6 +2121,29 @@
       ui().closeModals();
       window.location.hash = `#/icon/${item.dataset.iconId}`;
     });
+  }
+
+  function setupCompareEvents() {
+    const compareToolbar = document.querySelector(".compare-toolbar");
+    if (compareToolbar) {
+      compareToolbar.addEventListener("click", (event) => {
+        const btn = event.target.closest("button");
+        if (!btn) return;
+        
+        if (btn.dataset.compareLabels) {
+          compareToolbar.querySelectorAll("[data-compare-labels]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const showLabels = btn.dataset.compareLabels === "on";
+          els.compareGrid.classList.toggle("no-labels", !showLabels);
+        } else if (btn.dataset.compareBg) {
+          compareToolbar.querySelectorAll("[data-compare-bg]").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const bgType = btn.dataset.compareBg; // "dark" or "light"
+          els.compareGrid.classList.remove("bg-dark", "bg-light");
+          els.compareGrid.classList.add(`bg-${bgType}`);
+        }
+      });
+    }
   }
 
   function setupCollectionEvents() {
@@ -1713,17 +2183,20 @@
       }
       renderCollections();
     });
-    els.bulkCollect.addEventListener("click", () => {
-      window.IconVoidCollections.addIcons("favorites", Array.from(state.selectedIcons));
-      ui().toast(`Added ${state.selectedIcons.size} icons to Favorites`, "success");
-      state.selectedIcons.clear();
-      updateBulkBar();
-      if (!state.prerender.active) updateVirtualScroll(true);
+    els.bulkCollect.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (state.selectedIcons.size === 0) return;
+      showCollectionSelector(els.bulkCollect, Array.from(state.selectedIcons), () => {
+        state.selectedIcons.clear();
+        updateBulkBar();
+        if (!state.prerender.active) updateVirtualScroll(true);
+      });
     });
     els.bulkClear.addEventListener("click", () => {
       state.selectedIcons.clear();
       state.selectMode = false;
       els.selectMode.classList.remove("active");
+      els.iconGrid.classList.remove("select-mode-active");
       updateBulkBar();
       if (!state.prerender.active) updateVirtualScroll(true);
     });
@@ -1930,6 +2403,7 @@
     await prepareInitialIconsForRoute();
     generateSitemap();
     await handleRoute();
+    loadAllLibrariesInBackground();
   }
 
   document.addEventListener("DOMContentLoaded", () => {

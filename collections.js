@@ -5,6 +5,24 @@
     ]
   };
 
+  // Restore collections from localStorage on startup
+  try {
+    const saved = localStorage.getItem("iconvoid-collections");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) {
+        state.collections = parsed;
+        // Keep Favorites as the first item
+        const favIdx = state.collections.findIndex(c => c.id === "favorites");
+        if (favIdx < 0) {
+          state.collections.unshift({ id: "favorites", name: "Favorites", icons: [] });
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Failed to restore collections:", e);
+  }
+
   function makeId(name) {
     return (window.IconVoidIcons?.slugFilePart(name) || "collection") + "-" + Math.random().toString(36).slice(2, 7);
   }
@@ -80,6 +98,11 @@
   }
 
   function notify() {
+    try {
+      localStorage.setItem("iconvoid-collections", JSON.stringify(state.collections));
+    } catch (e) {
+      console.error("Failed to save collections:", e);
+    }
     window.dispatchEvent(new CustomEvent("iconvoid:collections-changed", { detail: state.collections }));
   }
 

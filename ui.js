@@ -47,6 +47,7 @@
   function closeModals() {
     qsa(".modal").forEach((entry) => entry.classList.add("hidden"));
     qs("#modal-backdrop")?.classList.add("hidden");
+    qs("#compare-toggle")?.classList.remove("active");
   }
 
   function particleBurst(target) {
