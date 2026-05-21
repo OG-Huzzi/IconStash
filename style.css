@@ -391,8 +391,8 @@ body.sidebar-collapsed #left-sidebar { transform: none; border-right: 0; pointer
 .sidebar-content { height: 100%; min-width: 260px; overflow-y: auto; overflow-x: hidden; padding: 18px; display: flex; flex-direction: column; gap: 22px; }
 .sidebar-collapse {
   position: absolute;
-  left: calc(var(--sidebar-width) + 8px);
-  top: 14px;
+  left: calc(var(--sidebar-width) + 2px);
+  top: 8px;
   width: 30px;
   height: 30px;
   border-radius: 999px;
