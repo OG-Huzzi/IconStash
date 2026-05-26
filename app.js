@@ -97,7 +97,8 @@
       strokeWidth: 2,
       size: 128,
       bg: "dark",
-      format: "svg"
+      format: "svg",
+      pngSize: 256
     }
   };
 
@@ -185,6 +186,7 @@
       dpCompare: $("dp-compare"),
       dpFavorite: $("dp-favorite"),
       dpDownloadSvg: $("dp-dl-svg"),
+      dpDownloadPng: $("dp-dl-png"),
       dpDownloadZip: $("dp-dl-zip"),
       themeToggle: $("theme-toggle"),
       collectionsToggle: $("collections-toggle"),
@@ -1413,6 +1415,9 @@
     els.dpInstallCode.textContent = `npm install ${icon.npmPackage || icon.librarySlug}`;
     els.dpImportCode.textContent = icon.jsxImport || `import { ${pascal(icon.name)} } from '${icon.npmPackage || icon.librarySlug}'`;
     els.dpDocsLink.href = icon.docsUrl || "#";
+    ui().qsa(".size-btn").forEach((btn) => {
+      btn.classList.toggle("active", Number(btn.dataset.size) === (state.detail.pngSize || 256));
+    });
     renderDetailVariants(icon);
     renderMatches(icon);
     renderCodePreview();
@@ -1530,12 +1535,17 @@
     els.collectionBadge.textContent = String(window.IconVoidCollections.count());
     els.collectionBadge.classList.toggle("hidden", window.IconVoidCollections.count() === 0);
     els.collectionsList.innerHTML = collections.map((collection) => {
-      const previews = collection.icons.slice(0, 5).map((id) => state.icons.get(id)).filter(Boolean);
+      const previews = collection.icons.map((id) => state.icons.get(id)).filter(Boolean);
       return `<article class="collection-row" data-collection-id="${collection.id}">
         <div class="collection-row-info">
           <h3 class="collection-name-title">${escapeHtml(collection.name)}</h3>
           <p class="muted">${collection.icons.length} icons</p>
-          <div class="collection-preview">${previews.map((icon) => `<span class="mini-icon">${iconTools().renderSVG(icon)}</span>`).join("")}</div>
+          <div class="collection-preview">${previews.map((icon) => `
+            <span class="mini-icon">
+              ${iconTools().renderSVG(icon)}
+              <button class="remove-mini-icon-btn" data-icon-id="${icon.id}" title="Remove from collection">&times;</button>
+            </span>
+          `).join("")}</div>
         </div>
         <div class="collection-actions-group">
           <div class="actions-primary">
@@ -1547,9 +1557,13 @@
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
               <span>Download ZIP</span>
             </button>
+            <button class="gradient-btn text-btn" data-collection-action="png-zip" style="background: var(--grad-cyber, linear-gradient(135deg, #bf00ff, #ff2d9b));">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <span>Download PNG ZIP</span>
+            </button>
             ${collection.id !== "favorites" ? `
             <button class="glass-btn delete-btn" data-collection-action="delete" title="Delete Collection">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"/></svg>
             </button>` : ""}
           </div>
           <div class="actions-exports">
@@ -2068,14 +2082,20 @@
       }
     });
     ui().qsa(".size-btn").forEach((button) => button.addEventListener("click", () => {
-      const icon = state.icons.get(state.currentIconId);
-      if (icon) downloadPng(icon, Number(button.dataset.size));
+      state.detail.pngSize = Number(button.dataset.size);
+      ui().qsa(".size-btn").forEach((node) => node.classList.toggle("active", node === button));
     }));
     els.dpDownloadSvg.addEventListener("click", () => {
       const icon = state.icons.get(state.currentIconId);
       if (icon) {
         iconTools().exportSVG(icon, { color: state.detail.color, strokeWidth: state.detail.strokeWidth, size: state.detail.size });
         ui().toast("SVG downloaded", "success");
+      }
+    });
+    els.dpDownloadPng.addEventListener("click", () => {
+      const icon = state.icons.get(state.currentIconId);
+      if (icon) {
+        downloadPng(icon, state.detail.pngSize || 256);
       }
     });
     els.dpDownloadZip.addEventListener("click", () => {
@@ -2157,6 +2177,18 @@
       renderCollections();
     });
     els.collectionsList.addEventListener("click", async (event) => {
+      const removeBtn = event.target.closest(".remove-mini-icon-btn");
+      if (removeBtn) {
+        event.stopPropagation();
+        event.preventDefault();
+        const row = event.target.closest("[data-collection-id]");
+        if (!row) return;
+        const colId = row.dataset.collectionId;
+        const iconId = removeBtn.dataset.iconId;
+        window.IconVoidCollections.removeIcon(colId, iconId);
+        ui().toast("Removed from collection", "success");
+        return;
+      }
       const row = event.target.closest("[data-collection-id]");
       const action = event.target.closest("[data-collection-action]")?.dataset.collectionAction;
       if (!row || !action) return;
@@ -2180,6 +2212,8 @@
         window.IconVoidCollections.exportSpriteSVG(collection, state.icons);
       } else if (action === "zip") {
         await downloadZip(icons);
+      } else if (action === "png-zip") {
+        await downloadZip(icons, { pngSizes: [16, 32, 48, 64, 128, 256, 512], filename: `${window.IconVoidCollections.slugFilePart(collection.name)}-png.zip` });
       }
       renderCollections();
     });
