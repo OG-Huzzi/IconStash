@@ -11,7 +11,7 @@ const SITEMAP_DIR = path.join(ROOT, "sitemaps");
 const HTML_SITEMAP_DIR = path.join(ROOT, "seo");
 const KEYWORD_DB = path.join(DATA_DIR, "pseo-keywords.json");
 const SITE_URL = (process.env.SITE_URL || "https://iconstash.io").replace(/\/+$/, "");
-const PAGE_LIMIT = Math.max(1, Number(process.env.PSEO_LIMIT || 60000));
+const PAGE_LIMIT = Math.max(1, Number(process.env.PSEO_LIMIT || 150000));
 const TODAY = new Date().toISOString().slice(0, 10);
 
 const CATEGORY_RULES = [
@@ -248,21 +248,65 @@ function keywordTemplates(icon) {
 
 function buildKeywords(icons) {
   const seen = new Set();
-  const rows = [];
+  const primaryRows = [];
+  const secondaryRows = [];
+  const candidatesByIcon = new Map();
+
   for (const icon of icons) {
-    for (const item of keywordTemplates(icon)) {
+    const templates = keywordTemplates(icon);
+    const candidates = [];
+    for (const item of templates) {
       const keyword = item.keyword.toLowerCase().replace(/\s+/g, " ").trim();
       const slug = slugify(keyword);
-      if (!slug || seen.has(slug)) continue;
-      seen.add(slug);
+      if (!slug) continue;
+      
       const exactNameBoost = keyword.includes(icon.base.replace(/-/g, " ")) ? 8 : 0;
       const score = Math.round((icon.popularity || 100) + exactNameBoost + (item.intent === "download" ? 60 : 0) + (item.format === "svg" ? 40 : 0));
-      rows.push({ ...item, keyword, slug, iconId: icon.id, category: icon.category, librarySlug: icon.librarySlug, score });
+      
+      candidates.push({ ...item, keyword, slug, iconId: icon.id, category: icon.category, librarySlug: icon.librarySlug, score });
+    }
+    
+    candidates.sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug));
+    
+    if (candidates.length > 0) {
+      candidatesByIcon.set(icon.id, candidates);
     }
   }
+
+  // 1. First Pass: Guarantee 100% icon coverage
+  for (const [iconId, candidates] of candidatesByIcon.entries()) {
+    const best = candidates[0];
+    if (!seen.has(best.slug)) {
+      seen.add(best.slug);
+      primaryRows.push(best);
+    }
+  }
+
+  // 2. Second Pass: Collect secondary keywords
+  for (const [iconId, candidates] of candidatesByIcon.entries()) {
+    for (let i = 1; i < candidates.length; i++) {
+      const cand = candidates[i];
+      if (!seen.has(cand.slug)) {
+        secondaryRows.push(cand);
+      }
+    }
+  }
+
+  secondaryRows.sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug));
+
+  const rows = [...primaryRows];
+  const remainingBudget = PAGE_LIMIT - rows.length;
+  
+  if (remainingBudget > 0) {
+    const topSecondary = secondaryRows.slice(0, remainingBudget);
+    for (const item of topSecondary) {
+      seen.add(item.slug);
+      rows.push(item);
+    }
+  }
+
   return rows
     .sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug))
-    .slice(0, PAGE_LIMIT)
     .map((row, index) => ({ ...row, priority: index + 1, url: `/icons/${row.slug}/` }));
 }
 
@@ -281,23 +325,68 @@ function metaDescription(row, icon) {
   return text.length > 160 ? `${text.slice(0, 157).replace(/\s+\S*$/, "")}...` : text;
 }
 
-function relatedFor(row, keywords, byIcon) {
-  const icon = byIcon.get(row.iconId);
-  const sameIcon = keywords.filter((item) => item.iconId === row.iconId && item.slug !== row.slug);
-  const sameCategory = keywords.filter((item) => item.category === row.category && item.slug !== row.slug && item.iconId !== row.iconId);
-  const sameLibrary = keywords.filter((item) => item.librarySlug === row.librarySlug && item.slug !== row.slug && item.iconId !== row.iconId);
-  const related = [];
-  for (const item of [...sameIcon, ...sameCategory, ...sameLibrary]) {
-    if (!related.some((entry) => entry.slug === item.slug)) related.push(item);
-    if (related.length >= 10) break;
-  }
-  if (related.length < 10 && icon) {
-    for (const item of keywords) {
-      if (item.slug !== row.slug && item.keyword.includes(icon.base.split("-")[0]) && !related.some((entry) => entry.slug === item.slug)) related.push(item);
-      if (related.length >= 10) break;
+// Pre-group indexes for O(1) related searches
+const keywordsByIcon = new Map();
+const keywordsByCategory = new Map();
+const keywordsByLibrary = new Map();
+const keywordsByFirstWord = new Map();
+
+function buildIndexes(keywords, byIcon) {
+  for (const row of keywords) {
+    if (!keywordsByIcon.has(row.iconId)) keywordsByIcon.set(row.iconId, []);
+    keywordsByIcon.get(row.iconId).push(row);
+    
+    if (!keywordsByCategory.has(row.category)) keywordsByCategory.set(row.category, []);
+    keywordsByCategory.get(row.category).push(row);
+    
+    if (!keywordsByLibrary.has(row.librarySlug)) keywordsByLibrary.set(row.librarySlug, []);
+    keywordsByLibrary.get(row.librarySlug).push(row);
+    
+    const icon = byIcon.get(row.iconId);
+    if (icon) {
+      const firstWord = icon.base.split("-")[0];
+      if (firstWord) {
+        if (!keywordsByFirstWord.has(firstWord)) keywordsByFirstWord.set(firstWord, []);
+        keywordsByFirstWord.get(firstWord).push(row);
+      }
     }
   }
-  return related.slice(0, 10);
+}
+
+function relatedFor(row, byIcon) {
+  const icon = byIcon.get(row.iconId);
+  const sameIcon = keywordsByIcon.get(row.iconId) || [];
+  const sameCategory = keywordsByCategory.get(row.category) || [];
+  const sameLibrary = keywordsByLibrary.get(row.librarySlug) || [];
+  
+  const related = [];
+  const seenSlugs = new Set();
+  seenSlugs.add(row.slug);
+  
+  function addItems(list) {
+    for (const item of list) {
+      if (!seenSlugs.has(item.slug)) {
+        seenSlugs.add(item.slug);
+        related.push(item);
+        if (related.length >= 10) return true;
+      }
+    }
+    return false;
+  }
+  
+  if (addItems(sameIcon)) return related;
+  if (addItems(sameCategory)) return related;
+  if (addItems(sameLibrary)) return related;
+  
+  if (icon) {
+    const firstWord = icon.base.split("-")[0];
+    if (firstWord) {
+      const sameWord = keywordsByFirstWord.get(firstWord) || [];
+      if (addItems(sameWord)) return related;
+    }
+  }
+  
+  return related;
 }
 
 function pageHtml(row, icon, related) {
@@ -420,13 +509,35 @@ function pageHtml(row, icon, related) {
 
 function writePages(keywords, icons) {
   const byIcon = new Map(icons.map((icon) => [icon.id, icon]));
+  console.log("Building index maps for related searches...");
+  buildIndexes(keywords, byIcon);
+  console.log("Indexes completed. Writing HTML files...");
+  
+  let count = 0;
+  const total = keywords.length;
+  const reportEvery = Math.round(total / 10) || 10000;
+  
   for (const row of keywords) {
     const icon = byIcon.get(row.iconId);
     if (!icon) continue;
-    const related = relatedFor(row, keywords, byIcon);
+    
+    const related = relatedFor(row, byIcon);
     const dir = path.join(OUT_DIR, row.slug);
-    ensureDir(dir);
+    
+    try {
+      fs.mkdirSync(dir);
+    } catch (err) {
+      if (err.code !== "EEXIST") {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+    }
+    
     fs.writeFileSync(path.join(dir, "index.html"), pageHtml(row, icon, related));
+    
+    count++;
+    if (count % reportEvery === 0) {
+      console.log(`- Progress: ${Math.round((count / total) * 100)}% (${count.toLocaleString("en-US")} / ${total.toLocaleString("en-US")} written)`);
+    }
   }
 }
 
