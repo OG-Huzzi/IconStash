@@ -1253,8 +1253,8 @@
   }
 
   function updateSeoHome() {
-    document.title = "IconStash - 134,000+ Icons | Premium SVG Search";
-    setMeta("description", "Search, compare, customize, copy, and download 134,000+ SVG icons in a frontend-only design tool.");
+    document.title = "IconStash - 134,000+ Icons | SVG & PNG Command Center";
+    setMeta("description", "Search, compare, customize, copy, and download 134,000+ premium SVG & PNG icons with custom resolution PNG downloads and zip packs.");
     setCanonical("#/");
     removeJsonLd();
   }
@@ -1268,16 +1268,16 @@
         els.seoHeader.classList.remove("hidden");
         els.seoTitle.textContent = `${lib.name} Icons`;
         els.seoDescription.textContent = `${lib.description}. ${Number(lib.count || 0).toLocaleString()} indexed records, version ${lib.version}.`;
-        document.title = `${lib.name} Icons - SVG Download | IconStash`;
-        setMeta("description", `Browse, customize, copy, and export ${lib.name} SVG icons in IconStash.`);
+        document.title = `${lib.name} Icons - SVG & PNG Download | IconStash`;
+        setMeta("description", `Browse, customize, copy, and download ${lib.name} SVG & PNG icons in IconStash.`);
         setCanonical(hash);
       }
     } else if (hash.startsWith("#/category/")) {
       els.seoHeader.classList.remove("hidden");
       els.seoTitle.textContent = `${state.activeCategory || "Category"} Icons`;
       els.seoDescription.textContent = `Filtered icon results for ${state.activeCategory || "this category"}.`;
-      document.title = `${state.activeCategory || "Category"} Icons - SVG Download | IconStash`;
-      setMeta("description", `Browse and export ${state.activeCategory || "category"} SVG icons in IconStash.`);
+      document.title = `${state.activeCategory || "Category"} Icons - SVG & PNG Download | IconStash`;
+      setMeta("description", `Browse, export, and download ${state.activeCategory || "category"} SVG & PNG icons in IconStash.`);
       setCanonical(hash);
     } else {
       els.seoHeader.classList.add("hidden");
@@ -1285,10 +1285,10 @@
   }
 
   function updateSeoIcon(icon) {
-    document.title = `${icon.name} Icon - SVG Download | IconStash`;
-    setMeta("description", `Download the ${icon.name} icon from ${icon.library}. Copy SVG, JSX, HTML, CSS, PNG, or ZIP from IconStash.`);
+    document.title = `${icon.name} Icon - SVG & PNG Download | IconStash`;
+    setMeta("description", `Download the ${icon.name} icon from ${icon.library}. Copy SVG, JSX, HTML, CSS, custom PNG, or multi-resolution ZIP packs from IconStash.`);
     setMeta("og:title", `${icon.name} Icon - ${icon.library}`);
-    setMeta("og:description", `SVG download for ${icon.name} from ${icon.library}.`);
+    setMeta("og:description", `SVG & PNG download for ${icon.name} from ${icon.library}. Customize size, color, and download premium PNG or ZIP files.`);
     setCanonical(`#/icon/${icon.id}`);
     removeJsonLd();
     const script = document.createElement("script");

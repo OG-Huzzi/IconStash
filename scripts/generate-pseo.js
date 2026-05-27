@@ -235,8 +235,11 @@ function keywordTemplates(icon) {
   const intents = CATEGORY_INTENTS[icon.category] || CATEGORY_INTENTS.Interface;
   return [
     { keyword: `${lib.toLowerCase()} ${name} icon svg`, format: "svg", intent: "download" },
+    { keyword: `${lib.toLowerCase()} ${name} icon png`, format: "png", intent: "download" },
     { keyword: `${name} icon png`, format: "png", intent: "download" },
     { keyword: `download ${name} svg icon`, format: "svg", intent: "download" },
+    { keyword: `download ${name} png icon`, format: "png", intent: "download" },
+    { keyword: `${name} svg and png download`, format: "svg/png", intent: "download" },
     { keyword: `${name} ${icon.style} icon`, format: icon.style, intent: "style" },
     { keyword: `${name} icon for react`, format: "react", intent: "use" },
     { keyword: `${name} icon figma`, format: "figma", intent: "design" },
@@ -312,16 +315,15 @@ function buildKeywords(icons) {
 
 function seoTitle(keyword) {
   const base = titleCase(keyword);
-  const suffix = " | IconStash";
-  if ((base + suffix).length <= 60 && (base + suffix).length >= 48) return base + suffix;
-  const download = `${base} Download | IconStash`;
+  const suffix = " | SVG & PNG - IconStash";
+  if ((base + suffix).length <= 60) return base + suffix;
+  const download = `${base} SVG & PNG Download`;
   if (download.length <= 60) return download;
-  return `${base.slice(0, Math.max(42, 59 - suffix.length)).replace(/\s+\S*$/, "")}${suffix}`;
+  return `${base.slice(0, 36).replace(/\s+\S*$/, "")} SVG & PNG - IconStash`;
 }
 
 function metaDescription(row, icon) {
-  const format = row.format === "react" ? "React-ready SVG" : row.format.toUpperCase();
-  const text = `Download or copy the ${row.keyword} from IconStash. Customize color, size, stroke, and export ${format} files with no login.`;
+  const text = `Download or copy the ${row.keyword} in SVG and PNG formats from IconStash. Customize color, size, stroke, and export custom resolution files with no login.`;
   return text.length > 160 ? `${text.slice(0, 157).replace(/\s+\S*$/, "")}...` : text;
 }
 
@@ -401,15 +403,15 @@ function pageHtml(row, icon, related) {
   const faq = [
     {
       q: `Can I download the ${row.keyword}?`,
-      a: `Yes. Open the ${icon.displayName} icon in IconStash to copy SVG code or export PNG and ZIP files.`
+      a: `Yes. Open the ${icon.displayName} icon in IconStash to copy SVG code or export custom PNG sizes and multi-resolution ZIP packs.`
     },
     {
       q: `Can I customize this ${icon.displayName} icon?`,
-      a: `Yes. You can adjust color, size, background, and stroke width before copying or downloading.`
+      a: `Yes. You can adjust color, size, background, and stroke width before copying or downloading SVG and PNG files.`
     },
     {
       q: `What formats are available for ${row.keyword}?`,
-      a: `IconStash supports SVG, PNG exports, JSX snippets, HTML image code, CSS masks, and Base64 output.`
+      a: `IconStash supports SVG vector codes, custom PNG downloads, JSX components, HTML images, and CSS background masks.`
     }
   ];
   const schema = [
@@ -469,7 +471,7 @@ function pageHtml(row, icon, related) {
       <div class="preview">${renderSvg(icon, 96)}</div>
       <div>
         <h1>${escapeHtml(h1)}</h1>
-        <p class="lead">${escapeHtml(row.keyword)} is available in IconStash for fast SVG copying, PNG export, and UI-ready customization.</p>
+        <p class="lead">${escapeHtml(row.keyword)} is available in the IconStash SVG & PNG Command Center for fast copying, custom PNG downloads, and UI-ready exports.</p>
         <div class="cta">
           <a class="btn primary" href="${escapeHtml(appUrl)}">Open editor</a>
           <a class="btn" href="/#/library/${escapeHtml(icon.librarySlug)}">Browse ${escapeHtml(icon.library)}</a>
@@ -480,11 +482,11 @@ function pageHtml(row, icon, related) {
       <article class="card">
         <h2>Use this ${escapeHtml(icon.displayName)} icon</h2>
         <p>The ${escapeHtml(row.keyword)} works well in ${escapeHtml(icon.category.toLowerCase())} interfaces, product dashboards, websites, mobile apps, documentation, and design systems.</p>
-        <p class="muted">Open it in IconStash to adjust color, exact size, preview background, and stroke width before exporting.</p>
+        <p class="muted">Open it in the SVG & PNG Command Center to adjust color, exact size, preview background, and stroke width before downloading.</p>
       </article>
       <article class="card">
         <h2>Export formats</h2>
-        <p>Copy clean SVG, generate PNG sizes, use JSX snippets, create HTML image code, or export CSS background masks from the same icon detail panel.</p>
+        <p>Copy clean SVG vectors, generate custom-resolution PNG files (from 16px to 512px), use JSX components, or export CSS background masks from the same detail panel.</p>
         <p class="muted">The original vector remains editable, so it stays sharp at 16px, 24px, 48px, and large marketing sizes.</p>
       </article>
       <article class="card">
@@ -500,7 +502,7 @@ function pageHtml(row, icon, related) {
       ${faq.map((item) => `<article class="card"><h2>${escapeHtml(item.q)}</h2><p>${escapeHtml(item.a)}</p></article>`).join("")}
     </section>
     <footer>
-      IconStash is a frontend-only icon search and export tool. Check each source library's terms before redistributing icon artwork as a standalone pack.
+      IconStash is a frontend-only SVG & PNG icon command center. Check each source library's terms before redistributing icon artwork as a standalone pack.
     </footer>
   </main>
 </body>
