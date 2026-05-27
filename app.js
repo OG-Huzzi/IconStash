@@ -2213,7 +2213,7 @@
       } else if (action === "zip") {
         await downloadZip(icons);
       } else if (action === "png-zip") {
-        await downloadZip(icons, { pngSizes: [16, 32, 48, 64, 128, 256, 512], filename: `${window.IconStashCollections.slugFilePart(collection.name)}-png.zip` });
+        await downloadZip(icons, { pngSizes: [16, 32, 48, 64, 128, 256, 512], filename: `${iconTools().slugFilePart(collection.name)}-png.zip` });
       }
       renderCollections();
     });

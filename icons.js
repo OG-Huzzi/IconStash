@@ -218,9 +218,13 @@
       const svg = renderSVG(icon, options);
       folder.file(`${base}.svg`, svg);
       for (const size of sizes) {
-        const canvas = await svgToCanvas(renderSVG(icon, { ...options, size }), size);
-        const dataUrl = canvas.toDataURL("image/png");
-        folder.file(`${base}-${size}.png`, dataUrl.split(",")[1], { base64: true });
+        try {
+          const canvas = await svgToCanvas(renderSVG(icon, { ...options, size }), size);
+          const dataUrl = canvas.toDataURL("image/png");
+          folder.file(`${base}-${size}.png`, dataUrl.split(",")[1], { base64: true });
+        } catch (err) {
+          console.error(`Failed to export PNG for ${icon.id} at ${size}px:`, err);
+        }
       }
     }
     const manifest = capped.map((icon) => ({
