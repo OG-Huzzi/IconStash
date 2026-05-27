@@ -1556,7 +1556,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   .hero-section { min-height: 180px; }
   .stats-bar, .how-band { grid-template-columns: 1fr; }
   .category-card-grid, .featured-libraries { grid-template-columns: 1fr 1fr; }
-  .main-toolbar { align-items: stretch; flex-direction: column; }
+  .main-toolbar { align-items: stretch; flex-direction: column; min-height: auto; gap: 8px; flex-shrink: 0; }
   .toolbar-left, .toolbar-right { justify-content: space-between; }
   #detail-panel {
     position: fixed;
