@@ -1206,7 +1206,10 @@
       const slug = id.split("-")[0];
       if (!state.icons.has(id) && libraryBySlug(slug)) await loadLibrary(slug);
       state.currentIconId = id;
-      applyFilters();
+      const cardExists = els.iconGrid.querySelector(`[data-id="${CSS.escape(id)}"]`);
+      if (!cardExists) {
+        applyFilters({ preserveLimit: true });
+      }
       openDetail(id);
     } else if (hash.startsWith("#/collections")) {
       setRouteView("grid");
@@ -1433,7 +1436,7 @@
     const matches = Array.from(state.icons.values())
       .filter((candidate) => candidate.id !== icon.id && window.IconStashSearch.baseName(candidate.name) === base)
       .slice(0, 8);
-    els.dpMatches.innerHTML = matches.length ? matches.map((candidate, index) => `<button class="match-card" data-icon-id="${candidate.id}" title="${escapeHtml(candidate.library)}" style="animation-delay:${index * 40}ms">${iconTools().renderSVG(candidate)}</button>`).join("") : '<span class="muted">Load more libraries to reveal matches.</span>';
+    els.dpMatches.innerHTML = matches.length ? matches.map((candidate, index) => `<button class="match-card" data-icon-id="${candidate.id}" title="${escapeHtml(candidate.library)}" style="animation-delay:${index * 40}ms">${iconTools().renderSVG(candidate)}</button>`).join("") : '<span class="muted">No similar icons in other libraries.</span>';
   }
 
   function renderCodePreview() {
@@ -2104,11 +2107,19 @@
     });
     els.dpVariants.addEventListener("click", (event) => {
       const button = event.target.closest("[data-icon-id]");
-      if (button) window.location.hash = `#/icon/${button.dataset.iconId}`;
+      if (button) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.hash = `#/icon/${button.dataset.iconId}`;
+      }
     });
     els.dpMatches.addEventListener("click", (event) => {
       const button = event.target.closest("[data-icon-id]");
-      if (button) window.location.hash = `#/icon/${button.dataset.iconId}`;
+      if (button) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.hash = `#/icon/${button.dataset.iconId}`;
+      }
     });
     els.dpTags.addEventListener("click", (event) => {
       const tag = event.target.closest("[data-tag]");
