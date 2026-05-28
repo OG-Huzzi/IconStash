@@ -445,6 +445,11 @@ function pageHtml(row, icon, related) {
   return `<!doctype html>
 <html lang="en">
 <head>
+  <script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script>
+  <script>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
@@ -562,12 +567,12 @@ function writeHtmlSitemap(keywords) {
   for (let i = 0; i < keywords.length; i += perPage) pages.push(keywords.slice(i, i + perPage));
   const indexLinks = pages.map((_, index) => `<a href="/seo/sitemap-${index + 1}/">Sitemap ${index + 1}</a>`).join("");
   ensureDir(HTML_SITEMAP_DIR);
-  fs.writeFileSync(path.join(HTML_SITEMAP_DIR, "index.html"), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>IconStash HTML Sitemap</title><meta name="description" content="Browse IconStash icon landing pages."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{display:inline-block;margin:6px 10px 6px 0;color:#8ab4ff}</style></head><body><h1>IconStash HTML Sitemap</h1><p>${keywords.length.toLocaleString("en-US")} icon landing pages.</p>${indexLinks}</body></html>`);
+  fs.writeFileSync(path.join(HTML_SITEMAP_DIR, "index.html"), `<!doctype html><html lang="en"><head><script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script><script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script><meta charset="utf-8"><title>IconStash HTML Sitemap</title><meta name="description" content="Browse IconStash icon landing pages."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{display:inline-block;margin:6px 10px 6px 0;color:#8ab4ff}</style></head><body><h1>IconStash HTML Sitemap</h1><p>${keywords.length.toLocaleString("en-US")} icon landing pages.</p>${indexLinks}</body></html>`);
   pages.forEach((chunk, index) => {
     const dir = path.join(HTML_SITEMAP_DIR, `sitemap-${index + 1}`);
     ensureDir(dir);
     const links = chunk.map((row) => `<li><a href="${row.url}">${escapeHtml(row.keyword)}</a></li>`).join("");
-    fs.writeFileSync(path.join(dir, "index.html"), `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>IconStash Sitemap ${index + 1}</title><meta name="description" content="IconStash SEO landing page links."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{color:#8ab4ff}li{margin:4px 0}</style></head><body><h1>IconStash Sitemap ${index + 1}</h1><ul>${links}</ul></body></html>`);
+    fs.writeFileSync(path.join(dir, "index.html"), `<!doctype html><html lang="en"><head><script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script><script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script><meta charset="utf-8"><title>IconStash Sitemap ${index + 1}</title><meta name="description" content="IconStash SEO landing page links."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{color:#8ab4ff}li{margin:4px 0}</style></head><body><h1>IconStash Sitemap ${index + 1}</h1><ul>${links}</ul></body></html>`);
   });
 }
 
