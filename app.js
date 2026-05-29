@@ -87,7 +87,8 @@
       libraryIndex: 0,
       chunkIndex: -1,
       slug: "",
-      loading: false
+      loading: false,
+      initialDomUsed: false
     },
     backgroundSyncStarted: false,
     customColor: "",
@@ -503,6 +504,7 @@
   }
 
   function resetPrerenderGrid() {
+    state.prerender.initialDomUsed = true;
     if (!state.prerender.active) return;
     state.prerender.active = false;
     state.prerender.mode = "";
@@ -550,7 +552,7 @@
     if (!lib) return false;
 
     // Check if we can reuse the initial DOM prerender
-    const isInitialDomPrerender = mode === "all" && !state.prerender.active && els.iconGrid.querySelector(".icon-card");
+    const isInitialDomPrerender = mode === "all" && !state.prerender.initialDomUsed && els.iconGrid.querySelector(".icon-card");
     let html = "";
     if (isInitialDomPrerender) {
       html = els.iconGrid.innerHTML;
@@ -559,6 +561,7 @@
       if (!html) return false;
     }
 
+    state.prerender.initialDomUsed = true;
     state.prerender.active = true;
     state.prerender.mode = mode;
     state.prerender.slug = lib.slug;
@@ -584,25 +587,28 @@
     // Sync the favorites hearts to show active heart states instantly
     syncPrerenderFavoriteButtons();
 
+    checkViewportFill();
+
     return true;
   }
 
   async function appendNextPrerenderChunk() {
     const manifest = state.prerender.manifest;
-    if (!state.prerender.active || state.prerender.loading || !manifest?.libraries?.length) return;
+    if (!state.prerender.active || state.prerender.loading || !manifest?.libraries?.length) return false;
     let libIndex = state.prerender.libraryIndex;
     let lib = manifest.libraries[libIndex];
-    if (!lib) return;
+    if (!lib) return false;
     let nextChunk = state.prerender.chunkIndex + 1;
     if (nextChunk >= lib.chunks) {
-      if (state.prerender.mode === "library") return;
+      if (state.prerender.mode === "library") return false;
       libIndex += 1;
       lib = manifest.libraries[libIndex];
-      if (!lib) return;
+      if (!lib) return false;
       nextChunk = 0;
     }
     state.prerender.loading = true;
     els.loadingMore.classList.remove("hidden");
+    let success = false;
     try {
       const html = await fetchPrerenderChunk(lib.slug, nextChunk);
       if (html) {
@@ -617,11 +623,16 @@
         
         // Sync favorite states on the newly appended chunk nodes
         syncPrerenderFavoriteButtons();
+        success = true;
       }
     } finally {
       state.prerender.loading = false;
       els.loadingMore.classList.add("hidden");
+      if (success) {
+        checkViewportFill();
+      }
     }
+    return success;
   }
 
   function syncPrerenderFavoriteButtons() {
@@ -637,6 +648,36 @@
         svg.setAttribute("fill", isCollected ? "currentColor" : "none");
       }
     });
+  }
+
+  function checkViewportFill() {
+    if (els.gridView.classList.contains("hidden")) return;
+    const container = els.gridContainer;
+    if (!container) return;
+    
+    const nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - 900;
+    if (!nearBottom) return;
+
+    if (state.prerender.active) {
+      if (state.prerender.loading) return;
+      const manifest = state.prerender.manifest;
+      if (!manifest?.libraries?.length) return;
+      let libIndex = state.prerender.libraryIndex;
+      let lib = manifest.libraries[libIndex];
+      if (!lib) return;
+      let nextChunk = state.prerender.chunkIndex + 1;
+      const hasMoreChunks = nextChunk < lib.chunks || (state.prerender.mode !== "library" && libIndex + 1 < manifest.libraries.length);
+      if (hasMoreChunks) {
+        appendNextPrerenderChunk();
+      }
+    } else {
+      if (state.visibleLimit < state.filteredIcons.length) {
+        state.visibleLimit = Math.min(state.filteredIcons.length, state.visibleLimit + state.batchSize);
+        updateVirtualScroll(false);
+      } else if (canLazyLoadBrowseLibrary() && !lazyLibraryLoad) {
+        loadNextLibraryForBrowse();
+      }
+    }
   }
 
   function iconSlugFromId(id) {
@@ -1139,6 +1180,7 @@
       if (parts.length) els.iconGrid.insertAdjacentHTML("beforeend", parts.join(""));
       state.renderedCount = end;
       els.loadingMore.classList.add("hidden");
+      checkViewportFill();
     });
   }
 
@@ -2024,7 +2066,11 @@
     window.addEventListener("resize", () => {
       calculateGrid();
       buildRows();
-      if (!state.prerender.active) updateVirtualScroll(true);
+      if (!state.prerender.active) {
+        updateVirtualScroll(true);
+      } else {
+        checkViewportFill();
+      }
       ensureDesktopDetail();
     });
     els.iconGrid.addEventListener("click", handleGridClick);
