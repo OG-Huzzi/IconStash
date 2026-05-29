@@ -1946,6 +1946,13 @@
       if (basePath === "#/search" || basePath === "#/all" || basePath === "#/icons") await ensureInitialBrowseLibrary();
       applyFilters({ resetScroll: true });
     });
+    els.autocomplete.addEventListener("click", (event) => {
+      const item = event.target.closest(".autocomplete-item");
+      if (!item) return;
+      const id = item.dataset.iconId;
+      els.autocomplete.classList.add("hidden");
+      window.location.hash = `#/icon/${id}`;
+    });
     els.logo.addEventListener("click", (event) => {
       event.preventDefault();
       clearAllFilters({ skipRender: true });
@@ -2138,6 +2145,7 @@
       triggerBackgroundSync();
       els.search.value = chip.dataset.suggest;
       state.searchQuery = chip.dataset.suggest;
+      history.replaceState(null, "", `#/search?query=${encodeURIComponent(chip.dataset.suggest)}`);
       applyFilters({ resetScroll: true });
     });
     window.addEventListener("iconstash:collections-changed", () => {
