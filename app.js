@@ -2050,38 +2050,48 @@
     }, 10);
   }
 
+  function debounce(fn, delay) {
+    let timer;
+    return function(...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
   function setupEvents() {
     els.search.addEventListener("focus", () => {
       els.searchShell.classList.add("focused");
       triggerBackgroundSync();
     });
     els.search.addEventListener("blur", () => setTimeout(() => els.searchShell.classList.remove("focused"), 100));
+    
+    const handleSearchInput = debounce(async () => {
+      state.searchQuery = els.search.value.trim();
+      els.searchClear.classList.toggle("hidden", !state.searchQuery);
+      
+      // Automatically update the URL hash to reflect the search term
+      if (state.searchQuery) {
+        history.replaceState(null, "", `#/search?query=${encodeURIComponent(state.searchQuery)}`);
+      } else {
+        history.replaceState(null, "", "#/search");
+      }
+      
+      renderAutocomplete();
+      const shouldShowGrid = Boolean(state.searchQuery) || (location.hash !== "#/" && location.hash !== "#");
+      setRouteView(shouldShowGrid ? "grid" : "home");
+      if (shouldShowGrid) {
+        await ensureInitialBrowseLibrary();
+        applyFilters({ resetScroll: true });
+        ensureDesktopDetail();
+      } else {
+        closeDetail(false);
+        updateSeoHome();
+      }
+    }, 300);
+
     els.search.addEventListener("input", () => {
       triggerBackgroundSync();
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(async () => {
-        state.searchQuery = els.search.value.trim();
-        els.searchClear.classList.toggle("hidden", !state.searchQuery);
-        
-        // Automatically update the URL hash to reflect the search term
-        if (state.searchQuery) {
-          history.replaceState(null, "", `#/search?query=${encodeURIComponent(state.searchQuery)}`);
-        } else {
-          history.replaceState(null, "", "#/search");
-        }
-        
-        renderAutocomplete();
-        const shouldShowGrid = Boolean(state.searchQuery) || (location.hash !== "#/" && location.hash !== "#");
-        setRouteView(shouldShowGrid ? "grid" : "home");
-        if (shouldShowGrid) {
-          await ensureInitialBrowseLibrary();
-          applyFilters({ resetScroll: true });
-          ensureDesktopDetail();
-        } else {
-          closeDetail(false);
-          updateSeoHome();
-        }
-      }, 300);
+      handleSearchInput();
     });
     els.searchClear.addEventListener("click", async () => {
       els.search.value = "";
