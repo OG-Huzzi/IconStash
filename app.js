@@ -92,8 +92,8 @@
       chunkCache: new Map()
     },
     backgroundSyncStarted: false,
-    customColor: "",
-    customStrokeWidth: "",
+    customColor: "#ffffff",
+    customStrokeWidth: "1.5",
     rowHeight: 88,
     cardMin: 80,
     cols: 8,
@@ -2320,14 +2320,6 @@
         custToggle.addEventListener("click", () => {
           const isOpen = custSection.classList.toggle("open");
           custToggle.setAttribute("aria-expanded", String(isOpen));
-          const chevron = custToggle.querySelector(".chevron");
-          if (isOpen) {
-            custContent.style.maxHeight = "200px";
-            if (chevron) chevron.style.transform = "rotate(90deg)";
-          } else {
-            custContent.style.maxHeight = "0";
-            if (chevron) chevron.style.transform = "rotate(0deg)";
-          }
         });
       }
 
@@ -2382,13 +2374,21 @@
 
       // Reset button
       els.custResetBtn.addEventListener("click", () => {
-        els.custColorHex.value = "";
-        els.custColorWheel.value = "#2563eb";
-        els.custStrokeSlider.value = "2.0";
-        els.custStrokeLabel.textContent = "2.0px";
-        applyColor("");
-        applyStroke("");
+        els.custColorHex.value = "#ffffff";
+        els.custColorWheel.value = "#ffffff";
+        els.custStrokeSlider.value = "1.5";
+        els.custStrokeLabel.textContent = "1.5px";
+        applyColor("#ffffff");
+        applyStroke("1.5");
       });
+
+      // Initialize inputs and apply defaults on startup
+      els.custColorHex.value = state.customColor;
+      els.custColorWheel.value = state.customColor;
+      els.custStrokeSlider.value = state.customStrokeWidth;
+      els.custStrokeLabel.textContent = `${Number(state.customStrokeWidth).toFixed(1)}px`;
+      applyColor(state.customColor);
+      applyStroke(state.customStrokeWidth);
     }
   }
 
