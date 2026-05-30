@@ -61,7 +61,7 @@
     loadingLibraries: new Map(),
     failedLibraries: new Map(),
     selectedLibraries: new Set(),
-    librariesExpanded: true,
+    librariesExpanded: false,
     selectedIcons: new Set(),
     filteredIcons: [],
     activeStyle: "all",
@@ -119,6 +119,7 @@
   const REQUEST_TIMEOUT_MS = 30000;
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
   const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
+  const BACKGROUND_PRELOAD_CONCURRENCY = 4;
 
   function $(id) {
     return document.getElementById(id);
@@ -1112,15 +1113,24 @@
       .filter((lib) => !state.loadedLibraries.has(lib.slug) && !state.loadingLibraries.has(lib.slug))
       .sort((a, b) => (a.tier || 4) - (b.tier || 4));
 
-    for (const lib of priorityList) {
-      try {
-        // Yield to the main thread briefly between downloads to prevent UI stutters
-        await new Promise((resolve) => setTimeout(resolve, 150));
-        await loadLibrary(lib.slug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
-      } catch (e) {
-        console.error(`Background load error for ${lib.slug}:`, e);
+    let cursor = 0;
+    const workerCount = Math.min(BACKGROUND_PRELOAD_CONCURRENCY, priorityList.length);
+    const preloadNext = async () => {
+      while (cursor < priorityList.length) {
+        const lib = priorityList[cursor];
+        cursor += 1;
+        if (!lib || state.loadedLibraries.has(lib.slug) || state.loadingLibraries.has(lib.slug)) continue;
+        try {
+          // Yield between starts so the UI stays responsive while everything is queued.
+          await new Promise((resolve) => setTimeout(resolve, 80));
+          await loadLibrary(lib.slug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
+        } catch (e) {
+          console.error(`Background load error for ${lib.slug}:`, e);
+        }
       }
-    }
+    };
+
+    await Promise.all(Array.from({ length: workerCount }, preloadNext));
     finishBackgroundSyncStatus();
   }
 
