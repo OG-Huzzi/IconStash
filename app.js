@@ -61,7 +61,7 @@
     loadingLibraries: new Map(),
     failedLibraries: new Map(),
     selectedLibraries: new Set(),
-    librariesExpanded: false,
+    librariesExpanded: true,
     selectedIcons: new Set(),
     filteredIcons: [],
     activeStyle: "all",
@@ -116,6 +116,9 @@
   let homeRenderTimer = 0;
   let categoryRenderTimer = 0;
   let lazyLibraryLoad = null;
+  const REQUEST_TIMEOUT_MS = 30000;
+  const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
+  const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
 
   function $(id) {
     return document.getElementById(id);
@@ -254,7 +257,28 @@
   }
 
   function request(url, options = {}) {
-    return fetch(url, options);
+    const { timeoutMs = REQUEST_TIMEOUT_MS, signal, ...fetchOptions } = options;
+    if (!timeoutMs && !signal) return fetch(url, fetchOptions);
+
+    const controller = new AbortController();
+    let timedOut = false;
+    const abort = () => controller.abort();
+    if (signal) {
+      if (signal.aborted) controller.abort();
+      else signal.addEventListener("abort", abort, { once: true });
+    }
+    const timer = timeoutMs ? setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, timeoutMs) : 0;
+
+    return fetch(url, { ...fetchOptions, signal: controller.signal }).catch((error) => {
+      if (timedOut) throw new Error(`Request timed out after ${timeoutMs}ms: ${url}`);
+      throw error;
+    }).finally(() => {
+      if (timer) clearTimeout(timer);
+      if (signal) signal.removeEventListener("abort", abort);
+    });
   }
 
   async function loadIndex() {
@@ -377,7 +401,7 @@
             chevron.style.transform = state.librariesExpanded ? "rotate(90deg)" : "rotate(0deg)";
           }
         }
-        listContainer.style.maxHeight = state.librariesExpanded ? "700px" : "0";
+        listContainer.style.maxHeight = state.librariesExpanded ? libraryListExpandedHeight() : "0";
         
         updateFilterCounters();
         return;
@@ -424,12 +448,16 @@
       els.libList.innerHTML = `
         ${allRow}
         ${toggleHtml}
-        <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: ${isExpanded ? "700px" : "0"}; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">
+        <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: ${isExpanded ? libraryListExpandedHeight() : "0"}; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">
           ${libRows}
         </div>
       `;
     }
     updateFilterCounters();
+  }
+
+  function libraryListExpandedHeight() {
+    return `${Math.max(900, state.libraries.length * 44 + 24)}px`;
   }
 
   function isAllIconsGroupedMode() {
@@ -998,7 +1026,8 @@
     const task = (async () => {
       setLibraryLoading(slug, true);
       try {
-        let icons = await loadLocalLibrary(lib);
+        const timeoutMs = options.timeoutMs || (options.isBackground ? BACKGROUND_LIBRARY_TIMEOUT_MS : FOREGROUND_LIBRARY_TIMEOUT_MS);
+        let icons = await loadLocalLibrary(lib, { timeoutMs });
         icons = enrichVariants(icons);
         for (const icon of icons) state.icons.set(icon.id, icon);
         state.loadedLibraries.add(slug);
@@ -1075,8 +1104,8 @@
   }
 
   async function loadAllLibrariesInBackground() {
-    // Wait a brief moment to let the main UI settle down
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    // Let the first paint finish, then start warming libraries immediately.
+    await new Promise((resolve) => setTimeout(resolve, 80));
     
     // Prioritize loading based on tiers (Tiers 1 & 2 first, followed by 3 & 4)
     const priorityList = state.libraries
@@ -1087,15 +1116,33 @@
       try {
         // Yield to the main thread briefly between downloads to prevent UI stutters
         await new Promise((resolve) => setTimeout(resolve, 150));
-        await loadLibrary(lib.slug, { isBackground: true });
+        await loadLibrary(lib.slug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
       } catch (e) {
         console.error(`Background load error for ${lib.slug}:`, e);
       }
     }
+    finishBackgroundSyncStatus();
   }
 
-  async function loadLocalLibrary(lib) {
-    const response = await request(`data/${lib.slug}.json`);
+  function finishBackgroundSyncStatus() {
+    const loadedCount = state.loadedLibraries.size;
+    const totalCount = state.libraries.length;
+    const failedCount = state.failedLibraries.size;
+    if (!els.loadStatus) return;
+    if (loadedCount >= totalCount) {
+      els.loadStatus.textContent = `All ${totalLibraryCount().toLocaleString()} icons are available`;
+      setTimeout(() => {
+        if (els.loadStatus.textContent.includes("available")) els.loadStatus.textContent = "";
+      }, 2500);
+    } else if (failedCount) {
+      els.loadStatus.textContent = `${loadedCount}/${totalCount} libraries loaded. ${failedCount} need retry.`;
+    } else {
+      els.loadStatus.textContent = "";
+    }
+  }
+
+  async function loadLocalLibrary(lib, options = {}) {
+    const response = await request(`data/${lib.slug}.json`, { timeoutMs: options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS });
     if (!response.ok) throw new Error(`Local JSON HTTP ${response.status}`);
     const data = await response.json();
     if (Array.isArray(data)) return data.map((icon, index) => completeIcon(icon, lib, index));
@@ -2199,7 +2246,7 @@
         const chevron = toggle.querySelector(".chevron");
         if (collapseList) {
           if (state.librariesExpanded) {
-            collapseList.style.maxHeight = "700px";
+            collapseList.style.maxHeight = libraryListExpandedHeight();
             if (chevron) chevron.style.transform = "rotate(90deg)";
             toggle.setAttribute("aria-expanded", "true");
           } else {
@@ -2927,6 +2974,7 @@
     renderSidebarLibraries();
     renderCategories();
     renderHome();
+    setTimeout(triggerBackgroundSync, 0);
     await prepareInitialIconsForRoute();
     generateSitemap();
     await handleRoute();
