@@ -89,6 +89,7 @@
       slug: "",
       loading: false,
       initialDomUsed: false,
+      prefetchStarted: false,
       chunkCache: new Map()
     },
     backgroundSyncStarted: false,
@@ -514,38 +515,96 @@
     try {
       if (window.__PRERENDER_MANIFEST__) {
         state.prerender.manifest = window.__PRERENDER_MANIFEST__;
-        prefetchAllChunkZeros();
+        scheduleInitialPrerenderPrefetch();
         return;
       }
       const response = await request("data/prerender/manifest.json");
       if (!response.ok) return;
       state.prerender.manifest = await response.json();
-      prefetchAllChunkZeros();
+      scheduleInitialPrerenderPrefetch();
     } catch (_error) {
       state.prerender.manifest = null;
     }
   }
 
-  function prefetchAllChunkZeros() {
+  function scheduleIdleTask(callback, timeout = 1200) {
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(callback, { timeout });
+    } else {
+      setTimeout(callback, 0);
+    }
+  }
+
+  function prefetchPrerenderChunk(slug, chunkIndex) {
     const manifest = state.prerender.manifest;
-    if (!manifest?.libraries?.length) return;
-    manifest.libraries.forEach((lib) => {
-      const key = `${lib.slug}_0`;
-      if (!state.prerender.chunkCache.has(key)) {
-        const fetchPromise = (async () => {
-          try {
-            const response = await request("data/prerender/libraries/" + encodeURIComponent(lib.slug) + "/chunk-0.html");
-            if (response.ok) {
-              const text = await response.text();
-              state.prerender.chunkCache.set(key, text);
-              return text;
-            }
-          } catch (_) {}
-          return "";
-        })();
-        state.prerender.chunkCache.set(key, fetchPromise);
-      }
+    if (!manifest?.libraries?.length) return Promise.resolve("");
+    const lib = prerenderLibraryBySlug(slug);
+    if (!lib || chunkIndex < 0 || chunkIndex >= lib.chunks) return Promise.resolve("");
+    const key = `${slug}_${chunkIndex}`;
+    const cached = state.prerender.chunkCache.get(key);
+    if (cached) return Promise.resolve(cached);
+
+    const inline = inlinePrerenderChunk(slug, chunkIndex);
+    if (inline) {
+      state.prerender.chunkCache.set(key, inline);
+      return Promise.resolve(inline);
+    }
+
+    const task = (async () => {
+      try {
+        const response = await request("data/prerender/libraries/" + encodeURIComponent(slug) + "/chunk-" + chunkIndex + ".html");
+        if (response.ok) {
+          const text = await response.text();
+          state.prerender.chunkCache.set(key, text);
+          return text;
+        }
+      } catch (_) {}
+      state.prerender.chunkCache.delete(key);
+      return "";
+    })();
+    state.prerender.chunkCache.set(key, task);
+    return task;
+  }
+
+  function runPrerenderPrefetchQueue(jobs, options = {}) {
+    const seen = new Set();
+    const queue = jobs.filter(([slug, chunkIndex]) => {
+      const key = `${slug}_${chunkIndex}`;
+      if (seen.has(key) || state.prerender.chunkCache.has(key)) return false;
+      seen.add(key);
+      return true;
     });
+    const pump = () => {
+      const job = queue.shift();
+      if (!job) return;
+      prefetchPrerenderChunk(job[0], job[1]).finally(() => {
+        if (!queue.length) return;
+        if (options.eager) setTimeout(pump, 0);
+        else scheduleIdleTask(pump, options.timeout || 1200);
+      });
+    };
+    if (options.eager) setTimeout(pump, 0);
+    else scheduleIdleTask(pump, options.timeout || 1200);
+  }
+
+  function scheduleInitialPrerenderPrefetch() {
+    const manifest = state.prerender.manifest;
+    if (!manifest?.libraries?.length || state.prerender.prefetchStarted) return;
+    state.prerender.prefetchStarted = true;
+
+    const jobs = [];
+    const firstLib = manifest.libraries[0];
+    if (firstLib) {
+      jobs.push([firstLib.slug, 0]);
+      const firstLibWarmCount = Math.min(firstLib.chunks, 4);
+      for (let chunkIndex = 1; chunkIndex < firstLibWarmCount; chunkIndex += 1) {
+        jobs.push([firstLib.slug, chunkIndex]);
+      }
+    }
+    manifest.libraries.slice(1, 8).forEach((lib) => {
+      jobs.push([lib.slug, 0]);
+    });
+    runPrerenderPrefetchQueue(jobs, { timeout: 1800 });
   }
 
   function prerenderLibraryBySlug(slug) {
@@ -589,16 +648,6 @@
     if (chunkIndex !== 0 || slug !== firstSlug) return "";
     const template = $("prerender-all-initial");
     return template ? template.innerHTML.trim() : "";
-  }
-
-  async function fetchPrerenderChunk(slug, chunkIndex) {
-    const inline = inlinePrerenderChunk(slug, chunkIndex);
-    if (inline) return inline;
-    const lib = prerenderLibraryBySlug(slug);
-    if (!lib || chunkIndex < 0 || chunkIndex >= lib.chunks) return "";
-    const response = await request("data/prerender/libraries/" + encodeURIComponent(slug) + "/chunk-" + chunkIndex + ".html");
-    if (!response.ok) return "";
-    return response.text();
   }
 
   async function showPrerenderedGrid(options = {}) {
@@ -711,21 +760,9 @@
   }
 
   async function fetchPrerenderChunk(slug, chunkIndex) {
-    const inline = inlinePrerenderChunk(slug, chunkIndex);
-    if (inline) return inline;
     const lib = prerenderLibraryBySlug(slug);
     if (!lib || chunkIndex < 0 || chunkIndex >= lib.chunks) return "";
-
-    const key = `${slug}_${chunkIndex}`;
-    if (state.prerender.chunkCache.has(key)) {
-      return state.prerender.chunkCache.get(key);
-    }
-
-    const response = await request("data/prerender/libraries/" + encodeURIComponent(slug) + "/chunk-" + chunkIndex + ".html");
-    if (!response.ok) return "";
-    const text = await response.text();
-    state.prerender.chunkCache.set(key, text);
-    return text;
+    return await prefetchPrerenderChunk(slug, chunkIndex);
   }
 
   function prefetchNextChunks(slug, chunkIndex) {
@@ -740,6 +777,7 @@
     let tempLibIndex = libIndex;
     let tempChunkIndex = chunkIndex;
     let tempLib = currentLib;
+    const jobs = [];
     
     while (prefetchedCount < 3) {
       tempChunkIndex += 1;
@@ -750,24 +788,10 @@
         if (!tempLib) break;
         tempChunkIndex = 0;
       }
-      
-      const key = `${tempLib.slug}_${tempChunkIndex}`;
-      if (!state.prerender.chunkCache.has(key)) {
-        const fetchPromise = (async () => {
-          try {
-            const response = await request("data/prerender/libraries/" + encodeURIComponent(tempLib.slug) + "/chunk-" + tempChunkIndex + ".html");
-            if (response.ok) {
-              const text = await response.text();
-              state.prerender.chunkCache.set(key, text);
-              return text;
-            }
-          } catch (_) {}
-          return "";
-        })();
-        state.prerender.chunkCache.set(key, fetchPromise);
-      }
+      jobs.push([tempLib.slug, tempChunkIndex]);
       prefetchedCount++;
     }
+    runPrerenderPrefetchQueue(jobs, { eager: true });
   }
 
   function getPrerenderChunkSync(slug, chunkIndex) {
