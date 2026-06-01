@@ -2509,13 +2509,9 @@
       const slug = input.value;
       if (input.checked) {
         state.selectedLibraries.add(slug);
-        if (shouldUseMobileChunkedLibrary(libraryBySlug(slug))) {
-          setRouteView("grid");
-          closeDetail(false);
-          showMobileLibrarySkeleton(slug);
-        }
-        await loadLibrary(slug);
         window.location.hash = `#/library/${slug}`;
+        // Load the actual library in the background so it is ready for search/filtering
+        loadLibrary(slug);
       } else {
         state.selectedLibraries.delete(slug);
         applyFilters({ resetScroll: true });
