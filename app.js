@@ -2089,7 +2089,7 @@
     els.dpMatches.innerHTML = matches.length ? matches.map((candidate, index) => `
       <div class="match-card-wrapper" style="display: flex; flex-direction: column; gap: 4px; align-items: center; min-width: 0;">
         <button class="match-card" data-icon-id="${candidate.id}" title="${escapeHtml(candidate.library)}" style="animation-delay:${index * 40}ms; width: 100%; margin: 0;">
-          ${iconTools().renderSVG(candidate)}
+          ${iconTools().renderSVG(candidate, { title: candidate.library })}
         </button>
         <span style="color: var(--text-muted); font-size: 11px; text-align: center; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%;" title="${escapeHtml(candidate.library)}">${escapeHtml(candidate.library)}</span>
       </div>
@@ -2254,8 +2254,8 @@
     const base = window.IconStashSearch.baseName(icon.name);
     const matches = Array.from(state.icons.values()).filter((candidate) => window.IconStashSearch.baseName(candidate.name) === base).slice(0, 80);
     els.compareTitle.textContent = `${icon.name} - across ${matches.length} libraries`;
-    els.compareGrid.innerHTML = matches.map((candidate) => `<button class="compare-item" data-icon-id="${candidate.id}">
-      ${iconTools().renderSVG(candidate, { color: state.detail.color, strokeWidth: state.detail.strokeWidth })}
+    els.compareGrid.innerHTML = matches.map((candidate) => `<button class="compare-item" data-icon-id="${candidate.id}" title="${escapeHtml(candidate.library)}">
+      ${iconTools().renderSVG(candidate, { color: state.detail.color, strokeWidth: state.detail.strokeWidth, title: candidate.library })}
       <span>${escapeHtml(candidate.library)}<br>${escapeHtml(candidate.style)}</span>
     </button>`).join("");
     els.compareDownload.onclick = () => downloadZip(matches);

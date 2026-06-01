@@ -60,7 +60,11 @@
       `paint-order="stroke fill markers"`,
       `style="color:${escapeHtml(color)};fill:${escapeHtml(fill)};stroke:${escapeHtml(stroke)};stroke-width:${escapeHtml(strokeWidth)}"`
     ];
-    return `<svg xmlns="${VOID_NS}" ${attrs.join(" ")}>${normalizeSvgBody(icon, options)}</svg>`;
+    if (options.title) {
+      attrs.push(`title="${escapeHtml(options.title)}"`);
+    }
+    const titleTag = options.title ? `<title>${escapeHtml(options.title)}</title>` : "";
+    return `<svg xmlns="${VOID_NS}" ${attrs.join(" ")}>${titleTag}${normalizeSvgBody(icon, options)}</svg>`;
   }
 
   function formatCode(icon, format, options = {}) {
