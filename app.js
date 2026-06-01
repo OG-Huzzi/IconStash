@@ -59,6 +59,7 @@
     libraries: [],
     loadedLibraries: new Set(),
     loadingLibraries: new Map(),
+    foregroundLibraryRequests: new Set(),
     failedLibraries: new Map(),
     selectedLibraries: new Set(),
     librariesExpanded: false,
@@ -122,7 +123,11 @@
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
   const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
   const BACKGROUND_PRELOAD_CONCURRENCY = 4;
+  const MOBILE_BACKGROUND_PRELOAD_CONCURRENCY = 1;
+  const MOBILE_BACKGROUND_PRELOAD_DELAY_MS = 1200;
   const MOBILE_LIBRARY_CHUNK_SIZE = 500;
+  const MOBILE_CHUNK_FETCH_ATTEMPTS = 2;
+  const MOBILE_CHUNK_RETRY_DELAY_MS = 400;
   const isMobile = window.innerWidth < 768 || /Android|iPhone|iPad/i.test(navigator.userAgent);
 
   function registerChunkCacheWorker() {
@@ -1092,26 +1097,40 @@
     if (state.loadedLibraries.has(slug)) return Array.from(state.icons.values()).filter((icon) => icon.librarySlug === slug);
     const lib = libraryBySlug(slug);
     if (state.loadingLibraries.has(slug)) {
-      if (!options.isBackground) showMobileLibrarySkeleton(slug);
+      if (!options.isBackground) {
+        state.foregroundLibraryRequests.add(slug);
+        showMobileLibrarySkeleton(slug);
+      }
       return state.loadingLibraries.get(slug);
     }
     if (!lib) return [];
+    if (!options.isBackground) state.foregroundLibraryRequests.add(slug);
     const task = (async () => {
       setLibraryLoading(slug, true);
       if (!options.isBackground) showMobileLibrarySkeleton(slug);
       try {
         const timeoutMs = options.timeoutMs || (options.isBackground ? BACKGROUND_LIBRARY_TIMEOUT_MS : FOREGROUND_LIBRARY_TIMEOUT_MS);
         const useMobileChunks = shouldUseMobileChunkedLibrary(lib);
-        let icons = useMobileChunks
-          ? await loadMobileChunkedLibrary(lib, {
+        let icons;
+        if (useMobileChunks) {
+          try {
+            icons = await loadMobileChunkedLibrary(lib, {
               timeoutMs,
               onChunk: (chunkIcons) => {
                 if (!shouldShowMobileChunkProgress(slug)) return;
                 for (const icon of chunkIcons) state.icons.set(icon.id, icon);
                 renderMobileChunkProgress(slug);
               }
-            })
-          : await loadLocalLibrary(lib, { timeoutMs });
+            });
+          } catch (chunkError) {
+            state.mobileChunkBuffers.delete(slug);
+            if (options.isBackground && !state.foregroundLibraryRequests.has(slug)) throw chunkError;
+            console.warn(`Mobile chunks failed for ${lib.name}; falling back to full JSON.`, chunkError);
+            icons = await loadLocalLibrary(lib, { timeoutMs: options.isBackground ? FOREGROUND_LIBRARY_TIMEOUT_MS : timeoutMs });
+          }
+        } else {
+          icons = await loadLocalLibrary(lib, { timeoutMs });
+        }
         icons = enrichVariants(icons);
         for (const icon of icons) {
           if (useMobileChunks) state.icons.delete(icon.id);
@@ -1155,6 +1174,7 @@
         return [];
       } finally {
         state.loadingLibraries.delete(slug);
+        state.foregroundLibraryRequests.delete(slug);
         setLibraryLoading(slug, false);
       }
     })();
@@ -1194,7 +1214,7 @@
 
   async function loadAllLibrariesInBackground() {
     // Let the first paint finish, then start warming libraries immediately.
-    await new Promise((resolve) => setTimeout(resolve, 80));
+    await new Promise((resolve) => setTimeout(resolve, isMobile ? MOBILE_BACKGROUND_PRELOAD_DELAY_MS : 80));
     
     // Prioritize loading based on tiers (Tiers 1 & 2 first, followed by 3 & 4)
     const priorityList = state.libraries
@@ -1202,7 +1222,7 @@
       .sort((a, b) => (a.tier || 4) - (b.tier || 4));
 
     let cursor = 0;
-    const workerCount = Math.min(BACKGROUND_PRELOAD_CONCURRENCY, priorityList.length);
+    const workerCount = Math.min(isMobile ? MOBILE_BACKGROUND_PRELOAD_CONCURRENCY : BACKGROUND_PRELOAD_CONCURRENCY, priorityList.length);
     const preloadNext = async () => {
       while (cursor < priorityList.length) {
         const lib = priorityList[cursor];
@@ -1253,8 +1273,8 @@
     state.mobileChunkBuffers.set(lib.slug, buffer);
     const tasks = Array.from({ length: chunkCount }, async (_, chunkIndex) => {
       const chunkNumber = chunkIndex + 1;
-      const response = await request(`data/${lib.slug}-${chunkNumber}.json`, { timeoutMs: options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS });
-      if (!response.ok) throw new Error(`Local JSON chunk HTTP ${response.status}: ${lib.slug}-${chunkNumber}.json`);
+      const chunkUrl = `data/${lib.slug}-${chunkNumber}.json`;
+      const response = await requestMobileChunk(chunkUrl, options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS);
       const data = await response.json();
       const icons = Array.isArray(data)
         ? data.map((icon, index) => completeIcon(icon, lib, (chunkIndex * MOBILE_LIBRARY_CHUNK_SIZE) + index))
@@ -1265,6 +1285,23 @@
     });
     const chunks = await Promise.all(tasks);
     return chunks.flat();
+  }
+
+  async function requestMobileChunk(chunkUrl, timeoutMs) {
+    let lastError = null;
+    for (let attempt = 1; attempt <= MOBILE_CHUNK_FETCH_ATTEMPTS; attempt += 1) {
+      try {
+        const response = await request(chunkUrl, { timeoutMs });
+        if (response.ok) return response;
+        lastError = new Error(`Local JSON chunk HTTP ${response.status}: ${chunkUrl}`);
+      } catch (error) {
+        lastError = error;
+      }
+      if (attempt < MOBILE_CHUNK_FETCH_ATTEMPTS) {
+        await new Promise((resolve) => setTimeout(resolve, MOBILE_CHUNK_RETRY_DELAY_MS * attempt));
+      }
+    }
+    throw lastError || new Error(`Local JSON chunk failed: ${chunkUrl}`);
   }
 
   function completeIcon(icon, lib, index) {
