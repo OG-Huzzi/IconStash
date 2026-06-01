@@ -13,7 +13,8 @@
       "docsUrl": "https://lucide.dev/icons/",
       "npmPackage": "lucide",
       "remotePrefix": "lucide",
-      "tier": 1
+      "tier": 1,
+      "chunks": 4
     },
     {
       "name": "Tabler Icons",
@@ -25,7 +26,8 @@
       "docsUrl": "https://tabler.io/icons/icon/",
       "npmPackage": "@tabler/icons",
       "remotePrefix": "tabler",
-      "tier": 1
+      "tier": 1,
+      "chunks": 13
     },
     {
       "name": "Phosphor",
@@ -37,7 +39,8 @@
       "docsUrl": "https://phosphoricons.com/",
       "npmPackage": "@phosphor-icons/core",
       "remotePrefix": "ph",
-      "tier": 2
+      "tier": 2,
+      "chunks": 19
     },
     {
       "name": "Material Design Icons",
@@ -49,7 +52,8 @@
       "docsUrl": "https://pictogrammers.com/library/mdi/icon/",
       "npmPackage": "@mdi/js",
       "remotePrefix": "mdi",
-      "tier": 2
+      "tier": 2,
+      "chunks": 29
     },
     {
       "name": "Remix Icons",
@@ -61,7 +65,8 @@
       "docsUrl": "https://remixicon.com/icon/",
       "npmPackage": "remixicon",
       "remotePrefix": "ri",
-      "tier": 2
+      "tier": 2,
+      "chunks": 7
     },
     {
       "name": "Iconoir",
@@ -73,7 +78,8 @@
       "docsUrl": "https://iconoir.com/",
       "npmPackage": "iconoir",
       "remotePrefix": "iconoir",
-      "tier": 2
+      "tier": 2,
+      "chunks": 5
     },
     {
       "name": "Heroicons",
@@ -85,7 +91,8 @@
       "docsUrl": "https://heroicons.com/",
       "npmPackage": "heroicons",
       "remotePrefix": "heroicons",
-      "tier": 1
+      "tier": 1,
+      "chunks": 3
     },
     {
       "name": "Bootstrap Icons",
@@ -97,7 +104,8 @@
       "docsUrl": "https://icons.getbootstrap.com/icons/",
       "npmPackage": "bootstrap-icons",
       "remotePrefix": "bi",
-      "tier": 2
+      "tier": 2,
+      "chunks": 5
     },
     {
       "name": "Feather",
@@ -121,7 +129,8 @@
       "docsUrl": "https://www.mingcute.com/",
       "npmPackage": "mingcute_icon",
       "remotePrefix": "mingcute",
-      "tier": 2
+      "tier": 2,
+      "chunks": 7
     },
     {
       "name": "Solar Icons",
@@ -133,7 +142,8 @@
       "docsUrl": "https://www.figma.com/community/file/1166831539721848736",
       "npmPackage": "solar-icon-set",
       "remotePrefix": "solar",
-      "tier": 2
+      "tier": 2,
+      "chunks": 15
     },
     {
       "name": "Octicons",
@@ -145,7 +155,8 @@
       "docsUrl": "https://primer.style/foundations/icons/",
       "npmPackage": "@primer/octicons",
       "remotePrefix": "octicon",
-      "tier": 2
+      "tier": 2,
+      "chunks": 2
     },
     {
       "name": "CSS.gg",
@@ -157,7 +168,8 @@
       "docsUrl": "https://css.gg/",
       "npmPackage": "css.gg",
       "remotePrefix": "gg",
-      "tier": 2
+      "tier": 2,
+      "chunks": 2
     },
     {
       "name": "Radix Icons",
@@ -181,7 +193,8 @@
       "docsUrl": "https://ant.design/components/icon",
       "npmPackage": "@ant-design/icons",
       "remotePrefix": "ant-design",
-      "tier": 2
+      "tier": 2,
+      "chunks": 4
     },
     {
       "name": "Fluent UI Icons",
@@ -193,7 +206,8 @@
       "docsUrl": "https://github.com/microsoft/fluentui-system-icons",
       "npmPackage": "@fluentui/svg-icons",
       "remotePrefix": "fluent",
-      "tier": 3
+      "tier": 3,
+      "chunks": 41
     },
     {
       "name": "Carbon Icons",
@@ -205,7 +219,8 @@
       "docsUrl": "https://carbondesignsystem.com/elements/icons/library/",
       "npmPackage": "@carbon/icons",
       "remotePrefix": "carbon",
-      "tier": 3
+      "tier": 3,
+      "chunks": 6
     },
     {
       "name": "Ionicons",
@@ -217,7 +232,8 @@
       "docsUrl": "https://ionic.io/ionicons",
       "npmPackage": "ionicons",
       "remotePrefix": "ion",
-      "tier": 3
+      "tier": 3,
+      "chunks": 6
     },
     {
       "name": "Eva Icons",
@@ -229,7 +245,8 @@
       "docsUrl": "https://akveo.github.io/eva-icons/",
       "npmPackage": "eva-icons",
       "remotePrefix": "eva",
-      "tier": 3
+      "tier": 3,
+      "chunks": 1
     },
     {
       "name": "Boxicons",
@@ -241,7 +258,8 @@
       "docsUrl": "https://boxicons.com/",
       "npmPackage": "boxicons",
       "remotePrefix": "bx,bxs,bxl",
-      "tier": 3
+      "tier": 3,
+      "chunks": 7
     },
     {
       "name": "Material Symbols",
@@ -253,7 +271,8 @@
       "remotePrefix": "material-symbols",
       "tier": 4,
       "slug": "materialsymbols",
-      "count": 18547
+      "count": 18547,
+      "chunks": 38
     },
     {
       "name": "Material Symbols Light",
@@ -265,7 +284,8 @@
       "remotePrefix": "material-symbols-light",
       "tier": 4,
       "slug": "materialsymbolslight",
-      "count": 15969
+      "count": 15969,
+      "chunks": 32
     },
     {
       "name": "IconPark Outline",
@@ -277,7 +297,8 @@
       "remotePrefix": "icon-park-outline",
       "tier": 4,
       "slug": "iconparkoutline",
-      "count": 2658
+      "count": 2658,
+      "chunks": 6
     },
     {
       "name": "IconPark Solid",
@@ -289,7 +310,8 @@
       "remotePrefix": "icon-park-solid",
       "tier": 4,
       "slug": "iconparksolid",
-      "count": 1970
+      "count": 1970,
+      "chunks": 4
     },
     {
       "name": "Huge Icons",
@@ -301,7 +323,8 @@
       "remotePrefix": "hugeicons",
       "tier": 4,
       "slug": "hugeicons",
-      "count": 5115
+      "count": 5115,
+      "chunks": 11
     },
     {
       "name": "Pixel Art Icons",
@@ -325,7 +348,8 @@
       "remotePrefix": "line-md",
       "tier": 4,
       "slug": "linemd",
-      "count": 1279
+      "count": 1279,
+      "chunks": 3
     },
     {
       "name": "Simple Icons",
@@ -337,7 +361,8 @@
       "remotePrefix": "simple-icons",
       "tier": 4,
       "slug": "simpleicons",
-      "count": 3714
+      "count": 3714,
+      "chunks": 8
     }
   ]
 }

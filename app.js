@@ -23,34 +23,34 @@
     marketingTotal: 134701,
     actualIndexed: 134701,
     libraries: [
-      { name: "Lucide", slug: "lucide", count: 1979, color: "#ff2d9b", description: "Beautiful and consistent outline icons", version: "0.468.0", docsUrl: "https://lucide.dev/icons/", npmPackage: "lucide", remotePrefix: "lucide", tier: 1 },
-      { name: "Tabler Icons", slug: "tabler", count: 6324, color: "#00c3ff", description: "Interface icons for product design", version: "3.24.0", docsUrl: "https://tabler.io/icons/icon/", npmPackage: "@tabler/icons", remotePrefix: "tabler", tier: 1 },
-      { name: "Phosphor", slug: "phosphor", count: 9198, color: "#f5ff00", description: "Flexible icons across weights and fills", version: "2.1.0", docsUrl: "https://phosphoricons.com/", npmPackage: "@phosphor-icons/core", remotePrefix: "ph", tier: 2 },
-      { name: "Material Design Icons", slug: "material", count: 14001, color: "#00ff88", description: "Community Material Design icon catalog", version: "7.4.47", docsUrl: "https://pictogrammers.com/library/mdi/icon/", npmPackage: "@mdi/js", remotePrefix: "mdi", tier: 2 },
-      { name: "Remix Icons", slug: "remix", count: 3244, color: "#bf00ff", description: "Neutral symbol system for products and interfaces", version: "4.6.0", docsUrl: "https://remixicon.com/icon/", npmPackage: "remixicon", remotePrefix: "ri", tier: 2 },
-      { name: "Iconoir", slug: "iconoir", count: 2020, color: "#ff6a00", description: "Icons crafted for modern interfaces", version: "7.10.0", docsUrl: "https://iconoir.com/", npmPackage: "iconoir", remotePrefix: "iconoir", tier: 2 },
-      { name: "Heroicons", slug: "heroicons", count: 1297, color: "#00ffd5", description: "Outline and solid icons from Tailwind Labs", version: "2.2.0", docsUrl: "https://heroicons.com/", npmPackage: "heroicons", remotePrefix: "heroicons", tier: 1 },
-      { name: "Bootstrap Icons", slug: "bootstrap", count: 2090, color: "#ff003c", description: "Official Bootstrap SVG icon library", version: "1.11.3", docsUrl: "https://icons.getbootstrap.com/icons/", npmPackage: "bootstrap-icons", remotePrefix: "bi", tier: 2 },
+      { name: "Lucide", slug: "lucide", count: 1979, color: "#ff2d9b", description: "Beautiful and consistent outline icons", version: "0.468.0", docsUrl: "https://lucide.dev/icons/", npmPackage: "lucide", remotePrefix: "lucide", tier: 1, chunks: 4 },
+      { name: "Tabler Icons", slug: "tabler", count: 6324, color: "#00c3ff", description: "Interface icons for product design", version: "3.24.0", docsUrl: "https://tabler.io/icons/icon/", npmPackage: "@tabler/icons", remotePrefix: "tabler", tier: 1, chunks: 13 },
+      { name: "Phosphor", slug: "phosphor", count: 9198, color: "#f5ff00", description: "Flexible icons across weights and fills", version: "2.1.0", docsUrl: "https://phosphoricons.com/", npmPackage: "@phosphor-icons/core", remotePrefix: "ph", tier: 2, chunks: 19 },
+      { name: "Material Design Icons", slug: "material", count: 14001, color: "#00ff88", description: "Community Material Design icon catalog", version: "7.4.47", docsUrl: "https://pictogrammers.com/library/mdi/icon/", npmPackage: "@mdi/js", remotePrefix: "mdi", tier: 2, chunks: 29 },
+      { name: "Remix Icons", slug: "remix", count: 3244, color: "#bf00ff", description: "Neutral symbol system for products and interfaces", version: "4.6.0", docsUrl: "https://remixicon.com/icon/", npmPackage: "remixicon", remotePrefix: "ri", tier: 2, chunks: 7 },
+      { name: "Iconoir", slug: "iconoir", count: 2020, color: "#ff6a00", description: "Icons crafted for modern interfaces", version: "7.10.0", docsUrl: "https://iconoir.com/", npmPackage: "iconoir", remotePrefix: "iconoir", tier: 2, chunks: 5 },
+      { name: "Heroicons", slug: "heroicons", count: 1297, color: "#00ffd5", description: "Outline and solid icons from Tailwind Labs", version: "2.2.0", docsUrl: "https://heroicons.com/", npmPackage: "heroicons", remotePrefix: "heroicons", tier: 1, chunks: 3 },
+      { name: "Bootstrap Icons", slug: "bootstrap", count: 2090, color: "#ff003c", description: "Official Bootstrap SVG icon library", version: "1.11.3", docsUrl: "https://icons.getbootstrap.com/icons/", npmPackage: "bootstrap-icons", remotePrefix: "bi", tier: 2, chunks: 5 },
       { name: "Feather", slug: "feather", count: 286, color: "#ff2d9b", description: "Simply beautiful interface icons", version: "4.29.2", docsUrl: "https://feathericons.com/?query=", npmPackage: "feather-icons", remotePrefix: "feather", tier: 2 },
-      { name: "Mingcute", slug: "mingcute", count: 3352, color: "#00c3ff", description: "Clean icons for high quality product work", version: "2.97.0", docsUrl: "https://www.mingcute.com/", npmPackage: "mingcute_icon", remotePrefix: "mingcute", tier: 2 },
-      { name: "Solar Icons", slug: "solar", count: 7410, color: "#f5ff00", description: "A broad icon family with multiple expressive weights", version: "1.0.0", docsUrl: "https://www.figma.com/community/file/1166831539721848736", npmPackage: "solar-icon-set", remotePrefix: "solar", tier: 2 },
-      { name: "Octicons", slug: "octicons", count: 929, color: "#00ff88", description: "GitHub interface iconography", version: "19.13.0", docsUrl: "https://primer.style/foundations/icons/", npmPackage: "@primer/octicons", remotePrefix: "octicon", tier: 2 },
-      { name: "CSS.gg", slug: "cssgg", count: 705, color: "#bf00ff", description: "Minimal icons from the CSS.gg set", version: "2.1.1", docsUrl: "https://css.gg/", npmPackage: "css.gg", remotePrefix: "gg", tier: 2 },
+      { name: "Mingcute", slug: "mingcute", count: 3352, color: "#00c3ff", description: "Clean icons for high quality product work", version: "2.97.0", docsUrl: "https://www.mingcute.com/", npmPackage: "mingcute_icon", remotePrefix: "mingcute", tier: 2, chunks: 7 },
+      { name: "Solar Icons", slug: "solar", count: 7410, color: "#f5ff00", description: "A broad icon family with multiple expressive weights", version: "1.0.0", docsUrl: "https://www.figma.com/community/file/1166831539721848736", npmPackage: "solar-icon-set", remotePrefix: "solar", tier: 2, chunks: 15 },
+      { name: "Octicons", slug: "octicons", count: 929, color: "#00ff88", description: "GitHub interface iconography", version: "19.13.0", docsUrl: "https://primer.style/foundations/icons/", npmPackage: "@primer/octicons", remotePrefix: "octicon", tier: 2, chunks: 2 },
+      { name: "CSS.gg", slug: "cssgg", count: 705, color: "#bf00ff", description: "Minimal icons from the CSS.gg set", version: "2.1.1", docsUrl: "https://css.gg/", npmPackage: "css.gg", remotePrefix: "gg", tier: 2, chunks: 2 },
       { name: "Radix Icons", slug: "radix", count: 345, color: "#ff6a00", description: "Crisp icons by the Radix design system", version: "1.3.2", docsUrl: "https://www.radix-ui.com/icons", npmPackage: "@radix-ui/react-icons", remotePrefix: "radix-icons", tier: 2 },
-      { name: "Ant Design Icons", slug: "antdesign", count: 1870, color: "#00ffd5", description: "Ant Design product iconography", version: "5.5.2", docsUrl: "https://ant.design/components/icon", npmPackage: "@ant-design/icons", remotePrefix: "ant-design", tier: 2 },
-      { name: "Fluent UI Icons", slug: "fluent", count: 20170, color: "#ff003c", description: "Microsoft Fluent icon system", version: "2.0.293", docsUrl: "https://github.com/microsoft/fluentui-system-icons", npmPackage: "@fluentui/svg-icons", remotePrefix: "fluent", tier: 3 },
-      { name: "Carbon Icons", slug: "carbon", count: 2644, color: "#ff2d9b", description: "IBM Carbon Design System icons", version: "11.57.0", docsUrl: "https://carbondesignsystem.com/elements/icons/library/", npmPackage: "@carbon/icons", remotePrefix: "carbon", tier: 3 },
-      { name: "Ionicons", slug: "ionicons", count: 2607, color: "#00c3ff", description: "Premium icons for Ionic apps and web interfaces", version: "7.4.0", docsUrl: "https://ionic.io/ionicons", npmPackage: "ionicons", remotePrefix: "ion", tier: 3 },
-      { name: "Eva Icons", slug: "eva", count: 490, color: "#f5ff00", description: "Interface icons by Akveo", version: "1.1.3", docsUrl: "https://akveo.github.io/eva-icons/", npmPackage: "eva-icons", remotePrefix: "eva", tier: 3 },
-      { name: "Boxicons", slug: "boxicons", count: 3389, color: "#00ff88", description: "High quality web icons for common product patterns", version: "2.1.4", docsUrl: "https://boxicons.com/", npmPackage: "boxicons", remotePrefix: "bx,bxs,bxl", tier: 3 },
-      { name: "Material Symbols", slug: "materialsymbols", count: 18547, color: "#64748b", description: "Google Material Symbols icon family", version: "current", docsUrl: "https://fonts.google.com/icons", npmPackage: "material-symbols", remotePrefix: "material-symbols", tier: 4 },
-      { name: "Material Symbols Light", slug: "materialsymbolslight", count: 15969, color: "#94a3b8", description: "Light weight Google Material Symbols collection", version: "current", docsUrl: "https://fonts.google.com/icons", npmPackage: "material-symbols", remotePrefix: "material-symbols-light", tier: 4 },
-      { name: "IconPark Outline", slug: "iconparkoutline", count: 2658, color: "#2563eb", description: "ByteDance IconPark outline symbol library", version: "1.4.2", docsUrl: "https://iconpark.oceanengine.com/official", npmPackage: "@icon-park/svg", remotePrefix: "icon-park-outline", tier: 4 },
-      { name: "IconPark Solid", slug: "iconparksolid", count: 1970, color: "#0f766e", description: "ByteDance IconPark solid icon variants", version: "1.4.2", docsUrl: "https://iconpark.oceanengine.com/official", npmPackage: "@icon-park/svg", remotePrefix: "icon-park-solid", tier: 4 },
-      { name: "Huge Icons", slug: "hugeicons", count: 5115, color: "#7c3aed", description: "Large modern icon family for product interfaces", version: "current", docsUrl: "https://hugeicons.com/icons", npmPackage: "hugeicons", remotePrefix: "hugeicons", tier: 4 },
+      { name: "Ant Design Icons", slug: "antdesign", count: 1870, color: "#00ffd5", description: "Ant Design product iconography", version: "5.5.2", docsUrl: "https://ant.design/components/icon", npmPackage: "@ant-design/icons", remotePrefix: "ant-design", tier: 2, chunks: 4 },
+      { name: "Fluent UI Icons", slug: "fluent", count: 20170, color: "#ff003c", description: "Microsoft Fluent icon system", version: "2.0.293", docsUrl: "https://github.com/microsoft/fluentui-system-icons", npmPackage: "@fluentui/svg-icons", remotePrefix: "fluent", tier: 3, chunks: 41 },
+      { name: "Carbon Icons", slug: "carbon", count: 2644, color: "#ff2d9b", description: "IBM Carbon Design System icons", version: "11.57.0", docsUrl: "https://carbondesignsystem.com/elements/icons/library/", npmPackage: "@carbon/icons", remotePrefix: "carbon", tier: 3, chunks: 6 },
+      { name: "Ionicons", slug: "ionicons", count: 2607, color: "#00c3ff", description: "Premium icons for Ionic apps and web interfaces", version: "7.4.0", docsUrl: "https://ionic.io/ionicons", npmPackage: "ionicons", remotePrefix: "ion", tier: 3, chunks: 6 },
+      { name: "Eva Icons", slug: "eva", count: 490, color: "#f5ff00", description: "Interface icons by Akveo", version: "1.1.3", docsUrl: "https://akveo.github.io/eva-icons/", npmPackage: "eva-icons", remotePrefix: "eva", tier: 3, chunks: 1 },
+      { name: "Boxicons", slug: "boxicons", count: 3389, color: "#00ff88", description: "High quality web icons for common product patterns", version: "2.1.4", docsUrl: "https://boxicons.com/", npmPackage: "boxicons", remotePrefix: "bx,bxs,bxl", tier: 3, chunks: 7 },
+      { name: "Material Symbols", slug: "materialsymbols", count: 18547, color: "#64748b", description: "Google Material Symbols icon family", version: "current", docsUrl: "https://fonts.google.com/icons", npmPackage: "material-symbols", remotePrefix: "material-symbols", tier: 4, chunks: 38 },
+      { name: "Material Symbols Light", slug: "materialsymbolslight", count: 15969, color: "#94a3b8", description: "Light weight Google Material Symbols collection", version: "current", docsUrl: "https://fonts.google.com/icons", npmPackage: "material-symbols", remotePrefix: "material-symbols-light", tier: 4, chunks: 32 },
+      { name: "IconPark Outline", slug: "iconparkoutline", count: 2658, color: "#2563eb", description: "ByteDance IconPark outline symbol library", version: "1.4.2", docsUrl: "https://iconpark.oceanengine.com/official", npmPackage: "@icon-park/svg", remotePrefix: "icon-park-outline", tier: 4, chunks: 6 },
+      { name: "IconPark Solid", slug: "iconparksolid", count: 1970, color: "#0f766e", description: "ByteDance IconPark solid icon variants", version: "1.4.2", docsUrl: "https://iconpark.oceanengine.com/official", npmPackage: "@icon-park/svg", remotePrefix: "icon-park-solid", tier: 4, chunks: 4 },
+      { name: "Huge Icons", slug: "hugeicons", count: 5115, color: "#7c3aed", description: "Large modern icon family for product interfaces", version: "current", docsUrl: "https://hugeicons.com/icons", npmPackage: "hugeicons", remotePrefix: "hugeicons", tier: 4, chunks: 11 },
       { name: "Pixel Art Icons", slug: "pixelarticons", count: 1099, color: "#db2777", description: "Crisp pixel-style interface icons", version: "2.1.0", docsUrl: "https://pixelarticons.com/", npmPackage: "pixelarticons", remotePrefix: "pixelarticons", tier: 4 },
-      { name: "Line MD", slug: "linemd", count: 1279, color: "#0891b2", description: "Animated and static material line icons", version: "3.0.5", docsUrl: "https://icon-sets.iconify.design/line-md/", npmPackage: "line-md", remotePrefix: "line-md", tier: 4 },
-      { name: "Simple Icons", slug: "simpleicons", count: 3714, color: "#111827", description: "Brand and product glyphs from Simple Icons", version: "16.18.0", docsUrl: "https://simpleicons.org/", npmPackage: "simple-icons", remotePrefix: "simple-icons", tier: 4 }
+      { name: "Line MD", slug: "linemd", count: 1279, color: "#0891b2", description: "Animated and static material line icons", version: "3.0.5", docsUrl: "https://icon-sets.iconify.design/line-md/", npmPackage: "line-md", remotePrefix: "line-md", tier: 4, chunks: 3 },
+      { name: "Simple Icons", slug: "simpleicons", count: 3714, color: "#111827", description: "Brand and product glyphs from Simple Icons", version: "16.18.0", docsUrl: "https://simpleicons.org/", npmPackage: "simple-icons", remotePrefix: "simple-icons", tier: 4, chunks: 8 }
     ]
   };
 
@@ -92,6 +92,7 @@
       prefetchStarted: false,
       chunkCache: new Map()
     },
+    mobileChunkBuffers: new Map(),
     backgroundSyncStarted: false,
     customColor: "",
     customStrokeWidth: "1.5",
@@ -115,11 +116,21 @@
   let backgroundFilterTimer = 0;
   let homeRenderTimer = 0;
   let categoryRenderTimer = 0;
+  let mobileChunkRenderTimer = 0;
   let lazyLibraryLoad = null;
   const REQUEST_TIMEOUT_MS = 30000;
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
   const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
   const BACKGROUND_PRELOAD_CONCURRENCY = 4;
+  const MOBILE_LIBRARY_CHUNK_SIZE = 500;
+  const isMobile = window.innerWidth < 768 || /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+  function registerChunkCacheWorker() {
+    if (!("serviceWorker" in navigator) || !/^https?:$/.test(location.protocol)) return;
+    navigator.serviceWorker.register("sw.js", { scope: "./" }).catch((error) => {
+      console.warn("IconStash chunk cache unavailable:", error);
+    });
+  }
 
   function $(id) {
     return document.getElementById(id);
@@ -1019,18 +1030,94 @@
     return lazyLibraryLoad;
   }
 
+  function mobileChunkCount(lib) {
+    return Number(lib?.chunks || 0);
+  }
+
+  function shouldUseMobileChunkedLibrary(lib) {
+    return isMobile && mobileChunkCount(lib) > 0;
+  }
+
+  function mergedMobileChunkBuffer(slug) {
+    return (state.mobileChunkBuffers.get(slug) || []).flatMap((chunk) => chunk || []);
+  }
+
+  function shouldShowMobileChunkProgress(slug) {
+    return isMobile &&
+      state.selectedLibraries.size === 1 &&
+      state.selectedLibraries.has(slug) &&
+      !els.gridView.classList.contains("hidden");
+  }
+
+  function showMobileLibrarySkeleton(slug) {
+    const lib = libraryBySlug(slug);
+    if (!shouldUseMobileChunkedLibrary(lib) || !shouldShowMobileChunkProgress(slug)) return;
+    state.filteredIcons = [];
+    state.visibleLimit = state.batchSize;
+    state.renderedCount = 0;
+    state.inlineAdRendered = false;
+    els.noResults.classList.add("hidden");
+    ui().createSkeletonRows(els.iconGrid, 3, Math.max(4, state.cols || 8));
+    renderMobileChunkProgress(slug);
+  }
+
+  function renderMobileChunkProgress(slug) {
+    if (!shouldShowMobileChunkProgress(slug)) return;
+    clearTimeout(mobileChunkRenderTimer);
+    mobileChunkRenderTimer = setTimeout(() => {
+      mobileChunkRenderTimer = 0;
+      if (!shouldShowMobileChunkProgress(slug)) return;
+      const icons = mergedMobileChunkBuffer(slug);
+      if (!icons.length) return;
+      const filters = {
+        librarySlugs: state.selectedLibraries,
+        style: state.activeStyle,
+        category: state.activeCategory,
+        query: state.searchQuery,
+        sort: state.sort
+      };
+      state.filteredIcons = window.IconStashSearch.filterAndSort(icons, filters);
+      state.visibleLimit = Math.max(state.batchSize, Math.min(state.visibleLimit || state.batchSize, state.filteredIcons.length));
+      state.renderedCount = 0;
+      state.inlineAdRendered = false;
+      updateSeoForRoute();
+      updateCounts();
+      buildRows();
+      updateVirtualScroll(true);
+      els.noResults.classList.add("hidden");
+    }, 50);
+  }
+
   async function loadLibrary(slug, options = {}) {
     if (state.loadedLibraries.has(slug)) return Array.from(state.icons.values()).filter((icon) => icon.librarySlug === slug);
-    if (state.loadingLibraries.has(slug)) return state.loadingLibraries.get(slug);
     const lib = libraryBySlug(slug);
+    if (state.loadingLibraries.has(slug)) {
+      if (!options.isBackground) showMobileLibrarySkeleton(slug);
+      return state.loadingLibraries.get(slug);
+    }
     if (!lib) return [];
     const task = (async () => {
       setLibraryLoading(slug, true);
+      if (!options.isBackground) showMobileLibrarySkeleton(slug);
       try {
         const timeoutMs = options.timeoutMs || (options.isBackground ? BACKGROUND_LIBRARY_TIMEOUT_MS : FOREGROUND_LIBRARY_TIMEOUT_MS);
-        let icons = await loadLocalLibrary(lib, { timeoutMs });
+        const useMobileChunks = shouldUseMobileChunkedLibrary(lib);
+        let icons = useMobileChunks
+          ? await loadMobileChunkedLibrary(lib, {
+              timeoutMs,
+              onChunk: (chunkIcons) => {
+                if (!shouldShowMobileChunkProgress(slug)) return;
+                for (const icon of chunkIcons) state.icons.set(icon.id, icon);
+                renderMobileChunkProgress(slug);
+              }
+            })
+          : await loadLocalLibrary(lib, { timeoutMs });
         icons = enrichVariants(icons);
-        for (const icon of icons) state.icons.set(icon.id, icon);
+        for (const icon of icons) {
+          if (useMobileChunks) state.icons.delete(icon.id);
+          state.icons.set(icon.id, icon);
+        }
+        if (useMobileChunks) state.mobileChunkBuffers.delete(slug);
         state.loadedLibraries.add(slug);
         state.failedLibraries.delete(slug);
         lib.loaded = true;
@@ -1056,6 +1143,7 @@
 
         return icons;
       } catch (error) {
+        state.mobileChunkBuffers.delete(slug);
         state.failedLibraries.set(slug, error);
         state.lastFailedSlug = slug;
         if (!options.isBackground) {
@@ -1157,6 +1245,26 @@
     const data = await response.json();
     if (Array.isArray(data)) return data.map((icon, index) => completeIcon(icon, lib, index));
     return normalizeIconifySet(lib, data);
+  }
+
+  async function loadMobileChunkedLibrary(lib, options = {}) {
+    const chunkCount = mobileChunkCount(lib);
+    const buffer = Array.from({ length: chunkCount });
+    state.mobileChunkBuffers.set(lib.slug, buffer);
+    const tasks = Array.from({ length: chunkCount }, async (_, chunkIndex) => {
+      const chunkNumber = chunkIndex + 1;
+      const response = await request(`data/${lib.slug}-${chunkNumber}.json`, { timeoutMs: options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS });
+      if (!response.ok) throw new Error(`Local JSON chunk HTTP ${response.status}: ${lib.slug}-${chunkNumber}.json`);
+      const data = await response.json();
+      const icons = Array.isArray(data)
+        ? data.map((icon, index) => completeIcon(icon, lib, (chunkIndex * MOBILE_LIBRARY_CHUNK_SIZE) + index))
+        : normalizeIconifySet(lib, data);
+      buffer[chunkIndex] = icons;
+      if (typeof options.onChunk === "function") options.onChunk(icons, chunkIndex);
+      return icons;
+    });
+    const chunks = await Promise.all(tasks);
+    return chunks.flat();
   }
 
   function completeIcon(icon, lib, index) {
@@ -2238,6 +2346,11 @@
       const slug = input.value;
       if (input.checked) {
         state.selectedLibraries.add(slug);
+        if (shouldUseMobileChunkedLibrary(libraryBySlug(slug))) {
+          setRouteView("grid");
+          closeDetail(false);
+          showMobileLibrarySkeleton(slug);
+        }
         await loadLibrary(slug);
         window.location.hash = `#/library/${slug}`;
       } else {
@@ -2979,6 +3092,7 @@
   }
 
   async function init() {
+    registerChunkCacheWorker();
     ensureCustomizePreviewSection();
     cacheElements();
     initTheme();
