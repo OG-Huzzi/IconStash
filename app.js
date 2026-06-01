@@ -109,6 +109,8 @@
       pngSize: 256
     }
   };
+  const metaCache = new Map();
+  const metaLoadTasks = new Map();
 
   const els = {};
   let searchTimer = 0;
@@ -118,6 +120,7 @@
   let homeRenderTimer = 0;
   let categoryRenderTimer = 0;
   let mobileChunkRenderTimer = 0;
+  let detailMetaLoadingId = "";
   let lazyLibraryLoad = null;
   const REQUEST_TIMEOUT_MS = 30000;
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
@@ -979,7 +982,7 @@
     loadLibrary(slug).then(() => {
       const hydrated = state.icons.get(id);
       if (hydrated && state.currentIconId === id && !els.detailPanel.classList.contains("closed")) {
-        renderDetail(hydrated);
+        renderDetailWithMeta(hydrated);
       }
     });
   }
@@ -1265,6 +1268,51 @@
     const data = await response.json();
     if (Array.isArray(data)) return data.map((icon, index) => completeIcon(icon, lib, index));
     return normalizeIconifySet(lib, data);
+  }
+
+  async function loadLibraryMeta(slug) {
+    if (!slug) return {};
+    if (metaCache.has(slug)) return metaCache.get(slug);
+    if (metaLoadTasks.has(slug)) return metaLoadTasks.get(slug);
+    const task = (async () => {
+      const response = await request(`data/meta/${slug}-meta.json`, { timeoutMs: FOREGROUND_LIBRARY_TIMEOUT_MS });
+      if (!response.ok) throw new Error(`Meta JSON HTTP ${response.status}: ${slug}`);
+      const data = await response.json();
+      const meta = data && typeof data === "object" && !Array.isArray(data) ? data : {};
+      metaCache.set(slug, meta);
+      return meta;
+    })().finally(() => {
+      metaLoadTasks.delete(slug);
+    });
+    metaLoadTasks.set(slug, task);
+    return task;
+  }
+
+  function mergeIconMeta(icon, meta) {
+    if (!icon || !meta) return icon;
+    const merged = { ...icon };
+    for (const [key, value] of Object.entries(meta)) {
+      if (value !== undefined && value !== null) merged[key] = value;
+    }
+    merged.id = icon.id;
+    merged.name = icon.name;
+    merged.svgPath = icon.svgPath || meta.svgPath || meta.svgContent || "";
+    merged.viewBox = icon.viewBox || meta.viewBox || `0 0 ${meta.width || 24} ${meta.height || 24}`;
+    merged.tags = icon.tags || meta.tags || [];
+    merged.category = icon.category || meta.category || "Interface";
+    return merged;
+  }
+
+  async function ensureIconMeta(icon) {
+    if (!icon) return icon;
+    const slug = icon.librarySlug || iconSlugFromId(icon.id);
+    if (!slug) return icon;
+    const meta = await loadLibraryMeta(slug);
+    const entry = meta[icon.id];
+    if (!entry) return icon;
+    const merged = mergeIconMeta(icon, entry);
+    state.icons.set(merged.id, merged);
+    return merged;
   }
 
   async function loadMobileChunkedLibrary(lib, options = {}) {
@@ -1853,9 +1901,8 @@
     const index = state.filteredIcons.findIndex((entry) => entry.id === id);
     if (index >= 0) state.focusedIndex = index;
     els.detailPanel.classList.remove("closed");
-    renderDetail(icon);
+    renderDetailWithMeta(icon, { updateSeo: true });
     updateFocusedCard();
-    updateSeoIcon(icon);
   }
 
   function openGridDetail(id) {
@@ -1866,7 +1913,7 @@
     const index = state.filteredIcons.findIndex((entry) => entry.id === id);
     if (index >= 0) state.focusedIndex = index;
     els.detailPanel.classList.remove("closed");
-    renderDetail(icon);
+    renderDetailWithMeta(icon);
     updateFocusedCard();
   }
 
@@ -1920,10 +1967,45 @@
   function closeDetail(routeHome = true) {
     els.detailPanel.classList.add("closed");
     state.currentIconId = "";
+    detailMetaLoadingId = "";
     if (routeHome && window.location.hash.startsWith("#/icon/")) history.replaceState(null, "", "#/");
   }
 
-  function renderDetail(icon) {
+  async function renderDetailWithMeta(icon, options = {}) {
+    if (!icon) return;
+    const slug = icon.librarySlug || iconSlugFromId(icon.id);
+    if (slug && metaCache.has(slug)) {
+      const entry = metaCache.get(slug)[icon.id];
+      const hydrated = entry ? mergeIconMeta(icon, entry) : icon;
+      if (entry) state.icons.set(hydrated.id, hydrated);
+      renderDetail(hydrated);
+      if (options.updateSeo) updateSeoIcon(hydrated);
+      return;
+    }
+    renderDetail(icon, { metaLoading: Boolean(slug) });
+    if (!slug) {
+      if (options.updateSeo) updateSeoIcon(icon);
+      return;
+    }
+    try {
+      const hydrated = await ensureIconMeta(icon);
+      if (state.currentIconId !== icon.id || els.detailPanel.classList.contains("closed")) return;
+      detailMetaLoadingId = "";
+      renderDetail(hydrated);
+      if (options.updateSeo) updateSeoIcon(hydrated);
+    } catch (error) {
+      console.error(`Failed to load icon metadata for ${icon.id}:`, error);
+      if (state.currentIconId !== icon.id || els.detailPanel.classList.contains("closed")) return;
+      detailMetaLoadingId = "";
+      renderDetail(icon);
+      if (options.updateSeo) updateSeoIcon(icon);
+      ui().toast("Icon metadata could not load", "error");
+    }
+  }
+
+  function renderDetail(icon, options = {}) {
+    if (options.metaLoading) detailMetaLoadingId = icon.id;
+    else if (detailMetaLoadingId === icon.id) detailMetaLoadingId = "";
     els.dpTitle.textContent = "Customize";
     els.dpLibraryName.textContent = `${icon.library} / ${icon.name}`;
     refreshDetailPreview(icon);
@@ -1937,15 +2019,21 @@
     els.dpLibBadge.textContent = `${icon.library} ${icon.libraryVersion || ""}`.trim();
     els.dpPopularityBar.style.width = `${Math.max(8, Math.min(100, (icon.popularity || 0) / 100))}%`;
     els.dpTags.innerHTML = (icon.tags || []).slice(0, 14).map((tag) => `<button class="tag-chip" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("");
-    els.dpInstallCode.textContent = `npm install ${icon.npmPackage || icon.librarySlug}`;
-    els.dpImportCode.textContent = icon.jsxImport || `import { ${pascal(icon.name)} } from '${icon.npmPackage || icon.librarySlug}'`;
+    els.dpInstallCode.textContent = options.metaLoading ? "Loading metadata..." : `npm install ${icon.npmPackage || icon.librarySlug}`;
+    els.dpImportCode.textContent = options.metaLoading ? "Loading metadata..." : (icon.jsxImport || `import { ${pascal(icon.name)} } from '${icon.npmPackage || icon.librarySlug}'`);
     els.dpDocsLink.href = icon.docsUrl || "#";
     ui().qsa(".size-btn").forEach((btn) => {
       btn.classList.toggle("active", Number(btn.dataset.size) === (state.detail.pngSize || 256));
     });
-    renderDetailVariants(icon);
-    renderMatches(icon);
-    renderCodePreview();
+    if (options.metaLoading) {
+      els.dpVariants.innerHTML = '<span class="muted">Loading metadata...</span>';
+      els.dpMatches.innerHTML = '<span class="muted">Loading metadata...</span>';
+      renderCodePreview();
+    } else {
+      renderDetailVariants(icon);
+      renderMatches(icon);
+      renderCodePreview();
+    }
   }
 
   function renderDetailVariants(icon) {
@@ -1971,6 +2059,12 @@
   function renderCodePreview() {
     const icon = state.icons.get(state.currentIconId);
     if (!icon) return;
+    if (detailMetaLoadingId === state.currentIconId) {
+      els.dpCodePreview.textContent = "Loading icon metadata...";
+      els.dpCopyCode.disabled = true;
+      return;
+    }
+    els.dpCopyCode.disabled = false;
     els.dpCodePreview.textContent = iconTools().formatCode(icon, state.detail.format, {
       color: state.detail.color,
       strokeWidth: state.detail.strokeWidth,
@@ -2717,7 +2811,7 @@
       els.autocomplete.classList.add("hidden");
       state.currentIconId = icon.id;
       els.detailPanel.classList.remove("closed");
-      renderDetail(icon);
+      renderDetailWithMeta(icon);
       updateFocusedCard();
       warmLibraryAfterPrerenderClick(slug, icon.id);
     }
