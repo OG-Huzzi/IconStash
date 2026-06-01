@@ -126,12 +126,24 @@
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
   const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
   const BACKGROUND_PRELOAD_CONCURRENCY = 4;
-  const MOBILE_BACKGROUND_PRELOAD_CONCURRENCY = 1;
-  const MOBILE_BACKGROUND_PRELOAD_DELAY_MS = 1200;
+  const MOBILE_BACKGROUND_PRELOAD_CONCURRENCY = 2;
+  const MOBILE_BACKGROUND_PRELOAD_DELAY_MS = 120;
+  const MOBILE_GRID_BATCH_SIZE = 480;
+  const MOBILE_SCROLL_PREFETCH_PX = 5200;
+  const MOBILE_PRERENDER_PREFETCH_AHEAD = 8;
+  const MOBILE_INITIAL_PRERENDER_LIBS = 12;
   const MOBILE_LIBRARY_CHUNK_SIZE = 500;
   const MOBILE_CHUNK_FETCH_ATTEMPTS = 2;
   const MOBILE_CHUNK_RETRY_DELAY_MS = 400;
   const isMobile = window.innerWidth < 768 || /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+  function gridBatchSize() {
+    return isMobile ? MOBILE_GRID_BATCH_SIZE : state.batchSize;
+  }
+
+  function scrollPrefetchDistance() {
+    return isMobile ? MOBILE_SCROLL_PREFETCH_PX : 1800;
+  }
 
   function registerChunkCacheWorker() {
     if (!("serviceWorker" in navigator) || !/^https?:$/.test(location.protocol)) return;
@@ -631,8 +643,11 @@
         else scheduleIdleTask(pump, options.timeout || 1200);
       });
     };
-    if (options.eager) setTimeout(pump, 0);
-    else scheduleIdleTask(pump, options.timeout || 1200);
+    const concurrency = Math.max(1, Math.min(Number(options.concurrency || 1), queue.length || 1));
+    for (let index = 0; index < concurrency; index += 1) {
+      if (options.eager) setTimeout(pump, 0);
+      else scheduleIdleTask(pump, options.timeout || 1200);
+    }
   }
 
   function scheduleInitialPrerenderPrefetch() {
@@ -644,15 +659,15 @@
     const firstLib = manifest.libraries[0];
     if (firstLib) {
       jobs.push([firstLib.slug, 0]);
-      const firstLibWarmCount = Math.min(firstLib.chunks, 4);
+      const firstLibWarmCount = Math.min(firstLib.chunks, isMobile ? MOBILE_PRERENDER_PREFETCH_AHEAD : 4);
       for (let chunkIndex = 1; chunkIndex < firstLibWarmCount; chunkIndex += 1) {
         jobs.push([firstLib.slug, chunkIndex]);
       }
     }
-    manifest.libraries.slice(1, 8).forEach((lib) => {
+    manifest.libraries.slice(1, isMobile ? MOBILE_INITIAL_PRERENDER_LIBS : 8).forEach((lib) => {
       jobs.push([lib.slug, 0]);
     });
-    runPrerenderPrefetchQueue(jobs, { timeout: 1800 });
+    runPrerenderPrefetchQueue(jobs, { timeout: isMobile ? 500 : 1800, concurrency: isMobile ? 2 : 1 });
   }
 
   function prerenderLibraryBySlug(slug) {
@@ -660,6 +675,10 @@
   }
 
   function shouldUsePrerenderBrowse() {
+    if (state.selectedLibraries.size === 1) {
+      const slug = Array.from(state.selectedLibraries)[0];
+      if (state.loadedLibraries.has(slug)) return false;
+    }
     return Boolean(state.prerender.manifest) &&
       !state.searchQuery &&
       !state.activeCategory &&
@@ -827,7 +846,8 @@
     let tempLib = currentLib;
     const jobs = [];
     
-    while (prefetchedCount < 3) {
+    const prefetchAhead = isMobile ? MOBILE_PRERENDER_PREFETCH_AHEAD : 3;
+    while (prefetchedCount < prefetchAhead) {
       tempChunkIndex += 1;
       if (tempChunkIndex >= tempLib.chunks) {
         if (state.prerender.mode === "library") break;
@@ -839,7 +859,7 @@
       jobs.push([tempLib.slug, tempChunkIndex]);
       prefetchedCount++;
     }
-    runPrerenderPrefetchQueue(jobs, { eager: true });
+    runPrerenderPrefetchQueue(jobs, { eager: true, concurrency: isMobile ? 2 : 1 });
   }
 
   function getPrerenderChunkSync(slug, chunkIndex) {
@@ -856,7 +876,7 @@
     const container = els.gridContainer;
     if (!container) return;
     
-    let nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - 1800;
+    let nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - scrollPrefetchDistance();
     if (!nearBottom) return;
 
     if (state.prerender.active) {
@@ -893,7 +913,7 @@
           syncPrerenderFavoriteButtons();
           prefetchNextChunks(lib.slug, nextChunk);
           
-          nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - 1800;
+          nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - scrollPrefetchDistance();
         } else {
           appendNextPrerenderChunk();
           break;
@@ -902,7 +922,7 @@
     } else {
       while (nearBottom) {
         if (state.visibleLimit < state.filteredIcons.length) {
-          state.visibleLimit = Math.min(state.filteredIcons.length, state.visibleLimit + state.batchSize);
+          state.visibleLimit = Math.min(state.filteredIcons.length, state.visibleLimit + gridBatchSize());
           
           const start = state.renderedCount;
           const end = Math.min(state.visibleLimit, state.filteredIcons.length);
@@ -918,7 +938,7 @@
           if (parts.length) els.iconGrid.insertAdjacentHTML("beforeend", parts.join(""));
           state.renderedCount = end;
           
-          nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - 1800;
+          nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - scrollPrefetchDistance();
         } else if (canLazyLoadBrowseLibrary() && !lazyLibraryLoad) {
           loadNextLibraryForBrowse();
           break;
@@ -1018,7 +1038,8 @@
       await loadLibrary(lib.slug);
       if (!els.gridView.classList.contains("hidden") && state.selectedLibraries.size === 0) {
         applyFilters({ preserveLimit: true });
-        const nextLimit = Math.max(previousVisibleLimit + state.batchSize, previousResultCount + state.batchSize);
+        const batchSize = gridBatchSize();
+        const nextLimit = Math.max(previousVisibleLimit + batchSize, previousResultCount + batchSize);
         state.visibleLimit = Math.min(state.filteredIcons.length, nextLimit);
         updateVirtualScroll(true);
       }
@@ -1061,7 +1082,7 @@
     const lib = libraryBySlug(slug);
     if (!shouldUseMobileChunkedLibrary(lib) || !shouldShowMobileChunkProgress(slug)) return;
     state.filteredIcons = [];
-    state.visibleLimit = state.batchSize;
+    state.visibleLimit = gridBatchSize();
     state.renderedCount = 0;
     state.inlineAdRendered = false;
     els.noResults.classList.add("hidden");
@@ -1085,7 +1106,8 @@
         sort: state.sort
       };
       state.filteredIcons = window.IconStashSearch.filterAndSort(icons, filters);
-      state.visibleLimit = Math.max(state.batchSize, Math.min(state.visibleLimit || state.batchSize, state.filteredIcons.length));
+      const batchSize = gridBatchSize();
+      state.visibleLimit = Math.max(batchSize, Math.min(state.visibleLimit || batchSize, state.filteredIcons.length));
       state.renderedCount = 0;
       state.inlineAdRendered = false;
       updateSeoForRoute();
@@ -1319,20 +1341,29 @@
     const chunkCount = mobileChunkCount(lib);
     const buffer = Array.from({ length: chunkCount });
     state.mobileChunkBuffers.set(lib.slug, buffer);
-    const tasks = Array.from({ length: chunkCount }, async (_, chunkIndex) => {
-      const chunkNumber = chunkIndex + 1;
-      const chunkUrl = `data/${lib.slug}-${chunkNumber}.json`;
-      const response = await requestMobileChunk(chunkUrl, options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS);
-      const data = await response.json();
-      const icons = Array.isArray(data)
-        ? data.map((icon, index) => completeIcon(icon, lib, (chunkIndex * MOBILE_LIBRARY_CHUNK_SIZE) + index))
-        : normalizeIconifySet(lib, data);
-      buffer[chunkIndex] = icons;
-      if (typeof options.onChunk === "function") options.onChunk(icons, chunkIndex);
-      return icons;
-    });
-    const chunks = await Promise.all(tasks);
-    return chunks.flat();
+
+    const CONCURRENCY = 3;
+    const chunkIndices = Array.from({ length: chunkCount }, (_, i) => i);
+
+    const worker = async () => {
+      while (chunkIndices.length > 0) {
+        const chunkIndex = chunkIndices.shift();
+        const chunkNumber = chunkIndex + 1;
+        const chunkUrl = `data/${lib.slug}-${chunkNumber}.json`;
+        const response = await requestMobileChunk(chunkUrl, options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS);
+        const data = await response.json();
+        const icons = Array.isArray(data)
+          ? data.map((icon, index) => completeIcon(icon, lib, (chunkIndex * MOBILE_LIBRARY_CHUNK_SIZE) + index))
+          : normalizeIconifySet(lib, data);
+        buffer[chunkIndex] = icons;
+        if (typeof options.onChunk === "function") options.onChunk(icons, chunkIndex);
+      }
+    };
+
+    const workers = Array.from({ length: Math.min(CONCURRENCY, chunkCount) }, worker);
+    await Promise.all(workers);
+
+    return buffer.flat();
   }
 
   async function requestMobileChunk(chunkUrl, timeoutMs) {
@@ -1528,10 +1559,11 @@
     };
     state.filteredIcons = window.IconStashSearch.filterAndSort(Array.from(state.icons.values()), filters);
     if (isAllIconsGroupedMode()) sortAllIconsByLibrary();
+    const batchSize = gridBatchSize();
     if (!options.preserveLimit) {
-      state.visibleLimit = state.batchSize;
+      state.visibleLimit = batchSize;
     } else {
-      state.visibleLimit = Math.max(state.batchSize, Math.min(state.visibleLimit, state.filteredIcons.length));
+      state.visibleLimit = Math.max(batchSize, Math.min(state.visibleLimit, state.filteredIcons.length));
     }
     state.renderedCount = 0;
     state.inlineAdRendered = false;
@@ -1660,7 +1692,7 @@
   function renderCard(icon, visualIndex, collectedIds) {
     const selected = state.selectedIcons.has(icon.id);
     const focused = state.filteredIcons[state.focusedIndex]?.id === icon.id;
-    const delay = Math.min(400, visualIndex * 15);
+    const delay = isMobile ? 0 : Math.min(400, visualIndex * 15);
     
     const set = collectedIds || new Set(window.IconStashCollections.all().flatMap(col => col.icons));
     const isCollected = set.has(icon.id);
@@ -2578,14 +2610,15 @@
       if (icon) window.location.hash = `#/icon/${icon.dataset.iconId}`;
     });
     els.gridContainer.addEventListener("scroll", () => {
-      const nearBottom = els.gridContainer.scrollTop + els.gridContainer.clientHeight > els.gridContainer.scrollHeight - 1800;
+      const nearBottom = els.gridContainer.scrollTop + els.gridContainer.clientHeight > els.gridContainer.scrollHeight - scrollPrefetchDistance();
       if (nearBottom) {
         if (state.prerender.active) {
-          appendNextPrerenderChunk();
+          if (isMobile) checkViewportFill();
+          else appendNextPrerenderChunk();
           return;
         }
         if (state.visibleLimit < state.filteredIcons.length) {
-          state.visibleLimit = Math.min(state.filteredIcons.length, state.visibleLimit + state.batchSize);
+          state.visibleLimit = Math.min(state.filteredIcons.length, state.visibleLimit + gridBatchSize());
           updateVirtualScroll(false);
         } else {
           loadNextLibraryForBrowse();

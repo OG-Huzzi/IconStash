@@ -1,5 +1,5 @@
-const CHUNK_CACHE = "iconstash-prerender-chunks-v20260601";
-const CACHEABLE_CHUNK = /^\/data\/prerender\/libraries\/[^/]+\/chunk-\d+\.html$/;
+const CHUNK_CACHE = "iconstash-prerender-chunks-v20260601-mobilefast";
+const CACHEABLE_CHUNK = /^\/data\/(?:prerender\/libraries\/[^/]+\/chunk-\d+\.html|meta\/[^/]+-meta\.json|[^/]+(?:-\d+)?\.json)$/;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(self.skipWaiting());
