@@ -767,13 +767,52 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 }
 .skeleton-card {
   pointer-events: none;
-  background:
-    linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent),
-    var(--glass-2);
-  background-size: 220% 100%, auto;
-  animation: skeletonSweep 900ms linear infinite;
+  background: var(--glass-2);
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  position: relative;
+  overflow: hidden;
+  contain: none !important;
 }
-@keyframes skeletonSweep { to { background-position: -220% 0, 0 0; } }
+
+.skeleton-icon-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--glass-2) 25%, var(--glass-3) 50%, var(--glass-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-text-placeholder {
+  width: 50%;
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--glass-2) 25%, var(--glass-3) 50%, var(--glass-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.density-compact .skeleton-text-placeholder {
+  display: none !important;
+}
+
+.density-compact .skeleton-icon-placeholder {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 .density-comfortable .icon-card { height: var(--card-row-height); padding-bottom: 20px; }
 .icon-card:hover, .icon-card.focused { background: var(--glass-3); border-color: var(--glass-border-bright); }
 .icon-card:hover::before, .icon-card.selected::before, .icon-card.focused::before { opacity: 0; animation: none; }

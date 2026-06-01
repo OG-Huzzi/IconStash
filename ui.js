@@ -196,7 +196,12 @@
     if (!container) return;
     const html = Array.from({ length: rows }, (_, row) => (
       `<div class="virtual-row icons-row" style="--cols:${cols};height:var(--card-row-height);animation-delay:${row * 30}ms">` +
-      Array.from({ length: cols }, () => '<div class="icon-card skeleton-card"></div>').join("") +
+      Array.from({ length: cols }, () => `
+        <div class="icon-card skeleton-card">
+          <div class="skeleton-icon-placeholder"></div>
+          <div class="skeleton-text-placeholder"></div>
+        </div>
+      `).join("") +
       "</div>"
     )).join("");
     container.innerHTML = html;

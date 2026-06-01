@@ -1523,14 +1523,22 @@
     clearTimeout(backgroundFilterTimer);
     backgroundFilterTimer = setTimeout(() => {
       backgroundFilterTimer = 0;
+      const isViewingLoadedLib = slug && state.selectedLibraries.has(slug);
+      
       if (state.prerender.active) {
-        updateCounts();
+        if (isViewingLoadedLib && !els.gridView.classList.contains("hidden")) {
+          // Transition seamlessly from prerendered grid to dynamic in-memory virtual grid!
+          const currentCount = els.iconGrid.querySelectorAll(".icon-card").length;
+          state.visibleLimit = Math.max(gridBatchSize(), currentCount);
+          applyFilters({ preserveLimit: true });
+        } else {
+          updateCounts();
+        }
         return;
       }
       
       const hasSearch = Boolean(state.searchQuery);
       const hasCategory = Boolean(state.activeCategory);
-      const isViewingLoadedLib = slug && state.selectedLibraries.has(slug);
       
       if (!els.gridView.classList.contains("hidden") && (hasSearch || hasCategory || isViewingLoadedLib)) {
         applyFilters({ preserveLimit: true });
