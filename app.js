@@ -58,8 +58,10 @@
   const DB_VERSION = 1;
   const STORE_NAME = "libraries";
 
+  let dbPromise = null;
   function openDatabase() {
-    return new Promise((resolve, reject) => {
+    if (dbPromise) return dbPromise;
+    dbPromise = new Promise((resolve, reject) => {
       const request = indexedDB.open(DB_NAME, DB_VERSION);
       request.onupgradeneeded = (event) => {
         const db = event.target.result;
@@ -68,8 +70,12 @@
         }
       };
       request.onsuccess = (event) => resolve(event.target.result);
-      request.onerror = (event) => reject(event.target.error);
+      request.onerror = (event) => {
+        dbPromise = null;
+        reject(event.target.error);
+      };
     });
+    return dbPromise;
   }
 
   async function getCachedLibrary(slug) {
@@ -174,7 +180,7 @@
   const REQUEST_TIMEOUT_MS = 30000;
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
   const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
-  const BACKGROUND_PRELOAD_CONCURRENCY = 4;
+  const BACKGROUND_PRELOAD_CONCURRENCY = 2;
   const MOBILE_BACKGROUND_PRELOAD_CONCURRENCY = 2;
   const MOBILE_BACKGROUND_PRELOAD_DELAY_MS = 120;
   const MOBILE_GRID_BATCH_SIZE = 480;
@@ -468,7 +474,7 @@
               } else if (failed) {
                 countEl.textContent = "retry";
               } else {
-                countEl.textContent = Number(lib.count || 0).toLocaleString();
+                countEl.textContent = Number(lib.count || 0).toLocaleString("en-US");
               }
             }
           }
@@ -492,7 +498,7 @@
     const allRow = !filter ? `<a class="lib-row all-icons-row ${state.selectedLibraries.size === 0 && !state.activeCategory ? "active" : ""}" href="#/search" data-all-icons="true">
       <span class="lib-badge">${libraryIconSvg("default")}</span>
       <span class="lib-name">All Icons</span>
-      <span class="lib-count">${totalLibraryCount().toLocaleString()}</span>
+      <span class="lib-count">${totalLibraryCount().toLocaleString("en-US")}</span>
     </a>` : "";
     const libRows = state.libraries
       .filter((lib) => !filter || `${lib.name} ${lib.slug}`.toLowerCase().includes(filter))
@@ -501,7 +507,7 @@
         const loading = state.loadingLibraries.has(lib.slug);
         const failed = state.failedLibraries.has(lib.slug);
         
-        let countDisplay = Number(lib.count || 0).toLocaleString();
+        let countDisplay = Number(lib.count || 0).toLocaleString("en-US");
         if (loading) {
           countDisplay = `<svg class="lib-loading-spinner" viewBox="0 0 24 24" width="12" height="12"><circle class="spinner-path" cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></circle></svg>`;
         } else if (failed) {
@@ -567,7 +573,7 @@
       return `<button class="category-item ${active ? "active" : ""}" data-category="${escapeHtml(name)}">
         <span class="category-dot" style="background:${color};color:${color}"></span>
         <span>${escapeHtml(name)}</span>
-        <span class="category-count">${Number(counts.get(name) || 0).toLocaleString()}</span>
+        <span class="category-count">${Number(counts.get(name) || 0).toLocaleString("en-US")}</span>
       </button>`;
     }).join("");
   }
@@ -596,7 +602,7 @@
       <article class="lib-card" data-home-library="${lib.slug}" style="animation-delay:${index * 35}ms">
         <span class="lib-card-mark">${libraryIconSvg(lib.slug)}</span>
         <h3>${escapeHtml(lib.name)}</h3>
-        <p>${Number(lib.count || 0).toLocaleString()} icons - ${escapeHtml(lib.description || "")}</p>
+        <p>${Number(lib.count || 0).toLocaleString("en-US")} icons - ${escapeHtml(lib.description || "")}</p>
       </article>
     `).join("");
     const trending = Array.from(state.icons.values()).sort((a, b) => (b.popularity || 0) - (a.popularity || 0)).slice(0, 24);
@@ -752,9 +758,9 @@
       els.resultCount.classList.toggle("hidden", val === 0 || state.route === "#/" || state.route === "#");
     }
     if (state.searchQuery) {
-      els.gridStatus.textContent = `Search results: ${val.toLocaleString()} icons`;
+      els.gridStatus.textContent = `Search results: ${val.toLocaleString("en-US")} icons`;
     } else {
-      els.gridStatus.textContent = `All icons: ${val.toLocaleString()}`;
+      els.gridStatus.textContent = `All icons: ${val.toLocaleString("en-US")}`;
     }
     updateFilterCounters();
   }
@@ -1095,7 +1101,7 @@
       renderHome();
       generateSitemap();
       if (!nextUnloadedLibrary()) {
-        els.loadStatus.textContent = `All ${state.libraries.reduce((total, item) => total + Number(item.count || 0), 0).toLocaleString()} icons are available`;
+        els.loadStatus.textContent = `All ${state.libraries.reduce((total, item) => total + Number(item.count || 0), 0).toLocaleString("en-US")} icons are available`;
         setTimeout(() => {
           if (els.loadStatus.textContent.startsWith("All ")) els.loadStatus.textContent = "";
         }, 2500);
@@ -1301,8 +1307,8 @@
   }
 
   async function loadAllLibrariesInBackground() {
-    // Let the first paint finish, then start warming libraries immediately.
-    await new Promise((resolve) => setTimeout(resolve, isMobile ? MOBILE_BACKGROUND_PRELOAD_DELAY_MS : 80));
+    // Let the first paint finish, then start warming libraries after a comfortable delay.
+    await new Promise((resolve) => setTimeout(resolve, isMobile ? 3500 : 2500));
     
     // Prioritize loading based on tiers (Tiers 1 & 2 first, followed by 3 & 4)
     const priorityList = state.libraries
@@ -1318,7 +1324,7 @@
         if (!lib || state.loadedLibraries.has(lib.slug) || state.loadingLibraries.has(lib.slug)) continue;
         try {
           // Yield between starts so the UI stays responsive while everything is queued.
-          await new Promise((resolve) => setTimeout(resolve, 80));
+          await new Promise((resolve) => setTimeout(resolve, 300));
           await loadLibrary(lib.slug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
         } catch (e) {
           console.error(`Background load error for ${lib.slug}:`, e);
@@ -1336,7 +1342,7 @@
     const failedCount = state.failedLibraries.size;
     if (!els.loadStatus) return;
     if (loadedCount >= totalCount) {
-      els.loadStatus.textContent = `All ${totalLibraryCount().toLocaleString()} icons are available`;
+      els.loadStatus.textContent = `All ${totalLibraryCount().toLocaleString("en-US")} icons are available`;
       setTimeout(() => {
         if (els.loadStatus.textContent.includes("available")) els.loadStatus.textContent = "";
       }, 2500);
@@ -1586,7 +1592,7 @@
           if (failed) {
             countEl.textContent = "retry";
           } else {
-            countEl.textContent = Number(lib?.count || 0).toLocaleString();
+            countEl.textContent = Number(lib?.count || 0).toLocaleString("en-US");
           }
         }
       }
@@ -1602,7 +1608,7 @@
         els.loadStatus.textContent = "";
       }
     } else {
-      els.loadStatus.textContent = `All ${totalLibraryCount().toLocaleString()} icons are available`;
+      els.loadStatus.textContent = `All ${totalLibraryCount().toLocaleString("en-US")} icons are available`;
       setTimeout(() => {
         if (els.loadStatus.textContent.includes("available")) els.loadStatus.textContent = "";
       }, 2500);
@@ -1818,9 +1824,9 @@
       els.resultCount.classList.toggle("hidden", count === 0 || state.route === "#/" || state.route === "#");
     }
     if (state.searchQuery) {
-      els.gridStatus.textContent = `Search results: ${count.toLocaleString()} icons`;
+      els.gridStatus.textContent = `Search results: ${count.toLocaleString("en-US")} icons`;
     } else {
-      els.gridStatus.textContent = `All icons: ${count.toLocaleString()}`;
+      els.gridStatus.textContent = `All icons: ${count.toLocaleString("en-US")}`;
     }
     updateFilterCounters();
   }
@@ -1914,7 +1920,7 @@
       <span class="lib-badge">${libraryIconSvg(lib.slug)}</span>
       <div>
         <h2>${escapeHtml(lib.name)}</h2>
-        <p>${Number(lib.count || 0).toLocaleString()} icons</p>
+        <p>${Number(lib.count || 0).toLocaleString("en-US")} icons</p>
       </div>
     </div>`;
   }
@@ -2099,7 +2105,7 @@
       if (lib) {
         els.seoHeader.classList.remove("hidden");
         els.seoTitle.textContent = `${lib.name} Icons`;
-        els.seoDescription.textContent = `${lib.description}. ${Number(lib.count || 0).toLocaleString()} indexed records, version ${lib.version}.`;
+        els.seoDescription.textContent = `${lib.description}. ${Number(lib.count || 0).toLocaleString("en-US")} indexed records, version ${lib.version}.`;
         document.title = `${lib.name} Icons - SVG & PNG Download | IconStash`;
         setMeta("description", `Browse, customize, copy, and download ${lib.name} SVG & PNG icons in IconStash.`);
         setCanonical(hash);
@@ -3536,16 +3542,16 @@
     ui().init();
     setupEvents();
     calculateGrid();
-    await loadIndex();
-    await loadPrerenderManifest();
+    await Promise.all([loadIndex(), loadPrerenderManifest()]);
     normalizeStartupRoute();
     renderSidebarLibraries();
     renderCategories();
     renderHome();
-    setTimeout(triggerBackgroundSync, 0);
     await prepareInitialIconsForRoute();
     generateSitemap();
     await handleRoute();
+    // Delay background sync until the initial page has finished loading and rendering
+    setTimeout(triggerBackgroundSync, 2000);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -3556,3 +3562,4 @@
   });
 })();
 // Trigger deploy
+
