@@ -54,6 +54,55 @@
     ]
   };
 
+  const DB_NAME = "IconStashDB";
+  const DB_VERSION = 1;
+  const STORE_NAME = "libraries";
+
+  function openDatabase() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open(DB_NAME, DB_VERSION);
+      request.onupgradeneeded = (event) => {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains(STORE_NAME)) {
+          db.createObjectStore(STORE_NAME);
+        }
+      };
+      request.onsuccess = (event) => resolve(event.target.result);
+      request.onerror = (event) => reject(event.target.error);
+    });
+  }
+
+  async function getCachedLibrary(slug) {
+    try {
+      const db = await openDatabase();
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction(STORE_NAME, "readonly");
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.get(slug);
+        request.onsuccess = (event) => resolve(event.target.result || null);
+        request.onerror = (event) => reject(event.target.error);
+      });
+    } catch (err) {
+      console.warn("IndexedDB read error:", err);
+      return null;
+    }
+  }
+
+  async function cacheLibrary(slug, icons) {
+    try {
+      const db = await openDatabase();
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction(STORE_NAME, "readwrite");
+        const store = transaction.objectStore(STORE_NAME);
+        const request = store.put(icons, slug);
+        request.onsuccess = () => resolve();
+        request.onerror = (event) => reject(event.target.error);
+      });
+    } catch (err) {
+      console.warn("IndexedDB write error:", err);
+    }
+  }
+
   const state = {
     icons: new Map(),
     libraries: [],
@@ -1136,32 +1185,38 @@
       try {
         const timeoutMs = options.timeoutMs || (options.isBackground ? BACKGROUND_LIBRARY_TIMEOUT_MS : FOREGROUND_LIBRARY_TIMEOUT_MS);
         const useMobileChunks = shouldUseMobileChunkedLibrary(lib);
-        let icons;
-        if (useMobileChunks) {
-          try {
-            icons = await loadMobileChunkedLibrary(lib, {
-              timeoutMs,
-              onChunk: (chunkIcons) => {
-                if (!shouldShowMobileChunkProgress(slug)) return;
-                for (const icon of chunkIcons) state.icons.set(icon.id, icon);
-                renderMobileChunkProgress(slug);
-              }
-            });
-          } catch (chunkError) {
-            state.mobileChunkBuffers.delete(slug);
-            if (options.isBackground && !state.foregroundLibraryRequests.has(slug)) throw chunkError;
-            console.warn(`Mobile chunks failed for ${lib.name}; falling back to full JSON.`, chunkError);
-            icons = await loadLocalLibrary(lib, { timeoutMs: options.isBackground ? FOREGROUND_LIBRARY_TIMEOUT_MS : timeoutMs });
-          }
+        let icons = await getCachedLibrary(slug);
+        let fromCache = false;
+
+        if (icons && icons.length > 0) {
+          fromCache = true;
         } else {
-          icons = await loadLocalLibrary(lib, { timeoutMs });
+          if (useMobileChunks) {
+            try {
+              icons = await loadMobileChunkedLibrary(lib, {
+                timeoutMs,
+                onChunk: (chunkIcons) => {
+                  for (const icon of chunkIcons) state.icons.set(icon.id, icon);
+                  if (shouldShowMobileChunkProgress(slug)) {
+                    renderMobileChunkProgress(slug);
+                  }
+                }
+              });
+            } catch (chunkError) {
+              state.mobileChunkBuffers.delete(slug);
+              if (options.isBackground && !state.foregroundLibraryRequests.has(slug)) throw chunkError;
+              console.warn(`Mobile chunks failed for ${lib.name}; falling back to full JSON.`, chunkError);
+              icons = await loadLocalLibrary(lib, { timeoutMs: options.isBackground ? FOREGROUND_LIBRARY_TIMEOUT_MS : timeoutMs });
+            }
+          } else {
+            icons = await loadLocalLibrary(lib, { timeoutMs });
+          }
+          icons = enrichVariants(icons);
         }
-        icons = enrichVariants(icons);
+
         for (const icon of icons) {
-          if (useMobileChunks) state.icons.delete(icon.id);
           state.icons.set(icon.id, icon);
         }
-        if (useMobileChunks) state.mobileChunkBuffers.delete(slug);
         state.loadedLibraries.add(slug);
         state.failedLibraries.delete(slug);
         lib.loaded = true;
@@ -1184,6 +1239,14 @@
 
         // Apply filters in background to include newly loaded icons in the search grid
         scheduleBackgroundFilter(slug);
+
+        // Eagerly pre-load library metadata in the background so copy/download details are instant!
+        loadLibraryMeta(slug).catch((err) => console.warn(`Background meta load failed for ${slug}:`, err));
+
+        // Cache in IndexedDB asynchronously if we loaded it from network/JSON
+        if (!fromCache) {
+          cacheLibrary(slug, icons).catch((err) => console.warn(`Failed to cache ${slug} in IndexedDB:`, err));
+        }
 
         return icons;
       } catch (error) {
@@ -1302,6 +1365,21 @@
       const data = await response.json();
       const meta = data && typeof data === "object" && !Array.isArray(data) ? data : {};
       metaCache.set(slug, meta);
+
+      // Hydrate all icons of this library in the main state.icons map
+      try {
+        const libIcons = Array.from(state.icons.values()).filter((icon) => icon.librarySlug === slug);
+        for (const icon of libIcons) {
+          const entry = meta[icon.id];
+          if (entry) {
+            const merged = mergeIconMeta(icon, entry);
+            state.icons.set(merged.id, merged);
+          }
+        }
+      } catch (hydrateErr) {
+        console.warn(`Error during background pre-hydration of icons for ${slug}:`, hydrateErr);
+      }
+
       return meta;
     })().finally(() => {
       metaLoadTasks.delete(slug);
@@ -1342,28 +1420,59 @@
     const buffer = Array.from({ length: chunkCount });
     state.mobileChunkBuffers.set(lib.slug, buffer);
 
-    const CONCURRENCY = 3;
-    const chunkIndices = Array.from({ length: chunkCount }, (_, i) => i);
+    // 1. Fetch the first chunk (chunk 1) immediately in the foreground
+    const firstChunkUrl = `data/${lib.slug}-1.json`;
+    const response = await requestMobileChunk(firstChunkUrl, options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS);
+    const data = await response.json();
+    const firstChunkIcons = Array.isArray(data)
+      ? data.map((icon, index) => completeIcon(icon, lib, index))
+      : normalizeIconifySet(lib, data);
+    buffer[0] = firstChunkIcons;
 
-    const worker = async () => {
-      while (chunkIndices.length > 0) {
-        const chunkIndex = chunkIndices.shift();
-        const chunkNumber = chunkIndex + 1;
-        const chunkUrl = `data/${lib.slug}-${chunkNumber}.json`;
-        const response = await requestMobileChunk(chunkUrl, options.timeoutMs || FOREGROUND_LIBRARY_TIMEOUT_MS);
-        const data = await response.json();
-        const icons = Array.isArray(data)
-          ? data.map((icon, index) => completeIcon(icon, lib, (chunkIndex * MOBILE_LIBRARY_CHUNK_SIZE) + index))
-          : normalizeIconifySet(lib, data);
-        buffer[chunkIndex] = icons;
-        if (typeof options.onChunk === "function") options.onChunk(icons, chunkIndex);
-      }
-    };
+    if (typeof options.onChunk === "function") {
+      options.onChunk(firstChunkIcons, 0);
+    }
 
-    const workers = Array.from({ length: Math.min(CONCURRENCY, chunkCount) }, worker);
-    await Promise.all(workers);
+    // 2. If there are remaining chunks, load them asynchronously in the background
+    if (chunkCount > 1) {
+      const remainingIndices = Array.from({ length: chunkCount - 1 }, (_, i) => i + 1);
 
-    return buffer.flat();
+      (async () => {
+        for (const chunkIndex of remainingIndices) {
+          const chunkNumber = chunkIndex + 1;
+          const chunkUrl = `data/${lib.slug}-${chunkNumber}.json`;
+          try {
+            const res = await requestMobileChunk(chunkUrl, BACKGROUND_LIBRARY_TIMEOUT_MS);
+            const rawData = await res.json();
+            const chunkIcons = Array.isArray(rawData)
+              ? rawData.map((icon, idx) => completeIcon(icon, lib, (chunkIndex * MOBILE_LIBRARY_CHUNK_SIZE) + idx))
+              : normalizeIconifySet(lib, rawData);
+            buffer[chunkIndex] = chunkIcons;
+
+            if (typeof options.onChunk === "function") {
+              options.onChunk(chunkIcons, chunkIndex);
+            }
+          } catch (err) {
+            console.warn(`Failed to load background chunk ${chunkNumber} for ${lib.slug}:`, err);
+          }
+
+          // Yield to main thread for 120ms to keep mobile main thread 100% fluid & responsive
+          await new Promise((resolve) => setTimeout(resolve, 120));
+        }
+
+        // Clean up mobile chunk buffers once all chunks have completed loading
+        state.mobileChunkBuffers.delete(lib.slug);
+
+        // Cache the fully merged library icons array in IndexedDB!
+        const fullIcons = buffer.flat();
+        cacheLibrary(lib.slug, fullIcons).catch((err) => console.warn(`Failed to cache ${lib.slug} in IndexedDB:`, err));
+      })();
+    } else {
+      // If only 1 chunk, clean up immediately
+      state.mobileChunkBuffers.delete(lib.slug);
+    }
+
+    return firstChunkIcons;
   }
 
   async function requestMobileChunk(chunkUrl, timeoutMs) {
