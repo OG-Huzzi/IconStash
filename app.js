@@ -2162,6 +2162,14 @@
     state.currentIconId = id;
     const index = state.filteredIcons.findIndex((entry) => entry.id === id);
     if (index >= 0) state.focusedIndex = index;
+
+    if (state.customColor) {
+      state.detail.color = state.customColor;
+    }
+    if (state.customStrokeWidth) {
+      state.detail.strokeWidth = Number(state.customStrokeWidth) || 1.5;
+    }
+
     els.detailPanel.classList.remove("closed");
     renderDetailWithMeta(icon, { updateSeo: true });
     updateFocusedCard();
@@ -2174,6 +2182,14 @@
     state.currentIconId = id;
     const index = state.filteredIcons.findIndex((entry) => entry.id === id);
     if (index >= 0) state.focusedIndex = index;
+
+    if (state.customColor) {
+      state.detail.color = state.customColor;
+    }
+    if (state.customStrokeWidth) {
+      state.detail.strokeWidth = Number(state.customStrokeWidth) || 1.5;
+    }
+
     els.detailPanel.classList.remove("closed");
     renderDetailWithMeta(icon);
     updateFocusedCard();
@@ -2980,11 +2996,17 @@
       const applyColor = (color) => {
         if (!color) {
           applyAutoColor();
+          if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
+            setDetailColor(themePreviewColor());
+          }
           return;
         }
         state.customColor = color;
         els.iconGrid.style.setProperty("--custom-icon-color", color);
         els.iconGrid.classList.add("customized-preview-color");
+        if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
+          setDetailColor(color);
+        }
       };
 
       const syncDefaultColorInput = () => {
@@ -3030,11 +3052,17 @@
           state.customStrokeWidth = "";
           els.iconGrid.style.removeProperty("--custom-stroke-width");
           els.iconGrid.classList.remove("customized-preview-stroke");
+          if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
+            setDetailStroke(1.5);
+          }
           return;
         }
         state.customStrokeWidth = stroke;
         els.iconGrid.style.setProperty("--custom-stroke-width", stroke + "px");
         els.iconGrid.classList.add("customized-preview-stroke");
+        if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
+          setDetailStroke(stroke);
+        }
       };
 
       els.custStrokeSlider.addEventListener("input", () => {

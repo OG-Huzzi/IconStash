@@ -141,7 +141,7 @@ h2 .gradient-text {
   background-clip: initial !important;
   -webkit-text-fill-color: initial !important;
   color: var(--neon-purple) !important;
-  text-shadow: var(--glow-purple);
+  text-shadow: 0 0 8px rgba(191, 0, 255, 0.35), 0 0 16px rgba(191, 0, 255, 0.12);
 }
 h1, h2, h3, p { margin: 0; }
 h1 { font-size: 48px; letter-spacing: 0; }
