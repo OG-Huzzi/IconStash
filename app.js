@@ -1246,9 +1246,6 @@
         // Apply filters in background to include newly loaded icons in the search grid
         scheduleBackgroundFilter(slug);
 
-        // Eagerly pre-load library metadata in the background so copy/download details are instant!
-        loadLibraryMeta(slug).catch((err) => console.warn(`Background meta load failed for ${slug}:`, err));
-
         // Cache in IndexedDB asynchronously if we loaded it from network/JSON
         if (!fromCache) {
           cacheLibrary(slug, icons).catch((err) => console.warn(`Failed to cache ${slug} in IndexedDB:`, err));
@@ -1362,63 +1359,15 @@
   }
 
   async function loadLibraryMeta(slug) {
-    if (!slug) return {};
-    if (metaCache.has(slug)) return metaCache.get(slug);
-    if (metaLoadTasks.has(slug)) return metaLoadTasks.get(slug);
-    const task = (async () => {
-      const response = await request(`data/meta/${slug}-meta.json`, { timeoutMs: FOREGROUND_LIBRARY_TIMEOUT_MS });
-      if (!response.ok) throw new Error(`Meta JSON HTTP ${response.status}: ${slug}`);
-      const data = await response.json();
-      const meta = data && typeof data === "object" && !Array.isArray(data) ? data : {};
-      metaCache.set(slug, meta);
-
-      // Hydrate all icons of this library in the main state.icons map
-      try {
-        const libIcons = Array.from(state.icons.values()).filter((icon) => icon.librarySlug === slug);
-        for (const icon of libIcons) {
-          const entry = meta[icon.id];
-          if (entry) {
-            const merged = mergeIconMeta(icon, entry);
-            state.icons.set(merged.id, merged);
-          }
-        }
-      } catch (hydrateErr) {
-        console.warn(`Error during background pre-hydration of icons for ${slug}:`, hydrateErr);
-      }
-
-      return meta;
-    })().finally(() => {
-      metaLoadTasks.delete(slug);
-    });
-    metaLoadTasks.set(slug, task);
-    return task;
+    return {};
   }
 
   function mergeIconMeta(icon, meta) {
-    if (!icon || !meta) return icon;
-    const merged = { ...icon };
-    for (const [key, value] of Object.entries(meta)) {
-      if (value !== undefined && value !== null) merged[key] = value;
-    }
-    merged.id = icon.id;
-    merged.name = icon.name;
-    merged.svgPath = icon.svgPath || meta.svgPath || meta.svgContent || "";
-    merged.viewBox = icon.viewBox || meta.viewBox || `0 0 ${meta.width || 24} ${meta.height || 24}`;
-    merged.tags = icon.tags || meta.tags || [];
-    merged.category = icon.category || meta.category || "Interface";
-    return merged;
+    return icon;
   }
 
   async function ensureIconMeta(icon) {
-    if (!icon) return icon;
-    const slug = icon.librarySlug || iconSlugFromId(icon.id);
-    if (!slug) return icon;
-    const meta = await loadLibraryMeta(slug);
-    const entry = meta[icon.id];
-    if (!entry) return icon;
-    const merged = mergeIconMeta(icon, entry);
-    state.icons.set(merged.id, merged);
-    return merged;
+    return icon;
   }
 
   async function loadMobileChunkedLibrary(lib, options = {}) {
@@ -2257,34 +2206,8 @@
 
   async function renderDetailWithMeta(icon, options = {}) {
     if (!icon) return;
-    const slug = icon.librarySlug || iconSlugFromId(icon.id);
-    if (slug && metaCache.has(slug)) {
-      const entry = metaCache.get(slug)[icon.id];
-      const hydrated = entry ? mergeIconMeta(icon, entry) : icon;
-      if (entry) state.icons.set(hydrated.id, hydrated);
-      renderDetail(hydrated);
-      if (options.updateSeo) updateSeoIcon(hydrated);
-      return;
-    }
-    renderDetail(icon, { metaLoading: Boolean(slug) });
-    if (!slug) {
-      if (options.updateSeo) updateSeoIcon(icon);
-      return;
-    }
-    try {
-      const hydrated = await ensureIconMeta(icon);
-      if (state.currentIconId !== icon.id || els.detailPanel.classList.contains("closed")) return;
-      detailMetaLoadingId = "";
-      renderDetail(hydrated);
-      if (options.updateSeo) updateSeoIcon(hydrated);
-    } catch (error) {
-      console.error(`Failed to load icon metadata for ${icon.id}:`, error);
-      if (state.currentIconId !== icon.id || els.detailPanel.classList.contains("closed")) return;
-      detailMetaLoadingId = "";
-      renderDetail(icon);
-      if (options.updateSeo) updateSeoIcon(icon);
-      ui().toast("Icon metadata could not load", "error");
-    }
+    renderDetail(icon, { metaLoading: false });
+    if (options.updateSeo) updateSeoIcon(icon);
   }
 
   function renderDetail(icon, options = {}) {
@@ -2361,11 +2284,6 @@
   function renderCodePreview() {
     const icon = state.icons.get(state.currentIconId);
     if (!icon) return;
-    if (detailMetaLoadingId === state.currentIconId) {
-      els.dpCodePreview.textContent = "Loading icon metadata...";
-      els.dpCopyCode.disabled = true;
-      return;
-    }
     els.dpCopyCode.disabled = false;
     const rawCode = iconTools().formatCode(icon, state.detail.format, {
       color: state.detail.color,
