@@ -1670,11 +1670,6 @@
   function applyFilters(options = {}) {
     const sessionId = ++currentSearchSessionId;
     
-    // Show loading spinner
-    if (els.searchShell) {
-      els.searchShell.classList.add("searching");
-    }
-    
     resetPrerenderGrid();
     const filters = {
       librarySlugs: state.selectedLibraries,
@@ -1811,11 +1806,6 @@
           els.noResultsText.textContent = state.searchQuery ? `No icons found for "${state.searchQuery}".` : "No icons found.";
         } else {
           els.noResults.classList.add("hidden");
-        }
-
-        // Hide loading spinner
-        if (els.searchShell) {
-          els.searchShell.classList.remove("searching");
         }
       }
     }, 0);
