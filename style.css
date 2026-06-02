@@ -82,6 +82,8 @@
   --btn-primary-glow: 0 0 12px rgba(2, 132, 199, 0.3);
   --neon-home-header: #0078ff;
   --neon-home-glow: 0 0 8px rgba(0, 120, 255, 0.25);
+  --neon-green: #0b5e28;
+  --neon-teal: #086657;
   --border: rgba(0,0,0,0.07);
 }
 
@@ -1823,7 +1825,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 
 /* Light Mode Syntax Colors */
 [data-theme="light"] .code-preview-box code {
-  color: #1a1a2e !important;
+  color: var(--neon-green) !important;
 }
 [data-theme="light"] .code-preview-box code .code-str {
   color: #006400 !important;
@@ -1866,11 +1868,15 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   background: var(--bg-hover) !important;
   border-color: var(--control-blue) !important;
 }
-[data-theme="light"] #detail-panel .tag-chip,
+[data-theme="light"] #detail-panel .tag-chip {
+  background: var(--bg-hover) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--neon-teal) !important;
+}
 [data-theme="light"] #detail-panel .meta-badge {
   background: var(--bg-hover) !important;
   border: 1px solid var(--border) !important;
-  color: var(--text-primary) !important;
+  color: var(--neon-green) !important;
 }
 [data-theme="light"] #detail-panel .code-preview-box {
   background: var(--bg-surface) !important;
