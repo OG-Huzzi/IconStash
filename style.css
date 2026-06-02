@@ -118,16 +118,28 @@ a { color: inherit; }
   -webkit-text-fill-color: transparent;
 }
 
-h1.gradient-text, h2.gradient-text,
-h1.hero-heading, h2.hero-heading,
-h1 .word-reveal, h2 .word-reveal,
-h1 .gradient-text, h2 .gradient-text {
+h1.gradient-text,
+h1.hero-heading,
+h1 .word-reveal,
+h1 .gradient-text {
   background: none !important;
   -webkit-background-clip: initial !important;
   background-clip: initial !important;
   -webkit-text-fill-color: initial !important;
   color: var(--neon-home-header) !important;
   text-shadow: var(--neon-home-glow);
+}
+
+h2.gradient-text,
+h2.hero-heading,
+h2 .word-reveal,
+h2 .gradient-text {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: var(--neon-purple) !important;
+  text-shadow: var(--glow-purple);
 }
 h1, h2, h3, p { margin: 0; }
 h1 { font-size: 48px; letter-spacing: 0; }
