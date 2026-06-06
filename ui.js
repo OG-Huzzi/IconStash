@@ -1,11 +1,5 @@
 (function () {
   const toasts = new Set();
-  const trail = [];
-  let cursorX = -100;
-  let cursorY = -100;
-  let ringX = -100;
-  let ringY = -100;
-  let cursorRaf = 0;
 
   function qs(selector, root = document) {
     return root.querySelector(selector);
@@ -99,64 +93,6 @@
     requestAnimationFrame(frame);
   }
 
-  function setupCursor() {
-    return;
-    if (window.matchMedia("(pointer: coarse)").matches) return;
-    const dot = qs("#cursor");
-    const ring = qs("#cursor-ring");
-    const trailRoot = qs("#cursor-trail");
-    if (!dot || !ring || !trailRoot) return;
-    for (let i = 0; i < 8; i += 1) {
-      const trailDot = document.createElement("i");
-      trailDot.className = "trail-dot";
-      trailDot.style.opacity = `${0.45 - i * 0.045}`;
-      trailDot.style.background = i % 3 === 0 ? "var(--neon-pink)" : i % 3 === 1 ? "var(--neon-blue)" : "var(--neon-purple)";
-      trailRoot.appendChild(trailDot);
-      trail.push({ node: trailDot, x: -100, y: -100 });
-    }
-    document.addEventListener("mousemove", (event) => {
-      cursorX = event.clientX;
-      cursorY = event.clientY;
-      const button = event.target.closest("button, a, input, select, .glass-btn, .gradient-btn");
-      const card = event.target.closest(".icon-card");
-      document.body.classList.toggle("cursor-button", Boolean(button));
-      document.body.classList.toggle("cursor-card", Boolean(card));
-      if (button) {
-        const rect = button.getBoundingClientRect();
-        document.body.style.setProperty("--cursor-w", `${Math.min(160, Math.max(56, rect.width + 18))}px`);
-      }
-      if (!cursorRaf) cursorRaf = requestAnimationFrame(cursorLoop);
-    }, { passive: true });
-    document.addEventListener("click", () => {
-      ring.animate([
-        { transform: "translate(-50%, -50%) scale(1)", opacity: 1 },
-        { transform: "translate(-50%, -50%) scale(1.7)", opacity: 0 }
-      ], { duration: 300, easing: "ease-out" });
-    });
-    function cursorLoop() {
-      cursorRaf = 0;
-      ringX += (cursorX - ringX) * 0.18;
-      ringY += (cursorY - ringY) * 0.18;
-      dot.style.left = `${cursorX}px`;
-      dot.style.top = `${cursorY}px`;
-      ring.style.left = `${ringX}px`;
-      ring.style.top = `${ringY}px`;
-      let tx = cursorX;
-      let ty = cursorY;
-      for (const item of trail) {
-        item.x += (tx - item.x) * 0.32;
-        item.y += (ty - item.y) * 0.32;
-        item.node.style.left = `${item.x}px`;
-        item.node.style.top = `${item.y}px`;
-        tx = item.x;
-        ty = item.y;
-      }
-      if (Math.abs(ringX - cursorX) > 0.5 || Math.abs(ringY - cursorY) > 0.5) {
-        cursorRaf = requestAnimationFrame(cursorLoop);
-      }
-    }
-  }
-
   function setupModalClosers() {
     qsa(".modal-close, #modal-backdrop").forEach((node) => {
       node.addEventListener("click", closeModals);
@@ -208,7 +144,6 @@
   }
 
   function init() {
-    setupCursor();
     setupModalClosers();
     setupStatsObserver();
     setupNetworkGate();
