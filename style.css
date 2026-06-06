@@ -1,3 +1,5 @@
+/* style.css - Application styling, variables, layout, animations, and responsive design. */
+/* Optimizations: Hides custom cursors, scales ripples, hides canvas on mobile, and disables backdrop-filters on mobile. */
 :root {
   --bg-void: #02020a;
   --bg-base: #05050f;
@@ -976,13 +978,12 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
   transform: translate(-50%, -50%) scale(0);
   opacity: .75;
   pointer-events: none;
-  animation: none;
-  display: none;
+  animation: ripple 250ms cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 @keyframes cardFlip { from { opacity: 0; transform: rotateX(90deg) translateY(8px); } to { opacity: 1; transform: rotateX(0) translateY(0); } }
 @keyframes iconBreath { 50% { transform: scale(1.02); } }
 @keyframes drawCheck { to { stroke-dashoffset: 0; } }
-@keyframes ripple { to { opacity: 0; transform: translate(-50%, -50%) scale(14); } }
+@keyframes ripple { to { opacity: 0; transform: translate(-50%, -50%) scale(4); } }
 
 #no-results {
   position: absolute;
@@ -1632,15 +1633,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 .sitemap-link { color: var(--text-muted); font: 500 10px var(--font-mono); text-decoration: none; opacity: .7; }
 .sitemap-link:hover { color: var(--neon-blue); opacity: 1; }
 
-@media (pointer: fine) {
-  #cursor, #cursor-ring, #cursor-trail { display: none !important; }
-  #cursor, #cursor-ring { position: fixed; left: -100px; top: -100px; pointer-events: none; z-index: 160; transform: translate(-50%, -50%); }
-  #cursor { width: 8px; height: 8px; border-radius: 50%; background: var(--neon-blue); box-shadow: var(--glow-blue); }
-  #cursor-ring { width: 28px; height: 28px; border: 1px solid var(--neon-blue); border-radius: 50%; transition: width 160ms ease, height 160ms ease, border-radius 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
-  body.cursor-card #cursor-ring { width: 48px; height: 48px; border-color: var(--neon-pink); box-shadow: var(--glow-pink); }
-  body.cursor-button #cursor-ring { width: var(--cursor-w, 60px); height: 34px; border-radius: 17px; border-color: var(--neon-purple); box-shadow: var(--glow-purple); }
-  .trail-dot { position: fixed; width: 5px; height: 5px; border-radius: 50%; pointer-events: none; z-index: 150; background: var(--neon-blue); opacity: .5; transform: translate(-50%, -50%); }
-}
+#cursor, #cursor-ring, #cursor-trail, .trail-dot { display: none !important; }
 
 .mobile-only { display: none; }
 @media (max-width: 1199px) {
@@ -1909,6 +1902,34 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 
 /* Mobile Overflow and Cutting Issues Fixes */
 @media (max-width: 767px) {
+  /* Mobile Performance & Readability Optimizations */
+  .bg-canvas { display: none !important; }
+  
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  :root {
+    --glass-1: var(--bg-surface);
+    --glass-2: var(--bg-surface);
+    --glass-3: var(--bg-elevated);
+    --glass-4: var(--bg-hover);
+    --glass-border: #141432;
+    --glass-border-bright: #202048;
+    --border: #141432;
+  }
+  
+  [data-theme="light"] {
+    --glass-1: var(--bg-surface);
+    --glass-2: var(--bg-surface);
+    --glass-3: var(--bg-elevated);
+    --glass-4: var(--bg-hover);
+    --glass-border: #dcdce8;
+    --glass-border-bright: #ccccda;
+    --border: #dcdce8;
+  }
+
   /* FIX 3 — Global Mobile Overflow Prevention */
   html, body {
     overflow-x: hidden !important;
