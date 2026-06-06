@@ -148,8 +148,8 @@ function normalizeBody(body) {
     return `<path d="${escapeHtml(content)}"></path>`;
   }
   return content
-    .replace(/\s(fill|stroke)="(?!none\b|transparent\b|url\()[^"]*"/gi, (_match, attr) => ` ${attr}="currentColor"`)
-    .replace(/\s(fill|stroke)='(?!none\b|transparent\b|url\()[^']*'/gi, (_match, attr) => ` ${attr}="currentColor"`);
+    .replace(/\s(fill|stroke)="(?!none\b|transparent\b|url\(|freeze\b|remove\b)[^"]*"/gi, (_match, attr) => ` ${attr}="currentColor"`)
+    .replace(/\s(fill|stroke)='(?!none\b|transparent\b|url\(|freeze\b|remove\b)[^']*'/gi, (_match, attr) => ` ${attr}="currentColor"`);
 }
 
 function renderSvg(icon, size = 72) {

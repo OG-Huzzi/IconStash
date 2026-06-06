@@ -24,8 +24,8 @@
     if (!/<(path|g|circle|rect|line|polyline|polygon|ellipse|defs|use|clipPath|mask)\b/i.test(body)) {
       normalized = `<path d="${escapeHtml(body)}"></path>`;
     }
-    normalized = normalized.replace(/\s(fill|stroke)="(?!none\b|transparent\b|url\()[^"]*"/gi, (_match, attr) => ` ${attr}="currentColor"`);
-    normalized = normalized.replace(/\s(fill|stroke)='(?!none\b|transparent\b|url\()[^']*'/gi, (_match, attr) => ` ${attr}="currentColor"`);
+    normalized = normalized.replace(/\s(fill|stroke)="(?!none\b|transparent\b|url\(|freeze\b|remove\b)[^"]*"/gi, (_match, attr) => ` ${attr}="currentColor"`);
+    normalized = normalized.replace(/\s(fill|stroke)='(?!none\b|transparent\b|url\(|freeze\b|remove\b)[^']*'/gi, (_match, attr) => ` ${attr}="currentColor"`);
     if (options.strokeWidth) {
       if (/\sstroke-width=/i.test(normalized)) {
         normalized = normalized
