@@ -2579,8 +2579,26 @@
     els.search.addEventListener("focus", () => {
       els.searchShell.classList.add("focused");
       triggerBackgroundSync();
+      renderAutocomplete();
     });
     els.search.addEventListener("blur", () => setTimeout(() => els.searchShell.classList.remove("focused"), 100));
+    
+    els.search.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        els.autocomplete.classList.add("hidden");
+        els.search.blur();
+      }
+    });
+    els.search.addEventListener("search", () => {
+      els.autocomplete.classList.add("hidden");
+      els.search.blur();
+    });
+    
+    document.addEventListener("click", (event) => {
+      if (!els.searchShell.contains(event.target)) {
+        els.autocomplete.classList.add("hidden");
+      }
+    });
     
     const handleSearchInput = debounce(async () => {
       state.searchQuery = els.search.value.trim();
@@ -3259,6 +3277,10 @@
   }
 
   function renderAutocomplete() {
+    if (document.activeElement !== els.search) {
+      els.autocomplete.classList.add("hidden");
+      return;
+    }
     if (!state.searchQuery || state.searchQuery.length < 2) {
       els.autocomplete.classList.add("hidden");
       return;
