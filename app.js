@@ -1,3 +1,5 @@
+// app.js - Main application file. Updated to execute searches asynchronously via Web Worker
+// and to virtualize the grid on scroll to keep browser responsive.
 (function () {
   const COLORS = ["#00c3ff", "#ff2d9b", "#00ff88", "#bf00ff", "#ff6a00", "#f5ff00", "#00ffd5", "#ff003c"];
   const CATEGORY_META = [
@@ -773,6 +775,17 @@
   }
 
   async function showPrerenderedGrid(options = {}) {
+    if (els.iconGrid) {
+      els.iconGrid.style.position = "";
+      els.iconGrid.style.top = "";
+      els.iconGrid.style.left = "";
+      els.iconGrid.style.right = "";
+      els.iconGrid.style.transform = "";
+    }
+    if (els.gridSpacer) {
+      els.gridSpacer.style.height = "0px";
+    }
+
     const manifest = state.prerender.manifest;
     if (!manifest?.libraries?.length) return false;
     const mode = options.mode || "all";
@@ -1634,136 +1647,41 @@
       sort: state.sort
     };
 
-    // Yield to the browser between debounce and search execution
-    setTimeout(() => {
+    const limit = 0; // Return all matching results (no cap)
+
+    window.IconStashSearch.searchIcons(filters.query, {
+      filters: filters,
+      limit: limit
+    }).then((results) => {
       if (sessionId !== currentSearchSessionId) return;
 
-      const allIcons = Array.from(state.icons.values());
+      state.filteredIcons = results;
 
-      // Filter by library, style, category first (extremely fast, <1ms)
-      let filtered = allIcons;
-      if (filters.librarySlugs && filters.librarySlugs.size) {
-        filtered = filtered.filter((icon) => filters.librarySlugs.has(icon.librarySlug));
-      }
-      if (filters.style && filters.style !== "all") {
-        filtered = filtered.filter((icon) => icon.style === filters.style);
-      }
-      if (filters.category) {
-        filtered = filtered.filter((icon) => icon.category === filters.category);
-      }
-
-      function matchesSearch(icon, query) {
-        const q = String(query || "").trim().toLowerCase();
-        if (!q) return true;
-        const words = q.split(/[^a-z0-9]+/).filter(Boolean);
-        if (!words.length) return true;
-
-        const haystack = [
-          icon.name,
-          icon.library,
-          icon.librarySlug,
-          icon.category,
-          icon.subCategory,
-          ...(icon.tags || []),
-          ...(icon.nameVariants || [])
-        ].join(" ").toLowerCase();
-
-        for (const word of words) {
-          if (haystack.includes(word)) return true;
-        }
-        return false;
-      }
-
-      // If searching, execute in chunks of 1000 icons sequentially using setTimeout between chunks
-      if (filters.query) {
-        const chunkSize = 1000;
-        const results = [];
-        let index = 0;
-
-        function processChunk() {
-          if (sessionId !== currentSearchSessionId) return;
-
-          const chunk = filtered.slice(index, index + chunkSize);
-          chunk.forEach(icon => {
-            if (matchesSearch(icon, filters.query)) {
-              results.push(icon);
-            }
-          });
-
-          index += chunkSize;
-          if (index < filtered.length) {
-            setTimeout(processChunk, 0);
-          } else {
-            finalizeSearch(results);
-          }
-        }
-        processChunk();
+      if (isAllIconsGroupedMode()) sortAllIconsByLibrary();
+      const batchSize = gridBatchSize();
+      if (!options.preserveLimit) {
+        state.visibleLimit = batchSize;
       } else {
-        finalizeSearch(filtered);
+        state.visibleLimit = Math.max(batchSize, Math.min(state.visibleLimit, state.filteredIcons.length));
       }
+      state.renderedCount = 0;
+      state.inlineAdRendered = false;
+      updateSeoForRoute();
+      updateCounts();
+      buildRows();
+      if (options.resetScroll) els.gridContainer.scrollTop = 0;
+      updateVirtualScroll(true);
+      renderSuggestions();
 
-      function finalizeSearch(results) {
-        if (sessionId !== currentSearchSessionId) return;
-
-        // Sort results
-        const sort = filters.sort || "relevance";
-        if (sort === "popular") {
-          results.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-        } else if (sort === "newest") {
-          results.sort((a, b) => String(b.dateAdded || "").localeCompare(String(a.dateAdded || "")));
-        } else if (sort === "az") {
-          results.sort((a, b) => a.name.localeCompare(b.name));
-        } else if (sort === "za") {
-          results.sort((a, b) => b.name.localeCompare(a.name));
-        } else if (sort === "relevance" && filters.query) {
-          const words = String(filters.query).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
-          results.sort((a, b) => {
-            const getScore = (icon) => {
-              const haystack = [
-                icon.name,
-                icon.library,
-                icon.librarySlug,
-                icon.category,
-                icon.subCategory,
-                ...(icon.tags || []),
-                ...(icon.nameVariants || [])
-              ].join(" ").toLowerCase();
-              let score = 0;
-              for (const word of words) {
-                if (haystack.includes(word)) score += icon.name.toLowerCase().includes(word) ? 4 : 1;
-              }
-              return score;
-            };
-            return getScore(b) - getScore(a) || (b.popularity || 0) - (a.popularity || 0);
-          });
-        }
-
-        state.filteredIcons = results;
-
-        if (isAllIconsGroupedMode()) sortAllIconsByLibrary();
-        const batchSize = gridBatchSize();
-        if (!options.preserveLimit) {
-          state.visibleLimit = batchSize;
-        } else {
-          state.visibleLimit = Math.max(batchSize, Math.min(state.visibleLimit, state.filteredIcons.length));
-        }
-        state.renderedCount = 0;
-        state.inlineAdRendered = false;
-        updateSeoForRoute();
-        updateCounts();
-        buildRows();
-        if (options.resetScroll) els.gridContainer.scrollTop = 0;
-        updateVirtualScroll(true);
-        renderSuggestions();
-
-        if (state.filteredIcons.length === 0) {
-          els.noResults.classList.remove("hidden");
-          els.noResultsText.textContent = state.searchQuery ? `No icons found for "${state.searchQuery}".` : "No icons found.";
-        } else {
-          els.noResults.classList.add("hidden");
-        }
+      if (state.filteredIcons.length === 0) {
+        els.noResults.classList.remove("hidden");
+        els.noResultsText.textContent = state.searchQuery ? `No icons found for "${state.searchQuery}".` : "No icons found.";
+      } else {
+        els.noResults.classList.add("hidden");
       }
-    }, 0);
+    }).catch((err) => {
+      console.error("Search worker failed:", err);
+    });
   }
 
   function updateCounts() {
@@ -1826,33 +1744,58 @@
     if (!force && scrollRaf) return;
     scrollRaf = requestAnimationFrame(() => {
       scrollRaf = 0;
-      if (!state.filteredIcons.length) {
+      
+      const totalResults = state.filteredIcons.length;
+      if (!totalResults) {
         els.iconGrid.innerHTML = "";
+        els.gridSpacer.style.height = "0px";
+        els.iconGrid.style.transform = "";
         els.loadingMore.classList.add("hidden");
         state.renderedCount = 0;
         state.inlineAdRendered = false;
         return;
       }
-      if (force || state.renderedCount > state.visibleLimit) {
-        els.iconGrid.innerHTML = "";
-        state.renderedCount = 0;
-        state.inlineAdRendered = false;
-      }
-      const start = state.renderedCount;
-      const end = Math.min(state.visibleLimit, state.filteredIcons.length);
+
+      const cols = state.cols || 8;
+      const rowHeight = state.rowHeight || 88;
+      const totalRows = Math.ceil(totalResults / cols);
+      const totalHeight = totalRows * rowHeight;
+      
+      els.gridSpacer.style.height = `${totalHeight}px`;
+
+      const scrollTop = els.gridContainer.scrollTop;
+      const containerHeight = els.gridContainer.clientHeight;
+
+      // Render visible area + 2 buffer rows above and below
+      const bufferRows = 2;
+      const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - bufferRows);
+      const endRow = Math.min(totalRows, Math.ceil((scrollTop + containerHeight) / rowHeight) + bufferRows);
+
+      const startIndex = startRow * cols;
+      const endIndex = Math.min(totalResults, endRow * cols);
+
       const parts = [];
       const allCollections = window.IconStashCollections.all();
       const collectedIds = new Set(allCollections.flatMap(col => col.icons));
-      for (let index = start; index < end; index += 1) {
+
+      for (let index = startIndex; index < endIndex; index += 1) {
         if (isAllIconsGroupedMode() && shouldRenderLibraryHeader(index)) {
           parts.push(renderLibraryHeader(state.filteredIcons[index]));
         }
         parts.push(renderCard(state.filteredIcons[index], index, collectedIds));
       }
-      if (parts.length) els.iconGrid.insertAdjacentHTML("beforeend", parts.join(""));
-      state.renderedCount = end;
+
+      const topOffset = startRow * rowHeight;
+      els.iconGrid.style.position = "absolute";
+      els.iconGrid.style.top = "0";
+      els.iconGrid.style.left = "0";
+      els.iconGrid.style.right = "0";
+      els.iconGrid.style.transform = `translateY(${topOffset}px)`;
+
+      els.iconGrid.innerHTML = parts.join("");
+      
+      state.renderedCount = endIndex;
       els.loadingMore.classList.add("hidden");
-      checkViewportFill();
     });
   }
 
@@ -2795,16 +2738,22 @@
       if (icon) window.location.hash = `#/icon/${icon.dataset.iconId}`;
     });
     els.gridContainer.addEventListener("scroll", () => {
-      const nearBottom = els.gridContainer.scrollTop + els.gridContainer.clientHeight > els.gridContainer.scrollHeight - scrollPrefetchDistance();
-      if (nearBottom) {
-        if (state.prerender.active) {
+      if (state.prerender.active) {
+        const nearBottom = els.gridContainer.scrollTop + els.gridContainer.clientHeight > els.gridContainer.scrollHeight - scrollPrefetchDistance();
+        if (nearBottom) {
           if (isMobile) checkViewportFill();
           else appendNextPrerenderChunk();
-          return;
         }
+        return;
+      }
+      
+      updateVirtualScroll(false);
+
+      const nearBottom = els.gridContainer.scrollTop + els.gridContainer.clientHeight > els.gridContainer.scrollHeight - scrollPrefetchDistance();
+      if (nearBottom) {
         if (state.visibleLimit < state.filteredIcons.length) {
           state.visibleLimit = Math.min(state.filteredIcons.length, state.visibleLimit + gridBatchSize());
-          updateVirtualScroll(false);
+          updateVirtualScroll(true);
         } else {
           loadNextLibraryForBrowse();
         }
@@ -3047,14 +2996,14 @@
     }
   }
   function addRipple(card, event) {
-    return;
+    if (isMobile || window.innerWidth < 768) return;
     const rect = card.getBoundingClientRect();
     const ripple = document.createElement("span");
     ripple.className = "card-ripple";
     ripple.style.left = `${event.clientX - rect.left}px`;
     ripple.style.top = `${event.clientY - rect.top}px`;
     card.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 420);
+    setTimeout(() => ripple.remove(), 250);
   }
 
   function setupDetailEvents() {

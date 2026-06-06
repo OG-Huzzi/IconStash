@@ -1,6 +1,11 @@
+// search.js - Wraps the search.worker.js Web Worker to delegate fuzzy searching off the main thread.
+// Exposes a Promise-based searchIcons API and maintains backwards-compatible helpers.
+
 (function () {
-  let fuse = null;
-  let indexedIds = new Set();
+  let worker = null;
+  const searchPromises = new Map();
+  let latestQueryId = 0;
+  let allIcons = [];
 
   function tokenize(value) {
     return String(value || "")
@@ -15,40 +20,6 @@
       .replace(/[-_\s]?(outline|regular|solid|filled|fill|bold|duotone|thin|light|sharp|round|linear|twotone|two-tone|24|20|16|12)$/g, "")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "");
-  }
-
-  function buildSearchIndex(icons) {
-    const list = Array.from(icons || []);
-    indexedIds = new Set(list.map((icon) => icon.id));
-    if (typeof Fuse === "undefined") {
-      fuse = null;
-      return null;
-    }
-    fuse = new Fuse(list, {
-      includeScore: true,
-      threshold: 0.32,
-      distance: 96,
-      ignoreLocation: true,
-      minMatchCharLength: 1,
-      keys: [
-        { name: "name", weight: 0.62 },
-        { name: "nameVariants", weight: 0.2 },
-        { name: "tags", weight: 0.48 },
-        { name: "category", weight: 0.12 },
-        { name: "subCategory", weight: 0.1 },
-        { name: "library", weight: 0.08 },
-        { name: "librarySlug", weight: 0.06 }
-      ]
-    });
-    return fuse;
-  }
-
-  function needsIndexRebuild(icons) {
-    if (!fuse) return true;
-    for (const icon of icons) {
-      if (!indexedIds.has(icon.id)) return true;
-    }
-    return indexedIds.size !== icons.length;
   }
 
   function textFallback(list, query) {
@@ -76,14 +47,15 @@
       .map((entry) => entry.icon);
   }
 
-  function search(list, query) {
+  function buildSearchIndex(icons) {
+    initSearch(icons);
+  }
+
+  function suggestions(icons, query, limit = 5) {
+    const list = Array.from(icons || []);
     const q = String(query || "").trim();
-    if (!q) return list.slice();
-    if (typeof Fuse !== "undefined") {
-      if (needsIndexRebuild(list)) buildSearchIndex(list);
-      if (fuse) return fuse.search(q).map((result) => result.item);
-    }
-    return textFallback(list, q);
+    if (!q) return list.slice(0, limit);
+    return textFallback(list, q).slice(0, limit);
   }
 
   function filterAndSort(icons, filters) {
@@ -98,7 +70,7 @@
       result = result.filter((icon) => icon.category === filters.category);
     }
     if (filters.query) {
-      result = search(result, filters.query);
+      result = textFallback(result, filters.query);
     }
     const sort = filters.sort || "relevance";
     if (sort === "popular") {
@@ -113,9 +85,60 @@
     return result;
   }
 
-  function suggestions(icons, query, limit = 5) {
-    const matches = search(Array.from(icons || []), query).slice(0, limit);
-    return matches;
+  function initSearch(icons) {
+    if (!worker) {
+      worker = new Worker(new URL('./search.worker.js?v=20260606-searchworker', import.meta.url));
+      worker.onmessage = function (e) {
+        const { type, data, queryId } = e.data;
+        if (type === 'results') {
+          const promiseObj = searchPromises.get(queryId);
+          if (promiseObj) {
+            promiseObj.resolve(data);
+            searchPromises.delete(queryId);
+          }
+        }
+      };
+    }
+    if (icons) {
+      allIcons = Array.from(icons);
+      worker.postMessage({ type: 'init', data: allIcons });
+    }
+  }
+
+  function searchIcons(query, options = {}) {
+    if (!worker) {
+      initSearch();
+    }
+    latestQueryId++;
+    const queryId = latestQueryId;
+
+    // Send a cancel signal for previous queryIds
+    for (const [id, promiseObj] of searchPromises.entries()) {
+      if (id < queryId) {
+        worker.postMessage({ type: 'cancel', data: { queryId: id } });
+        promiseObj.resolve([]); // Resolve stale search promises with empty array
+        searchPromises.delete(id);
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      searchPromises.set(queryId, { resolve, reject });
+      
+      const filters = options.filters ? { ...options.filters } : {};
+      if (filters.librarySlugs instanceof Set) {
+        filters.librarySlugs = Array.from(filters.librarySlugs);
+      }
+
+      worker.postMessage({
+        type: 'search',
+        data: {
+          query,
+          limit: options.limit || 200,
+          filters: filters,
+          queryId
+        }
+      });
+    });
   }
 
   window.IconStashSearch = {
@@ -123,6 +146,8 @@
     tokenize,
     buildSearchIndex,
     filterAndSort,
-    suggestions
+    suggestions,
+    initSearch,
+    searchIcons
   };
 })();

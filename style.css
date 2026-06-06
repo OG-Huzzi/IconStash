@@ -982,7 +982,7 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 @keyframes cardFlip { from { opacity: 0; transform: rotateX(90deg) translateY(8px); } to { opacity: 1; transform: rotateX(0) translateY(0); } }
 @keyframes iconBreath { 50% { transform: scale(1.02); } }
 @keyframes drawCheck { to { stroke-dashoffset: 0; } }
-@keyframes ripple { to { opacity: 0; transform: translate(-50%, -50%) scale(14); } }
+@keyframes ripple { to { opacity: 0; transform: translate(-50%, -50%) scale(4); } }
 
 #no-results {
   position: absolute;
@@ -1632,8 +1632,12 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 .sitemap-link { color: var(--text-muted); font: 500 10px var(--font-mono); text-decoration: none; opacity: .7; }
 .sitemap-link:hover { color: var(--neon-blue); opacity: 1; }
 
+/* Default (mobile + everything): hide the custom cursor (it doesn't exist on touch devices) */
+#cursor, #cursor-ring, #cursor-trail { display: none !important; }
+
+/* Desktop (mouse devices): show the custom cursor */
 @media (pointer: fine) {
-  #cursor, #cursor-ring, #cursor-trail { display: none !important; }
+  #cursor, #cursor-ring, #cursor-trail { display: block !important; }
   #cursor, #cursor-ring { position: fixed; left: -100px; top: -100px; pointer-events: none; z-index: 160; transform: translate(-50%, -50%); }
   #cursor { width: 8px; height: 8px; border-radius: 50%; background: var(--neon-blue); box-shadow: var(--glow-blue); }
   #cursor-ring { width: 28px; height: 28px; border: 1px solid var(--neon-blue); border-radius: 50%; transition: width 160ms ease, height 160ms ease, border-radius 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
@@ -1969,4 +1973,63 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 @keyframes modalInMobile {
   from { opacity: 0; transform: translateY(100%); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile optimizations: disable background canvas and backdrop-filter, add solid theme-aware color fallbacks */
+@media (max-width: 767px) {
+  .bg-canvas { display: none !important; }
+
+  /* Disable expensive backdrop-filter on mobile — use solid color fallback */
+  .search-input-wrapper,
+  .autocomplete,
+  #left-sidebar,
+  .stat-item,
+  .category-card,
+  .lib-card,
+  .how-step,
+  .trend-card,
+  .collection-row,
+  .error-card,
+  #detail-panel,
+  .modal-backdrop,
+  .modal,
+  .compare-modal,
+  .compare-wrapper,
+  .bulk-action-bar,
+  .network-card,
+  .collection-popover,
+  [class*="glass"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Specific solid-color fallbacks for dark & light themes */
+  .search-input-wrapper {
+    background: var(--bg-elevated) !important;
+  }
+  .autocomplete {
+    background: var(--bg-surface) !important;
+  }
+  #left-sidebar,
+  #detail-panel {
+    background: var(--bg-surface) !important;
+  }
+  .modal {
+    background: var(--bg-elevated) !important;
+  }
+  .modal-backdrop {
+    background: rgba(2, 2, 10, 0.95) !important;
+  }
+  [data-theme="light"] .modal-backdrop {
+    background: rgba(200, 200, 220, 0.95) !important;
+  }
+  .bulk-action-bar {
+    background: var(--bg-surface) !important;
+  }
+  .network-card {
+    background: var(--bg-elevated) !important;
+  }
+  .collection-popover {
+    background: var(--bg-elevated) !important;
+  }
 }
