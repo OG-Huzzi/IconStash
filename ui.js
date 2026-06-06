@@ -1,4 +1,3 @@
-// ui.js - UI enhancements. Updated custom cursor to register only on pointer:fine desktop devices.
 (function () {
   const toasts = new Set();
   const trail = [];
@@ -101,7 +100,8 @@
   }
 
   function setupCursor() {
-    if (!window.matchMedia("(pointer: fine)").matches) return;
+    return;
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     const dot = qs("#cursor");
     const ring = qs("#cursor-ring");
     const trailRoot = qs("#cursor-trail");
