@@ -133,6 +133,14 @@
     focusedIndex: 0,
     currentIconId: "",
     lastFailedSlug: "",
+    containerWidth: 0,
+    containerHeight: 0,
+    lastCalcWidth: 0,
+    lastCalcDensity: null,
+    lastCalcCols: 0,
+    lastStartRow: -1,
+    lastEndRow: -1,
+    lastRenderedLength: -1,
     route: "#/",
     visibleLimit: 160,
     batchSize: 160,
@@ -1721,8 +1729,17 @@
     els.gridSpacer.style.height = "0px";
   }
 
+  function measureContainer() {
+    if (!els.gridContainer) return;
+    state.containerWidth = els.gridContainer.clientWidth;
+    state.containerHeight = els.gridContainer.clientHeight;
+  }
+
   function calculateGrid() {
-    const width = Math.max(280, els.gridContainer.clientWidth - 12);
+    const width = Math.max(280, (state.containerWidth || els.gridContainer.clientWidth) - 12);
+    if (width === state.lastCalcWidth && state.density === state.lastCalcDensity && state.cols === state.lastCalcCols) {
+      return;
+    }
     if (state.density === "compact") {
       state.cardMin = 60;
       state.rowHeight = 68;
@@ -1733,11 +1750,17 @@
       state.cardMin = 80;
       state.rowHeight = 88;
     }
-    state.cols = Math.max(1, Math.floor((width + 8) / (state.cardMin + 8)));
-    els.iconGrid.classList.remove("density-compact", "density-default", "density-comfortable");
-    els.iconGrid.classList.add(`density-${state.density}`, "incremental-grid");
-    els.iconGrid.style.setProperty("--cols", state.cols);
-    document.documentElement.style.setProperty("--card-row-height", `${state.rowHeight}px`);
+    const newCols = Math.max(1, Math.floor((width + 8) / (state.cardMin + 8)));
+    if (newCols !== state.cols || state.density !== state.lastCalcDensity) {
+      els.iconGrid.classList.remove("density-compact", "density-default", "density-comfortable");
+      els.iconGrid.classList.add(`density-${state.density}`, "incremental-grid");
+      els.iconGrid.style.setProperty("--cols", newCols);
+      document.documentElement.style.setProperty("--card-row-height", `${state.rowHeight}px`);
+    }
+    state.cols = newCols;
+    state.lastCalcWidth = width;
+    state.lastCalcDensity = state.density;
+    state.lastCalcCols = newCols;
   }
 
   function updateVirtualScroll(force = false) {
@@ -1753,6 +1776,9 @@
         els.loadingMore.classList.add("hidden");
         state.renderedCount = 0;
         state.inlineAdRendered = false;
+        state.lastStartRow = -1;
+        state.lastEndRow = -1;
+        state.lastRenderedLength = -1;
         return;
       }
 
@@ -1769,10 +1795,17 @@
       const totalRows = Math.ceil(totalCount / cols);
       
       const scrollTop = els.gridContainer.scrollTop;
-      const containerHeight = els.gridContainer.clientHeight;
+      const containerHeight = state.containerHeight || els.gridContainer.clientHeight;
       
       const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - 2);
       const endRow = Math.min(totalRows, Math.ceil((scrollTop + containerHeight) / rowHeight) + 2);
+      
+      if (!force && 
+          startRow === state.lastStartRow && 
+          endRow === state.lastEndRow && 
+          totalCount === state.lastRenderedLength) {
+        return;
+      }
       
       const start = startRow * cols;
       const end = Math.min(totalCount, endRow * cols);
@@ -1796,6 +1829,10 @@
       
       state.renderedCount = end;
       els.loadingMore.classList.add("hidden");
+      
+      state.lastStartRow = startRow;
+      state.lastEndRow = endRow;
+      state.lastRenderedLength = totalCount;
     });
   }
 
@@ -1857,6 +1894,9 @@
     if (els.resultCount) {
       const count = displayedCount();
       els.resultCount.classList.toggle("hidden", showHome || count === 0);
+    }
+    if (!showHome) {
+      measureContainer();
     }
   }
 
@@ -2770,6 +2810,7 @@
       }
     }, { passive: true });
     window.addEventListener("resize", () => {
+      measureContainer();
       calculateGrid();
       buildRows();
       if (!state.prerender.active) {
@@ -3422,6 +3463,7 @@
     initTheme();
     ui().init();
     setupEvents();
+    measureContainer();
     calculateGrid();
     await Promise.all([loadIndex(), loadPrerenderManifest()]);
     normalizeStartupRoute();

@@ -19,6 +19,9 @@
   }
 
   function normalizeSvgBody(icon, options = {}) {
+    if (!options.strokeWidth && icon._normalizedBody) {
+      return icon._normalizedBody;
+    }
     const body = icon.svgPath || icon.svgContent || "";
     let normalized = body;
     if (!/<(path|g|circle|rect|line|polyline|polygon|ellipse|defs|use|clipPath|mask)\b/i.test(body)) {
@@ -26,6 +29,9 @@
     }
     normalized = normalized.replace(/\s(fill|stroke)="(?!none\b|transparent\b|url\(|freeze\b|remove\b)[^"]*"/gi, (_match, attr) => ` ${attr}="currentColor"`);
     normalized = normalized.replace(/\s(fill|stroke)='(?!none\b|transparent\b|url\(|freeze\b|remove\b)[^']*'/gi, (_match, attr) => ` ${attr}="currentColor"`);
+    if (!options.strokeWidth) {
+      icon._normalizedBody = normalized;
+    }
     if (options.strokeWidth) {
       if (/\sstroke-width=/i.test(normalized)) {
         normalized = normalized

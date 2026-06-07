@@ -207,13 +207,15 @@ function main() {
   // Remove existing inlined prerender-data script block if present to ensure idempotent rebuilds
   html = html.replace(/\s*<script id="prerender-data">[\s\S]*?<\/script>/g, '');
   
+  const match = html.match(/<script src="icons\.js(\?v=[^"]*)?"/);
+  const query = match ? (match[1] || "") : "";
   const inlinedScripts = `
   <script id="prerender-data">
     window.__INDEX_DATA__ = ${JSON.stringify(indexData)};
     window.__PRERENDER_MANIFEST__ = ${JSON.stringify(manifest)};
   </script>
-  <script src="icons.js" defer></script>`;
-  html = html.replace('<script src="icons.js" defer></script>', inlinedScripts);
+  <script src="icons.js${query}" defer></script>`;
+  html = html.replace(/<script src="icons\.js(?:\?v=[^"]*)?" defer><\/script>/, inlinedScripts);
   
   fs.writeFileSync(path.join(ROOT, "index.html"), html, "utf8");
   console.log("Generated " + manifest.libraries.length + " prerendered libraries, " + total.toLocaleString() + " icons");
