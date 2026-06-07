@@ -847,7 +847,7 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 #icon-grid.customized-preview-stroke .icon-wrap svg * {
   stroke-width: var(--custom-stroke-width) !important;
 }
-.icon-wrap { display: grid; place-items: center; color: var(--icon-color); transition: color 100ms ease; }
+.icon-wrap { display: grid; place-items: center; color: var(--icon-color); transition: color 100ms ease; width: var(--preview-size, 24px) !important; height: var(--preview-size, 24px) !important; }
 .icon-wrap svg { width: 100%; height: 100%; }
 .icon-card:hover .icon-wrap, .icon-card.focused .icon-wrap { color: var(--icon-strong); filter: none; }
 .icon-card.focused .icon-wrap { animation: none; }

@@ -160,6 +160,7 @@
     },
     mobileChunkBuffers: new Map(),
     backgroundSyncStarted: false,
+    collectedIconIds: new Set(),
     customColor: "",
     customStrokeWidth: "1.5",
     rowHeight: 88,
@@ -867,10 +868,6 @@
         state.prerender.libraryIndex = libIndex;
         state.prerender.slug = lib.slug;
         state.prerender.chunkIndex = nextChunk;
-        ui().qsa(".icon-wrap", els.iconGrid).forEach((wrap) => {
-          wrap.style.width = state.previewSize + "px";
-          wrap.style.height = state.previewSize + "px";
-        });
         
         // Sync favorite states on the newly appended chunk nodes
         syncPrerenderFavoriteButtons();
@@ -887,17 +884,25 @@
     return success;
   }
 
+  function updateCollectedIconIds() {
+    const allCollections = window.IconStashCollections ? window.IconStashCollections.all() : [];
+    state.collectedIconIds = new Set(allCollections.flatMap(col => col.icons));
+  }
+
   function syncPrerenderFavoriteButtons() {
-    const allCollections = window.IconStashCollections.all();
-    const collectedIds = new Set(allCollections.flatMap(col => col.icons));
+    updateCollectedIconIds();
+    const collectedIds = state.collectedIconIds;
     const btns = els.iconGrid.querySelectorAll(".card-favorite-btn");
     btns.forEach(btn => {
       const id = btn.dataset.favoriteId;
       const isCollected = collectedIds.has(id);
-      btn.classList.toggle("collected", isCollected);
-      const svg = btn.querySelector("svg");
-      if (svg) {
-        svg.setAttribute("fill", isCollected ? "currentColor" : "none");
+      const hasCollected = btn.classList.contains("collected");
+      if (isCollected !== hasCollected) {
+        btn.classList.toggle("collected", isCollected);
+        const svg = btn.querySelector("svg");
+        if (svg) {
+          svg.setAttribute("fill", isCollected ? "currentColor" : "none");
+        }
       }
     });
   }
@@ -980,11 +985,6 @@
           state.prerender.libraryIndex = libIndex;
           state.prerender.slug = lib.slug;
           state.prerender.chunkIndex = nextChunk;
-          
-          ui().qsa(".icon-wrap", els.iconGrid).forEach((wrap) => {
-            wrap.style.width = state.previewSize + "px";
-            wrap.style.height = state.previewSize + "px";
-          });
           
           syncPrerenderFavoriteButtons();
           prefetchNextChunks(lib.slug, nextChunk);
@@ -1763,6 +1763,127 @@
     state.lastCalcCols = newCols;
   }
 
+  function createCardElement(icon, visualIndex) {
+    const selected = state.selectedIcons.has(icon.id);
+    const focused = state.filteredIcons[state.focusedIndex]?.id === icon.id;
+    const delay = isMobile ? 0 : Math.min(400, visualIndex * 15);
+    const isCollected = state.collectedIconIds.has(icon.id);
+    const fillAttr = isCollected ? 'fill="currentColor"' : 'fill="none"';
+    const collectedClass = isCollected ? "collected" : "";
+
+    const article = document.createElement("article");
+    article.className = `icon-card ${selected ? "selected" : ""} ${focused ? "focused" : ""}`;
+    article.dataset.id = icon.id;
+    article.tabIndex = 0;
+    if (delay > 0) {
+      article.style.animationDelay = `${delay}ms`;
+    }
+    
+    article.innerHTML = `
+      <button class="card-favorite-btn ${collectedClass}" data-favorite-id="${icon.id}" aria-label="Add to collection" title="Add to collection">
+        <svg viewBox="0 0 24 24" ${fillAttr} stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </button>
+      <div class="icon-wrap"></div>
+      ${state.density === "comfortable" ? `<div class="card-name">${escapeHtml(icon.name)}</div>` : ""}
+      ${selected ? '<span class="select-check"><svg viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"></path></svg></span>' : ""}
+    `;
+    
+    const iconWrap = article.querySelector(".icon-wrap");
+    const svgMarkup = iconTools().renderSVG(icon);
+    iconWrap.innerHTML = svgMarkup;
+    if (iconWrap.firstElementChild) {
+      iconWrap.firstElementChild.dataset.renderedIconId = icon.id;
+    }
+    
+    return article;
+  }
+
+  function updateCardElement(cardEl, icon, visualIndex) {
+    const selected = state.selectedIcons.has(icon.id);
+    const focused = state.filteredIcons[state.focusedIndex]?.id === icon.id;
+    const isCollected = state.collectedIconIds.has(icon.id);
+
+    if (cardEl.dataset.id !== icon.id) {
+      cardEl.dataset.id = icon.id;
+    }
+    
+    const classList = cardEl.classList;
+    if (selected) {
+      if (!classList.contains("selected")) classList.add("selected");
+    } else {
+      if (classList.contains("selected")) classList.remove("selected");
+    }
+    
+    if (focused) {
+      if (!classList.contains("focused")) classList.add("focused");
+    } else {
+      if (classList.contains("focused")) classList.remove("focused");
+    }
+
+    const favBtn = cardEl.querySelector(".card-favorite-btn");
+    if (favBtn) {
+      if (favBtn.dataset.favoriteId !== icon.id) {
+        favBtn.dataset.favoriteId = icon.id;
+      }
+      const favClassList = favBtn.classList;
+      if (isCollected) {
+        if (!favClassList.contains("collected")) favClassList.add("collected");
+      } else {
+        if (favClassList.contains("collected")) favClassList.remove("collected");
+      }
+      
+      const favSvg = favBtn.querySelector("svg");
+      if (favSvg) {
+        const fillVal = isCollected ? "currentColor" : "none";
+        if (favSvg.getAttribute("fill") !== fillVal) {
+          favSvg.setAttribute("fill", fillVal);
+        }
+      }
+    }
+
+    const iconWrap = cardEl.querySelector(".icon-wrap");
+    if (iconWrap) {
+      const innerSvg = iconWrap.firstElementChild;
+      if (!innerSvg || innerSvg.dataset.renderedIconId !== icon.id) {
+        const newSvgMarkup = iconTools().renderSVG(icon);
+        iconWrap.innerHTML = newSvgMarkup;
+        const newSvg = iconWrap.firstElementChild;
+        if (newSvg) {
+          newSvg.dataset.renderedIconId = icon.id;
+        }
+      }
+    }
+
+    if (state.density === "comfortable") {
+      let nameEl = cardEl.querySelector(".card-name");
+      if (!nameEl) {
+        nameEl = document.createElement("div");
+        nameEl.className = "card-name";
+        cardEl.appendChild(nameEl);
+      }
+      if (nameEl.textContent !== icon.name) {
+        nameEl.textContent = icon.name;
+      }
+    } else {
+      const nameEl = cardEl.querySelector(".card-name");
+      if (nameEl) nameEl.remove();
+    }
+
+    const checkEl = cardEl.querySelector(".select-check");
+    if (selected) {
+      if (!checkEl) {
+        const span = document.createElement("span");
+        span.className = "select-check";
+        span.innerHTML = '<svg viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"></path></svg>';
+        cardEl.appendChild(span);
+      }
+    } else {
+      if (checkEl) checkEl.remove();
+    }
+  }
+
   function updateVirtualScroll(force = false) {
     if (!force && scrollRaf) return;
     scrollRaf = requestAnimationFrame(() => {
@@ -1795,11 +1916,20 @@
       const totalRows = Math.ceil(totalCount / cols);
       
       const scrollTop = els.gridContainer.scrollTop;
-      const containerHeight = state.containerHeight || els.gridContainer.clientHeight;
+      let containerHeight = state.containerHeight;
+      if (!containerHeight) {
+        containerHeight = els.gridContainer.clientHeight;
+        if (containerHeight > 0) state.containerHeight = containerHeight;
+      }
       
       const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - 2);
       const endRow = Math.min(totalRows, Math.ceil((scrollTop + containerHeight) / rowHeight) + 2);
       
+      const nearBottom = (scrollTop + containerHeight) > (totalRows * rowHeight) - scrollPrefetchDistance();
+      if (nearBottom) {
+        loadNextLibraryForBrowse();
+      }
+
       if (!force && 
           startRow === state.lastStartRow && 
           endRow === state.lastEndRow && 
@@ -1818,14 +1948,29 @@
       
       els.gridSpacer.style.height = `${totalRows * rowHeight}px`;
       
-      const parts = [];
-      const allCollections = window.IconStashCollections.all();
-      const collectedIds = new Set(allCollections.flatMap(col => col.icons));
-      for (let index = start; index < end; index += 1) {
-        parts.push(renderCard(state.filteredIcons[index], index, collectedIds));
+      if (!state.collectedIconIds || state.collectedIconIds.size === 0) {
+        updateCollectedIconIds();
       }
       
-      els.iconGrid.innerHTML = parts.join("");
+      const neededCount = end - start;
+      const children = els.iconGrid.children;
+      
+      while (children.length > neededCount) {
+        els.iconGrid.lastElementChild.remove();
+      }
+      
+      for (let i = children.length; i < neededCount; i++) {
+        const visualIndex = start + i;
+        const icon = state.filteredIcons[visualIndex];
+        const newCard = createCardElement(icon, visualIndex);
+        els.iconGrid.appendChild(newCard);
+      }
+      
+      for (let i = 0; i < children.length; i++) {
+        const visualIndex = start + i;
+        const icon = state.filteredIcons[visualIndex];
+        updateCardElement(children[i], icon, visualIndex);
+      }
       
       state.renderedCount = end;
       els.loadingMore.classList.add("hidden");
@@ -2616,6 +2761,7 @@
   }
 
   function setupEvents() {
+    updateCollectedIconIds();
     els.search.addEventListener("focus", () => {
       els.searchShell.classList.add("focused");
       triggerBackgroundSync();
@@ -2775,10 +2921,7 @@
     els.previewSlider.addEventListener("input", () => {
       state.previewSize = Number(els.previewSlider.value);
       els.previewLabel.textContent = `Preview Size: ${state.previewSize}px`;
-      ui().qsa(".icon-wrap").forEach((wrap) => {
-        wrap.style.width = `${state.previewSize}px`;
-        wrap.style.height = `${state.previewSize}px`;
-      });
+      document.documentElement.style.setProperty("--preview-size", `${state.previewSize}px`);
     });
     els.sortSelect.addEventListener("change", () => {
       triggerBackgroundSync();
@@ -2798,15 +2941,18 @@
     els.gridContainer.addEventListener("scroll", () => {
       if (!state.prerender.active) {
         updateVirtualScroll(false);
-      }
-      const nearBottom = els.gridContainer.scrollTop + els.gridContainer.clientHeight > els.gridContainer.scrollHeight - scrollPrefetchDistance();
-      if (nearBottom) {
-        if (state.prerender.active) {
-          if (isMobile) checkViewportFill();
-          else appendNextPrerenderChunk();
-          return;
+      } else {
+        if (!scrollRaf) {
+          scrollRaf = requestAnimationFrame(() => {
+            scrollRaf = 0;
+            const container = els.gridContainer;
+            const nearBottom = container.scrollTop + container.clientHeight > container.scrollHeight - scrollPrefetchDistance();
+            if (nearBottom) {
+              if (isMobile) checkViewportFill();
+              else appendNextPrerenderChunk();
+            }
+          });
         }
-        loadNextLibraryForBrowse();
       }
     }, { passive: true });
     window.addEventListener("resize", () => {
@@ -3462,6 +3608,7 @@
     cacheElements();
     initTheme();
     ui().init();
+    document.documentElement.style.setProperty("--preview-size", `${state.previewSize}px`);
     setupEvents();
     measureContainer();
     calculateGrid();
