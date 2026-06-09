@@ -289,18 +289,7 @@ h3 { font-size: 13px; letter-spacing: 0; }
 }
 .search-clear { cursor: pointer; color: var(--neon-pink); }
 .autocomplete {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 8px);
-  border-radius: var(--radius-card);
-  border: 1px solid var(--glass-border);
-  background: rgba(8,8,24,.82);
-  backdrop-filter: blur(20px) saturate(1.5);
-  padding: 8px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.5);
-  animation: dropdownIn 150ms cubic-bezier(.34,1.56,.64,1);
-  z-index: 90;
+  display: none !important;
 }
 .autocomplete-item {
   display: grid;

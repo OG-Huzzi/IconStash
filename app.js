@@ -3464,25 +3464,8 @@
   }
 
   function renderAutocomplete() {
-    if (document.activeElement !== els.search) {
-      els.autocomplete.classList.add("hidden");
-      return;
-    }
-    if (!state.searchQuery || state.searchQuery.length < 2) {
-      els.autocomplete.classList.add("hidden");
-      return;
-    }
-    const matches = window.IconStashSearch.suggestions(state.icons.values(), state.searchQuery, 5);
-    if (!matches.length) {
-      els.autocomplete.classList.add("hidden");
-      return;
-    }
-    els.autocomplete.innerHTML = matches.map((icon) => `<div class="autocomplete-item" data-icon-id="${icon.id}" role="option">
-      <span class="ac-icon">${iconTools().renderSVG(icon)}</span>
-      <span class="ac-info"><span class="ac-name">${escapeHtml(icon.name)}</span><span class="ac-lib">${escapeHtml(icon.library)}</span></span>
-      <span class="ac-tag">${escapeHtml((icon.tags || [])[0] || icon.style)}</span>
-    </div>`).join("");
-    els.autocomplete.classList.remove("hidden");
+    // Autocomplete dropdown is disabled
+    els.autocomplete.classList.add("hidden");
   }
 
   async function clearAllFilters(options = {}) {
