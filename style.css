@@ -1183,8 +1183,15 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
   font: 600 11px var(--font-mono);
 }
 .meta-badge.success { color: var(--neon-green); box-shadow: var(--glow-green); }
-.popularity-meter { margin: 12px 0; color: var(--text-secondary); font-size: 12px; }
-.popularity-meter i { display: block; height: 5px; border-radius: 999px; margin-top: 6px; background: var(--grad-toxic); width: 30%; box-shadow: var(--glow-green); }
+.dp-tags-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
 .tags-container { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag-chip {
   min-height: 24px;

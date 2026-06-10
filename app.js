@@ -317,7 +317,6 @@
       dpImportCode: $("dp-import-code"),
       dpDocsLink: $("dp-docs-link"),
       dpLibBadge: $("dp-lib-badge"),
-      dpPopularityBar: $("dp-popularity-bar"),
       dpTags: $("dp-tags"),
       dpIconId: $("dp-icon-id"),
       dpShare: $("dp-share"),
@@ -2352,7 +2351,6 @@
     els.dpColorInput.value = state.detail.color;
     els.dpIconId.textContent = icon.id;
     els.dpLibBadge.textContent = `${icon.library} ${icon.libraryVersion || ""}`.trim();
-    els.dpPopularityBar.style.width = `${Math.max(8, Math.min(100, (icon.popularity || 0) / 100))}%`;
     els.dpTags.innerHTML = (icon.tags || []).slice(0, 14).map((tag) => `<button class="tag-chip" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join("");
     els.dpInstallCode.textContent = options.metaLoading ? "Loading metadata..." : `npm install ${icon.npmPackage || icon.librarySlug}`;
     els.dpImportCode.textContent = options.metaLoading ? "Loading metadata..." : (icon.jsxImport || `import { ${pascal(icon.name)} } from '${icon.npmPackage || icon.librarySlug}'`);
