@@ -1005,7 +1005,7 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 #detail-panel {
   width: var(--detail-width);
   flex: 0 0 var(--detail-width);
-  background: var(--glass-2);
+  background: var(--glass-1);
   backdrop-filter: blur(20px) saturate(1.6);
   border-left: 1px solid var(--glass-border);
   overflow: hidden;
@@ -1828,7 +1828,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 
 /* Light Mode Detail Panel Readability Overrides (FIX 4) */
 [data-theme="light"] #detail-panel {
-  background: var(--bg-surface) !important;
+  background: var(--glass-1) !important;
   border-left: 1px solid var(--border) !important;
   color: var(--text-primary) !important;
 }
