@@ -661,7 +661,7 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
   color: var(--text-secondary);
   line-height: 1.7;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 48px auto 0 auto;
   text-align: center;
   padding: 0 24px 32px 24px;
 }
