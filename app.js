@@ -162,13 +162,13 @@
     backgroundSyncStarted: false,
     collectedIconIds: new Set(),
     customColor: "",
-    customStrokeWidth: "1.5",
+    customStrokeWidth: "0.7",
     rowHeight: 88,
     cardMin: 80,
     cols: 8,
     detail: {
       color: "#2563eb",
-      strokeWidth: 2,
+      strokeWidth: 0.7,
       size: 128,
       bg: "dark",
       format: "svg",
@@ -244,9 +244,9 @@
               <div class="customize-field">
                 <div class="customize-stroke-row">
                   <span>Stroke Width</span>
-                  <span id="cust-stroke-label">1.5px</span>
+                  <span id="cust-stroke-label">0.7px</span>
                 </div>
-                <input type="range" id="cust-stroke-slider" class="neon-slider" min="0.5" max="3" step="0.5" value="1.5">
+                <input type="range" id="cust-stroke-slider" class="neon-slider" min="0.1" max="3" step="0.1" value="0.7">
               </div>
               <button id="cust-reset-btn" class="outlined-neon-btn custom-preview-reset">Reset</button>
             </div>
@@ -2250,7 +2250,7 @@
       state.detail.color = state.customColor;
     }
     if (state.customStrokeWidth) {
-      state.detail.strokeWidth = Number(state.customStrokeWidth) || 1.5;
+      state.detail.strokeWidth = Number(state.customStrokeWidth) || 0.7;
     }
 
     els.detailPanel.classList.remove("closed");
@@ -2270,7 +2270,7 @@
       state.detail.color = state.customColor;
     }
     if (state.customStrokeWidth) {
-      state.detail.strokeWidth = Number(state.customStrokeWidth) || 1.5;
+      state.detail.strokeWidth = Number(state.customStrokeWidth) || 0.7;
     }
 
     els.detailPanel.classList.remove("closed");
@@ -2454,7 +2454,7 @@
   }
 
   function setDetailStroke(width) {
-    const next = Math.max(0.5, Math.min(3, Number(width) || 2));
+    const next = Math.max(0.1, Math.min(3, Number(width) || 0.7));
     state.detail.strokeWidth = Math.round(next * 10) / 10;
     els.dpStrokeSlider.value = state.detail.strokeWidth;
     els.dpStrokeVal.textContent = `${state.detail.strokeWidth}px`;
@@ -3123,7 +3123,7 @@
           els.iconGrid.style.removeProperty("--custom-stroke-width");
           els.iconGrid.classList.remove("customized-preview-stroke");
           if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
-            setDetailStroke(1.5);
+            setDetailStroke(0.7);
           }
           return;
         }
@@ -3145,9 +3145,9 @@
       els.custResetBtn.addEventListener("click", () => {
         applyAutoColor();
         syncDefaultColorInput();
-        els.custStrokeSlider.value = "1.5";
-        els.custStrokeLabel.textContent = "1.5px";
-        applyStroke("1.5");
+        els.custStrokeSlider.value = "0.7";
+        els.custStrokeLabel.textContent = "0.7px";
+        applyStroke("0.7");
       });
 
       // Initialize inputs and apply defaults on startup
