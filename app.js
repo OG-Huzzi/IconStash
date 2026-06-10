@@ -3061,6 +3061,10 @@
         state.customColor = "";
         els.iconGrid.style.setProperty("--custom-icon-color", themePreviewColor());
         els.iconGrid.classList.add("customized-preview-color");
+        if (els.trendingIcons) {
+          els.trendingIcons.style.setProperty("--custom-icon-color", themePreviewColor());
+          els.trendingIcons.classList.add("customized-preview-color");
+        }
       };
 
       const applyColor = (color) => {
@@ -3074,6 +3078,10 @@
         state.customColor = color;
         els.iconGrid.style.setProperty("--custom-icon-color", color);
         els.iconGrid.classList.add("customized-preview-color");
+        if (els.trendingIcons) {
+          els.trendingIcons.style.setProperty("--custom-icon-color", color);
+          els.trendingIcons.classList.add("customized-preview-color");
+        }
         if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
           setDetailColor(color);
         }
@@ -3122,6 +3130,10 @@
           state.customStrokeWidth = "";
           els.iconGrid.style.removeProperty("--custom-stroke-width");
           els.iconGrid.classList.remove("customized-preview-stroke");
+          if (els.trendingIcons) {
+            els.trendingIcons.style.removeProperty("--custom-stroke-width");
+            els.trendingIcons.classList.remove("customized-preview-stroke");
+          }
           if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
             setDetailStroke(0.7);
           }
@@ -3130,6 +3142,10 @@
         state.customStrokeWidth = stroke;
         els.iconGrid.style.setProperty("--custom-stroke-width", stroke + "px");
         els.iconGrid.classList.add("customized-preview-stroke");
+        if (els.trendingIcons) {
+          els.trendingIcons.style.setProperty("--custom-stroke-width", stroke + "px");
+          els.trendingIcons.classList.add("customized-preview-stroke");
+        }
         if (els.detailPanel && !els.detailPanel.classList.contains("closed")) {
           setDetailStroke(stroke);
         }
@@ -3503,6 +3519,10 @@
       els.custColorWheel.value = color;
       els.iconGrid?.style.setProperty("--custom-icon-color", color);
       els.iconGrid?.classList.add("customized-preview-color");
+      if (els.trendingIcons) {
+        els.trendingIcons.style.setProperty("--custom-icon-color", color);
+        els.trendingIcons.classList.add("customized-preview-color");
+      }
     }
   }
 

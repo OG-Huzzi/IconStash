@@ -829,11 +829,14 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 .icon-card:hover::before, .icon-card.selected::before, .icon-card.focused::before { opacity: 0; animation: none; }
 .icon-card.selected { background: var(--glass-4); }
 .icon-card.selected { border-color: var(--control-blue); }
-#icon-grid.customized-preview-color .icon-wrap svg {
+#icon-grid.customized-preview-color .icon-wrap svg,
+#trending-icons.customized-preview-color .trend-card svg {
   color: var(--custom-icon-color) !important;
 }
 #icon-grid.customized-preview-stroke .icon-wrap svg,
-#icon-grid.customized-preview-stroke .icon-wrap svg * {
+#icon-grid.customized-preview-stroke .icon-wrap svg *,
+#trending-icons.customized-preview-stroke .trend-card svg,
+#trending-icons.customized-preview-stroke .trend-card svg * {
   stroke-width: var(--custom-stroke-width) !important;
 }
 .icon-wrap { display: grid; place-items: center; color: var(--icon-color); transition: color 100ms ease; width: var(--preview-size, 24px) !important; height: var(--preview-size, 24px) !important; }
