@@ -87,7 +87,7 @@
       const t = Math.min(1, (now - started) / duration);
       const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
       const value = Math.round(start + (end - start) * eased);
-      element.textContent = value.toLocaleString();
+      element.textContent = value.toLocaleString("en-US");
       if (t < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
