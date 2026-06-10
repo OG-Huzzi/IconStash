@@ -2287,12 +2287,10 @@
     if (!window.matchMedia("(min-width: 768px)").matches) return;
     if (els.gridView.classList.contains("hidden")) return;
     if (state.prerender.active) return;
-    if (!state.filteredIcons.length) {
-      closeDetail(false);
-      return;
+    
+    if (!els.detailPanel.classList.contains("closed")) {
+      updateFocusedCard();
     }
-    const currentVisible = state.currentIconId && state.filteredIcons.some((icon) => icon.id === state.currentIconId);
-    openGridDetail(currentVisible ? state.currentIconId : state.filteredIcons[0].id);
   }
 
   async function showAllIcons() {
@@ -3322,6 +3320,17 @@
       if (!item) return;
       ui().closeModals();
       window.location.hash = `#/icon/${item.dataset.iconId}`;
+    });
+    
+    // Close detail panel when clicking outside on mobile
+    document.addEventListener("click", (event) => {
+      if (window.innerWidth < 768) {
+        if (!els.detailPanel.classList.contains("closed")) {
+          if (!els.detailPanel.contains(event.target) && !event.target.closest(".icon-card")) {
+            closeDetail();
+          }
+        }
+      }
     });
   }
 

@@ -12,6 +12,7 @@
   --glass-4: rgba(255,255,255,0.13);
   --glass-border: rgba(255,255,255,0.08);
   --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.18);
   --glass-border-bright: rgba(255,255,255,0.18);
   --neon-blue: #00c3ff;
   --accent-blue: #00c3ff;
@@ -87,6 +88,7 @@
   --neon-green: #0b5e28;
   --neon-teal: #086657;
   --border: rgba(0,0,0,0.07);
+  --border-hover: rgba(0,0,0,0.15);
 }
 
 @property --angle {
@@ -1182,6 +1184,19 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
   color: var(--text-primary);
   font: 600 11px var(--font-mono);
 }
+#dp-lib-badge {
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--text-secondary) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  cursor: default !important;
+  box-shadow: none !important;
+}
 .meta-badge.success { color: var(--neon-green); box-shadow: var(--glow-green); }
 .dp-tags-label {
   font-size: 12px;
@@ -1194,14 +1209,26 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 }
 .tags-container { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag-chip {
-  min-height: 24px;
-  padding: 0 8px;
-  border-radius: var(--radius-badge);
-  background: var(--glass-2);
-  color: var(--neon-teal);
-  border: 1px solid var(--glass-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: var(--radius-button);
+  background: transparent !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border) !important;
   cursor: pointer;
-  font: 600 11px var(--font-mono);
+  font-family: var(--font-primary) !important;
+  font-weight: 600;
+  font-size: inherit;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  box-shadow: none !important;
+}
+.tag-chip:hover {
+  color: var(--text-primary) !important;
+  border-color: var(--border-hover) !important;
+  background: transparent !important;
 }
 .monospace-id {
   width: 100%;
@@ -1864,16 +1891,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   background: var(--bg-hover) !important;
   border-color: var(--control-blue) !important;
 }
-[data-theme="light"] #detail-panel .tag-chip {
-  background: var(--bg-hover) !important;
-  border: 1px solid var(--border) !important;
-  color: var(--neon-teal) !important;
-}
-[data-theme="light"] #detail-panel .meta-badge {
-  background: var(--bg-hover) !important;
-  border: 1px solid var(--border) !important;
-  color: var(--neon-green) !important;
-}
+
 [data-theme="light"] #detail-panel .code-preview-box {
   background: var(--bg-surface) !important;
   border: 1px solid var(--border) !important;
