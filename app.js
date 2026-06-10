@@ -1762,6 +1762,21 @@
     state.lastCalcCols = newCols;
   }
 
+  const svgCache = new Map();
+  function getIconSVGNode(icon) {
+    let cached = svgCache.get(icon.id);
+    if (!cached) {
+      const markup = iconTools().renderSVG(icon);
+      const temp = document.createElement("div");
+      temp.innerHTML = markup;
+      cached = temp.firstElementChild;
+      if (cached) {
+        svgCache.set(icon.id, cached);
+      }
+    }
+    return cached ? cached.cloneNode(true) : null;
+  }
+
   function createCardElement(icon, visualIndex) {
     const selected = state.selectedIcons.has(icon.id);
     const focused = state.filteredIcons[state.focusedIndex]?.id === icon.id;
@@ -1789,11 +1804,11 @@
       ${selected ? '<span class="select-check"><svg viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"></path></svg></span>' : ""}
     `;
     
-    const iconWrap = article.querySelector(".icon-wrap");
-    const svgMarkup = iconTools().renderSVG(icon);
-    iconWrap.innerHTML = svgMarkup;
-    if (iconWrap.firstElementChild) {
-      iconWrap.firstElementChild.dataset.renderedIconId = icon.id;
+    const iconWrap = article.children[1];
+    const svgNode = getIconSVGNode(icon);
+    if (svgNode) {
+      svgNode.dataset.renderedIconId = icon.id;
+      iconWrap.appendChild(svgNode);
     }
     
     return article;
@@ -1821,7 +1836,7 @@
       if (classList.contains("focused")) classList.remove("focused");
     }
 
-    const favBtn = cardEl.querySelector(".card-favorite-btn");
+    const favBtn = cardEl.firstElementChild;
     if (favBtn) {
       if (favBtn.dataset.favoriteId !== icon.id) {
         favBtn.dataset.favoriteId = icon.id;
@@ -1833,7 +1848,7 @@
         if (favClassList.contains("collected")) favClassList.remove("collected");
       }
       
-      const favSvg = favBtn.querySelector("svg");
+      const favSvg = favBtn.firstElementChild;
       if (favSvg) {
         const fillVal = isCollected ? "currentColor" : "none";
         if (favSvg.getAttribute("fill") !== fillVal) {
@@ -1842,25 +1857,28 @@
       }
     }
 
-    const iconWrap = cardEl.querySelector(".icon-wrap");
+    const iconWrap = cardEl.children[1];
     if (iconWrap) {
       const innerSvg = iconWrap.firstElementChild;
       if (!innerSvg || innerSvg.dataset.renderedIconId !== icon.id) {
-        const newSvgMarkup = iconTools().renderSVG(icon);
-        iconWrap.innerHTML = newSvgMarkup;
-        const newSvg = iconWrap.firstElementChild;
-        if (newSvg) {
-          newSvg.dataset.renderedIconId = icon.id;
+        iconWrap.innerHTML = "";
+        const svgNode = getIconSVGNode(icon);
+        if (svgNode) {
+          svgNode.dataset.renderedIconId = icon.id;
+          iconWrap.appendChild(svgNode);
         }
       }
     }
 
     if (state.density === "comfortable") {
-      let nameEl = cardEl.querySelector(".card-name");
-      if (!nameEl) {
-        nameEl = document.createElement("div");
-        nameEl.className = "card-name";
-        cardEl.appendChild(nameEl);
+      let nameEl = cardEl.children[2];
+      if (!nameEl || !nameEl.classList.contains("card-name")) {
+        nameEl = cardEl.querySelector(".card-name");
+        if (!nameEl) {
+          nameEl = document.createElement("div");
+          nameEl.className = "card-name";
+          cardEl.appendChild(nameEl);
+        }
       }
       if (nameEl.textContent !== icon.name) {
         nameEl.textContent = icon.name;
@@ -1921,8 +1939,8 @@
         if (containerHeight > 0) state.containerHeight = containerHeight;
       }
       
-      const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - 2);
-      const endRow = Math.min(totalRows, Math.ceil((scrollTop + containerHeight) / rowHeight) + 2);
+      const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - 6);
+      const endRow = Math.min(totalRows, Math.ceil((scrollTop + containerHeight) / rowHeight) + 6);
       
       const nearBottom = (scrollTop + containerHeight) > (totalRows * rowHeight) - scrollPrefetchDistance();
       if (nearBottom) {
