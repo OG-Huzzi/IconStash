@@ -114,7 +114,7 @@ function loadLibraryIcons(lib) {
   });
 }
 function renderLibraryHeader(lib, count) {
-  return '<div class="library-break" data-library-break="' + esc(lib.slug) + '"><span class="lib-badge">' + libIconSvg(lib.slug) + '</span><div><h2>' + esc(lib.name) + '</h2><p>' + Number(count || lib.count || 0).toLocaleString() + ' icons</p></div></div>';
+  return '<div class="library-break" data-library-break="' + esc(lib.slug) + '"><span class="lib-badge">' + libIconSvg(lib.slug) + '</span><div><h2>' + esc(lib.name) + '</h2><p>' + Number(count || lib.count || 0).toLocaleString("en-US") + ' icons</p></div></div>';
 }
 function renderCard(icon, index) {
   const delay = Math.min(400, index * 15);
@@ -169,21 +169,21 @@ function main() {
     manifest.totalCount += icons.length || Number(lib.count || 0);
     manifest.libraries.push({ slug: lib.slug, name: lib.name, count: icons.length || Number(lib.count || 0), chunks: chunkCount, chunkSize: CHUNK_SIZE });
     allTrending.push(...icons.slice(0, 80));
-    console.log(lib.slug + ": " + icons.length.toLocaleString() + " icons, " + chunkCount + " chunks");
+    console.log(lib.slug + ": " + icons.length.toLocaleString("en-US") + " icons, " + chunkCount + " chunks");
   }
   fs.writeFileSync(path.join(OUT_DIR, "manifest.json"), JSON.stringify(manifest, null, 2), "utf8");
 
   const total = manifest.totalCount;
   const categories = CATEGORY_META.map(([name, sub, body, color], index) => '<article class="category-card" data-home-category="' + esc(name) + '" style="background:linear-gradient(135deg, ' + color + '18, transparent 60%), var(--glass-2);animation-delay:' + (index * 35) + 'ms"><svg viewBox="0 0 24 24" style="color:' + color + '"><path d="' + esc(body) + '"></path></svg><h3>' + esc(name) + '</h3><p>' + esc(sub) + '</p></article>').join('');
-  const featured = libraries.slice(0, 8).map((lib, index) => '<article class="lib-card" data-home-library="' + esc(lib.slug) + '" style="animation-delay:' + (index * 35) + 'ms"><span class="lib-card-mark">' + libIconSvg(lib.slug) + '</span><h3>' + esc(lib.name) + '</h3><p>' + Number(lib.count || 0).toLocaleString() + ' icons - ' + esc(lib.description || '') + '</p></article>').join('');
+  const featured = libraries.slice(0, 8).map((lib, index) => '<article class="lib-card" data-home-library="' + esc(lib.slug) + '" style="animation-delay:' + (index * 35) + 'ms"><span class="lib-card-mark">' + libIconSvg(lib.slug) + '</span><h3>' + esc(lib.name) + '</h3><p>' + Number(lib.count || 0).toLocaleString("en-US") + ' icons - ' + esc(lib.description || '') + '</p></article>').join('');
   const trending = allTrending.sort((a, b) => (b.popularity || 0) - (a.popularity || 0)).slice(0, 24);
   const trendingHtml = trending.map((icon) => '<button class="trend-card" data-icon-id="' + esc(icon.id) + '">' + renderSvg(icon) + '<span>' + esc(icon.name) + '</span></button>').join('');
   const marquee = trending.slice(0, 20);
   const marqueeLeft = marquee.concat(marquee).map((icon) => '<span class="mq-icon">' + renderSvg(icon) + '</span>').join('');
   const marqueeRight = marquee.slice().reverse().concat(marquee).map((icon) => '<span class="mq-icon">' + renderSvg(icon) + '</span>').join('');
-  const allRow = '<a class="lib-row all-icons-row active" href="#/search" data-all-icons="true">\n    <span class="lib-badge">' + libIconSvg("default") + '</span>\n    <span class="lib-name">All Icons</span>\n    <span class="lib-count">' + total.toLocaleString() + '</span>\n  </a>';
+  const allRow = '<a class="lib-row all-icons-row active" href="#/search" data-all-icons="true">\n    <span class="lib-badge">' + libIconSvg("default") + '</span>\n    <span class="lib-name">All Icons</span>\n    <span class="lib-count">' + total.toLocaleString("en-US") + '</span>\n  </a>';
   const libRowsHtml = libraries.map((lib, index) => {
-    return '<label class="lib-row" data-slug="' + lib.slug + '" style="animation-delay:' + Math.min(index * 30, 1000) + 'ms">\n      <span class="lib-badge">' + libIconSvg(lib.slug) + '</span>\n      <span class="lib-name">' + esc(lib.name) + '</span>\n      <span class="lib-count">' + Number(lib.count || 0).toLocaleString() + '</span>\n      <input class="lib-check" type="checkbox" value="' + lib.slug + '">\n    </label>';
+    return '<label class="lib-row" data-slug="' + lib.slug + '" style="animation-delay:' + Math.min(index * 30, 1000) + 'ms">\n      <span class="lib-badge">' + libIconSvg(lib.slug) + '</span>\n      <span class="lib-name">' + esc(lib.name) + '</span>\n      <span class="lib-count">' + Number(lib.count || 0).toLocaleString("en-US") + '</span>\n      <input class="lib-check" type="checkbox" value="' + lib.slug + '">\n    </label>';
   }).join("\n");
 
   const sidebarLibrariesHtml = allRow + '\n  <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="true" style="margin-top: 10px; margin-bottom: 5px; cursor: pointer; background: transparent; border: none; padding: 0 7px; width: 100%; display: flex; align-items: center; justify-content: space-between;">\n    <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries</h2>\n    <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: rotate(90deg);"><path d="m9 18 6-6-6-6"/></svg>\n  </button>\n  <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: 700px; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">\n    ' + libRowsHtml + '\n  </div>';
@@ -192,8 +192,8 @@ function main() {
   html = html.replace(/\n\s*<link rel="preload" href="data\/[^\"]+\.json" as="fetch" crossorigin>/g, '');
   html = html.replace(/\n\s*<script>\s*\/\/ Pre-render bootstrap:[\s\S]*?window\.__PRELOAD_ALL_LIBS__ = true;\s*<\/script>/g, '');
   html = html.replace(/<html lang="en"([^>]*)>/, (_m, attrs) => '<html lang="en" data-prerendered="true"' + attrs.replace(/\sdata-prerendered="[^"]*"/g, '') + '>');
-  html = html.replace(/data-target="\d+">[\d,]*<\/span><span class="stat-label">Indexed Icons/, 'data-target="' + total + '">' + total.toLocaleString() + '</span><span class="stat-label">Indexed Icons');
-  html = html.replace(/id="indexed-stat" data-target="\d+">[\d,]*<\/span><span class="stat-label">Indexed Records/, 'id="indexed-stat" data-target="' + total + '">' + total.toLocaleString() + '</span><span class="stat-label">Indexed Records');
+  html = html.replace(/data-target="\d+">[\d,]*<\/span><span class="stat-label">Indexed Icons/, 'data-target="' + total + '">' + total.toLocaleString("en-US") + '</span><span class="stat-label">Indexed Icons');
+  html = html.replace(/id="indexed-stat" data-target="\d+">[\d,]*<\/span><span class="stat-label">Indexed Records/, 'id="indexed-stat" data-target="' + total + '">' + total.toLocaleString("en-US") + '</span><span class="stat-label">Indexed Records');
   html = html.replace(/data-target="\d+">[\d,]*<\/span><span class="stat-label">Libraries/, 'data-target="' + libraries.length + '">' + libraries.length + '</span><span class="stat-label">Libraries');
   html = replaceElement(html, "home-categories", categories);
   html = replaceElement(html, "featured-libraries", featured);
@@ -218,6 +218,6 @@ function main() {
   html = html.replace(/<script src="icons\.js(?:\?v=[^"]*)?" defer><\/script>/, inlinedScripts);
   
   fs.writeFileSync(path.join(ROOT, "index.html"), html, "utf8");
-  console.log("Generated " + manifest.libraries.length + " prerendered libraries, " + total.toLocaleString() + " icons");
+  console.log("Generated " + manifest.libraries.length + " prerendered libraries, " + total.toLocaleString("en-US") + " icons");
 }
 main();
