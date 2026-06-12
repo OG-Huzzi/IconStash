@@ -692,11 +692,11 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 .how-step span { font: 800 12px var(--font-mono); color: var(--neon-pink); }
 .how-step h3 { margin-top: 8px; font-size: 18px; }
 .how-step p { margin-top: 5px; color: var(--text-secondary); }
-.trending-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(var(--preview-size, 32px) + 66px), 1fr)); gap: 8px; }
-.trend-card { min-height: calc(var(--preview-size, 32px) + 66px); display: grid; place-items: center; gap: 4px; padding: 10px; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.trending-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(98px, 1fr)); gap: 8px; }
+.trend-card { min-height: 98px; display: grid; place-items: center; gap: 4px; padding: 10px; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
 .trend-card:hover { transform: translateY(-0.5px); box-shadow: var(--glow-multi); border-color: var(--neon-blue); }
 [data-theme="light"] .trend-card:hover { border-color: #0284c7; }
-.trend-card svg { width: var(--preview-size, 32px); height: var(--preview-size, 32px); color: var(--neon-blue); transition: transform 180ms ease, filter 180ms ease, color 180ms ease; }
+.trend-card svg { width: var(--preview-size, 32px); height: var(--preview-size, 32px); max-width: 100%; max-height: 60px; color: var(--neon-blue); transition: transform 180ms ease, filter 180ms ease, color 180ms ease; }
 [data-theme="light"] .trend-card svg { color: #0284c7; }
 .trend-card:hover svg { transform: scale(1.02); filter: drop-shadow(0 0 6px var(--neon-blue)); }
 [data-theme="light"] .trend-card:hover svg { filter: drop-shadow(0 0 6px rgba(2, 132, 199, 0.4)); }
