@@ -278,6 +278,8 @@
       clearFilters: $("clear-filters-btn"),
       home: $("homepage-view"),
       gridView: $("grid-view"),
+      privacyView: $("privacy-view"),
+      termsView: $("terms-view"),
       seoHeader: $("seo-header"),
       seoTitle: $("seo-title"),
       seoDescription: $("seo-description"),
@@ -2049,15 +2051,29 @@
 
   function setRouteView(view) {
     const showHome = view === "home";
+    const showGrid = view === "grid";
+    const showPrivacy = view === "privacy";
+    const showTerms = view === "terms";
+
     els.home.classList.toggle("hidden", !showHome);
     els.home.classList.toggle("active", showHome);
-    els.gridView.classList.toggle("hidden", showHome);
-    els.gridView.classList.toggle("active", !showHome);
+    els.gridView.classList.toggle("hidden", !showGrid);
+    els.gridView.classList.toggle("active", showGrid);
+    
+    if (els.privacyView) {
+      els.privacyView.classList.toggle("hidden", !showPrivacy);
+      els.privacyView.classList.toggle("active", showPrivacy);
+    }
+    if (els.termsView) {
+      els.termsView.classList.toggle("hidden", !showTerms);
+      els.termsView.classList.toggle("active", showTerms);
+    }
+
     if (els.resultCount) {
       const count = displayedCount();
-      els.resultCount.classList.toggle("hidden", showHome || count === 0);
+      els.resultCount.classList.toggle("hidden", !showGrid || count === 0);
     }
-    if (!showHome) {
+    if (showGrid) {
       measureContainer();
     }
   }
@@ -2098,6 +2114,18 @@
       setRouteView("home");
       closeDetail(false);
       updateSeoHome();
+      return;
+    }
+    if (basePath === "#/privacy") {
+      setRouteView("privacy");
+      closeDetail(false);
+      updateSeoPrivacy();
+      return;
+    }
+    if (basePath === "#/terms") {
+      setRouteView("terms");
+      closeDetail(false);
+      updateSeoTerms();
       return;
     }
     setRouteView("grid");
@@ -2188,6 +2216,20 @@
     document.title = "IconStash - 134,000+ Icons | SVG & PNG Command Center";
     setMeta("description", "Search, compare, customize, copy, and download 134,000+ premium SVG & PNG icons with custom resolution PNG downloads and zip packs.");
     setCanonical("#/");
+    removeJsonLd();
+  }
+
+  function updateSeoPrivacy() {
+    document.title = "Privacy Policy - IconStash";
+    setMeta("description", "Privacy Policy for IconStash. We respect your privacy and do not collect any personal data.");
+    setCanonical("#/privacy");
+    removeJsonLd();
+  }
+
+  function updateSeoTerms() {
+    document.title = "Terms of Service - IconStash";
+    setMeta("description", "Terms of Service for IconStash. Usage guidelines, warranties, and company contact details.");
+    setCanonical("#/terms");
     removeJsonLd();
   }
 
