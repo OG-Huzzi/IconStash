@@ -1692,6 +1692,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 @media (max-width: 767px) {
   body { overflow: hidden; }
   #main-header { grid-template-columns: auto 1fr auto; padding: 0 10px; gap: 8px; }
+  .logo-icon { display: none; }
   .logo-text { display: none; }
   .header-left, .header-right { width: auto; gap: 4px; }
   .header-right .icon-btn, .header-right a.icon-btn { width: 32px; height: 32px; }
