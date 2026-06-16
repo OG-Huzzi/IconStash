@@ -662,7 +662,7 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
   line-height: 1.7;
   max-width: 800px;
   margin: 48px auto 0 auto;
-  text-align: center;
+  text-align: left;
   padding: 0 24px 32px 24px;
 }
 .category-card-grid, .featured-libraries {
