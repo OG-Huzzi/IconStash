@@ -2116,13 +2116,13 @@
       updateSeoHome();
       return;
     }
-    if (basePath === "#/privacy") {
+    if (basePath === "#/privacy" || basePath === "#/legal/privacy") {
       setRouteView("privacy");
       closeDetail(false);
       updateSeoPrivacy();
       return;
     }
-    if (basePath === "#/terms") {
+    if (basePath === "#/terms" || basePath === "#/legal/terms") {
       setRouteView("terms");
       closeDetail(false);
       updateSeoTerms();
@@ -2222,14 +2222,14 @@
   function updateSeoPrivacy() {
     document.title = "Privacy Policy - IconStash";
     setMeta("description", "Privacy Policy for IconStash. We respect your privacy and do not collect any personal data.");
-    setCanonical("#/privacy");
+    setCanonical(window.location.hash || "#/legal/privacy");
     removeJsonLd();
   }
 
   function updateSeoTerms() {
     document.title = "Terms of Service - IconStash";
     setMeta("description", "Terms of Service for IconStash. Usage guidelines, warranties, and company contact details.");
-    setCanonical("#/terms");
+    setCanonical(window.location.hash || "#/legal/terms");
     removeJsonLd();
   }
 
