@@ -3580,6 +3580,9 @@
     const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = next;
     localStorage.setItem("iconvault-theme", next);
+    if (els.themeToggle) {
+      els.themeToggle.title = next === "light" ? "Switch to dark mode" : "Switch to light mode";
+    }
     if (!state.customColor && els.custColorHex && els.custColorWheel) {
       const color = next === "light" ? "#000000" : "#ffffff";
       els.custColorHex.value = color;
@@ -3597,6 +3600,9 @@
     const stored = localStorage.getItem("iconvault-theme");
     const theme = stored || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
     document.documentElement.dataset.theme = theme;
+    if (els && els.themeToggle) {
+      els.themeToggle.title = theme === "light" ? "Switch to dark mode" : "Switch to light mode";
+    }
   }
 
   function generateSitemap() {
