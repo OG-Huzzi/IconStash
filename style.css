@@ -2029,7 +2029,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 
 /* Homepage Footer styling */
 .home-footer {
-  background: var(--bg-surface);
+  background: transparent;
   border-top: 1px solid var(--border);
   padding: 40px 24px;
   margin-top: 64px;
@@ -2077,7 +2077,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  text-align: right;
+  text-align: left;
   font-size: 13px;
   color: var(--text-secondary);
 }
