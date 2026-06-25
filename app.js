@@ -3047,7 +3047,7 @@
         if (!state.prerender.active) updateVirtualScroll(true);
       });
     });
-    els.dpClose.addEventListener("click", () => closeDetail());
+    els.dpClose.addEventListener("click", () => closeDetail(false));
     setupDetailEvents();
     setupCompareEvents();
     setupCollectionEvents();
