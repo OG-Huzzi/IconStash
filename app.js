@@ -1911,7 +1911,7 @@
     if (!force && scrollRaf) return;
     scrollRaf = requestAnimationFrame(() => {
       scrollRaf = 0;
-      
+
       const totalCount = state.filteredIcons.length;
       if (!totalCount) {
         els.iconGrid.innerHTML = "";
@@ -1931,6 +1931,13 @@
         els.iconGrid.style.transform = "";
         els.gridSpacer.style.height = "0px";
         return;
+      }
+
+      if (Array.from(els.iconGrid.children).some((child) => !child.classList.contains("icon-card"))) {
+        els.iconGrid.replaceChildren();
+        state.lastStartRow = -1;
+        state.lastEndRow = -1;
+        state.lastRenderedLength = -1;
       }
 
       calculateGrid();
@@ -2431,6 +2438,7 @@
     els.detailPanel.classList.remove("closed");
     renderDetailWithMeta(icon, { updateSeo: true });
     updateFocusedCard();
+    syncGridToDetailPanel();
   }
 
   function openGridDetail(id) {
@@ -2451,6 +2459,15 @@
     els.detailPanel.classList.remove("closed");
     renderDetailWithMeta(icon);
     updateFocusedCard();
+    syncGridToDetailPanel();
+  }
+
+  function syncGridToDetailPanel() {
+    requestAnimationFrame(() => {
+      measureContainer();
+      calculateGrid();
+      if (!state.prerender.active) updateVirtualScroll(true);
+    });
   }
 
   function updateFocusedCard() {
@@ -2503,6 +2520,7 @@
     state.currentIconId = "";
     detailMetaLoadingId = "";
     if (routeHome && window.location.hash.startsWith("#/icon/")) history.replaceState(null, "", "#/");
+    syncGridToDetailPanel();
   }
 
   async function renderDetailWithMeta(icon, options = {}) {

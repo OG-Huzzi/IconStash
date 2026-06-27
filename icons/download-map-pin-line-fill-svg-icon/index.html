@@ -73,14 +73,19 @@
               <h2 class="gradient-text">Libraries</h2>
               <span class="muted">1 selected</span>
             </div>
-            <input type="search" class="mini-search" placeholder="Filter libraries..." aria-label="Filter libraries">
+            <input type="search" id="lib-search" class="mini-search" placeholder="Filter libraries..." aria-label="Filter libraries">
             <div class="lib-list">
               <a class="lib-row all-icons-row " href="/#/search" data-all-icons="true">
                 <span class="lib-badge"><svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M8 9h8M8 13h8"></path></svg></span>
                 <span class="lib-name">All Icons</span>
                 <span class="lib-count">134,701</span>
               </a>
-              <a class="lib-row " href="/#/library/lucide" data-slug="lucide" style="animation-delay:0ms">
+              <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false" style="margin-top:10px;margin-bottom:5px;cursor:pointer;background:transparent;border:none;padding:0 7px;width:100%;display:flex;align-items:center;justify-content:space-between">
+                <h2 style="font-size:11px;text-transform:uppercase;font-weight:800;color:var(--text-secondary);margin:0">Libraries</h2>
+                <svg class="chevron" viewBox="0 0 24 24" style="width:16px;height:16px;transition:transform 200ms ease;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <div class="lib-collapse-list" id="lib-collapse-list" style="overflow:hidden;max-height:0;transition:max-height 250ms ease-in-out;display:flex;flex-direction:column;gap:5px">
+<a class="lib-row " href="/#/library/lucide" data-slug="lucide" style="animation-delay:0ms">
       <span class="lib-badge"><svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M8 9h8M8 13h8"></path></svg></span>
       <span class="lib-name">Lucide</span>
       <span class="lib-count">1,979</span>
@@ -193,6 +198,7 @@
       <span class="lib-name">Simple Icons</span>
       <span class="lib-count">3,714</span>
     </a>
+              </div>
             </div>
           </section>
 
@@ -203,8 +209,11 @@
             </div>
           </section>
 
-          <section class="filter-section">
-            <div class="filter-header"><h2>Categories</h2></div>
+          <section class="filter-section expandable" id="category-section">
+            <button class="filter-header category-toggle" id="category-toggle" aria-expanded="false">
+              <h2>Categories</h2>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
             <div class="category-list"><a class="category-item" href="/#/category/media">
       <span class="category-dot" style="background:#00c3ff;color:#00c3ff"></span>
       <span>Media</span>
@@ -258,7 +267,7 @@
 
           <section class="filter-section">
             <div class="filter-header"><h2>Preview Size: 24px</h2></div>
-            <input type="range" class="neon-slider" min="16" max="96" value="24" aria-label="Preview size">
+            <input type="range" class="neon-slider" min="16" max="128" value="24" aria-label="Preview size">
           </section>
 
           <section class="filter-section">
@@ -266,12 +275,37 @@
             <label class="custom-select-wrapper">
               <select class="glass-select" aria-label="Sort icons">
                 <option>Relevance</option>
-                <option>Popular</option>
-                <option>A-Z</option>
+                <option>Most Popular</option>
+                <option>Newest</option>
+                <option>A to Z</option>
+                <option>Z to A</option>
               </select>
               <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </label>
           </section>
+
+          <section class="filter-section expandable" id="customize-section">
+            <button class="filter-header category-toggle" id="customize-toggle" aria-expanded="false">
+              <h2>Customize Preview</h2>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <div class="category-list customize-preview-controls">
+              <div class="customize-field">
+                <div>Fill Color</div>
+                <div class="customize-color-row">
+                  <input type="text" class="mini-search" value="#ffffff" aria-label="Fill color">
+                  <button type="button" class="color-wheel-btn" aria-label="Choose fill color"></button>
+                </div>
+              </div>
+              <div class="customize-field">
+                <div class="customize-stroke-row"><span>Stroke Width</span><span>0.7px</span></div>
+                <input type="range" class="neon-slider" min="0.1" max="3" step="0.1" value="0.7" aria-label="Stroke width">
+              </div>
+              <a class="outlined-neon-btn custom-preview-reset" href="/#/search">Reset</a>
+            </div>
+          </section>
+
+          <a class="outlined-neon-btn" href="/#/search">Clear All Filters</a>
         </div>
       </aside>
       <main id="main-content">
@@ -424,6 +458,30 @@ import { MapPinLineFill } from &#039;phosphor-react&#039;;
       });
       document.getElementById("sidebar-toggle")?.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
       document.getElementById("sidebar-collapse")?.addEventListener("click", () => document.body.classList.toggle("sidebar-collapsed"));
+      const libraryToggle = document.getElementById("lib-toggle");
+      const libraryList = document.getElementById("lib-collapse-list");
+      const setLibrariesOpen = (open) => {
+        if (!libraryToggle || !libraryList) return;
+        libraryToggle.setAttribute("aria-expanded", String(open));
+        libraryToggle.querySelector(".chevron").style.transform = open ? "rotate(90deg)" : "rotate(0deg)";
+        libraryList.style.maxHeight = open ? Math.max(900, libraryList.children.length * 44 + 24) + "px" : "0";
+      };
+      libraryToggle?.addEventListener("click", () => setLibrariesOpen(libraryToggle.getAttribute("aria-expanded") !== "true"));
+      document.getElementById("lib-search")?.addEventListener("input", (event) => {
+        const query = event.currentTarget.value.trim().toLowerCase();
+        libraryList?.querySelectorAll("[data-slug]").forEach((row) => {
+          row.hidden = Boolean(query) && !row.textContent.toLowerCase().includes(query);
+        });
+        setLibrariesOpen(Boolean(query));
+      });
+      ["category", "customize"].forEach((name) => {
+        const section = document.getElementById(name + "-section");
+        const toggle = document.getElementById(name + "-toggle");
+        toggle?.addEventListener("click", () => {
+          const open = section.classList.toggle("open");
+          toggle.setAttribute("aria-expanded", String(open));
+        });
+      });
       document.getElementById("pseo-search-form")?.addEventListener("submit", (event) => {
         event.preventDefault();
         const query = new FormData(event.currentTarget).get("query");

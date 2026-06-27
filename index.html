@@ -23,7 +23,7 @@
   <link rel="preload" as="script" href="search.worker.js?v=20260606-mobilelag">
   <link rel="preload" as="script" href="collections.js?v=20260530-preloadall">
   <link rel="preload" as="script" href="ui.js?v=20260610-localefix">
-  <link rel="preload" as="script" href="app.js?v=20260614-legalpages">
+  <link rel="preload" as="script" href="app.js?v=20260627-gridfix">
   <link rel="prefetch" as="fetch" href="data/prerender/libraries/lucide/chunk-1.html">
   <link rel="prefetch" as="fetch" href="data/prerender/libraries/lucide/chunk-2.html">
   <link rel="stylesheet" href="style.css?v=20260616-redesignfooter">
@@ -113,11 +113,11 @@
     <span class="lib-name">All Icons</span>
     <span class="lib-count">134,701</span>
   </a>
-  <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="true" style="margin-top: 10px; margin-bottom: 5px; cursor: pointer; background: transparent; border: none; padding: 0 7px; width: 100%; display: flex; align-items: center; justify-content: space-between;">
+  <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false" style="margin-top: 10px; margin-bottom: 5px; cursor: pointer; background: transparent; border: none; padding: 0 7px; width: 100%; display: flex; align-items: center; justify-content: space-between;">
     <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries</h2>
-    <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: rotate(90deg);"><path d="m9 18 6-6-6-6"/></svg>
+    <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: rotate(0deg);"><path d="m9 18 6-6-6-6"/></svg>
   </button>
-  <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: 700px; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">
+  <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: 0; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">
     <label class="lib-row" data-slug="lucide" style="animation-delay:0ms">
       <span class="lib-badge"><svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 7.3v8.8L12 21l7.5-4.9V7.3L12 3Z"></path><path d="M8.5 9.5h7M8.5 14.5h7"></path></svg></span>
       <span class="lib-name">Lucide</span>
@@ -712,7 +712,7 @@
   <script src="search.js?v=20260606-mobilelag" defer></script>
   <script src="collections.js?v=20260530-preloadall" defer></script>
   <script src="ui.js?v=20260610-localefix" defer></script>
-  <script src="app.js?v=20260614-legalpages" defer></script>
+  <script src="app.js?v=20260627-gridfix" defer></script>
 </body>
 </html>
 
