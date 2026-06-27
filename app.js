@@ -1658,10 +1658,14 @@
 
     const limit = 0; // Return all matching results (no cap)
 
-    window.IconStashSearch.searchIcons(filters.query, {
-      filters: filters,
-      limit: limit
-    }).then((results) => {
+    const searchTask = options.sourceIcons
+      ? Promise.resolve(window.IconStashSearch.filterAndSort(options.sourceIcons, filters))
+      : window.IconStashSearch.searchIcons(filters.query, {
+        filters: filters,
+        limit: limit
+      });
+
+    return searchTask.then((results) => {
       if (sessionId !== currentSearchSessionId) return;
 
       state.filteredIcons = results;
@@ -2163,14 +2167,7 @@
       ensureDesktopDetail();
     } else if (basePath.startsWith("#/icon/")) {
       const id = decodeURIComponent(basePath.split("/")[2] || "");
-      const slug = id.split("-")[0];
-      if (!state.icons.has(id) && libraryBySlug(slug)) await loadLibrary(slug);
-      state.currentIconId = id;
-      const cardExists = els.iconGrid.querySelector(`[data-id="${CSS.escape(id)}"]`);
-      if (!cardExists) {
-        applyFilters({ preserveLimit: true });
-      }
-      openDetail(id);
+      await openIconRoute(id);
     } else if (basePath.startsWith("#/collections")) {
       setRouteView("grid");
       applyFilters();
@@ -2186,6 +2183,11 @@
 
   function normalizeStartupRoute() {
     const localDev = /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/i.test(window.location.hostname);
+    const editorIconId = editorIntentFromLocation();
+    if (editorIconId && !currentRouteHash().startsWith("#/icon/")) {
+      history.replaceState(null, "", `${location.pathname}${location.search}#/icon/${encodeURIComponent(editorIconId)}`);
+      return;
+    }
     if (!window.location.hash || (localDev && window.location.hash === "#/search")) {
       history.replaceState(null, "", `${location.pathname}${location.search}#/`);
     }
@@ -2193,6 +2195,61 @@
 
   function currentRouteHash() {
     return window.location.hash || "#/";
+  }
+
+  function cleanIconRouteId(value) {
+    const decoded = decodeURIComponent(String(value || "").trim());
+    return decoded.replace(/[^a-zA-Z0-9_-]/g, "");
+  }
+
+  function readStoredEditorIntent() {
+    const keys = ["iconstash-open-editor", "iconstash-editor-icon", "openEditorIcon"];
+    const stores = [];
+    try {
+      stores.push(window.sessionStorage);
+    } catch (_error) {
+      // Storage can be unavailable in private browsing or strict browser modes.
+    }
+    try {
+      stores.push(window.localStorage);
+    } catch (_error) {
+      // Storage can be unavailable in private browsing or strict browser modes.
+    }
+    for (const store of stores) {
+      try {
+        for (const key of keys) {
+          const raw = store.getItem(key);
+          if (!raw) continue;
+          const parsed = raw.startsWith("{") ? JSON.parse(raw) : raw;
+          const id = cleanIconRouteId(parsed.iconId || parsed.id || parsed);
+          if (id) {
+            keys.forEach((item) => store.removeItem(item));
+            return id;
+          }
+        }
+      } catch (_error) {
+        // Ignore malformed intent data and continue app startup.
+      }
+    }
+    return "";
+  }
+
+  function editorIntentFromLocation() {
+    const hash = currentRouteHash();
+    const [basePath, hashQuery = ""] = hash.split("?");
+    if (basePath.startsWith("#/icon/")) return cleanIconRouteId(basePath.split("/")[2] || "");
+    const searchParams = new URLSearchParams(window.location.search || "");
+    const hashParams = new URLSearchParams(hashQuery);
+    const id = searchParams.get("icon") ||
+      searchParams.get("iconId") ||
+      searchParams.get("editor") ||
+      searchParams.get("openEditor") ||
+      hashParams.get("icon") ||
+      hashParams.get("iconId") ||
+      hashParams.get("editor") ||
+      hashParams.get("openEditor") ||
+      readStoredEditorIntent();
+    return cleanIconRouteId(id);
   }
 
   function slugForInitialRoute() {
@@ -2210,6 +2267,65 @@
     if (!slug || state.loadedLibraries.has(slug)) return;
     ui().createSkeletonRows(els.iconGrid, 3, Math.max(4, state.cols || 8));
     await loadLibrary(slug);
+  }
+
+  function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function openIconRoute(id) {
+    const iconId = cleanIconRouteId(id);
+    if (!iconId) {
+      showNotFound(id);
+      return false;
+    }
+
+    const slug = iconSlugFromId(iconId) || iconId.split("-")[0];
+    const lib = libraryBySlug(slug);
+    if (!lib) {
+      await ensureInitialBrowseLibrary();
+      applyFilters({ resetScroll: true });
+      showNotFound(iconId);
+      return false;
+    }
+
+    state.selectedLibraries = new Set([slug]);
+    state.activeCategory = "";
+    state.activeStyle = "all";
+    state.searchQuery = "";
+    els.search.value = "";
+    els.searchClear.classList.add("hidden");
+    renderSidebarLibraries();
+    renderCategories();
+
+    if (!state.loadedLibraries.has(slug)) {
+      ui().createSkeletonRows(els.iconGrid, 3, Math.max(4, state.cols || 8));
+      await loadLibrary(slug, { timeoutMs: FOREGROUND_LIBRARY_TIMEOUT_MS });
+    }
+
+    let icon = state.icons.get(iconId);
+    for (let attempt = 0; !icon && attempt < 4; attempt += 1) {
+      await wait(125 * (attempt + 1));
+      icon = state.icons.get(iconId);
+    }
+
+    clearTimeout(backgroundFilterTimer);
+    backgroundFilterTimer = 0;
+    await applyFilters({ resetScroll: true, sourceIcons: Array.from(state.icons.values()) });
+    const index = state.filteredIcons.findIndex((entry) => entry.id === iconId);
+    if (index >= 0 && index >= state.visibleLimit) {
+      state.visibleLimit = Math.min(state.filteredIcons.length, index + gridBatchSize());
+      updateVirtualScroll(true);
+    }
+
+    if (!icon) {
+      showNotFound(iconId);
+      return false;
+    }
+
+    state.currentIconId = iconId;
+    openDetail(iconId);
+    return true;
   }
 
   function updateSeoHome() {

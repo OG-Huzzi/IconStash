@@ -329,6 +329,31 @@ function readJson(file) {
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
+function sleepSync(ms) {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+}
+function writeFileWithRetry(file, content, attempts = 30) {
+  try {
+    if (fs.existsSync(file) && fs.readFileSync(file, "utf8") === content) return;
+  } catch (_readError) {}
+
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const tempFile = `${file}.${process.pid}.${attempt}.tmp`;
+    try {
+      ensureDir(path.dirname(file));
+      fs.writeFileSync(tempFile, content);
+      if (fs.existsSync(file)) fs.unlinkSync(file);
+      fs.renameSync(tempFile, file);
+      return;
+    } catch (error) {
+      try {
+        if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
+      } catch (_cleanupError) {}
+      if (attempt === attempts - 1) throw error;
+      sleepSync(Math.min(2000, 150 * (attempt + 1)));
+    }
+  }
+}
 function cleanOutput() {
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   fs.rmSync(SITEMAP_DIR, { recursive: true, force: true });
@@ -396,6 +421,219 @@ function renderSvg(icon, size = 72) {
   const fill = icon.style === "filled" ? "currentColor" : "none";
   const stroke = fill === "none" ? "currentColor" : "none";
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${escapeHtml(icon.viewBox)}" width="${size}" height="${size}" fill="${fill}" stroke="${stroke}" stroke-width="${icon.strokeWidth || 2}" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="${escapeHtml(icon.name)} icon">${normalizeBody(icon.body)}</svg>`;
+}
+
+function appLogoSvg() {
+  return `<svg class="logo-icon" viewBox="0 0 24 24"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>`;
+}
+
+function libraryBadgeSvg() {
+  return `<svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M8 9h8M8 13h8"></path></svg>`;
+}
+
+let pseoIndexCache = null;
+function pseoLibraries() {
+  if (!pseoIndexCache) pseoIndexCache = readJson(path.join(DATA_DIR, "index.json"));
+  return pseoIndexCache.libraries || [];
+}
+
+function renderPseoHeader() {
+  return `<header id="main-header">
+      <div class="header-left">
+        <button class="icon-btn mobile-only" id="sidebar-toggle" title="Open filters" aria-label="Open filters">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+        <a class="logo" href="/" aria-label="IconStash.io home">
+          ${appLogoSvg()}
+          <span class="logo-text">IconStash<span class="logo-io">.io</span></span>
+        </a>
+      </div>
+
+      <form class="header-center" id="pseo-search-form" action="/" role="search">
+        <div class="search-container" id="search-shell">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.4-4.4"/></svg>
+            <input id="main-search" name="query" type="search" placeholder="Search icons..." autocomplete="off" spellcheck="false" aria-label="Search icons">
+            <span class="search-shortcut">/</span>
+          </div>
+        </div>
+      </form>
+
+      <div class="header-right">
+        <button class="icon-btn" id="theme-toggle" type="button" title="Switch theme" aria-label="Toggle theme">
+          <svg class="theme-glyph" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <a class="icon-btn" href="/#/collections" title="Your Collection" aria-label="Collections">
+          <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"/></svg>
+        </a>
+      </div>
+    </header>`;
+}
+
+function renderPseoSidebar(activeSlug) {
+  const rows = pseoLibraries().map((lib, rowIndex) => {
+    const active = lib.slug === activeSlug;
+    return `<a class="lib-row ${active ? "active" : ""}" href="/#/library/${escapeHtml(lib.slug)}" data-slug="${escapeHtml(lib.slug)}" style="animation-delay:${rowIndex * 30}ms">
+      <span class="lib-badge">${libraryBadgeSvg()}</span>
+      <span class="lib-name">${escapeHtml(lib.name)}</span>
+      <span class="lib-count">${Number(lib.count || 0).toLocaleString("en-US")}</span>
+    </a>`;
+  }).join("");
+
+  const categories = CATEGORY_RULES.concat([["Interface", "Controls"]]).map(([name], categoryIndex) => {
+    const color = ["#00c3ff", "#ff2d9b", "#00ff88", "#bf00ff", "#ff6a00", "#f5ff00"][categoryIndex % 6];
+    const slug = String(name).toLowerCase().replace(/\s+/g, "-");
+    return `<a class="category-item" href="/#/category/${encodeURIComponent(slug)}">
+      <span class="category-dot" style="background:${color};color:${color}"></span>
+      <span>${escapeHtml(name)}</span>
+    </a>`;
+  }).join("");
+
+  return `<aside id="left-sidebar" aria-label="Filters">
+        <div class="sidebar-content">
+          <section class="filter-section">
+            <div class="filter-header">
+              <h2 class="gradient-text">Libraries</h2>
+              <span class="muted">${activeSlug ? "1 selected" : "All"}</span>
+            </div>
+            <input type="search" class="mini-search" placeholder="Filter libraries..." aria-label="Filter libraries">
+            <div class="lib-list">
+              <a class="lib-row all-icons-row ${activeSlug ? "" : "active"}" href="/#/search" data-all-icons="true">
+                <span class="lib-badge">${libraryBadgeSvg()}</span>
+                <span class="lib-name">All Icons</span>
+                <span class="lib-count">134,701</span>
+              </a>
+              ${rows}
+            </div>
+          </section>
+
+          <section class="filter-section">
+            <div class="filter-header"><h2>Styles</h2></div>
+            <div class="style-pills">
+              ${["All", "Outline", "Solid", "Duotone", "Fill", "Bold", "Thin", "Light"].map((style, styleIndex) => `<a class="style-pill ${styleIndex === 0 ? "active" : ""}" href="/#/search">${style}</a>`).join("")}
+            </div>
+          </section>
+
+          <section class="filter-section">
+            <div class="filter-header"><h2>Categories</h2></div>
+            <div class="category-list">${categories}</div>
+          </section>
+
+          <section class="filter-section">
+            <div class="filter-header"><h2>Preview Size: 24px</h2></div>
+            <input type="range" class="neon-slider" min="16" max="96" value="24" aria-label="Preview size">
+          </section>
+
+          <section class="filter-section">
+            <div class="filter-header"><h2>Sort</h2></div>
+            <label class="custom-select-wrapper">
+              <select class="glass-select" aria-label="Sort icons">
+                <option>Relevance</option>
+                <option>Popular</option>
+                <option>A-Z</option>
+              </select>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+            </label>
+          </section>
+        </div>
+      </aside>`;
+}
+
+function renderPseoFooter() {
+  return `<footer class="home-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <a class="footer-logo" href="/" aria-label="IconStash.io home">
+          ${appLogoSvg()}
+          <span class="logo-text">IconStash<span class="logo-io">.io</span></span>
+        </a>
+        <p class="footer-tagline">Instant, browser-based icon search engine. Unify 28+ open-source icon libraries into a single lightning-fast search.</p>
+      </div>
+      <div class="footer-right">
+        <div class="footer-line">This website is offered to you by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener" class="footer-link">Great Software Company</a> in collaboration with Huzzi.</div>
+        <div class="footer-line"><a href="/#/legal/terms" class="footer-link">Terms of Service</a> / <a href="/#/legal/privacy" class="footer-link">Privacy Policy</a></div>
+        <div class="footer-line">Questions? Feedback? Contact us at <a href="mailto:heybro@iconstash.io" class="footer-link">heybro@iconstash.io</a></div>
+        <div class="footer-line">&copy; ${new Date().getFullYear()} IconStash.io. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>`;
+}
+
+function renderPseoShell({ title, description, url, schema, activeSlug, content }) {
+  return `<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script>
+  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(description)}">
+  <link rel="canonical" href="${escapeHtml(url)}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${escapeHtml(title)}">
+  <meta property="og:description" content="${escapeHtml(description)}">
+  <meta property="og:url" content="${escapeHtml(url)}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="${escapeHtml(title)}">
+  <meta name="twitter:description" content="${escapeHtml(description)}">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260602-brandlogo">
+  <link rel="stylesheet" href="/style.css?v=20260616-redesignfooter">
+  <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, "\\u003c")}</script>
+</head>
+<body class="pseo-page">
+  <div class="bg-canvas" aria-hidden="true">
+    <div class="mesh-orb orb-1"></div>
+    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-orb orb-3"></div>
+    <div class="mesh-orb orb-4"></div>
+    <div class="corner-glow glow-tl"></div>
+    <div class="corner-glow glow-br"></div>
+    <div class="scanlines"></div>
+    <div class="noise"></div>
+  </div>
+
+  <div class="app-shell">
+    ${renderPseoHeader()}
+    <div class="workspace">
+      <button class="sidebar-collapse" id="sidebar-collapse" title="Collapse filters" aria-label="Collapse filters" aria-expanded="true">
+        <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      ${renderPseoSidebar(activeSlug)}
+      <main id="main-content">
+        <section class="route-view pseo-view active">
+          <div class="pseo-document">
+${content.trim()}
+            ${renderPseoFooter()}
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      try {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
+      } catch (_) {}
+      document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const next = root.dataset.theme === "light" ? "dark" : "light";
+        root.dataset.theme = next;
+        try { localStorage.setItem("theme", next); } catch (_) {}
+      });
+      document.getElementById("sidebar-toggle")?.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
+      document.getElementById("sidebar-collapse")?.addEventListener("click", () => document.body.classList.toggle("sidebar-collapsed"));
+      document.getElementById("pseo-search-form")?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const query = new FormData(event.currentTarget).get("query");
+        const q = String(query || "").trim();
+        window.location.href = q ? "/#/search?query=" + encodeURIComponent(q) : "/#/search";
+      });
+    })();
+  </script>
+</body>
+</html>`;
 }
 
 /* ─── Library normalization (unchanged) ──────────────────────────────────── */
@@ -783,73 +1021,7 @@ function pageHtml(row, icon, related) {
       <a class="btn" href="${escapeHtml(libUrl)}" style="margin-top:12px;display:inline-block">Browse ${escapeHtml(icon.library)} icons →</a>
     </article>`;
 
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script>
-  <script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title)}</title>
-  <meta name="description" content="${escapeHtml(description)}">
-  <link rel="canonical" href="${escapeHtml(url)}">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="${escapeHtml(title)}">
-  <meta property="og:description" content="${escapeHtml(description)}">
-  <meta property="og:url" content="${escapeHtml(url)}">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="${escapeHtml(title)}">
-  <meta name="twitter:description" content="${escapeHtml(description)}">
-  <style>
-    :root{color-scheme:dark;--bg:#07070d;--panel:#0f0f1c;--line:#1e1e32;--text:#f0f0ff;--muted:#8888aa;--blue:#2f80ff;--green:#00cc66}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font:15px/1.7 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-    a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
-    .wrap{max-width:980px;margin:0 auto;padding:32px 20px 72px}
-    .crumbs{display:flex;gap:6px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-bottom:28px;align-items:center}
-    .crumbs a{color:var(--muted)}.crumbs a:hover{color:var(--text)}
-    .hero{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center;margin-bottom:40px}
-    .preview{height:200px;border:1px solid var(--line);border-radius:18px;background:var(--panel);display:grid;place-items:center;color:var(--blue)}
-    h1{font-size:clamp(24px,4vw,44px);line-height:1.1;margin-bottom:14px;letter-spacing:-.02em;font-weight:800}
-    .lead{color:var(--muted);font-size:16px;line-height:1.65;margin-bottom:20px}
-    .cta{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{border:1px solid var(--line);border-radius:9px;padding:10px 16px;color:var(--text);background:var(--panel);font-size:14px;font-weight:600;cursor:pointer;display:inline-block}
-    .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
-    .btn:hover{opacity:.88;text-decoration:none}
-    .section-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:40px 0 16px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-    .grid.wide{grid-template-columns:1fr}
-    .card{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:20px}
-    .card h2{font-size:16px;font-weight:700;margin-bottom:10px;color:var(--text)}
-    .card p{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:10px}
-    .card p:last-child{margin-bottom:0}
-    .card p.muted{color:#666688}
-    .card strong{color:var(--text)}
-    .card ul{padding-left:18px;color:var(--muted);font-size:14px}
-    .card li{margin:4px 0}
-    .card code{background:#0a0a18;border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:12px;font-family:"JetBrains Mono",Consolas,monospace}
-    .lib-meta{list-style:none;padding:0}
-    .lib-meta li{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--line);font-size:13px}
-    .lib-meta li:last-child{border-bottom:none}
-    .lib-meta strong{color:var(--text);flex:0 0 120px}
-    pre{background:#060610;border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;margin-top:8px}
-    pre code{font:500 12px/1.6 "JetBrains Mono",Consolas,monospace;color:#a8d8a8;white-space:pre}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-    .chips a{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--muted)}
-    .chips a:hover{color:var(--text);border-color:#555;text-decoration:none}
-    .faq-item{border-bottom:1px solid var(--line);padding:16px 0}
-    .faq-item:last-child{border-bottom:none}
-    .faq-item h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px}
-    .faq-item p{color:var(--muted);font-size:14px;line-height:1.65}
-    footer{margin-top:52px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
-    footer a{color:var(--muted)}footer a:hover{color:var(--text)}
-    .footer-links{display:flex;gap:16px;flex-wrap:wrap}
-    @media(max-width:680px){.hero{grid-template-columns:1fr}.preview{height:150px}}
-  </style>
-  <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, "\\u003c")}</script>
-</head>
-<body>
-<main class="wrap">
+  const content = `
   <nav class="crumbs" aria-label="Breadcrumb">
     <a href="/">IconStash</a><span>/</span>
     <a href="/#/library/${escapeHtml(icon.librarySlug)}">${escapeHtml(icon.library)}</a><span>/</span>
@@ -913,18 +1085,8 @@ function pageHtml(row, icon, related) {
       </div>
     </div>`).join("")}
   </div>
-
-  <footer>
-    <span>© ${new Date().getFullYear()} <a href="/">IconStash.io</a> — 134,701 icons from 28 open-source libraries.</span>
-    <div class="footer-links">
-      <a href="/">Search icons</a>
-      <a href="${escapeHtml(libUrl)}">${escapeHtml(icon.library)} icons</a>
-      <a href="/seo/">HTML sitemap</a>
-    </div>
-  </footer>
-</main>
-</body>
-</html>`;
+`;
+  return renderPseoShell({ title, description, url, schema, activeSlug: icon.librarySlug, content });
 }
 
 /* ─── Write pages ─────────────────────────────────────────────────────────── */
@@ -941,8 +1103,7 @@ function writePages(keywords, icons) {
     if (!icon) continue;
     const related = relatedFor(row, byIcon);
     const dir = path.join(OUT_DIR, row.slug);
-    try { fs.mkdirSync(dir); } catch (err) { if (err.code !== "EEXIST") fs.mkdirSync(dir, { recursive: true }); }
-    fs.writeFileSync(path.join(dir, "index.html"), pageHtml(row, icon, related));
+    writeFileWithRetry(path.join(dir, "index.html"), pageHtml(row, icon, related));
     count++;
     if (count % reportEvery === 0) {
       console.log(`- Progress: ${Math.round((count / total) * 100)}% (${count.toLocaleString("en-US")} / ${total.toLocaleString("en-US")} written)`);
@@ -957,11 +1118,11 @@ function writeSitemaps(keywords) {
   for (let i = 0; i < staticUrls.length; i += 50000) chunks.push(staticUrls.slice(i, i + 50000));
   chunks.forEach((chunk, index) => {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${chunk.map((url) => `  <url><loc>${SITE_URL}${url}</loc><lastmod>${TODAY}</lastmod></url>`).join("\n")}\n</urlset>\n`;
-    fs.writeFileSync(path.join(SITEMAP_DIR, `sitemap-${index + 1}.xml`), xml);
+    writeFileWithRetry(path.join(SITEMAP_DIR, `sitemap-${index + 1}.xml`), xml);
   });
   const indexXml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${chunks.map((_, index) => `  <sitemap><loc>${SITE_URL}/sitemaps/sitemap-${index + 1}.xml</loc><lastmod>${TODAY}</lastmod></sitemap>`).join("\n")}\n</sitemapindex>\n`;
-  fs.writeFileSync(path.join(ROOT, "sitemap.xml"), indexXml);
-  fs.writeFileSync(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+  writeFileWithRetry(path.join(ROOT, "sitemap.xml"), indexXml);
+  writeFileWithRetry(path.join(ROOT, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
 }
 
 /* ─── Write HTML sitemap (unchanged) ─────────────────────────────────────── */
@@ -971,17 +1132,28 @@ function writeHtmlSitemap(keywords) {
   for (let i = 0; i < keywords.length; i += perPage) pages.push(keywords.slice(i, i + perPage));
   const indexLinks = pages.map((_, index) => `<a href="/seo/sitemap-${index + 1}/">Sitemap ${index + 1}</a>`).join("");
   ensureDir(HTML_SITEMAP_DIR);
-  fs.writeFileSync(path.join(HTML_SITEMAP_DIR, "index.html"), `<!doctype html><html lang="en"><head><script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script><script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script><meta charset="utf-8"><title>IconStash HTML Sitemap</title><meta name="description" content="Browse all ${keywords.length.toLocaleString("en-US")} IconStash icon landing pages."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{display:inline-block;margin:6px 10px 6px 0;color:#8ab4ff}</style></head><body><h1>IconStash HTML Sitemap</h1><p>${keywords.length.toLocaleString("en-US")} icon landing pages across 28 open-source libraries.</p>${indexLinks}</body></html>`);
+  writeFileWithRetry(path.join(HTML_SITEMAP_DIR, "index.html"), `<!doctype html><html lang="en"><head><script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script><script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script><meta charset="utf-8"><title>IconStash HTML Sitemap</title><meta name="description" content="Browse all ${keywords.length.toLocaleString("en-US")} IconStash icon landing pages."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{display:inline-block;margin:6px 10px 6px 0;color:#8ab4ff}</style></head><body><h1>IconStash HTML Sitemap</h1><p>${keywords.length.toLocaleString("en-US")} icon landing pages across 28 open-source libraries.</p>${indexLinks}</body></html>`);
   pages.forEach((chunk, index) => {
     const dir = path.join(HTML_SITEMAP_DIR, `sitemap-${index + 1}`);
     ensureDir(dir);
     const links = chunk.map((row) => `<li><a href="${row.url}">${escapeHtml(row.keyword)}</a></li>`).join("");
-    fs.writeFileSync(path.join(dir, "index.html"), `<!doctype html><html lang="en"><head><script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script><script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script><meta charset="utf-8"><title>IconStash Sitemap ${index + 1}</title><meta name="description" content="IconStash icon pages ${index * perPage + 1}–${Math.min((index + 1) * perPage, keywords.length)}."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{color:#8ab4ff}li{margin:4px 0}</style></head><body><h1>IconStash Sitemap ${index + 1}</h1><ul>${links}</ul></body></html>`);
+    writeFileWithRetry(path.join(dir, "index.html"), `<!doctype html><html lang="en"><head><script async src="https://plausible.io/js/pa--bfaHBAPFGUV3yUn96sF4.js"></script><script>window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()</script><meta charset="utf-8"><title>IconStash Sitemap ${index + 1}</title><meta name="description" content="IconStash icon pages ${index * perPage + 1}–${Math.min((index + 1) * perPage, keywords.length)}."><style>body{font:15px/1.6 system-ui;margin:32px;background:#07070d;color:#f5f7fb}a{color:#8ab4ff}li{margin:4px 0}</style></head><body><h1>IconStash Sitemap ${index + 1}</h1><ul>${links}</ul></body></html>`);
   });
 }
 
 /* ─── Main ────────────────────────────────────────────────────────────────── */
 function main() {
+  if (process.argv.includes("--output-only") || process.env.PSEO_OUTPUT_ONLY === "1") {
+    const keywordData = readJson(KEYWORD_DB);
+    const keywords = keywordData.keywords || [];
+    ensureDir(SITEMAP_DIR);
+    ensureDir(HTML_SITEMAP_DIR);
+    writeSitemaps(keywords);
+    writeHtmlSitemap(keywords);
+    console.log(`Completed sitemap output for ${keywords.length.toLocaleString("en-US")} PSEO pages.`);
+    return;
+  }
+
   const index = readJson(path.join(DATA_DIR, "index.json"));
   const libraries = index.libraries || [];
   console.log(`Loading ${libraries.length} libraries...`);
@@ -990,7 +1162,7 @@ function main() {
   console.log(`Generating up to ${PAGE_LIMIT.toLocaleString("en-US")} keyword pages...`);
   const keywords = buildKeywords(icons);
   cleanOutput();
-  fs.writeFileSync(KEYWORD_DB, JSON.stringify({
+  writeFileWithRetry(KEYWORD_DB, JSON.stringify({
     generatedAt: new Date().toISOString(),
     siteUrl: SITE_URL,
     pageLimit: PAGE_LIMIT,
