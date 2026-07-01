@@ -191,7 +191,7 @@
   const REQUEST_TIMEOUT_MS = 30000;
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
   const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
-  const BACKGROUND_PRELOAD_CONCURRENCY = 2;
+  const BACKGROUND_PRELOAD_CONCURRENCY = 4;
   const MOBILE_BACKGROUND_PRELOAD_CONCURRENCY = 2;
   const MOBILE_BACKGROUND_PRELOAD_DELAY_MS = 120;
   const MOBILE_GRID_BATCH_SIZE = 480;
@@ -1328,6 +1328,15 @@
   async function loadAllLibrariesInBackground() {
     // Let the first paint finish, then start warming libraries after a comfortable delay.
     await new Promise((resolve) => setTimeout(resolve, isMobile ? 3500 : 2500));
+
+    const prioritySlug = slugForInitialRoute() || (state.selectedLibraries.size === 1 ? Array.from(state.selectedLibraries)[0] : "");
+    if (prioritySlug && !state.loadedLibraries.has(prioritySlug)) {
+      try {
+        await loadLibrary(prioritySlug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
+      } catch (e) {
+        console.error(`Priority background load error for ${prioritySlug}:`, e);
+      }
+    }
     
     // Prioritize loading based on tiers (Tiers 1 & 2 first, followed by 3 & 4)
     const priorityList = state.libraries
