@@ -113,11 +113,12 @@
     <span class="lib-name">All Icons</span>
     <span class="lib-count">134,701</span>
   </a>
-  <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false" style="margin-top: 10px; margin-bottom: 5px; cursor: pointer; background: transparent; border: none; padding: 0 7px; width: 100%; display: flex; align-items: center; justify-content: space-between;">
-    <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries</h2>
-    <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: rotate(0deg);"><path d="m9 18 6-6-6-6"/></svg>
+  <div class="sidebar-card" id="lib-card-section" style="margin-top: 10px;">
+  <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false" style="cursor: pointer; background: transparent; border: none; width: 100%; display: flex; align-items: center; justify-content: space-between;">
+    <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries List</h2>
+    <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="m9 18 6-6-6-6"/></svg>
   </button>
-  <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: 0; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">
+  <div class="card-content lib-collapse-list" id="lib-collapse-list" style="max-height: 0;">
     <label class="lib-row" data-slug="lucide" style="animation-delay:0ms">
       <span class="lib-badge"><svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 7.3v8.8L12 21l7.5-4.9V7.3L12 3Z"></path><path d="M8.5 9.5h7M8.5 14.5h7"></path></svg></span>
       <span class="lib-name">Lucide</span>
@@ -286,29 +287,34 @@
       <span class="lib-count">3,714</span>
       <input class="lib-check" type="checkbox" value="simpleicons">
     </label>
-  </div></div>
+  </div></div></div>
           </section>
 
-          <section class="filter-section">
-            <div class="filter-header"><h2>Styles</h2></div>
-            <div class="style-pills" id="style-pills-container">
-              <button class="style-pill active" data-style="all">All</button>
-              <button class="style-pill" data-style="outline">Outline</button>
-              <button class="style-pill" data-style="solid">Solid</button>
-              <button class="style-pill" data-style="duotone">Duotone</button>
-              <button class="style-pill" data-style="fill">Fill</button>
-              <button class="style-pill" data-style="bold">Bold</button>
-              <button class="style-pill" data-style="thin">Thin</button>
-              <button class="style-pill" data-style="light">Light</button>
+          <section class="sidebar-card expandable" id="style-section">
+            <button class="filter-header style-toggle" id="style-toggle" aria-expanded="false">
+              <h2>Styles</h2>
+              <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <div class="card-content style-list" id="style-list-container">
+              <div class="style-pills" id="style-pills-container">
+                <button class="style-pill active" data-style="all">All</button>
+                <button class="style-pill" data-style="outline">Outline</button>
+                <button class="style-pill" data-style="solid">Solid</button>
+                <button class="style-pill" data-style="duotone">Duotone</button>
+                <button class="style-pill" data-style="fill">Fill</button>
+                <button class="style-pill" data-style="bold">Bold</button>
+                <button class="style-pill" data-style="thin">Thin</button>
+                <button class="style-pill" data-style="light">Light</button>
+              </div>
             </div>
           </section>
 
-          <section class="filter-section expandable" id="category-section">
+          <section class="sidebar-card expandable" id="category-section">
             <button class="filter-header category-toggle" id="category-toggle" aria-expanded="false">
               <h2>Categories</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="m9 18 6-6-6-6"/></svg>
             </button>
-            <div class="category-list" id="category-list-container"></div>
+            <div class="card-content category-list" id="category-list-container"></div>
           </section>
 
           <section class="filter-section">
@@ -332,12 +338,12 @@
             </label>
           </section>
 
-          <section class="filter-section expandable" id="customize-section">
+          <section class="sidebar-card expandable" id="customize-section">
             <button class="filter-header category-toggle" id="customize-toggle" aria-expanded="false">
               <h2>Customize Preview</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="m9 18 6-6-6-6"/></svg>
             </button>
-            <div class="category-list customize-preview-controls" id="customize-content">
+            <div class="card-content customize-preview-controls" id="customize-content">
               <div class="customize-field">
                 <div>Fill Color</div>
                 <div class="customize-color-row">
@@ -375,7 +381,7 @@
               <h2 class="gradient-text">Categories</h2>
               <button class="glass-btn" id="browse-all-btn">Browse Icons</button>
             </div>
-            <div class="category-card-grid" id="home-categories"><article class="category-card" data-home-category="Media" style="background:linear-gradient(135deg, #00c3ff18, transparent 60%), var(--glass-2);animation-delay:0ms"><svg viewBox="0 0 24 24" style="color:#00c3ff"><path d="M12 5v14M5 12h14"></path></svg><h3>Media</h3><p>Photography</p></article><article class="category-card" data-home-category="Communication" style="background:linear-gradient(135deg, #ff2d9b18, transparent 60%), var(--glass-2);animation-delay:35ms"><svg viewBox="0 0 24 24" style="color:#ff2d9b"><path d="M4 5h16v12H7l-3 3V5Z"></path></svg><h3>Communication</h3><p>Messaging</p></article><article class="category-card" data-home-category="Commerce" style="background:linear-gradient(135deg, #00ff8818, transparent 60%), var(--glass-2);animation-delay:70ms"><svg viewBox="0 0 24 24" style="color:#00ff88"><path d="M6 6h15l-2 8H8L6 6ZM6 6 5 3H2M9 20h.01M18 20h.01"></path></svg><h3>Commerce</h3><p>Payments</p></article><article class="category-card" data-home-category="Navigation" style="background:linear-gradient(135deg, #bf00ff18, transparent 60%), var(--glass-2);animation-delay:105ms"><svg viewBox="0 0 24 24" style="color:#bf00ff"><path d="M3 11 22 2l-9 19-2-8-8-2Z"></path></svg><h3>Navigation</h3><p>Maps</p></article><article class="category-card" data-home-category="Files" style="background:linear-gradient(135deg, #ff6a0018, transparent 60%), var(--glass-2);animation-delay:140ms"><svg viewBox="0 0 24 24" style="color:#ff6a00"><path d="M14 2H6a2 2 0 0 0-2 2v16h16V8l-6-6Z"></path></svg><h3>Files</h3><p>Documents</p></article><article class="category-card" data-home-category="Editing" style="background:linear-gradient(135deg, #f5ff0018, transparent 60%), var(--glass-2);animation-delay:175ms"><svg viewBox="0 0 24 24" style="color:#f5ff00"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"></path></svg><h3>Editing</h3><p>Design</p></article><article class="category-card" data-home-category="Devices" style="background:linear-gradient(135deg, #00ffd518, transparent 60%), var(--glass-2);animation-delay:210ms"><svg viewBox="0 0 24 24" style="color:#00ffd5"><path d="M4 5h16v11H4V5ZM8 21h8M12 16v5"></path></svg><h3>Devices</h3><p>Hardware</p></article><article class="category-card" data-home-category="Development" style="background:linear-gradient(135deg, #ff003c18, transparent 60%), var(--glass-2);animation-delay:245ms"><svg viewBox="0 0 24 24" style="color:#ff003c"><path d="M8 9 4 12l4 3M16 9l4 3M14 4l-4 16"></path></svg><h3>Development</h3><p>Code</p></article><article class="category-card" data-home-category="Security" style="background:linear-gradient(135deg, #00c3ff18, transparent 60%), var(--glass-2);animation-delay:280ms"><svg viewBox="0 0 24 24" style="color:#00c3ff"><path d="M12 2 20 6v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z"></path></svg><h3>Security</h3><p>Privacy</p></article><article class="category-card" data-home-category="Health" style="background:linear-gradient(135deg, #ff2d9b18, transparent 60%), var(--glass-2);animation-delay:315ms"><svg viewBox="0 0 24 24" style="color:#ff2d9b"><path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"></path></svg><h3>Health</h3><p>Medical</p></article><article class="category-card" data-home-category="Weather" style="background:linear-gradient(135deg, #00ff8818, transparent 60%), var(--glass-2);animation-delay:350ms"><svg viewBox="0 0 24 24" style="color:#00ff88"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"></path></svg><h3>Weather</h3><p>Nature</p></article><article class="category-card" data-home-category="Transport" style="background:linear-gradient(135deg, #bf00ff18, transparent 60%), var(--glass-2);animation-delay:385ms"><svg viewBox="0 0 24 24" style="color:#bf00ff"><path d="M5 17h14l2-7H3l2 7ZM7 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM17 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"></path></svg><h3>Transport</h3><p>Travel</p></article><article class="category-card" data-home-category="Social" style="background:linear-gradient(135deg, #ff6a0018, transparent 60%), var(--glass-2);animation-delay:420ms"><svg viewBox="0 0 24 24" style="color:#ff6a00"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M2 21v-2a4 4 0 0 1 3-3.9"></path></svg><h3>Social</h3><p>People</p></article><article class="category-card" data-home-category="Time" style="background:linear-gradient(135deg, #f5ff0018, transparent 60%), var(--glass-2);animation-delay:455ms"><svg viewBox="0 0 24 24" style="color:#f5ff00"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM12 6v6l4 2"></path></svg><h3>Time</h3><p>Productivity</p></article><article class="category-card" data-home-category="Data" style="background:linear-gradient(135deg, #00ffd518, transparent 60%), var(--glass-2);animation-delay:490ms"><svg viewBox="0 0 24 24" style="color:#00ffd5"><path d="M4 19V5M8 19v-8M12 19V7M16 19v-5M20 19V9"></path></svg><h3>Data</h3><p>Charts</p></article><article class="category-card" data-home-category="Interface" style="background:linear-gradient(135deg, #ff003c18, transparent 60%), var(--glass-2);animation-delay:525ms"><svg viewBox="0 0 24 24" style="color:#ff003c"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><h3>Interface</h3><p>Controls</p></article></div>
+            <div class="category-card-grid" id="home-categories"><article class="category-card" data-home-category="Media" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:0ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M12 5v14M5 12h14"></path></svg><h3>Media</h3><p>Photography</p></article><article class="category-card" data-home-category="Communication" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:35ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M4 5h16v12H7l-3 3V5Z"></path></svg><h3>Communication</h3><p>Messaging</p></article><article class="category-card" data-home-category="Commerce" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:70ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M6 6h15l-2 8H8L6 6ZM6 6 5 3H2M9 20h.01M18 20h.01"></path></svg><h3>Commerce</h3><p>Payments</p></article><article class="category-card" data-home-category="Navigation" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:105ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M3 11 22 2l-9 19-2-8-8-2Z"></path></svg><h3>Navigation</h3><p>Maps</p></article><article class="category-card" data-home-category="Files" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:140ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M14 2H6a2 2 0 0 0-2 2v16h16V8l-6-6Z"></path></svg><h3>Files</h3><p>Documents</p></article><article class="category-card" data-home-category="Editing" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:175ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"></path></svg><h3>Editing</h3><p>Design</p></article><article class="category-card" data-home-category="Devices" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:210ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M4 5h16v11H4V5ZM8 21h8M12 16v5"></path></svg><h3>Devices</h3><p>Hardware</p></article><article class="category-card" data-home-category="Development" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:245ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M8 9 4 12l4 3M16 9l4 3M14 4l-4 16"></path></svg><h3>Development</h3><p>Code</p></article><article class="category-card" data-home-category="Security" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:280ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M12 2 20 6v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z"></path></svg><h3>Security</h3><p>Privacy</p></article><article class="category-card" data-home-category="Health" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:315ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"></path></svg><h3>Health</h3><p>Medical</p></article><article class="category-card" data-home-category="Weather" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:350ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"></path></svg><h3>Weather</h3><p>Nature</p></article><article class="category-card" data-home-category="Transport" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:385ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M5 17h14l2-7H3l2 7ZM7 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM17 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"></path></svg><h3>Transport</h3><p>Travel</p></article><article class="category-card" data-home-category="Social" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:420ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M2 21v-2a4 4 0 0 1 3-3.9"></path></svg><h3>Social</h3><p>People</p></article><article class="category-card" data-home-category="Time" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:455ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM12 6v6l4 2"></path></svg><h3>Time</h3><p>Productivity</p></article><article class="category-card" data-home-category="Data" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:490ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M4 19V5M8 19v-8M12 19V7M16 19v-5M20 19V9"></path></svg><h3>Data</h3><p>Charts</p></article><article class="category-card" data-home-category="Interface" style="background:linear-gradient(135deg, #88888818, transparent 60%);animation-delay:525ms"><svg viewBox="0 0 24 24" style="color:#888888"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><h3>Interface</h3><p>Controls</p></article></div>
           </section>
 
           <section class="home-band">
@@ -400,7 +406,7 @@
               <br><br>
               We engineered the platform to be a completely serverless, frontend-only experience. This means your searches are blazing fast and your 
               customizations happen securely within your own browser. From tweaking stroke widths and hex codes to downloading high-resolution PNG 
-              ZIP archives or copying inline SVGs, IconStash provides a premium, zero-latency toolset — no account, no subscription, or server pings 
+              ZIP archives or copying inline SVGs, IconStash provides a premium, zero-latency toolset â€” no account, no subscription, or server pings 
               required. Just free, open-source icons with a lightning-fast search!
             </p>
           </section>
@@ -456,7 +462,7 @@
           <div class="legal-document">
             <h1 class="hero-heading gradient-text">Terms of Service</h1>
             <p>This website is offered to you by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener" class="footer-link">Great Software Company</a> in collaboration with Huzzi.</p>
-            <p>This website is provided “as is” without any guarantees of any kind, express or implied.</p>
+            <p>This website is provided â€œas isâ€ without any guarantees of any kind, express or implied.</p>
             <p>But we do hope you like it and use it. If you have any questions or feedback, please contact us at <a href="mailto:heybro@iconstash.io" class="footer-link">heybro@iconstash.io</a></p>
           </div>
           

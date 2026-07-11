@@ -1,24 +1,24 @@
 // app.js - Main application logic, UI interaction handlers, and virtual grid scroll synchronization.
 // Optimizations: Implements true grid virtualization for search/filter results to prevent DOM bloating.
 (function () {
-  const COLORS = ["#00c3ff", "#ff2d9b", "#00ff88", "#bf00ff", "#ff6a00", "#f5ff00", "#00ffd5", "#ff003c"];
+  const COLORS = ["#888888", "#888888", "#888888", "#888888", "#888888", "#888888", "#888888", "#888888"];
   const CATEGORY_META = [
-    ["Media", "Photography", "M12 5v14M5 12h14", "#00c3ff"],
-    ["Communication", "Messaging", "M4 5h16v12H7l-3 3V5Z", "#ff2d9b"],
-    ["Commerce", "Payments", "M6 6h15l-2 8H8L6 6ZM6 6 5 3H2M9 20h.01M18 20h.01", "#00ff88"],
-    ["Navigation", "Maps", "M3 11 22 2l-9 19-2-8-8-2Z", "#bf00ff"],
-    ["Files", "Documents", "M14 2H6a2 2 0 0 0-2 2v16h16V8l-6-6Z", "#ff6a00"],
-    ["Editing", "Design", "M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z", "#f5ff00"],
-    ["Devices", "Hardware", "M4 5h16v11H4V5ZM8 21h8M12 16v5", "#00ffd5"],
-    ["Development", "Code", "M8 9 4 12l4 3M16 9l4 3-4 3M14 4l-4 16", "#ff003c"],
-    ["Security", "Privacy", "M12 2 20 6v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z", "#00c3ff"],
-    ["Health", "Medical", "M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z", "#ff2d9b"],
-    ["Weather", "Nature", "M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z", "#00ff88"],
-    ["Transport", "Travel", "M5 17h14l2-7H3l2 7ZM7 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM17 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z", "#bf00ff"],
-    ["Social", "People", "M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M2 21v-2a4 4 0 0 1 3-3.9", "#ff6a00"],
-    ["Time", "Productivity", "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM12 6v6l4 2", "#f5ff00"],
-    ["Data", "Charts", "M4 19V5M8 19v-8M12 19V7M16 19v-5M20 19V9", "#00ffd5"],
-    ["Interface", "Controls", "M4 7h16M4 12h16M4 17h16", "#ff003c"]
+    ["Media", "Photography", "M12 5v14M5 12h14", "#888888"],
+    ["Communication", "Messaging", "M4 5h16v12H7l-3 3V5Z", "#888888"],
+    ["Commerce", "Payments", "M6 6h15l-2 8H8L6 6ZM6 6 5 3H2M9 20h.01M18 20h.01", "#888888"],
+    ["Navigation", "Maps", "M3 11 22 2l-9 19-2-8-8-2Z", "#888888"],
+    ["Files", "Documents", "M14 2H6a2 2 0 0 0-2 2v16h16V8l-6-6Z", "#888888"],
+    ["Editing", "Design", "M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z", "#888888"],
+    ["Devices", "Hardware", "M4 5h16v11H4V5ZM8 21h8M12 16v5", "#888888"],
+    ["Development", "Code", "M8 9 4 12l4 3M16 9l4 3-4 3M14 4l-4 16", "#888888"],
+    ["Security", "Privacy", "M12 2 20 6v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z", "#888888"],
+    ["Health", "Medical", "M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z", "#888888"],
+    ["Weather", "Nature", "M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z", "#888888"],
+    ["Transport", "Travel", "M5 17h14l2-7H3l2 7ZM7 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM17 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z", "#888888"],
+    ["Social", "People", "M16 21v-2a4 4 0 0 0-8 0v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M2 21v-2a4 4 0 0 1 3-3.9", "#888888"],
+    ["Time", "Productivity", "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM12 6v6l4 2", "#888888"],
+    ["Data", "Charts", "M4 19V5M8 19v-8M12 19V7M16 19v-5M20 19V9", "#888888"],
+    ["Interface", "Controls", "M4 7h16M4 12h16M4 17h16", "#888888"]
   ];
   const INDEX_FALLBACK = {
     generatedAt: new Date().toISOString(),
@@ -271,6 +271,7 @@
       selectedLibsCount: $("selected-libs-count"),
       categoryList: $("category-list-container"),
       categoryToggle: $("category-toggle"),
+      styleToggle: $("style-toggle"),
       stylePills: $("style-pills-container"),
       sortSelect: $("sort-select"),
       previewSlider: $("preview-size-slider"),
@@ -493,11 +494,15 @@
         });
         
         const toggle = els.libList.querySelector(".lib-toggle");
+        const libCard = $("lib-card-section");
+        if (libCard) {
+          libCard.classList.toggle("open", state.librariesExpanded);
+        }
         if (toggle) {
           toggle.setAttribute("aria-expanded", state.librariesExpanded);
           const chevron = toggle.querySelector(".chevron");
           if (chevron) {
-            chevron.style.transform = state.librariesExpanded ? "rotate(90deg)" : "rotate(0deg)";
+            chevron.style.transform = state.librariesExpanded ? "rotate(180deg)" : "rotate(0deg)";
           }
         }
         listContainer.style.maxHeight = state.librariesExpanded ? libraryListExpandedHeight() : "0";
@@ -539,24 +544,26 @@
     } else {
       const isExpanded = state.librariesExpanded;
       const toggleHtml = `
-        <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="${isExpanded}" style="margin-top: 10px; margin-bottom: 5px; cursor: pointer; background: transparent; border: none; padding: 0 7px; width: 100%; display: flex; align-items: center; justify-content: space-between;">
-          <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries</h2>
-          <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: ${isExpanded ? "rotate(90deg)" : "rotate(0deg)"};"><path d="m9 18 6-6-6-6"/></svg>
-        </button>
+        <div class="sidebar-card ${isExpanded ? "open" : ""}" id="lib-card-section" style="margin-top: 10px;">
+          <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="${isExpanded}">
+            <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries List</h2>
+            <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: ${isExpanded ? "rotate(180deg)" : "rotate(0deg)"};"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+          <div class="card-content lib-collapse-list" id="lib-collapse-list" style="max-height: ${isExpanded ? libraryListExpandedHeight() : "0"};">
+            ${libRows}
+          </div>
+        </div>
       `;
       els.libList.innerHTML = `
         ${allRow}
         ${toggleHtml}
-        <div class="lib-collapse-list" id="lib-collapse-list" style="overflow: hidden; max-height: ${isExpanded ? libraryListExpandedHeight() : "0"}; transition: max-height 250ms ease-in-out; display: flex; flex-direction: column; gap: 5px;">
-          ${libRows}
-        </div>
       `;
     }
     updateFilterCounters();
   }
 
   function libraryListExpandedHeight() {
-    return `${Math.max(900, state.libraries.length * 44 + 24)}px`;
+    return "280px";
   }
 
   function isAllIconsGroupedMode() {
@@ -2868,7 +2875,7 @@
     
     collections.forEach(col => {
       const hasAll = ids.every(id => col.icons.includes(id));
-      const statusIcon = hasAll ? "✓" : "";
+      const statusIcon = hasAll ? "âœ“" : "";
       html += `
         <button class="popover-item" data-id="${col.id}">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" class="popover-folder-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
@@ -3062,9 +3069,13 @@
         const collapseList = $("lib-collapse-list");
         const chevron = toggle.querySelector(".chevron");
         if (collapseList) {
+          const libCard = $("lib-card-section");
+          if (libCard) {
+            libCard.classList.toggle("open", state.librariesExpanded);
+          }
           if (state.librariesExpanded) {
             collapseList.style.maxHeight = libraryListExpandedHeight();
-            if (chevron) chevron.style.transform = "rotate(90deg)";
+            if (chevron) chevron.style.transform = "rotate(180deg)";
             toggle.setAttribute("aria-expanded", "true");
           } else {
             collapseList.style.maxHeight = "0";
@@ -3107,6 +3118,13 @@
       section.classList.toggle("open");
       els.categoryToggle.setAttribute("aria-expanded", String(section.classList.contains("open")));
     });
+    if (els.styleToggle) {
+      els.styleToggle.addEventListener("click", () => {
+        const section = $("style-section");
+        section.classList.toggle("open");
+        els.styleToggle.setAttribute("aria-expanded", String(section.classList.contains("open")));
+      });
+    }
     els.categoryList.addEventListener("click", (event) => {
       const item = event.target.closest("[data-category]");
       if (!item) return;
@@ -3741,7 +3759,7 @@
 
   function initTheme() {
     const stored = localStorage.getItem("iconvault-theme");
-    const theme = stored || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    const theme = stored || "dark";
     document.documentElement.dataset.theme = theme;
     if (els && els.themeToggle) {
       els.themeToggle.title = theme === "light" ? "Switch to dark mode" : "Switch to light mode";

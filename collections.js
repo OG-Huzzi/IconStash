@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const state = {
     collections: [
       { id: "favorites", name: "Favorites", icons: [] }

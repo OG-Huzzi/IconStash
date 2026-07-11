@@ -1,4 +1,4 @@
-// search.js - Wraps the search.worker.js Web Worker to delegate fuzzy searching off the main thread.
+﻿// search.js - Wraps the search.worker.js Web Worker to delegate fuzzy searching off the main thread.
 // Exposes a Promise-based searchIcons API and maintains backwards-compatible helpers.
 // Implements try-catch fallback to run synchronously on the main thread if worker creation is blocked.
 // Optimizations: Instantiates Web Worker using a relative path to avoid import.meta parse errors in classic scripts.

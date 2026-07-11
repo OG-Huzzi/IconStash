@@ -1,4 +1,4 @@
-// search.worker.js - Web Worker that indexes icons and performs searches off the main thread using Fuse.js.
+﻿// search.worker.js - Web Worker that indexes icons and performs searches off the main thread using Fuse.js.
 // Resolves browser freezing issues during multi-key fuzzy search on 134k+ icons.
 
 try {

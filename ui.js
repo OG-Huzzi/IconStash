@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const toasts = new Set();
 
   function qs(selector, root = document) {
