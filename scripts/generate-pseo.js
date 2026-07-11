@@ -513,8 +513,11 @@ function renderPseoSidebar(activeSlug) {
             </div>
           </section>
 
-          <section class="filter-section">
-            <div class="filter-header"><h2>Styles</h2></div>
+          <section class="filter-section expandable" id="style-section">
+            <button class="filter-header category-toggle" id="style-toggle" aria-expanded="false">
+              <h2>Styles</h2>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
             <div class="style-pills">
               ${["All", "Outline", "Solid", "Duotone", "Fill", "Bold", "Thin", "Light"].map((style, styleIndex) => `<a class="style-pill ${styleIndex === 0 ? "active" : ""}" href="/#/search">${style}</a>`).join("")}
             </div>
@@ -674,7 +677,7 @@ ${content.trim()}
         });
         setLibrariesOpen(Boolean(query));
       });
-      ["category", "customize"].forEach((name) => {
+      ["category", "customize", "style"].forEach((name) => {
         const section = document.getElementById(name + "-section");
         const toggle = document.getElementById(name + "-toggle");
         toggle?.addEventListener("click", () => {

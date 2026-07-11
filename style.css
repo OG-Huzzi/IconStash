@@ -2702,6 +2702,57 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   max-height: 280px !important;
 }
 
+/* Styles Accordion Card Layout (wrapping toggle and pills) */
+.pseo-page #left-sidebar #style-toggle {
+  background: var(--glass-2) !important;
+  border: 1px solid var(--border) !important;
+  margin: 0 7px !important;
+  width: calc(100% - 14px) !important;
+  padding: 12px 14px !important;
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 180ms ease, border-radius 200ms ease;
+}
+
+.pseo-page #left-sidebar #style-section:not(.open) #style-toggle {
+  border-radius: var(--radius-card) !important;
+}
+
+.pseo-page #left-sidebar #style-section.open #style-toggle {
+  border-radius: var(--radius-card) var(--radius-card) 0 0 !important;
+  border-bottom-color: transparent !important;
+}
+
+.pseo-page #left-sidebar #style-section .style-pills {
+  background: var(--glass-2) !important;
+  border: 1px solid var(--border) !important;
+  border-top: none !important;
+  border-radius: 0 0 var(--radius-card) var(--radius-card) !important;
+  margin: 0 7px !important;
+  width: calc(100% - 14px) !important;
+  box-sizing: border-box;
+  padding: 10px 12px 12px 12px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+}
+
+.pseo-page #left-sidebar #style-section:not(.open) .style-pills {
+  max-height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border: none !important;
+  overflow: hidden !important;
+}
+
+.pseo-page #left-sidebar #style-section.open .style-pills {
+  max-height: 280px !important;
+}
+
 /* Customize Preview Accordion Card Layout (wrapping toggle and content) */
 .pseo-page #left-sidebar #customize-toggle {
   background: var(--glass-2) !important;
@@ -2771,6 +2822,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 
 .pseo-page #category-section.open .chevron,
 .pseo-page #customize-section.open .chevron,
+.pseo-page #style-section.open .chevron,
 .pseo-page #left-sidebar #lib-toggle[aria-expanded="true"] .chevron {
   transform: rotate(180deg) !important;
 }
