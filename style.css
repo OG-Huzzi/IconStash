@@ -2547,3 +2547,121 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 .how-step span { color: var(--control-blue); }
 [data-theme="light"] .how-step span { color: var(--text-primary); }
 
+/* ==========================================================================
+   Programmatic SEO (PSEO) Pages Styles Redesign Alignment
+   ========================================================================== */
+
+/* Align sitemap list pages */
+.pseo-page h1 {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  font-weight: 800;
+}
+
+.pseo-page a {
+  color: var(--neon-blue);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.pseo-page a:hover {
+  color: var(--btn-primary-hover);
+}
+
+/* Align sidebar card layouts in PSEO detail pages */
+.pseo-page #category-section,
+.pseo-page #customize-section,
+.pseo-page #left-sidebar .filter-section:nth-of-type(2),
+.pseo-page #left-sidebar .lib-list {
+  background: var(--glass-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.pseo-page #category-section .filter-header,
+.pseo-page #customize-section .filter-header,
+.pseo-page #left-sidebar .filter-section:nth-of-type(2) .filter-header,
+.pseo-page #left-sidebar .lib-toggle {
+  padding: 12px 14px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  background: transparent;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.pseo-page #category-section .category-list,
+.pseo-page #customize-section .customize-preview-controls,
+.pseo-page #left-sidebar .filter-section:nth-of-type(2) .style-pills,
+.pseo-page #left-sidebar .lib-collapse-list {
+  padding: 10px 12px 12px 12px;
+  border-top: 1px solid var(--border);
+  overflow-y: auto;
+  max-height: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.pseo-page #left-sidebar .filter-section:nth-of-type(2) .style-pills {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Chevron transitions and rotations on PSEO pages */
+.pseo-page #left-sidebar .chevron {
+  transition: transform 200ms ease;
+}
+
+.pseo-page #category-section.open .chevron,
+.pseo-page #customize-section.open .chevron,
+.pseo-page #left-sidebar .lib-toggle[aria-expanded="true"] .chevron {
+  transform: rotate(180deg) !important;
+}
+
+/* Accordion collapse mechanics for PSEO pages */
+.pseo-page #category-section:not(.open) .category-list,
+.pseo-page #customize-section:not(.open) .customize-preview-controls,
+.pseo-page #left-sidebar .lib-toggle[aria-expanded="false"] + .lib-collapse-list {
+  max-height: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-top-color: transparent !important;
+  overflow: hidden;
+}
+
+.pseo-page #left-sidebar .lib-toggle[aria-expanded="true"] + .lib-collapse-list {
+  max-height: 280px !important;
+  overflow-y: auto;
+}
+
+/* Flat sections in PSEO pages */
+.pseo-page #left-sidebar .filter-section:nth-of-type(4),
+.pseo-page #left-sidebar .filter-section:nth-of-type(5) {
+  background: transparent;
+  border: none;
+  padding: 0 4px;
+}
+
+/* Gray category dots with active accent colors on PSEO pages */
+.pseo-page .category-dot {
+  background: var(--text-muted) !important;
+  color: var(--text-muted) !important;
+}
+
+.pseo-page .category-item:hover .category-dot,
+.pseo-page .category-item.active .category-dot {
+  background: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
+
