@@ -2651,37 +2651,6 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   max-height: 280px !important;
 }
 
-/* Styles Accordion Card Layout (wrapping toggle and pills) */
-.pseo-page #left-sidebar .filter-section:nth-of-type(2) {
-  margin-bottom: 22px !important;
-}
-
-.pseo-page #left-sidebar .filter-section:nth-of-type(2) .filter-header {
-  background: var(--glass-2) !important;
-  border: 1px solid var(--border) !important;
-  border-bottom: none !important;
-  border-radius: var(--radius-card) var(--radius-card) 0 0 !important;
-  margin: 0 7px !important;
-  width: calc(100% - 14px) !important;
-  padding: 12px 14px !important;
-  box-sizing: border-box;
-}
-
-.pseo-page #left-sidebar .filter-section:nth-of-type(2) .style-pills {
-  background: var(--glass-2) !important;
-  border: 1px solid var(--border) !important;
-  border-top: none !important;
-  border-radius: 0 0 var(--radius-card) var(--radius-card) !important;
-  margin: 0 7px !important;
-  width: calc(100% - 14px) !important;
-  box-sizing: border-box;
-  padding: 10px 12px 12px 12px !important;
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-}
-
 /* Categories Accordion Card Layout (wrapping toggle and list) */
 .pseo-page #left-sidebar #category-toggle {
   background: var(--glass-2) !important;
@@ -2757,7 +2726,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   border-bottom-color: transparent !important;
 }
 
-.pseo-page #left-sidebar #customize-content {
+.pseo-page #left-sidebar #customize-section .customize-preview-controls {
   background: var(--glass-2) !important;
   border: 1px solid var(--border) !important;
   border-top: none !important;
@@ -2771,7 +2740,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   gap: 12px !important;
 }
 
-.pseo-page #left-sidebar #customize-section:not(.open) #customize-content {
+.pseo-page #left-sidebar #customize-section:not(.open) .customize-preview-controls {
   max-height: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
@@ -2779,7 +2748,7 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   overflow: hidden !important;
 }
 
-.pseo-page #left-sidebar #customize-section.open #customize-content {
+.pseo-page #left-sidebar #customize-section.open .customize-preview-controls {
   max-height: 280px !important;
 }
 
