@@ -2314,9 +2314,9 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
     --glass-2: var(--bg-surface);
     --glass-3: var(--bg-elevated);
     --glass-4: var(--bg-hover);
-    --glass-border: #141432;
-    --glass-border-bright: #202048;
-    --border: #141432;
+    --glass-border: #1F1F1F;
+    --glass-border-bright: #2A2A2A;
+    --border: #1F1F1F;
   }
   
   [data-theme="light"] {
@@ -2324,9 +2324,9 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
     --glass-2: var(--bg-surface);
     --glass-3: var(--bg-elevated);
     --glass-4: var(--bg-hover);
-    --glass-border: #dcdce8;
-    --glass-border-bright: #ccccda;
-    --border: #dcdce8;
+    --glass-border: #E0E0E0;
+    --glass-border-bright: #D0D0D0;
+    --border: #E0E0E0;
   }
 
   /* FIX 3 â€” Global Mobile Overflow Prevention */
