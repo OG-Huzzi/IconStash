@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const toasts = new Set();
 
   function qs(selector, root = document) {
@@ -36,12 +36,14 @@
     qsa(".modal").forEach((entry) => entry.classList.add("hidden"));
     backdrop.classList.remove("hidden");
     modal.classList.remove("hidden");
+    window.dispatchEvent(new CustomEvent("iconstash:modal-opened", { detail: { id } }));
   }
 
   function closeModals() {
     qsa(".modal").forEach((entry) => entry.classList.add("hidden"));
     qs("#modal-backdrop")?.classList.add("hidden");
     qs("#compare-toggle")?.classList.remove("active");
+    window.dispatchEvent(new CustomEvent("iconstash:modal-closed"));
   }
 
   function particleBurst(target) {

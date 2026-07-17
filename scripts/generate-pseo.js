@@ -443,7 +443,7 @@ function renderPseoHeader() {
         <button class="icon-btn mobile-only" id="sidebar-toggle" title="Open filters" aria-label="Open filters">
           <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
-        <a class="logo" href="/" aria-label="IconStash.io home">
+        <a class="logo" id="logo-btn" href="/" aria-label="IconStash.io home">
           ${appLogoSvg()}
           <span class="logo-text">IconStash<span class="logo-io">.io</span></span>
         </a>
@@ -460,12 +460,12 @@ function renderPseoHeader() {
       </form>
 
       <div class="header-right">
-        <button class="icon-btn" id="theme-toggle" type="button" title="Switch theme" aria-label="Toggle theme">
-          <svg class="theme-glyph" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        </button>
-        <a class="icon-btn" href="/#/collections" title="Your Collection" aria-label="Collections">
-          <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"/></svg>
+        <a href="/#/" class="nav-link active" id="nav-icons-btn">Icons</a>
+        <a href="/#/compare" class="nav-link" id="compare-toggle" title="Compare this icon across all libraries">Compare</a>
+        <a href="/#/collection" class="nav-link" id="collections-toggle" title="Your Collection">
+          Favorites<span class="badge hidden" id="collection-badge">0</span>
         </a>
+        <button class="nav-link" id="theme-toggle" title="Toggle theme">Light</button>
       </div>
     </header>`;
 }
@@ -493,7 +493,7 @@ function renderPseoSidebar(activeSlug) {
         <div class="sidebar-content">
           <section class="filter-section">
             <div class="filter-header">
-              <h2 class="gradient-text">Libraries</h2>
+              <h2>Libraries</h2>
               <span class="muted">${activeSlug ? "1 selected" : "All"}</span>
             </div>
             <input type="search" id="lib-search" class="mini-search" placeholder="Filter libraries..." aria-label="Filter libraries">
@@ -503,32 +503,34 @@ function renderPseoSidebar(activeSlug) {
                 <span class="lib-name">All Icons</span>
                 <span class="lib-count">134,701</span>
               </a>
-              <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false" style="margin-top:10px;margin-bottom:5px;cursor:pointer;background:transparent;border:none;padding:0 7px;width:100%;display:flex;align-items:center;justify-content:space-between">
-                <h2 style="font-size:11px;text-transform:uppercase;font-weight:800;color:var(--text-secondary);margin:0">Libraries</h2>
-                <svg class="chevron" viewBox="0 0 24 24" style="width:16px;height:16px;transition:transform 200ms ease;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-              <div class="lib-collapse-list" id="lib-collapse-list" style="overflow:hidden;max-height:0;transition:max-height 250ms ease-in-out;display:flex;flex-direction:column;gap:5px">
-                ${rows}
+              <div class="sidebar-card" id="lib-card-section" style="margin-top: 10px;">
+                <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false">
+                  <h2>Libraries List</h2>
+                  <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="card-content lib-collapse-list" id="lib-collapse-list">
+                  ${rows}
+                </div>
               </div>
             </div>
           </section>
 
-          <section class="filter-section expandable" id="style-section">
-            <button class="filter-header category-toggle" id="style-toggle" aria-expanded="false">
+          <section class="sidebar-card expandable" id="style-section">
+            <button class="filter-header style-toggle" id="style-toggle" aria-expanded="false">
               <h2>Styles</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="style-pills">
+            <div class="card-content style-pills">
               ${["All", "Outline", "Solid", "Duotone", "Fill", "Bold", "Thin", "Light"].map((style, styleIndex) => `<a class="style-pill ${styleIndex === 0 ? "active" : ""}" href="/#/search">${style}</a>`).join("")}
             </div>
           </section>
 
-          <section class="filter-section expandable" id="category-section">
+          <section class="sidebar-card expandable" id="category-section">
             <button class="filter-header category-toggle" id="category-toggle" aria-expanded="false">
               <h2>Categories</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="category-list">${categories}</div>
+            <div class="card-content category-list">${categories}</div>
           </section>
 
           <section class="filter-section">
@@ -537,7 +539,7 @@ function renderPseoSidebar(activeSlug) {
           </section>
 
           <section class="filter-section">
-            <div class="filter-header"><h2>Sort</h2></div>
+            <div class="filter-header"><h2>Sort By</h2></div>
             <label class="custom-select-wrapper">
               <select class="glass-select" aria-label="Sort icons">
                 <option>Relevance</option>
@@ -548,14 +550,17 @@ function renderPseoSidebar(activeSlug) {
               </select>
               <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </label>
+            <div>
+              <div class="unlocked-badge" title="Every search filter is free and unlocked.">All filters unlocked</div>
+            </div>
           </section>
 
-          <section class="filter-section expandable" id="customize-section">
+          <section class="sidebar-card expandable" id="customize-section">
             <button class="filter-header category-toggle" id="customize-toggle" aria-expanded="false">
               <h2>Customize Preview</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="category-list customize-preview-controls">
+            <div class="card-content customize-preview-controls">
               <div class="customize-field">
                 <div>Fill Color</div>
                 <div class="customize-color-row">
@@ -571,7 +576,7 @@ function renderPseoSidebar(activeSlug) {
             </div>
           </section>
 
-          <a class="outlined-neon-btn" href="/#/search">Clear All Filters</a>
+          <button id="clear-filters-btn" class="outlined-neon-btn">Clear All Filters</button>
         </div>
       </aside>`;
 }
@@ -615,7 +620,7 @@ function renderPseoShell({ title, description, url, schema, activeSlug, content 
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260602-brandlogo">
-  <link rel="stylesheet" href="/style.css?v=20260616-redesignfooter">
+  <link rel="stylesheet" href="/style.css?v=20260715-sidebarfix">
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, "\\u003c")}</script>
 </head>
 <body class="pseo-page">
@@ -650,14 +655,26 @@ ${content.trim()}
   <script>
     (() => {
       const root = document.documentElement;
+      const themeToggle = document.getElementById("theme-toggle");
+      
+      const updateThemeUI = (theme) => {
+        root.dataset.theme = theme;
+        if (themeToggle) {
+          themeToggle.textContent = theme === "light" ? "Dark" : "Light";
+        }
+      };
+
       try {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
-      } catch (_) {}
-      document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const savedTheme = localStorage.getItem("iconvault-theme") || "dark";
+        updateThemeUI(savedTheme);
+      } catch (_) {
+        updateThemeUI("dark");
+      }
+
+      themeToggle?.addEventListener("click", () => {
         const next = root.dataset.theme === "light" ? "dark" : "light";
-        root.dataset.theme = next;
-        try { localStorage.setItem("theme", next); } catch (_) {}
+        updateThemeUI(next);
+        try { localStorage.setItem("iconvault-theme", next); } catch (_) {}
       });
       document.getElementById("sidebar-toggle")?.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
       document.getElementById("sidebar-collapse")?.addEventListener("click", () => document.body.classList.toggle("sidebar-collapsed"));
@@ -666,8 +683,8 @@ ${content.trim()}
       const setLibrariesOpen = (open) => {
         if (!libraryToggle || !libraryList) return;
         libraryToggle.setAttribute("aria-expanded", String(open));
-        libraryToggle.querySelector(".chevron").style.transform = open ? "rotate(90deg)" : "rotate(0deg)";
-        libraryList.style.maxHeight = open ? Math.max(900, libraryList.children.length * 44 + 24) + "px" : "0";
+        const libCard = document.getElementById("lib-card-section");
+        if (libCard) libCard.classList.toggle("open", open);
       };
       libraryToggle?.addEventListener("click", () => setLibrariesOpen(libraryToggle.getAttribute("aria-expanded") !== "true"));
       document.getElementById("lib-search")?.addEventListener("input", (event) => {
@@ -778,6 +795,25 @@ function buildKeywords(icons) {
   const seen = new Set();
   const primaryRows = [];
   const secondaryRows = [];
+
+  // 1. Generate an exact-match static page for every single icon's ID to prevent 404s
+  for (const icon of icons) {
+    const slug = icon.id.toLowerCase();
+    if (!seen.has(slug)) {
+      seen.add(slug);
+      primaryRows.push({
+        keyword: icon.id.replace(/-/g, " "),
+        slug,
+        iconId: icon.id,
+        category: icon.category,
+        librarySlug: icon.librarySlug,
+        format: "svg",
+        intent: "direct-id"
+      });
+    }
+  }
+
+  // 2. Gather secondary keyword candidates and fill the remaining page budget
   const candidatesByIcon = new Map();
   for (const icon of icons) {
     const templates = keywordTemplates(icon);
@@ -793,22 +829,25 @@ function buildKeywords(icons) {
     candidates.sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug));
     if (candidates.length > 0) candidatesByIcon.set(icon.id, candidates);
   }
+
   for (const candidates of candidatesByIcon.values()) {
-    const best = candidates[0];
-    if (!seen.has(best.slug)) { seen.add(best.slug); primaryRows.push(best); }
-  }
-  for (const candidates of candidatesByIcon.values()) {
-    for (let i = 1; i < candidates.length; i++) {
-      const cand = candidates[i];
-      if (!seen.has(cand.slug)) secondaryRows.push(cand);
+    for (const cand of candidates) {
+      if (!seen.has(cand.slug)) {
+        secondaryRows.push(cand);
+      }
     }
   }
+
   secondaryRows.sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug));
   const rows = [...primaryRows];
   const remainingBudget = PAGE_LIMIT - rows.length;
   if (remainingBudget > 0) {
-    for (const item of secondaryRows.slice(0, remainingBudget)) { seen.add(item.slug); rows.push(item); }
+    for (const item of secondaryRows.slice(0, remainingBudget)) {
+      seen.add(item.slug);
+      rows.push(item);
+    }
   }
+
   return rows
     .sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug))
     .map((row, index) => ({ ...row, priority: index + 1, url: `/icons/${row.slug}/` }));
@@ -1003,6 +1042,42 @@ function relatedFor(row, byIcon) {
   return related;
 }
 
+function generateIconAesthetic(icon) {
+  const lib = icon.library;
+  const style = icon.style;
+  const name = icon.displayName;
+  
+  const aesthetics = {
+    lucide: `The ${name} icon is created following the Lucide design guidelines. Lucide icons are constructed on a 24x24 pixel grid with a default stroke width of 2px, utilizing rounded corners and balanced geometric shapes. This gives the icon a friendly, highly readable appearance that fits perfectly in modern web interfaces, dashboards, and mobile applications.`,
+    tabler: `As part of the Tabler Icons collection, the ${name} icon is designed on a 24x24 grid, emphasizing pixel-perfect crispness and sharp geometric details. Tabler's style is optimized for clean dashboards, developer tools, and administrative interfaces, ensuring high legibility even at small dimensions like 16px.`,
+    phosphor: `Designed by the Phosphor team, the ${name} icon features a highly consistent line weight and clean curves. Phosphor icons are built to scale seamlessly across multiple styles (like thin, light, regular, bold, fill, and duotone), offering design cohesion across your entire application.`,
+    remix: `The Remix ${name} icon follows a neutral, highly readable style. Developed for web and product UI design, Remix icons focus on clean lines and professional proportions, making them a safe choice for corporate sites, SaaS applications, and productivity tools.`,
+    iconoir: `The ${name} icon from Iconoir features a minimalistic, elegant outline style. With no unnecessary embellishments, Iconoir icons offer a lightweight, high-end aesthetic that is popular in creative portfolios, mobile applications, and minimalist designs.`
+  };
+  
+  const fallback = `The ${name} icon from the ${lib} collection is designed to meet professional standards of legibility and clean line weight. It is fully responsive, scaling cleanly from small micro-interactions at 16px to large hero graphics or landing page displays at 512px without any loss of crispness.`;
+  
+  return aesthetics[icon.librarySlug] || fallback;
+}
+
+function generateUxBestPractices(icon) {
+  const cat = icon.category;
+  const name = icon.displayName;
+  
+  const practices = {
+    media: `For media and audio-visual interfaces, the ${name} icon should be placed prominently to guide user interaction (such as playback controls, volume adjustment, or media streams). Ensure it has sufficient contrast and hover tooltips for screen readers.`,
+    communication: `When used in communication interfaces (such as chat modules, contact forms, or notifications), the ${name} icon helps users quickly scan for alerts or messages. Keep badge indicators small and positioned relative to the top-right corner of the icon.`,
+    commerce: `In commerce applications (e.g. checkouts, item listings, pricing tables), the ${name} icon helps represent actions like adding items, reviewing carts, or viewing invoices. Ensure high accessibility with aria-label tags since commerce icons directly influence conversion.`,
+    navigation: `For navigation controls (like headers, sidebar menus, and footers), use the ${name} icon alongside clear text labels whenever possible. Icons alone can be ambiguous, so combining them with text improves overall UX navigation scores.`,
+    development: `In code editors, administrative systems, and developer interfaces, the ${name} icon helps represent technical concepts or actions (like terminal actions, code folding, or database queries). Pair it with monospace tags for design consistency.`,
+    devices: `When representing physical hardware, systems, or settings, the ${name} icon is best placed in configuration panels or device dashboards. Use standard outline states for inactive devices, and switch to filled states or active colors for online devices.`
+  };
+  
+  const fallback = `When integrating the ${name} icon into your layout, ensure it has a touch target of at least 44x44 pixels on mobile devices to satisfy tap guidelines. Always provide an aria-label or title tag if the icon is used as an interactive action button without text.`;
+  
+  return practices[String(cat).toLowerCase()] || fallback;
+}
+
 /* ─── Page HTML: rich, varied, GEO/AEO-ready ────────────────────────────── */
 function pageHtml(row, icon, related) {
   const title = seoTitle(row.keyword);
@@ -1101,6 +1176,62 @@ function pageHtml(row, icon, related) {
     </div>
   </section>
 
+  <p class="section-title">Interactive Customizer</p>
+  <div class="grid wide">
+    <article class="card live-playground">
+      <div class="playground-layout">
+        <div class="playground-preview-pane">
+          <div class="playground-preview-box" id="pseo-live-preview">
+            ${renderSvg(icon, 128)}
+          </div>
+        </div>
+        <div class="playground-controls-pane">
+          <div class="control-group">
+            <label>Color</label>
+            <div class="color-presets">
+              <button class="color-dot active" data-color="#C1DD2D" style="background:#C1DD2D" title="Accent Lime"></button>
+              <button class="color-dot" data-color="#00c3ff" style="background:#00c3ff" title="Blue"></button>
+              <button class="color-dot" data-color="#00ff88" style="background:#00ff88" title="Green"></button>
+              <button class="color-dot" data-color="#bf00ff" style="background:#bf00ff" title="Purple"></button>
+              <button class="color-dot" data-color="#ff2d9b" style="background:#ff2d9b" title="Red"></button>
+              <button class="color-dot" data-color="#ffffff" style="background:#ffffff" title="White"></button>
+            </div>
+            <input type="text" id="pseo-color-input" class="mini-search" value="#C1DD2D" placeholder="#Hex" style="margin-top:6px;width:120px">
+          </div>
+          
+          ${icon.style !== "filled" && icon.style !== "solid" ? `
+          <div class="control-group">
+            <div class="flex-between">
+              <label>Stroke Width</label>
+              <span id="pseo-stroke-val">1.5px</span>
+            </div>
+            <input type="range" id="pseo-stroke-input" class="neon-slider" min="0.5" max="3" step="0.1" value="1.5">
+          </div>
+          ` : ""}
+          
+          <div class="control-group">
+            <div class="flex-between">
+              <label>Size</label>
+              <span id="pseo-size-val">128px</span>
+            </div>
+            <input type="range" id="pseo-size-input" class="neon-slider" min="16" max="256" step="8" value="128">
+            <div class="size-presets" style="margin-top:6px">
+              <button class="size-pill" data-size="32">32px</button>
+              <button class="size-pill" data-size="64">64px</button>
+              <button class="size-pill active" data-size="128">128px</button>
+              <button class="size-pill" data-size="256">256px</button>
+            </div>
+          </div>
+          
+          <div class="playground-actions">
+            <button class="btn primary" id="pseo-copy-svg">Copy SVG Code</button>
+            <button class="btn" id="pseo-download-png">Download PNG</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
   <p class="section-title">About this icon</p>
   <div class="grid">
     <article class="card">
@@ -1111,6 +1242,18 @@ function pageHtml(row, icon, related) {
       <h2>Export formats</h2>
       <p>Copy clean SVG vectors with one click, generate custom-size PNG files from 16px to 512px, export JSX/React components ready to paste into your project, or use the icon as a CSS <code>background-mask</code> for flexible theming.</p>
       <p class="muted">All exports are based on the same editable vector — so the ${escapeHtml(icon.displayName)} icon stays pixel-perfect at 16px, 24px, 48px, and any large marketing size.</p>
+    </article>
+  </div>
+
+  <p class="section-title">Design &amp; UX integration</p>
+  <div class="grid">
+    <article class="card">
+      <h2>Aesthetic characteristics</h2>
+      <p>${generateIconAesthetic(icon)}</p>
+    </article>
+    <article class="card">
+      <h2>UX best practices</h2>
+      <p>${generateUxBestPractices(icon)}</p>
     </article>
   </div>
 
@@ -1146,6 +1289,133 @@ function pageHtml(row, icon, related) {
       </div>
     </div>`).join("")}
   </div>
+
+  <script>
+    (() => {
+      const preview = document.getElementById("pseo-live-preview");
+      const copyBtn = document.getElementById("pseo-copy-svg");
+      const downloadBtn = document.getElementById("pseo-download-png");
+      const colorInput = document.getElementById("pseo-color-input");
+      const strokeInput = document.getElementById("pseo-stroke-input");
+      const strokeVal = document.getElementById("pseo-stroke-val");
+      
+      let currentColor = "#C1DD2D";
+      let currentStroke = "1.5";
+      let currentSize = 128;
+
+      function updateIcon() {
+        const svg = preview.querySelector("svg");
+        if (!svg) return;
+        
+        if (svg.getAttribute("fill") !== "none") svg.setAttribute("fill", currentColor);
+        if (svg.getAttribute("stroke") !== "none") svg.setAttribute("stroke", currentColor);
+        svg.querySelectorAll("path, circle, rect, polygon, polyline, line, ellipse").forEach(el => {
+          if (el.getAttribute("fill") && el.getAttribute("fill") !== "none") el.setAttribute("fill", currentColor);
+          if (el.getAttribute("stroke") && el.getAttribute("stroke") !== "none") el.setAttribute("stroke", currentColor);
+        });
+        
+        if (strokeInput && svg.getAttribute("stroke") !== "none") {
+          svg.setAttribute("stroke-width", currentStroke);
+          svg.querySelectorAll("path, circle, rect, polygon, polyline, line, ellipse").forEach(el => {
+            if (el.getAttribute("stroke") && el.getAttribute("stroke") !== "none") el.setAttribute("stroke-width", currentStroke);
+          });
+        }
+        
+        svg.setAttribute("width", currentSize);
+        svg.setAttribute("height", currentSize);
+        svg.style.setProperty("width", currentSize + "px", "important");
+        svg.style.setProperty("height", currentSize + "px", "important");
+      }
+
+      document.querySelectorAll(".color-dot").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".color-dot").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentColor = btn.dataset.color;
+          if (colorInput) colorInput.value = currentColor;
+          updateIcon();
+        });
+      });
+      
+      if (colorInput) {
+        colorInput.addEventListener("input", () => {
+          currentColor = colorInput.value;
+          updateIcon();
+        });
+      }
+      
+      if (strokeInput) {
+        strokeInput.addEventListener("input", () => {
+          currentStroke = strokeInput.value;
+          if (strokeVal) strokeVal.textContent = currentStroke + "px";
+          updateIcon();
+        });
+      }
+      
+      const sizeInput = document.getElementById("pseo-size-input");
+      const sizeVal = document.getElementById("pseo-size-val");
+
+      if (sizeInput) {
+        sizeInput.addEventListener("input", () => {
+          currentSize = parseInt(sizeInput.value, 10);
+          if (sizeVal) sizeVal.textContent = currentSize + "px";
+          
+          document.querySelectorAll(".size-presets .size-pill").forEach(b => {
+            b.classList.toggle("active", parseInt(b.dataset.size, 10) === currentSize);
+          });
+          updateIcon();
+        });
+      }
+
+      document.querySelectorAll(".size-presets .size-pill").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".size-presets .size-pill").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentSize = parseInt(btn.dataset.size, 10);
+          if (sizeInput) sizeInput.value = currentSize;
+          if (sizeVal) sizeVal.textContent = currentSize + "px";
+          updateIcon();
+        });
+      });
+      
+      copyBtn?.addEventListener("click", () => {
+        const svgStr = preview.innerHTML.trim();
+        navigator.clipboard.writeText(svgStr).then(() => {
+          const old = copyBtn.textContent;
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => copyBtn.textContent = old, 1500);
+        });
+      });
+      
+      downloadBtn?.addEventListener("click", () => {
+        const svg = preview.querySelector("svg");
+        if (!svg) return;
+        const svgString = new XMLSerializer().serializeToString(svg);
+        const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const URL = window.URL || window.webkitURL || window;
+        const blobURL = URL.createObjectURL(svgBlob);
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = currentSize;
+          canvas.height = currentSize;
+          const context = canvas.getContext("2d");
+          context.drawImage(image, 0, 0);
+          const png = canvas.toDataURL("image/png");
+          const downloadLink = document.createElement("a");
+          downloadLink.href = png;
+          downloadLink.download = "${row.slug}.png";
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          URL.revokeObjectURL(blobURL);
+        };
+        image.src = blobURL;
+      });
+      
+      updateIcon();
+    })();
+  </script>
 `;
   return renderPseoShell({ title, description, url, schema, activeSlug: icon.librarySlug, content });
 }

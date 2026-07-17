@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "gscServer": {
+      "command": "C:/Users/DELL/.local/bin/uvx.exe",
+      "args": [
+        "mcp-search-console"
+      ],
+      "env": {
+        "GSC_OAUTH_CLIENT_SECRETS_FILE": "C:/Users/DELL/Downloads/client_secret_959725869432-t498pbq24e7i6cqcbc7dba81o943vqhb.apps.googleusercontent.com.json"
+      }
+    }
+  }
+}

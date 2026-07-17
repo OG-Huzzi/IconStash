@@ -500,12 +500,7 @@
         }
         if (toggle) {
           toggle.setAttribute("aria-expanded", state.librariesExpanded);
-          const chevron = toggle.querySelector(".chevron");
-          if (chevron) {
-            chevron.style.transform = state.librariesExpanded ? "rotate(180deg)" : "rotate(0deg)";
-          }
         }
-        listContainer.style.maxHeight = state.librariesExpanded ? libraryListExpandedHeight() : "0";
         
         updateFilterCounters();
         return;
@@ -546,10 +541,10 @@
       const toggleHtml = `
         <div class="sidebar-card ${isExpanded ? "open" : ""}" id="lib-card-section" style="margin-top: 10px;">
           <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="${isExpanded}">
-            <h2 style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--text-secondary); margin: 0;">Libraries List</h2>
-            <svg class="chevron" viewBox="0 0 24 24" style="width: 16px; height: 16px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transform: ${isExpanded ? "rotate(180deg)" : "rotate(0deg)"};"><path d="m9 18 6-6-6-6"/></svg>
+            <h2>Libraries List</h2>
+            <svg class="chevron" viewBox="0 0 24 24" style="width: 13px; height: 13px; transition: transform 200ms ease; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="m6 9 6 6 6-6"/></svg>
           </button>
-          <div class="card-content lib-collapse-list" id="lib-collapse-list" style="max-height: ${isExpanded ? libraryListExpandedHeight() : "0"};">
+          <div class="card-content lib-collapse-list" id="lib-collapse-list">
             ${libRows}
           </div>
         </div>
@@ -2202,6 +2197,7 @@
       ensureDesktopDetail();
     }
     renderCategories();
+    updateNavActiveState();
   }
 
   function normalizeStartupRoute() {
@@ -2966,8 +2962,44 @@
     };
   }
 
+  function updateNavActiveState() {
+    const isCompare = els.compareToggle?.classList.contains("active");
+    const isCollections = document.getElementById("collections-modal") && !document.getElementById("collections-modal").classList.contains("hidden");
+    
+    const iconsBtn = document.getElementById("nav-icons-btn");
+    const compareBtn = els.compareToggle;
+    const favsBtn = els.collectionsToggle;
+    
+    if (iconsBtn) iconsBtn.classList.remove("active");
+    if (compareBtn) compareBtn.classList.remove("active");
+    if (favsBtn) favsBtn.classList.remove("active");
+    
+    if (isCompare) {
+      if (compareBtn) compareBtn.classList.add("active");
+    } else if (isCollections) {
+      if (favsBtn) favsBtn.classList.add("active");
+    } else {
+      if (iconsBtn) iconsBtn.classList.add("active");
+    }
+  }
+
   function setupEvents() {
     updateCollectedIconIds();
+    
+    const navIconsBtn = document.getElementById("nav-icons-btn");
+    if (navIconsBtn) {
+      navIconsBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        ui().closeModals();
+        clearAllFilters({ skipRender: true });
+        window.location.hash = "#/";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+    
+    window.addEventListener("iconstash:modal-opened", updateNavActiveState);
+    window.addEventListener("iconstash:modal-closed", updateNavActiveState);
+
     els.search.addEventListener("focus", () => {
       els.searchShell.classList.add("focused");
       triggerBackgroundSync();
@@ -3066,23 +3098,11 @@
       if (toggle) {
         event.preventDefault();
         state.librariesExpanded = !state.librariesExpanded;
-        const collapseList = $("lib-collapse-list");
-        const chevron = toggle.querySelector(".chevron");
-        if (collapseList) {
-          const libCard = $("lib-card-section");
-          if (libCard) {
-            libCard.classList.toggle("open", state.librariesExpanded);
-          }
-          if (state.librariesExpanded) {
-            collapseList.style.maxHeight = libraryListExpandedHeight();
-            if (chevron) chevron.style.transform = "rotate(180deg)";
-            toggle.setAttribute("aria-expanded", "true");
-          } else {
-            collapseList.style.maxHeight = "0";
-            if (chevron) chevron.style.transform = "rotate(0deg)";
-            toggle.setAttribute("aria-expanded", "false");
-          }
+        const libCard = $("lib-card-section");
+        if (libCard) {
+          libCard.classList.toggle("open", state.librariesExpanded);
         }
+        toggle.setAttribute("aria-expanded", String(state.librariesExpanded));
         return;
       }
       const allRow = event.target.closest("[data-all-icons='true']");
@@ -3235,6 +3255,7 @@
         els.compareToggle.classList.add("active");
         renderComparePlaceholder();
       }
+      updateNavActiveState();
     });
     els.libraryRetry.addEventListener("click", () => {
       if (!state.lastFailedSlug) return;
@@ -3743,6 +3764,7 @@
     localStorage.setItem("iconvault-theme", next);
     if (els.themeToggle) {
       els.themeToggle.title = next === "light" ? "Switch to dark mode" : "Switch to light mode";
+      els.themeToggle.textContent = next === "light" ? "Dark" : "Light";
     }
     if (!state.customColor && els.custColorHex && els.custColorWheel) {
       const color = next === "light" ? "#000000" : "#ffffff";
@@ -3763,6 +3785,7 @@
     document.documentElement.dataset.theme = theme;
     if (els && els.themeToggle) {
       els.themeToggle.title = theme === "light" ? "Switch to dark mode" : "Switch to light mode";
+      els.themeToggle.textContent = theme === "light" ? "Dark" : "Light";
     }
   }
 

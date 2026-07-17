@@ -16,7 +16,7 @@
   <meta name="twitter:title" content="Copy Thunderstorm Svg | SVG &amp; PNG - IconStash">
   <meta name="twitter:description" content="Download the Thunderstorm fill icon from Carbon Icons in SVG and PNG formats. Customize color, size (16–512px), and stroke width on IconStash — free, no...">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260602-brandlogo">
-  <link rel="stylesheet" href="/style.css?v=20260616-redesignfooter">
+  <link rel="stylesheet" href="/style.css?v=20260715-sidebarfix">
   <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IconStash","item":"https://iconstash.io/"},{"@type":"ListItem","position":2,"name":"Carbon Icons","item":"https://iconstash.io/#/library/carbon"},{"@type":"ListItem","position":3,"name":"Thunderstorm","item":"https://iconstash.io/icons/copy-thunderstorm-svg/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the Thunderstorm icon?","acceptedAnswer":{"@type":"Answer","text":"The Thunderstorm icon is a fill-style SVG icon from the Carbon Icons library, categorized under Interface. It is designed for use in general-purpose product UIs, design systems, component libraries, web applications, and marketing sites. On IconStash you can preview it, customize its color and size, and export it in SVG, PNG, JSX, or CSS formats directly from your browser."}},{"@type":"Question","name":"Is the Thunderstorm icon free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. Carbon Icons is licensed under Apache 2.0, making it free for personal and commercial use. This means you can freely use the Thunderstorm icon in personal, commercial, and open-source projects. IconStash provides SVG and PNG access at no cost with no login required."}},{"@type":"Question","name":"How do I use the Thunderstorm icon in React?","acceptedAnswer":{"@type":"Answer","text":"Install the package with `npm install @carbon/icons-react`, then import the component into your React file. IconStash's detail panel shows you the exact npm command, import statement, and JSX usage snippet for every icon — just click the Code tab and copy with one click."}},{"@type":"Question","name":"What is the Carbon Icons icon library?","acceptedAnswer":{"@type":"Answer","text":"IBM's open-source icon library aligned with the Carbon Design System. 2,600+ enterprise-grade icons maintained by IBM's design team. It contains 2,644+ icons. IconStash indexes the complete Carbon Icons collection alongside 27 other open-source libraries — 134,701 icons total — in a single unified search interface."}},{"@type":"Question","name":"Can I download the Thunderstorm icon as a PNG?","acceptedAnswer":{"@type":"Answer","text":"Yes. Open the Thunderstorm icon in IconStash, set your desired pixel size (16px to 512px) in the detail panel, and click Download PNG. You can also export a multi-resolution ZIP pack containing 16, 24, 32, 48, 64, 128, 256, and 512px PNGs with a single click."}},{"@type":"Question","name":"What does the fill icon style mean?","acceptedAnswer":{"@type":"Answer","text":"An icon in fill style uses a clean SVG vector format. This style is best suited for interface components. The Carbon Icons Thunderstorm icon follows this visual convention throughout the Carbon Icons design system."}},{"@type":"Question","name":"Can I change the Thunderstorm icon's color and size before downloading?","acceptedAnswer":{"@type":"Answer","text":"Yes. In IconStash's editor panel, choose from six color presets (blue, slate, green, purple, red, teal) or enter a custom hex value. Drag the size slider (16–256px) or type an exact pixel value up to 512px. Changes apply instantly to the SVG preview, the PNG output, and the copied code."}}]},{"@context":"https://schema.org","@type":"HowTo","name":"How to download and use the Thunderstorm icon","description":"Step-by-step guide to finding, customizing, and exporting the Thunderstorm icon from Carbon Icons on IconStash.","totalTime":"PT1M","step":[{"@type":"HowToStep","position":1,"name":"Open the icon in IconStash","text":"Go to iconstash.io and search for \"thunderstorm\". Click the icon card to open the detail panel, or follow the direct link to this icon's page.","url":"https://iconstash.io/#/icon/carbon-thunderstorm"},{"@type":"HowToStep","position":2,"name":"Customize color, size, and stroke","text":"Select a color from the presets or type a custom hex value. Set the exact pixel size from 16px to 512px. Adjust stroke width for outline icons. Preview on dark, light, or checkered backgrounds.","url":"https://iconstash.io/#/icon/carbon-thunderstorm"},{"@type":"HowToStep","position":3,"name":"Copy SVG code or download PNG","text":"Use the Code tab to copy SVG markup, JSX component code, HTML img tag, or CSS background-mask. Use the Download tab to export a custom-size PNG or a multi-resolution ZIP pack.","url":"https://iconstash.io/#/icon/carbon-thunderstorm"}]},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"IconStash","applicationCategory":"DesignApplication","operatingSystem":"Web","url":"https://iconstash.io","description":"Browser-based icon search engine unifying 28+ open-source icon libraries into a single lightning-fast search. Search, preview, customize, and download 134,701+ SVG and PNG icons with no login required.","featureList":["SVG copy","Custom PNG download","Multi-resolution ZIP export","React JSX export","CSS background-mask export","Cross-library comparison","Color customization","Stroke width control","134,701 icons from 28 libraries"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Great Software Company","url":"https://greatsoftwarecompany.com"}},{"@context":"https://schema.org","@type":"ImageObject","name":"Thunderstorm icon","description":"fill style SVG icon from Carbon Icons","creator":{"@type":"Organization","name":"Carbon Icons"},"encodingFormat":"image/svg+xml","contentUrl":"https://iconstash.io/#/icon/carbon-thunderstorm","license":"https://opensource.org/licenses/MIT"}]</script>
 </head>
 <body class="pseo-page">
@@ -37,7 +37,7 @@
         <button class="icon-btn mobile-only" id="sidebar-toggle" title="Open filters" aria-label="Open filters">
           <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
-        <a class="logo" href="/" aria-label="IconStash.io home">
+        <a class="logo" id="logo-btn" href="/" aria-label="IconStash.io home">
           <svg class="logo-icon" viewBox="0 0 24 24"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
           <span class="logo-text">IconStash<span class="logo-io">.io</span></span>
         </a>
@@ -54,12 +54,12 @@
       </form>
 
       <div class="header-right">
-        <button class="icon-btn" id="theme-toggle" type="button" title="Switch theme" aria-label="Toggle theme">
-          <svg class="theme-glyph" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        </button>
-        <a class="icon-btn" href="/#/collections" title="Your Collection" aria-label="Collections">
-          <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"/></svg>
+        <a href="/#/" class="nav-link active" id="nav-icons-btn">Icons</a>
+        <a href="/#/compare" class="nav-link" id="compare-toggle" title="Compare this icon across all libraries">Compare</a>
+        <a href="/#/collection" class="nav-link" id="collections-toggle" title="Your Collection">
+          Favorites<span class="badge hidden" id="collection-badge">0</span>
         </a>
+        <button class="nav-link" id="theme-toggle" title="Toggle theme">Light</button>
       </div>
     </header>
     <div class="workspace">
@@ -70,7 +70,7 @@
         <div class="sidebar-content">
           <section class="filter-section">
             <div class="filter-header">
-              <h2 class="gradient-text">Libraries</h2>
+              <h2>Libraries</h2>
               <span class="muted">1 selected</span>
             </div>
             <input type="search" id="lib-search" class="mini-search" placeholder="Filter libraries..." aria-label="Filter libraries">
@@ -80,12 +80,13 @@
                 <span class="lib-name">All Icons</span>
                 <span class="lib-count">134,701</span>
               </a>
-              <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false" style="margin-top:10px;margin-bottom:5px;cursor:pointer;background:transparent;border:none;padding:0 7px;width:100%;display:flex;align-items:center;justify-content:space-between">
-                <h2 style="font-size:11px;text-transform:uppercase;font-weight:800;color:var(--text-secondary);margin:0">Libraries</h2>
-                <svg class="chevron" viewBox="0 0 24 24" style="width:16px;height:16px;transition:transform 200ms ease;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-              <div class="lib-collapse-list" id="lib-collapse-list" style="overflow:hidden;max-height:0;transition:max-height 250ms ease-in-out;display:flex;flex-direction:column;gap:5px">
-                <a class="lib-row " href="/#/library/lucide" data-slug="lucide" style="animation-delay:0ms">
+              <div class="sidebar-card" id="lib-card-section" style="margin-top: 10px;">
+                <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false">
+                  <h2>Libraries List</h2>
+                  <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="card-content lib-collapse-list" id="lib-collapse-list">
+                  <a class="lib-row " href="/#/library/lucide" data-slug="lucide" style="animation-delay:0ms">
       <span class="lib-badge"><svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M8 9h8M8 13h8"></path></svg></span>
       <span class="lib-name">Lucide</span>
       <span class="lib-count">1,979</span>
@@ -198,28 +199,27 @@
       <span class="lib-name">Simple Icons</span>
       <span class="lib-count">3,714</span>
     </a>
+                </div>
               </div>
             </div>
           </section>
 
-          <section class="filter-section expandable" id="style-section">
-            <button class="filter-header category-toggle" id="style-toggle" aria-expanded="false">
+          <section class="sidebar-card expandable" id="style-section">
+            <button class="filter-header style-toggle" id="style-toggle" aria-expanded="false">
               <h2>Styles</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="style-pills">
-              
+            <div class="card-content style-pills">
               <a class="style-pill active" href="/#/search">All</a><a class="style-pill " href="/#/search">Outline</a><a class="style-pill " href="/#/search">Solid</a><a class="style-pill " href="/#/search">Duotone</a><a class="style-pill " href="/#/search">Fill</a><a class="style-pill " href="/#/search">Bold</a><a class="style-pill " href="/#/search">Thin</a><a class="style-pill " href="/#/search">Light</a>
-            
             </div>
           </section>
 
-          <section class="filter-section expandable" id="category-section">
+          <section class="sidebar-card expandable" id="category-section">
             <button class="filter-header category-toggle" id="category-toggle" aria-expanded="false">
               <h2>Categories</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="category-list"><a class="category-item" href="/#/category/media">
+            <div class="card-content category-list"><a class="category-item" href="/#/category/media">
       <span class="category-dot" style="background:#00c3ff;color:#00c3ff"></span>
       <span>Media</span>
     </a><a class="category-item" href="/#/category/communication">
@@ -276,7 +276,7 @@
           </section>
 
           <section class="filter-section">
-            <div class="filter-header"><h2>Sort</h2></div>
+            <div class="filter-header"><h2>Sort By</h2></div>
             <label class="custom-select-wrapper">
               <select class="glass-select" aria-label="Sort icons">
                 <option>Relevance</option>
@@ -287,14 +287,17 @@
               </select>
               <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </label>
+            <div>
+              <div class="unlocked-badge" title="Every search filter is free and unlocked.">All filters unlocked</div>
+            </div>
           </section>
 
-          <section class="filter-section expandable" id="customize-section">
+          <section class="sidebar-card expandable" id="customize-section">
             <button class="filter-header category-toggle" id="customize-toggle" aria-expanded="false">
               <h2>Customize Preview</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="category-list customize-preview-controls">
+            <div class="card-content customize-preview-controls">
               <div class="customize-field">
                 <div>Fill Color</div>
                 <div class="customize-color-row">
@@ -310,7 +313,7 @@
             </div>
           </section>
 
-          <a class="outlined-neon-btn" href="/#/search">Clear All Filters</a>
+          <button id="clear-filters-btn" class="outlined-neon-btn">Clear All Filters</button>
         </div>
       </aside>
       <main id="main-content">
@@ -334,6 +337,62 @@
     </div>
   </section>
 
+  <p class="section-title">Interactive Customizer</p>
+  <div class="grid wide">
+    <article class="card live-playground">
+      <div class="playground-layout">
+        <div class="playground-preview-pane">
+          <div class="playground-preview-box" id="pseo-live-preview">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="128" height="128" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="thunderstorm icon"><path fill="currentColor" d="M23.5 22H23v-2h.5a4.5 4.5 0 0 0 .36-9H23l-.1-.82a7 7 0 0 0-13.88 0L9 11h-.86a4.5 4.5 0 0 0 .36 9H9v2h-.5A6.5 6.5 0 0 1 7.2 9.14a9 9 0 0 1 17.6 0A6.5 6.5 0 0 1 23.5 22"/><path fill="currentColor" d="m15.87 30.5l-1.74-1l3.15-5.5h-6l4.85-8.5l1.74 1l-3.15 5.5h6z"/></svg>
+          </div>
+        </div>
+        <div class="playground-controls-pane">
+          <div class="control-group">
+            <label>Color</label>
+            <div class="color-presets">
+              <button class="color-dot active" data-color="#C1DD2D" style="background:#C1DD2D" title="Accent Lime"></button>
+              <button class="color-dot" data-color="#00c3ff" style="background:#00c3ff" title="Blue"></button>
+              <button class="color-dot" data-color="#00ff88" style="background:#00ff88" title="Green"></button>
+              <button class="color-dot" data-color="#bf00ff" style="background:#bf00ff" title="Purple"></button>
+              <button class="color-dot" data-color="#ff2d9b" style="background:#ff2d9b" title="Red"></button>
+              <button class="color-dot" data-color="#ffffff" style="background:#ffffff" title="White"></button>
+            </div>
+            <input type="text" id="pseo-color-input" class="mini-search" value="#C1DD2D" placeholder="#Hex" style="margin-top:6px;width:120px">
+          </div>
+          
+          
+          <div class="control-group">
+            <div class="flex-between">
+              <label>Stroke Width</label>
+              <span id="pseo-stroke-val">1.5px</span>
+            </div>
+            <input type="range" id="pseo-stroke-input" class="neon-slider" min="0.5" max="3" step="0.1" value="1.5">
+          </div>
+          
+          
+          <div class="control-group">
+            <div class="flex-between">
+              <label>Size</label>
+              <span id="pseo-size-val">128px</span>
+            </div>
+            <input type="range" id="pseo-size-input" class="neon-slider" min="16" max="256" step="8" value="128">
+            <div class="size-presets" style="margin-top:6px">
+              <button class="size-pill" data-size="32">32px</button>
+              <button class="size-pill" data-size="64">64px</button>
+              <button class="size-pill active" data-size="128">128px</button>
+              <button class="size-pill" data-size="256">256px</button>
+            </div>
+          </div>
+          
+          <div class="playground-actions">
+            <button class="btn primary" id="pseo-copy-svg">Copy SVG Code</button>
+            <button class="btn" id="pseo-download-png">Download PNG</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
   <p class="section-title">About this icon</p>
   <div class="grid">
     <article class="card">
@@ -344,6 +403,18 @@
       <h2>Export formats</h2>
       <p>Copy clean SVG vectors with one click, generate custom-size PNG files from 16px to 512px, export JSX/React components ready to paste into your project, or use the icon as a CSS <code>background-mask</code> for flexible theming.</p>
       <p class="muted">All exports are based on the same editable vector — so the Thunderstorm icon stays pixel-perfect at 16px, 24px, 48px, and any large marketing size.</p>
+    </article>
+  </div>
+
+  <p class="section-title">Design &amp; UX integration</p>
+  <div class="grid">
+    <article class="card">
+      <h2>Aesthetic characteristics</h2>
+      <p>The Thunderstorm icon from the Carbon Icons collection is designed to meet professional standards of legibility and clean line weight. It is fully responsive, scaling cleanly from small micro-interactions at 16px to large hero graphics or landing page displays at 512px without any loss of crispness.</p>
+    </article>
+    <article class="card">
+      <h2>UX best practices</h2>
+      <p>When integrating the Thunderstorm icon into your layout, ensure it has a touch target of at least 44x44 pixels on mobile devices to satisfy tap guidelines. Always provide an aria-label or title tag if the icon is used as an interactive action button without text.</p>
     </article>
   </div>
 
@@ -378,12 +449,12 @@ import { Thunderstorm } from &#039;@carbon/icons-react&#039;;
     </article>
     <article class="card">
       <h2>Related searches</h2>
-      <ul><li><a href="/icons/carbon-thunderstorm-icon-svg/">carbon thunderstorm icon svg</a></li><li><a href="/icons/carbon-thunderstorm-icon-png/">carbon thunderstorm icon png</a></li><li><a href="/icons/download-thunderstorm-png-icon/">download thunderstorm png icon</a></li><li><a href="/icons/thunderstorm-icon-png/">thunderstorm icon png</a></li><li><a href="/icons/thunderstorm-svg-and-png-download/">thunderstorm svg and png download</a></li><li><a href="/icons/carbon-thunderstorm-fill-svg/">carbon thunderstorm fill svg</a></li><li><a href="/icons/thunderstorm-icon-for-product-ui/">thunderstorm icon for product ui</a></li><li><a href="/icons/thunderstorm-fill-icon/">thunderstorm fill icon</a></li><li><a href="/icons/thunderstorm-icon-figma/">thunderstorm icon figma</a></li><li><a href="/icons/thunderstorm-icon-for-react/">thunderstorm icon for react</a></li></ul>
+      <ul><li><a href="/icons/carbon-thunderstorm/">carbon thunderstorm</a></li><li><a href="/icons/carbon-thunderstorm-icon-svg/">carbon thunderstorm icon svg</a></li><li><a href="/icons/download-thunderstorm-svg-icon/">download thunderstorm svg icon</a></li><li><a href="/icons/carbon-thunderstorm-icon-png/">carbon thunderstorm icon png</a></li><li><a href="/icons/download-thunderstorm-png-icon/">download thunderstorm png icon</a></li><li><a href="/icons/thunderstorm-icon-png/">thunderstorm icon png</a></li><li><a href="/icons/thunderstorm-svg-and-png-download/">thunderstorm svg and png download</a></li><li><a href="/icons/carbon-thunderstorm-fill-svg/">carbon thunderstorm fill svg</a></li><li><a href="/icons/thunderstorm-icon-for-product-ui/">thunderstorm icon for product ui</a></li><li><a href="/icons/thunderstorm-fill-icon/">thunderstorm fill icon</a></li></ul>
     </article>
   </div>
 
   <p class="section-title">People also search for</p>
-  <div class="chips"><a href="/icons/thunderstorm-icon-for-react/">thunderstorm icon for react</a><a href="/icons/thunderstorm-icon-figma/">thunderstorm icon figma</a><a href="/icons/thunderstorm-fill-icon/">thunderstorm fill icon</a><a href="/icons/thunderstorm-icon-for-product-ui/">thunderstorm icon for product ui</a><a href="/icons/carbon-thunderstorm-fill-svg/">carbon thunderstorm fill svg</a><a href="/icons/thunderstorm-svg-and-png-download/">thunderstorm svg and png download</a></div>
+  <div class="chips"><a href="/icons/thunderstorm-fill-icon/">thunderstorm fill icon</a><a href="/icons/thunderstorm-icon-for-product-ui/">thunderstorm icon for product ui</a><a href="/icons/carbon-thunderstorm-fill-svg/">carbon thunderstorm fill svg</a><a href="/icons/thunderstorm-svg-and-png-download/">thunderstorm svg and png download</a><a href="/icons/thunderstorm-icon-png/">thunderstorm icon png</a><a href="/icons/download-thunderstorm-png-icon/">download thunderstorm png icon</a></div>
 
   <p class="section-title">Frequently asked questions</p>
   <div class="card" style="padding:8px 20px">
@@ -424,6 +495,133 @@ import { Thunderstorm } from &#039;@carbon/icons-react&#039;;
       </div>
     </div>
   </div>
+
+  <script>
+    (() => {
+      const preview = document.getElementById("pseo-live-preview");
+      const copyBtn = document.getElementById("pseo-copy-svg");
+      const downloadBtn = document.getElementById("pseo-download-png");
+      const colorInput = document.getElementById("pseo-color-input");
+      const strokeInput = document.getElementById("pseo-stroke-input");
+      const strokeVal = document.getElementById("pseo-stroke-val");
+      
+      let currentColor = "#C1DD2D";
+      let currentStroke = "1.5";
+      let currentSize = 128;
+
+      function updateIcon() {
+        const svg = preview.querySelector("svg");
+        if (!svg) return;
+        
+        if (svg.getAttribute("fill") !== "none") svg.setAttribute("fill", currentColor);
+        if (svg.getAttribute("stroke") !== "none") svg.setAttribute("stroke", currentColor);
+        svg.querySelectorAll("path, circle, rect, polygon, polyline, line, ellipse").forEach(el => {
+          if (el.getAttribute("fill") && el.getAttribute("fill") !== "none") el.setAttribute("fill", currentColor);
+          if (el.getAttribute("stroke") && el.getAttribute("stroke") !== "none") el.setAttribute("stroke", currentColor);
+        });
+        
+        if (strokeInput && svg.getAttribute("stroke") !== "none") {
+          svg.setAttribute("stroke-width", currentStroke);
+          svg.querySelectorAll("path, circle, rect, polygon, polyline, line, ellipse").forEach(el => {
+            if (el.getAttribute("stroke") && el.getAttribute("stroke") !== "none") el.setAttribute("stroke-width", currentStroke);
+          });
+        }
+        
+        svg.setAttribute("width", currentSize);
+        svg.setAttribute("height", currentSize);
+        svg.style.setProperty("width", currentSize + "px", "important");
+        svg.style.setProperty("height", currentSize + "px", "important");
+      }
+
+      document.querySelectorAll(".color-dot").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".color-dot").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentColor = btn.dataset.color;
+          if (colorInput) colorInput.value = currentColor;
+          updateIcon();
+        });
+      });
+      
+      if (colorInput) {
+        colorInput.addEventListener("input", () => {
+          currentColor = colorInput.value;
+          updateIcon();
+        });
+      }
+      
+      if (strokeInput) {
+        strokeInput.addEventListener("input", () => {
+          currentStroke = strokeInput.value;
+          if (strokeVal) strokeVal.textContent = currentStroke + "px";
+          updateIcon();
+        });
+      }
+      
+      const sizeInput = document.getElementById("pseo-size-input");
+      const sizeVal = document.getElementById("pseo-size-val");
+
+      if (sizeInput) {
+        sizeInput.addEventListener("input", () => {
+          currentSize = parseInt(sizeInput.value, 10);
+          if (sizeVal) sizeVal.textContent = currentSize + "px";
+          
+          document.querySelectorAll(".size-presets .size-pill").forEach(b => {
+            b.classList.toggle("active", parseInt(b.dataset.size, 10) === currentSize);
+          });
+          updateIcon();
+        });
+      }
+
+      document.querySelectorAll(".size-presets .size-pill").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".size-presets .size-pill").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentSize = parseInt(btn.dataset.size, 10);
+          if (sizeInput) sizeInput.value = currentSize;
+          if (sizeVal) sizeVal.textContent = currentSize + "px";
+          updateIcon();
+        });
+      });
+      
+      copyBtn?.addEventListener("click", () => {
+        const svgStr = preview.innerHTML.trim();
+        navigator.clipboard.writeText(svgStr).then(() => {
+          const old = copyBtn.textContent;
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => copyBtn.textContent = old, 1500);
+        });
+      });
+      
+      downloadBtn?.addEventListener("click", () => {
+        const svg = preview.querySelector("svg");
+        if (!svg) return;
+        const svgString = new XMLSerializer().serializeToString(svg);
+        const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const URL = window.URL || window.webkitURL || window;
+        const blobURL = URL.createObjectURL(svgBlob);
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = currentSize;
+          canvas.height = currentSize;
+          const context = canvas.getContext("2d");
+          context.drawImage(image, 0, 0);
+          const png = canvas.toDataURL("image/png");
+          const downloadLink = document.createElement("a");
+          downloadLink.href = png;
+          downloadLink.download = "copy-thunderstorm-svg.png";
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          URL.revokeObjectURL(blobURL);
+        };
+        image.src = blobURL;
+      });
+      
+      updateIcon();
+    })();
+  </script>
             <footer class="home-footer">
     <div class="footer-container">
       <div class="footer-left">
@@ -449,14 +647,26 @@ import { Thunderstorm } from &#039;@carbon/icons-react&#039;;
   <script>
     (() => {
       const root = document.documentElement;
+      const themeToggle = document.getElementById("theme-toggle");
+      
+      const updateThemeUI = (theme) => {
+        root.dataset.theme = theme;
+        if (themeToggle) {
+          themeToggle.textContent = theme === "light" ? "Dark" : "Light";
+        }
+      };
+
       try {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
-      } catch (_) {}
-      document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const savedTheme = localStorage.getItem("iconvault-theme") || "dark";
+        updateThemeUI(savedTheme);
+      } catch (_) {
+        updateThemeUI("dark");
+      }
+
+      themeToggle?.addEventListener("click", () => {
         const next = root.dataset.theme === "light" ? "dark" : "light";
-        root.dataset.theme = next;
-        try { localStorage.setItem("theme", next); } catch (_) {}
+        updateThemeUI(next);
+        try { localStorage.setItem("iconvault-theme", next); } catch (_) {}
       });
       document.getElementById("sidebar-toggle")?.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
       document.getElementById("sidebar-collapse")?.addEventListener("click", () => document.body.classList.toggle("sidebar-collapsed"));
@@ -465,8 +675,8 @@ import { Thunderstorm } from &#039;@carbon/icons-react&#039;;
       const setLibrariesOpen = (open) => {
         if (!libraryToggle || !libraryList) return;
         libraryToggle.setAttribute("aria-expanded", String(open));
-        libraryToggle.querySelector(".chevron").style.transform = open ? "rotate(90deg)" : "rotate(0deg)";
-        libraryList.style.maxHeight = open ? Math.max(900, libraryList.children.length * 44 + 24) + "px" : "0";
+        const libCard = document.getElementById("lib-card-section");
+        if (libCard) libCard.classList.toggle("open", open);
       };
       libraryToggle?.addEventListener("click", () => setLibrariesOpen(libraryToggle.getAttribute("aria-expanded") !== "true"));
       document.getElementById("lib-search")?.addEventListener("input", (event) => {

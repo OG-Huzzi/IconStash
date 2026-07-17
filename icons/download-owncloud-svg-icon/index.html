@@ -16,7 +16,7 @@
   <meta name="twitter:title" content="Download Owncloud Svg Icon | SVG &amp; PNG - IconStash">
   <meta name="twitter:description" content="Copy the Owncloud icon SVG code or export a custom PNG instantly. Simple Icons&#039;s fill-style Owncloud icon is available on IconStash with React, HTML, and...">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260602-brandlogo">
-  <link rel="stylesheet" href="/style.css?v=20260616-redesignfooter">
+  <link rel="stylesheet" href="/style.css?v=20260715-sidebarfix">
   <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"IconStash","item":"https://iconstash.io/"},{"@type":"ListItem","position":2,"name":"Simple Icons","item":"https://iconstash.io/#/library/simpleicons"},{"@type":"ListItem","position":3,"name":"Owncloud","item":"https://iconstash.io/icons/download-owncloud-svg-icon/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the Owncloud icon?","acceptedAnswer":{"@type":"Answer","text":"The Owncloud icon is a fill-style SVG icon from the Simple Icons library, categorized under Development. It is designed for use in developer tools, CLI documentation, API dashboards, GitHub-integrated UIs, code editors, and DevOps panels. On IconStash you can preview it, customize its color and size, and export it in SVG, PNG, JSX, or CSS formats directly from your browser."}},{"@type":"Question","name":"Is the Owncloud icon free to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. Simple Icons is licensed under CC0 1.0, making it free for personal and commercial use. This means you can freely use the Owncloud icon in personal, commercial, and open-source projects. IconStash provides SVG and PNG access at no cost with no login required."}},{"@type":"Question","name":"How do I use the Owncloud icon in React?","acceptedAnswer":{"@type":"Answer","text":"Install the package with `npm install simple-icons`, then import the component into your React file. IconStash's detail panel shows you the exact npm command, import statement, and JSX usage snippet for every icon — just click the Code tab and copy with one click."}},{"@type":"Question","name":"What is the Simple Icons icon library?","acceptedAnswer":{"@type":"Answer","text":"3,700+ free SVG brand icons for popular technologies, platforms, companies, and products. The definitive source for brand logos in tech stacks and README files. It contains 3,714+ icons. IconStash indexes the complete Simple Icons collection alongside 27 other open-source libraries — 134,701 icons total — in a single unified search interface."}},{"@type":"Question","name":"Can I download the Owncloud icon as a PNG?","acceptedAnswer":{"@type":"Answer","text":"Yes. Open the Owncloud icon in IconStash, set your desired pixel size (16px to 512px) in the detail panel, and click Download PNG. You can also export a multi-resolution ZIP pack containing 16, 24, 32, 48, 64, 128, 256, and 512px PNGs with a single click."}},{"@type":"Question","name":"What does the fill icon style mean?","acceptedAnswer":{"@type":"Answer","text":"An icon in fill style uses a clean SVG vector format. This style is best suited for interface components. The Simple Icons Owncloud icon follows this visual convention throughout the Simple Icons design system."}},{"@type":"Question","name":"Can I change the Owncloud icon's color and size before downloading?","acceptedAnswer":{"@type":"Answer","text":"Yes. In IconStash's editor panel, choose from six color presets (blue, slate, green, purple, red, teal) or enter a custom hex value. Drag the size slider (16–256px) or type an exact pixel value up to 512px. Changes apply instantly to the SVG preview, the PNG output, and the copied code."}}]},{"@context":"https://schema.org","@type":"HowTo","name":"How to download and use the Owncloud icon","description":"Step-by-step guide to finding, customizing, and exporting the Owncloud icon from Simple Icons on IconStash.","totalTime":"PT1M","step":[{"@type":"HowToStep","position":1,"name":"Open the icon in IconStash","text":"Go to iconstash.io and search for \"owncloud\". Click the icon card to open the detail panel, or follow the direct link to this icon's page.","url":"https://iconstash.io/#/icon/simpleicons-owncloud"},{"@type":"HowToStep","position":2,"name":"Customize color, size, and stroke","text":"Select a color from the presets or type a custom hex value. Set the exact pixel size from 16px to 512px. Adjust stroke width for outline icons. Preview on dark, light, or checkered backgrounds.","url":"https://iconstash.io/#/icon/simpleicons-owncloud"},{"@type":"HowToStep","position":3,"name":"Copy SVG code or download PNG","text":"Use the Code tab to copy SVG markup, JSX component code, HTML img tag, or CSS background-mask. Use the Download tab to export a custom-size PNG or a multi-resolution ZIP pack.","url":"https://iconstash.io/#/icon/simpleicons-owncloud"}]},{"@context":"https://schema.org","@type":"SoftwareApplication","name":"IconStash","applicationCategory":"DesignApplication","operatingSystem":"Web","url":"https://iconstash.io","description":"Browser-based icon search engine unifying 28+ open-source icon libraries into a single lightning-fast search. Search, preview, customize, and download 134,701+ SVG and PNG icons with no login required.","featureList":["SVG copy","Custom PNG download","Multi-resolution ZIP export","React JSX export","CSS background-mask export","Cross-library comparison","Color customization","Stroke width control","134,701 icons from 28 libraries"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Great Software Company","url":"https://greatsoftwarecompany.com"}},{"@context":"https://schema.org","@type":"ImageObject","name":"Owncloud icon","description":"fill style SVG icon from Simple Icons","creator":{"@type":"Organization","name":"Simple Icons"},"encodingFormat":"image/svg+xml","contentUrl":"https://iconstash.io/#/icon/simpleicons-owncloud","license":"https://opensource.org/licenses/MIT"}]</script>
 </head>
 <body class="pseo-page">
@@ -37,7 +37,7 @@
         <button class="icon-btn mobile-only" id="sidebar-toggle" title="Open filters" aria-label="Open filters">
           <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
-        <a class="logo" href="/" aria-label="IconStash.io home">
+        <a class="logo" id="logo-btn" href="/" aria-label="IconStash.io home">
           <svg class="logo-icon" viewBox="0 0 24 24"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
           <span class="logo-text">IconStash<span class="logo-io">.io</span></span>
         </a>
@@ -54,12 +54,12 @@
       </form>
 
       <div class="header-right">
-        <button class="icon-btn" id="theme-toggle" type="button" title="Switch theme" aria-label="Toggle theme">
-          <svg class="theme-glyph" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        </button>
-        <a class="icon-btn" href="/#/collections" title="Your Collection" aria-label="Collections">
-          <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.3 5.3 0 0 0-7.5 0L12 5.9l-1.3-1.3a5.3 5.3 0 1 0-7.5 7.5L12 21l8.8-8.9a5.3 5.3 0 0 0 0-7.5Z"/></svg>
+        <a href="/#/" class="nav-link active" id="nav-icons-btn">Icons</a>
+        <a href="/#/compare" class="nav-link" id="compare-toggle" title="Compare this icon across all libraries">Compare</a>
+        <a href="/#/collection" class="nav-link" id="collections-toggle" title="Your Collection">
+          Favorites<span class="badge hidden" id="collection-badge">0</span>
         </a>
+        <button class="nav-link" id="theme-toggle" title="Toggle theme">Light</button>
       </div>
     </header>
     <div class="workspace">
@@ -70,7 +70,7 @@
         <div class="sidebar-content">
           <section class="filter-section">
             <div class="filter-header">
-              <h2 class="gradient-text">Libraries</h2>
+              <h2>Libraries</h2>
               <span class="muted">1 selected</span>
             </div>
             <input type="search" id="lib-search" class="mini-search" placeholder="Filter libraries..." aria-label="Filter libraries">
@@ -80,12 +80,13 @@
                 <span class="lib-name">All Icons</span>
                 <span class="lib-count">134,701</span>
               </a>
-              <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false" style="margin-top:10px;margin-bottom:5px;cursor:pointer;background:transparent;border:none;padding:0 7px;width:100%;display:flex;align-items:center;justify-content:space-between">
-                <h2 style="font-size:11px;text-transform:uppercase;font-weight:800;color:var(--text-secondary);margin:0">Libraries</h2>
-                <svg class="chevron" viewBox="0 0 24 24" style="width:16px;height:16px;transition:transform 200ms ease;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="m9 18 6-6-6-6"/></svg>
-              </button>
-              <div class="lib-collapse-list" id="lib-collapse-list" style="overflow:hidden;max-height:0;transition:max-height 250ms ease-in-out;display:flex;flex-direction:column;gap:5px">
-                <a class="lib-row " href="/#/library/lucide" data-slug="lucide" style="animation-delay:0ms">
+              <div class="sidebar-card" id="lib-card-section" style="margin-top: 10px;">
+                <button class="filter-header lib-toggle" id="lib-toggle" aria-expanded="false">
+                  <h2>Libraries List</h2>
+                  <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+                </button>
+                <div class="card-content lib-collapse-list" id="lib-collapse-list">
+                  <a class="lib-row " href="/#/library/lucide" data-slug="lucide" style="animation-delay:0ms">
       <span class="lib-badge"><svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M8 9h8M8 13h8"></path></svg></span>
       <span class="lib-name">Lucide</span>
       <span class="lib-count">1,979</span>
@@ -198,28 +199,27 @@
       <span class="lib-name">Simple Icons</span>
       <span class="lib-count">3,714</span>
     </a>
+                </div>
               </div>
             </div>
           </section>
 
-          <section class="filter-section expandable" id="style-section">
-            <button class="filter-header category-toggle" id="style-toggle" aria-expanded="false">
+          <section class="sidebar-card expandable" id="style-section">
+            <button class="filter-header style-toggle" id="style-toggle" aria-expanded="false">
               <h2>Styles</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="style-pills">
-              
+            <div class="card-content style-pills">
               <a class="style-pill active" href="/#/search">All</a><a class="style-pill " href="/#/search">Outline</a><a class="style-pill " href="/#/search">Solid</a><a class="style-pill " href="/#/search">Duotone</a><a class="style-pill " href="/#/search">Fill</a><a class="style-pill " href="/#/search">Bold</a><a class="style-pill " href="/#/search">Thin</a><a class="style-pill " href="/#/search">Light</a>
-            
             </div>
           </section>
 
-          <section class="filter-section expandable" id="category-section">
+          <section class="sidebar-card expandable" id="category-section">
             <button class="filter-header category-toggle" id="category-toggle" aria-expanded="false">
               <h2>Categories</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="category-list"><a class="category-item" href="/#/category/media">
+            <div class="card-content category-list"><a class="category-item" href="/#/category/media">
       <span class="category-dot" style="background:#00c3ff;color:#00c3ff"></span>
       <span>Media</span>
     </a><a class="category-item" href="/#/category/communication">
@@ -276,7 +276,7 @@
           </section>
 
           <section class="filter-section">
-            <div class="filter-header"><h2>Sort</h2></div>
+            <div class="filter-header"><h2>Sort By</h2></div>
             <label class="custom-select-wrapper">
               <select class="glass-select" aria-label="Sort icons">
                 <option>Relevance</option>
@@ -287,14 +287,17 @@
               </select>
               <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </label>
+            <div>
+              <div class="unlocked-badge" title="Every search filter is free and unlocked.">All filters unlocked</div>
+            </div>
           </section>
 
-          <section class="filter-section expandable" id="customize-section">
+          <section class="sidebar-card expandable" id="customize-section">
             <button class="filter-header category-toggle" id="customize-toggle" aria-expanded="false">
               <h2>Customize Preview</h2>
-              <svg class="chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+              <svg class="chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
             </button>
-            <div class="category-list customize-preview-controls">
+            <div class="card-content customize-preview-controls">
               <div class="customize-field">
                 <div>Fill Color</div>
                 <div class="customize-color-row">
@@ -310,7 +313,7 @@
             </div>
           </section>
 
-          <a class="outlined-neon-btn" href="/#/search">Clear All Filters</a>
+          <button id="clear-filters-btn" class="outlined-neon-btn">Clear All Filters</button>
         </div>
       </aside>
       <main id="main-content">
@@ -334,6 +337,62 @@
     </div>
   </section>
 
+  <p class="section-title">Interactive Customizer</p>
+  <div class="grid wide">
+    <article class="card live-playground">
+      <div class="playground-layout">
+        <div class="playground-preview-pane">
+          <div class="playground-preview-box" id="pseo-live-preview">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="128" height="128" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="owncloud icon"><path fill="currentColor" d="M5.189 9.52a1.7 1.7 0 0 1-.22-.825c0-.926.751-1.677 1.677-1.677c.34 0 .66.1.926.284a3.5 3.5 0 0 0-.311 1.457c0 .092.009.193.009.285c-.065 0-.129-.01-.202-.01a3.7 3.7 0 0 0-1.88.486zm-.367 6.518a3.89 3.89 0 0 1-1.613-3.144c0-.33.045-.651.119-.954h-.101A3.23 3.23 0 0 0 0 15.167a3.232 3.232 0 0 0 5.06 2.659a2.16 2.16 0 0 1-.339-1.155c0-.22.037-.431.101-.633m.138-.348a2.11 2.11 0 0 1 1.448-1.1c.055-.01.12-.019.183-.028c.065-.009.12-.009.184-.018h.082c.101 0 .193.01.294.018a4.92 4.92 0 0 1 .908-3.575a3 3 0 0 1-.358-.54l-.083-.166c-.027-.055-.055-.11-.073-.165a4 4 0 0 1-.211-.715c-.082-.01-.165-.01-.247-.01c-.605 0-1.183.157-1.678.432c-.055.027-.11.064-.165.091c-.055.037-.101.065-.156.101a3.54 3.54 0 0 0-1.274 1.605c-.018.055-.046.119-.064.174l-.055.174a3.4 3.4 0 0 0-.129.926A3.57 3.57 0 0 0 4.96 15.69m11.321-4.135c.468-.247.99-.394 1.55-.43a3.24 3.24 0 0 0-3.218-2.952c-.064 0-.129 0-.193.009c.028.183.046.376.046.568q0 .457-.11.871a4.9 4.9 0 0 1 1.925 1.934m-8.608-2.3c.01.064.028.128.037.192c.036.147.073.293.128.43c.028.065.046.12.073.184c.028.055.055.12.083.174c.082.165.183.321.293.468c.23-.257.477-.495.752-.706c.055-.037.1-.073.156-.11l.165-.11a4.8 4.8 0 0 1 2.558-.761h.064c.064 0 .119 0 .183.01q.124.002.248.018a4.7 4.7 0 0 1 1.595.421c.045-.229.073-.458.073-.706a3.2 3.2 0 0 0-.083-.706c-.009-.064-.027-.119-.045-.174a3.19 3.19 0 0 0-3.09-2.365a3.24 3.24 0 0 0-2.832 1.669c-.028.055-.065.11-.092.165l-.083.183c-.146.376-.238.78-.238 1.21c0 .11.01.21.018.32c.019.065.028.13.037.193zm14.558 5.463a1.4 1.4 0 0 0-.284.028c.009.082.009.165.009.238a3.85 3.85 0 0 1-1.064 2.659c.321.375.807.614 1.339.614c.971 0 1.769-.798 1.769-1.77c0-.971-.798-1.769-1.77-1.769zm-.651.12c0-.065-.01-.13-.01-.193c-.008-.064-.008-.129-.017-.184a3.5 3.5 0 0 0-3.337-2.979h-.184c-.064 0-.119 0-.183.01a3.55 3.55 0 0 0-1.393.393c.256.56.403 1.174.43 1.816c0 .064.01.128.01.192v.055c0 .083 0 .165-.01.248a4.85 4.85 0 0 1-1.402 3.126a3.5 3.5 0 0 0 2.613 1.164c.889 0 1.705-.34 2.328-.89c.046-.045.092-.082.138-.128c.045-.045.091-.091.128-.137a3.48 3.48 0 0 0 .908-2.356a.6.6 0 0 1-.019-.138zM7.866 16.505c-.037-.055-.065-.11-.101-.165a5 5 0 0 1-.541-1.394a1.6 1.6 0 0 0-.358-.036H6.83c-.064 0-.12.009-.184.009a1 1 0 0 0-.183.037a1.76 1.76 0 0 0-1.183.944c-.027.055-.055.11-.073.174l-.055.174a1.7 1.7 0 0 0-.055.43c0 .34.101.66.266.927c.037.055.064.1.11.156c.037.046.073.091.12.137a1.76 1.76 0 0 0 1.283.55a1.77 1.77 0 0 0 1.65-1.127a4.6 4.6 0 0 1-.532-.651a.5.5 0 0 1-.128-.165M16.5 14.24c.01-.073.01-.155.01-.238v-.12c0-.65-.138-1.264-.386-1.823l-.082-.165l-.083-.165a4.54 4.54 0 0 0-1.723-1.76c-.055-.028-.11-.065-.165-.092l-.165-.083a4.5 4.5 0 0 0-1.825-.43h-.229c-.082 0-.156.009-.229.009a4.4 4.4 0 0 0-1.962.632c-.055.037-.11.064-.156.101c-.055.037-.1.073-.155.11c-.303.22-.578.468-.816.752c-.037.046-.083.091-.12.146c-.036.046-.073.101-.11.147a4.47 4.47 0 0 0-.843 2.622c0 .257.018.513.064.752c.01.073.028.137.037.21c.018.074.037.147.055.23c.11.412.284.797.504 1.155c.037.055.064.11.101.156c.037.055.073.1.11.155q.126.18.266.33c.055.055.1.12.156.175c.045.055.1.1.156.146a4.53 4.53 0 0 0 6.05.083c.046-.037.092-.083.138-.12c.045-.045.091-.082.137-.128a4.55 4.55 0 0 0 1.238-2.567z"/></svg>
+          </div>
+        </div>
+        <div class="playground-controls-pane">
+          <div class="control-group">
+            <label>Color</label>
+            <div class="color-presets">
+              <button class="color-dot active" data-color="#C1DD2D" style="background:#C1DD2D" title="Accent Lime"></button>
+              <button class="color-dot" data-color="#00c3ff" style="background:#00c3ff" title="Blue"></button>
+              <button class="color-dot" data-color="#00ff88" style="background:#00ff88" title="Green"></button>
+              <button class="color-dot" data-color="#bf00ff" style="background:#bf00ff" title="Purple"></button>
+              <button class="color-dot" data-color="#ff2d9b" style="background:#ff2d9b" title="Red"></button>
+              <button class="color-dot" data-color="#ffffff" style="background:#ffffff" title="White"></button>
+            </div>
+            <input type="text" id="pseo-color-input" class="mini-search" value="#C1DD2D" placeholder="#Hex" style="margin-top:6px;width:120px">
+          </div>
+          
+          
+          <div class="control-group">
+            <div class="flex-between">
+              <label>Stroke Width</label>
+              <span id="pseo-stroke-val">1.5px</span>
+            </div>
+            <input type="range" id="pseo-stroke-input" class="neon-slider" min="0.5" max="3" step="0.1" value="1.5">
+          </div>
+          
+          
+          <div class="control-group">
+            <div class="flex-between">
+              <label>Size</label>
+              <span id="pseo-size-val">128px</span>
+            </div>
+            <input type="range" id="pseo-size-input" class="neon-slider" min="16" max="256" step="8" value="128">
+            <div class="size-presets" style="margin-top:6px">
+              <button class="size-pill" data-size="32">32px</button>
+              <button class="size-pill" data-size="64">64px</button>
+              <button class="size-pill active" data-size="128">128px</button>
+              <button class="size-pill" data-size="256">256px</button>
+            </div>
+          </div>
+          
+          <div class="playground-actions">
+            <button class="btn primary" id="pseo-copy-svg">Copy SVG Code</button>
+            <button class="btn" id="pseo-download-png">Download PNG</button>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+
   <p class="section-title">About this icon</p>
   <div class="grid">
     <article class="card">
@@ -344,6 +403,18 @@
       <h2>Export formats</h2>
       <p>Copy clean SVG vectors with one click, generate custom-size PNG files from 16px to 512px, export JSX/React components ready to paste into your project, or use the icon as a CSS <code>background-mask</code> for flexible theming.</p>
       <p class="muted">All exports are based on the same editable vector — so the Owncloud icon stays pixel-perfect at 16px, 24px, 48px, and any large marketing size.</p>
+    </article>
+  </div>
+
+  <p class="section-title">Design &amp; UX integration</p>
+  <div class="grid">
+    <article class="card">
+      <h2>Aesthetic characteristics</h2>
+      <p>The Owncloud icon from the Simple Icons collection is designed to meet professional standards of legibility and clean line weight. It is fully responsive, scaling cleanly from small micro-interactions at 16px to large hero graphics or landing page displays at 512px without any loss of crispness.</p>
+    </article>
+    <article class="card">
+      <h2>UX best practices</h2>
+      <p>In code editors, administrative systems, and developer interfaces, the Owncloud icon helps represent technical concepts or actions (like terminal actions, code folding, or database queries). Pair it with monospace tags for design consistency.</p>
     </article>
   </div>
 
@@ -378,12 +449,12 @@ import { SiOwncloud } from &#039;react-icons/si&#039;;
     </article>
     <article class="card">
       <h2>Related searches</h2>
-      <ul><li><a href="/icons/simple-owncloud-icon-svg/">simple owncloud icon svg</a></li><li><a href="/icons/download-owncloud-png-icon/">download owncloud png icon</a></li><li><a href="/icons/owncloud-icon-png/">owncloud icon png</a></li><li><a href="/icons/owncloud-svg-and-png-download/">owncloud svg and png download</a></li><li><a href="/icons/simple-owncloud-icon-png/">simple owncloud icon png</a></li><li><a href="/icons/copy-owncloud-svg/">copy owncloud svg</a></li><li><a href="/icons/owncloud-icon-for-developer-tools/">owncloud icon for developer tools</a></li><li><a href="/icons/simple-owncloud-fill-svg/">simple owncloud fill svg</a></li><li><a href="/icons/owncloud-fill-icon/">owncloud fill icon</a></li><li><a href="/icons/owncloud-icon-figma/">owncloud icon figma</a></li></ul>
+      <ul><li><a href="/icons/simpleicons-owncloud/">simpleicons owncloud</a></li><li><a href="/icons/simple-owncloud-icon-svg/">simple owncloud icon svg</a></li><li><a href="/icons/antdesign-ant-cloud/">antdesign ant cloud</a></li><li><a href="/icons/antdesign-ant-cloud-outline/">antdesign ant cloud outline</a></li><li><a href="/icons/antdesign-ant-cloud-outlined/">antdesign ant cloud outlined</a></li><li><a href="/icons/antdesign-api/">antdesign api</a></li><li><a href="/icons/antdesign-api-fill/">antdesign api fill</a></li><li><a href="/icons/antdesign-api-filled/">antdesign api filled</a></li><li><a href="/icons/antdesign-api-outline/">antdesign api outline</a></li><li><a href="/icons/antdesign-api-outlined/">antdesign api outlined</a></li></ul>
     </article>
   </div>
 
   <p class="section-title">People also search for</p>
-  <div class="chips"><a href="/icons/owncloud-icon-figma/">owncloud icon figma</a><a href="/icons/owncloud-fill-icon/">owncloud fill icon</a><a href="/icons/simple-owncloud-fill-svg/">simple owncloud fill svg</a><a href="/icons/owncloud-icon-for-developer-tools/">owncloud icon for developer tools</a><a href="/icons/copy-owncloud-svg/">copy owncloud svg</a><a href="/icons/simple-owncloud-icon-png/">simple owncloud icon png</a></div>
+  <div class="chips"><a href="/icons/antdesign-api-outlined/">antdesign api outlined</a><a href="/icons/antdesign-api-outline/">antdesign api outline</a><a href="/icons/antdesign-api-filled/">antdesign api filled</a><a href="/icons/antdesign-api-fill/">antdesign api fill</a><a href="/icons/antdesign-api/">antdesign api</a><a href="/icons/antdesign-ant-cloud-outlined/">antdesign ant cloud outlined</a></div>
 
   <p class="section-title">Frequently asked questions</p>
   <div class="card" style="padding:8px 20px">
@@ -424,6 +495,133 @@ import { SiOwncloud } from &#039;react-icons/si&#039;;
       </div>
     </div>
   </div>
+
+  <script>
+    (() => {
+      const preview = document.getElementById("pseo-live-preview");
+      const copyBtn = document.getElementById("pseo-copy-svg");
+      const downloadBtn = document.getElementById("pseo-download-png");
+      const colorInput = document.getElementById("pseo-color-input");
+      const strokeInput = document.getElementById("pseo-stroke-input");
+      const strokeVal = document.getElementById("pseo-stroke-val");
+      
+      let currentColor = "#C1DD2D";
+      let currentStroke = "1.5";
+      let currentSize = 128;
+
+      function updateIcon() {
+        const svg = preview.querySelector("svg");
+        if (!svg) return;
+        
+        if (svg.getAttribute("fill") !== "none") svg.setAttribute("fill", currentColor);
+        if (svg.getAttribute("stroke") !== "none") svg.setAttribute("stroke", currentColor);
+        svg.querySelectorAll("path, circle, rect, polygon, polyline, line, ellipse").forEach(el => {
+          if (el.getAttribute("fill") && el.getAttribute("fill") !== "none") el.setAttribute("fill", currentColor);
+          if (el.getAttribute("stroke") && el.getAttribute("stroke") !== "none") el.setAttribute("stroke", currentColor);
+        });
+        
+        if (strokeInput && svg.getAttribute("stroke") !== "none") {
+          svg.setAttribute("stroke-width", currentStroke);
+          svg.querySelectorAll("path, circle, rect, polygon, polyline, line, ellipse").forEach(el => {
+            if (el.getAttribute("stroke") && el.getAttribute("stroke") !== "none") el.setAttribute("stroke-width", currentStroke);
+          });
+        }
+        
+        svg.setAttribute("width", currentSize);
+        svg.setAttribute("height", currentSize);
+        svg.style.setProperty("width", currentSize + "px", "important");
+        svg.style.setProperty("height", currentSize + "px", "important");
+      }
+
+      document.querySelectorAll(".color-dot").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".color-dot").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentColor = btn.dataset.color;
+          if (colorInput) colorInput.value = currentColor;
+          updateIcon();
+        });
+      });
+      
+      if (colorInput) {
+        colorInput.addEventListener("input", () => {
+          currentColor = colorInput.value;
+          updateIcon();
+        });
+      }
+      
+      if (strokeInput) {
+        strokeInput.addEventListener("input", () => {
+          currentStroke = strokeInput.value;
+          if (strokeVal) strokeVal.textContent = currentStroke + "px";
+          updateIcon();
+        });
+      }
+      
+      const sizeInput = document.getElementById("pseo-size-input");
+      const sizeVal = document.getElementById("pseo-size-val");
+
+      if (sizeInput) {
+        sizeInput.addEventListener("input", () => {
+          currentSize = parseInt(sizeInput.value, 10);
+          if (sizeVal) sizeVal.textContent = currentSize + "px";
+          
+          document.querySelectorAll(".size-presets .size-pill").forEach(b => {
+            b.classList.toggle("active", parseInt(b.dataset.size, 10) === currentSize);
+          });
+          updateIcon();
+        });
+      }
+
+      document.querySelectorAll(".size-presets .size-pill").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".size-presets .size-pill").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentSize = parseInt(btn.dataset.size, 10);
+          if (sizeInput) sizeInput.value = currentSize;
+          if (sizeVal) sizeVal.textContent = currentSize + "px";
+          updateIcon();
+        });
+      });
+      
+      copyBtn?.addEventListener("click", () => {
+        const svgStr = preview.innerHTML.trim();
+        navigator.clipboard.writeText(svgStr).then(() => {
+          const old = copyBtn.textContent;
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => copyBtn.textContent = old, 1500);
+        });
+      });
+      
+      downloadBtn?.addEventListener("click", () => {
+        const svg = preview.querySelector("svg");
+        if (!svg) return;
+        const svgString = new XMLSerializer().serializeToString(svg);
+        const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const URL = window.URL || window.webkitURL || window;
+        const blobURL = URL.createObjectURL(svgBlob);
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = currentSize;
+          canvas.height = currentSize;
+          const context = canvas.getContext("2d");
+          context.drawImage(image, 0, 0);
+          const png = canvas.toDataURL("image/png");
+          const downloadLink = document.createElement("a");
+          downloadLink.href = png;
+          downloadLink.download = "download-owncloud-svg-icon.png";
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          URL.revokeObjectURL(blobURL);
+        };
+        image.src = blobURL;
+      });
+      
+      updateIcon();
+    })();
+  </script>
             <footer class="home-footer">
     <div class="footer-container">
       <div class="footer-left">
@@ -449,14 +647,26 @@ import { SiOwncloud } from &#039;react-icons/si&#039;;
   <script>
     (() => {
       const root = document.documentElement;
+      const themeToggle = document.getElementById("theme-toggle");
+      
+      const updateThemeUI = (theme) => {
+        root.dataset.theme = theme;
+        if (themeToggle) {
+          themeToggle.textContent = theme === "light" ? "Dark" : "Light";
+        }
+      };
+
       try {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
-      } catch (_) {}
-      document.getElementById("theme-toggle")?.addEventListener("click", () => {
+        const savedTheme = localStorage.getItem("iconvault-theme") || "dark";
+        updateThemeUI(savedTheme);
+      } catch (_) {
+        updateThemeUI("dark");
+      }
+
+      themeToggle?.addEventListener("click", () => {
         const next = root.dataset.theme === "light" ? "dark" : "light";
-        root.dataset.theme = next;
-        try { localStorage.setItem("theme", next); } catch (_) {}
+        updateThemeUI(next);
+        try { localStorage.setItem("iconvault-theme", next); } catch (_) {}
       });
       document.getElementById("sidebar-toggle")?.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
       document.getElementById("sidebar-collapse")?.addEventListener("click", () => document.body.classList.toggle("sidebar-collapsed"));
@@ -465,8 +675,8 @@ import { SiOwncloud } from &#039;react-icons/si&#039;;
       const setLibrariesOpen = (open) => {
         if (!libraryToggle || !libraryList) return;
         libraryToggle.setAttribute("aria-expanded", String(open));
-        libraryToggle.querySelector(".chevron").style.transform = open ? "rotate(90deg)" : "rotate(0deg)";
-        libraryList.style.maxHeight = open ? Math.max(900, libraryList.children.length * 44 + 24) + "px" : "0";
+        const libCard = document.getElementById("lib-card-section");
+        if (libCard) libCard.classList.toggle("open", open);
       };
       libraryToggle?.addEventListener("click", () => setLibrariesOpen(libraryToggle.getAttribute("aria-expanded") !== "true"));
       document.getElementById("lib-search")?.addEventListener("input", (event) => {
