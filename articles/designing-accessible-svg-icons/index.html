@@ -122,8 +122,8 @@
 
     /* Key Takeaways */
     .takeaway-box {
-      background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%);
-      border: 1px solid rgba(193,221,45,0.15); border-radius: 14px;
+      background: linear-gradient(135deg, rgba(193, 221, 45, 0.06) 0%, rgba(193, 221, 45, 0.02) 100%);
+      border: 1px solid rgba(193, 221, 45, 0.15); border-radius: 14px;
       padding: 32px; margin: 40px 0;
     }
     .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
@@ -186,11 +186,11 @@
 <section class="article-hero">
   <div class="badge">Accessibility Guide</div>
   <h1>Designing Accessible SVG Icons</h1>
-  <p class="subtitle">A guide to structuring semantic code, configuring screen reader parameters, and implementing correct ARIA tags.</p>
+  <p class="subtitle">A complete developer handbook on structuring semantic vector graphics, managing focus states, and implementing correct ARIA tags.</p>
   <div class="article-meta">
     <span>July 18, 2026</span>
     <span>•</span>
-    <span>7 min read</span>
+    <span>11 min read</span>
     <span>•</span>
     <span>By IconStash Team</span>
   </div>
@@ -200,57 +200,69 @@
   <div class="toc">
     <h2>Table of Contents</h2>
     <ol>
-      <li><a href="#decorative-icons">1. Hiding Decorative Vectors</a></li>
-      <li><a href="#interactive-icons">2. Labeling Interactive Action Icons</a></li>
-      <li><a href="#semantic-tags">3. Using Title and Desc Tags Correctly</a></li>
-      <li><a href="#focus-states">4. Managing Focus and Keyboard Access</a></li>
-      <li><a href="#takeaways">5. Key Takeaways</a></li>
+      <li><a href="#why-a11y">1. Why Accessibility Matters for Vectors</a></li>
+      <li><a href="#decorative">2. Decorative Icons (Hiding from Screen Readers)</a></li>
+      <li><a href="#interactive">3. Interactive Icons (Adding Text Alternatives)</a></li>
+      <li><a href="#standalone">4. Standalone Informative Vectors</a></li>
+      <li><a href="#focus-tab">5. Eliminating Ghost Focus Stops</a></li>
+      <li><a href="#takeaways">6. Summary Rules</a></li>
     </ol>
   </div>
 </div>
 
 <article class="article-body">
-  <h2 id="decorative-icons">1. Hiding Decorative Vectors</h2>
-  <p>The majority of interface icons are decorative, meaning they sit alongside text (like a shopping cart icon next to the text "Add to Cart"). For these icons, screen readers should skip them entirely to prevent vocal clutter.</p>
-  <p>To hide decorative vectors from assistive technologies, always apply the `aria-hidden="true"` attribute to the SVG tag:</p>
-  <pre><code>&lt;!-- Decorative icon hidden from screen readers --&gt;
-&lt;svg viewBox="0 0 24 24" aria-hidden="true"&gt;
-  &lt;path d="..."/&gt;
-&lt;/svg&gt;</code></pre>
+  <h2 id="why-a11y">1. Why Accessibility Matters for Vectors</h2>
+  <p>Unlike text, which screen readers parse natively, vector paths (the `<path>` coordinate string) carry no semantic meaning to assistive technologies. Left unconfigured, a screen reader may attempt to read out the raw filename of the SVG, speak unhelpful unicode codes, or bypass critical interactive tools entirely.</p>
+  <p>To design an inclusive interface, you must classify every SVG icon into one of three semantic categories: **decorative**, **interactive**, or **informative**.</p>
 
-  <h2 id="interactive-icons">2. Labeling Interactive Action Icons</h2>
-  <p>When an icon is the only element inside a button or link (such as a search magnifying glass icon with no accompanying text), it acts as an interactive control. Screen readers need a clear label to convey its purpose.</p>
-  <p>Apply an `aria-label` or `title` to the wrapper button or link, and set `role="img"` on the SVG tag:</p>
-  <pre><code>&lt;button aria-label="Search database"&gt;
-  &lt;svg viewBox="0 0 24 24" role="img" aria-hidden="true"&gt;
-    &lt;path d="..."/&gt;
+  <h2 id="decorative">2. Decorative Icons (Hiding from Screen Readers)</h2>
+  <p>The vast majority of UI icons are purely decorative. They reinforce a nearby text label (for example, a magnifying glass icon next to the word "Search"). If a screen reader reads both the icon and the text, it creates annoying repetition (e.g. "magnifying glass, search, button").</p>
+  <p>To ensure screen readers skip decorative icons, add the <code>aria-hidden="true"</code> attribute to the SVG tag, and ensure no nested `<title>` or labels exist inside the markup:</p>
+  <pre><code>&lt;!-- Decorative icon: invisible to assistive screen readers --&gt;
+&lt;svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"&gt;
+  &lt;path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/&gt;
+&lt;/svg&gt;
+&lt;span&gt;Budget Settings&lt;/span&gt;</code></pre>
+
+  <h2 id="interactive">3. Interactive Icons (Adding Text Alternatives)</h2>
+  <p>When an icon is the only element inside a trigger (like a close 'X' button or an arrow slide button), it is an interactive control. Without a label, the user has no way of knowing what the button does.</p>
+  <p>In this case, place the text label directly on the **outer wrapper element** (like the button or link) using an <code>aria-label</code>, and hide the child SVG entirely:</p>
+  <pre><code>&lt;!-- Interactive icon button --&gt;
+&lt;button class="close-btn" aria-label="Close modal dialog"&gt;
+  &lt;svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"&gt;
+    &lt;path d="M18 6 6 18M6 6l12 12"/&gt;
   &lt;/svg&gt;
 &lt;/button&gt;</code></pre>
+  <p>This layout ensures that the user hears "Close modal dialog, button" instead of the raw SVG file attributes.</p>
 
-  <h2 id="semantic-tags">3. Using Title and Desc Tags Correctly</h2>
-  <p>For standalone, informative vectors (like charts or illustrations), use nested `<title>` and `<desc>` elements to supply descriptive text. Bind them using `aria-labelledby`:</p>
-  <pre><code>&lt;svg viewBox="0 0 24 24" aria-labelledby="icon-title icon-desc" role="img"&gt;
-  &lt;title id="icon-title"&gt;Trends chart&lt;/title&gt;
-  &lt;desc id="icon-desc"&gt;Line graph showing growth over the last quarter.&lt;/desc&gt;
-  &lt;path d="..."/&gt;
+  <h2 id="standalone">4. Standalone Informative Vectors</h2>
+  <p>If an SVG contains unique information (such as an interactive chart, diagram, or standalone illustration) and does not sit inside an interactive button, it should be treated as a semantic image. Use nested `<title>` and `<desc>` tags, and link them using `aria-labelledby`:</p>
+  
+  <pre><code>&lt;svg viewBox="0 0 24 24" role="img" aria-labelledby="chart-title chart-desc"&gt;
+  &lt;title id="chart-title"&gt;Monthly Sales Chart&lt;/title&gt;
+  &lt;desc id="chart-desc"&gt;Bar chart displaying our quarterly growth, peaking at 40% in June.&lt;/desc&gt;
+  &lt;rect x="2" y="10" width="4" height="12"/&gt;
+  &lt;rect x="8" y="6" width="4" height="16"/&gt;
 &lt;/svg&gt;</code></pre>
 
-  <h2 id="focus-states">4. Managing Focus and Keyboard Access</h2>
-  <p>In older versions of Internet Explorer, SVGs were focusable by default, causing extra keyboard tab stops. To prevent focus bugs across older browsers, it remains a best practice to add `focusable="false"` to all SVG nodes.</p>
+  <h2 id="focus-tab">5. Eliminating Ghost Focus Stops</h2>
+  <p>Internet Explorer (and some older edge/webkit engines) has a known bug where SVG elements are included in the keyboard tab index, even if their parent container is not focusable. This results in "ghost" tab stops where keyboard users have to press tab multiple times to pass through an icon.</p>
+  <p>To prevent this, always add the <code>focusable="false"</code> attribute to every SVG tag in your project. This overrides default browser behaviors and preserves a clean, sequential tab sequence for keyboard navigation.</p>
 
   <div class="takeaway-box" id="takeaways">
-    <h3>Key Takeaways</h3>
+    <h3>Summary Rules</h3>
     <ul>
-      <li><strong>Aria-hidden:</strong> Apply `aria-hidden="true"` to all decorative, non-interactive vectors.</li>
-      <li><strong>Role attribute:</strong> Explicitly add `role="img"` when vectors act as content elements.</li>
-      <li><strong>Button labels:</strong> Wrap standalone icon buttons in elements with clear, descriptive ARIA text labels.</li>
+      <li><strong>Aria-hidden:</strong> Apply `aria-hidden="true"` to hide decorative icons.</li>
+      <li><strong>Interactive Wrappers:</strong> Put `aria-label` tags on the parent button or link, never on the inner SVG path.</li>
+      <li><strong>Avoid Title tooltips:</strong> Don't use standard nested `<title>` tags for decorative icons as browsers will render an ugly default mouse tooltip.</li>
+      <li><strong>Keyboard Focus:</strong> Add `focusable="false"` to prevent tab-key bugs.</li>
     </ul>
   </div>
 </article>
 
 <section class="cta-banner">
-  <h2>Build Accessible Interfaces</h2>
-  <p>Download cleaned, semantic SVG icon files ready for production design systems.</p>
+  <h2>Design Cohesive design systems</h2>
+  <p>Get instant access to 134,701 fully semantic, clean, and accessible vector icons.</p>
   <a href="/" class="big-cta">Open IconStash Editor →</a>
 </section>
 

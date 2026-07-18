@@ -122,8 +122,8 @@
 
     /* Key Takeaways */
     .takeaway-box {
-      background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%);
-      border: 1px solid rgba(193,221,45,0.15); border-radius: 14px;
+      background: linear-gradient(135deg, rgba(193, 221, 45, 0.06) 0%, rgba(193, 221, 45, 0.02) 100%);
+      border: 1px solid rgba(193, 221, 45, 0.15); border-radius: 14px;
       padding: 32px; margin: 40px 0;
     }
     .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
@@ -186,11 +186,11 @@
 <section class="article-hero">
   <div class="badge">UI Design Guide</div>
   <h1>Create Pixel-Perfect SVG Icons</h1>
-  <p class="subtitle">A detailed study of grid mathematics, snapping lines, anti-aliased borders, and optical weight compensation.</p>
+  <p class="subtitle">An in-depth handbook on grid geometry, subpixel anti-aliasing mitigation, and optical alignment formulas.</p>
   <div class="article-meta">
     <span>July 18, 2026</span>
     <span>•</span>
-    <span>6 min read</span>
+    <span>10 min read</span>
     <span>•</span>
     <span>By IconStash Team</span>
   </div>
@@ -200,44 +200,65 @@
   <div class="toc">
     <h2>Table of Contents</h2>
     <ol>
-      <li><a href="#grid-snapping">1. The Necessity of Grid Snapping</a></li>
-      <li><a href="#stroke-positions">2. Inner, Outer, and Centered Strokes</a></li>
-      <li><a href="#optical-scaling">3. Compensating for Optical Geometry</a></li>
-      <li><a href="#high-dpi">4. Testing on High-DPI Displays</a></li>
-      <li><a href="#takeaways">5. Key Takeaways</a></li>
+      <li><a href="#blurry-icons">1. Why Do My SVG Icons Look Blurry?</a></li>
+      <li><a href="#grid-snapping">2. Snapping Coordinates to the Bounding Grid</a></li>
+      <li><a href="#stroke-rendering">3. The 0.5px Offset Rule for 1px Strokes</a></li>
+      <li><a href="#geometry-weights">4. Balancing Optical Weight Geometrically</a></li>
+      <li><a href="#developer-handoff">5. SVG Clean-Up Before Handoff</a></li>
+      <li><a href="#takeaways">6. Summary Rules</a></li>
     </ol>
   </div>
 </div>
 
 <article class="article-body">
-  <h2 id="grid-snapping">1. The Necessity of Grid Snapping</h2>
-  <p>An icon rendering fuzzy inside a layout is usually due to misaligned fractional pixels (e.g. `x="12.4" y="5.7"`). When a path coordinate lies between grid lines, the browser attempts to blend the pixel colors (anti-aliasing) to create the curve, resulting in blurry borders.</p>
-  <p>To avoid this, always set coordinates to round integer coordinates. Modern tools have a "snap to grid" configuration which handles this automatically during export.</p>
+  <h2 id="blurry-icons">1. Why Do My SVG Icons Look Blurry?</h2>
+  <p>SVG (Scalable Vector Graphics) coordinates can technically support infinite decimal precision. However, computer displays are made of physical, discrete pixel grids. When an SVG path coordinates sit on a fractional index (e.g. `x="12.3"`), the browser cannot light up "0.3 of a pixel."</p>
+  <p>To simulate this fractional placement, the rendering engine uses **anti-aliasing**—averaging the color across adjacent pixels. While this is great for smooth curves, it makes straight horizontal and vertical lines look blurry, soft, and unpolished.</p>
 
-  <h2 id="stroke-positions">2. Inner, Outer, and Centered Strokes</h2>
-  <p>SVG strokes are centered on the vector path by default. If you have a 2px stroke on a line at `x="10"`, the stroke will extend 1px to the left (9px) and 1px to the right (11px).</p>
-  <p>This path layout causes rendering blurring if you use an odd-numbered stroke width (like 1px) on integer grid coordinates, because the stroke will split into halves (e.g. 0.5px). In these situations, offset path alignments by 0.5px (e.g. `x="10.5"`) to snap the stroke edges back onto integer boundaries.</p>
+  <h2 id="grid-snapping">2. Snapping Coordinates to the Bounding Grid</h2>
+  <p>The industry standard grid size for system interface icons is **24x24 pixels**. This canvas should contain a 2px internal safety margin (meaning the active area is restricted to 20x20 pixels).</p>
+  <p>When drawing line segments, rectangles, or circles, coordinates should align to exact integer values (e.g. `12.000` instead of `12.482`). This keeps lines perfectly aligned with the display grid, resulting in crisp borders.</p>
 
-  <h2 id="optical-scaling">3. Compensating for Optical Geometry</h2>
-  <p>Circles, squares, and triangles possess different densities and optical weight. Standardizing them to the exact same pixel bounding box makes circles look too small and squares look too large.</p>
-  <p>To keep sizes visually balanced across a set, establish margins inside your grid. Squares should stay within a smaller internal boundary (e.g. 18px), while circles should stretch closer to the active border (e.g. 20px).</p>
+  <h2 id="stroke-rendering">3. The 0.5px Offset Rule for 1px Strokes</h2>
+  <p>In SVG rendering, strokes are centered on the vector path line. A 2px stroke centered on path `x="10"` will fill 1px to the left (9px to 10px) and 1px to the right (10px to 11px). Since these edges end on whole numbers, the line remains sharp.</p>
+  <p>However, if you apply a **1px stroke** centered on the integer path `x="10"`, the stroke splits into two halves of `0.5px` (from 9.5px to 10.5px). This forces the browser to anti-alias across two pixels, creating a fuzzy, 2px wide line instead of a sharp 1px line.</p>
+  <blockquote>
+    <strong>The Offset Solution:</strong> When using odd stroke widths (like 1px or 3px), offset your path coordinate by `0.5px` (e.g. `x="10.5"`). This shifts the outer boundaries of the stroke onto whole integer positions, keeping the line razor-sharp.
+  </blockquote>
 
-  <h2 id="high-dpi">4. Testing on High-DPI Displays</h2>
-  <p>Always review icon scales at their natural, target pixel size (typically 16px, 20px, or 24px) rather than zoomed-in on the designer's canvas. An icon that looks detailed at 800% zoom may collapse into a dense blob of lines on low-resolution displays.</p>
+  <h2 id="geometry-weights">4. Balancing Optical Weight Geometrically</h2>
+  <p>Different shapes containing the exact same pixel dimensions carry varying visual weight. If you size a circle, triangle, and square to the same bounding box, they will look unbalanced. Squares will look too large, and triangles will look too small.</p>
+  <p>To solve this, establish shape-specific safety margins within your grid system:</p>
+  <ul>
+    <li><strong>Squares/Boxes:</strong> Restrict to the inner 18px boundary.</li>
+    <li><strong>Circles/Ovals:</strong> Stretch further out to the 20px boundary.</li>
+    <li><strong>Triangles/Diagonals:</strong> Stretch completely to the outer 22px active margin.</li>
+    <li><strong>Visual Center:</strong> When centering asymmetric shapes (like a right-facing play arrow), align by its **optical center of gravity** rather than its geometric bounding box center.</li>
+  </ul>
+
+  <h2 id="developer-handoff">5. SVG Clean-Up Before Handoff</h2>
+  <p>Before checking your SVG icons into a design system codebase, clean up the source code:</p>
+  <pre><code>&lt;!-- Optimized pixel-perfect code example --&gt;
+&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+  &lt;rect x="3" y="3" width="18" height="18" rx="2" /&gt;
+  &lt;line x1="9" y1="21" x2="9" y2="3" /&gt;
+&lt;/svg&gt;</code></pre>
+  <p>Notice the absence of decimal places in the attributes. This keeps the vector markup highly readable, responsive, and performance-friendly.</p>
 
   <div class="takeaway-box" id="takeaways">
-    <h3>Key Takeaways</h3>
+    <h3>Summary Rules</h3>
     <ul>
-      <li><strong>Snap coordinates:</strong> Ensure coordinates end on whole numbers to keep lines crisp.</li>
-      <li><strong>Odd widths:</strong> Offset 1px strokes by 0.5px to align with pixel grids.</li>
-      <li><strong>Optical weights:</strong> Scale shapes visually so circles, squares, and triangles feel balanced.</li>
+      <li><strong>Coordinate Alignment:</strong> Keep path coordinates snapped to integer grid numbers.</li>
+      <li><strong>Odd Stroke Offset:</strong> Offset 1px strokes by `0.5px` to align stroke boundaries with the pixel grid.</li>
+      <li><strong>Optical Adjustments:</strong> Size shapes visually rather than relying solely on bounding box coordinates.</li>
+      <li><strong>Clean Code:</strong> Strip editor guides, metadata layers, and empty groups before committing files.</li>
     </ul>
   </div>
 </article>
 
 <section class="cta-banner">
-  <h2>Browse Grid-Aligned Icons</h2>
-  <p>Explore, compare, and copy vector codes from 134,701 cleanly designed open-source icons.</p>
+  <h2>Discover Clean Vector Icons</h2>
+  <p>Compare, customize, and export 134,701 cleanly structured vector codes from 28 icon sets.</p>
   <a href="/" class="big-cta">Open IconStash Editor →</a>
 </section>
 

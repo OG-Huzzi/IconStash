@@ -186,11 +186,11 @@
 <section class="article-hero">
   <div class="badge">Animation Tutorial</div>
   <h1>Animate SVG Paths with CSS</h1>
-  <p class="subtitle">A detailed breakdown of how to style vector coordinates, use stroke arrays, and create drawing animations with pure CSS.</p>
+  <p class="subtitle">An exhaustive developer handbook covering the mathematics of dash arrays, offsets, timing equations, and advanced micro-interactions.</p>
   <div class="article-meta">
     <span>July 18, 2026</span>
     <span>•</span>
-    <span>7 min read</span>
+    <span>11 min read</span>
     <span>•</span>
     <span>By IconStash Team</span>
   </div>
@@ -200,56 +200,104 @@
   <div class="toc">
     <h2>Table of Contents</h2>
     <ol>
-      <li><a href="#stroke-dasharray">1. Understanding stroke-dasharray</a></li>
-      <li><a href="#stroke-dashoffset">2. Animating with stroke-dashoffset</a></li>
-      <li><a href="#examples">3. Code Examples for Loading Wheels &amp; Checkmarks</a></li>
-      <li><a href="#performance">4. Performance Considerations</a></li>
-      <li><a href="#takeaways">5. Key Takeaways</a></li>
+      <li><a href="#intro">1. The Mechanics of Vector Tracing</a></li>
+      <li><a href="#stroke-dasharray">2. The Core Properties: dasharray &amp; dashoffset</a></li>
+      <li><a href="#math">3. Calculating SVG Path Length Dynamically</a></li>
+      <li><a href="#interactive-states">4. State Management &amp; Micro-Interactions</a></li>
+      <li><a href="#tricks">5. Advanced Line-Drawing Use Cases</a></li>
+      <li><a href="#performance">6. GPU Acceleration &amp; Render Performance</a></li>
+      <li><a href="#takeaways">7. Checklist for Animating Vectors</a></li>
     </ol>
   </div>
 </div>
 
 <article class="article-body">
-  <h2 id="stroke-dasharray">1. Understanding stroke-dasharray</h2>
-  <p>The <code>stroke-dasharray</code> CSS property turns a solid stroke into a dashed line. It takes a list of space-separated numbers that specify the lengths of alternating dashes and gaps.</p>
-  <p>For example, <code>stroke-dasharray: 5 10</code> creates a stroke composed of a 5px dash followed by a 10px gap, repeated along the entire path length.</p>
+  <h2 id="intro">1. The Mechanics of Vector Tracing</h2>
+  <p>Vector animations add immediate high-end polish to interfaces. The most popular animation style in modern web design is the **self-drawing path** or **line tracing** effect. This interaction makes checkmarks, loading loops, or company logos draw themselves on load or user hover.</p>
+  <p>To implement this in a web browser, we don't need heavy JavaScript timeline libraries (like GreenSock or Anime.js). Instead, we can build it natively and performantly using pure CSS transitions, keyframes, and two simple SVG attributes: <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>.</p>
 
-  <h2 id="stroke-dashoffset">2. Animating with stroke-dashoffset</h2>
-  <p>The <code>stroke-dashoffset</code> property defines the distance into the dash pattern where the drawing starts. By changing this value, you shift the dashes along the path.</p>
-  <p>If you set `stroke-dasharray` to the **exact total length** of the SVG path (e.g. 100), and then set `stroke-dashoffset` to that same length (100), the gap fully offsets the stroke, rendering the path completely invisible.</p>
-  <p>Animating `stroke-dashoffset` from 100 to 0 pulls the solid dash back onto the path, creating the visual illusion of the line being actively drawn in real-time.</p>
+  <h2 id="stroke-dasharray">2. The Core Properties: dasharray &amp; dashoffset</h2>
+  <p>The <code>stroke-dasharray</code> property styles a solid stroke into a series of dashed lines. It takes coordinate values representing alternating dash and gap lengths:</p>
+  <pre><code>/* Creates a repeating pattern of 10px dash and 5px gap */
+.vector-path {
+  stroke-dasharray: 10 5;
+}</code></pre>
+  
+  <p>The <code>stroke-dashoffset</code> property defines the distance into the dash pattern where the path starts rendering. By animating the offset, you slide the dashes along the path.</p>
+  <p>To animate a path from start to finish:
+    <ol>
+      <li>Measure the total length of the vector path (let's assume it is <code>250px</code>).</li>
+      <li>Set <code>stroke-dasharray</code> to <code>250</code>. This creates one long dash of 250px followed by an invisible gap of 250px.</li>
+      <li>Set the initial <code>stroke-dashoffset</code> to <code>250</code>. The gap fully offsets the stroke, rendering the line invisible.</li>
+      <li>Animate <code>stroke-dashoffset</code> down to <code>0</code>. The solid dash slides back onto the path, creating the drawing effect.</li>
+    </ol>
+  </p>
 
-  <h2 id="examples">3. Code Examples for Loading Wheels &amp; Checkmarks</h2>
-  <p>Here is the standard CSS implementation for a self-drawing success checkmark icon:</p>
-  <pre><code>/* Animate the checkmark path */
-.checkmark-path {
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
-  animation: drawCheck 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  <h2 id="math">3. Calculating SVG Path Length Dynamically</h2>
+  <p>While basic shapes have predictable path lengths, complex custom icons require precise measurements. You can find this value using JavaScript's <code>getTotalLength()</code> method:</p>
+  <pre><code>// Measure path length dynamically in JavaScript
+const path = document.querySelector('.custom-draw-path');
+const length = path.getTotalLength();
+
+console.log(`Path length: ${length}px`);
+
+// Set inline styles programmatically
+path.style.strokeDasharray = length;
+path.style.strokeDashoffset = length;</code></pre>
+
+  <h2 id="interactive-states">4. State Management &amp; Micro-Interactions</h2>
+  <p>To trigger these transitions during hover, focus, or click events, bind your styles to CSS selector states or framework conditions. Here is a production-ready example of a checkmark drawing itself inside a success card wrapper:</p>
+  
+  <pre><code>/* success-card.css */
+.success-card .checkmark-circle {
+  stroke-dasharray: 151;
+  stroke-dashoffset: 151;
+  transition: stroke-dashoffset 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes drawCheck {
-  to {
-    stroke-dashoffset: 0;
-  }
+.success-card .checkmark-check {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  transition: stroke-dashoffset 400ms cubic-bezier(0.16, 1, 0.3, 1) 200ms; /* Delayed start */
+}
+
+/* Activate states */
+.success-card.active .checkmark-circle,
+.success-card.active .checkmark-check {
+  stroke-dashoffset: 0;
 }</code></pre>
 
-  <h2 id="performance">4. Performance Considerations</h2>
-  <p>Always animate vector lines using hardware-accelerated properties. Animating `stroke-dashoffset` is highly performant because the browser processes it on the GPU, avoiding expensive repaint cycles. Keep your transition timelines under 400ms for crisp, professional micro-interactions.</p>
+  <h2 id="tricks">5. Advanced Line-Drawing Use Cases</h2>
+  <p>Line animations aren't just for loading bars. You can combine them with fill transitions to make button states feel alive. Once the line finish tracing the boundaries of the icon, transition the background fill opacity:</p>
+  <pre><code>/* Animate path first, then fade in the background fill */
+.animated-icon {
+  fill: rgba(193, 221, 45, 0);
+  transition: fill 250ms ease-out 600ms; /* Delay fill until path completes */
+}
+.active .animated-icon {
+  fill: rgba(193, 221, 45, 0.1);
+}</code></pre>
+
+  <h2 id="performance">6. GPU Acceleration &amp; Render Performance</h2>
+  <p>Browsers process layout coordinate modifications (like altering SVG `width` or `height` dynamically) on the CPU main thread, causing reflows. However, `stroke-dashoffset` adjustments on independent vector layers are handled directly by the GPU.</p>
+  <blockquote>
+    <strong>Pro tip:</strong> Keep your animations fast (between 150ms and 300ms) for interface controls. Long durations (like 1 second) delay user feedback and make your product UI feel slow and laggy.
+  </blockquote>
 
   <div class="takeaway-box" id="takeaways">
-    <h3>Key Takeaways</h3>
+    <h3>Checklist for Animating Vectors</h3>
     <ul>
-      <li><strong>Path Lengths:</strong> Use JavaScript's <code>path.getTotalLength()</code> to find the exact dasharray value needed for custom lines.</li>
-      <li><strong>Hardware Acceleration:</strong> Define keyframes explicitly and avoid overlapping element transitions.</li>
-      <li><strong>Style Inheritance:</strong> Keep your paths color-neutral so they inherit styles dynamically using `stroke: currentColor`.</li>
+      <li><strong>Use hardware acceleration:</strong> Animate properties like `transform` and `opacity` to avoid layouts reflow.</li>
+      <li><strong>Keep it clean:</strong> Strip inline styling attributes from your SVG markup so your CSS classes can take control.</li>
+      <li><strong>Manage transforms:</strong> Explicitly declare <code>transform-origin: center center</code> when rotating or scaling shapes.</li>
+      <li><strong>Consider accessibility:</strong> Ensure users who prefer reduced motion do not get dizzy (wrap animations in `@media (prefers-reduced-motion: no-preference)`).</li>
     </ul>
   </div>
 </article>
 
 <section class="cta-banner">
-  <h2>Design Animated Interactions</h2>
-  <p>Search, customize, and export clean SVG vector codes from 28 professional icon libraries.</p>
+  <h2>Start Animating Modern Icons</h2>
+  <p>Search, preview, and download 134,701 fully cleaned and optimized SVG icons for your next project.</p>
   <a href="/" class="big-cta">Open IconStash Editor →</a>
 </section>
 
