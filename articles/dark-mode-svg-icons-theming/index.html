@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Mode SVG Icons Guide | IconStash</title>
+  <meta name="description" content="Master SVG icon theming for dark mode. Learn currentColor, CSS variables, prefers-color-scheme, multi-tone SVGs, WCAG contrast, and theme transitions.">
+  <meta name="keywords" content="dark mode svg, svg theming, currentColor, css variables, prefers-color-scheme, multi-tone icons">
+  <meta property="og:title" content="Dark Mode SVG Icons Guide | IconStash">
+  <meta property="og:description" content="Master SVG icon theming for dark mode. Learn currentColor, CSS variables, prefers-color-scheme, multi-tone SVGs, WCAG contrast, and theme transitions.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/dark-mode-svg-icons-theming/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-07-19T00:00:00Z">
+  <meta property="article:author" content="IconStash Team">
+  <meta property="article:section" content="Design Systems">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://iconstash.io/articles/dark-mode-svg-icons-theming/">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background: #0A0A0A;
+      color: #F2F2F2;
+      font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    img, svg { max-width: 100%; display: block; }
+    code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.88em; background: rgba(255,255,255,0.06); border: 1px solid #1F1F1F; border-radius: 4px; padding: 2px 6px; }
+    pre { background: #060610; border: 1px solid #1F1F1F; border-radius: 10px; padding: 20px; overflow-x: auto; margin: 24px 0; }
+    pre code { background: none; border: none; padding: 0; font-size: 13px; line-height: 1.7; color: #a8d8a8; display: block; }
+
+    /* Header */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #1F1F1F;
+      padding: 0 24px; height: 58px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta {
+      background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px;
+      padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer;
+      transition: background 150ms ease;
+    }
+    .header-cta:hover { background: #D2ED3E; }
+
+    /* Hero */
+    .article-hero {
+      max-width: 820px; margin: 0 auto; padding: 80px 24px 48px; text-align: center;
+    }
+    .article-hero .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2);
+      color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
+    }
+    .article-hero h1 {
+      font-size: clamp(32px, 5vw, 52px); font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 20px;
+      background: linear-gradient(135deg, #F2F2F2 0%, #888 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .article-hero .subtitle {
+      font-size: 19px; color: #888; line-height: 1.7; max-width: 640px; margin: 0 auto 28px;
+    }
+    .article-meta {
+      display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+      color: #666; font-size: 13px;
+    }
+
+    /* TOC */
+    .toc-wrapper {
+      max-width: 820px; margin: 0 auto 48px; padding: 0 24px;
+    }
+    .toc {
+      background: rgba(255,255,255,0.02); border: 1px solid #1F1F1F; border-radius: 12px;
+      padding: 28px 32px;
+    }
+    .toc h2 { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 8px 0; font-size: 15px; }
+    .toc a { color: #999; }
+    .toc a:hover { color: #C1DD2D; }
+
+    /* Article Content */
+    .article-body {
+      max-width: 820px; margin: 0 auto; padding: 0 24px 80px;
+    }
+    .article-body h2 {
+      font-size: 28px; font-weight: 800; margin: 64px 0 20px; padding-top: 16px;
+      border-top: 1px solid #1F1F1F; letter-spacing: -0.02em;
+    }
+    .article-body h2:first-of-type { border-top: none; margin-top: 0; }
+    .article-body h3 {
+      font-size: 20px; font-weight: 700; margin: 40px 0 14px; color: #C1DD2D;
+    }
+    .article-body p { margin-bottom: 18px; color: #ccc; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 20px; color: #ccc; }
+    .article-body li { margin: 8px 0; }
+    .article-body strong { color: #F2F2F2; }
+    .article-body blockquote {
+      border-left: 3px solid #C1DD2D; padding: 16px 20px; margin: 28px 0;
+      background: rgba(193,221,45,0.04); border-radius: 0 8px 8px 0;
+      font-style: italic; color: #aaa;
+    }
+
+    /* Key Takeaways */
+    .takeaway-box {
+      background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%);
+      border: 1px solid rgba(193,221,45,0.15); border-radius: 14px;
+      padding: 32px; margin: 40px 0;
+    }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+
+    /* CTA Banner */
+    .cta-banner {
+      text-align: center; padding: 64px 24px; margin: 64px 0 0;
+      background: linear-gradient(180deg, rgba(193,221,45,0.04) 0%, transparent 100%);
+      border-top: 1px solid rgba(193,221,45,0.1);
+    }
+    .cta-banner h2 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+    .cta-banner p { color: #888; font-size: 17px; margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-banner .big-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 16px;
+      padding: 16px 36px; border-radius: 10px; border: none; cursor: pointer;
+      transition: all 200ms ease; text-decoration: none;
+    }
+    .cta-banner .big-cta:hover { background: #D2ED3E; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(193,221,45,0.2); }
+
+    /* Footer */
+    .article-footer {
+      max-width: 820px; margin: 0 auto; padding: 32px 24px;
+      border-top: 1px solid #1F1F1F; color: #666; font-size: 13px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .article-footer a { color: #666; }
+    .article-footer a:hover { color: #F2F2F2; }
+    .footer-links { display: flex; gap: 20px; }
+
+    @media (max-width: 768px) {
+      .article-hero { padding: 48px 20px 32px; }
+      .article-hero h1 { font-size: 28px; }
+      .article-hero .subtitle { font-size: 16px; }
+      .toc-wrapper, .article-body { padding: 0 20px 48px; }
+      .toc { padding: 20px 24px; }
+      .article-body h2 { font-size: 22px; margin-top: 48px; }
+      .article-body h3 { font-size: 18px; }
+      .site-header nav { display: none; }
+      .cta-banner { padding: 48px 20px; }
+      .cta-banner h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+    <span>IconStash</span>
+  </a>
+  <nav>
+    <a href="/">Browse Icons</a>
+    <a href="/articles/">Articles</a>
+    <a href="https://github.com/OG-Huzzi/IconStash">GitHub</a>
+  </nav>
+  <a href="/" class="header-cta">Open Editor</a>
+</header>
+
+<section class="article-hero">
+  <div class="badge">Design Systems</div>
+  <h1>Dark Mode Icons — Adapting SVG for Light &amp; Dark Themes</h1>
+  <p class="subtitle">An exhaustive guide to building resilient, theme-aware SVG icons using modern CSS features, custom properties, and intelligent contrast mapping.</p>
+  <div class="article-meta">
+    <span>July 19, 2026</span>
+    <span>•</span>
+    <span>13 min read</span>
+    <span>•</span>
+    <span>By IconStash Team</span>
+  </div>
+</section>
+
+<div class="toc-wrapper">
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li><a href="#the-problem">1. The Problem: Why Icons Break in Dark Mode</a></li>
+      <li><a href="#currentcolor">2. The currentColor Technique: Your Best Friend</a></li>
+      <li><a href="#custom-properties">3. CSS Custom Properties for Multi-Tone Icons</a></li>
+      <li><a href="#prefers-color-scheme">4. The prefers-color-scheme Media Query</a></li>
+      <li><a href="#data-attribute-theming">5. Data Attribute Theming for Explicit Overrides</a></li>
+      <li><a href="#complex-icons">6. Handling Complex Multi-Color Icons &amp; Illustrations</a></li>
+      <li><a href="#contrast-ratios">7. Contrast Ratios &amp; WCAG Compliance</a></li>
+      <li><a href="#icon-opacity">8. Icon Opacity Strategies in Dark Environments</a></li>
+      <li><a href="#theme-transitions">9. Implementing Smooth Theme Transitions</a></li>
+      <li><a href="#case-study">10. Real-World Case Study: Building a Theme-Aware Icon Toolbar</a></li>
+    </ol>
+  </div>
+</div>
+
+<article class="article-body">
+  <h2 id="the-problem">1. The Problem: Why Icons Break in Dark Mode</h2>
+  <p>Dark mode adoption is no longer a niche user preference—it is a baseline expectation for modern web applications. Whether users enable it to reduce eye strain, conserve battery life on OLED screens, or simply because it looks sleek, developers must accommodate both light and dark themes flawlessly.</p>
+  <p>However, when interfaces transition from light to dark, icons are frequently the first visual element to break. If you have ever flipped a theme switch only to see your navigation icons completely disappear into the background, you have experienced the pitfalls of improperly implemented vector graphics.</p>
+  <p>The core issues usually stem from a few common anti-patterns in SVG management:</p>
+  <ul>
+    <li><strong>Contrast inversion failure:</strong> Icons designed with hardcoded dark strokes or fills against a light background become practically invisible when the background switches to a dark color.</li>
+    <li><strong>Hardcoded colors:</strong> SVGs exported directly from design tools like Figma or Illustrator often contain hardcoded hex values (e.g., <code>fill="#000000"</code> or <code>stroke="#333333"</code>) deeply nested within their markup.</li>
+    <li><strong>Loss of multi-tone fidelity:</strong> Two-tone icons that use subtle greys to convey depth in a light theme can look muddy, jarring, or inverted incorrectly in a dark context.</li>
+  </ul>
+  <p>To solve this, we must decouple the structural geometry of the SVG from its presentation. By shifting color control from the HTML markup to the CSS layer, we can create truly dynamic, context-aware icons that adapt effortlessly to any design system.</p>
+
+  <h2 id="currentcolor">2. The currentColor Technique: Your Best Friend</h2>
+  <p>If you only take away one concept from this article, let it be this: <code>currentColor</code> is the single most powerful tool in your SVG styling arsenal. It acts as a bridge between your typography colors and your icon colors.</p>
+  <p>The <code>currentColor</code> keyword in CSS instructs the browser to use the current computed value of the <code>color</code> property. When applied to an SVG's <code>fill</code> or <code>stroke</code>, the icon will automatically inherit the text color of its parent container. This makes adapting icons to dark mode entirely automatic, provided your text colors are already theme-aware.</p>
+  
+  <h3>Before: Hardcoded SVG (Anti-pattern)</h3>
+  <pre><code>&lt;!-- This icon will disappear on a dark background --&gt;
+&lt;svg width="24" height="24" viewBox="0 0 24 24" fill="none"&gt;
+  &lt;path d="M12 2L2 22h20L12 2z" fill="#111827" /&gt;
+&lt;/svg&gt;</code></pre>
+
+  <h3>After: Theme-Aware SVG using currentColor</h3>
+  <pre><code>&lt;!-- This icon inherits the parent's text color --&gt;
+&lt;svg width="24" height="24" viewBox="0 0 24 24" fill="none"&gt;
+  &lt;path d="M12 2L2 22h20L12 2z" fill="currentColor" /&gt;
+&lt;/svg&gt;
+
+&lt;style&gt;
+  .icon-container {
+    color: #111827; /* Light mode color */
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .icon-container {
+      color: #F9FAFB; /* Dark mode color - icon updates automatically! */
+    }
+  }
+&lt;/style&gt;</code></pre>
+  
+  <p>By replacing hardcoded hex values with <code>currentColor</code>, you eliminate the need to write separate CSS rules for every individual icon state. Your icons simply become part of the typographic flow.</p>
+
+  <h2 id="custom-properties">3. CSS Custom Properties for Multi-Tone Icons</h2>
+  <p>While <code>currentColor</code> is perfect for monochromatic glyphs, modern design systems frequently utilize duo-tone or multi-tone icons. These icons typically have a primary active color and a secondary, more subtle accent color.</p>
+  <p>To make multi-tone icons themeable, we can leverage CSS Custom Properties (variables). By mapping specific parts of the SVG to CSS variables, we can independently control different layers of the icon based on the active theme.</p>
+  
+  <pre><code>&lt;!-- Duo-tone Cloud Icon --&gt;
+&lt;svg class="icon-duotone" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;!-- Primary path (border) --&gt;
+  &lt;path class="icon-primary" d="M17.5 19C19.9853 19..." stroke="var(--icon-primary)" stroke-width="2"/&gt;
+  &lt;!-- Secondary path (fill) --&gt;
+  &lt;path class="icon-secondary" d="M17.5 19C19.9853 19..." fill="var(--icon-secondary)"/&gt;
+&lt;/svg&gt;
+
+&lt;style&gt;
+  /* Light Theme Defaults */
+  :root {
+    --icon-primary: #374151;   /* Dark slate */
+    --icon-secondary: #E5E7EB; /* Light grey */
+  }
+
+  /* Dark Theme Overrides */
+  [data-theme="dark"] {
+    --icon-primary: #F3F4F6;   /* Light grey */
+    --icon-secondary: #374151; /* Dark slate */
+  }
+&lt;/style&gt;</code></pre>
+  
+  <p>This approach provides granular control. In light mode, the cloud might have a dark outline and a light fill. In dark mode, you can invert this relationship, or completely alter the hue of the secondary layer to match a dark-themed accent color. CSS variables give you the flexibility to tune the precise luminance levels needed for dark backgrounds.</p>
+
+  <h2 id="prefers-color-scheme">4. The prefers-color-scheme Media Query</h2>
+  <p>The <code>@media (prefers-color-scheme: dark)</code> media query allows your web application to detect the user's operating system-level theme preference. It is the foundation of automatic theme switching.</p>
+  <p>When styling icons, you can use this media query to redefine your CSS variables or swap out colors without requiring JavaScript intervention.</p>
+  
+  <pre><code>/* Base styles (Light mode by default) */
+.nav-icon {
+  fill: #4B5563;
+  transition: fill 0.3s ease;
+}
+.nav-icon:hover {
+  fill: #2563EB; /* Blue accent */
+}
+
+/* OS-level Dark Mode Detection */
+@media (prefers-color-scheme: dark) {
+  .nav-icon {
+    fill: #9CA3AF;
+  }
+  .nav-icon:hover {
+    fill: #60A5FA; /* Lighter blue for dark mode contrast */
+  }
+}</code></pre>
+  
+  <p>This ensures that users visiting your site immediately receive a visually comfortable experience that aligns with their system settings. However, relying solely on media queries removes control from the user. What if they want to override the OS preference for your specific site? This brings us to data attributes.</p>
+
+  <h2 id="data-attribute-theming">5. Data Attribute Theming for Explicit Overrides</h2>
+  <p>While <code>prefers-color-scheme</code> is fantastic for initial detection, robust web applications allow users to explicitly toggle between light and dark modes via a UI switch.</p>
+  <p>The most resilient way to handle this is by applying a <code>data-theme</code> attribute to the <code>&lt;html&gt;</code> tag and using it as a high-level CSS selector. This creates a deterministic state that can easily override media queries.</p>
+  
+  <pre><code>/* 1. Define variables at the root for both themes */
+:root {
+  --text-color: #111827;
+  --icon-color: #4B5563;
+  --bg-color: #FFFFFF;
+}
+
+[data-theme='dark'] {
+  --text-color: #F9FAFB;
+  --icon-color: #D1D5DB;
+  --bg-color: #111827;
+}
+
+/* 2. Fallback to OS preference if no explicit theme is set */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --text-color: #F9FAFB;
+    --icon-color: #D1D5DB;
+    --bg-color: #111827;
+  }
+}
+
+/* 3. Apply to your UI components */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.system-icon {
+  color: var(--icon-color);
+  fill: currentColor;
+}</code></pre>
+  
+  <p>This architecture is highly scalable. You establish the data attribute as the absolute source of truth. If a user flips your app's dark mode toggle, JavaScript simply sets <code>document.documentElement.setAttribute('data-theme', 'dark')</code>, and all your icons will update instantaneously.</p>
+
+  <h2 id="complex-icons">6. Handling Complex Multi-Color Icons &amp; Illustrations</h2>
+  <p>Simple glyphs are easy to theme. But what happens when you have a complex SVG illustration, a brand logo, or an icon containing embedded raster elements?</p>
+  <p>For complex vectors, rewriting every single fill and stroke to use CSS variables might be impractical. In these cases, you can utilize CSS filters to mathematically invert and adjust the colors of the entire SVG element.</p>
+  
+  <pre><code>/* Applying CSS filters to invert complex artwork for dark mode */
+.complex-illustration {
+  transition: filter 0.3s ease;
+}
+
+[data-theme='dark'] .complex-illustration {
+  /* 
+    1. invert(1) flips all colors (black becomes white, white becomes black).
+    2. hue-rotate(180deg) corrects the inverted colors back to their original hue spectrum.
+    3. brightness/contrast adjustments fine-tune the result for a dark background.
+  */
+  filter: invert(1) hue-rotate(180deg) brightness(1.2) contrast(0.9);
+}</code></pre>
+  
+  <p>This technique is particularly useful for user-generated content, external badges, or complex product graphics where you don't control the underlying markup. While not as precise as mapping CSS variables, it provides a functional "quick fix" for preserving legibility in dark environments.</p>
+
+  <h2 id="contrast-ratios">7. Contrast Ratios &amp; WCAG Compliance</h2>
+  <p>In dark mode, the rules of visual contrast change. A color that looks great on a white background might fail accessibility standards on a dark grey background.</p>
+  <p>The Web Content Accessibility Guidelines (WCAG) require a minimum contrast ratio of <strong>3:1 for UI components and graphical objects</strong> (like icons). In dark themes, achieving this often means utilizing lighter, desaturated colors. Highly saturated colors can cause "halation" (a glowing effect) against dark backgrounds, making shapes difficult to parse.</p>
+  
+  <p>If you are building a design system, it's crucial to mathematically verify your icon colors. Here is a handy JavaScript function you can use during development to calculate the contrast ratio between an icon color and its background:</p>
+  
+  <pre><code>// Calculate relative luminance
+function getLuminance(r, g, b) {
+  const a = [r, g, b].map(function (v) {
+    v /= 255;
+    return v &lt;= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+// Calculate contrast ratio between two RGB colors
+function getContrastRatio(color1, color2) {
+  const lum1 = getLuminance(color1.r, color1.g, color1.b);
+  const lum2 = getLuminance(color2.r, color2.g, color2.b);
+  const brightest = Math.max(lum1, lum2);
+  const darkest = Math.min(lum1, lum2);
+  return (brightest + 0.05) / (darkest + 0.05);
+}
+
+// Example usage: Dark background vs Light Grey icon
+const bg = { r: 17, g: 24, b: 39 };     // #111827
+const icon = { r: 209, g: 213, b: 219 }; // #D1D5DB
+const ratio = getContrastRatio(bg, icon);
+
+console.log(`Contrast Ratio: ${ratio.toFixed(2)}:1`);
+// If ratio &gt;= 3.0, the icon passes WCAG AA for UI graphics!</code></pre>
+  
+  <blockquote>
+    <strong>Pro tip:</strong> In dark mode, try to avoid pure white (<code>#FFFFFF</code>) for icons against pure black (<code>#000000</code>). The contrast is actually *too* high and can cause eye strain. Instead, use an off-white (like <code>#F3F4F6</code>) against a very dark grey (like <code>#111827</code>).
+  </blockquote>
+
+  <h2 id="icon-opacity">8. Icon Opacity Strategies in Dark Environments</h2>
+  <p>A sophisticated technique in dark mode design is manipulating opacity rather than just color. In light themes, inactive icons are often colored grey. In dark themes, relying heavily on grey hex values can look muddy.</p>
+  <p>Instead of defining a specific grey hex code for inactive or secondary icons, apply white with a reduced opacity. This allows the icon to blend naturally with the underlying dark background, adopting the background's hue and preserving visual harmony across different surface elevations.</p>
+
+  <pre><code>/* The Opacity Strategy */
+:root {
+  --icon-active: rgba(0, 0, 0, 0.87);
+  --icon-inactive: rgba(0, 0, 0, 0.54);
+}
+
+[data-theme='dark'] {
+  /* Using white with alpha channels for perfect blending */
+  --icon-active: rgba(255, 255, 255, 1);
+  --icon-inactive: rgba(255, 255, 255, 0.5);
+  --icon-disabled: rgba(255, 255, 255, 0.3);
+}
+
+.action-icon {
+  color: var(--icon-inactive);
+}
+.action-icon:hover {
+  color: var(--icon-active);
+}</code></pre>
+  <p>By using alpha channels, if an icon sits on a dark blue navigation bar, it becomes a lighter dark blue. If it sits on a dark grey card, it becomes a lighter dark grey. It's an elegant, scalable solution for massive design systems.</p>
+
+  <h2 id="theme-transitions">9. Implementing Smooth Theme Transitions</h2>
+  <p>When a user toggles the theme, the transition between light and dark shouldn't be a jarring, instant snap. Adding a subtle CSS transition to your colors creates a premium, polished feel. Since SVG <code>fill</code>, <code>stroke</code>, and <code>color</code> properties are completely animatable, this is straightforward to implement.</p>
+
+  <pre><code>/* Smooth color transitions for all themeable properties */
+body, 
+.icon, 
+.theme-toggle-btn {
+  transition: 
+    background-color 300ms ease,
+    color 300ms ease,
+    fill 300ms ease,
+    stroke 300ms ease,
+    border-color 300ms ease;
+}
+
+/* Ensure SVGs inherit the transition if they rely on currentColor */
+svg {
+  transition: inherit;
+}</code></pre>
+  
+  <p>However, be cautious: applying transitions universally via <code>* { transition: ... }</code> can cause significant layout thrashing and performance lag, especially on complex pages. It is better to explicitly scope your transitions to the specific elements and properties that will actually change during a theme swap.</p>
+
+  <h2 id="case-study">10. Real-World Case Study: Building a Theme-Aware Icon Toolbar</h2>
+  <p>Let's pull everything together into a practical example: a floating rich-text formatting toolbar. This component uses <code>currentColor</code>, CSS custom properties for hover states, opacity strategies for inactive icons, and smooth transitions.</p>
+
+  <pre><code>&lt;!-- HTML Structure --&gt;
+&lt;div class="format-toolbar"&gt;
+  &lt;button class="tool-btn" aria-label="Bold"&gt;
+    &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+      &lt;path d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /&gt;
+      &lt;path d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+  &lt;button class="tool-btn" aria-label="Italic"&gt;
+    &lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+      &lt;line x1="19" y1="4" x2="10" y2="4" /&gt;
+      &lt;line x1="14" y1="20" x2="5" y2="20" /&gt;
+      &lt;line x1="15" y1="4" x2="9" y2="20" /&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+/* SCSS/CSS Architecture */
+:root {
+  --toolbar-bg: #FFFFFF;
+  --toolbar-border: #E5E7EB;
+  --btn-hover-bg: #F3F4F6;
+  --icon-base: rgba(17, 24, 39, 0.6); /* 60% opacity dark text */
+  --icon-hover: rgba(17, 24, 39, 1);  /* Solid dark text */
+}
+
+[data-theme='dark'] {
+  --toolbar-bg: #1F2937;
+  --toolbar-border: #374151;
+  --btn-hover-bg: #374151;
+  --icon-base: rgba(255, 255, 255, 0.6); /* 60% opacity white text */
+  --icon-hover: rgba(255, 255, 255, 1);  /* Solid white text */
+}
+
+.format-toolbar {
+  display: inline-flex;
+  gap: 4px;
+  padding: 6px;
+  background-color: var(--toolbar-bg);
+  border: 1px solid var(--toolbar-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.tool-btn {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--icon-base);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.tool-btn:hover {
+  background-color: var(--btn-hover-bg);
+  color: var(--icon-hover);
+}
+
+.tool-btn svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+&lt;/style&gt;</code></pre>
+  
+  <p>In this example, the icons never declare their own colors. They simply inherit the <code>color</code> property of the <code>.tool-btn</code>. The button, in turn, maps its color to our CSS variables (<code>--icon-base</code> and <code>--icon-hover</code>), which utilize the opacity strategy we discussed earlier. The result is an incredibly robust component that responds perfectly to system theme changes, explicit user toggles, and user interactions.</p>
+
+  <div class="takeaway-box" id="takeaways">
+    <h3>Checklist for Dark Mode Icons</h3>
+    <ul>
+      <li><strong>Audit your exports:</strong> Remove hardcoded <code>fill</code> and <code>stroke</code> hex codes from your raw SVG files.</li>
+      <li><strong>Embrace currentColor:</strong> Use it as your primary technique for contextual icon coloring.</li>
+      <li><strong>Utilize CSS Variables:</strong> Map specific path elements to variables for complex, multi-tone iconography.</li>
+      <li><strong>Verify contrast:</strong> Ensure your dark mode colors hit a minimum of 3:1 WCAG contrast ratio against their backgrounds.</li>
+      <li><strong>Test with real users:</strong> Allow users to override the OS preference and ensure transitions between states are smooth and non-disruptive.</li>
+    </ul>
+  </div>
+</article>
+
+<section class="cta-banner">
+  <h2>Start Animating Modern Icons</h2>
+  <p>Search, preview, and download 134,701 fully cleaned and optimized SVG icons for your next project.</p>
+  <a href="/" class="big-cta">Open IconStash Editor →</a>
+</section>
+
+<footer class="article-footer">
+  <span>© 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a></span>
+  <div class="footer-links">
+    <a href="/">Browse Icons</a>
+    <a href="/articles/">Articles</a>
+    <a href="https://github.com/OG-Huzzi/IconStash" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
