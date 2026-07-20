@@ -2857,3 +2857,37 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   }
 }
 
+/* Light Mode: Remove all text glow effects and drop-shadows from colored text */
+[data-theme="light"] {
+  --neon-home-glow: none !important;
+  --btn-primary-glow: none !important;
+  --glow-blue: none !important;
+  --glow-pink: none !important;
+  --glow-green: none !important;
+  --glow-purple: none !important;
+  --glow-multi: none !important;
+}
+
+[data-theme="light"] *,
+[data-theme="light"] *::before,
+[data-theme="light"] *::after {
+  text-shadow: none !important;
+}
+
+[data-theme="light"] .corner-glow {
+  display: none !important;
+}
+
+[data-theme="light"] .search-results-count,
+[data-theme="light"] .stat-num,
+[data-theme="light"] .footer-link,
+[data-theme="light"] .broken-glass-svg,
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] .gradient-text,
+[data-theme="light"] .hero-heading,
+[data-theme="light"] .word-reveal {
+  text-shadow: none !important;
+  filter: none !important;
+}
