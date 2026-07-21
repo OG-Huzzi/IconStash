@@ -137,15 +137,22 @@
     .article-hero .subtitle { font-size: 19px; color: #888; line-height: 1.7; max-width: 640px; margin: 0 auto 28px; }
     .article-meta { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; color: #666; font-size: 13px; }
 
-    .toc-wrapper { max-width: 820px; margin: 0 auto 48px; padding: 0 24px; }
+    .layout { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .toc-wrapper { margin: 0 0 48px; }
     .toc { background: rgba(255,255,255,0.02); border: 1px solid #1F1F1F; border-radius: 12px; padding: 28px 32px; }
     .toc h2 { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
     .toc ol { padding-left: 20px; }
     .toc li { margin: 8px 0; font-size: 15px; }
     .toc a { color: #999; }
     .toc a:hover { color: #C1DD2D; }
+    .related-articles { margin-top: 28px; background: rgba(255,255,255,0.02); border: 1px solid #1F1F1F; border-radius: 12px; padding: 24px 28px; }
+    .related-articles h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 14px; }
+    .related-articles ul { list-style: none; padding: 0; margin: 0; }
+    .related-articles li { margin: 10px 0; font-size: 14px; line-height: 1.5; }
+    .related-articles a { color: #999; }
+    .related-articles a:hover { color: #C1DD2D; }
 
-    .article-body { max-width: 820px; margin: 0 auto; padding: 0 24px 80px; }
+    .article-body { margin: 0; padding: 0 0 80px; }
     .article-body h2 { font-size: 28px; font-weight: 800; margin: 64px 0 20px; padding-top: 16px; border-top: 1px solid #1F1F1F; letter-spacing: -0.02em; }
     .article-body h2:first-of-type { border-top: none; margin-top: 0; }
     .article-body h3 { font-size: 20px; font-weight: 700; margin: 40px 0 14px; color: #C1DD2D; }
@@ -201,7 +208,7 @@
     .cta-banner .big-cta:hover { background: #D2ED3E; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(193,221,45,0.2); }
 
     .article-footer {
-      max-width: 820px; margin: 0 auto; padding: 32px 24px;
+      max-width: 1200px; margin: 0 auto; padding: 32px 24px;
       border-top: 1px solid #1F1F1F; color: #666; font-size: 13px;
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
     }
@@ -213,13 +220,22 @@
       .article-hero { padding: 48px 20px 32px; }
       .article-hero h1 { font-size: 28px; }
       .article-hero .subtitle { font-size: 16px; }
-      .toc-wrapper, .article-body { padding: 0 20px 48px; }
+      .layout { padding: 0 20px; }
+      .toc-wrapper { margin-bottom: 32px; }
       .toc { padding: 20px 24px; }
+      .article-body { padding-bottom: 48px; }
       .article-body h2 { font-size: 22px; margin-top: 48px; }
       .article-body h3 { font-size: 18px; }
       .site-header nav { display: none; }
       .cta-banner { padding: 48px 20px; }
       .cta-banner h2 { font-size: 24px; }
+      .related-articles { display: none; }
+    }
+
+    @media (min-width: 1100px) {
+      .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 56px; align-items: start; }
+      .toc-wrapper { position: sticky; top: 82px; grid-column: 2; grid-row: 1; margin: 0; }
+      .article-body { grid-column: 1; grid-row: 1; }
     }
   </style>
 </head>
@@ -251,6 +267,7 @@
   </div>
 </section>
 
+<div class="layout">
 <div class="toc-wrapper">
   <div class="toc">
     <h2>Table of Contents</h2>
@@ -265,6 +282,15 @@
       <li><a href="#migration">8. Migrating from Feather to Lucide</a></li>
       <li><a href="#verdict">9. The Verdict</a></li>
     </ol>
+  </div>
+  <div class="related-articles">
+    <h3>Related Articles</h3>
+    <ul>
+      <li><a href="/articles/best-open-source-icon-libraries-2026/">28 Best Open Source Icon Libraries in 2026</a></li>
+      <li><a href="/articles/free-svg-icons-commercial-use-2026/">Free SVG Icons for Commercial Use</a></li>
+      <li><a href="/articles/how-to-build-scalable-icon-system/">How to Build a Scalable Icon System</a></li>
+      <li><a href="/articles/iconstash-vs-flaticon/">IconStash vs Flaticon Comparison</a></li>
+    </ul>
   </div>
 </div>
 
@@ -421,6 +447,7 @@ import { Camera, Heart, Shield } from 'lucide-react';
     </ul>
   </div>
 </article>
+</div>
 
 <section class="cta-banner">
   <h2>Compare Icons Side by Side</h2>
