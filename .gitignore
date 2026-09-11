@@ -87,3 +87,6 @@ out/
 *.rej
 .sass-cache/
 *.code-workspace
+
+# Sitemap audit report (local SEO audit artifact, never served)
+sitemap-audit-report.md
