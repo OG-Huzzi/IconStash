@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use Font Awesome Icons in 2026: The Complete Guide to Font Awesome 7 | IconStash</title>
+  <meta name="description" content="Font Awesome 7 in 2026: CDN vs Kits vs npm, fa-solid/fa-brands classes, payload sizes, React/Next.js setup, and the free 1,992 icons.">
+  <meta name="keywords" content="font awesome, font awesome icons, how to use font awesome, font awesome 7, font awesome cdn, font awesome react, font awesome free, fa-solid, fa-brands, font awesome npm, font awesome pseudo elements">
+  <meta property="og:title" content="How to Use Font Awesome Icons in 2026: The Complete Guide to Font Awesome 7">
+  <meta property="og:description" content="Font Awesome 7 in 2026: CDN vs Kits vs npm, fa-solid/fa-brands classes, payload sizes, React/Next.js setup, and the free 1,992 icons.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/font-awesome-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/font-awesome-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Browser window showing HTML code with icon font glyphs transforming into crisp SVG star icons over CDN network nodes">
+  <meta property="article:published_time" content="2026-09-11T00:00:00Z">
+  <meta property="article:modified_time" content="2026-09-11T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Font Awesome">
+  <meta property="article:tag" content="Icon Fonts">
+  <meta property="article:tag" content="Web Performance">
+  <meta property="article:tag" content="React">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use Font Awesome Icons in 2026: The Complete Guide to Font Awesome 7">
+  <meta name="twitter:description" content="Font Awesome 7 in 2026: CDN vs Kits vs npm, fa-solid/fa-brands classes, payload sizes, React/Next.js setup, and the free 1,992 icons.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/font-awesome-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/font-awesome-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Use Font Awesome Icons in 2026: The Complete Guide to Font Awesome 7",
+    "description": "Font Awesome 7 in 2026: CDN vs Kits vs npm, fa-solid/fa-brands classes, payload sizes, React/Next.js setup, and the free 1,992 icons.",
+    "image": "https://iconstash.io/assets/articles/font-awesome-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-09-11",
+    "dateModified": "2026-09-11",
+    "mainEntityOfPage": "https://iconstash.io/articles/font-awesome-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Font Awesome", "sameAs": "https://en.wikipedia.org/wiki/Font_Awesome" },
+      { "@type": "Thing", "name": "Icon (computing)", "sameAs": "https://en.wikipedia.org/wiki/Icon_(computing)" }
+    ],
+    "keywords": ["font awesome", "font awesome icons", "how to use font awesome", "font awesome 7", "font awesome cdn", "font awesome react", "font awesome free", "fa-solid", "fa-brands", "font awesome npm", "font awesome pseudo elements"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "How to Use Font Awesome Icons in 2026", "item": "https://iconstash.io/articles/font-awesome-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I use Font Awesome icons for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add the free CDN link to your page head — for example the cdnjs URL for @fortawesome/fontawesome-free 7.x all.min.css — then reference icons with style-prefixed classes like <span class=\"fa-solid fa-house\"></span>. The free tier ships 1,992 unique icons (1,422 solid, 572 brands, 169 regular style slots) under SIL OFL 1.1, CC BY 4.0 and MIT licensing, with no account required. For production, load per-style CSS (solid.min.css is only 619 bytes raw) instead of all.min.css so you fetch only the fonts you actually use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between fa, fas and fa-solid in Font Awesome?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "fa is the Font Awesome 4 prefix (e.g. fa fa-car). fas/far/fab were the Font Awesome 5-6 prefixes for solid, regular and brands. In Font Awesome 6+ and 7 the official syntax is the style family as the base class plus fa- prefixed icon name: fa-solid, fa-regular, fa-brands (e.g. <i class=\"fa-solid fa-house\"></i>). The old prefixes still resolve for compatibility, but new code should use the fa-solid / fa-brands form."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Font Awesome 7 free or paid?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both. The free tier includes 1,992 icons across solid, regular and brand styles, licensed under SIL OFL 1.1, CC BY 4.0 and MIT. Pro adds more styles (light, thin, duotone, sharp) and icon packs of around 200 icons each, at $60/$120/$600 per year for Pro Lite/Pro/Pro Max, or $75/$150/$750 for the Pro+ tiers introduced with Font Awesome 7 in July 2025."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does Font Awesome slow down my website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A naive all-in-one setup ships all.min.css at about 90 KB raw / 18.4 KB gzipped, then downloads each font family you reference: fa-solid-900.woff2 is 119.5 KB, fa-brands-400.woff2 is 115.4 KB and fa-regular-400.woff2 is 19.5 KB. Loading only the styles you use — solid.min.css is just 619 bytes — and self-hosting the woff2 files cuts the payload dramatically. Font Awesome 7 ships woff2 only, dropping the old ttf and woff formats entirely."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use Font Awesome icons in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install the official SVG icon packages: npm install @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons, then import individual icons and pass them to the FontAwesomeIcon component. Because each icon is imported explicitly, the SVG approach tree-shakes perfectly — your bundle contains only the icons you render, with no font download and no FOUC. The @fortawesome/fontawesome-free npm package, at about 1.76 million weekly downloads, is the webfont route for traditional HTML projects."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What changed in Font Awesome 7?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Font Awesome 7 (GA July 2025) dropped Less and jQuery support, removed the .ttf and .woff font formats (woff2 only), migrated Sass to Dart Sass, dropped dynamic importing from react-fontawesome, made vue-fontawesome Vue 3-only, and changed accessibility so icons are decorative by default and always hidden from screen readers — you now add aria-label explicitly for meaningful icons. Several icons were renamed (user-large to user, film-simple to film), the sr-only class was removed, and fa-fw was deprecated because fixed width is now the default."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    /* Responsive Layout */
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.88em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-weight: 700; color: #FFF; margin-bottom: 8px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #1F1F1F; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 14.5px; }
+    th { background: #141414; padding: 14px 18px; text-align: left; font-weight: 700; color: #FFF; border-bottom: 1px solid #262626; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #1F1F1F; border-radius: 8px; padding: 20px; }
+    .sidebar-card h4 { font-size: 14px; font-weight: 700; color: #FFF; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; border-bottom: 1px solid #222; padding-bottom: 8px; }
+    .toc-list { list-style: none; margin: 0; padding: 0; }
+    .toc-list li { margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+    .toc-list a { color: #888; transition: color 120ms ease; display: block; }
+    .toc-list a:hover { color: #C1DD2D; }
+
+    .faq-item { background: #121212; border: 1px solid #1F1F1F; border-radius: 8px; padding: 22px; margin-bottom: 18px; }
+    .faq-item h3 { font-size: 17px; margin-top: 0; margin-bottom: 10px; color: #FFF; }
+    .faq-item p { margin-bottom: 0; font-size: 15px; color: #AAA; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1F1F1F; padding: 48px 24px 32px; margin-top: 0; font-size: 13.5px; color: #666; text-align: center; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+
+    /* Mobile Header Optimization */
+    @media (max-width: 768px) {
+      .site-header { padding: 0 16px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 14px; font-size: 12px; }
+      .page-container { padding: 24px 16px 60px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .article-sidebar { display: none; }
+    }
+
+    /* Light Theme */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .table-wrap { border-color: #E4E4E7; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #D4D4D8; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #27272A; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .callout-box { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .callout-title { color: #0A0A0A; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] figcaption { color: #525252; }
+    html[data-theme="light"] .article-figure img { border-color: #E4E4E7 !important; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>How to Use Font Awesome Icons in 2026</span>
+    </nav>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <header class="article-hero">
+          <span class="tag">Icon Fonts &amp; Web Performance</span>
+          <h1>How to Use Font Awesome Icons in 2026: The Complete Guide to Font Awesome 7 (Setup, Classes, React &amp; Performance)</h1>
+          <div class="article-meta">
+            <span><strong>Published:</strong> September 11, 2026</span>
+            <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+            <span><strong>Reading Time:</strong> 19 min read</span>
+          </div>
+        </header>
+
+        <div class="featured-summary">
+          <p><strong>Font Awesome in 2026, without the 2015 habits:</strong> most ranking tutorials still teach Font Awesome 4.7 (<code>fa fa-car</code>), the v5 kit script, or a v6-beta CDN — three contradictory installs, all outdated. This guide covers the current release, <strong>Font Awesome 7</strong> (GA July 2025, now at 7.3.1), with the numbers and breaking changes those tutorials miss:</p>
+          <ul>
+            <li><strong>The free tier, precisely:</strong> 1,992 unique icons — 1,422 solid + 572 brands + 169 regular style slots — under SIL OFL 1.1 / CC BY 4.0 / MIT. No account needed for the CDN route.</li>
+            <li><strong>Measured payloads:</strong> <code>all.min.css</code> is 90.3 KB raw / 18.4 KB gzipped — but <code>solid.min.css</code> is <strong>619 bytes</strong>, and the woff2 fonts are what actually weigh you down (119.5 KB solid, 115.4 KB brands).</li>
+            <li><strong>Modern class syntax:</strong> <code>fa-solid</code> / <code>fa-regular</code> / <code>fa-brands</code> — what replaced <code>fa</code>, <code>fas</code> and <code>fab</code>, and why the old prefixes still resolve.</li>
+            <li><strong>Every install method compared:</strong> CDN, Kits, npm SVG packages, and self-hosting — with the "loading two versions together causes conflicts" gotcha.</li>
+            <li><strong>React &amp; Next.js:</strong> the official <code>@fortawesome/react-fontawesome</code> SVG-component route that tree-shakes to exactly the icons you render (1.54M weekly downloads can't be wrong).</li>
+            <li><strong>v7 breaking changes:</strong> woff2-only fonts, decorative-by-default accessibility, dropped Less/jQuery, icon renames, and the deprecated <code>fa-fw</code>.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure" style="margin: 28px 0 36px 0;">
+          <img src="/assets/articles/font-awesome-guide.jpg" alt="Browser window showing HTML code with icon font glyphs transforming into crisp SVG star icons delivered over CDN network nodes" width="1200" height="675" loading="lazy" style="width:100%;max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.1);display:block;" />
+          <figcaption style="font-size: 13px; color: #888; text-align: center; margin-top: 10px;">Figure 1: The Font Awesome delivery decision — webfont glyphs over the network versus crisp, tree-shaken SVGs in your bundle.</figcaption>
+        </figure>
+
+        <section id="what-is-font-awesome">
+          <h2>1. What Font Awesome Is in 2026 (And Which Version Everyone Is Actually On)</h2>
+          <p>Font Awesome is the most-installed icon toolkit on the web — the <code>@fortawesome/fontawesome-free</code> npm package alone averages <strong>~1.76 million weekly downloads</strong>, with the SVG core at 2.26M and the React wrapper at 1.54M, and the GitHub repository at 76,900+ stars. By 2024 it was used by <strong>25.4% of sites using third-party font scripts</strong> — second only to Google Fonts.</p>
+          <p>The version history matters because search results are a time machine of bad advice:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Era</th>
+                  <th>Class syntax</th>
+                  <th>What tutorials still teach</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>v4</strong> (2013–2017)</td>
+                  <td><code>fa fa-car</code></td>
+                  <td>W3Schools' secondary page, TutorialsPoint (4.3.0), countless university and gov sites</td>
+                </tr>
+                <tr>
+                  <td><strong>v5</strong> (2017–2022)</td>
+                  <td><code>fas</code> / <code>far</code> / <code>fab</code></td>
+                  <td>W3Schools' main Font Awesome 5 page, most YouTube tutorials</td>
+                </tr>
+                <tr>
+                  <td><strong>v6</strong> (2022–2025)</td>
+                  <td><code>fa-solid</code> / <code>fa-regular</code> / <code>fa-brands</code></td>
+                  <td>GeeksforGeeks (teaches the 6.0.0-beta3 CDN)</td>
+                </tr>
+                <tr>
+                  <td><strong>v7</strong> (July 2025 GA, current 7.3.1)</td>
+                  <td><code>fa-solid</code> / <code>fa-regular</code> / <code>fa-brands</code> + woff2-only fonts</td>
+                  <td><em>Almost nobody — this guide</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Version 7.0.0 went GA on July 22, 2025, with 7.1.0 through 7.3.1 shipping since (7.3.1 published July 2026). If your snippet says <code>font-awesome/4.3.0/css/font-awesome.min.css</code> or <code>6.0.0-beta3</code>, you are inheriting pre-renames icon names, missing brand updates, and — in the v4 case — a completely different CSS architecture.</p>
+          <div class="callout-box">
+            <div class="callout-title">⚠️ The version-conflict rule</div>
+            <p>Official docs warn explicitly: if an older Font Awesome version is loading alongside v7, <strong>remove the old version</strong>. Two versions loaded together cause class and pseudo-element conflicts that surface as wrong icons rendering. This happens most often when a template ships v4 CSS and a plugin injects a v7 kit.</p>
+          </div>
+        </section>
+
+        <section id="quick-start-cdn">
+          <h2>2. Quick Start: The Free CDN Route (No Account)</h2>
+          <p>The fastest legitimate setup — one line in <code>&lt;head&gt;</code>, zero signups, covers the whole free tier:</p>
+          <pre><code class="language-html">&lt;!-- Font Awesome 7 free, via cdnjs --&gt;
+&lt;link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"&gt;
+
+&lt;!-- Then use icons anywhere --&gt;
+&lt;i class="fa-solid fa-house"&gt;&lt;/i&gt;
+&lt;i class="fa-brands fa-github"&gt;&lt;/i&gt;
+&lt;i class="fa-regular fa-user"&gt;&lt;/i&gt;</code></pre>
+          <p>The style prefix is the base class (<code>fa-solid</code>, <code>fa-regular</code>, <code>fa-brands</code>), the icon name is a separate <code>fa-*</code> class. That two-class syntax has been official since v6 and is unchanged in v7 — it replaced the v5 style prefixes (<code>fas</code>, <code>far</code>, <code>fab</code>), which themselves replaced v4's single <code>fa</code>. The old prefixes still resolve for backward compatibility, but every new codebase should use the modern form.</p>
+          <h3>Why not all.min.css in production?</h3>
+          <p><code>all.min.css</code> is 90,336 bytes raw (18,441 gzipped) and its <code>@font-face</code> rules let the browser lazily fetch each font family you actually reference — but it <em>declares</em> every style. The leaner pattern is per-style CSS:</p>
+          <pre><code class="language-html">&lt;!-- Only solid + brands? Load only those stylesheets --&gt;
+&lt;link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/solid.min.css"&gt;
+&lt;link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/brands.min.css"&gt;
+
+&lt;!-- solid.min.css: 619 bytes of CSS. The fonts below are fetched on use: --&gt;
+&lt;!-- fa-solid-900.woff2: 119.5 KB · fa-brands-400.woff2: 115.4 KB --&gt;</code></pre>
+          <p>The webfonts are the real weight: <strong>fa-solid-900.woff2 is 119,488 bytes</strong>, <strong>fa-brands-400.woff2 is 115,420 bytes</strong>, and fa-regular-400.woff2 is 19,512 bytes. Per-style CSS means the browser downloads only the font files for styles you render — same lazy-fetch behavior as <code>all.min.css</code>, but without 18 KB of upfront stylesheet covering 1,992 icon rules you may never touch.</p>
+        </section>
+
+        <section id="kits-vs-cdn-vs-npm">
+          <h2>3. Kits vs CDN vs npm vs Self-Hosting: Choosing the Right Install</h2>
+          <p>Font Awesome's own docs push <strong>Kits</strong> — a personal CDN with subsetting, custom icon uploads, version switching and conflict detection, loaded with one script:</p>
+          <pre><code class="language-html">&lt;script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
+          <p>Kits work well, but they require an account, and W3Schools' v5 page has spent years sending beginners to paste a kit code they don't have. Here is the full decision matrix:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Account?</th>
+                  <th>Best for</th>
+                  <th>Watch out</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>cdnjs CDN</strong> (per-style CSS)</td>
+                  <td>No</td>
+                  <td>Static sites, blogs, quick prototypes, production HTML</td>
+                  <td>Pin the exact version; load only the styles you use</td>
+                </tr>
+                <tr>
+                  <td><strong>Kit</strong> (kit.fontawesome.com)</td>
+                  <td>Yes (free tier)</td>
+                  <td>Teams wanting subsetting UI + custom icons without build config</td>
+                  <td>Third-party script dependency; kit code in HEAD; account walls</td>
+                </tr>
+                <tr>
+                  <td><strong>npm SVG packages</strong></td>
+                  <td>No</td>
+                  <td>React/Vue/Angular builds — perfect tree-shaking</td>
+                  <td>Icon-by-icon imports; covered in section 5</td>
+                </tr>
+                <tr>
+                  <td><strong>npm fontawesome-free</strong></td>
+                  <td>No</td>
+                  <td>Bundled webfonts without a CDN dependency</td>
+                  <td>Official docs call the "All" inclusive package "a LOT" — prefer per-style imports</td>
+                </tr>
+                <tr>
+                  <td><strong>Self-host zip</strong></td>
+                  <td>No</td>
+                  <td>CSP-locked or air-gapped environments</td>
+                  <td><code>all.css</code> "doesn't include 'all' icons anymore" per docs; only Classic + Brands styles</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout-box">
+            <div class="callout-title">💡 The official-docs detail everyone misses</div>
+            <p>Since v6, the self-host <code>all.css</code> does <strong>not</strong> contain every style — it covers Classic (solid/regular/light/thin/duotone-regular) and Brands, and the docs explicitly recommend against shipping it to production. Per-style CSS files are the supported lean path.</p>
+          </div>
+        </section>
+
+        <section id="webfont-vs-svg">
+          <h2>4. Webfont+CSS vs SVG+JS: The Rendering Trade-off</h2>
+          <p>Font Awesome ships two rendering engines, and the official docs are candid about both:</p>
+          <ul>
+            <li><strong>Webfont+CSS</strong> — the classic model. One font file per style, icons as <code>&lt;i class&gt;</code> elements. Works with CSS pseudo-elements, renders in email-safe and resource-restricted contexts, and is the easiest setup. <code>all.min.css</code> at 18.4 KB gzipped + lazily-fetched fonts.</li>
+            <li><strong>SVG+JS</strong> — the JavaScript engine swaps <code>&lt;i&gt;</code> tags for inline <code>&lt;svg&gt;</code> elements at runtime, unlocking power transforms, masking, and layering. The docs' own caution: it <em>"can bog a browser down when many icons are used on a single page"</em> — the DOM replacement cost scales with icon count.</li>
+          </ul>
+          <p>The third option most teams never consider is the one modern frameworks made dominant: <strong>bundled SVG components</strong> (no runtime engine at all). That is what the npm SVG icon packages give you — and it is the same architecture as <a href="/articles/svg-sprites-vs-inline-svg-vs-components/">inline SVG vs sprites vs components</a> in our architecture guide, with identical performance characteristics:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Approach</th>
+                  <th>Extra JS</th>
+                  <th>FOUC risk</th>
+                  <th>Tree-shakes</th>
+                  <th>IE/legacy</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Webfont + CSS</td>
+                  <td>0 KB</td>
+                  <td>Yes — brief blank/tofu until font loads</td>
+                  <td>No — font file is monolithic</td>
+                  <td>Best</td>
+                </tr>
+                <tr>
+                  <td>SVG + JS engine</td>
+                  <td>~Runtime bundle</td>
+                  <td>Yes — icons appear only after JS runs</td>
+                  <td>Partial</td>
+                  <td>Worst</td>
+                </tr>
+                <tr>
+                  <td>SVG components (npm)</td>
+                  <td>0 KB runtime</td>
+                  <td>None — server-rendered markup</td>
+                  <td><strong>Perfect — per-icon imports</strong></td>
+                  <td>Good</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>If you want the icon-font FOUC problem explained from first principles — including why <code>font-display</code> behaves the way it does — our <a href="/articles/svg-icons-vs-icon-fonts-in-2026/">SVG icons vs icon fonts in 2026</a> benchmark covers it with Chrome DevTools traces.</p>
+        </section>
+
+        <section id="font-awesome-react">
+          <h2>5. Font Awesome in React &amp; Next.js (The Tree-Shaking Route)</h2>
+          <p>The official React integration renders SVG components, one import per icon — so your bundle contains exactly the icons you render and nothing else:</p>
+          <pre><code class="language-bash">npm install @fortawesome/fontawesome-svg-core \
+            @fortawesome/react-fontawesome \
+            @fortawesome/free-solid-svg-icons \
+            @fortawesome/free-brands-svg-icons</code></pre>
+          <pre><code class="language-jsx">// app/components/StarRating.tsx
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+
+export function StarRating() {
+  return (
+    &lt;div&gt;
+      &lt;FontAwesomeIcon icon={faStar} aria-hidden="true" /&gt;
+      &lt;a href="https://github.com" aria-label="GitHub profile"&gt;
+        &lt;FontAwesomeIcon icon={faGithub} /&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+          <h3>Prefer explicit imports over libraries.add()</h3>
+          <p>Two patterns exist: the per-file explicit import above, and a central <code>library.add(...)</code> registration module. In Next.js App Router, prefer explicit imports — they keep every icon server-renderable in React Server Components with no client-JS dependency, and the build's static analysis tree-shakes them perfectly. The <code>library</code> pattern works but couples icons to runtime registration. Note also that <strong>react-fontawesome dropped dynamic importing in v7</strong> — another reason to keep imports static.</p>
+          <h3>Vue, Angular, and the rest</h3>
+          <p>Vue 3 projects use <code>@fortawesome/vue-fontawesome</code> (v7 made it Vue 3-only — Vue 2 apps must stay on the v6-era package). Angular, Svelte, Astro and plain-HTML equivalents are covered in our framework guides: <a href="/articles/how-to-use-svg-icons-in-vue-and-nuxt-guide/">Vue/Nuxt</a>, <a href="/articles/how-to-use-svg-icons-in-angular-guide/">Angular</a>, <a href="/articles/how-to-use-svg-icons-in-astro-guide/">Astro</a>, and <a href="/articles/how-to-use-svg-icons-in-svelte-and-sveltekit-guide/">Svelte/SvelteKit</a>.</p>
+        </section>
+
+        <section id="pseudo-elements">
+          <h2>6. Pseudo-Elements: Adding Icons via ::before / ::after</h2>
+          <p>Icon fonts have one capability SVG components can't replicate in pure CSS: injecting glyphs into generated content. Font Awesome supports it, with a documented caveat — the docs themselves call pseudo-element usage <em>"more complicated and prone to errors"</em>. The recipe:</p>
+          <pre><code class="language-css">/* Declare the icon's unicode + font family on the pseudo-element */
+.rating::before {
+  --fa: "\f005";                       /* fa-star's unicode, from the icon page */
+  --fa-font: "Font Awesome 6 Free";    /* style → font family; weight 900 for solid */
+  font-weight: 900;
+  font-family: var(--fa-font);
+  content: var(--fa);
+  color: #C1DD2D;
+}
+
+.tooltip::after {
+  --fa: "\f05a";                       /* fa-circle-info */
+  --fa-font: "Font Awesome 6 Free";
+  font-weight: 400;                    /* regular style */
+  content: var(--fa);
+  margin-left: 6px;
+}</code></pre>
+          <div class="callout-box">
+            <div class="callout-title">⚠️ The manual-unicode trap</div>
+            <p>You must look up each icon's unicode value from the Font Awesome icon page and match the <strong>font-weight to the style</strong> (900 for solid, 400 for regular/brands) — the browser has no way to map <code>fa-star</code> to <code>\f005</code> for you in a pseudo-element. A wrong weight silently renders a different style's glyph. If your design relies heavily on pseudo-element icons, that maintenance cost is a sign to move those icons into markup as SVG components.</p>
+          </div>
+          <p>When pseudo-elements are worth it: email-safe HTML, third-party markup you can't edit (some CMS plugins), and print stylesheets where runtime JS won't run. Otherwise, inline SVG — possibly delivered via <a href="/articles/how-to-use-svg-as-css-background-image-guide/">SVG as CSS background-image</a> or a <a href="/articles/svg-sprites-vs-inline-svg-vs-components/">compiled sprite</a> — covers the same need with no unicode bookkeeping.</p>
+        </section>
+
+        <section id="font-awesome-7-changes">
+          <h2>7. Font Awesome 7 Breaking Changes (Migrate Without Breaking)</h2>
+          <p>Version 7 is a true major version. If you maintain a project on v5/v6, these are the documented changes that bite migrations:</p>
+          <ol>
+            <li><strong>Fonts are woff2-only.</strong> The <code>.ttf</code> and <code>.woff</code> files are gone from the package. Ancient browsers that lack woff2 support (roughly pre-2016) cannot use the webfont route at all — a non-issue for essentially every current browser, but a hard requirement for embedded/legacy webviews.</li>
+            <li><strong>Accessibility is decorative-by-default.</strong> Icons are now always hidden from screen readers. The v6 "Auto-Accessibility" feature is gone. Meaningful icons need an explicit <code>aria-label</code> (and <code>title</code> no longer substitutes). This is a genuine improvement — the old heuristics guessed wrong too often.</li>
+            <li><strong>Framework support narrowed.</strong> Less and jQuery support dropped; Django, Rails+Turbolinks, Require.js, and the Ruby gem dropped; vue-fontawesome is Vue 3-only; react-fontawesome dropped dynamic importing. Sass moved to Dart Sass — node-sass/libsass and <code>@import</code> are unsupported.</li>
+            <li><strong>Icon renames.</strong> <code>user-large</code> → <code>user</code>, <code>film-simple</code> → <code>film</code>, and more — check the official "what's changed" page during migration; a rename renders as a missing glyph, not an error.</li>
+            <li><strong><code>sr-only</code> removed, <code>fa-fw</code> deprecated.</strong> Fixed width is now the default behavior, so the class is unnecessary in new code.</li>
+            <li><strong>Pro+ tiers introduced.</strong> Pricing moved to $60/$120/$600 per year (Pro Lite/Pro/Pro Max), with Pro+ variants at $75/$150/$750 adding icon packs of ~200 icons each on top of the expanded Pro styles (light, thin, duotone, sharp).</li>
+          </ol>
+          <p>The free tier is untouched by the pricing shuffle: <strong>1,992 icons, three styles, permissive triple licensing</strong> (SIL OFL 1.1 for fonts, CC BY 4.0 for icons, MIT for code) — the same terms that made v5's free tier safe for commercial work. Our <a href="/articles/icon-licensing-explained-mit-apache-cc/">icon licensing guide</a> explains what each of those permits in practice.</p>
+        </section>
+
+        <section id="free-vs-pro">
+          <h2>8. Free vs Pro: What 1,992 Free Icons Actually Covers</h2>
+          <p>Counted from the official v7 metadata file: the free tier includes <strong>1,422 solid icons</strong>, <strong>572 brand icons</strong> and <strong>169 regular-style slots</strong> — 1,992 unique icons with no attribution requirement and no account. Pro's additions are the extra style families (light, thin, duotone, sharp — roughly 200 icons per Pro+ pack) and kit conveniences.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Need</th>
+                  <th>Free tier answer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Solid UI icons (arrows, files, media, commerce)</td>
+                  <td>1,422 icons — the standard set</td>
+                </tr>
+                <tr>
+                  <td>Brand / social logos</td>
+                  <td>572 brand icons — or a dedicated brand set like <a href="/library/simpleicons/">Simple Icons (3,714 marks, CC0)</a></td>
+                </tr>
+                <tr>
+                  <td>Thin / light / duotone art direction</td>
+                  <td>Not in free — see <a href="/library/solar/">Solar's six styles</a>, <a href="/library/phosphor/">Phosphor's six weights</a> or <a href="/library/hugeicons/">HugeIcons</a> for free alternatives</td>
+                </tr>
+                <tr>
+                  <td>Enterprise / dense dashboards</td>
+                  <td><a href="/library/carbon/">Carbon Icons (IBM, Apache 2.0)</a> or <a href="/library/fluent/">Fluent UI (Microsoft, MIT)</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>That table is the strategic point: when a project hits a Pro wall, the open-source ecosystem usually has a free equivalent with a permissive license — which is exactly why IconStash indexes 28 libraries (134,701 icons) with instant <a href="/#/">cross-library search</a>. Compare the aesthetic directly on Font Awesome-adjacent pages like <a href="/articles/iconstash-vs-font-awesome/">IconStash vs Font Awesome</a>, or browse ready alternatives in the <a href="/alternatives/">library alternatives hub</a>.</p>
+        </section>
+
+        <section id="font-awesome-alternatives">
+          <h2>9. When to Skip Font Awesome Entirely</h2>
+          <p>Font Awesome earns its usage share, but three 2026 scenarios argue against the dependency:</p>
+          <ol>
+            <li><strong>You render a small, known set of icons.</strong> Five navigation icons do not need a 119 KB font family (even lazily fetched) or a package dependency. Copy those five as SVGs — from an icon's page on IconStash like <a href="/icons/home-icon/">home</a> or <a href="/icons/search-icon/">search</a> — and ship 2 KB of markup with zero FOUC.</li>
+            <li><strong>Brand icons are the priority.</strong> The brand landscape changes (X/Twitter, Threads, Bluesky) and Font Awesome's brand set updates on its release cadence. <a href="/library/simpleicons/">Simple Icons</a> tracks 3,700+ brand marks continuously under CC0 — and pairs with official brand hex colors, e.g. <a href="/icons/simpleicons-facebook/">simpleicons-facebook</a> and <a href="/icons/simpleicons-youtube/">simpleicons-youtube</a>.</li>
+            <li><strong>Budget/weight is critical.</strong> If Core Web Vitals budgets are tight, per-icon SVG exports beat any font system: no font download, no CSS layer, no FOUC window. The <a href="/Listicles/bad-svg-performance-practices/">bad SVG performance practices listicle</a> shows what to avoid once you go SVG.</li>
+          </ol>
+          <p>The 10-minute version of that third path: open the <a href="/#/">IconStash search</a>, find each icon, copy it as SVG or JSX in one click. No install, no account, no license review for the 94.5% of the catalog under MIT/Apache/ISC/CC0.</p>
+        </section>
+
+        <section id="faq">
+          <h2>10. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>How do I use Font Awesome icons for free?</h3>
+            <p>Add the free CDN link to your page head — for example the cdnjs URL for <code>@fortawesome/fontawesome-free</code> 7.x <code>all.min.css</code> — then reference icons with style-prefixed classes like <code>&lt;span class="fa-solid fa-house"&gt;&lt;/span&gt;</code>. The free tier ships 1,992 unique icons (1,422 solid, 572 brands, 169 regular style slots) under SIL OFL 1.1, CC BY 4.0 and MIT licensing, with no account required. For production, load per-style CSS (solid.min.css is only 619 bytes raw) instead of all.min.css so you fetch only the fonts you actually use.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the difference between fa, fas and fa-solid in Font Awesome?</h3>
+            <p><code>fa</code> is the Font Awesome 4 prefix (e.g. <code>fa fa-car</code>). <code>fas/far/fab</code> were the Font Awesome 5–6 prefixes for solid, regular and brands. In Font Awesome 6+ and 7 the official syntax is the style family as the base class plus <code>fa-</code> prefixed icon name: <code>fa-solid</code>, <code>fa-regular</code>, <code>fa-brands</code> (e.g. <code>&lt;i class="fa-solid fa-house"&gt;&lt;/i&gt;</code>). The old prefixes still resolve for compatibility, but new code should use the <code>fa-solid</code> / <code>fa-brands</code> form.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is Font Awesome 7 free or paid?</h3>
+            <p>Both. The free tier includes 1,992 icons across solid, regular and brand styles, licensed under SIL OFL 1.1, CC BY 4.0 and MIT. Pro adds more styles (light, thin, duotone, sharp) and icon packs of around 200 icons each, at $60/$120/$600 per year for Pro Lite/Pro/Pro Max, or $75/$150/$750 for the Pro+ tiers introduced with Font Awesome 7 in July 2025.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How much does Font Awesome slow down my website?</h3>
+            <p>A naive all-in-one setup ships <code>all.min.css</code> at about 90 KB raw / 18.4 KB gzipped, then downloads each font family you reference: <code>fa-solid-900.woff2</code> is 119.5 KB, <code>fa-brands-400.woff2</code> is 115.4 KB and <code>fa-regular-400.woff2</code> is 19.5 KB. Loading only the styles you use — solid.min.css is just 619 bytes — and self-hosting the woff2 files cuts the payload dramatically. Font Awesome 7 ships woff2 only, dropping the old ttf and woff formats entirely.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I use Font Awesome icons in React?</h3>
+            <p>Install the official SVG icon packages: <code>npm install @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons</code>, then import individual icons and pass them to the <code>FontAwesomeIcon</code> component. Because each icon is imported explicitly, the SVG approach tree-shakes perfectly — your bundle contains only the icons you render, with no font download and no FOUC. The @fortawesome/fontawesome-free npm package, at about 1.76 million weekly downloads, is the webfont route for traditional HTML projects.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What changed in Font Awesome 7?</h3>
+            <p>Font Awesome 7 (GA July 2025) dropped Less and jQuery support, removed the .ttf and .woff font formats (woff2 only), migrated Sass to Dart Sass, dropped dynamic importing from react-fontawesome, made vue-fontawesome Vue 3-only, and changed accessibility so icons are decorative by default and always hidden from screen readers — you now add aria-label explicitly for meaningful icons. Several icons were renamed (user-large to user, film-simple to film), the sr-only class was removed, and fa-fw was deprecated because fixed width is now the default.</p>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h4>Table of Contents</h4>
+          <ul class="toc-list">
+            <li><a href="#what-is-font-awesome">1. Font Awesome in 2026</a></li>
+            <li><a href="#quick-start-cdn">2. Quick Start: Free CDN</a></li>
+            <li><a href="#kits-vs-cdn-vs-npm">3. Kits vs CDN vs npm</a></li>
+            <li><a href="#webfont-vs-svg">4. Webfont vs SVG Rendering</a></li>
+            <li><a href="#font-awesome-react">5. React &amp; Next.js</a></li>
+            <li><a href="#pseudo-elements">6. Pseudo-Elements</a></li>
+            <li><a href="#font-awesome-7-changes">7. v7 Breaking Changes</a></li>
+            <li><a href="#free-vs-pro">8. Free vs Pro</a></li>
+            <li><a href="#font-awesome-alternatives">9. When to Skip It</a></li>
+            <li><a href="#faq">10. FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Quick Reference</h4>
+          <p style="font-size: 13.5px; color: #AAA; line-height: 1.6; margin-bottom: 12px;">
+            <strong>Current:</strong> Font Awesome 7.3.1<br>
+            <strong>Free icons:</strong> 1,992 (no account)<br>
+            <strong>all.min.css:</strong> 18.4 KB gzipped<br>
+            <strong>solid.min.css:</strong> 619 bytes<br>
+            <strong>Modern class:</strong> <code>fa-solid fa-house</code><br>
+            <strong>Free SVG search:</strong> <a href="/#/">IconStash 134K+</a>
+          </p>
+          <a href="/#/" class="header-cta" style="display: block; text-align: center; width: 100%;">Search 134K+ Icons</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/#/">Search Icons</a>
+      <a href="/articles/">Articles</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+    </div>
+    <p>&copy; 2026 IconStash.io &bull; Handcrafted for high-performance web engineering.</p>
+  </footer>
+
+  <script>
+    // Theme toggle handling
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        try { localStorage.setItem('theme', newTheme); } catch(e) {}
+      });
+    }
+  </script>
+</body>
+</html>

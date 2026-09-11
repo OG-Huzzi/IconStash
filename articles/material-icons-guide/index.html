@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material Icons vs Material Symbols: The Complete 2026 Guide | IconStash</title>
+  <meta name="description" content="Material Icons vs Material Symbols in 2026: variable font axes (FILL, wght, GRAD, opsz), 295KB→1.7KB subsetting, CDN setup, React, self-hosting and SVG.">
+  <meta name="keywords" content="material icons, material symbols, material icons vs material symbols, material symbols font, how to use material icons, material symbols react, material icons download, material icons cdn, variable font icons, material design icons">
+  <meta property="og:title" content="Material Icons vs Material Symbols: The Complete 2026 Guide (Variable Axes, Setup &amp; Performance)">
+  <meta property="og:description" content="Material Icons vs Material Symbols in 2026: variable font axes (FILL, wght, GRAD, opsz), 295KB→1.7KB subsetting, CDN setup, React, self-hosting and SVG.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/material-icons-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/material-icons-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Developer workstation showing Material icon grid morphing between rounded and sharp styles with a variable weight slider">
+  <meta property="article:published_time" content="2026-09-11T00:00:00Z">
+  <meta property="article:modified_time" content="2026-09-11T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Material Design">
+  <meta property="article:tag" content="Material Symbols">
+  <meta property="article:tag" content="Icon Fonts">
+  <meta property="article:tag" content="SVG Icons">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Material Icons vs Material Symbols: The Complete 2026 Guide (Variable Axes, Setup &amp; Performance)">
+  <meta name="twitter:description" content="Material Icons vs Material Symbols in 2026: variable font axes (FILL, wght, GRAD, opsz), 295KB→1.7KB subsetting, CDN setup, React, self-hosting and SVG.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/material-icons-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/material-icons-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Material Icons vs Material Symbols: The Complete 2026 Guide (Variable Axes, Setup & Performance)",
+    "description": "Material Icons vs Material Symbols in 2026: variable font axes (FILL, wght, GRAD, opsz), 295KB→1.7KB subsetting, CDN setup, React, self-hosting, SVG.",
+    "image": "https://iconstash.io/assets/articles/material-icons-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-09-11",
+    "dateModified": "2026-09-11",
+    "mainEntityOfPage": "https://iconstash.io/articles/material-icons-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Intermediate to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Material Design", "sameAs": "https://en.wikipedia.org/wiki/Material_Design" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" }
+    ],
+    "keywords": ["material icons", "material symbols", "material icons vs material symbols", "material symbols font", "how to use material icons", "material symbols react", "material icons download", "material icons cdn", "variable font icons", "material design icons"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Material Icons vs Material Symbols Guide", "item": "https://iconstash.io/articles/material-icons-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between Material Icons and Material Symbols?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Material Symbols is Google's current icon set, introduced in April 2022 and built on variable font technology. Material Icons is the classic set, which has not received new icons since updates were halted in 2022. Material Symbols consolidates over 2,500 glyphs in a single variable font with four adjustable axes (FILL, wght, GRAD, opsz), while Material Icons ships static fonts in five fixed styles: filled, outlined, rounded, sharp, and two-tone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I reduce the Material Symbols font payload from 295 KB?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add the icon_names parameter to your Google Fonts CSS request to subset the font to only the icons you actually use. Loading the default stylesheet ships all 3,800+ icon variants at roughly 295 KB, but a request like ...&icon_names=home,palette,settings serves a font of about 1.7 KB. Avoid requesting the full axis ranges of all four axes: that URL returns a 7.9 MB font, which Google itself labels as not recommended."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Material Icons still updated in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Google halted Material Icons updates in 2022 and considers it the legacy set. New icons, variable fonts, extra weights, grades, and animated fill transitions only exist in Material Symbols. Google also stopped maintaining the official npm package after version 3 (2016); the community packages published by @marella are automatically built from source but are not vetted by Google."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use Material Symbols in React or Next.js?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There is no Google-maintained npm package. The two reliable routes are: (1) the community @marella/material-symbols package, importing the per-style CSS file such as material-symbols/outlined.css so bundlers only copy one font instead of all of them; or (2) skip the font entirely and render SVG components, which works natively in React Server Components with zero 'use client' directives and no font payload."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I download individual Material Symbols SVGs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Google Fonts lets you browse and download individual icons in SVG or PNG format from the icon library page, and the google/material-design-icons repository contains the complete SVG set. IconStash pre-renders all 18,547 Material Symbols, 15,969 Material Symbols Light, and 14,001 Material Design Icons as individual pages with one-click SVG, PNG and JSX export, so you can grab exactly the icons you need without downloading a font at all."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why were brand logos removed from Material Icons?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Google does not include third-party logos in Material Symbols or Material Icons due to legal reasons, and some brand logos that shipped in earlier versions have since been removed. If you need social media or brand logos, use a dedicated brand-icon set such as Simple Icons (3,400+ brand marks, CC0), which you can search and download from the IconStash Simple Icons library page."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    /* Responsive Layout */
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.88em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-weight: 700; color: #FFF; margin-bottom: 8px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #1F1F1F; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 14.5px; }
+    th { background: #141414; padding: 14px 18px; text-align: left; font-weight: 700; color: #FFF; border-bottom: 1px solid #262626; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #1F1F1F; border-radius: 8px; padding: 20px; }
+    .sidebar-card h4 { font-size: 14px; font-weight: 700; color: #FFF; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; border-bottom: 1px solid #222; padding-bottom: 8px; }
+    .toc-list { list-style: none; margin: 0; padding: 0; }
+    .toc-list li { margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+    .toc-list a { color: #888; transition: color 120ms ease; display: block; }
+    .toc-list a:hover { color: #C1DD2D; }
+
+    .faq-item { background: #121212; border: 1px solid #1F1F1F; border-radius: 8px; padding: 22px; margin-bottom: 18px; }
+    .faq-item h3 { font-size: 17px; margin-top: 0; margin-bottom: 10px; color: #FFF; }
+    .faq-item p { margin-bottom: 0; font-size: 15px; color: #AAA; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1F1F1F; padding: 48px 24px 32px; margin-top: 0; font-size: 13.5px; color: #666; text-align: center; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+
+    /* Mobile Header Optimization */
+    @media (max-width: 768px) {
+      .site-header { padding: 0 16px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 14px; font-size: 12px; }
+      .page-container { padding: 24px 16px 60px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .article-sidebar { display: none; }
+    }
+
+    /* Light Theme */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .table-wrap { border-color: #E4E4E7; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #D4D4D8; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #27272A; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .callout-box { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .callout-title { color: #0A0A0A; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] figcaption { color: #525252; }
+    html[data-theme="light"] .article-figure img { border-color: #E4E4E7 !important; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Material Icons vs Material Symbols</span>
+    </nav>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <header class="article-hero">
+          <span class="tag">Google Design Systems &amp; Icon Fonts</span>
+          <h1>Material Icons vs Material Symbols: The Complete 2026 Guide (Variable Axes, Setup &amp; Performance)</h1>
+          <div class="article-meta">
+            <span><strong>Published:</strong> September 11, 2026</span>
+            <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+            <span><strong>Reading Time:</strong> 17 min read</span>
+          </div>
+        </header>
+
+        <div class="featured-summary">
+          <p><strong>The State of Google Iconography:</strong> Google now maintains two icon systems with the same DNA but very different engineering: <strong>Material Symbols</strong>, the current variable-font set introduced in April 2022, and <strong>Material Icons</strong>, the classic set whose updates stopped in 2022. This guide covers every production method with verified numbers:</p>
+          <ul>
+            <li><strong>The 2022 freeze:</strong> which set is current, which is legacy, and what that means for your next release.</li>
+            <li><strong>The four variable axes:</strong> FILL, wght, GRAD and opsz — with working <code>font-variation-settings</code> code for animated fill transitions.</li>
+            <li><strong>Payload math:</strong> why the default stylesheet ships all 3,800+ icon variants at ~295 KB, and how one URL parameter cuts it to ~1.7 KB.</li>
+            <li><strong>Framework reality:</strong> Google's npm package stopped at v3 (2016) — the community <code>@marella</code> packages and a zero-font SVG workflow for React 19, Next.js App Router, Vue and Angular.</li>
+            <li><strong>Self-hosting &amp; FOUC:</strong> the <code>display=block</code> fix that stops raw ligature text flashing before the font loads.</li>
+            <li><strong>The SVG alternative:</strong> skip the font entirely — browse all <a href="/library/materialsymbols/">18,547 Material Symbols</a>, <a href="/library/materialsymbolslight/">15,969 Light variants</a> and <a href="/library/material/">14,001 Material Design Icons</a> on IconStash with one-click SVG export.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure" style="margin: 28px 0 36px 0;">
+          <img src="/assets/articles/material-icons-guide.jpg" alt="Developer workstation showing a Material icon grid morphing between rounded and sharp corner styles with a variable weight slider transforming a house icon from thin to bold" width="1200" height="675" loading="lazy" style="width:100%;max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.1);display:block;" />
+          <figcaption style="font-size: 13px; color: #888; text-align: center; margin-top: 10px;">Figure 1: One glyph, infinite states — Material Symbols variable axes morph a single icon across weight, corner style and fill without shipping extra font files.</figcaption>
+        </figure>
+
+        <section id="material-symbols-vs-icons">
+          <h2>1. Material Icons vs Material Symbols: What Google Actually Shipped</h2>
+          <p>Google's icon ecosystem has two names that developers constantly conflate. Here is the precise terminology, straight from the official <code>google/material-design-icons</code> repository and Google Fonts documentation:</p>
+          <ul>
+            <li><strong>Material Symbols</strong> is the <em>current</em> set, introduced in <strong>April 2022</strong>. It is designed as a variable font first, built on the 24px designs of Material Icons, and consolidates <strong>over 2,500 glyphs in a single font file</strong>.</li>
+            <li><strong>Material Icons</strong> is the <strong>classic set, no longer updated</strong>. Google halted new icon additions in 2022, and it will never receive variable fonts, extra weights, grades, or animated fill transitions.</li>
+            <li><strong>Material Design Icons</strong> is the historical name of the repository that hosts both sets — which is why three different search terms all lead to the same ecosystem.</li>
+          </ul>
+          <p>On <a href="https://fonts.google.com/icons" target="_blank" rel="noopener">fonts.google.com/icons</a>, Material Symbols is the default in the set selector; the classic Material Icons are reached via <code>?icon.set=Material+Icons</code>. The set difference matters immediately when you plan a project:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Material Symbols (current)</th>
+                  <th>Material Icons (classic)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Status in 2026</strong></td>
+                  <td>Actively maintained by Google</td>
+                  <td>Frozen — no new icons since 2022</td>
+                </tr>
+                <tr>
+                  <td><strong>Technology</strong></td>
+                  <td>Variable font (4 axes), SVGs also available</td>
+                  <td>Static fonts in 5 fixed styles</td>
+                </tr>
+                <tr>
+                  <td><strong>Glyphs</strong></td>
+                  <td>2,500+ unique glyphs; default stylesheet serves all 3,800+ icon variants</td>
+                  <td>900+ icons</td>
+                </tr>
+                <tr>
+                  <td><strong>Styles</strong></td>
+                  <td>Outlined, Rounded, Sharp (fill via the FILL axis)</td>
+                  <td>Filled, Outlined, Rounded, Sharp, Two&nbsp;tone</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS class prefix</strong></td>
+                  <td><code>material-symbols-outlined</code> / <code>-rounded</code> / <code>-sharp</code></td>
+                  <td><code>material-icons</code> / <code>-outlined</code> / <code>-round</code> / <code>-sharp</code> / <code>-two-tone</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Two-tone icons</strong></td>
+                  <td>Not available</td>
+                  <td>Available (Two&nbsp;tone style)</td>
+                </tr>
+                <tr>
+                  <td><strong>Brand / logo icons</strong></td>
+                  <td>None — removed for legal reasons</td>
+                  <td>None — third-party logos were removed</td>
+                </tr>
+                <tr>
+                  <td><strong>Classic font weight</strong></td>
+                  <td>~295 KB default payload (all variants)</td>
+                  <td>42 KB woff2 / 56 KB woff</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout-box">
+            <div class="callout-title">⚠️ The naming trap</div>
+            <p>Classic Material Icons uses the class <code>material-icons-round</code> ("round"), while Material Symbols uses <code>material-symbols-rounded</code> ("rounded"). Migration guides that search-and-replace "icons" to "symbols" silently break every rounded icon. Use the class mapping table in <a href="#migration">section 10</a> instead.</p>
+          </div>
+          <p>For brand or social media logos, neither set can help you: Google excludes third-party logos for legal reasons and has even removed ones that shipped historically. Use a dedicated brand set such as <a href="/library/simpleicons/">Simple Icons (3,714 CC0 brand marks on IconStash)</a> instead — we cover that workflow in our <a href="/Listicles/free-social-media-icons/">free social media icons listicle</a>.</p>
+        </section>
+
+        <section id="variable-axes">
+          <h2>2. The Four Variable Axes: FILL, wght, GRAD &amp; opsz</h2>
+          <p>Material Symbols is a variable font, so a single glyph file can render thousands of visual states. Four axes control the appearance, and you can animate any of them with plain CSS transitions:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Axis</th>
+                  <th>Range</th>
+                  <th>Default</th>
+                  <th>What it controls</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>FILL</strong></td>
+                  <td>0 – 1</td>
+                  <td>0</td>
+                  <td>0 renders the outlined glyph, 1 renders a completely filled variant. There is no separate "filled" font — the axis <em>is</em> the fill, which also enables animated fill transitions.</td>
+                </tr>
+                <tr>
+                  <td><strong>wght</strong></td>
+                  <td>100 – 700</td>
+                  <td>400</td>
+                  <td>Stroke weight from Thin (100) through Regular (400) to Bold (700).</td>
+                </tr>
+                <tr>
+                  <td><strong>GRAD</strong></td>
+                  <td>−50 – 200</td>
+                  <td>0</td>
+                  <td>Grade: optical compensation at the same size. Use −50 for reversed contrast (white icons on black backgrounds).</td>
+                </tr>
+                <tr>
+                  <td><strong>opsz</strong></td>
+                  <td>20 – 48</td>
+                  <td>24</td>
+                  <td>Optical size in dp — larger values thicken details for big touch targets; 20 and 24 are the pixel-grid-perfect designs.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>You address the axes with the standard CSS <code>font-variation-settings</code> property:</p>
+          <pre><code class="language-css">/* One icon, four axes — set once, transition at will */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Active state: morph outline to fill on hover, no second file */
+.nav-item:hover .material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 24;
+  transition: font-variation-settings 200ms ease;
+}
+
+/* Reversed contrast: white icons on a dark banner */
+.on-dark .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' -50, 'opsz' 24;
+}</code></pre>
+          <p>That hover example is the flagship capability classic Material Icons cannot deliver: because Symbols exposes fill as an axis, you can <strong>animate an outline-to-fill transition</strong> with a CSS transition instead of swapping two different icons. On the classic set you would need two glyphs and a cross-fade.</p>
+          <div class="callout-box">
+            <div class="callout-title">⚠️ Pixel-grid alignment</div>
+            <p>Google states that only the <strong>20 and 24px</strong> versions are designed with perfect pixel-grid alignment. At <code>opsz</code> 28–48 the glyphs still render correctly, but if you need razor-sharp 1px strokes at exactly 20 or 24 device pixels, stick to the aligned sizes.</p>
+          </div>
+        </section>
+
+        <section id="cdn-setup">
+          <h2>3. Google Fonts CDN Setup in Plain HTML (Ligatures, Codepoints &amp; FOUC)</h2>
+          <p>The fastest way to ship Material Symbols is the Google Fonts CSS API. One stylesheet request in <code>&lt;head&gt;</code>, then ligature names inside a <code>&lt;span&gt;</code>:</p>
+          <pre><code class="language-html">&lt;!-- 1. Load the variable font (display=block prevents ligature flash) --&gt;
+&lt;link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" /&gt;
+
+&lt;!-- 2. Reference any glyph by its ligature name --&gt;
+&lt;span class="material-symbols-outlined"&gt;home&lt;/span&gt;
+&lt;span class="material-symbols-outlined"&gt;search&lt;/span&gt;
+&lt;span class="material-symbols-outlined"&gt;settings&lt;/span&gt;</code></pre>
+          <h3>Ligatures vs codepoints</h3>
+          <p>Ligatures (<code>arrow_forward</code>) are the primary addressing method and are supported by every modern browser; the numeric codepoint (<code>&amp;#xE5C8;</code>) is the documented fallback for browsers without ligature support. Prefer ligatures — they survive refactors and are grep-able in code review.</p>
+          <h3>The FOUC rule everyone misses</h3>
+          <p>Google's own guidance is blunt: <strong>the CSS request must include <code>&amp;display=block</code></strong>. Without it, the browser renders the raw ligature text — the literal words "home", "search", "settings" — until the font arrives. That flash of unstyled ligature text is the number-one Material Symbols bug reported on production sites, and it is a one-parameter fix.</p>
+          <p>The three style families are separate fonts, so pick the one you need rather than loading all of them:</p>
+          <ul>
+            <li><code>Material+Symbols+Outlined</code> — sharp corners, the workhorse for dense UI</li>
+            <li><code>Material+Symbols+Rounded</code> — 100% corner radii, friendlier consumer products</li>
+            <li><code>Material+Symbols+Sharp</code> — zero corner radius, expressive brand moments</li>
+          </ul>
+          <p>There is no <code>Material+Symbols+Filled</code> URL — filled rendering comes from the FILL axis at 1, in all three fonts. Classic Material Icons users note the difference: <code>material-icons-round</code> ("round") vs <code>material-symbols-rounded</code> ("rounded").</p>
+        </section>
+
+        <section id="payload-subsetting">
+          <h2>4. Performance: The 295 KB Problem and the 1.7 KB Fix</h2>
+          <p>Here is the number most tutorials skip: the <strong>default Material Symbols stylesheet loads all 3,800+ icon variants and ships a ~295 KB font</strong>. If your navigation uses five icons, you are paying for 3,795 you never render — a payload 7× larger than the entire classic Material Icons font (42 KB woff2).</p>
+          <p>The Google Fonts CSS API solves this with the <code>icon_names</code> parameter. Subset to exactly the icons you use and the same font collapses to <strong>~1.7 KB</strong>:</p>
+          <pre><code class="language-html">&lt;!-- BEFORE: every icon Google ever drew, ~295 KB --&gt;
+&lt;link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=block" /&gt;
+
+&lt;!-- AFTER: three icons, ~1.7 KB font --&gt;
+&lt;link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;icon_names=home,search,menu&amp;display=block" /&gt;</code></pre>
+          <h3>Exact payload scenarios (from Google's documentation)</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Request configuration</th>
+                  <th>Font payload</th>
+                  <th>Verdict</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Default URL, all 3,800+ icons</td>
+                  <td><strong>295 KB</strong></td>
+                  <td>Never ship this to production</td>
+                </tr>
+                <tr>
+                  <td>Same URL + <code>icon_names=home,palette,settings</code></td>
+                  <td><strong>1.7 KB</strong></td>
+                  <td>99.4% smaller — use for icon-font builds</td>
+                </tr>
+                <tr>
+                  <td>Instanced axes + <code>icon_names</code> (e.g. <code>FILL,ROND@0..1,100</code>)</td>
+                  <td><strong>2.6 KB</strong></td>
+                  <td>Still tiny, adds fill animation range</td>
+                </tr>
+                <tr>
+                  <td>Full variable axes with complete ranges</td>
+                  <td><strong>7.9 MB</strong></td>
+                  <td>Labeled "not recommended" by Google itself</td>
+                </tr>
+                <tr>
+                  <td>Classic Material Icons (all 900+, woff2)</td>
+                  <td><strong>42 KB</strong></td>
+                  <td>Frozen set, but constant</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout-box">
+            <div class="callout-title">💡 Workflow tip</div>
+            <p>Keep the <code>icon_names</code> list as a template variable in your build (a JSON array of ligature names is ideal). Every design review that adds an icon updates the list, and the subset regenerates on the next deploy. For a deeper treatment of subsetting economics across icon fonts, see our <a href="/articles/icon-font-subsetting-variable-glyphs-guide/">icon font subsetting and variable glyphs guide</a>.</p>
+          </div>
+          <p>One more trap: requesting the <strong>full ranges of all four axes produces a 7.9 MB font</strong>. Google's documentation explicitly labels that configuration "not recommended" — yet it is exactly what copy-pasting the "full flexibility" URL from older blog posts gives you. Subset the icon names, and request only the axis ranges you actually animate.</p>
+        </section>
+
+        <section id="self-hosting">
+          <h2>5. Self-Hosting Material Symbols (Without Google Fonts)</h2>
+          <p>Privacy policies, CSP <code>font-src</code> restrictions, or air-gapped environments often require self-hosting. Two things surprise everyone who tries it with Material Symbols:</p>
+          <ol>
+            <li><strong>You must re-declare the CSS rendering rules yourself.</strong> The <code>.material-symbols-outlined</code> class that the Google Fonts stylesheet provides is not in the font file — it is generated CSS. When you self-host, you write it.</li>
+            <li><strong>You may need multiple font formats.</strong> Modern browsers only need <code>woff2</code>, but the variable file is the one that preserves all four axes — a static instance export loses the variation capability.</li>
+          </ol>
+          <pre><code class="language-css">/* Self-hosted Material Symbols: font + the rules Google's CDN used to give you */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 100 700;            /* variable weight range */
+  src: url('/fonts/material-symbols-outlined.woff2') format('woff2-variations');
+  font-display: block;             /* same FOUC rule as the CDN */
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}</code></pre>
+          <p>The commercial alternative to maintaining that CSS by hand: <strong>skip the font entirely and self-host plain SVG files</strong>, one per icon — section 8 shows why that is the most robust architecture for 2026 component frameworks, and it is how every pre-rendered <a href="/library/materialsymbols/">Material Symbols page on IconStash</a> exports its icons.</p>
+        </section>
+
+        <section id="react-nextjs-vue">
+          <h2>6. React, Next.js, Vue &amp; Angular: The npm Reality</h2>
+          <p>This is where Material Symbols differs from every other major icon system: <strong>Google does not maintain an npm package for the repository past version 3, published in 2016</strong>. Google's own README says it plainly, and points to the community <code>@marella</code> packages that are automatically built and published from the source repository via GitHub Actions — while noting Google does not monitor or vet them.</p>
+          <h3>Option A: The community font package (@marella/material-symbols)</h3>
+          <pre><code class="language-bash">npm install material-symbols</code></pre>
+          <pre><code class="language-js">// main.jsx / _app.tsx — import the ONE style you use
+import 'material-symbols/outlined.css';
+// ❌ import 'material-symbols/index.css'
+//    index.css includes CSS for ALL font styles. Webpack (and most
+//    bundlers) will copy every font into your build output even if
+//    you only render outlined icons — a classic bundle bloat bug.</code></pre>
+          <p>The per-style imports are the documented workaround for the bundler behavior above: <code>outlined.css</code>, <code>rounded.css</code>, or <code>sharp.css</code> — never <code>index.css</code>.</p>
+          <h3>Option B: SVG components (React 19 / Next.js App Router recommended)</h3>
+          <p>Because Material Symbols ships the complete SVG set in its repository, the modern approach is to render SVG components and treat the font as unnecessary. In a Next.js App Router project the icons are pure server-rendered markup — <strong>zero <code>'use client'</code> directives, zero font payload, no FOUC window at all</strong>:</p>
+          <pre><code class="language-tsx">// app/components/Icon.tsx — RSC-safe, no font, no client JS
+import type { SVGProps } from 'react';
+
+export function Icon({ name, size = 24, ...props }: {
+  name: 'home' | 'search' | 'settings' | 'menu';
+  size?: number;
+} & SVGProps&lt;SVGSVGElement&gt;) {
+  return (
+    &lt;svg
+      width={size} height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      {...props}
+    &gt;
+      {paths[name]}
+    &lt;/svg&gt;
+  );
+}</code></pre>
+          <p>Tree-shaking then works the way it should: an app importing five icons ships exactly five glyphs' path data, not 3,800. This is the same zero-font architecture we detail in <a href="/articles/svg-sprites-vs-inline-svg-vs-components/">SVG sprites vs inline SVG vs icon components</a>, and it is compatible with every accessibility pattern in section 9.</p>
+          <h3>Vue and Angular</h3>
+          <p>Vue 3 / Nuxt and Angular projects can use the same community package with a global stylesheet import in the app entry, or the SVG approach with a tiny wrapper component. The font-vs-SVG trade-offs are framework-independent — the <a href="/articles/svg-icons-vs-icon-fonts-in-2026/">icon fonts vs SVG in 2026</a> benchmark covers the measurable differences for <a href="/articles/how-to-use-svg-icons-in-vue-and-nuxt-guide/">Vue/Nuxt</a>, <a href="/articles/how-to-use-svg-icons-in-angular-guide/">Angular</a> and <a href="/articles/how-to-use-svg-icons-in-react-nextjs-tailwind/">React/Next.js</a>.</p>
+        </section>
+
+        <section id="classic-material-icons">
+          <h2>7. Material Icons (Classic): When the Frozen Set Still Wins</h2>
+          <p>Legacy is not useless. The classic set still ships the most compact Google icon font ever made — <strong>42 KB woff2 / 56 KB woff for all 900+ icons</strong> — and it is the only Google set with a <strong>Two&nbsp;tone</strong> style. Two cases where it remains the right call:</p>
+          <ul>
+            <li><strong>Existing design systems already on it.</strong> The font is a constant 42 KB, works with ligatures and codepoints, and will never surprise you with a re-render. Migrating for migration's sake is a cost without benefit.</li>
+            <li><strong>Two-tone art direction.</strong> Material Symbols has no two-tone icons, period. If your product's visual language depends on them, the classic set (or the <a href="/library/ionicons/">Ionicons</a> two-tone family) is the only Google-sanctioned source.</li>
+          </ul>
+          <pre><code class="language-html">&lt;!-- Classic Material Icons: 900+ icons, 42 KB woff2, five fixed styles --&gt;
+&lt;link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"&gt;
+&lt;span class="material-icons"&gt;home&lt;/span&gt;            &lt;!-- filled (default) --&gt;
+&lt;span class="material-icons-outlined"&gt;home&lt;/span&gt;   &lt;!-- outlined --&gt;
+&lt;span class="material-icons-round"&gt;home&lt;/span&gt;      &lt;!-- round (NOT "rounded") --&gt;
+&lt;span class="material-icons-sharp"&gt;home&lt;/span&gt;     &lt;!-- sharp --&gt;
+&lt;span class="material-icons-two-tone"&gt;home&lt;/span&gt; &lt;!-- two tone --&gt;</code></pre>
+          <p>For reference, Google's documentation notes the classic SVG files compress to roughly 62 KB gzipped as a full set — but individual SVGs, or a compiled sprite of only the icons you use, reduce that dramatically. Every classic icon is also pre-rendered for instant download on the <a href="/library/material/">Material Design Icons library page (14,001 icons)</a>, including popular glyphs like <a href="/icons/material-home/">material-home</a> and <a href="/icons/material-search/">material-search</a>.</p>
+        </section>
+
+        <section id="svg-alternative">
+          <h2>8. The SVG Workflow: Zero Font Payload, No FOUC, Perfect Tree-Shaking</h2>
+          <p>A fact that surprises even experienced developers: <strong>official SVG downloads do exist</strong>. Google Fonts' icon library lets you browse and download individual icons in SVG or PNG, and the <code>google/material-design-icons</code> repository contains the complete SVG set. The friction is workflow, not availability — there is no maintained npm distribution, no per-icon URL scheme documented for production, and no live customization.</p>
+          <p>That is exactly the gap IconStash was built to fill. Every Material Symbols variant is pre-rendered as an individual page with instant search across all 28 indexed libraries:</p>
+          <ul>
+            <li><strong><a href="/library/materialsymbols/">Material Symbols</a></strong> — 18,547 icons (Apache 2.0), including <a href="/icons/materialsymbols-home/">home</a>, <a href="/icons/materialsymbols-search/">search</a>, <a href="/icons/materialsymbols-settings/">settings</a> and <a href="/icons/materialsymbols-favorite/">favorite</a>.</li>
+            <li><strong><a href="/library/materialsymbolslight/">Material Symbols Light</a></strong> — 15,969 lighter-weight variants for large-format layouts.</li>
+            <li><strong><a href="/library/material/">Material Design Icons</a></strong> — 14,001 classic icons (Apache 2.0), the two-tone source of record.</li>
+            <li><strong>Cross-library comparison</strong> — the same concept rendered side by side, e.g. the <a href="/compare/material-vs-materialsymbols/">Material Icons vs Material Symbols comparison page</a> and the concept hubs for <a href="/icons/home-icon/">home icons</a> and <a href="/icons/menu-icon/">menu icons</a>.</li>
+          </ul>
+          <p>The practical workflow: search the ligature name, preview at any size with live recoloring, and copy production-ready output in one click — plain <strong>SVG</strong>, rasterized <strong>PNG</strong> at 16–512px, or ready-pasted <strong>React JSX</strong>. No account, no npm install, and 94.5% of the catalog is MIT/Apache/ISC/CC0 with zero attribution required (Material Symbols is Apache 2.0 — see our <a href="/articles/icon-licensing-explained-mit-apache-cc/">icon licensing guide</a> for what that permits).</p>
+          <pre><code class="language-html">&lt;!-- The output: a real SVG, not a font glyph --&gt;
+&lt;svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/&gt;
+&lt;/svg&gt;
+
+&lt;!-- Recolor with CSS alone — impossible with icon-font fill hacks --&gt;
+&lt;style&gt;
+  .brand-icon { color: #C1DD2D; }
+  .brand-icon:hover { color: #D2ED3E; }
+&lt;/style&gt;</code></pre>
+          <p>Because the asset is an SVG element, all the techniques that font-based icons can only approximate work natively: <code>currentColor</code> theming, CSS <code>mask-image</code> stencils, gradient fills, and dark-mode recoloring with a single custom property. We cover the full technique matrix in <a href="/articles/how-to-change-svg-color-in-css-and-react-guide/">how to change SVG icon color in CSS and React</a>.</p>
+        </section>
+
+        <section id="accessibility">
+          <h2>9. Accessibility: Screen Readers, Ligature Fallbacks &amp; Contrast</h2>
+          <p>Icon fonts have a specific accessibility profile that SVGs solve structurally. The rules for Material Symbols:</p>
+          <ol>
+            <li><strong>Decorative icons (about 90% of UI icons) must be hidden from assistive tech.</strong> With ligature text, an un-annotated <code>&lt;span&gt;home&lt;/span&gt;</code> is read aloud as the word "home" by screen readers — noise in every navigation. Mark them:</li>
+          </ol>
+          <pre><code class="language-html">&lt;!-- Decorative: the adjacent text label already conveys meaning --&gt;
+&lt;span class="material-symbols-outlined" aria-hidden="true"&gt;home&lt;/span&gt; Home</code></pre>
+          <ol start="2">
+            <li><strong>Standalone interactive icons need a real accessible name.</strong> An icon-only button (hamburger menu, close) must carry the label itself:</li>
+          </ol>
+          <pre><code class="language-html">&lt;button aria-label="Open navigation menu"&gt;
+  &lt;span class="material-symbols-outlined" aria-hidden="true"&gt;menu&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+          <ol start="3">
+            <li><strong>Internet Explorer-era ligature fallbacks leak.</strong> In browsers without ligature support, the raw codepoint is invisible but the ligature text is not — legacy <code>docs</code> guidance recommends codepoints for those browsers. In 2026 the practical takeaway is different: if you must support ancient browsers, SVGs sidestep the entire class of font-support bugs.</li>
+            <li><strong>Use the GRAD axis for reversed contrast.</strong> White icons on dark backgrounds optically shrink; <code>'GRAD' -50</code> is Google's documented compensation. It is a legibility setting, not decoration — pair it with WCAG 1.4.11 non-text contrast checks (3:1 against adjacent colors for meaningful icons).</li>
+          </ol>
+          <p>SVG components make all four rules mechanical: <code>aria-hidden="true"</code> on decorative glyphs, a <code>&lt;title&gt;</code> or <code>aria-label</code> on interactive ones, and no text content to leak. The full vocabulary is in our <a href="/Glossary/svg-accessibility-wcag-glossary/">SVG accessibility &amp; WCAG glossary</a>.</p>
+        </section>
+
+        <section id="migration">
+          <h2>10. Migration Guide: Material Icons → Material Symbols Class Mapping</h2>
+          <p>When the freeze finally pushes your team to Material Symbols, do not search-and-replace the word "icons". Map the classes explicitly, audit the two-tone orphans, and re-measure the font payload:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Classic (Material Icons)</th>
+                  <th>Current (Material Symbols)</th>
+                  <th>Migration note</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>material-icons</code></td>
+                  <td><code>material-symbols-outlined</code> + <code>'FILL' 1</code></td>
+                  <td>Filled look now comes from the FILL axis, not a separate class</td>
+                </tr>
+                <tr>
+                  <td><code>material-icons-outlined</code></td>
+                  <td><code>material-symbols-outlined</code></td>
+                  <td>Direct rename</td>
+                </tr>
+                <tr>
+                  <td><code>material-icons-round</code></td>
+                  <td><code>material-symbols-rounded</code></td>
+                  <td>"round" → "rounded" — the classic silent-break trap</td>
+                </tr>
+                <tr>
+                  <td><code>material-icons-sharp</code></td>
+                  <td><code>material-symbols-sharp</code></td>
+                  <td>Direct rename</td>
+                </tr>
+                <tr>
+                  <td><code>material-icons-two-tone</code></td>
+                  <td><em>No equivalent exists</em></td>
+                  <td>Material Symbols has no two-tone style — redesign or keep the classic set</td>
+                </tr>
+                <tr>
+                  <td>Codepoint addresses</td>
+                  <td>Ligature names</td>
+                  <td>Both still work; ligatures are the primary method</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>Migration checklist</h3>
+          <ol>
+            <li><strong>Inventory your icons:</strong> export the list of ligature names in use — it becomes your <code>icon_names</code> subset (section 4).</li>
+            <li><strong>Replace the stylesheet URL</strong> with the Material Symbols family and add <code>&amp;display=block</code>.</li>
+            <li><strong>Apply the class mapping table</strong> above; grep for <code>-round</code> specifically.</li>
+            <li><strong>Flag two-tone usage</strong> and decide per-surface: redesign in Symbols or keep classic for those components.</li>
+            <li><strong>Re-run Lighthouse:</strong> confirm the 295 KB → 1.7 KB difference and check the FOUC fix on a throttled 3G profile.</li>
+            <li><strong>Verify against originals:</strong> spot-check rendered icons on the <a href="/compare/material-vs-materialsymbols/">Material vs Material Symbols comparison</a> or the per-icon pages such as <a href="/icons/materialsymbols-favorite/">materialsymbols-favorite</a>.</li>
+          </ol>
+        </section>
+
+        <section id="faq">
+          <h2>11. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the difference between Material Icons and Material Symbols?</h3>
+            <p>Material Symbols is Google's current icon set, introduced in April 2022 and built on variable font technology. Material Icons is the classic set, which has not received new icons since updates were halted in 2022. Material Symbols consolidates over 2,500 glyphs in a single variable font with four adjustable axes (FILL, wght, GRAD, opsz), while Material Icons ships static fonts in five fixed styles: filled, outlined, rounded, sharp, and two-tone.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I reduce the Material Symbols font payload from 295 KB?</h3>
+            <p>Add the <code>icon_names</code> parameter to your Google Fonts CSS request to subset the font to only the icons you actually use. Loading the default stylesheet ships all 3,800+ icon variants at roughly 295 KB, but a request like <code>...&amp;icon_names=home,palette,settings</code> serves a font of about 1.7 KB. Avoid requesting the full axis ranges of all four axes: that URL returns a 7.9 MB font, which Google itself labels as not recommended.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is Material Icons still updated in 2026?</h3>
+            <p>No. Google halted Material Icons updates in 2022 and considers it the legacy set. New icons, variable fonts, extra weights, grades, and animated fill transitions only exist in Material Symbols. Google also stopped maintaining the official npm package after version 3 (2016); the community packages published by @marella are automatically built from source but are not vetted by Google.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I use Material Symbols in React or Next.js?</h3>
+            <p>There is no Google-maintained npm package. The two reliable routes are: (1) the community <code>@marella/material-symbols</code> package, importing the per-style CSS file such as <code>material-symbols/outlined.css</code> so bundlers only copy one font instead of all of them; or (2) skip the font entirely and render SVG components, which works natively in React Server Components with zero <code>'use client'</code> directives and no font payload.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Where can I download individual Material Symbols SVGs?</h3>
+            <p>Google Fonts lets you browse and download individual icons in SVG or PNG format from the icon library page, and the google/material-design-icons repository contains the complete SVG set. IconStash pre-renders all 18,547 Material Symbols, 15,969 Material Symbols Light, and 14,001 Material Design Icons as individual pages with one-click SVG, PNG and JSX export, so you can grab exactly the icons you need without downloading a font at all.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why were brand logos removed from Material Icons?</h3>
+            <p>Google does not include third-party logos in Material Symbols or Material Icons due to legal reasons, and some brand logos that shipped in earlier versions have since been removed. If you need social media or brand logos, use a dedicated brand-icon set such as Simple Icons (3,400+ brand marks, CC0), which you can search and download from the <a href="/library/simpleicons/">IconStash Simple Icons library page</a>.</p>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h4>Table of Contents</h4>
+          <ul class="toc-list">
+            <li><a href="#material-symbols-vs-icons">1. Symbols vs Icons: What Shipped</a></li>
+            <li><a href="#variable-axes">2. The Four Variable Axes</a></li>
+            <li><a href="#cdn-setup">3. CDN Setup &amp; FOUC</a></li>
+            <li><a href="#payload-subsetting">4. The 295 KB → 1.7 KB Fix</a></li>
+            <li><a href="#self-hosting">5. Self-Hosting</a></li>
+            <li><a href="#react-nextjs-vue">6. React, Next.js, Vue &amp; Angular</a></li>
+            <li><a href="#classic-material-icons">7. When Classic Still Wins</a></li>
+            <li><a href="#svg-alternative">8. The SVG Workflow</a></li>
+            <li><a href="#accessibility">9. Accessibility</a></li>
+            <li><a href="#migration">10. Migration Mapping</a></li>
+            <li><a href="#faq">11. FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h4>Quick Reference</h4>
+          <p style="font-size: 13.5px; color: #AAA; line-height: 1.6; margin-bottom: 12px;">
+            <strong>Current set:</strong> Material Symbols (2022+)<br>
+            <strong>Default payload:</strong> 295 KB → 1.7 KB subset<br>
+            <strong>Classic font:</strong> 42 KB woff2<br>
+            <strong>Browse SVGs:</strong> <a href="/library/materialsymbols/">18,547 Symbols</a><br>
+            <strong>Zero npm:</strong> <a href="/#/">IconStash SVG copy</a>
+          </p>
+          <a href="/#/" class="header-cta" style="display: block; text-align: center; width: 100%;">Search 134K+ Icons</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/#/">Search Icons</a>
+      <a href="/articles/">Articles</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <a href="/about/">About</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+    </div>
+    <p>&copy; 2026 IconStash.io &bull; Handcrafted for high-performance web engineering.</p>
+  </footer>
+
+  <script>
+    // Theme toggle handling
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        try { localStorage.setItem('theme', newTheme); } catch(e) {}
+      });
+    }
+  </script>
+</body>
+</html>
