@@ -29,17 +29,17 @@
   <link rel="canonical" href="https://iconstash.io/">
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=20260602-brandlogo">
   <link rel="apple-touch-icon" href="favicon.jpeg?v=20260601-favicon">
-  <link rel="preload" as="style" href="style.css?v=20260830-hubpages">
+  <link rel="preload" as="style" href="style.css?v=20260913-groupedsearch">
   <link rel="preload" as="script" href="vendor/fuse.min.js?v=20260530-preloadall">
   <link rel="preload" as="script" href="icons.js?v=20260607-mobilescrollopt">
   <link rel="preload" as="script" href="search.js?v=20260606-mobilelag">
   <link rel="prefetch" as="script" href="search.worker.js?v=20260606-mobilelag">
   <link rel="prefetch" as="script" href="collections.js?v=20260530-preloadall">
   <link rel="prefetch" as="script" href="ui.js?v=20260610-localefix">
-  <link rel="prefetch" as="script" href="app.js?v=20260715-sidebarfix">
+  <link rel="prefetch" as="script" href="app.js?v=20260913-groupedsearch">
   <link rel="prefetch" as="fetch" href="data/prerender/libraries/lucide/chunk-1.html">
   <link rel="prefetch" as="fetch" href="data/prerender/libraries/lucide/chunk-2.html">
-  <link rel="stylesheet" href="style.css?v=20260830-hubpages">
+  <link rel="stylesheet" href="style.css?v=20260913-groupedsearch">
   <script src="vendor/fuse.min.js?v=20260530-preloadall" defer></script>
   <script type="application/ld+json">
   [{
@@ -617,7 +617,50 @@
             </div>
             <label class="range-label">Preview Size <span id="dp-size-val">128px</span></label>
             <input type="range" id="dp-size-slider" class="neon-slider" min="16" max="256" value="128">
-            <div class="variant-swatches" id="dp-variants"></div>
+            <div class="dp-quick-actions" id="dp-quick-actions">
+              <div class="qa-split" id="qa-copy-split">
+                <button type="button" class="qa-btn qa-main" id="qa-copy-btn" title="Copy icon code">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span id="qa-copy-label">Copy SVG</span>
+                </button>
+                <button type="button" class="qa-btn qa-caret" id="qa-copy-caret" aria-haspopup="menu" aria-expanded="false" aria-controls="qa-copy-menu" title="Copy as…" aria-label="Choose copy format">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <div class="qa-menu hidden" id="qa-copy-menu" role="menu" aria-label="Copy format">
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="svg"><span>SVG</span><em>vector code</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="xml"><span>XML</span><em>svg file</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="jsx"><span>JSX</span><em>react</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="vue"><span>Vue</span><em>component</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="svelte"><span>Svelte</span><em>component</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="angular"><span>Angular</span><em>template</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="html"><span>HTML img</span><em>fallback</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="css"><span>CSS bg</span><em>mask</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-copy-fmt="base64"><span>Base64</span><em>data uri</em></button>
+                </div>
+              </div>
+              <div class="qa-split" id="qa-download-split">
+                <button type="button" class="qa-btn qa-main" id="qa-download-btn" title="Download PNG">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  <span id="qa-download-label">PNG 256</span>
+                </button>
+                <button type="button" class="qa-btn qa-caret" id="qa-download-caret" aria-haspopup="menu" aria-expanded="false" aria-controls="qa-download-menu" title="PNG size" aria-label="Choose PNG size">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+                </button>
+                <div class="qa-menu hidden" id="qa-download-menu" role="menu" aria-label="Download PNG size">
+                  <button type="button" class="qa-menu-item" role="menuitem" data-dl-size="16"><span>PNG</span><em>16 px</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-dl-size="32"><span>PNG</span><em>32 px</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-dl-size="48"><span>PNG</span><em>48 px</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-dl-size="64"><span>PNG</span><em>64 px</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-dl-size="128"><span>PNG</span><em>128 px</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-dl-size="256"><span>PNG</span><em>256 px</em></button>
+                  <button type="button" class="qa-menu-item" role="menuitem" data-dl-size="512"><span>PNG</span><em>512 px</em></button>
+                </div>
+              </div>
+              <label class="qa-color-btn" id="qa-color-btn" for="dp-color-input" title="Change color">
+                <span class="qa-color-wheel" aria-hidden="true"><span class="qa-color-dot" id="qa-color-dot"></span></span>
+                <input type="color" id="dp-color-input" value="#2563eb" title="Custom color" aria-label="Icon color">
+              </label>
+            </div>
           </section>
 
           <section class="dp-section">
@@ -631,7 +674,6 @@
               <button class="color-preset" data-color="#0891b2" style="background:#0891b2"></button>
               <button class="color-preset bordered" data-color="#ffffff" style="background:#ffffff"></button>
               <button class="color-preset bordered" data-color="#000000" style="background:#000000"></button>
-              <input type="color" id="dp-color-input" value="#2563eb" title="Custom color">
             </div>
             <label class="range-label">Stroke Width <span id="dp-stroke-val">0.7px</span></label>
             <input type="range" id="dp-stroke-slider" class="neon-slider" min="0.1" max="3" step="0.1" value="0.7">
@@ -784,8 +826,8 @@
   <script src="icons.js?v=20260715-sidebarfix" defer></script>
   <script src="search.js?v=20260715-sidebarfix" defer></script>
   <script src="collections.js?v=20260715-sidebarfix" defer></script>
-  <script src="ui.js?v=20260715-sidebarfix" defer></script>
-  <script src="app.js?v=20260715-sidebarfix" defer></script>
+  <script src="ui.js?v=20260913-quickactions" defer></script>
+  <script src="app.js?v=20260913-groupedsearch" defer></script>
 </body>
 </html>
 

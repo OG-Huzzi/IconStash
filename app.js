@@ -146,6 +146,10 @@
     batchSize: 160,
     renderedCount: 0,
     inlineAdRendered: false,
+    gridRenderMode: "",
+    searchGroupRows: null,
+    searchGroupOffsets: null,
+    groupLayoutKey: "",
     prerender: {
       manifest: null,
       active: false,
@@ -171,8 +175,10 @@
       strokeWidth: 0.7,
       size: 128,
       bg: "dark",
+      bgManual: false,
       format: "svg",
-      pngSize: 256
+      pngSize: 256,
+      qaDownload: 256
     }
   };
   const metaCache = new Map();
@@ -312,7 +318,16 @@
       dpStrokeSlider: $("dp-stroke-slider"),
       dpStrokeVal: $("dp-stroke-val"),
       dpColorInput: $("dp-color-input"),
-      dpVariants: $("dp-variants"),
+      dpQuickActions: $("dp-quick-actions"),
+      qaCopySplit: $("qa-copy-split"),
+      qaCopyBtn: $("qa-copy-btn"),
+      qaCopyLabel: $("qa-copy-label"),
+      qaCopyCaret: $("qa-copy-caret"),
+      qaCopyMenu: $("qa-copy-menu"),
+      qaDownloadBtn: $("qa-download-btn"),
+      qaDownloadLabel: $("qa-download-label"),
+      qaDownloadCaret: $("qa-download-caret"),
+      qaDownloadMenu: $("qa-download-menu"),
       dpMatches: $("dp-matches"),
       dpCodePreview: $("dp-code-preview"),
       dpCopyCode: $("dp-copy-code"),
@@ -566,6 +581,93 @@
       !state.searchQuery &&
       !state.activeCategory &&
       (!state.activeStyle || state.activeStyle === "all");
+  }
+
+  function isGroupedSearchMode() {
+    return Boolean(state.searchQuery) &&
+      (!state.sort || state.sort === "relevance") &&
+      state.selectedLibraries.size !== 1;
+  }
+
+  function groupSearchResultsByLibrary() {
+    if (!isGroupedSearchMode() || state.filteredIcons.length < 2) {
+      state.searchGroupRows = null;
+      return;
+    }
+    const buckets = new Map();
+    const order = [];
+    for (const icon of state.filteredIcons) {
+      let bucket = buckets.get(icon.librarySlug);
+      if (!bucket) {
+        bucket = [];
+        buckets.set(icon.librarySlug, bucket);
+        order.push(icon.librarySlug);
+      }
+      bucket.push(icon);
+    }
+    const grouped = [];
+    for (const slug of order) grouped.push(...buckets.get(slug));
+    state.filteredIcons = grouped;
+    state.searchGroupRows = null;
+    state.groupLayoutKey = "";
+  }
+
+  function buildGroupedSearchLayout() {
+    const key = `${state.cols}x${state.rowHeight}`;
+    if (state.searchGroupRows && state.groupLayoutKey === key) return;
+    const cols = Math.max(1, state.cols || 8);
+    const icons = state.filteredIcons;
+    const rows = [];
+    const offsets = [0];
+    let index = 0;
+    while (index < icons.length) {
+      const slug = icons[index].librarySlug;
+      let end = index;
+      while (end < icons.length && icons[end].librarySlug === slug) end += 1;
+      const count = end - index;
+      rows.push({ type: "header", slug, start: index, count });
+      offsets.push(offsets[offsets.length - 1] + state.rowHeight);
+      let emitted = 0;
+      while (emitted < count) {
+        const take = Math.min(cols, count - emitted);
+        rows.push({ type: "cards", start: index + emitted, count: take });
+        offsets.push(offsets[offsets.length - 1] + state.rowHeight);
+        emitted += take;
+      }
+      index = end;
+    }
+    state.searchGroupRows = rows;
+    state.searchGroupOffsets = offsets;
+    state.groupLayoutKey = key;
+  }
+
+  function groupedRowAtOffset(offset) {
+    const offsets = state.searchGroupOffsets;
+    let lo = 0;
+    let hi = state.searchGroupRows.length - 1;
+    let found = 0;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (offsets[mid] <= offset) {
+        found = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    return found;
+  }
+
+  function groupedRowTopForIcon(iconIndex) {
+    const rows = state.searchGroupRows;
+    if (!rows) return null;
+    for (let i = 0; i < rows.length; i += 1) {
+      const row = rows[i];
+      if (row.type === "cards" && iconIndex >= row.start && iconIndex < row.start + row.count) {
+        return state.searchGroupOffsets[i];
+      }
+    }
+    return null;
   }
 
   function sortAllIconsByLibrary() {
@@ -1682,6 +1784,7 @@
       state.filteredIcons = results;
 
       if (isAllIconsGroupedMode()) sortAllIconsByLibrary();
+      groupSearchResultsByLibrary();
       const batchSize = gridBatchSize();
       if (!options.preserveLimit) {
         state.visibleLimit = batchSize;
@@ -1944,8 +2047,13 @@
         return;
       }
 
-      if (Array.from(els.iconGrid.children).some((child) => !child.classList.contains("icon-card"))) {
+      const usingGroups = isGroupedSearchMode();
+      const modeKey = usingGroups ? "grouped" : "flat";
+      const hasForeignChildren = Array.from(els.iconGrid.children).some((child) => !child.classList.contains("icon-card") && !child.classList.contains("library-break"));
+      if (state.gridRenderMode !== modeKey || (!usingGroups && hasForeignChildren)) {
         els.iconGrid.replaceChildren();
+        els.iconGrid.classList.remove("grouped-virtual");
+        state.gridRenderMode = modeKey;
         state.lastStartRow = -1;
         state.lastEndRow = -1;
         state.lastRenderedLength = -1;
@@ -1954,18 +2062,89 @@
       calculateGrid();
       const cols = state.cols;
       const rowHeight = state.rowHeight;
-      const totalRows = Math.ceil(totalCount / cols);
-      
+
       const scrollTop = els.gridContainer.scrollTop;
       let containerHeight = state.containerHeight;
       if (!containerHeight) {
         containerHeight = els.gridContainer.clientHeight;
         if (containerHeight > 0) state.containerHeight = containerHeight;
       }
-      
+
+      if (usingGroups) {
+        buildGroupedSearchLayout();
+        const rows = state.searchGroupRows;
+        const offsets = state.searchGroupOffsets;
+        const startRow = groupedRowAtOffset(Math.max(0, scrollTop - rowHeight * 4));
+        const endRow = groupedRowAtOffset(scrollTop + containerHeight + rowHeight * 4);
+
+        if (!force &&
+            startRow === state.lastStartRow &&
+            endRow === state.lastEndRow &&
+            totalCount === state.lastRenderedLength) {
+          return;
+        }
+
+        els.iconGrid.classList.add("grouped-virtual");
+        els.iconGrid.style.position = "absolute";
+        els.iconGrid.style.top = "0";
+        els.iconGrid.style.left = "0";
+        els.iconGrid.style.right = "0";
+        els.iconGrid.style.transform = `translateY(${offsets[startRow]}px)`;
+        els.gridSpacer.style.height = `${offsets[offsets.length - 1]}px`;
+
+        if (!state.collectedIconIds || state.collectedIconIds.size === 0) {
+          updateCollectedIconIds();
+        }
+
+        const slots = [];
+        for (let r = startRow; r <= endRow; r += 1) {
+          const row = rows[r];
+          if (row.type === "header") {
+            slots.push(row);
+          } else {
+            for (let k = 0; k < row.count; k += 1) slots.push({ iconIndex: row.start + k });
+          }
+        }
+
+        const children = els.iconGrid.children;
+        while (children.length > slots.length) {
+          els.iconGrid.lastElementChild.remove();
+        }
+
+        for (let i = 0; i < slots.length; i += 1) {
+          const slot = slots[i];
+          const existing = children[i] || null;
+          if (slot.type === "header") {
+            const slotKey = `hdr:${slot.slug}`;
+            if (existing && existing.dataset && existing.dataset.slotKey === slotKey) continue;
+            const headerEl = createHeaderElement(slot);
+            if (existing) els.iconGrid.replaceChild(headerEl, existing);
+            else els.iconGrid.appendChild(headerEl);
+          } else {
+            const icon = state.filteredIcons[slot.iconIndex];
+            if (existing && existing.classList && existing.classList.contains("icon-card")) {
+              updateCardElement(existing, icon, slot.iconIndex);
+            } else {
+              const cardEl = createCardElement(icon, slot.iconIndex);
+              if (existing) els.iconGrid.replaceChild(cardEl, existing);
+              else els.iconGrid.appendChild(cardEl);
+            }
+          }
+        }
+
+        state.renderedCount = totalCount;
+        els.loadingMore.classList.add("hidden");
+        state.lastStartRow = startRow;
+        state.lastEndRow = endRow;
+        state.lastRenderedLength = totalCount;
+        return;
+      }
+
+      const totalRows = Math.ceil(totalCount / cols);
+
       const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - 6);
       const endRow = Math.min(totalRows, Math.ceil((scrollTop + containerHeight) / rowHeight) + 6);
-      
+
       const nearBottom = (scrollTop + containerHeight) > (totalRows * rowHeight) - scrollPrefetchDistance();
       if (nearBottom) {
         loadNextLibraryForBrowse();
@@ -2029,15 +2208,24 @@
     return index === 0 || !previous || previous.librarySlug !== icon.librarySlug;
   }
 
-  function renderLibraryHeader(icon) {
+  function renderLibraryHeader(icon, matchCount) {
     const lib = libraryBySlug(icon.librarySlug) || { name: icon.library, slug: icon.librarySlug, count: 0 };
+    const shown = Number(matchCount != null ? matchCount : (lib.count || 0));
     return `<div class="library-break" data-library-break="${escapeHtml(lib.slug)}">
       <span class="lib-badge">${libraryIconSvg(lib.slug)}</span>
       <div>
         <h2>${escapeHtml(lib.name)}</h2>
-        <p>${Number(lib.count || 0).toLocaleString("en-US")} icons</p>
+        <p>${shown.toLocaleString("en-US")} icons</p>
       </div>
     </div>`;
+  }
+
+  function createHeaderElement(row) {
+    const template = document.createElement("template");
+    template.innerHTML = renderLibraryHeader(state.filteredIcons[row.start], row.count);
+    const node = template.content.firstElementChild;
+    node.dataset.slotKey = `hdr:${row.slug}`;
+    return node;
   }
 
   function renderCard(icon, visualIndex, collectedIds) {
@@ -2547,6 +2735,7 @@
     els.dpTitle.textContent = "Customize";
     els.dpLibraryName.textContent = `${icon.library} / ${icon.name}`;
     refreshDetailPreview(icon);
+    setPreviewBackground(state.detail.bgManual ? state.detail.bg : (document.documentElement.dataset.theme === "light" ? "light" : "dark"));
     els.dpSizeSlider.value = state.detail.size;
     els.dpExactSize.value = state.detail.size;
     els.dpSizeVal.textContent = `${state.detail.size}px`;
@@ -2563,19 +2752,85 @@
       btn.classList.toggle("active", Number(btn.dataset.size) === (state.detail.pngSize || 256));
     });
     if (options.metaLoading) {
-      els.dpVariants.innerHTML = '<span class="muted">Loading metadata...</span>';
       els.dpMatches.innerHTML = '<span class="muted">Loading metadata...</span>';
       renderCodePreview();
     } else {
-      renderDetailVariants(icon);
       renderMatches(icon);
       renderCodePreview();
     }
+    syncQuickActions();
   }
 
-  function renderDetailVariants(icon) {
-    const variants = (icon.variantIds || []).map((id) => state.icons.get(id)).filter(Boolean).slice(0, 8);
-    els.dpVariants.innerHTML = variants.map((variant, index) => `<button class="variant-swatch" data-icon-id="${variant.id}" title="${escapeHtml(variant.name)}" style="animation-delay:${index * 40}ms">${iconTools().renderSVG(variant)}</button>`).join("");
+  const QA_FORMAT_LABELS = {
+    svg: "SVG",
+    xml: "XML",
+    jsx: "JSX",
+    vue: "Vue",
+    svelte: "Svelte",
+    angular: "Angular",
+    html: "HTML img",
+    css: "CSS bg",
+    base64: "Base64"
+  };
+
+  function syncQuickActions() {
+    if (els.qaCopyLabel) {
+      els.qaCopyLabel.textContent = `Copy ${QA_FORMAT_LABELS[state.detail.format] || "SVG"}`;
+    }
+    if (els.qaDownloadLabel) {
+      els.qaDownloadLabel.textContent = `PNG ${state.detail.qaDownload || 256}`;
+    }
+    ui().qsa("#qa-copy-menu .qa-menu-item").forEach((item) => {
+      item.classList.toggle("active", item.dataset.copyFmt === state.detail.format);
+    });
+    ui().qsa("#qa-download-menu .qa-menu-item").forEach((item) => {
+      item.classList.toggle("active", state.detail.qaDownload === Number(item.dataset.dlSize));
+    });
+    const colorDot = document.getElementById("qa-color-dot");
+    if (colorDot) colorDot.style.background = state.detail.color;
+  }
+
+  function closeQaMenus() {
+    [els.qaCopyMenu, els.qaDownloadMenu].forEach((menu) => menu && menu.classList.add("hidden"));
+    if (els.qaCopyCaret) els.qaCopyCaret.setAttribute("aria-expanded", "false");
+    if (els.qaDownloadCaret) els.qaDownloadCaret.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleQaMenu(menu, caret) {
+    const willOpen = menu.classList.contains("hidden");
+    closeQaMenus();
+    menu.classList.toggle("hidden", !willOpen);
+    caret.setAttribute("aria-expanded", String(willOpen));
+  }
+
+  function flashQaSuccess(split, labelSpan, message) {
+    if (!labelSpan) return;
+    const previous = labelSpan.textContent;
+    labelSpan.textContent = message;
+    if (split) split.classList.add("qa-success");
+    setTimeout(() => {
+      labelSpan.textContent = previous;
+      if (split) split.classList.remove("qa-success");
+    }, 1200);
+  }
+
+  async function copyQuickFormat(format) {
+    const icon = state.icons.get(state.currentIconId);
+    if (!icon) return;
+    const text = iconTools().formatCode(icon, format, {
+      color: state.detail.color,
+      strokeWidth: state.detail.strokeWidth,
+      size: state.detail.size
+    });
+    await iconTools().copyText(text);
+    flashQaSuccess(els.qaCopySplit || els.qaCopyBtn.closest(".qa-split"), els.qaCopyLabel, "Copied!");
+    ui().toast(`Copied as ${QA_FORMAT_LABELS[format] || "SVG"}`, "success");
+  }
+
+  async function quickDownload(kind) {
+    const icon = state.icons.get(state.currentIconId);
+    if (!icon) return;
+    await downloadPng(icon, Number(kind) || 256);
   }
 
   function renderMatches(icon) {
@@ -2644,6 +2899,19 @@
     if (els.dpColorInput.value !== color) els.dpColorInput.value = color;
     refreshDetailPreview();
     renderCodePreview();
+    syncQuickActions();
+    applyCustomColorEverywhere(color);
+  }
+
+  function applyCustomColorEverywhere(color) {
+    state.customColor = color;
+    [els.iconGrid, els.trendingIcons].forEach((container) => {
+      if (!container) return;
+      container.style.setProperty("--custom-icon-color", color);
+      container.classList.add("customized-preview-color");
+    });
+    if (els.custColorHex) els.custColorHex.value = color;
+    if (els.custColorWheel) els.custColorWheel.value = color;
   }
 
   function setDetailSize(size) {
@@ -2668,16 +2936,15 @@
     state.detail.bg = type;
     ui().qsa(".bg-toggle").forEach((button) => button.classList.toggle("active", button.dataset.bg === type));
     if (type === "light") {
-      els.dpPreview.style.background = "#ffffff";
-      els.dpPreview.style.backgroundImage = "none";
+      els.dpPreview.style.setProperty("background", "#ffffff", "important");
     } else if (type === "checkered") {
-      els.dpPreview.style.background = "#e5e5f7";
-      els.dpPreview.style.backgroundImage = "linear-gradient(45deg,#bbb 25%,transparent 25%),linear-gradient(-45deg,#bbb 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#bbb 75%),linear-gradient(-45deg,transparent 75%,#bbb 75%)";
-      els.dpPreview.style.backgroundSize = "20px 20px";
-      els.dpPreview.style.backgroundPosition = "0 0,0 10px,10px -10px,-10px 0";
+      const bgStyle = els.dpPreview.style;
+      bgStyle.setProperty("background-color", "#e5e5f7", "important");
+      bgStyle.setProperty("background-image", "linear-gradient(45deg,#bbb 25%,transparent 25%),linear-gradient(-45deg,#bbb 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#bbb 75%),linear-gradient(-45deg,transparent 75%,#bbb 75%)", "important");
+      bgStyle.setProperty("background-size", "20px 20px", "important");
+      bgStyle.setProperty("background-position", "0 0,0 10px,10px -10px,-10px 0", "important");
     } else {
-      els.dpPreview.style.background = "var(--bg-void)";
-      els.dpPreview.style.backgroundImage = "none";
+      els.dpPreview.style.setProperty("background", "#0a0a0a", "important");
     }
   }
 
@@ -2841,8 +3108,14 @@
   function focusRelative(delta) {
     if (!state.filteredIcons.length) return;
     state.focusedIndex = Math.max(0, Math.min(state.filteredIcons.length - 1, state.focusedIndex + delta));
-    const row = Math.floor(state.focusedIndex / state.cols);
-    const targetTop = row * (state.rowHeight + 8);
+    let targetTop;
+    const groupedTop = isGroupedSearchMode() ? groupedRowTopForIcon(state.focusedIndex) : null;
+    if (groupedTop != null) {
+      targetTop = groupedTop;
+    } else {
+      const row = Math.floor(state.focusedIndex / state.cols);
+      targetTop = row * (state.rowHeight + 8);
+    }
     if (targetTop < els.gridContainer.scrollTop || targetTop > els.gridContainer.scrollTop + els.gridContainer.clientHeight - state.rowHeight) {
       els.gridContainer.scrollTo({ top: Math.max(0, targetTop - state.rowHeight), behavior: "smooth" });
     }
@@ -3458,7 +3731,10 @@
   }
 
   function setupDetailEvents() {
-    ui().qsa(".bg-toggle").forEach((button) => button.addEventListener("click", () => setPreviewBackground(button.dataset.bg)));
+    ui().qsa(".bg-toggle").forEach((button) => button.addEventListener("click", () => {
+      state.detail.bgManual = true;
+      setPreviewBackground(button.dataset.bg);
+    }));
     $("color-preset-row").addEventListener("click", (event) => {
       const preset = event.target.closest("[data-color]");
       if (preset) {
@@ -3483,6 +3759,7 @@
         ui().qsa(".format-btn").forEach((node) => node.classList.toggle("active", node === button));
         els.dpCopyCode.textContent = state.detail.format === "svg" ? "Copy SVG" : "Copy";
         renderCodePreview();
+        syncQuickActions();
       });
     });
     els.dpCopyCode.addEventListener("click", () => copyCurrentCode(els.dpCopyCode));
@@ -3516,13 +3793,42 @@
       const icon = state.icons.get(state.currentIconId);
       if (icon) downloadZip([icon], { pngSizes: [16, 32, 64, 128, 256, 512] });
     });
-    els.dpVariants.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-icon-id]");
-      if (button) {
-        event.preventDefault();
-        event.stopPropagation();
-        window.location.hash = `#/icon/${button.dataset.iconId}`;
-      }
+    els.qaCopyBtn.addEventListener("click", () => copyQuickFormat(state.detail.format || "svg"));
+    els.qaCopyCaret.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleQaMenu(els.qaCopyMenu, els.qaCopyCaret);
+    });
+    els.qaCopyMenu.addEventListener("click", (event) => {
+      const item = event.target.closest("[data-copy-fmt]");
+      if (!item) return;
+      state.detail.format = item.dataset.copyFmt;
+      ui().qsa(".format-btn").forEach((node) => node.classList.toggle("active", node.dataset.fmt === state.detail.format));
+      els.dpCopyCode.textContent = state.detail.format === "svg" ? "Copy SVG" : "Copy";
+      renderCodePreview();
+      syncQuickActions();
+      closeQaMenus();
+      copyQuickFormat(state.detail.format);
+    });
+    els.qaDownloadBtn.addEventListener("click", () => quickDownload(state.detail.qaDownload || 256));
+    els.qaDownloadCaret.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleQaMenu(els.qaDownloadMenu, els.qaDownloadCaret);
+    });
+    els.qaDownloadMenu.addEventListener("click", (event) => {
+      const sizeItem = event.target.closest("[data-dl-size]");
+      if (!sizeItem) return;
+      state.detail.qaDownload = Number(sizeItem.dataset.dlSize);
+      state.detail.pngSize = Number(sizeItem.dataset.dlSize);
+      ui().qsa(".size-btn").forEach((node) => node.classList.toggle("active", Number(node.dataset.size) === state.detail.pngSize));
+      syncQuickActions();
+      closeQaMenus();
+      quickDownload(state.detail.qaDownload);
+    });
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".qa-split")) closeQaMenus();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeQaMenus();
     });
     els.dpMatches.addEventListener("click", (event) => {
       const button = event.target.closest("[data-icon-id]");
@@ -3766,6 +4072,8 @@
       els.themeToggle.title = next === "light" ? "Switch to dark mode" : "Switch to light mode";
       els.themeToggle.textContent = next === "light" ? "Dark" : "Light";
     }
+    state.detail.bgManual = false;
+    setPreviewBackground(next === "light" ? "light" : "dark");
     if (!state.customColor && els.custColorHex && els.custColorWheel) {
       const color = next === "light" ? "#000000" : "#ffffff";
       els.custColorHex.value = color;
