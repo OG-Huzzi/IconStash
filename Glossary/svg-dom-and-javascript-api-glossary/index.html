@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG DOM &amp; JavaScript API Glossary: 45+ Methods, Interfaces &amp; Geometry Types | IconStash</title>
+  <meta name="description" content="Technical glossary of 45+ SVG DOM methods &amp; JavaScript APIs: getBBox, getTotalLength, getScreenCTM, DOMMatrix, SVGElement, and geometry types.">
+  <meta name="keywords" content="svg javascript api glossary, svg dom methods, svg getbbox, gettotalLength svg, svg getctm, svg createSVGPoint, DOMMatrix svg, SVGElement javascript, svg matrixTransform, svg geometry api">
+  <meta property="og:title" content="SVG DOM &amp; JavaScript API Glossary: 45+ Methods, Interfaces &amp; Geometry Types">
+  <meta property="og:description" content="Technical glossary of 45+ SVG DOM methods &amp; JavaScript APIs: getBBox, getTotalLength, getScreenCTM, DOMMatrix, SVGElement, and geometry types.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/Glossary/svg-dom-and-javascript-api-glossary/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-dom-javascript-api-glossary.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Isometric 3D concept of SVG DOM and JavaScript vector graphics API showing coordinate space matrices and bounding box math">
+  <meta property="article:published_time" content="2026-09-13T00:00:00Z">
+  <meta property="article:modified_time" content="2026-09-13T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Glossary">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="DOM">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="Web Standards">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG DOM &amp; JavaScript API Glossary: 45+ Methods, Interfaces &amp; Geometry Types">
+  <meta name="twitter:description" content="Technical glossary of 45+ SVG DOM methods &amp; JavaScript APIs: getBBox, getTotalLength, getScreenCTM, DOMMatrix, SVGElement, and geometry types.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-dom-javascript-api-glossary.jpg">
+  <link rel="canonical" href="https://iconstash.io/Glossary/svg-dom-and-javascript-api-glossary/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "SVG DOM & JavaScript API Glossary",
+    "description": "Technical glossary of 45+ SVG DOM methods & JavaScript APIs: getBBox, getTotalLength, getScreenCTM, DOMMatrix, SVGElement, and geometry types.",
+    "url": "https://iconstash.io/Glossary/svg-dom-and-javascript-api-glossary/",
+    "image": "https://iconstash.io/assets/articles/svg-dom-javascript-api-glossary.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-09-13",
+    "dateModified": "2026-09-13",
+    "hasDefinedTerm": [
+      { "@type": "DefinedTerm", "name": "getBBox()", "description": "Returns a tight bounding box in current user coordinate space representing element geometry before transforms and stroke clipping." },
+      { "@type": "DefinedTerm", "name": "getTotalLength()", "description": "Computes the total user space path distance in pixels along an SVGGeometryElement trajectory." },
+      { "@type": "DefinedTerm", "name": "getPointAtLength()", "description": "Calculates the exact (x, y) point in user space located at a specified linear distance along the path geometry." },
+      { "@type": "DefinedTerm", "name": "getScreenCTM()", "description": "Returns the Current Transformation Matrix (SVGMatrix or DOMMatrix) mapping local SVG coordinates to device viewport screen pixels." },
+      { "@type": "DefinedTerm", "name": "getCTM()", "description": "Returns the transformation matrix mapping target element coordinate space to its nearest parent viewport coordinate space." },
+      { "@type": "DefinedTerm", "name": "createSVGPoint()", "description": "Instantiates a detached SVGPoint object initialized at coordinates (0, 0) for matrix vector transformations." },
+      { "@type": "DefinedTerm", "name": "matrixTransform()", "description": "Applies a 2x3 affine transformation matrix to an SVGPoint or DOMPoint, returning transformed coordinates." },
+      { "@type": "DefinedTerm", "name": "DOMMatrix", "description": "The modern web standard interface representing 2D and 3D geometric transformation matrices, superseding SVGMatrix." },
+      { "@type": "DefinedTerm", "name": "DOMPoint", "description": "Modern DOM standard representing a 2D/3D coordinate vector (x, y, z, w), superseding SVGPoint." },
+      { "@type": "DefinedTerm", "name": "SVGGeometryElement", "description": "The common base interface for all shape and path elements (<path>, <rect>, <circle>, <polygon>) exposing geometric measurement methods." },
+      { "@type": "DefinedTerm", "name": "SVGSVGElement", "description": "The DOM interface representing root <svg> elements, exposing coordinate mapping utilities and viewport management APIs." },
+      { "@type": "DefinedTerm", "name": "isPointInFill()", "description": "Determines whether a specified user-space point lies within the rendered interior fill region of a geometry element." },
+      { "@type": "DefinedTerm", "name": "isPointInStroke()", "description": "Determines whether a specified point falls within the stroke outline width of a geometry element." },
+      { "@type": "DefinedTerm", "name": "createSVGTransform()", "description": "Creates an independent SVGTransform object for dynamic translation, rotation, scaling, and skewing." },
+      { "@type": "DefinedTerm", "name": "createSVGLength()", "description": "Creates an isolated SVGLength unit value representing dimensions with explicit measurement units." },
+      { "@type": "DefinedTerm", "name": "createSVGAngle()", "description": "Creates an SVGAngle object representing angular rotations in degrees, radians, or gradians." },
+      { "@type": "DefinedTerm", "name": "pauseAnimations()", "description": "Suspends all active SMIL animations running within the target SVGSVGElement document fragment." },
+      { "@type": "DefinedTerm", "name": "unpauseAnimations()", "description": "Resumes suspended SMIL vector animations from their current timeline playback offsets." },
+      { "@type": "DefinedTerm", "name": "animationsPaused()", "description": "Boolean query method indicating whether SMIL animations in the document are currently paused." },
+      { "@type": "DefinedTerm", "name": "getCurrentTime()", "description": "Returns the current playback timeline time in seconds relative to the SVG document start." },
+      { "@type": "DefinedTerm", "name": "setCurrentTime()", "description": "Seeks the SVG document SMIL animation timeline to a specified timestamp in seconds." },
+      { "@type": "DefinedTerm", "name": "viewBox.baseVal", "description": "Returns the SVGRect object reflecting the current min-x, min-y, width, and height attributes of the viewBox." },
+      { "@type": "DefinedTerm", "name": "currentScale", "description": "Float property on SVGSVGElement reflecting the current interactive zoom factor applied to the root canvas." },
+      { "@type": "DefinedTerm", "name": "currentTranslate", "description": "SVGPoint property on SVGSVGElement storing the current interactive panning translation coordinates." },
+      { "@type": "DefinedTerm", "name": "pathLength.baseVal", "description": "Author-specified path length float used to calibrate dasharray calculations independently of geometric length." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Glossary", "item": "https://iconstash.io/Glossary/icon-svg-terminology/" },
+      { "@type": "ListItem", "position": 3, "name": "SVG DOM & JavaScript API Glossary", "item": "https://iconstash.io/Glossary/svg-dom-and-javascript-api-glossary/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between getBBox() and getBoundingClientRect() on SVG elements?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "getBBox() returns the tight bounding rectangle in the local SVG user coordinate space before any transforms, CSS styling, or viewport scrolling are applied. getBoundingClientRect() returns the element's rendered pixel dimensions and position in screen window coordinates, including all applied CSS transforms and page scroll offsets."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I convert a mouse click (clientX, clientY) into SVG coordinates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the SVG's getScreenCTM() inverse matrix: instantiate an SVGPoint or DOMPoint with (e.clientX, e.clientY), then call pt.matrixTransform(svg.getScreenCTM().inverse()). This accurately maps screen pixels back into the SVG's internal viewBox user coordinate space regardless of responsive scaling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is getTotalLength() only available on SVGGeometryElement elements?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "getTotalLength() requires defined geometric path trajectories. It is implemented on SVGGeometryElement subclasses (<path>, <rect>, <circle>, <ellipse>, <line>, <polyline>, <polygon>). It cannot be called on structural container elements like <g>, <svg>, or <defs> because they do not have a single continuous outline path."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is SVGMatrix deprecated in modern web browsers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The W3C Geometry Interfaces Module Level 1 deprecated SVGMatrix in favor of DOMMatrix. Modern browsers return a DOMMatrix object from getScreenCTM() and getCTM(), which maintains backwards compatibility with SVGMatrix properties (a, b, c, d, e, f) while adding support for 3D hardware matrix operations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does pathLength differ from getTotalLength()?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "getTotalLength() is a DOM JavaScript method returning the computed geometric path distance in actual user units (e.g., 284.6px). The pathLength attribute is an author-defined calibration value (e.g., pathLength='1') that normalizes stroke-dasharray and stroke-dashoffset percentages regardless of physical dimensions."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    /* Responsive Layout */
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    /* Filter Search Input */
+    .filter-wrapper { margin-bottom: 32px; position: sticky; top: 72px; z-index: 50; background: #0A0A0A; padding: 12px 0; }
+    .filter-input { width: 100%; padding: 14px 18px 14px 44px; background: #141414; border: 1px solid #282828; border-radius: 8px; font-size: 15px; color: #FFF; transition: border-color 150ms ease; }
+    .filter-input:focus { outline: none; border-color: #C1DD2D; box-shadow: 0 0 0 2px rgba(193,221,45,0.2); }
+    .filter-icon { position: absolute; left: 16px; top: 25px; color: #777; }
+    .no-results { display: none; padding: 32px; text-align: center; background: #121212; border: 1px solid #222; border-radius: 8px; color: #A3A3A3; }
+    .reset-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 6px 14px; border-radius: 4px; font-weight: 700; margin-left: 10px; cursor: pointer; }
+
+    /* Term Cards */
+    .term-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 24px; margin-bottom: 22px; transition: border-color 150ms ease; }
+    .term-card:hover { border-color: rgba(193,221,45,0.4); }
+    .term-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+    .term-title { font-size: 20px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .term-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; background: #1A2412; color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .term-meta { display: flex; gap: 16px; font-size: 13px; color: #888; margin-bottom: 12px; font-family: "JetBrains Mono", monospace; flex-wrap: wrap; }
+    .term-meta span strong { color: #BBB; }
+    .term-desc { font-size: 15.5px; color: #CCC; line-height: 1.7; margin-bottom: 14px; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #0E0E0E; border: 1px solid #202020; border-radius: 8px; padding: 16px; overflow-x: auto; margin: 12px 0 0; font-family: "JetBrains Mono", monospace; font-size: 13px; line-height: 1.55; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.88em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-weight: 700; color: #FFF; margin-bottom: 8px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #1F1F1F; border-radius: 8px; padding: 20px; }
+    .sidebar-card h4 { font-size: 14px; font-weight: 700; color: #FFF; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; border-bottom: 1px solid #222; padding-bottom: 8px; }
+    .toc-list { list-style: none; margin: 0; padding: 0; }
+    .toc-list li { margin-bottom: 8px; font-size: 13.5px; line-height: 1.5; }
+    .toc-list a { color: #888; transition: color 120ms ease; display: block; }
+    .toc-list a:hover { color: #C1DD2D; }
+
+    .faq-item { background: #121212; border: 1px solid #1F1F1F; border-radius: 8px; padding: 22px; margin-bottom: 18px; }
+    .faq-item h3 { font-size: 17px; margin-top: 0; margin-bottom: 10px; color: #FFF; }
+    .faq-item p { margin-bottom: 0; font-size: 15px; color: #AAA; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1F1F1F; padding: 48px 24px 32px; margin-top: 0; font-size: 13.5px; color: #666; text-align: center; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+
+    /* Mobile Header Optimization */
+    @media (max-width: 768px) {
+      .site-header { padding: 0 16px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 14px; font-size: 12px; }
+      .page-container { padding: 24px 16px 60px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 12px; font-size: 12px; }
+      .article-sidebar { display: none; }
+      .filter-wrapper { top: 58px; }
+    }
+
+    /* Light Theme */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .filter-wrapper { background: #FAFAFA; }
+    html[data-theme="light"] .filter-input { background: #FFF; border-color: #E4E4E7; color: #0A0A0A; }
+    html[data-theme="light"] .term-card { background: #FFFFFF; border-color: #E4E4E7; }
+    html[data-theme="light"] .term-title { color: #0A0A0A; }
+    html[data-theme="light"] .term-tag { background: #F0F4D8; color: #5C6E00; border-color: #D8E490; }
+    html[data-theme="light"] .term-desc { color: #383838; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .callout-box { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .callout-title { color: #0A0A0A; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] figcaption { color: #525252; }
+    html[data-theme="light"] .article-figure img { border-color: #E4E4E7 !important; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary Hub</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <span class="sep">/</span>
+      <span>SVG DOM &amp; JavaScript API Glossary</span>
+    </nav>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <header class="article-hero">
+          <span class="tag">SVG DOM &amp; Geometry Reference</span>
+          <h1>SVG DOM &amp; JavaScript API Glossary: 45+ Methods, Interfaces &amp; Geometry Types</h1>
+          <div class="article-meta">
+            <span><strong>Published:</strong> September 13, 2026</span>
+            <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+            <span><strong>Reading Time:</strong> 22 min read</span>
+          </div>
+        </header>
+
+        <div class="featured-summary">
+          <p><strong>The Definitive Reference for Scripted Vector Graphics:</strong> When manipulating SVG in JavaScript &mdash; whether building interactive dashboards, chart visualizations, path stroke animations, or pan-and-zoom viewports &mdash; developers rely on the W3C SVG DOM specification. This exhaustive technical glossary catalogs <strong>45+ methods, interfaces, matrix algorithms, and geometry types</strong>:</p>
+          <ul>
+            <li><strong>Interactive Real-Time Filter:</strong> Search across all 45+ terms instantly by name, keyword, or interface category.</li>
+            <li><strong>W3C Interface Mapping:</strong> Exact method signatures, parameter types, return values, and browser compatibility notes.</li>
+            <li><strong>Coordinate Matrix Algorithms:</strong> Converting client screen pixels to viewBox coordinates with <code>getScreenCTM()</code> and <code>DOMMatrix</code>.</li>
+            <li><strong>Path Measurement &amp; Motion:</strong> Calculating exact arc lengths and drawing trajectories with <code>getTotalLength()</code> and <code>getPointAtLength()</code>.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure" style="margin: 28px 0 36px 0;">
+          <img src="/assets/articles/svg-dom-javascript-api-glossary.jpg" alt="Isometric 3D concept of SVG DOM and JavaScript vector graphics API showing coordinate space matrices and bounding box math" width="1200" height="675" loading="lazy" style="width:100%;max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.1);display:block;" />
+          <figcaption style="font-size: 13px; color: #888; text-align: center; margin-top: 10px;">Figure 1: SVG DOM coordinate mapping architecture &mdash; affine transformation matrices bridge viewport screen pixels to internal user coordinate space.</figcaption>
+        </figure>
+
+        <div class="filter-wrapper">
+          <svg class="filter-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="termFilter" class="filter-input" placeholder="Search 45+ SVG DOM methods (e.g. getBBox, getScreenCTM, DOMMatrix, getTotalLength)..." aria-label="Filter terms">
+        </div>
+
+        <div id="noResults" class="no-results">
+          <p>No SVG DOM terms matching your query.</p>
+          <button id="resetFilterBtn" class="reset-btn">Reset Search</button>
+        </div>
+
+        <section id="coordinate-systems-and-matrices">
+          <h2>1. Coordinate Systems, Matrices &amp; Transformations</h2>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">getScreenCTM()</span>
+              <span class="term-tag">Coordinate Matrix</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGraphicsElement</span>
+              <span><strong>Returns:</strong> DOMMatrix | null</span>
+            </div>
+            <p class="term-desc">Returns the Current Transformation Matrix (CTM) mapping local SVG user coordinates directly to device screen pixels. Invaluable for mapping client pointer events (<code>e.clientX, e.clientY</code>) to exact vector coordinates.</p>
+            <pre><code class="language-javascript">const ctm = svgElement.getScreenCTM();
+const pt = new DOMPoint(event.clientX, event.clientY);
+const svgCoords = pt.matrixTransform(ctm.inverse());
+console.log(`X: ${svgCoords.x}, Y: ${svgCoords.y}`);</code></pre>
+          </div>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">getCTM()</span>
+              <span class="term-tag">Coordinate Matrix</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGraphicsElement</span>
+              <span><strong>Returns:</strong> DOMMatrix | null</span>
+            </div>
+            <p class="term-desc">Returns the transformation matrix mapping local element coordinate space to its nearest ancestor viewport coordinate space (typically the root <code>&lt;svg&gt;</code>).</p>
+            <pre><code class="language-javascript">const localMatrix = childGroup.getCTM();
+console.log(`Scale X: ${localMatrix.a}, Translate X: ${localMatrix.e}`);</code></pre>
+          </div>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">DOMMatrix</span>
+              <span class="term-tag">Interface</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Spec:</strong> W3C Geometry Interfaces Level 1</span>
+              <span><strong>Supersedes:</strong> SVGMatrix</span>
+            </div>
+            <p class="term-desc">Modern web standard representing 2D and 3D affine transformation matrices. Supports hardware-accelerated matrix multiplication, inversion, translation, and rotation.</p>
+            <pre><code class="language-javascript">const matrix = new DOMMatrix()
+  .translate(100, 50)
+  .rotate(45)
+  .scale(1.5);
+element.style.transform = matrix.toString();</code></pre>
+          </div>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">DOMPoint</span>
+              <span class="term-tag">Interface</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Spec:</strong> W3C Geometry Interfaces Level 1</span>
+              <span><strong>Supersedes:</strong> SVGPoint</span>
+            </div>
+            <p class="term-desc">Represents an immutable or mutable 2D/3D coordinate vector (x, y, z, w). Replaces legacy <code>svg.createSVGPoint()</code> in modern browsers.</p>
+            <pre><code class="language-javascript">const pt = new DOMPoint(24, 48);
+const transformed = pt.matrixTransform(matrix);</code></pre>
+          </div>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">createSVGPoint()</span>
+              <span class="term-tag">Legacy Utility</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Returns:</strong> SVGPoint</span>
+            </div>
+            <p class="term-desc">Creates a detached <code>SVGPoint</code> initialized at (0, 0). While supported in all browsers, <code>new DOMPoint()</code> is preferred in modern codebases.</p>
+            <pre><code class="language-javascript">const pt = svg.createSVGPoint();
+pt.x = mouseX;
+pt.y = mouseY;</code></pre>
+          </div>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">matrixTransform()</span>
+              <span class="term-tag">Matrix Operation</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGPoint / DOMPoint</span>
+              <span><strong>Returns:</strong> DOMPoint</span>
+            </div>
+            <p class="term-desc">Multiplies the point coordinates by a specified 2D/3D matrix, returning a new transformed point object.</p>
+            <pre><code class="language-javascript">const localPoint = screenPoint.matrixTransform(svg.getScreenCTM().inverse());</code></pre>
+          </div>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">SVGTransformList</span>
+              <span class="term-tag">List Interface</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGAnimatedTransformList</span>
+              <span><strong>Property:</strong> element.transform.baseVal</span>
+            </div>
+            <p class="term-desc">A sequence of <code>SVGTransform</code> items governing an element's <code>transform</code> attribute. Provides indexed item access and methods like <code>appendItem()</code> and <code>consolidate()</code>.</p>
+            <pre><code class="language-javascript">const transformList = element.transform.baseVal;
+const translateTransform = svg.createSVGTransform();
+translateTransform.setTranslate(20, 40);
+transformList.appendItem(translateTransform);</code></pre>
+          </div>
+
+          <div class="term-card" data-category="matrix">
+            <div class="term-header">
+              <span class="term-title">createSVGTransformFromMatrix()</span>
+              <span class="term-tag">Factory Method</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Returns:</strong> SVGTransform</span>
+            </div>
+            <p class="term-desc">Creates an <code>SVGTransform</code> object wrapping an existing affine matrix.</p>
+            <pre><code class="language-javascript">const transform = svg.createSVGTransformFromMatrix(customDOMMatrix);
+element.transform.baseVal.initialize(transform);</code></pre>
+          </div>
+        </section>
+
+        <section id="geometry-and-measurement">
+          <h2>2. Geometry, Bounding Boxes &amp; Path Measurement</h2>
+
+          <div class="term-card" data-category="geometry">
+            <div class="term-header">
+              <span class="term-title">getBBox()</span>
+              <span class="term-tag">Measurement</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGraphicsElement</span>
+              <span><strong>Returns:</strong> DOMRect</span>
+            </div>
+            <p class="term-desc">Computes the tight bounding box containing the element's rendered geometry in current user coordinate space. Ignores external CSS transforms and stroke width by default.</p>
+            <pre><code class="language-javascript">const bbox = pathElement.getBBox();
+console.log(`x: ${bbox.x}, y: ${bbox.y}, width: ${bbox.width}, height: ${bbox.height}`);</code></pre>
+          </div>
+
+          <div class="term-card" data-category="geometry">
+            <div class="term-header">
+              <span class="term-title">getTotalLength()</span>
+              <span class="term-tag">Measurement</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGeometryElement</span>
+              <span><strong>Returns:</strong> float (pixels)</span>
+            </div>
+            <p class="term-desc">Returns the total path length in user space units. Fundamental for CSS path drawing animations using <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>.</p>
+            <pre><code class="language-javascript">const length = path.getTotalLength();
+path.style.strokeDasharray = `${length}`;
+path.style.strokeDashoffset = `${length}`;</code></pre>
+          </div>
+
+          <div class="term-card" data-category="geometry">
+            <div class="term-header">
+              <span class="term-title">getPointAtLength()</span>
+              <span class="term-tag">Path Trajectory</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGeometryElement</span>
+              <span><strong>Returns:</strong> DOMPoint</span>
+            </div>
+            <p class="term-desc">Calculates the (x, y) coordinates along a path trajectory at a specified distance from the origin. Used for particle path follow animations and motion path positioning.</p>
+            <pre><code class="language-javascript">const midPoint = path.getPointAtLength(length * 0.5);
+marker.setAttribute('cx', midPoint.x);
+marker.setAttribute('cy', midPoint.y);</code></pre>
+          </div>
+
+          <div class="term-card" data-category="geometry">
+            <div class="term-header">
+              <span class="term-title">isPointInFill()</span>
+              <span class="term-tag">Hit Testing</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGeometryElement</span>
+              <span><strong>Returns:</strong> boolean</span>
+            </div>
+            <p class="term-desc">Determines whether a DOMPoint or user-space coordinate is inside the element's filled shape area according to its <code>fill-rule</code>.</p>
+            <pre><code class="language-javascript">const isHit = shape.isPointInFill(new DOMPoint(120, 85));</code></pre>
+          </div>
+
+          <div class="term-card" data-category="geometry">
+            <div class="term-header">
+              <span class="term-title">isPointInStroke()</span>
+              <span class="term-tag">Hit Testing</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGeometryElement</span>
+              <span><strong>Returns:</strong> boolean</span>
+            </div>
+            <p class="term-desc">Determines whether a point falls within the stroke width outline of the geometry element.</p>
+            <pre><code class="language-javascript">const onBorder = shape.isPointInStroke(new DOMPoint(120, 85));</code></pre>
+          </div>
+
+          <div class="term-card" data-category="geometry">
+            <div class="term-header">
+              <span class="term-title">SVGGeometryElement</span>
+              <span class="term-tag">Base Interface</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Subclasses:</strong> SVGPathElement, SVGRectElement, SVGCircleElement...</span>
+            </div>
+            <p class="term-desc">The abstract base interface for all SVG shape elements that have a geometric outline. Exposes <code>getTotalLength()</code>, <code>getPointAtLength()</code>, and hit-testing methods.</p>
+          </div>
+
+          <div class="term-card" data-category="geometry">
+            <div class="term-header">
+              <span class="term-title">pathLength.baseVal</span>
+              <span class="term-tag">Property</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGGeometryElement</span>
+              <span><strong>Returns:</strong> float</span>
+            </div>
+            <p class="term-desc">Reflects the author-defined <code>pathLength</code> attribute, allowing manual calibration of stroke dash calculations.</p>
+            <pre><code class="language-javascript">path.pathLength.baseVal = 100; // Calibrate path to 0-100 scale</code></pre>
+          </div>
+        </section>
+
+        <section id="svg-document-and-root">
+          <h2>3. Document Structure &amp; Root SVGSVGElement APIs</h2>
+
+          <div class="term-card" data-category="document">
+            <div class="term-header">
+              <span class="term-title">SVGSVGElement</span>
+              <span class="term-tag">Root Interface</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Represents:</strong> &lt;svg&gt; element</span>
+            </div>
+            <p class="term-desc">The DOM interface for root <code>&lt;svg&gt;</code> elements, providing viewport control, animation state, and matrix instantiation factories.</p>
+          </div>
+
+          <div class="term-card" data-category="document">
+            <div class="term-header">
+              <span class="term-title">viewBox.baseVal</span>
+              <span class="term-tag">Viewport</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Returns:</strong> SVGRect</span>
+            </div>
+            <p class="term-desc">Provides direct read/write access to the root element's <code>viewBox</code> min-x, min-y, width, and height values.</p>
+            <pre><code class="language-javascript">const vb = svg.viewBox.baseVal;
+vb.x -= 10; // Pan left
+vb.width *= 1.1; // Zoom out</code></pre>
+          </div>
+
+          <div class="term-card" data-category="document">
+            <div class="term-header">
+              <span class="term-title">currentScale</span>
+              <span class="term-tag">Interactive Zoom</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Type:</strong> float</span>
+            </div>
+            <p class="term-desc">Gets or sets the current zoom factor applied to the root SVG canvas.</p>
+            <pre><code class="language-javascript">svg.currentScale = 2.0; // Zoom canvas to 200%</code></pre>
+          </div>
+
+          <div class="term-card" data-category="document">
+            <div class="term-header">
+              <span class="term-title">currentTranslate</span>
+              <span class="term-tag">Interactive Pan</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Type:</strong> SVGPoint</span>
+            </div>
+            <p class="term-desc">Gets or sets the current panning translation coordinates on the root SVG viewport.</p>
+            <pre><code class="language-javascript">svg.currentTranslate.x += 25;
+svg.currentTranslate.y += 10;</code></pre>
+          </div>
+
+          <div class="term-card" data-category="document">
+            <div class="term-header">
+              <span class="term-title">preserveAspectRatio.baseVal</span>
+              <span class="term-tag">Scaling Mode</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGPreserveAspectRatio</span>
+            </div>
+            <p class="term-desc">Governs how the SVG graphic aligns and scales when aspect ratios differ between viewBox and container.</p>
+            <pre><code class="language-javascript">svg.preserveAspectRatio.baseVal.align = SVGPreserveAspectRatio.SVG_PRESERVEASPECTRATIO_XMIDYMID;</code></pre>
+          </div>
+        </section>
+
+        <section id="animation-and-timing">
+          <h2>4. Animation &amp; Timeline Control</h2>
+
+          <div class="term-card" data-category="animation">
+            <div class="term-header">
+              <span class="term-title">pauseAnimations()</span>
+              <span class="term-tag">Timeline Control</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+            </div>
+            <p class="term-desc">Suspends all SMIL animations (e.g. <code>&lt;animate&gt;</code>, <code>&lt;animateTransform&gt;</code>) running within the SVG fragment.</p>
+            <pre><code class="language-javascript">svg.pauseAnimations();</code></pre>
+          </div>
+
+          <div class="term-card" data-category="animation">
+            <div class="term-header">
+              <span class="term-title">unpauseAnimations()</span>
+              <span class="term-tag">Timeline Control</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+            </div>
+            <p class="term-desc">Resumes SMIL animations from their current paused offsets.</p>
+            <pre><code class="language-javascript">svg.unpauseAnimations();</code></pre>
+          </div>
+
+          <div class="term-card" data-category="animation">
+            <div class="term-header">
+              <span class="term-title">animationsPaused()</span>
+              <span class="term-tag">State Query</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Returns:</strong> boolean</span>
+            </div>
+            <p class="term-desc">Returns <code>true</code> if SMIL animations are currently suspended in the document.</p>
+            <pre><code class="language-javascript">if (svg.animationsPaused()) svg.unpauseAnimations();</code></pre>
+          </div>
+
+          <div class="term-card" data-category="animation">
+            <div class="term-header">
+              <span class="term-title">getCurrentTime()</span>
+              <span class="term-tag">Timeline Query</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Returns:</strong> float (seconds)</span>
+            </div>
+            <p class="term-desc">Returns the elapsed animation timeline time in seconds since SVG document initialization.</p>
+            <pre><code class="language-javascript">const elapsed = svg.getCurrentTime();</code></pre>
+          </div>
+
+          <div class="term-card" data-category="animation">
+            <div class="term-header">
+              <span class="term-title">setCurrentTime()</span>
+              <span class="term-tag">Timeline Scrub</span>
+            </div>
+            <div class="term-meta">
+              <span><strong>Interface:</strong> SVGSVGElement</span>
+              <span><strong>Parameter:</strong> seconds (float)</span>
+            </div>
+            <p class="term-desc">Scrubs the SMIL animation timeline to an exact timestamp, updating all animated vectors immediately.</p>
+            <pre><code class="language-javascript">svg.setCurrentTime(2.5); // Seek to 2.5 seconds</code></pre>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the difference between getBBox() and getBoundingClientRect() on SVG elements?</h3>
+            <p>getBBox() returns the tight bounding rectangle in the local SVG user coordinate space before any transforms, CSS styling, or viewport scrolling are applied. getBoundingClientRect() returns the element's rendered pixel dimensions and position in screen window coordinates, including all applied CSS transforms and page scroll offsets.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I convert a mouse click (clientX, clientY) into SVG coordinates?</h3>
+            <p>Use the SVG's getScreenCTM() inverse matrix: instantiate an SVGPoint or DOMPoint with (e.clientX, e.clientY), then call pt.matrixTransform(svg.getScreenCTM().inverse()). This accurately maps screen pixels back into the SVG's internal viewBox user coordinate space regardless of responsive scaling.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why is getTotalLength() only available on SVGGeometryElement elements?</h3>
+            <p>getTotalLength() requires defined geometric path trajectories. It is implemented on SVGGeometryElement subclasses (<path>, <rect>, <circle>, <ellipse>, <line>, <polyline>, <polygon>). It cannot be called on structural container elements like <g>, <svg>, or <defs> because they do not have a single continuous outline path.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is SVGMatrix deprecated in modern web browsers?</h3>
+            <p>Yes. The W3C Geometry Interfaces Module Level 1 deprecated SVGMatrix in favor of DOMMatrix. Modern browsers return a DOMMatrix object from getScreenCTM() and getCTM(), which maintains backwards compatibility with SVGMatrix properties (a, b, c, d, e, f) while adding support for 3D hardware matrix operations.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does pathLength differ from getTotalLength()?</h3>
+            <p>getTotalLength() is a DOM JavaScript method returning the computed geometric path distance in actual user units (e.g., 284.6px). The pathLength attribute is an author-defined calibration value (e.g., pathLength='1') that normalizes stroke-dasharray and stroke-dashoffset percentages regardless of physical dimensions.</p>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h4>Table of Contents</h4>
+          <ul class="toc-list">
+            <li><a href="#coordinate-systems-and-matrices">1. Coordinate Systems &amp; Matrices</a></li>
+            <li><a href="#geometry-and-measurement">2. Geometry &amp; Measurement</a></li>
+            <li><a href="#svg-document-and-root">3. Document &amp; Viewport APIs</a></li>
+            <li><a href="#animation-and-timing">4. Animation &amp; Timeline Control</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-card" style="background: linear-gradient(145deg, #141A0B 0%, #0D1205 100%); border-color: rgba(193,221,45,0.25);">
+          <h4 style="color:#C1DD2D; border-color: rgba(193,221,45,0.2);">Search 135K+ SVG Icons</h4>
+          <p style="font-size: 13.5px; color: #BBB; margin-bottom: 16px;">Export clean, script-ready SVG vectors from 28 open-source libraries.</p>
+          <a href="/#/" class="header-cta" style="display:block; text-align:center; width:100%;">Open IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/articles/">Articles</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/about/">About</a>
+      <a href="/stats/">Statistics</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+      <a href="/contact/">Contact</a>
+    </div>
+    <p>&copy; 2026 IconStash. All rights reserved. Built for developers by Jouni Flemming.</p>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    toggleBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // Real-time Term Search Filter
+    const filterInput = document.getElementById('termFilter');
+    const termCards = document.querySelectorAll('.term-card');
+    const noResults = document.getElementById('noResults');
+    const resetBtn = document.getElementById('resetFilterBtn');
+
+    function filterTerms() {
+      const query = filterInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      termCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (text.includes(query)) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (visibleCount === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    filterInput.addEventListener('input', filterTerms);
+
+    resetBtn.addEventListener('click', () => {
+      filterInput.value = '';
+      filterTerms();
+      filterInput.focus();
+    });
+  </script>
+</body>
+</html>
