@@ -270,8 +270,12 @@
     html[data-theme="light"] .term-tag { background: #F0F4D8; color: #5C6E00; border-color: #D8E490; }
     html[data-theme="light"] .term-desc { color: #383838; }
     html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; padding: 0; color: inherit; }
     html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
     html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .term-meta { color: #525252; }
+    html[data-theme="light"] .term-meta span strong { color: #171717; }
+    html[data-theme="light"] .no-results { background: #FFFFFF; border-color: #E4E4E7; color: #525252; }
     html[data-theme="light"] .callout-box { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
     html[data-theme="light"] .callout-title { color: #0A0A0A; }
     html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
@@ -787,17 +791,26 @@ svg.currentTranslate.y += 10;</code></pre>
       const query = filterInput.value.toLowerCase().trim();
       let visibleCount = 0;
 
-      termCards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        if (text.includes(query)) {
-          card.style.display = 'block';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
+      const sections = document.querySelectorAll('article.article-main section:not(#faq)');
+      sections.forEach(sec => {
+        const cards = sec.querySelectorAll('.term-card');
+        let secVisible = 0;
+        cards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          if (!query || text.includes(query)) {
+            card.style.display = '';
+            secVisible++;
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        if (cards.length > 0) {
+          sec.style.display = (secVisible > 0 || !query) ? '' : 'none';
         }
       });
 
-      if (visibleCount === 0) {
+      if (visibleCount === 0 && query) {
         noResults.style.display = 'block';
       } else {
         noResults.style.display = 'none';
