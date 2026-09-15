@@ -135,6 +135,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Free SVG Icons for Commercial Use](https://iconstash.io/articles/free-svg-icons-commercial-use-2026/)
 - [Lucide vs Feather Icons](https://iconstash.io/articles/lucide-vs-feather-icons-2026/)
 - [How to Build a Scalable Icon System](https://iconstash.io/articles/how-to-build-scalable-icon-system/)
+- [How to Make SVG Responsive: The Complete 2026 Guide (viewBox, CSS Grid & Container Queries)](https://iconstash.io/articles/how-to-make-svg-responsive-guide/)
+- [How to Use Phosphor Icons in React, Vue & Web Apps: The Complete 2026 Guide](https://iconstash.io/articles/phosphor-icons-complete-guide/)
+- [12 Best Free Duotone & Two-Tone Icon Packs for Modern UI (2026 Ranked)](https://iconstash.io/Listicles/best-duotone-icon-packs/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives

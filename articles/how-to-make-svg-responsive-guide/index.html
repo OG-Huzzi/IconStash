@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Make SVG Responsive: The Complete 2026 Guide | IconStash</title>
+  <meta name="description" content="Master responsive SVG scaling in 2026. Learn viewBox mechanics, preserveAspectRatio values, CSS aspect-ratio, Flexbox fixes, and container query sizing.">
+  <meta name="keywords" content="how to make svg responsive, responsive svg, scale svg css, preserveAspectRatio svg, responsive svg container queries, fluid svg icons, svg viewbox responsive">
+  <meta property="og:title" content="How to Make SVG Responsive: The Complete 2026 Guide">
+  <meta property="og:description" content="Master responsive SVG scaling in 2026. Learn viewBox mechanics, preserveAspectRatio values, CSS aspect-ratio, Flexbox fixes, and container query sizing.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-make-svg-responsive-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/responsive-svg-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="How to Make SVG Responsive: viewBox coordinates, preserveAspectRatio, and container queries">
+  <meta property="article:published_time" content="2026-09-15T00:00:00Z">
+  <meta property="article:modified_time" content="2026-09-15T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Responsive Design">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Web Performance">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Make SVG Responsive: The Complete 2026 Guide">
+  <meta name="twitter:description" content="Master responsive SVG scaling in 2026. Learn viewBox mechanics, preserveAspectRatio values, CSS aspect-ratio, Flexbox fixes, and container query sizing.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/responsive-svg-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-make-svg-responsive-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How to Make SVG Responsive: The Complete 2026 Guide",
+    "description": "Master responsive SVG scaling in 2026. Learn viewBox mechanics, preserveAspectRatio values, CSS aspect-ratio, Flexbox fixes, and container query sizing.",
+    "image": "https://iconstash.io/assets/articles/responsive-svg-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-09-15",
+    "dateModified": "2026-09-15",
+    "mainEntityOfPage": "https://iconstash.io/articles/how-to-make-svg-responsive-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Intermediate to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "Responsive web design", "sameAs": "https://en.wikipedia.org/wiki/Responsive_web_design" }
+    ],
+    "keywords": ["how to make svg responsive", "responsive svg", "scale svg css", "preserveAspectRatio svg", "svg container queries"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "How to Make SVG Responsive", "item": "https://iconstash.io/articles/how-to-make-svg-responsive-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why does an SVG collapse or overflow when width is set to 100%?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SVGs collapse or overflow when they lack an explicit viewBox attribute or carry hardcoded pixel width and height attributes that clash with parent container styles. Without a viewBox, browsers cannot determine the graphic's intrinsic aspect ratio, causing inline SVGs to default to 300x150 pixels under CSS replaced element rules."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between preserveAspectRatio='xMidYMid meet' and 'xMidYMid slice'?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "xMidYMid meet scales the entire graphic down so the whole viewBox is visible inside the container (letterboxing with empty space if aspect ratios differ), similar to CSS object-fit: contain. xMidYMid slice scales the graphic up so the viewBox fills the entire container without letterboxing, clipping any excess coordinates outside the viewport, identical to CSS object-fit: cover."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do we still need the old padding-bottom CSS hack for responsive SVGs in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Modern CSS aspect-ratio is supported in over 98% of global browsers. Combining width: 100%, height: auto, and aspect-ratio removes the need for zero-height absolute positioning wrapper hacks, simplifying DOM structures and eliminating subpixel rounding jitter."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you stop SVGs from shrinking unexpectedly inside Flexbox containers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Flex items default to min-width: auto and flex-shrink: 1. When parent flex containers narrow, inline SVGs can collapse to 0 pixels. Setting flex-shrink: 0, an explicit width (such as 1.5rem or 24px), and display: block or inline-block prevents flexbox from crushing icon dimensions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do CSS Container Queries improve responsive icon scaling over media queries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Container queries (@container) evaluate the dimensions of the icon's immediate parent wrapper rather than the global browser viewport. This enables modular design systems where an icon or card adapts its stroke-width, layout, or dimensions whether placed in a narrow sidebar widget or a full-width hero section."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    /* Responsive Layout */
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    /* Comparison Tables */
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    /* Callout Card */
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    /* FAQ Box */
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; line-height: 1.6; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Support */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #3A4E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .table-wrap { border-color: #E4E4E7; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #D4D4D8; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #27272A; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .callout-box, html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .callout-title, html[data-theme="light"] .faq-item h3 { color: #111; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .hero-figure { border-color: #E4E4E7; background: #F4F4F5; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; border-top-color: #D4D4D8; color: #525252; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav aria-label="Global Navigation">
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" title="Toggle Theme" aria-label="Toggle light/dark theme">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumbs">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span aria-current="page">How to Make SVG Responsive</span>
+    </nav>
+
+    <div class="article-hero">
+      <span class="tag">Engineering Guide</span>
+      <h1>How to Make SVG Responsive: The Complete 2026 Guide (viewBox, CSS Grid &amp; Container Queries)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published September 15, 2026</span>
+        <span>14 min read</span>
+        <span>Updated for CSS Container Queries &amp; Tailwind v4</span>
+      </div>
+    </div>
+
+    <figure class="hero-figure">
+      <img src="/assets/articles/responsive-svg-guide.jpg" alt="Responsive SVG scaling across desktop, tablet, and mobile with viewBox and CSS container queries" width="1200" height="675" loading="eager">
+      <figcaption>Responsive SVG vector scaling across device form factors powered by viewBox coordinate systems, CSS aspect-ratio, and container queries.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary:</strong> Unlike raster images with hardcoded physical pixel dimensions, SVGs are mathematical coordinate systems that can scale infinitely. However, getting an SVG to scale fluidly without clipping, unexpected letterboxing, or collapsing to zero height in modern CSS Grid, Flexbox, and responsive cards requires mastering three core mechanics:</p>
+          <ul>
+            <li><strong>Coordinate Architecture:</strong> Removing hardcoded <code>width</code> and <code>height</code> attributes while declaring an accurate <code>viewBox="min-x min-y width height"</code> to establish the SVG's intrinsic aspect ratio.</li>
+            <li><strong>PreserveAspectRatio Rules:</strong> Explicitly configuring alignment and scaling modes (<code>meet</code> vs <code>slice</code> vs <code>none</code>) to avoid unwanted vertical or horizontal padding.</li>
+            <li><strong>Modern CSS Integration:</strong> Leveraging CSS <code>aspect-ratio</code>, Flexbox <code>flex-shrink: 0</code> constraints, and CSS Container Queries (<code>@container</code>) to replace legacy padding-bottom hacks with clean, subpixel-crisp rendering.</li>
+          </ul>
+        </div>
+
+        <h2 id="why-svgs-collapse">1. The Responsive SVG Problem: Why Vectors Collapse or Overflow</h2>
+        <p>Frontend developers have all faced the frustrating phenomenon: you embed a vector icon or graphic into your HTML, set <code>width: 100%</code> in CSS, and the graphic either disappears entirely into a 0-pixel hairline sliver, overflows its parent wrapper, or renders inside a massive empty gray box.</p>
+        <p>This bug stems from the W3C specification regarding <strong>replaced elements</strong>. According to CSS layout rules, when an embedded SVG lacks both an intrinsic width/height and an established intrinsic aspect ratio, user agents default to a standardized fallback box of <strong>300px wide by 150px tall</strong> (a 2:1 aspect ratio).</p>
+        <p>Worse, inside CSS Flexbox and Grid layouts, flex items have a default <code>min-width: auto</code>. If an SVG contains explicit attributes like <code>width="500" height="500"</code>, browsers refuse to shrink the SVG below 500px, blowing out the parent container and causing mobile horizontal scrolling.</p>
+
+        <div class="callout-box">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            The Two Rules of Responsive SVG Markup
+          </div>
+          <p>To make any SVG responsive, you must guarantee two foundational conditions: <strong>1)</strong> You must specify a valid <code>viewBox</code> attribute. <strong>2)</strong> You must remove physical pixel units from the root <code>&lt;svg&gt;</code> element (or set them to <code>100%</code> in markup and manage dimensions in CSS).</p>
+        </div>
+
+        <h2 id="viewbox-mechanics">2. Decoding viewBox: The Mathematical Engine of Responsive Vectors</h2>
+        <p>The <code>viewBox</code> attribute is the single most important attribute in the entire SVG specification. It defines the internal virtual canvas and coordinate system onto which all internal paths, circles, and polygons are mapped.</p>
+        <p>The attribute takes four whitespace- or comma-separated numbers:</p>
+        <pre><code class="language-html">&lt;!-- Anatomy: viewBox="min-x min-y width height" --&gt;
+&lt;svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+  &lt;path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/&gt;
+&lt;/svg&gt;</code></pre>
+
+        <p>Here is what each parameter actually does:</p>
+        <ul>
+          <li><strong>min-x &amp; min-y:</strong> The coordinates of the top-left corner of the virtual canvas. In 99% of UI icons, both are <code>0 0</code>. However, negative origins (e.g., <code>-50 -50 100 100</code>) are frequently used for circular radar charts or radial gauges centered at the mathematical origin.</li>
+          <li><strong>width &amp; height:</strong> The width and height of the virtual coordinate space. A <code>viewBox="0 0 24 24"</code> establishes a square 1:1 intrinsic aspect ratio, while <code>viewBox="0 0 1200 675"</code> establishes a 16:9 widescreen ratio.</li>
+        </ul>
+        <p>When you set <code>width: 100%; height: auto;</code> in CSS, the browser calculates the rendered height by multiplying the container width by the ratio of <code>viewBox height / viewBox width</code>. If your <code>viewBox</code> is missing, this mathematical calculation collapses.</p>
+
+        <h2 id="preserveaspectratio">3. Mastering preserveAspectRatio: Alignments, Letterboxing &amp; Cropping</h2>
+        <p>When an SVG's rendered viewport does not match the aspect ratio of its <code>viewBox</code> (for instance, rendering a 1:1 square icon inside a 2:1 rectangular button), the <code>preserveAspectRatio</code> attribute tells the browser how to position and scale the vector paths.</p>
+        <p>The attribute syntax consists of two directives: an <strong>alignment operator</strong> and a <strong>scaling mode</strong>:</p>
+        <pre><code class="language-html">&lt;!-- Default browser behavior if omitted --&gt;
+&lt;svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"&gt;...&lt;/svg&gt;
+
+&lt;!-- Full-bleed hero banner clipping excess top/bottom --&gt;
+&lt;svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice"&gt;...&lt;/svg&gt;
+
+&lt;!-- Intentional non-uniform stretch across both axes --&gt;
+&lt;svg viewBox="0 0 100 100" preserveAspectRatio="none"&gt;...&lt;/svg&gt;</code></pre>
+
+        <p>The three scaling modes behave as follows:</p>
+        <ul>
+          <li><strong>meet (Default):</strong> Scales the graphic until either width or height touches the edge while preserving the aspect ratio. If aspect ratios mismatch, empty bands (letterboxing or pillarboxing) appear. This is equivalent to <code>object-fit: contain</code>.</li>
+          <li><strong>slice:</strong> Scales the graphic until it completely covers the viewport while preserving the aspect ratio, clipping any vector paths that extend outside. This is equivalent to <code>object-fit: cover</code>.</li>
+          <li><strong>none:</strong> Disregards aspect ratio entirely and forces the graphic to stretch non-uniformly to fit the container. Vector circles will warp into ovals. Equivalent to <code>object-fit: fill</code>.</li>
+        </ul>
+
+        <p>The alignment component combines an X-axis anchor (<code>xMin</code>, <code>xMid</code>, <code>xMax</code>) and a Y-axis anchor (<code>YMin</code>, <code>YMid</code>, <code>YMax</code>). For example, <code>xMinYMin meet</code> pins the graphic to the top-left corner during responsive scaling.</p>
+
+        <h2 id="modern-css-scaling">4. Modern CSS Scaling: Retiring the 2014 "Padding-Bottom Hack"</h2>
+        <p>For over a decade, frontend engineers had to wrap every responsive SVG inside an auxiliary <code>&lt;div class="svg-container"&gt;</code> with zero height, relative positioning, and a calculated percentage <code>padding-bottom</code> (e.g., <code>padding-bottom: 56.25%</code> for 16:9) to prevent layout shifts. The SVG was then forced to fill the container with <code>position: absolute; top: 0; left: 0; width: 100%; height: 100%;</code>.</p>
+        <p>In 2026, modern CSS has rendered this cumbersome technique obsolete. With full cross-browser support for CSS <code>aspect-ratio</code>, you can achieve clean, responsive scaling with direct styling:</p>
+
+        <pre><code class="language-css">/* The 2026 Modern Responsive SVG Rule */
+.responsive-svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* Matches your viewBox ratio */
+}
+
+/* For Square UI Icons (e.g. 24x24) */
+.icon-fluid {
+  display: inline-block;
+  width: clamp(16px, 2.5vw, 28px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  vertical-align: middle;
+}</code></pre>
+
+        <p>By declaring <code>aspect-ratio</code> directly on the <code>&lt;svg&gt;</code> element, browsers immediately reserve the exact layout geometry before vector parsing finishes, eliminating <strong>Cumulative Layout Shift (CLS)</strong> and ensuring zero visual stutter during page load.</p>
+
+        <h2 id="flexbox-grid-fixes">5. Responsive SVGs in Flexbox and CSS Grid: The Hidden Traps</h2>
+        <p>Flexbox and CSS Grid are where 90% of responsive SVG bugs occur in production. Consider an inline notification alert with an icon and a text block:</p>
+        <pre><code class="language-html">&lt;div class="alert-box"&gt;
+  &lt;svg class="alert-icon" viewBox="0 0 24 24"&gt;...&lt;/svg&gt;
+  &lt;p class="alert-text"&gt;Payment method updated successfully.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+        <p>If you resize the browser on mobile, the text grows taller, and suddenly the icon shrinks from 24px wide down to 11px wide! Why? Because flex children have an implicit <code>flex-shrink: 1</code>. When the text content requires more horizontal room, the browser compresses the vector icon.</p>
+        <p>To permanently bulletproof SVGs in flex layouts, apply these three rules:</p>
+
+        <pre><code class="language-css">.alert-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.alert-icon {
+  /* Prevent flexbox from squeezing the icon */
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  /* Prevent subpixel baseline misalignment */
+  display: block;
+}
+
+.alert-text {
+  /* Allow text to wrap cleanly without pushing out parent */
+  min-width: 0;
+  flex: 1 1 auto;
+}</code></pre>
+
+        <h2 id="container-queries">6. Next-Gen Fluid Icons with CSS Container Queries</h2>
+        <p>Historically, responsive typography and icons relied on media queries checking viewport width (e.g., <code>@media (max-width: 768px)</code>). But in modern component-driven architectures (React, Vue, Web Components), an icon inside a narrow dashboard sidebar on a 4K display should behave like a mobile icon, while the same component in the main hero section needs large visual weighting.</p>
+        <p>CSS Container Queries solve this elegantly by evaluating the size of the immediate parent card or widget:</p>
+
+        <pre><code class="language-css">/* Establish a containment context on the parent card */
+.widget-card {
+  container-type: inline-size;
+  container-name: card;
+  padding: 1.5rem;
+}
+
+/* Scale the SVG icon based on container width */
+.widget-icon {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2px;
+  transition: all 200ms ease;
+}
+
+/* When the card container exceeds 480px, elevate icon presence */
+@container card (min-width: 480px) {
+  .widget-icon {
+    width: 36px;
+    height: 36px;
+    stroke-width: 1.75px; /* Thinner stroke for larger optical balance */
+  }
+}
+
+/* When the card container exceeds 800px (full-width banner) */
+@container card (min-width: 800px) {
+  .widget-icon {
+    width: 48px;
+    height: 48px;
+    stroke-width: 1.5px;
+  }
+}</code></pre>
+
+        <h2 id="embedding-comparison">7. Comparison: Responsive Behavior Across Embedding Methods</h2>
+        <p>How you embed an SVG fundamentally alters how CSS interacts with its internal DOM, its responsive sizing behavior, and its performance overhead. The benchmark table below compares the five primary integration methods:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Embedding Method</th>
+                <th>CSS Sizing Control</th>
+                <th>PreserveAspectRatio</th>
+                <th>CSS Theming (currentColor)</th>
+                <th>Hydration / DOM Nodes</th>
+                <th>HTTP Caching</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Inline &lt;svg&gt;</strong></td>
+                <td>Full (width, height, aspect-ratio)</td>
+                <td>Native attribute</td>
+                <td>Instant &amp; Direct</td>
+                <td>Adds DOM nodes per path</td>
+                <td>Cached with HTML only</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;img src="icon.svg"&gt;</strong></td>
+                <td>Full (via object-fit/aspect-ratio)</td>
+                <td>Respected from SVG file</td>
+                <td>None (Sandboxed)</td>
+                <td>Single image DOM node</td>
+                <td>100% Browser Cached</td>
+              </tr>
+              <tr>
+                <td><strong>CSS mask-image</strong></td>
+                <td>Full (via background-size &amp; mask-size)</td>
+                <td>mask-size: contain</td>
+                <td>Instant via background-color</td>
+                <td>Single span / pseudo-element</td>
+                <td>100% Browser Cached</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;svg&gt;&lt;use href="#id"/&gt;</strong></td>
+                <td>Full (inherits outer svg sizing)</td>
+                <td>Controlled on root svg</td>
+                <td>Supported via shadow DOM</td>
+                <td>Lightweight shadow root</td>
+                <td>External sprite cached</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;object data="icon.svg"&gt;</strong></td>
+                <td>Medium (clunky iframe-like resize)</td>
+                <td>Respected from SVG file</td>
+                <td>Requires cross-doc JS access</td>
+                <td>Heavy sub-document overhead</td>
+                <td>100% Browser Cached</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="production-fixes">8. Edge Cases &amp; Browser-Specific Responsive Bugs</h2>
+        <p>Even with clean markup, several browser rendering quirks can trip up production applications:</p>
+
+        <h3>1. The WebKit / iOS Safari Zero-Height Glitch</h3>
+        <p>On mobile Safari, SVGs rendered with <code>height: auto</code> and no explicit container constraints can occasionally collapse to zero height if the SVG was injected dynamically into the DOM after initial render. To resolve this, always ensure either <code>aspect-ratio</code> is set or apply a fallback <code>min-height: 1em;</code> to prevent layout collapse.</p>
+
+        <h3>2. Subpixel Path Clipping (The 0.5px Artifact)</h3>
+        <p>When an SVG scales dynamically to non-integer pixel widths (e.g., <code>23.4px</code>), browser GPU rasterizers can clip strokes that touch the exact edge of the <code>viewBox</code> boundary (such as a 1px border at coordinate <code>0</code> or <code>24</code>). To fix this, add a half-pixel padding inside your vector design (e.g., <code>viewBox="-0.5 -0.5 25 25"</code>) or apply <code>overflow: visible;</code> in CSS.</p>
+
+        <pre><code class="language-css">/* Prevent subpixel clipping on high-DPI screens */
+.crisp-icon {
+  overflow: visible;
+  shape-rendering: geometricPrecision;
+  transform: translateZ(0); /* Force GPU compositing layer */
+}</code></pre>
+
+        <h3>3. Tailwind CSS v4 Responsive Icon Patterns</h3>
+        <p>In modern Tailwind setups, responsive icon utilities can be combined concisely using standard classes and arbitrary values:</p>
+        <pre><code class="language-html">&lt;!-- Responsive fluid icon with Tailwind classes --&gt;
+&lt;svg class="size-5 sm:size-6 md:size-8 shrink-0 text-neutral-400 hover:text-lime-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"&gt;
+  &lt;path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/&gt;
+&lt;/svg&gt;</code></pre>
+
+        <section id="faq-section">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>Why does an SVG collapse or overflow when width is set to 100%?</h3>
+            <p>SVGs collapse or overflow when they lack an explicit viewBox attribute or carry hardcoded pixel width and height attributes that clash with parent container styles. Without a viewBox, browsers cannot determine the graphic's intrinsic aspect ratio, causing inline SVGs to default to 300x150 pixels under CSS replaced element rules.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the difference between preserveAspectRatio='xMidYMid meet' and 'xMidYMid slice'?</h3>
+            <p>xMidYMid meet scales the entire graphic down so the whole viewBox is visible inside the container (letterboxing with empty space if aspect ratios differ), similar to CSS object-fit: contain. xMidYMid slice scales the graphic up so the viewBox fills the entire container without letterboxing, clipping any excess coordinates outside the viewport, identical to CSS object-fit: cover.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Do we still need the old padding-bottom CSS hack for responsive SVGs in 2026?</h3>
+            <p>No. Modern CSS aspect-ratio is supported in over 98% of global browsers. Combining width: 100%, height: auto, and aspect-ratio removes the need for zero-height absolute positioning wrapper hacks, simplifying DOM structures and eliminating subpixel rounding jitter.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you stop SVGs from shrinking unexpectedly inside Flexbox containers?</h3>
+            <p>Flex items default to min-width: auto and flex-shrink: 1. When parent flex containers narrow, inline SVGs can collapse to 0 pixels. Setting flex-shrink: 0, an explicit width (such as 1.5rem or 24px), and display: block or inline-block prevents flexbox from crushing icon dimensions.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do CSS Container Queries improve responsive icon scaling over media queries?</h3>
+            <p>Container queries (@container) evaluate the dimensions of the icon's immediate parent wrapper rather than the global browser viewport. This enables modular design systems where an icon or card adapts its stroke-width, layout, or dimensions whether placed in a narrow sidebar widget or a full-width hero section.</p>
+          </div>
+        </section>
+
+        <div class="cta-banner">
+          <h3>Build with 134,701 Responsive Open-Source Icons</h3>
+          <p>Every icon in IconStash features normalized viewBox coordinates, zero hardcoded dimensions, and clean MIT/Apache licenses for seamless responsive scaling.</p>
+          <a href="/#/" class="header-cta" style="font-size: 15px; padding: 12px 28px;">Search Icons on IconStash &rarr;</a>
+        </div>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#why-svgs-collapse">1. The Responsive SVG Problem</a></li>
+              <li><a href="#viewbox-mechanics">2. Decoding viewBox Mechanics</a></li>
+              <li><a href="#preserveaspectratio">3. preserveAspectRatio Rules</a></li>
+              <li><a href="#modern-css-scaling">4. Modern CSS &amp; aspect-ratio</a></li>
+              <li><a href="#flexbox-grid-fixes">5. Flexbox &amp; Grid Sizing Fixes</a></li>
+              <li><a href="#container-queries">6. CSS Container Queries</a></li>
+              <li><a href="#embedding-comparison">7. Embedding Comparison Table</a></li>
+              <li><a href="#production-fixes">8. Edge Cases &amp; Safari Bugs</a></li>
+              <li><a href="#faq-section">9. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 134,701 Icons</h4>
+          <p>Instant search across Lucide, Tabler, Phosphor, Heroicons &amp; 24 more open-source sets.</p>
+          <a href="/#/" class="cta-sidebar-btn">Launch IconStash &rarr;</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <a href="/">IconStash</a>. Open-source icon search engine unifying 28 icon sets &amp; 134,701 vector icons.</p>
+    <p style="margin-top: 8px;">
+      <a href="/about/">About</a> &bull;
+      <a href="/contact/">Contact</a> &bull;
+      <a href="/privacy/">Privacy Policy</a> &bull;
+      <a href="/terms/">Terms of Service</a> &bull;
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/stats/">Stats</a>
+    </p>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    toggleBtn.addEventListener('click', () => {
+      const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+    });
+  </script>
+</body>
+</html>
