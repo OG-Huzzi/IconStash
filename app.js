@@ -127,7 +127,7 @@
     searchQuery: "",
     sort: "relevance",
     previewSize: 24,
-    density: "default",
+    density: "compact",
     selectMode: false,
     compareMode: false,
     focusedIndex: 0,
@@ -167,6 +167,11 @@
     collectedIconIds: new Set(),
     customColor: "",
     customStrokeWidth: "0.7",
+    custom: {
+      gradient: { on: false, projection: "linear", angle: 90, cx: 50, cy: 50, r: 75, stops: [{ c: "#C1DD2D", p: 0 }, { c: "#2563eb", p: 100 }] },
+      effects: { flipH: false, flipV: false, rotation: 0, blur: 0, shadowOn: false, shadowOpacity: 40, shadowBlur: 2, shadowX: 0, shadowY: 5, noise: 0, texture: "none", textureOpacity: 30, roundness: "round" },
+      motion: { on: false, type: "draw", duration: 2, loop: true, easing: "inout" }
+    },
     rowHeight: 88,
     cardMin: 80,
     cols: 8,
@@ -308,6 +313,9 @@
       libraryErrorText: $("library-error-text"),
       libraryRetry: $("library-retry-btn"),
       detailPanel: $("detail-panel"),
+      advanceToggle: $("dp-advance-toggle"),
+      advancePanel: $("advance-panel"),
+      advanceClose: $("advance-close"),
       dpClose: $("dp-close"),
       dpTitle: $("dp-title"),
       dpLibraryName: $("dp-library-name"),
@@ -2717,9 +2725,21 @@
 
   function closeDetail(routeHome = true) {
     els.detailPanel.classList.add("closed");
+    setAdvanceMode(false);
     state.currentIconId = "";
     detailMetaLoadingId = "";
     if (routeHome && window.location.hash.startsWith("#/icon/")) history.replaceState(null, "", "#/");
+    syncGridToDetailPanel();
+  }
+
+  function setAdvanceMode(on) {
+    if (!els.advancePanel) return;
+    if (on && window.innerWidth < 1024) return;
+    els.advancePanel.classList.toggle("open", on);
+    if (els.advanceToggle) {
+      els.advanceToggle.classList.toggle("active", on);
+      els.advanceToggle.setAttribute("aria-pressed", String(on));
+    }
     syncGridToDetailPanel();
   }
 
@@ -2817,11 +2837,7 @@
   async function copyQuickFormat(format) {
     const icon = state.icons.get(state.currentIconId);
     if (!icon) return;
-    const text = iconTools().formatCode(icon, format, {
-      color: state.detail.color,
-      strokeWidth: state.detail.strokeWidth,
-      size: state.detail.size
-    });
+    const text = iconTools().formatCode(icon, format, detailRenderOptions());
     await iconTools().copyText(text);
     flashQaSuccess(els.qaCopySplit || els.qaCopyBtn.closest(".qa-split"), els.qaCopyLabel, "Copied!");
     ui().toast(`Copied as ${QA_FORMAT_LABELS[format] || "SVG"}`, "success");
@@ -2831,6 +2847,273 @@
     const icon = state.icons.get(state.currentIconId);
     if (!icon) return;
     await downloadPng(icon, Number(kind) || 256);
+  }
+
+  function detailRenderOptions(extra = {}) {
+    return {
+      color: state.detail.color,
+      strokeWidth: state.detail.strokeWidth,
+      size: state.detail.size,
+      gradient: state.custom.gradient,
+      effects: state.custom.effects,
+      motion: state.custom.motion,
+      ...extra
+    };
+  }
+
+  function clampNum(value, min, max) {
+    const n = Number(value);
+    return Number.isNaN(n) ? min : Math.min(max, Math.max(min, n));
+  }
+
+  const CUSTOM_STORAGE_KEY = "iconstash-custom";
+
+  function customDefaults() {
+    return {
+      gradient: { on: false, projection: "linear", angle: 90, cx: 50, cy: 50, r: 75, stops: [{ c: "#C1DD2D", p: 0 }, { c: "#2563eb", p: 100 }] },
+      effects: { flipH: false, flipV: false, rotation: 0, blur: 0, shadowOn: false, shadowOpacity: 40, shadowBlur: 2, shadowX: 0, shadowY: 5, noise: 0, texture: "none", textureOpacity: 30, roundness: "round" },
+      motion: { on: false, type: "draw", duration: 2, loop: true, easing: "inout" }
+    };
+  }
+
+  function saveCustomization() {
+    try { localStorage.setItem(CUSTOM_STORAGE_KEY, JSON.stringify(state.custom)); } catch (error) { /* storage unavailable */ }
+  }
+
+  function loadCustomization() {
+    try {
+      const raw = localStorage.getItem(CUSTOM_STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      const defaults = customDefaults();
+      ["gradient", "effects", "motion"].forEach((key) => {
+        if (saved[key] && typeof saved[key] === "object") state.custom[key] = { ...defaults[key], ...saved[key] };
+      });
+      if (!Array.isArray(state.custom.gradient.stops) || state.custom.gradient.stops.length < 2) {
+        state.custom.gradient.stops = defaults.gradient.stops;
+      }
+    } catch (error) { /* corrupted saved state */ }
+  }
+
+  function afterCustomChange() {
+    if (state.custom.effects.shadowOn && state.custom.effects.shadowOpacity > 0 && state.detail.bg === "dark") {
+      setPreviewBackground("light");
+    }
+    refreshDetailPreview();
+    renderCodePreview();
+    saveCustomization();
+  }
+
+  function updateGradientPreview() {
+    const strip = $("grad-preview");
+    if (!strip) return;
+    const g = state.custom.gradient;
+    const stopsCss = g.stops.map((stop) => `${stop.c} ${clampNum(stop.p, 0, 100)}%`).join(", ");
+    strip.style.background = g.projection === "radial"
+      ? `radial-gradient(circle at ${clampNum(g.cx, 0, 100)}% ${clampNum(g.cy, 0, 100)}%, ${stopsCss})`
+      : `linear-gradient(${clampNum(g.angle, 0, 360)}deg, ${stopsCss})`;
+  }
+
+  function renderGradientStops() {
+    const wrap = $("gradient-stops");
+    if (!wrap) return;
+    wrap.innerHTML = state.custom.gradient.stops.map((stop, index) => `
+      <div class="grad-stop-row">
+        <input type="color" value="${escapeHtml(stop.c)}" data-stop-idx="${index}" aria-label="Stop ${index + 1} color" title="Stop color">
+        <input type="number" class="grad-stop-pos" min="0" max="100" value="${clampNum(stop.p, 0, 100)}" data-stop-pos="${index}" aria-label="Stop ${index + 1} position %" title="Stop position %">
+        ${state.custom.gradient.stops.length > 2 ? `<button type="button" class="grad-remove" data-stop-del="${index}" title="Remove stop">&times;</button>` : `<span class="grad-remove-spacer"></span>`}
+      </div>`).join("");
+  }
+
+  function setCustomControl(id, value, format) {
+    const el = document.getElementById(id);
+    if (el) el.value = value;
+    const out = document.getElementById(`${id}-val`);
+    if (!out) return;
+    out.textContent = format ? format(value) : value;
+  }
+
+  function bindCustomSlider(id, apply, format) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("input", () => {
+      apply(Number(el.value));
+      const out = document.getElementById(`${id}-val`);
+      if (out && format) out.textContent = format(el.value);
+      afterCustomChange();
+    });
+  }
+
+  const ROUNDNESS_NAMES = ["Soft", "Round", "Medium", "Sharp"];
+  const roundnessFromSlider = (v) => ROUNDNESS_NAMES[clampNum(v, 0, 3)] || "round";
+
+  function syncCustomizationUi() {
+    const c = state.custom;
+    ui().qsa("#fill-mode-row .format-btn").forEach((node) => node.classList.toggle("active", (node.dataset.fillMode === "gradient") === c.gradient.on));
+    $("gradient-controls").classList.toggle("hidden", !c.gradient.on);
+    ui().qsa("[data-projection]").forEach((node) => node.classList.toggle("active", node.dataset.projection === c.gradient.projection));
+    $("grad-radial-rows").classList.toggle("hidden", c.gradient.projection !== "radial");
+    setCustomControl("grad-angle", c.gradient.angle, (v) => `${v}°`);
+    setCustomControl("grad-cx", c.gradient.cx);
+    setCustomControl("grad-cy", c.gradient.cy);
+    setCustomControl("grad-r", c.gradient.r);
+    renderGradientStops();
+    updateGradientPreview();
+
+    ui().qsa("[data-flip]").forEach((node) => node.classList.toggle("active", node.dataset.flip === "h" ? c.effects.flipH : c.effects.flipV));
+    $("fx-shadow-toggle").classList.toggle("active", c.effects.shadowOn);
+    $("fx-shadow-controls").classList.toggle("hidden", !c.effects.shadowOn);
+    setCustomControl("fx-rot", c.effects.rotation, (v) => `${v}°`);
+    setCustomControl("fx-blur", c.effects.blur, (v) => `${Number(v).toFixed(1)}px`);
+    setCustomControl("fx-noise", c.effects.noise, (v) => `${v}`);
+    setCustomControl("fx-sh-op", c.effects.shadowOpacity, (v) => `${v}`);
+    setCustomControl("fx-sh-blur", c.effects.shadowBlur, (v) => `${v}`);
+    setCustomControl("fx-sh-x", c.effects.shadowX, (v) => `${v}`);
+    setCustomControl("fx-sh-y", c.effects.shadowY, (v) => `${v}`);
+
+    ui().qsa("[data-texture]").forEach((node) => node.classList.toggle("active", node.dataset.texture === (c.effects.texture || "none")));
+    setCustomControl("tex-op", c.effects.textureOpacity ?? 30, (v) => `${v}`);
+    const roundIdx = Math.max(0, ROUNDNESS_NAMES.indexOf(c.effects.roundness || "round"));
+    setCustomControl("fx-round", roundIdx === -1 ? 1 : roundIdx, (v) => roundnessFromSlider(v));
+
+    ui().qsa("[data-anim]").forEach((node) => node.classList.toggle("active", node.dataset.anim === (c.motion.on ? c.motion.type : "off")));
+    setCustomControl("anim-dur", c.motion.duration, (v) => `${Number(v).toFixed(1)}s`);
+    $("anim-loop").classList.toggle("active", c.motion.loop);
+    ui().qsa("[data-ease]").forEach((node) => node.classList.toggle("active", node.dataset.ease === c.motion.easing));
+  }
+
+  function resetCustomization() {
+    state.custom = customDefaults();
+    saveCustomization();
+    syncCustomizationUi();
+    afterCustomChange();
+    ui().toast("Custom styles reset", "success");
+  }
+
+  function bindCustomSliderSafe(id, apply, format) {
+    bindCustomSlider(id, apply, format);
+  }
+  function bindCustomizationEvents() {
+    ui().qsa("#fill-mode-row .format-btn").forEach((btn) => btn.addEventListener("click", () => {
+      state.custom.gradient.on = btn.dataset.fillMode === "gradient";
+      ui().qsa("#fill-mode-row .format-btn").forEach((node) => node.classList.toggle("active", node === btn));
+      $("gradient-controls").classList.toggle("hidden", !state.custom.gradient.on);
+      afterCustomChange();
+    }));
+
+    ui().qsa("[data-projection]").forEach((btn) => btn.addEventListener("click", () => {
+      state.custom.gradient.projection = btn.dataset.projection;
+      ui().qsa("[data-projection]").forEach((node) => node.classList.toggle("active", node === btn));
+      $("grad-radial-rows").classList.toggle("hidden", btn.dataset.projection !== "radial");
+      updateGradientPreview();
+      afterCustomChange();
+    }));
+
+    bindCustomSlider("grad-angle", (v) => { state.custom.gradient.angle = v; }, (v) => `${v}°`);
+    bindCustomSlider("grad-cx", (v) => { state.custom.gradient.cx = v; }, (v) => `${v}`);
+    bindCustomSlider("grad-cy", (v) => { state.custom.gradient.cy = v; }, (v) => `${v}`);
+    bindCustomSlider("grad-r", (v) => { state.custom.gradient.r = v; }, (v) => `${v}`);
+    bindCustomSlider("fx-rot", (v) => { state.custom.effects.rotation = v; }, (v) => `${v}°`);
+    bindCustomSlider("fx-blur", (v) => { state.custom.effects.blur = v; }, (v) => `${Number(v).toFixed(1)}px`);
+    bindCustomSlider("fx-noise", (v) => { state.custom.effects.noise = v; }, (v) => `${v}`);
+    bindCustomSlider("fx-sh-op", (v) => { state.custom.effects.shadowOpacity = v; }, (v) => `${v}`);
+    bindCustomSlider("fx-sh-blur", (v) => { state.custom.effects.shadowBlur = v; }, (v) => `${v}`);
+    bindCustomSlider("fx-sh-x", (v) => { state.custom.effects.shadowX = v; }, (v) => `${v}`);
+    bindCustomSlider("fx-sh-y", (v) => { state.custom.effects.shadowY = v; }, (v) => `${v}`);
+    bindCustomSlider("anim-dur", (v) => { state.custom.motion.duration = v; }, (v) => `${Number(v).toFixed(1)}s`);
+    bindCustomSlider("tex-op", (v) => { state.custom.effects.textureOpacity = v; }, (v) => `${v}`);
+
+    ui().qsa("[data-texture]").forEach((btn) => btn.addEventListener("click", () => {
+      state.custom.effects.texture = btn.dataset.texture;
+      ui().qsa("[data-texture]").forEach((node) => node.classList.toggle("active", node === btn));
+      afterCustomChange();
+    }));
+
+    bindCustomSlider("fx-round", (v) => { state.custom.effects.roundness = roundnessFromSlider(v); }, (v) => roundnessFromSlider(v));
+
+    $("grad-add-stop").addEventListener("click", () => {
+      const stops = state.custom.gradient.stops;
+      if (stops.length >= 5) {
+        ui().toast("Maximum 5 gradient stops", "info");
+        return;
+      }
+      let insertAt = stops.length;
+      let largestGap = -1;
+      for (let i = 0; i < stops.length - 1; i += 1) {
+        const gap = stops[i + 1].p - stops[i].p;
+        if (gap > largestGap) {
+          largestGap = gap;
+          insertAt = i + 1;
+        }
+      }
+      stops.splice(insertAt, 0, { c: stops[0].c, p: Math.round((stops[insertAt - 1].p + stops[insertAt].p) / 2) });
+      renderGradientStops();
+      updateGradientPreview();
+      afterCustomChange();
+    });
+
+    $("gradient-stops").addEventListener("input", (event) => {
+      const colorIdx = event.target.dataset.stopIdx;
+      if (colorIdx != null) {
+        state.custom.gradient.stops[Number(colorIdx)].c = event.target.value;
+        updateGradientPreview();
+        afterCustomChange();
+        return;
+      }
+      const posIdx = event.target.dataset.stopPos;
+      if (posIdx != null) {
+        state.custom.gradient.stops[Number(posIdx)].p = clampNum(event.target.value, 0, 100);
+        updateGradientPreview();
+        afterCustomChange();
+      }
+    });
+
+    $("gradient-stops").addEventListener("click", (event) => {
+      const del = event.target.closest("[data-stop-del]");
+      if (!del || state.custom.gradient.stops.length <= 2) return;
+      state.custom.gradient.stops.splice(Number(del.dataset.stopDel), 1);
+      renderGradientStops();
+      updateGradientPreview();
+      afterCustomChange();
+    });
+
+    ui().qsa("[data-flip]").forEach((btn) => btn.addEventListener("click", () => {
+      if (btn.dataset.flip === "h") state.custom.effects.flipH = !state.custom.effects.flipH;
+      else state.custom.effects.flipV = !state.custom.effects.flipV;
+      btn.classList.toggle("active");
+      afterCustomChange();
+    }));
+
+    $("fx-shadow-toggle").addEventListener("click", () => {
+      state.custom.effects.shadowOn = !state.custom.effects.shadowOn;
+      $("fx-shadow-toggle").classList.toggle("active", state.custom.effects.shadowOn);
+      $("fx-shadow-controls").classList.toggle("hidden", !state.custom.effects.shadowOn);
+      afterCustomChange();
+    });
+
+    ui().qsa("[data-anim]").forEach((btn) => btn.addEventListener("click", () => {
+      const type = btn.dataset.anim;
+      state.custom.motion.on = type !== "off";
+      if (type !== "off") state.custom.motion.type = type;
+      ui().qsa("[data-anim]").forEach((node) => node.classList.toggle("active", node === btn));
+      afterCustomChange();
+    }));
+
+    $("anim-loop").addEventListener("click", () => {
+      state.custom.motion.loop = !state.custom.motion.loop;
+      $("anim-loop").classList.toggle("active", state.custom.motion.loop);
+      afterCustomChange();
+    });
+
+    ui().qsa("[data-ease]").forEach((btn) => btn.addEventListener("click", () => {
+      state.custom.motion.easing = btn.dataset.ease;
+      ui().qsa("[data-ease]").forEach((node) => node.classList.toggle("active", node === btn));
+      afterCustomChange();
+    }));
+
+    $("fx-reset").addEventListener("click", resetCustomization);
+
+    syncCustomizationUi();
   }
 
   function renderMatches(icon) {
@@ -2870,21 +3153,13 @@
     const icon = state.icons.get(state.currentIconId);
     if (!icon) return;
     els.dpCopyCode.disabled = false;
-    const rawCode = iconTools().formatCode(icon, state.detail.format, {
-      color: state.detail.color,
-      strokeWidth: state.detail.strokeWidth,
-      size: state.detail.size
-    });
+    const rawCode = iconTools().formatCode(icon, state.detail.format, detailRenderOptions());
     els.dpCodePreview.innerHTML = highlightCode(rawCode, state.detail.format);
   }
 
   function refreshDetailPreview(icon = state.icons.get(state.currentIconId)) {
     if (!icon || !els.dpPreview) return;
-    els.dpPreview.innerHTML = iconTools().renderSVG(icon, {
-      color: state.detail.color,
-      strokeWidth: state.detail.strokeWidth,
-      size: state.detail.size
-    });
+    els.dpPreview.innerHTML = iconTools().renderSVG(icon, detailRenderOptions());
     const svg = els.dpPreview.querySelector("svg");
     if (svg) {
       svg.style.width = `${state.detail.size}px`;
@@ -2956,21 +3231,21 @@
   }
 
   async function copyIconSvg(icon, button) {
-    await iconTools().copyText(iconTools().renderSVG(icon));
+    await iconTools().copyText(iconTools().renderSVG(icon, detailRenderOptions()));
     ui().successButton(button, "Copied");
     ui().toast("SVG copied", "success");
   }
 
   async function downloadPng(icon, size = 512) {
     ui().toast(`Generating ${size}px PNG`, "info");
-    await iconTools().exportPNG(icon, size, { color: state.detail.color, strokeWidth: state.detail.strokeWidth });
+    await iconTools().exportPNG(icon, size, detailRenderOptions());
     ui().toast("PNG downloaded", "success");
   }
 
   async function downloadZip(icons, options = {}) {
     if (!icons.length) return;
     ui().toast(`Packaging ${Math.min(icons.length, 200)} icons`, "info");
-    await iconTools().exportZIP(icons, { color: state.detail.color, strokeWidth: state.detail.strokeWidth, ...options });
+    await iconTools().exportZIP(icons, { ...detailRenderOptions(), ...options });
     ui().toast("ZIP downloaded", "success");
   }
 
@@ -3033,7 +3308,7 @@
     const matches = Array.from(state.icons.values()).filter((candidate) => window.IconStashSearch.baseName(candidate.name) === base).slice(0, 80);
     els.compareTitle.textContent = `${icon.name} - across ${matches.length} libraries`;
     els.compareGrid.innerHTML = matches.map((candidate) => `<button class="compare-item" data-icon-id="${candidate.id}" title="${escapeHtml(candidate.library)}">
-      ${iconTools().renderSVG(candidate, { color: state.detail.color, strokeWidth: state.detail.strokeWidth, title: candidate.library })}
+      ${iconTools().renderSVG(candidate, { color: state.detail.color, strokeWidth: state.detail.strokeWidth, gradient: state.custom.gradient, title: candidate.library })}
       <span>${escapeHtml(candidate.library)}<br>${escapeHtml(candidate.style)}</span>
     </button>`).join("");
     els.compareDownload.onclick = () => downloadZip(matches);
@@ -3254,6 +3529,412 @@
     } else {
       if (iconsBtn) iconsBtn.classList.add("active");
     }
+  }
+
+  // ===== Draw your own icon =====
+  const DRAW_DRAFT_KEY = "iconstash-draw-draft";
+  const draw = {
+    tool: "pen",
+    paths: [],
+    color: "#C1DD2D",
+    strokeWidth: 2,
+    showGrid: true,
+    showRef: false,
+    refIconId: "",
+    active: null,
+    beforeSnapshot: null,
+    eraseChanged: false,
+    undoStack: [],
+    redoStack: [],
+    draftLoaded: false
+  };
+
+  function drawRound(value) {
+    return Math.round(value * 100) / 100;
+  }
+
+  function drawPointFromEvent(event) {
+    const canvas = $("draw-canvas");
+    const rect = canvas.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 24;
+    const y = ((event.clientY - rect.top) / rect.height) * 24;
+    return {
+      x: drawRound(Math.min(24, Math.max(0, x))),
+      y: drawRound(Math.min(24, Math.max(0, y)))
+    };
+  }
+
+  function drawPushUndo(snapshot) {
+    draw.undoStack.push(snapshot);
+    if (draw.undoStack.length > 80) draw.undoStack.shift();
+    draw.redoStack.length = 0;
+  }
+
+  function drawSnapshot() {
+    return JSON.stringify(draw.paths);
+  }
+
+  function drawSimplify(points, tolerance) {
+    if (points.length <= 2) return points.slice();
+    const sqSegDist = (p, a, b) => {
+      let x = a.x, y = a.y, dx = b.x - x, dy = b.y - y;
+      if (dx !== 0 || dy !== 0) {
+        const t = ((p.x - x) * dx + (p.y - y) * dy) / (dx * dx + dy * dy);
+        if (t > 1) { x = b.x; y = b.y; }
+        else if (t > 0) { x += dx * t; y += dy * t; }
+      }
+      dx = p.x - x; dy = p.y - y;
+      return dx * dx + dy * dy;
+    };
+    const tolSq = tolerance * tolerance;
+    const keep = new Array(points.length).fill(false);
+    keep[0] = true;
+    keep[points.length - 1] = true;
+    const stack = [[0, points.length - 1]];
+    while (stack.length) {
+      const range = stack.pop();
+      const first = range[0], last = range[1];
+      let maxDist = -1, index = -1;
+      for (let i = first + 1; i < last; i += 1) {
+        const dist = sqSegDist(points[i], points[first], points[last]);
+        if (dist > maxDist) { maxDist = dist; index = i; }
+      }
+      if (maxDist > tolSq && index > 0) {
+        keep[index] = true;
+        stack.push([first, index], [index, last]);
+      }
+    }
+    return points.filter((_, i) => keep[i]);
+  }
+
+  function drawPointsToSmoothPath(points) {
+    const r = drawRound;
+    if (points.length === 1) return "M " + r(points[0].x) + " " + r(points[0].y) + " L " + r(points[0].x + 0.01) + " " + r(points[0].y);
+    if (points.length === 2) return "M " + r(points[0].x) + " " + r(points[0].y) + " L " + r(points[1].x) + " " + r(points[1].y);
+    let d = "M " + r(points[0].x) + " " + r(points[0].y);
+    for (let i = 0; i < points.length - 1; i += 1) {
+      const p0 = points[i - 1] || points[i];
+      const p1 = points[i];
+      const p2 = points[i + 1];
+      const p3 = points[i + 2] || p2;
+      const c1x = p1.x + (p2.x - p0.x) / 6;
+      const c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6;
+      const c2y = p2.y - (p3.y - p1.y) / 6;
+      d += " C " + r(c1x) + " " + r(c1y) + ", " + r(c2x) + " " + r(c2y) + ", " + r(p2.x) + " " + r(p2.y);
+    }
+    return d;
+  }
+
+  function drawConstrain(start, end, shiftKey, tool) {
+    if (!shiftKey) return end;
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    if (tool === "line") {
+      const angle = Math.atan2(dy, dx);
+      const snapped = Math.round(angle / (Math.PI / 4)) * (Math.PI / 4);
+      const len = Math.hypot(dx, dy);
+      return { x: drawRound(start.x + Math.cos(snapped) * len), y: drawRound(start.y + Math.sin(snapped) * len) };
+    }
+    const size = Math.max(Math.abs(dx), Math.abs(dy));
+    return { x: drawRound(start.x + Math.sign(dx || 1) * size), y: drawRound(start.y + Math.sign(dy || 1) * size) };
+  }
+
+  function drawShapePath(tool, a, b) {
+    const r = drawRound;
+    if (tool === "rect") {
+      const x = Math.min(a.x, b.x), y = Math.min(a.y, b.y);
+      const w = Math.max(0.01, Math.abs(b.x - a.x)), h = Math.max(0.01, Math.abs(b.y - a.y));
+      return "M " + r(x) + " " + r(y) + " H " + r(x + w) + " V " + r(y + h) + " Z";
+    }
+    if (tool === "ellipse") {
+      const cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2;
+      const rx = Math.max(0.01, Math.abs(b.x - a.x) / 2), ry = Math.max(0.01, Math.abs(b.y - a.y) / 2);
+      return "M " + r(cx - rx) + " " + r(cy) + " A " + r(rx) + " " + r(ry) + " 0 1 1 " + r(cx + rx) + " " + r(cy) + " A " + r(rx) + " " + r(ry) + " 0 1 1 " + r(cx - rx) + " " + r(cy) + " Z";
+    }
+    return "M " + r(a.x) + " " + r(a.y) + " L " + r(b.x) + " " + r(b.y);
+  }
+
+  function drawSetPreview(dAttr) {
+    $("draw-preview").setAttribute("d", dAttr || "");
+  }
+
+  function drawRenderShapes() {
+    $("draw-shapes").innerHTML = draw.paths.map((p, i) =>
+      '<path data-draw-path="' + i + '" d="' + p.d + '" fill="none" stroke="' + draw.color + '" stroke-width="' + draw.strokeWidth + '" stroke-linecap="round" stroke-linejoin="round"></path>'
+    ).join("");
+    $("draw-status").textContent = draw.paths.length + (draw.paths.length === 1 ? " stroke" : " strokes");
+    $("draw-undo").disabled = draw.undoStack.length === 0;
+    $("draw-redo").disabled = draw.redoStack.length === 0;
+    $("draw-clear").disabled = draw.paths.length === 0;
+  }
+
+  function drawBuildGrid() {
+    let lines = "";
+    for (let i = 4; i < 24; i += 4) {
+      lines += '<line class="draw-grid-line" x1="' + i + '" y1="0" x2="' + i + '" y2="24" vector-effect="non-scaling-stroke"></line>';
+      lines += '<line class="draw-grid-line" x1="0" y1="' + i + '" x2="24" y2="' + i + '" vector-effect="non-scaling-stroke"></line>';
+    }
+    const markup =
+      '<defs><pattern id="draw-dots" width="1" height="1" patternUnits="userSpaceOnUse">' +
+      '<circle class="draw-grid-dot" cx="0.5" cy="0.5" r="0.07" stroke="none"></circle>' +
+      '</pattern></defs>' +
+      '<rect x="0" y="0" width="24" height="24" fill="url(#draw-dots)" stroke="none"></rect>' +
+      lines +
+      '<line class="draw-grid-center" x1="12" y1="0" x2="12" y2="24" vector-effect="non-scaling-stroke"></line>' +
+      '<line class="draw-grid-center" x1="0" y1="12" x2="24" y2="12" vector-effect="non-scaling-stroke"></line>';
+    $("draw-grid").innerHTML = markup;
+    $("draw-grid").style.display = draw.showGrid ? "" : "none";
+  }
+
+  function drawSetReference() {
+    const layer = $("draw-reference");
+    const icon = draw.refIconId ? state.icons.get(draw.refIconId) : null;
+    layer.innerHTML = icon ? iconTools().renderSVG(icon) : "";
+    layer.style.display = draw.showRef && icon ? "" : "none";
+    $("draw-ref-toggle").disabled = !icon;
+    $("draw-ref-toggle").classList.toggle("active", draw.showRef && Boolean(icon));
+    $("draw-ref-label").textContent = draw.showRef && icon
+      ? "Tracing: " + icon.library + " / " + icon.name
+      : (icon ? "Trace the icon you have open" : "Open any icon first to trace it");
+  }
+
+  function drawSaveDraft() {
+    try {
+      localStorage.setItem(DRAW_DRAFT_KEY, JSON.stringify({ paths: draw.paths, color: draw.color, strokeWidth: draw.strokeWidth }));
+    } catch (error) { /* storage unavailable */ }
+  }
+
+  function drawLoadDraft() {
+    try {
+      const raw = localStorage.getItem(DRAW_DRAFT_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (Array.isArray(saved.paths)) draw.paths = saved.paths.filter((p) => p && typeof p.d === "string");
+      if (typeof saved.color === "string") draw.color = saved.color;
+      if (Number.isFinite(saved.strokeWidth)) draw.strokeWidth = saved.strokeWidth;
+    } catch (error) { /* corrupted draft */ }
+  }
+
+  function drawUndo() {
+    if (!draw.undoStack.length) return;
+    draw.redoStack.push(drawSnapshot());
+    draw.paths = JSON.parse(draw.undoStack.pop());
+    drawRenderShapes();
+    drawSaveDraft();
+  }
+
+  function drawRedo() {
+    if (!draw.redoStack.length) return;
+    draw.undoStack.push(drawSnapshot());
+    draw.paths = JSON.parse(draw.redoStack.pop());
+    drawRenderShapes();
+    drawSaveDraft();
+  }
+
+  function drawEraseAt(event) {
+    const hit = document.elementFromPoint(event.clientX, event.clientY);
+    const pathEl = hit && hit.closest ? hit.closest("[data-draw-path]") : null;
+    if (!pathEl) return;
+    const idx = Number(pathEl.dataset.drawPath);
+    if (Number.isNaN(idx) || !draw.paths[idx]) return;
+    draw.paths.splice(idx, 1);
+    draw.eraseChanged = true;
+    drawRenderShapes();
+  }
+
+  function drawCanvasDown(event) {
+    if (event.button !== 0) return;
+    if (draw.tool === "eraser") {
+      draw.beforeSnapshot = drawSnapshot();
+      draw.eraseChanged = false;
+      drawEraseAt(event);
+      return;
+    }
+    const pt = drawPointFromEvent(event);
+    draw.active = { tool: draw.tool, start: pt, points: [pt], end: null };
+    try { event.currentTarget.setPointerCapture(event.pointerId); } catch (error) { /* capture unavailable */ }
+  }
+
+  function drawCanvasMove(event) {
+    if (draw.tool === "eraser") {
+      if (draw.beforeSnapshot != null) drawEraseAt(event);
+      return;
+    }
+    if (!draw.active) return;
+    const pt = drawPointFromEvent(event);
+    const session = draw.active;
+    if (session.tool === "pen") {
+      const last = session.points[session.points.length - 1];
+      if (Math.hypot(pt.x - last.x, pt.y - last.y) < 0.12) return;
+      session.points.push(pt);
+      drawSetPreview(session.points.map((p, i) => (i ? "L " : "M ") + p.x + " " + p.y).join(" "));
+    } else {
+      session.end = drawConstrain(session.start, pt, event.shiftKey, session.tool);
+      drawSetPreview(drawShapePath(session.tool, session.start, session.end));
+    }
+  }
+
+  function drawCanvasUp() {
+    if (draw.tool === "eraser") {
+      if (draw.beforeSnapshot != null) {
+        if (draw.eraseChanged) { drawPushUndo(draw.beforeSnapshot); drawSaveDraft(); }
+        draw.beforeSnapshot = null;
+        draw.eraseChanged = false;
+      }
+      return;
+    }
+    if (!draw.active) return;
+    const session = draw.active;
+    draw.active = null;
+    drawSetPreview("");
+    let dAttr = "";
+    if (session.tool === "pen") {
+      const pts = drawSimplify(session.points, 0.15);
+      dAttr = drawPointsToSmoothPath(pts);
+    } else if (session.end) {
+      dAttr = drawShapePath(session.tool, session.start, session.end);
+    }
+    if (!dAttr) return;
+    drawPushUndo(draw.beforeSnapshot != null ? draw.beforeSnapshot : drawSnapshot());
+    draw.beforeSnapshot = null;
+    draw.paths.push({ d: dAttr });
+    drawRenderShapes();
+    drawSaveDraft();
+  }
+
+  function drawnIconObject() {
+    return {
+      id: "iconstash-drawn-icon",
+      name: "drawn icon",
+      librarySlug: "iconstash",
+      style: "stroke",
+      viewBox: "0 0 24 24",
+      svgPath: draw.paths.map((p) => '<path d="' + p.d + '"></path>').join("")
+    };
+  }
+
+  function drawExportOptions() {
+    return { color: draw.color, strokeWidth: draw.strokeWidth, size: 24 };
+  }
+
+  async function drawCopySvg() {
+    if (!draw.paths.length) { ui().toast("Draw something first", "info"); return; }
+    const code = iconTools().formatCode(drawnIconObject(), "svg", drawExportOptions());
+    await iconTools().copyText(code);
+    ui().toast("Drawn icon copied as SVG", "success");
+  }
+
+  function drawDownloadSvg() {
+    if (!draw.paths.length) { ui().toast("Draw something first", "info"); return; }
+    const svg = iconTools().formatCode(drawnIconObject(), "svg", drawExportOptions());
+    const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+    iconTools().downloadBlob(blob, "iconstash-drawn-icon.svg");
+    ui().toast("SVG downloaded", "success");
+  }
+
+  async function drawDownloadPng() {
+    if (!draw.paths.length) { ui().toast("Draw something first", "info"); return; }
+    ui().toast("Generating 256px PNG", "info");
+    await iconTools().exportPNG(drawnIconObject(), 256, drawExportOptions());
+    ui().toast("PNG downloaded", "success");
+  }
+
+  function drawSyncToolbar() {
+    ui().qsa(".draw-tool[data-dtool]").forEach((btn) => btn.classList.toggle("active", btn.dataset.dtool === draw.tool));
+    $("draw-canvas").classList.toggle("erasing", draw.tool === "eraser");
+    $("draw-grid-toggle").classList.toggle("active", draw.showGrid);
+    $("draw-width").value = draw.strokeWidth;
+    $("draw-width-val").textContent = draw.strokeWidth;
+    $("draw-color").value = draw.color;
+  }
+
+  function openDrawModal() {
+    draw.refIconId = state.currentIconId || "";
+    if (!draw.draftLoaded) {
+      drawLoadDraft();
+      draw.draftLoaded = true;
+    }
+    drawRenderShapes();
+    drawSetReference();
+    drawSyncToolbar();
+    ui().openModal("draw-modal");
+  }
+
+  function initDraw() {
+    drawBuildGrid();
+    $("draw-open").addEventListener("click", openDrawModal);
+    ui().qsa(".draw-tool[data-dtool]").forEach((btn) => btn.addEventListener("click", () => {
+      draw.tool = btn.dataset.dtool;
+      drawSyncToolbar();
+    }));
+    $("draw-ref-toggle").addEventListener("click", () => {
+      draw.showRef = !draw.showRef;
+      drawSetReference();
+    });
+    $("draw-grid-toggle").addEventListener("click", () => {
+      draw.showGrid = !draw.showGrid;
+      $("draw-grid").style.display = draw.showGrid ? "" : "none";
+      drawSyncToolbar();
+    });
+    $("draw-undo").addEventListener("click", drawUndo);
+    $("draw-redo").addEventListener("click", drawRedo);
+    $("draw-clear").addEventListener("click", () => {
+      if (!draw.paths.length) return;
+      drawPushUndo(drawSnapshot());
+      draw.paths = [];
+      drawRenderShapes();
+      drawSaveDraft();
+    });
+    $("draw-width").addEventListener("input", (event) => {
+      draw.strokeWidth = Number(event.target.value) || 2;
+      $("draw-width-val").textContent = draw.strokeWidth;
+      drawRenderShapes();
+      drawSaveDraft();
+    });
+    $("draw-color").addEventListener("input", (event) => {
+      draw.color = event.target.value;
+      drawRenderShapes();
+      drawSaveDraft();
+    });
+    const canvas = $("draw-canvas");
+    canvas.addEventListener("pointerdown", drawCanvasDown);
+    canvas.addEventListener("pointermove", drawCanvasMove);
+    canvas.addEventListener("pointerup", drawCanvasUp);
+    canvas.addEventListener("pointercancel", drawCanvasUp);
+    $("draw-copy").addEventListener("click", drawCopySvg);
+    $("draw-download-svg").addEventListener("click", drawDownloadSvg);
+    $("draw-download-png").addEventListener("click", drawDownloadPng);
+  }
+
+  // ===== Mobile nav menu =====
+  function initNavMenu() {
+    const btn = $("nav-menu-btn");
+    const menu = $("nav-menu");
+    if (!btn || !menu) return;
+    btn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const open = menu.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", (event) => {
+      if (!menu.classList.contains("open")) return;
+      if (menu.contains(event.target) || btn.contains(event.target)) return;
+      menu.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menu.classList.contains("open")) {
+        menu.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+    ui().qsa("#nav-menu [data-nav]").forEach((item) => item.addEventListener("click", () => {
+      const target = $(item.dataset.nav);
+      menu.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+      if (target) target.click();
+    }));
   }
 
   function setupEvents() {
@@ -3501,8 +4182,12 @@
         if (!state.prerender.active) updateVirtualScroll(true);
       });
     });
+    els.advanceToggle.addEventListener("click", () => setAdvanceMode(!els.advancePanel.classList.contains("open")));
+    els.advanceClose.addEventListener("click", () => setAdvanceMode(false));
     els.dpClose.addEventListener("click", () => closeDetail(false));
     setupDetailEvents();
+    initDraw();
+    initNavMenu();
     setupCompareEvents();
     setupCollectionEvents();
     setupKeyboard();
@@ -3731,11 +4416,13 @@
   }
 
   function setupDetailEvents() {
+    bindCustomizationEvents();
     ui().qsa(".bg-toggle").forEach((button) => button.addEventListener("click", () => {
       state.detail.bgManual = true;
       setPreviewBackground(button.dataset.bg);
     }));
-    $("color-preset-row").addEventListener("click", (event) => {
+    const presetRow = $("color-preset-row");
+    if (presetRow) presetRow.addEventListener("click", (event) => {
       const preset = event.target.closest("[data-color]");
       if (preset) {
         els.dpColorInput.value = preset.dataset.color;
@@ -3779,7 +4466,7 @@
     els.dpDownloadSvg.addEventListener("click", () => {
       const icon = state.icons.get(state.currentIconId);
       if (icon) {
-        iconTools().exportSVG(icon, { color: state.detail.color, strokeWidth: state.detail.strokeWidth, size: state.detail.size });
+        iconTools().exportSVG(icon, detailRenderOptions());
         ui().toast("SVG downloaded", "success");
       }
     });
@@ -3987,6 +4674,18 @@
     document.addEventListener("keydown", async (event) => {
       const target = event.target;
       const editing = target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName);
+      const drawModalOpen = !document.querySelector("#draw-modal.hidden");
+      if (drawModalOpen && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") {
+        event.preventDefault();
+        if (event.shiftKey) drawRedo();
+        else drawUndo();
+        return;
+      }
+      if (drawModalOpen && (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "y") {
+        event.preventDefault();
+        drawRedo();
+        return;
+      }
       if (event.key === "/" && !editing) {
         event.preventDefault();
         els.search.focus();
@@ -4017,7 +4716,7 @@
         const icon = focusedIcon();
         if (icon) {
           event.preventDefault();
-          iconTools().exportSVG(icon);
+          iconTools().exportSVG(icon, detailRenderOptions());
         }
       } else if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "a" && state.selectMode) {
         event.preventDefault();
@@ -4175,6 +4874,7 @@
     ensureCustomizePreviewSection();
     cacheElements();
     initTheme();
+    loadCustomization();
     ui().init();
     document.documentElement.style.setProperty("--preview-size", `${state.previewSize}px`);
     setupEvents();

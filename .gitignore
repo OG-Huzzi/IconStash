@@ -90,3 +90,8 @@ out/
 
 # Sitemap audit report (local SEO audit artifact, never served)
 sitemap-audit-report.md
+
+# Video production & marketing artifacts (HyperFrames promo project, renders,
+# captures, synthesized audio) — never served, never part of the static site
+videos/
+marketing/
