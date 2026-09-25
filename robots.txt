@@ -81,4 +81,8 @@ User-agent: Webzio-Extended
 Allow: /
 
 # ---------------------------------------------------------------------------
-Sitemap: https://iconstash.io/sitemap.xml
+# Staged indexing rollout: advertise ONLY the articles sitemap for now.
+# The full master index (sitemap.xml) remains live and crawlable — icon,
+# concept, hub, and comparison pages are all still publicly accessible —
+# it is just not advertised here during this rollout phase.
+Sitemap: https://iconstash.io/articles-sitemap.xml
