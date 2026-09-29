@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabler Icons Complete Guide: Setup, Customization &amp; Best Practices (2026) | IconStash</title>
+  <meta name="description" content="Master Tabler Icons in 2026. Explore 5,500+ free vector icons, React and Vue packages, stroke customization, tree-shaking, and IconStash visual search.">
+  <meta name="keywords" content="tabler icons complete guide, tabler icons react, how to use tabler icons, tabler icons stroke width, tabler icons vs lucide, tabler icons vue, tabler icons npm, tabler svg icons">
+  <meta property="og:title" content="Tabler Icons Complete Guide: Setup, Customization &amp; Best Practices (2026)">
+  <meta property="og:description" content="Master Tabler Icons in 2026. Explore 5,500+ free vector icons, React and Vue packages, stroke customization, tree-shaking, and IconStash visual search.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/tabler-icons-complete-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/tabler-icons-complete-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Tabler Icons Complete Developer Guide">
+  <meta property="article:published_time" content="2026-09-29T00:00:00Z">
+  <meta property="article:modified_time" content="2026-09-29T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Tabler Icons">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Open Source">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tabler Icons Complete Guide: Setup, Customization &amp; Best Practices (2026)">
+  <meta name="twitter:description" content="Master Tabler Icons in 2026. Explore 5,500+ free vector icons, React and Vue packages, stroke customization, tree-shaking, and IconStash visual search.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/tabler-icons-complete-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/tabler-icons-complete-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Tabler Icons Complete Guide: Setup, Customization & Best Practices (2026)",
+    "description": "Master Tabler Icons in 2026. Explore 5,500+ free vector icons, React and Vue packages, stroke customization, tree-shaking, and IconStash visual search.",
+    "image": "https://iconstash.io/assets/articles/tabler-icons-complete-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-09-29",
+    "dateModified": "2026-09-29",
+    "mainEntityOfPage": "https://iconstash.io/articles/tabler-icons-complete-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Tabler Icons", "sameAs": "https://tabler.io/icons" },
+      { "@type": "Thing", "name": "Open-source software", "sameAs": "https://en.wikipedia.org/wiki/Open-source_software" },
+      { "@type": "Thing", "name": "React (software library)", "sameAs": "https://en.wikipedia.org/wiki/React_(software_library)" }
+    ],
+    "keywords": ["tabler icons complete guide", "tabler icons react", "how to use tabler icons", "tabler icons stroke width", "tabler icons vs lucide", "tabler icons npm"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Tabler Icons Complete Guide", "item": "https://iconstash.io/articles/tabler-icons-complete-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Tabler Icons completely free for commercial projects?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Tabler Icons is released under the permissive MIT License. You can freely use, modify, distribute, and embed the icons in commercial websites, SaaS applications, mobile apps, and design templates without paying royalties or requiring user-facing attribution."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Tabler Icons compare in size to Lucide Icons?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tabler Icons contains over 5,500 vector icons, making it more than three times larger than Lucide Icons (which contains approximately 1,500 icons). While both use a 24x24 grid with a default 2px stroke, Tabler provides significantly broader coverage for niche domains such as financial charts, hardware devices, brand logos, and specialized SaaS UI actions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you adjust stroke width in @tabler/icons-react?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pass the stroke prop directly to any Tabler React component, such as <IconRocket stroke={1.5} /> or <IconRocket stroke={2.5} />. You can also configure a global IconContext provider at the root of your application to set a default stroke width across all icons automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you prevent large bundle sizes when using @tabler/icons-react in Next.js?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ensure your project uses ES module imports. In Next.js 14 and 15, add optimizePackageImports: ['@tabler/icons-react'] to your next.config.js experimental compiler options. Alternatively, you can use direct subpath imports like import { IconRocket } from '@tabler/icons-react/dist/esm/icons/IconRocket.mjs' to bypass the main barrel file."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Tabler Icons support filled or solid styles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. While primarily an outline stroke library, Tabler Icons includes over 500 dedicated filled variants named with the 'Filled' suffix (e.g., IconHeartFilled, IconStarFilled, IconBookmarkFilled). These filled variants share identical 24x24 pixel grids and pair seamlessly with their outline counterparts for active UI states."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; line-height: 1.6; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #3A4E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item, html[data-theme="light"] .callout-box { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .table-wrap, html[data-theme="light"] table, html[data-theme="light"] th, html[data-theme="light"] td { border-color: #E5E5E5; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F0F0F0; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/>
+        <path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/>
+      </svg>
+      IconStash
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/stats/">Stats</a>
+      <a href="/" class="header-cta">Search 135K+ Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Tabler Icons Complete Guide</span>
+    </nav>
+
+    <article class="article-hero">
+      <span class="tag">Library Spotlight &amp; Architecture</span>
+      <h1>Tabler Icons Complete Guide: Setup, Customization &amp; Best Practices (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>•</span>
+        <time datetime="2026-09-29">September 29, 2026</time>
+        <span>•</span>
+        <span>16 min read</span>
+        <span>•</span>
+        <span>Updated for @tabler/icons v3.20+</span>
+      </div>
+
+      <figure class="hero-figure">
+        <img src="/assets/articles/tabler-icons-complete-guide.jpg" alt="Tabler Icons Complete Developer Guide: 5,500+ vector icons, stroke customization, and React optimization" width="1200" height="675" loading="eager">
+        <figcaption>Figure 1: Harnessing Tabler Icons' 5,500+ vector iconography with dynamic stroke-width tuning, tree-shaking, and multi-framework integration.</figcaption>
+      </figure>
+    </article>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <section class="featured-summary">
+          <p><strong>The 5,500+ Icon Open-Source Powerhouse:</strong> Created by Paweł Kuna, Tabler Icons has evolved into the most comprehensive, customizable open-source vector icon system on the web. With over 36,000 GitHub stars and a permissive MIT license, it outpaces rival stroke libraries in sheer domain depth—offering over 5,500 icons across technology, e-commerce, cloud architecture, and finance.</p>
+          <ul>
+            <li><strong>Universal Framework Support:</strong> Native component packages for React 19, Vue 3, Svelte 5, Angular, and web components.</li>
+            <li><strong>Continuous Customization:</strong> Adjust stroke width continuously from hairline 0.5px to bold 3.0px with automatic stroke-linecap curves.</li>
+            <li><strong>Dual Outline &amp; Filled Modes:</strong> Over 500 dedicated filled variants that seamlessly complement outline icons for active navigation states.</li>
+            <li><strong>Sub-Millisecond Search:</strong> Explore every Tabler icon with live stroke sliders and one-click code generation on <a href="/">IconStash</a>.</li>
+          </ul>
+        </section>
+
+        <h2>1. Why Tabler Icons Dominates Modern Web Design</h2>
+        <p>In modern web development, icon consistency is paramount. When teams combine icons from different libraries, visual coherence deteriorates: stroke weights clash, corner radii misalign, and grid densities diverge. Tabler Icons solves this challenge through sheer scope:</p>
+        <ol>
+          <li><strong>Massive 5,500+ Unified Collection:</strong> Unlike smaller libraries that top out around 1,000 to 1,500 glyphs (requiring teams to hunt elsewhere for missing niche symbols), Tabler covers virtually every imaginable application domain under a single design language.</li>
+          <li><strong>Pixel-Perfect 24&times;24 Grid:</strong> Every single icon is drafted on a standardized 24&times;24 pixel coordinate canvas with an internal 2px safe zone, ensuring crisp subpixel rendering on high-density Retina displays.</li>
+          <li><strong>Permissive MIT Licensing:</strong> 100% free for commercial SaaS products, open-source repositories, and enterprise portals without royalty fees or mandatory public attribution.</li>
+        </ol>
+
+        <h2>2. The Tabler Icons Package Ecosystem</h2>
+        <p>Tabler Icons is distributed as a modular suite of official npm packages tailored to different frontend architectures:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Package Name</th>
+                <th>Target Environment</th>
+                <th>Bundle Format</th>
+                <th>TypeScript Support</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>@tabler/icons</code></td>
+                <td>Raw SVG files &amp; build tools</td>
+                <td>Raw SVG files + JSON metadata</td>
+                <td>Full types included</td>
+              </tr>
+              <tr>
+                <td><code>@tabler/icons-react</code></td>
+                <td>React 18 &amp; 19, Next.js 14 &amp; 15</td>
+                <td>ESM &amp; CJS with tree-shaking</td>
+                <td>Full <code>TablerIcon</code> interfaces</td>
+              </tr>
+              <tr>
+                <td><code>@tabler/icons-vue</code></td>
+                <td>Vue 3 (Composition API)</td>
+                <td>Vite-compatible SFC wrappers</td>
+                <td>Full prop typing</td>
+              </tr>
+              <tr>
+                <td><code>@tabler/icons-svelte</code></td>
+                <td>Svelte 4 &amp; Svelte 5 Runes</td>
+                <td>Native Svelte components</td>
+                <td>Native Svelte types</td>
+              </tr>
+              <tr>
+                <td><code>@tabler/icons-webfont</code></td>
+                <td>Legacy CSS web fonts</td>
+                <td>WOFF2, TTF, SVG fonts</td>
+                <td>CSS class definitions</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>3. Quick Start &amp; Framework Integration</h2>
+
+        <h3>Using Tabler Icons in React &amp; Next.js</h3>
+        <p>Install the official React package via your preferred package manager:</p>
+        <pre><code>npm install @tabler/icons-react
+# or pnpm add @tabler/icons-react
+# or yarn add @tabler/icons-react</code></pre>
+
+        <p>Import specific icons directly into your components:</p>
+        <pre><code>import { IconRocket, IconShieldCheck, IconFlame } from '@tabler/icons-react';
+
+export function MetricsWidget() {
+  return (
+    &lt;div className="flex items-center gap-4 p-4 rounded-xl bg-neutral-900 text-white"&gt;
+      &lt;IconRocket
+        size={24}
+        color="#C1DD2D"
+        stroke={1.75}
+        className="transition-transform hover:scale-110"
+      /&gt;
+      &lt;div&gt;
+        &lt;h4 className="font-bold text-sm"&gt;High-Speed Deployment&lt;/h4&gt;
+        &lt;p className="text-xs text-neutral-400"&gt;Global edge latency &lt; 20ms&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+        <h3>Using Tabler Icons in Vue 3</h3>
+        <pre><code>&lt;script setup&gt;
+import { IconSearch, IconBell } from '@tabler/icons-vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;button class="icon-button"&gt;
+    &lt;IconSearch :size="20" stroke="1.5" color="currentColor" /&gt;
+    &lt;span&gt;Quick Search&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/template&gt;</code></pre>
+
+        <h2>4. Advanced Customization: Stroke, Size &amp; Theming</h2>
+        <p>Unlike icon fonts that force a fixed stroke thickness, Tabler Icons allows continuous vector stroke modulation:</p>
+
+        <pre><code>// 1. Hairline / Editorial aesthetic (0.75px to 1.25px)
+&lt;IconSettings stroke={1} size={28} /&gt;
+
+// 2. Standard SaaS UI density (1.5px to 2.0px)
+&lt;IconSettings stroke={1.75} size={24} /&gt;
+
+// 3. Bold mobile / Touch target density (2.5px to 3.0px)
+&lt;IconSettings stroke={2.75} size={20} /&gt;</code></pre>
+
+        <h3>Dual Style: Leveraging 500+ Dedicated Filled Variants</h3>
+        <p>A frequent challenge with stroke libraries is indicating active, highlighted, or selected states (such as favoriting an item or active bottom navigation tabs). Tabler includes over 500 pre-crafted filled variants designated with the <code>Filled</code> suffix:</p>
+
+        <pre><code>import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
+
+export function FavoriteButton({ isFavorited, onClick }: { isFavorited: boolean; onClick: () =&gt; void }) {
+  return (
+    &lt;button onClick={onClick} className="p-2 rounded-full hover:bg-neutral-800 text-rose-500"&gt;
+      {isFavorited ? (
+        &lt;IconHeartFilled size={22} className="animate-heartbeat" /&gt;
+      ) : (
+        &lt;IconHeart size={22} stroke={1.75} /&gt;
+      )}
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+        <h2>5. Global Application Theming with IconContext</h2>
+        <p>Rather than repeating <code>size={20} stroke={1.5}</code> on every single icon throughout your codebase, configure a global React Context provider at your application root:</p>
+
+        <pre><code>// app/providers.tsx
+import { IconContext } from '@tabler/icons-react';
+
+export function AppProviders({ children }: { children: React.ReactNode }) {
+  return (
+    &lt;IconContext.Provider
+      value={{
+        color: 'currentColor',
+        size: 20,
+        stroke: 1.75,
+        className: 'tabler-icon shrink-0',
+      }}&gt;
+      {children}
+    &lt;/IconContext.Provider&gt;
+  );
+}</code></pre>
+        <p>Every descendant icon will now automatically inherit these global design tokens while still allowing individual overrides whenever necessary.</p>
+
+        <h2>6. Tabler vs. Lucide vs. Phosphor: The Big 3 Comparison</h2>
+        <p>Choosing between the top open-source vector icon libraries requires balancing glyph breadth against file weight:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Criteria</th>
+                <th>Tabler Icons</th>
+                <th>Lucide Icons</th>
+                <th>Phosphor Icons</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Total Icons</strong></td>
+                <td><strong>5,500+</strong></td>
+                <td>1,500+</td>
+                <td>1,248 base (7,000+ variants)</td>
+              </tr>
+              <tr>
+                <td><strong>Native Grid Canvas</strong></td>
+                <td>24&times;24 px</td>
+                <td>24&times;24 px</td>
+                <td>16&times;16 to 24&times;24 px</td>
+              </tr>
+              <tr>
+                <td><strong>Default Stroke Weight</strong></td>
+                <td>2.0px (Continuously tunable)</td>
+                <td>2.0px</td>
+                <td>6 discrete weight sets</td>
+              </tr>
+              <tr>
+                <td><strong>Dedicated Filled Glyphs</strong></td>
+                <td>500+ <code>*Filled</code> variants</td>
+                <td>None (Stroke fill prop only)</td>
+                <td>Full Fill weight variant</td>
+              </tr>
+              <tr>
+                <td><strong>GitHub Community</strong></td>
+                <td>36,000+ Stars</td>
+                <td>16,000+ Stars</td>
+                <td>12,000+ Stars</td>
+              </tr>
+              <tr>
+                <td><strong>License</strong></td>
+                <td>MIT (100% Free)</td>
+                <td>ISC (100% Free)</td>
+                <td>MIT (100% Free)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>7. Next.js 15 &amp; Tree-Shaking Optimization</h2>
+        <p>Because <code>@tabler/icons-react</code> indexes 5,500+ icons, improper bundler imports can slow local Vite or Turbopack compilation times. To guarantee instantaneous development compilation and clean production tree-shaking, add this configuration to your <code>next.config.js</code>:</p>
+
+        <pre><code>// next.config.mjs
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    optimizePackageImports: ['@tabler/icons-react'],
+  },
+};
+
+export default nextConfig;</code></pre>
+
+        <p>Next.js will automatically transform top-level named imports (<code>import { IconRocket } from '@tabler/icons-react'</code>) into direct module paths during bundling, ensuring <strong>zero compilation overhead</strong> and minimal bundle payloads.</p>
+
+        <h2>8. Searching &amp; Customizing Tabler Icons on IconStash</h2>
+        <p>While npm packages provide code access, searching through 5,500+ icons in an IDE is tedious. On <a href="/">IconStash</a>, we provide an indexed client-side visual search engine across the entire Tabler Icons dataset:</p>
+        <ul>
+          <li><strong>Instant Fuzzy Search:</strong> Type keywords like <em>dashboard, server, crypto, analytics, user</em> to preview matching Tabler icons in under 1 millisecond.</li>
+          <li><strong>Interactive Stroke Slider:</strong> Adjust the live stroke width slider from 1.0px to 3.0px to see real-time vector re-renders before copying code.</li>
+          <li><strong>One-Click Code Generation:</strong> Copy pre-cleaned React JSX, SVG source code, Vue templates, or download Retina 256px PNGs with zero friction.</li>
+        </ul>
+
+        <h2>9. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Is Tabler Icons completely free for commercial projects?</h3>
+          <p>Yes. Tabler Icons is released under the permissive MIT License. You can freely use, modify, distribute, and embed the icons in commercial websites, SaaS applications, mobile apps, and design templates without paying royalties or requiring user-facing attribution.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does Tabler Icons compare in size to Lucide Icons?</h3>
+          <p>Tabler Icons contains over 5,500 vector icons, making it more than three times larger than Lucide Icons (which contains approximately 1,500 icons). While both use a 24x24 grid with a default 2px stroke, Tabler provides significantly broader coverage for niche domains.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you adjust stroke width in @tabler/icons-react?</h3>
+          <p>Pass the <code>stroke</code> prop directly to any Tabler React component (such as <code>&lt;IconRocket stroke={1.5} /&gt;</code>). You can also configure a global <code>IconContext</code> provider at the root of your application to set a default stroke width across all icons automatically.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you prevent large bundle sizes when using @tabler/icons-react in Next.js?</h3>
+          <p>In Next.js 14 and 15, add <code>optimizePackageImports: ['@tabler/icons-react']</code> to your <code>next.config.js</code> experimental compiler options. This ensures that only the icons you import are bundled into your client assets.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Does Tabler Icons support filled or solid styles?</h3>
+          <p>Yes. Tabler Icons includes over 500 dedicated filled variants named with the <code>Filled</code> suffix (such as <code>IconHeartFilled</code>, <code>IconStarFilled</code>). These filled variants share identical 24x24 pixel grids and pair seamlessly with their outline counterparts.</p>
+        </div>
+
+        <div class="cta-banner">
+          <h3>Search 5,500+ Tabler Icons with Real-Time Customization</h3>
+          <p>Explore the complete Tabler Icons collection on IconStash with instant fuzzy search, live stroke width tuning, and 1-click React JSX and SVG code copy.</p>
+          <a href="/" class="header-cta" style="padding: 12px 28px; font-size: 15px;">Search Tabler Icons on IconStash &rarr;</a>
+        </div>
+
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#1-why-tabler-icons-dominates-modern-web-design">1. Why Tabler Dominates</a></li>
+              <li><a href="#2-the-tabler-icons-package-ecosystem">2. Package Ecosystem</a></li>
+              <li><a href="#3-quick-start--framework-integration">3. Quick Start &amp; Setup</a></li>
+              <li><a href="#4-advanced-customization-stroke-size--theming">4. Stroke &amp; Customization</a></li>
+              <li><a href="#5-global-application-theming-with-iconcontext">5. Global IconContext</a></li>
+              <li><a href="#6-tabler-vs-lucide-vs-phosphor-the-big-3-comparison">6. Tabler vs. Lucide vs. Phosphor</a></li>
+              <li><a href="#7-nextjs-15--tree-shaking-optimization">7. Next.js 15 Optimization</a></li>
+              <li><a href="#8-searching--customizing-tabler-icons-on-iconstash">8. Search on IconStash</a></li>
+              <li><a href="#9-frequently-asked-questions">9. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore Tabler on IconStash</h4>
+          <p>Test stroke width sliders from 1.0px to 3.0px and copy React JSX code instantly.</p>
+          <a href="/" class="cta-sidebar-btn">Search Tabler Icons</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <a href="/">IconStash</a>. Open-source icon search engine. Free for commercial use.</p>
+    <p style="margin-top: 8px; font-size: 13px;">
+      <a href="/about/">About</a> •
+      <a href="/articles/">Articles</a> •
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a> •
+      <a href="/privacy/">Privacy Policy</a> •
+      <a href="/terms/">Terms of Service</a>
+    </p>
+  </footer>
+
+</body>
+</html>

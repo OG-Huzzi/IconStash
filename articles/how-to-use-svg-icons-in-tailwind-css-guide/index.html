@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use SVG Icons in Tailwind CSS: Complete Modern Guide (v4 &amp; v3) | IconStash</title>
+  <meta name="description" content="Master SVG icons in Tailwind CSS v4 and v3. Learn inline SVG utilities, currentColor, CSS mask icons, component wrappers, sizing scales, and dark mode.">
+  <meta name="keywords" content="how to use icons in tailwind css, tailwind css svg icons, svg icons tailwind css v4, tailwind icon size and color, tailwind inline svg currentcolor, heroicons lucide tailwind, tailwind icon component">
+  <meta property="og:title" content="How to Use SVG Icons in Tailwind CSS: Complete Modern Guide (v4 &amp; v3)">
+  <meta property="og:description" content="Master SVG icons in Tailwind CSS v4 and v3. Learn inline SVG utilities, currentColor, CSS mask icons, component wrappers, sizing scales, and dark mode.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-use-svg-icons-in-tailwind-css-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/tailwind-svg-icons-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="How to Use SVG Icons in Tailwind CSS Modern Guide">
+  <meta property="article:published_time" content="2026-09-29T00:00:00Z">
+  <meta property="article:modified_time" content="2026-09-29T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Tailwind CSS">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Frontend Development">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use SVG Icons in Tailwind CSS: Complete Modern Guide (v4 &amp; v3)">
+  <meta name="twitter:description" content="Master SVG icons in Tailwind CSS v4 and v3. Learn inline SVG utilities, currentColor, CSS mask icons, component wrappers, sizing scales, and dark mode.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/tailwind-svg-icons-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-use-svg-icons-in-tailwind-css-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How to Use SVG Icons in Tailwind CSS: Complete Modern Guide (v4 & v3)",
+    "description": "Master SVG icons in Tailwind CSS v4 and v3. Learn inline SVG utilities, currentColor, CSS mask icons, component wrappers, sizing scales, and dark mode.",
+    "image": "https://iconstash.io/assets/articles/tailwind-svg-icons-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-09-29",
+    "dateModified": "2026-09-29",
+    "mainEntityOfPage": "https://iconstash.io/articles/how-to-use-svg-icons-in-tailwind-css-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Intermediate",
+    "about": [
+      { "@type": "Thing", "name": "Tailwind CSS", "sameAs": "https://en.wikipedia.org/wiki/Tailwind_CSS" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "Web Design", "sameAs": "https://en.wikipedia.org/wiki/Web_design" }
+    ],
+    "keywords": ["how to use icons in tailwind css", "tailwind css svg icons", "svg icons tailwind css v4", "tailwind icon size and color", "tailwind inline svg currentcolor"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "How to Use SVG Icons in Tailwind CSS", "item": "https://iconstash.io/articles/how-to-use-svg-icons-in-tailwind-css-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why doesn't Tailwind CSS have a built-in icon set?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tailwind CSS deliberately avoids bundling a default icon library to protect your application from runtime bundle bloat and design conformity. Instead, Tailwind provides utility classes like text-*, size-*, stroke-*, and fill-* designed to style any modern vector format, enabling developers to choose lightweight, tree-shakable libraries like Lucide, Heroicons, or Tabler."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you control an SVG icon's color with Tailwind CSS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ensure your SVG paths use fill='currentColor' or stroke='currentColor'. Then apply Tailwind text color utilities to either the SVG element or its parent wrapper (such as text-indigo-600 dark:text-indigo-400 hover:text-indigo-800). The SVG automatically inherits the computed CSS color."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the recommended Tailwind utility for icon dimensions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Starting in Tailwind CSS v3.4 and enhanced in v4, use the size-* utility (such as size-4 for 16px, size-5 for 20px, and size-6 for 24px) instead of typing both w-* and h-* separately. This guarantees that icons always maintain a strict 1:1 square aspect ratio."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do CSS mask-image icons work in Tailwind CSS v4?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tailwind CSS v4 introduces native arbitrary mask support. Applying mask-[url('/icon.svg')] bg-current size-5 inline-block uses the vector SVG purely as an alpha transparency mask over a background layer colored by bg-current. This renders icons without injecting SVG DOM nodes into HTML, reducing DOM weight and eliminating JavaScript runtime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you make stroked icons responsive to Tailwind stroke width classes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ensure your SVG paths do not have inline stroke-width attributes, or set stroke-width='currentColor'. In Tailwind, apply stroke-[1.5] or stroke-[2] to change line weight dynamically on different screen breakpoints (such as stroke-1 md:stroke-2)."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; line-height: 1.6; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #3A4E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item, html[data-theme="light"] .callout-box { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .table-wrap, html[data-theme="light"] table, html[data-theme="light"] th, html[data-theme="light"] td { border-color: #E5E5E5; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F0F0F0; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/>
+        <path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/>
+      </svg>
+      IconStash
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/stats/">Stats</a>
+      <a href="/" class="header-cta">Search 135K+ Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>How to Use SVG Icons in Tailwind CSS</span>
+    </nav>
+
+    <article class="article-hero">
+      <span class="tag">Tailwind CSS &amp; Modern Frameworks</span>
+      <h1>How to Use SVG Icons in Tailwind CSS: Complete Modern Guide (v4 &amp; v3)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>•</span>
+        <time datetime="2026-09-29">September 29, 2026</time>
+        <span>•</span>
+        <span>15 min read</span>
+        <span>•</span>
+        <span>Covers Tailwind CSS v4.0 &amp; v3.4 Engines</span>
+      </div>
+
+      <figure class="hero-figure">
+        <img src="/assets/articles/tailwind-svg-icons-guide.jpg" alt="How to Use SVG Icons in Tailwind CSS: size utilities, currentColor theming, and mask-image icons" width="1200" height="675" loading="eager">
+        <figcaption>Figure 1: Architecting high-performance SVG iconography in Tailwind CSS using utility tokens, currentColor inheritance, and CSS mask stencils.</figcaption>
+      </figure>
+    </article>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <section class="featured-summary">
+          <p><strong>The Tailwind Icon Dilemma:</strong> Tailwind CSS does not bundle an icon set. By design, the framework gives you utility primitives—leaving icon selection and rendering strategy to developers. In 2026, with the arrival of Tailwind CSS v4’s oxide engine and modern React 19 RSC architectures, how you integrate SVG icons dictates your final bundle size, paint performance, and theming flexibility.</p>
+          <ul>
+            <li><strong>The 4 Implementation Strategies:</strong> Raw inline SVGs with <code>currentColor</code>, zero-JS CSS mask-image utilities in v4, framework components (Lucide, Heroicons, Phosphor), and SVG symbol sprites.</li>
+            <li><strong>Sizing Modernization:</strong> Replace verbose <code>w-5 h-5</code> classes with Tailwind's unified <code>size-5</code> utility.</li>
+            <li><strong>Design System Governance:</strong> Build a type-safe <code>&lt;Icon /&gt;</code> component using Class Variance Authority (CVA) with size, color, and animation tokens.</li>
+          </ul>
+        </section>
+
+        <h2>1. Why Tailwind CSS Leaves Icons to You</h2>
+        <p>Developers coming from UI frameworks like Bootstrap or Semantic UI often search for <code>&lt;t-icon name="user" /&gt;</code>. Tailwind deliberately omits built-in icons for three critical architectural reasons:</p>
+        <ol>
+          <li><strong>Bundle Weight:</strong> Bundling 2,000+ icons into a CSS framework bloats developer dependencies. Modern icon search engines like <a href="/">IconStash</a> index over 134,701 vector icons across 28 libraries; no single bundled icon set can satisfy every design system.</li>
+          <li><strong>Tree-Shaking Efficiency:</strong> By keeping icons framework-agnostic, modern bundlers (Vite, Next.js, Rollup) can tree-shake unused vectors at build time, resulting in zero unused icon bytes.</li>
+          <li><strong>Design Divergence:</strong> Icons are an extension of typography and brand identity. A minimalist fintech dashboard needs a 1.5px stroke library like <a href="/articles/lucide-icons-complete-guide/">Lucide</a> or <a href="/articles/tabler-icons-complete-guide/">Tabler</a>, while a playful consumer app might require filled duotone icons.</li>
+        </ol>
+
+        <h2>2. Tailwind CSS v4 vs. v3 Architecture Differences</h2>
+        <p>Tailwind CSS v4 introduces a revolutionary CSS-first configuration model. The traditional <code>tailwind.config.js</code> is replaced by direct CSS directives (<code>@theme</code>, <code>@utility</code>), radically simplifying how custom icon utilities and SVG masks are created:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature / Workflow</th>
+                <th>Tailwind CSS v3.4</th>
+                <th>Tailwind CSS v4.0 (2026)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Configuration</strong></td>
+                <td>JavaScript-based <code>tailwind.config.js</code></td>
+                <td>CSS-native <code>@theme</code> and <code>@import "tailwindcss";</code></td>
+              </tr>
+              <tr>
+                <td><strong>Dimension Utility</strong></td>
+                <td><code>w-5 h-5</code> or <code>size-5</code></td>
+                <td>Native <code>size-5</code> standard across all elements</td>
+              </tr>
+              <tr>
+                <td><strong>CSS Mask Icons</strong></td>
+                <td>Requires custom plugin or complex arbitary values</td>
+                <td>Native <code>mask-[url(...)]</code> and <code>@utility icon-*</code></td>
+              </tr>
+              <tr>
+                <td><strong>Engine &amp; Performance</strong></td>
+                <td>PostCSS JavaScript compiler</td>
+                <td>Rust-based Lightning CSS Oxide engine (10x faster)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>3. Method 1: Direct Inline SVGs with Tailwind Utilities</h2>
+        <p>The most straightforward approach is copying raw SVG markup directly into HTML or JSX. To make the SVG fully responsive to Tailwind's color and sizing utilities, you must ensure two critical attributes are set inside the SVG markup:</p>
+        <ul>
+          <li>Set <code>width="currentColor"</code> or remove hardcoded width/height so Tailwind's <code>size-*</code> classes govern dimensions.</li>
+          <li>Set <code>stroke="currentColor"</code> (for stroke-based icons) or <code>fill="currentColor"</code> (for solid glyphs).</li>
+        </ul>
+
+        <pre><code>&lt;!-- Button with Inline SVG Styled via Tailwind Utilities --&gt;
+&lt;button class="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-neutral-800 transition-colors dark:bg-white dark:text-neutral-900"&gt;
+  &lt;svg
+    class="size-4 text-emerald-400 dark:text-emerald-600 transition-transform duration-200 group-hover:scale-110"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"&gt;
+    &lt;path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Instant Checkout&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+        <p><strong>The Magic of currentColor:</strong> When <code>stroke="currentColor"</code> is defined, changing the Tailwind text color (e.g., <code>text-neutral-500 hover:text-white</code>) cascades into the vector path automatically. You never need to write custom SVG CSS rules.</p>
+
+        <h2>4. Method 2: Zero-JS CSS Mask Image Icons in Tailwind v4</h2>
+        <p>In large web applications containing hundreds of icons per view (e.g., data tables, file managers), rendering inline SVG DOM nodes adds measurable DOM overhead and slows hydration. Tailwind CSS v4 enables <strong>CSS Mask Image Icons</strong>:</p>
+
+        <pre><code>/* In your main CSS file (Tailwind v4 @utility) */
+@utility icon-rocket {
+  display: inline-block;
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-image: url('/icons/rocket.svg');
+  -webkit-mask-image: url('/icons/rocket.svg');
+}</code></pre>
+
+        <p>In your HTML or React JSX, you simply render an empty span:</p>
+        <pre><code>&lt;!-- Renders the SVG purely via CSS without DOM node overhead --&gt;
+&lt;span class="icon-rocket size-5 text-indigo-500 hover:text-indigo-400" aria-hidden="true"&gt;&lt;/span&gt;</code></pre>
+        <p>The vector graphic is cached permanently by the browser, requires <strong>0 lines of JavaScript</strong>, and instantly adopts whatever text color is applied by Tailwind.</p>
+
+        <h2>5. Method 3: Component Icon Libraries with Tailwind</h2>
+        <p>For modern React, Next.js, and Vue workflows, official icon component packages offer the best developer ergonomics. Three libraries integrate natively with Tailwind CSS:</p>
+
+        <h3>1. Lucide React (Recommended for General UI)</h3>
+        <pre><code>import { Rocket, ShieldCheck } from 'lucide-react';
+
+export function FeatureCard() {
+  return (
+    &lt;div className="flex items-center gap-3 p-4 rounded-xl border border-neutral-200 dark:border-neutral-800"&gt;
+      &lt;div className="p-2 rounded-lg bg-lime-500/10 text-lime-600 dark:text-lime-400"&gt;
+        &lt;Rocket className="size-6 stroke-[1.75]" /&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h4 className="font-semibold text-neutral-900 dark:text-white"&gt;Sub-Millisecond Speed&lt;/h4&gt;
+        &lt;p className="text-sm text-neutral-500"&gt;Client-side indexed search.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+        <h3>2. Heroicons (Tailwind's Sister Library)</h3>
+        <p>Crafted by Steve Schoger and the Tailwind core team, Heroicons offers three optical grids: <code>24px Outline</code> (2px stroke), <code>20px Mini</code> (solid, optimized for dense inputs), and <code>16px Micro</code> (solid, optimized for tags and badges).</p>
+        <pre><code>import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import { CheckIcon } from '@heroicons/react/16/solid';
+
+// Mini icon inside a compact badge
+&lt;span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700"&gt;
+  &lt;CheckIcon className="size-3.5 text-emerald-600" /&gt;
+  Verified
+&lt;/span&gt;</code></pre>
+
+        <h2>6. Standardizing Icon Sizing Scales in Tailwind</h2>
+        <p>A common mistake in Tailwind codebases is mixing arbitrary icon sizes. Establish a strict 4-tier icon sizing token system in your design documentation:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tailwind Class</th>
+                <th>Pixel Equivalent</th>
+                <th>Recommended Use Case</th>
+                <th>Standard Stroke Width</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>size-3.5</code></td>
+                <td>14px &times; 14px</td>
+                <td>Micro badges, table status dots, tag dismiss crosses</td>
+                <td><code>stroke-[2]</code> or Solid</td>
+              </tr>
+              <tr>
+                <td><code>size-4</code></td>
+                <td>16px &times; 16px</td>
+                <td>Form inputs, small buttons, dropdown menu items</td>
+                <td><code>stroke-[2]</code></td>
+              </tr>
+              <tr>
+                <td><code>size-5</code></td>
+                <td>20px &times; 20px</td>
+                <td>Default buttons, tab bars, standard list items</td>
+                <td><code>stroke-[1.75]</code> or <code>stroke-2</code></td>
+              </tr>
+              <tr>
+                <td><code>size-6</code></td>
+                <td>24px &times; 24px</td>
+                <td>Main navigation links, card headers, dialog actions</td>
+                <td><code>stroke-[1.5]</code></td>
+              </tr>
+              <tr>
+                <td><code>size-8</code> to <code>size-10</code></td>
+                <td>32px &ndash; 40px</td>
+                <td>Feature hero cards, empty states, stat callouts</td>
+                <td><code>stroke-[1.25]</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>7. Building a Type-Safe &lt;Icon /&gt; Component with CVA</h2>
+        <p>To eliminate duplicate Tailwind strings across large codebases, create a unified <code>Icon</code> wrapper using <strong>Class Variance Authority (CVA)</strong> and <strong>tailwind-merge</strong>:</p>
+
+        <pre><code>// components/ui/icon.tsx
+import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+export function cn(...inputs: any[]) {
+  return twMerge(clsx(inputs));
+}
+
+const iconVariants = cva('inline-block shrink-0 transition-colors', {
+  variants: {
+    size: {
+      xs: 'size-3.5',
+      sm: 'size-4',
+      md: 'size-5',
+      lg: 'size-6',
+      xl: 'size-8',
+    },
+    intent: {
+      default: 'text-neutral-600 dark:text-neutral-400',
+      primary: 'text-lime-500 dark:text-lime-400',
+      success: 'text-emerald-500 dark:text-emerald-400',
+      danger: 'text-rose-500 dark:text-rose-400',
+      muted: 'text-neutral-400 dark:text-neutral-600',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    intent: 'default',
+  },
+});
+
+export interface IconProps extends React.SVGProps&lt;SVGSVGElement&gt;, VariantProps&lt;typeof iconVariants&gt; {
+  icon: React.ComponentType&lt;{ className?: string; 'aria-hidden'?: boolean }&gt;;
+}
+
+export function Icon({ icon: Component, size, intent, className, ...props }: IconProps) {
+  return (
+    &lt;Component
+      className={cn(iconVariants({ size, intent }), className)}
+      aria-hidden="true"
+      {...props}
+    /&gt;
+  );
+}</code></pre>
+
+        <p>Now anywhere in your application, you can render consistent, accessible icons with zero visual drift:</p>
+        <pre><code>&lt;Icon icon={Rocket} size="lg" intent="primary" className="hover:rotate-12 transition-transform" /&gt;</code></pre>
+
+        <h2>8. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Why doesn't Tailwind CSS have a built-in icon set?</h3>
+          <p>Tailwind CSS deliberately avoids bundling a default icon library to protect your application from runtime bundle bloat and design conformity. Instead, Tailwind provides utility classes designed to style any modern vector format.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you control an SVG icon's color with Tailwind CSS?</h3>
+          <p>Ensure your SVG paths use <code>fill="currentColor"</code> or <code>stroke="currentColor"</code>. Then apply Tailwind text color utilities (such as <code>text-indigo-600 dark:text-indigo-400</code>) to the SVG element or its parent wrapper.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the recommended Tailwind utility for icon dimensions?</h3>
+          <p>Use the unified <code>size-*</code> utility (such as <code>size-4</code> for 16px, <code>size-5</code> for 20px) instead of typing separate <code>w-*</code> and <code>h-*</code> classes. This ensures icons always maintain a strict 1:1 square aspect ratio.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do CSS mask-image icons work in Tailwind CSS v4?</h3>
+          <p>Tailwind CSS v4 introduces native arbitrary mask support. Applying <code>mask-[url('/icon.svg')] bg-current size-5 inline-block</code> uses the vector SVG purely as an alpha transparency mask over a background layer, rendering icons without injecting SVG DOM nodes.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you make stroked icons responsive to Tailwind stroke width classes?</h3>
+          <p>Ensure your SVG paths do not have inline stroke-width attributes. In Tailwind, apply <code>stroke-[1.5]</code> or <code>stroke-[2]</code> to change line weight dynamically on different screen breakpoints.</p>
+        </div>
+
+        <div class="cta-banner">
+          <h3>Explore 134,701+ Vector Icons Styled for Tailwind</h3>
+          <p>Copy production-ready SVG and React JSX code with pre-configured currentColor attributes, stroke widths, and viewBox dimensions directly into your Tailwind project.</p>
+          <a href="/" class="header-cta" style="padding: 12px 28px; font-size: 15px;">Search Icons on IconStash &rarr;</a>
+        </div>
+
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#1-why-tailwind-css-leaves-icons-to-you">1. Why No Built-in Set?</a></li>
+              <li><a href="#2-tailwind-css-v4-vs-v3-architecture-differences">2. Tailwind v4 vs. v3</a></li>
+              <li><a href="#3-method-1-direct-inline-svgs-with-tailwind-utilities">3. Method 1: Inline SVGs</a></li>
+              <li><a href="#4-method-2-zero-js-css-mask-image-icons-in-tailwind-v4">4. Method 2: CSS Mask Icons</a></li>
+              <li><a href="#5-method-3-component-icon-libraries-with-tailwind">5. Method 3: Component Libraries</a></li>
+              <li><a href="#6-standardizing-icon-sizing-scales-in-tailwind">6. Sizing Scales Matrix</a></li>
+              <li><a href="#7-building-a-type-safe-icon--component-with-cva">7. Typed &lt;Icon /&gt; with CVA</a></li>
+              <li><a href="#8-frequently-asked-questions">8. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Tailwind-Ready Icons</h4>
+          <p>Copy SVGs optimized with currentColor and standardized 24x24 viewBoxes in one click.</p>
+          <a href="/" class="cta-sidebar-btn">Search Free Icons</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <a href="/">IconStash</a>. Open-source icon search engine. Free for commercial use.</p>
+    <p style="margin-top: 8px; font-size: 13px;">
+      <a href="/about/">About</a> •
+      <a href="/articles/">Articles</a> •
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a> •
+      <a href="/privacy/">Privacy Policy</a> •
+      <a href="/terms/">Terms of Service</a>
+    </p>
+  </footer>
+
+</body>
+</html>
