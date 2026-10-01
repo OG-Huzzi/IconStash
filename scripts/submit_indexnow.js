@@ -5,9 +5,9 @@ const payload = JSON.stringify({
   key: 'e11c5bc79c6d4824bb883b2723c0fa6a',
   keyLocation: 'https://iconstash.io/e11c5bc79c6d4824bb883b2723c0fa6a.txt',
   urlList: [
-    'https://iconstash.io/articles/how-to-align-svg-icons-with-text-css-guide/',
-    'https://iconstash.io/articles/how-to-use-svg-icons-in-tailwind-css-guide/',
-    'https://iconstash.io/articles/tabler-icons-complete-guide/',
+    'https://iconstash.io/articles/how-to-import-svg-icons-in-vite-guide/',
+    'https://iconstash.io/articles/svg-icon-hover-effects-css-guide/',
+    'https://iconstash.io/articles/how-to-create-svg-sprites-guide/',
     'https://iconstash.io/articles/'
   ]
 });
