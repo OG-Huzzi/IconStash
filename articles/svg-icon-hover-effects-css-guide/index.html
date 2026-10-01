@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Animate SVG Icons on Hover with CSS: Micro-Interactions Guide | IconStash</title>
+  <meta name="description" content="Master SVG icon hover effects in CSS. Learn smooth color transitions, stroke dashoffset drawing, 3D rotations, scale micro-interactions, and accessibility.">
+  <meta name="keywords" content="svg icon hover effect css, animate svg on hover css, change svg color on hover css, svg stroke hover transition, interactive svg icons css, svg button hover animation">
+  <meta property="og:title" content="How to Animate SVG Icons on Hover with CSS: Micro-Interactions &amp; Transitions">
+  <meta property="og:description" content="Master SVG icon hover effects in CSS. Learn smooth color transitions, stroke dashoffset drawing, 3D rotations, scale micro-interactions, and accessibility.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-icon-hover-effects-css-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-icon-hover-effects-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="How to Animate SVG Icons on Hover with CSS Guide">
+  <meta property="article:published_time" content="2026-10-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-01T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Animation">
+  <meta property="article:tag" content="UI Design">
+  <meta property="article:tag" content="Micro-Interactions">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Animate SVG Icons on Hover with CSS">
+  <meta name="twitter:description" content="Master SVG icon hover effects in CSS. Learn smooth color transitions, stroke dashoffset drawing, 3D rotations, scale micro-interactions, and accessibility.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-icon-hover-effects-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-icon-hover-effects-css-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How to Animate SVG Icons on Hover with CSS: Micro-Interactions & Transitions",
+    "description": "Master SVG icon hover effects in CSS. Learn smooth color transitions, stroke dashoffset drawing, 3D rotations, scale micro-interactions, and accessibility.",
+    "image": "https://iconstash.io/assets/articles/svg-icon-hover-effects-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-01",
+    "dateModified": "2026-10-01",
+    "mainEntityOfPage": "https://iconstash.io/articles/svg-icon-hover-effects-css-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Cascading Style Sheets", "sameAs": "https://en.wikipedia.org/wiki/CSS" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "CSS animation", "sameAs": "https://en.wikipedia.org/wiki/CSS_animations" },
+      { "@type": "Thing", "name": "Microinteraction" }
+    ],
+    "keywords": ["svg icon hover effect css", "animate svg on hover css", "change svg color on hover css", "svg stroke hover transition", "interactive svg icons css"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "SVG Icon Hover Effects with CSS", "item": "https://iconstash.io/articles/svg-icon-hover-effects-css-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why doesn't my SVG change color when I apply :hover to an img tag?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When an SVG is embedded via an <img> tag, browsers load it as an isolated external document in a sandboxed execution context. External CSS style sheets cannot pierce the document boundary of an <img>. To animate SVG fill, stroke, or path geometry on hover, you must use inline SVG markup, CSS mask-image, or SVG symbol sprites."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does currentColor work for SVG icon hover effects?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The currentColor CSS keyword dynamically inherits the computed value of the color property from the nearest parent element. By setting fill='currentColor' or stroke='currentColor' on your SVG markup, changing the text color on button:hover automatically and instantly shifts the icon color with zero extra selector rules."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you animate an SVG line drawing effect on hover?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Line drawing animations use stroke-dasharray and stroke-dashoffset. Set stroke-dasharray to the total length of the path (or a large estimate like 100), set the initial stroke-dashoffset to the same value (making it invisible), and on hover animate stroke-dashoffset to 0 with a smooth transition (e.g. transition: stroke-dashoffset 400ms ease)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do SVG icons rotate around the top-left corner instead of their center?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In CSS, the default transform-origin for SVG elements is 0 0 (top-left) in some older rendering engines. Always declare transform-origin: center; or transform-box: fill-box; transform-origin: center; on the SVG or internal path to ensure rotations and scale animations pivot exactly around the visual center of the icon."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you make SVG hover animations accessible for users with vestibular disorders?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wrap non-essential motion (such as spins, continuous bounces, and large scale shifts) inside a @media (prefers-reduced-motion: no-preference) query, or provide a fallback in @media (prefers-reduced-motion: reduce) that replaces motion with an instant or subtle color/opacity transition."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you animate individual parts of an SVG icon independently on hover?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Because inline SVG lives directly in the HTML DOM, you can assign CSS classes or IDs to individual <path>, <circle>, or <rect> elements inside the SVG. On parent hover (.button:hover .icon-arrow), you can translate the arrow while keeping the icon frame stationary."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    .demo-sandbox { background: #12140D; border: 1px solid rgba(193,221,45,0.3); border-radius: 10px; padding: 28px; margin: 28px 0; }
+    .demo-title { font-size: 13px; font-weight: 700; color: #C1DD2D; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 18px; }
+    .interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+    /* Interactive live buttons inside sandbox */
+    .btn-demo { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid #333; background: #18181B; color: #F4F4F5; text-decoration: none; }
+    .btn-demo svg { width: 18px; height: 18px; transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+    /* Demo 1: Scale bounce */
+    .demo-scale:hover { border-color: #C1DD2D; background: #22260E; color: #FFF; }
+    .demo-scale:hover svg { transform: scale(1.25); color: #C1DD2D; }
+
+    /* Demo 2: Stroke draw */
+    .demo-draw svg path { stroke-dasharray: 60; stroke-dashoffset: 0; transition: stroke-dashoffset 400ms ease; }
+    .demo-draw:hover { border-color: #38BDF8; background: #082F49; color: #FFF; }
+    .demo-draw:hover svg { color: #38BDF8; }
+    .demo-draw:hover svg path { stroke-dashoffset: 120; }
+
+    /* Demo 3: Rotate */
+    .demo-rotate:hover { border-color: #A855F7; background: #3B0764; color: #FFF; }
+    .demo-rotate:hover svg { transform: rotate(90deg); color: #C084FC; }
+
+    /* Demo 4: Slide Arrow */
+    .demo-slide:hover { border-color: #F59E0B; background: #451A03; color: #FFF; }
+    .demo-slide:hover svg { transform: translateX(6px); color: #FBBF24; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; line-height: 1.6; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #3A4E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item, html[data-theme="light"] .callout-box { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .table-wrap, html[data-theme="light"] table, html[data-theme="light"] th, html[data-theme="light"] td { border-color: #E5E5E5; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { color: #3F3F46; border-bottom-color: #F4F4F5; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F0F0F2; }
+    html[data-theme="light"] .demo-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .btn-demo { background: #FFFFFF; border-color: #E4E4E7; color: #18181B; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IconStash.io home">
+    <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+    <span>IconStash</span>
+  </a>
+  <nav>
+    <a href="/#/">Search 134K+ Icons</a>
+    <a href="/articles/">Articles &amp; Guides</a>
+    <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+    <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+    <a href="/#/" class="header-cta">Explore Free Icons</a>
+  </nav>
+</header>
+
+<div class="page-container">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/articles/">Articles</a>
+    <span class="sep">/</span>
+    <span>How to Animate SVG Icons on Hover with CSS</span>
+  </nav>
+
+  <header class="article-hero">
+    <span class="tag">CSS &amp; Micro-Interactions</span>
+    <h1>How to Animate SVG Icons on Hover with CSS: Micro-Interactions &amp; Transitions</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+      <span>•</span>
+      <span>Updated October 1, 2026</span>
+      <span>•</span>
+      <span>10 min read</span>
+      <span>•</span>
+      <span>Pure CSS3, Transforms, Strokes &amp; WCAG</span>
+    </div>
+  </header>
+
+  <figure class="hero-figure">
+    <img src="/assets/articles/svg-icon-hover-effects-guide.jpg" alt="How to Animate SVG Icons on Hover with CSS Guide" width="1200" height="675" loading="eager">
+    <figcaption>Crafting Tactile SVG Micro-Interactions: Elastic Bounces, Line Draws, and Directional Shifts</figcaption>
+  </figure>
+
+  <div class="article-layout">
+    <main class="article-main">
+      <div class="featured-summary">
+        <p><strong>Micro-Interaction Blueprint:</strong> Static icons are functional, but subtle, physics-driven micro-interactions transform modern web applications into responsive, tactile experiences. When a user hovers over a button, navbar item, or action card, visual feedback confirms interactive affordance.</p>
+        <ul>
+          <li><strong>The Embedding Constraint:</strong> Only inline SVGs, CSS masks, or symbol sprites allow internal path targeting. <code>&lt;img&gt;</code> tags cannot be animated with CSS stroke or fill transitions.</li>
+          <li><strong>Color Transitions:</strong> Use <code>currentColor</code> and CSS custom properties (<code>--icon-stroke</code>) to avoid selector fragility.</li>
+          <li><strong>Line Drawing on Hover:</strong> Manipulate <code>stroke-dasharray</code> and <code>stroke-dashoffset</code> to make paths trace themselves dynamically.</li>
+          <li><strong>Physics-Based Easing:</strong> Replace robotic <code>linear</code> transitions with cubic-bezier spring curves (<code>cubic-bezier(0.34, 1.56, 0.64, 1)</code>).</li>
+          <li><strong>Accessibility First:</strong> Never ignore keyboard users (<code>:focus-visible</code>) and honor <code>prefers-reduced-motion</code>.</li>
+        </ul>
+      </div>
+
+      <div class="demo-sandbox">
+        <div class="demo-title">Live Interactive Showcase (Hover Over Buttons)</div>
+        <div class="interactive-grid">
+          <button class="btn-demo demo-scale" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span>Scale Bounce</span>
+          </button>
+
+          <button class="btn-demo demo-draw" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Path Tracing</span>
+          </button>
+
+          <button class="btn-demo demo-rotate" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Quarter Spin</span>
+          </button>
+
+          <button class="btn-demo demo-slide" type="button">
+            <span>Continue</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <h2 id="why-inline-svg-is-mandatory">1. The Golden Rule: Why &lt;img&gt; Cannot Animate on Hover</h2>
+      <p>Before writing CSS hover effects, you must ensure your SVG is embedded correctly. When you write <code>&lt;img src="icon.svg" class="icon"&gt;</code>, the browser loads the SVG in an isolated browsing context identical to an external iframe.</p>
+      <p>In this isolated sandbox:</p>
+      <ul>
+        <li>External CSS rules like <code>.icon:hover { color: #C1DD2D; }</code> or <code>.icon:hover path { stroke: red; }</code> have <strong>zero effect</strong> on internal elements.</li>
+        <li>CSS variables and <code>currentColor</code> cannot bridge across the image boundary.</li>
+      </ul>
+      <p>To style and animate SVG geometry on hover, you must use one of three techniques:</p>
+      <ol>
+        <li><strong>Inline SVG:</strong> Pasting the raw <code>&lt;svg&gt;</code> element directly into HTML or JSX. (Recommended for full control).</li>
+        <li><strong>SVG Symbol Sprites:</strong> Referencing an icon via <code>&lt;use href="#icon-id"&gt;</code> and styling through CSS custom properties.</li>
+        <li><strong>CSS <code>mask-image</code>:</strong> Using the SVG as an alpha mask on a background-colored <code>&lt;span&gt;</code> (great for simple monochrome color transitions).</li>
+      </ol>
+
+      <h2 id="effect-1-smooth-color-transitions">2. Effect 1: Smooth Color Transitions with currentColor</h2>
+      <p>The cleanest and most robust method for changing icon colors on hover is leveraging <code>currentColor</code>. This binds the SVG's <code>fill</code> or <code>stroke</code> directly to the CSS <code>color</code> property of its parent container.</p>
+
+      <h3>HTML Markup</h3>
+      <pre><code>&lt;button class="nav-button"&gt;
+  &lt;svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;
+    &lt;path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Dashboard&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+      <h3>CSS Rules</h3>
+      <pre><code>.nav-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #A1A1AA; /* Base icon and text color */
+  border: none;
+  cursor: pointer;
+  transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  /* Transition the stroke and color seamlessly */
+  transition: transform 200ms ease, stroke 200ms ease;
+}
+
+/* Hover and Focus States */
+.nav-button:hover,
+.nav-button:focus-visible {
+  color: #C1DD2D; /* Both icon and text update simultaneously */
+}</code></pre>
+      <p>Because the SVG stroke uses <code>currentColor</code>, you only update the color on the parent <code>.nav-button</code>. Both the label and the icon change in unison with zero selector duplication.</p>
+
+      <h2 id="effect-2-scale-and-elastic-bounce">3. Effect 2: Tactile Scale and Elastic Bounces</h2>
+      <p>Standard linear scaling looks stiff. By applying a spring-physics cubic-bezier curve, you can create a playful, tactile bounce where the icon slightly overshoots its target scale before settling.</p>
+
+      <h3>CSS Implementation</h3>
+      <pre><code>.action-card {
+  padding: 24px;
+  background: #18181B;
+  border: 1px solid #27272A;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.action-card .card-icon {
+  width: 24px;
+  height: 24px;
+  color: #A1A1AA;
+  /* Crucial: declare transform-origin so the icon scales from its exact center */
+  transform-origin: center;
+  /* Spring overshoot cubic-bezier */
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              color 200ms ease;
+  will-change: transform;
+}
+
+.action-card:hover .card-icon {
+  transform: scale(1.22);
+  color: #38BDF8;
+}</code></pre>
+
+      <div class="callout-box">
+        <div class="callout-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Critical Gotcha: SVG transform-origin
+        </div>
+        <p>In older browsers and some SVG specs, the default <code>transform-origin</code> of internal SVG elements is <code>0 0</code> (the top-left corner of the canvas), causing the icon to jump or wobble during scale or rotation. Always specify <code>transform-origin: center;</code> on the icon or use <code>transform-box: fill-box;</code> when targeting inner paths.</p>
+      </div>
+
+      <h2 id="effect-3-stroke-drawing-animation">4. Effect 3: Stroke Dashoffset Drawing &amp; Tracing</h2>
+      <p>One of the most impressive SVG hover effects is the <strong>line-drawing animation</strong>. The icon outline traces itself into existence when hovered, creating a blueprint or neon-light aesthetic.</p>
+
+      <h3>How the Math Works:</h3>
+      <ol>
+        <li><code>stroke-dasharray</code>: Defines the pattern of dashes and gaps. Setting this to the length of the path (e.g. <code>100</code>) creates a dash that spans the whole icon.</li>
+        <li><code>stroke-dashoffset</code>: Shifts where the dash starts. Setting offset equal to dasharray hides the line completely.</li>
+        <li>On <code>:hover</code>: Transition <code>stroke-dashoffset</code> back to <code>0</code>, revealing the path smoothly.</li>
+      </ol>
+
+      <pre><code>/* Checkmark or Outline Path */
+.draw-icon path {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.draw-btn:hover .draw-icon path {
+  /* Retraces the stroke on hover */
+  animation: drawStroke 500ms forwards;
+}
+
+@keyframes drawStroke {
+  0% {
+    stroke-dashoffset: 80;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}</code></pre>
+
+      <h2 id="effect-4-rotations-and-directional-shifts">5. Effect 4: Smooth Rotations &amp; Directional Shifts</h2>
+      <p>Directional micro-interactions communicate intent. For example, right arrows on call-to-action buttons should slide forward, download arrows should bounce downward, and gear icons should rotate smoothly.</p>
+
+      <h3>Directional Arrow Slide</h3>
+      <pre><code>.cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #C1DD2D;
+}
+
+.cta-link .arrow-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-link:hover .arrow-icon {
+  transform: translateX(5px);
+}</code></pre>
+
+      <h3>90-Degree Gear Rotation</h3>
+      <pre><code>.settings-btn .gear-icon {
+  width: 20px;
+  height: 20px;
+  transform-origin: center;
+  transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.settings-btn:hover .gear-icon {
+  transform: rotate(90deg);
+}</code></pre>
+
+      <h2 id="effect-5-duotone-layered-hover">6. Effect 5: Layered Duotone Color Transitions</h2>
+      <p>Modern design systems (such as Phosphor Duotone, Lucide, and Tabler) feature two-tone icons consisting of a primary outline path and a secondary translucent fill layer. You can animate both layers independently to produce visual depth:</p>
+
+      <pre><code>&lt;svg class="duotone-icon" viewBox="0 0 24 24"&gt;
+  &lt;!-- Secondary background fill --&gt;
+  &lt;path class="layer-secondary" d="..." fill="currentColor" /&gt;
+  &lt;!-- Primary crisp stroke --&gt;
+  &lt;path class="layer-primary" d="..." stroke="currentColor" fill="none" stroke-width="2" /&gt;
+&lt;/svg&gt;</code></pre>
+
+      <pre><code>.duotone-icon .layer-secondary {
+  opacity: 0.15;
+  transition: opacity 250ms ease, transform 250ms ease;
+  transform-origin: center;
+}
+
+.duotone-icon .layer-primary {
+  transition: stroke 200ms ease;
+}
+
+/* On Card Hover: Background fill intensifies and slightly expands */
+.card:hover .duotone-icon .layer-secondary {
+  opacity: 0.35;
+  transform: scale(1.05);
+}
+
+.card:hover .duotone-icon .layer-primary {
+  color: #C1DD2D;
+}</code></pre>
+
+      <h2 id="micro-interaction-matrix">7. Hover Effect Decision Matrix: Easing, Timing &amp; Use Cases</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Effect Type</th>
+              <th>Recommended Duration</th>
+              <th>Optimal Easing Curve</th>
+              <th>Target Properties</th>
+              <th>Best Used For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Color Fade</strong></td>
+              <td>150ms – 200ms</td>
+              <td><code>ease</code> or <code>cubic-bezier(0.16, 1, 0.3, 1)</code></td>
+              <td><code>color</code>, <code>stroke</code>, <code>fill</code></td>
+              <td>Navbar links, tabs, utility buttons</td>
+            </tr>
+            <tr>
+              <td><strong>Scale Bounce</strong></td>
+              <td>250ms – 350ms</td>
+              <td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td>
+              <td><code>transform: scale()</code></td>
+              <td>Like buttons, bookmarks, favoriting</td>
+            </tr>
+            <tr>
+              <td><strong>Stroke Tracing</strong></td>
+              <td>400ms – 550ms</td>
+              <td><code>cubic-bezier(0.4, 0, 0.2, 1)</code></td>
+              <td><code>stroke-dashoffset</code></td>
+              <td>Submission checks, success cards, feature highlights</td>
+            </tr>
+            <tr>
+              <td><strong>Directional Shift</strong></td>
+              <td>200ms – 250ms</td>
+              <td><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td>
+              <td><code>transform: translateX / translateY</code></td>
+              <td>Pagination, next/previous buttons, external links</td>
+            </tr>
+            <tr>
+              <td><strong>Quarter Spin</strong></td>
+              <td>350ms – 450ms</td>
+              <td><code>cubic-bezier(0.34, 1.3, 0.64, 1)</code></td>
+              <td><code>transform: rotate(90deg)</code></td>
+              <td>Settings gears, plus/cross accordion toggles</td>
+            </tr>
+            <tr>
+              <td><strong>Duotone Glow</strong></td>
+              <td>250ms – 300ms</td>
+              <td><code>ease-in-out</code></td>
+              <td><code>opacity</code>, <code>filter: drop-shadow()</code></td>
+              <td>SaaS pricing cards, feature tier badges</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="accessibility-and-reduced-motion">8. Accessibility &amp; Reduced Motion Doctrine</h2>
+      <p>While micro-interactions delight many users, rapid movements and bouncing can trigger dizziness, nausea, or visual fatigue in users with vestibular disorders. In addition, keyboard navigation must provide identical clarity to mouse hovers.</p>
+
+      <h3>1. Always Pair :hover with :focus-visible</h3>
+      <p>Developers who navigate via keyboard (Tab key) must receive the exact same visual cues as cursor users. Never write <code>:hover</code> alone on interactive buttons:</p>
+      <pre><code>/* Bad: Ignores keyboard users */
+.btn:hover .icon { transform: scale(1.15); }
+
+/* Good: Accessible to both mouse and keyboard */
+.btn:hover .icon,
+.btn:focus-visible .icon {
+  transform: scale(1.15);
+  outline: none;
+}</code></pre>
+
+      <h3>2. Respect prefers-reduced-motion</h3>
+      <p>When the user has enabled "Reduce Motion" in their operating system settings, neutralize transforms and rotations while retaining gentle color changes:</p>
+      <pre><code>@media (prefers-reduced-motion: reduce) {
+  .btn-demo,
+  .btn-demo svg,
+  .nav-icon,
+  .action-card .card-icon {
+    transition: color 100ms ease, background-color 100ms ease !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}</code></pre>
+
+      <div class="callout-box">
+        <div class="callout-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+          Need Animation-Ready SVG Icons?
+        </div>
+        <p>Explore <a href="https://iconstash.io">IconStash</a> to browse 134,701 vector icons across 28 open-source libraries. With zero attribution required, download clean outline or duotone SVGs with separated paths, ready for CSS transitions.</p>
+      </div>
+
+      <h2 id="frequently-asked-questions">9. Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Why doesn't my SVG change color when I apply :hover to an img tag?</h3>
+        <p>When an SVG is embedded via an <code>&lt;img&gt;</code> tag, browsers load it as an isolated external document in a sandboxed execution context. External CSS style sheets cannot pierce the document boundary of an <code>&lt;img&gt;</code>. To animate SVG fill, stroke, or path geometry on hover, you must use inline SVG markup, CSS <code>mask-image</code>, or SVG symbol sprites.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How does currentColor work for SVG icon hover effects?</h3>
+        <p>The <code>currentColor</code> CSS keyword dynamically inherits the computed value of the <code>color</code> property from the nearest parent element. By setting <code>fill="currentColor"</code> or <code>stroke="currentColor"</code> on your SVG markup, changing the text color on <code>button:hover</code> automatically and instantly shifts the icon color with zero extra selector rules.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do you animate an SVG line drawing effect on hover?</h3>
+        <p>Line drawing animations use <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>. Set <code>stroke-dasharray</code> to the total length of the path (or a large estimate like 100), set the initial <code>stroke-dashoffset</code> to the same value (making it invisible), and on hover animate <code>stroke-dashoffset</code> to 0 with a smooth transition (e.g. <code>transition: stroke-dashoffset 400ms ease</code>).</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Why do SVG icons rotate around the top-left corner instead of their center?</h3>
+        <p>In CSS, the default <code>transform-origin</code> for SVG elements is <code>0 0</code> (top-left) in some older rendering engines. Always declare <code>transform-origin: center;</code> or <code>transform-box: fill-box; transform-origin: center;</code> on the SVG or internal path to ensure rotations and scale animations pivot exactly around the visual center of the icon.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do you make SVG hover animations accessible for users with vestibular disorders?</h3>
+        <p>Wrap non-essential motion (such as spins, continuous bounces, and large scale shifts) inside a <code>@media (prefers-reduced-motion: no-preference)</code> query, or provide a fallback in <code>@media (prefers-reduced-motion: reduce)</code> that replaces motion with an instant or subtle color/opacity transition.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can you animate individual parts of an SVG icon independently on hover?</h3>
+        <p>Yes! Because inline SVG lives directly in the HTML DOM, you can assign CSS classes or IDs to individual <code>&lt;path&gt;</code>, <code>&lt;circle&gt;</code>, or <code>&lt;rect&gt;</code> elements inside the SVG. On parent hover (<code>.button:hover .icon-arrow</code>), you can translate the arrow while keeping the icon frame stationary.</p>
+      </div>
+
+      <div class="cta-banner">
+        <h3>Search 134,701 Free Vector Icons</h3>
+        <p>Find icons with clean, accessible vector paths for seamless CSS animations. 100% free for commercial use, no login required.</p>
+        <a href="/#/" class="header-cta" style="font-size: 15px; padding: 12px 28px;">Explore Icons on IconStash</a>
+      </div>
+    </main>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card toc-nav">
+        <div class="sidebar-title">Table of Contents</div>
+        <ol>
+          <li><a href="#why-inline-svg-is-mandatory">1. Why &lt;img&gt; Cannot Animate</a></li>
+          <li><a href="#effect-1-smooth-color-transitions">2. Color Transitions &amp; currentColor</a></li>
+          <li><a href="#effect-2-scale-and-elastic-bounce">3. Scale &amp; Elastic Bounces</a></li>
+          <li><a href="#effect-3-stroke-drawing-animation">4. Stroke Drawing &amp; Tracing</a></li>
+          <li><a href="#effect-4-rotations-and-directional-shifts">5. Rotations &amp; Directional Shifts</a></li>
+          <li><a href="#effect-5-duotone-layered-hover">6. Layered Duotone Effects</a></li>
+          <li><a href="#micro-interaction-matrix">7. Hover Decision Matrix</a></li>
+          <li><a href="#accessibility-and-reduced-motion">8. Accessibility &amp; Reduced Motion</a></li>
+          <li><a href="#frequently-asked-questions">9. Frequently Asked Questions</a></li>
+        </ol>
+      </div>
+
+      <div class="cta-sidebar-box">
+        <h4>Free UI Vector Icons</h4>
+        <p>Unified search across 28 icon sets including Lucide, Tabler, Phosphor, and Heroicons.</p>
+        <a href="/#/" class="cta-sidebar-btn">Search IconStash Free</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>&copy; 2026 IconStash. An open source initiative by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener">Great Software Company</a>. Built for developers.</p>
+  <p style="margin-top: 8px;"><a href="/articles/">Articles &amp; Guides</a> &bull; <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a> &bull; <a href="/Glossary/icon-svg-terminology/">Glossary</a> &bull; <a href="/about/">About</a></p>
+</footer>
+
+</body>
+</html>

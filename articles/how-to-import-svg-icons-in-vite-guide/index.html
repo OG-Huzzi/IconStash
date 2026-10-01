@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Import &amp; Use SVG Icons in Vite (React, Vue, Svelte &amp; TS): Complete Guide | IconStash</title>
+  <meta name="description" content="Master importing SVG icons in Vite across React, Vue, Svelte, and TS. Compare URL imports, raw SVGs, vite-plugin-svgr, unplugin-icons, and fix type errors.">
+  <meta name="keywords" content="how to import svg in vite, vite import svg as react component, vite-plugin-svgr, vite svg typescript, unplugin-icons vite, vite-svg-loader vue, vite svg icon best practices">
+  <meta property="og:title" content="How to Import &amp; Use SVG Icons in Vite: The Complete Developer Guide">
+  <meta property="og:description" content="Master importing SVG icons in Vite across React, Vue, Svelte, and TS. Compare URL imports, raw SVGs, vite-plugin-svgr, unplugin-icons, and fix type errors.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-import-svg-icons-in-vite-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/vite-svg-icons-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="How to Import and Use SVG Icons in Vite Guide">
+  <meta property="article:published_time" content="2026-10-01T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-01T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Vite">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Vue">
+  <meta property="article:tag" content="Web Development">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Import &amp; Use SVG Icons in Vite: Complete Guide">
+  <meta name="twitter:description" content="Master importing SVG icons in Vite across React, Vue, Svelte, and TS. Compare URL imports, raw SVGs, vite-plugin-svgr, unplugin-icons, and fix type errors.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/vite-svg-icons-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-import-svg-icons-in-vite-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How to Import & Use SVG Icons in Vite: The Complete Developer Guide",
+    "description": "Master importing SVG icons in Vite across React, Vue, Svelte, and TS. Compare URL imports, raw SVGs, vite-plugin-svgr, unplugin-icons, and fix type errors.",
+    "image": "https://iconstash.io/assets/articles/vite-svg-icons-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-01",
+    "dateModified": "2026-10-01",
+    "mainEntityOfPage": "https://iconstash.io/articles/how-to-import-svg-icons-in-vite-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Intermediate to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Vite (build tool)", "sameAs": "https://en.wikipedia.org/wiki/Vite_(software)" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "React (software library)", "sameAs": "https://en.wikipedia.org/wiki/React_(software_library)" },
+      { "@type": "Thing", "name": "TypeScript", "sameAs": "https://en.wikipedia.org/wiki/TypeScript" }
+    ],
+    "keywords": ["how to import svg in vite", "vite import svg as react component", "vite-plugin-svgr", "vite svg typescript", "unplugin-icons vite"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "How to Import SVG Icons in Vite", "item": "https://iconstash.io/articles/how-to-import-svg-icons-in-vite-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why does Vite import SVG as a URL string instead of a React component by default?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "By default, Vite adheres to web-standard ES module semantics for static assets. When you run import icon from './icon.svg', Vite resolves the file to a static asset URL string pointing to the public output path. Transforming SVG markup into a JavaScript React or Vue component requires an AST compiler plugin such as vite-plugin-svgr or vite-svg-loader."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix 'Cannot find module ./icon.svg or its corresponding type declarations' in TypeScript?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Add a declaration file in your project (such as src/vite-env.d.ts) declaring the SVG module format. If using vite-plugin-svgr with ?react queries, include /// <reference types='vite-plugin-svgr/client' />. For standard raw or component imports, declare module '*.svg?react' { import { FC, SVGProps } from 'react'; const content: FC<SVGProps<SVGSVGElement>>; export default content; }."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between ?raw and ?url in Vite SVG imports?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Using ?url forces Vite to resolve the SVG as a URL string (e.g. /assets/icon.a1b2c3.svg) suitable for <img src={url}> or CSS background-image. Using ?raw tells Vite to read the file contents as a plain text utf-8 string containing raw SVG markup, which can be injected directly into the DOM."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I change the stroke and fill color of an SVG imported with an img tag in Vite?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. When an SVG is rendered inside an HTML <img> tag, the browser executes it in an isolated browsing context where parent CSS rules and currentColor do not penetrate. To dynamically recolor SVGs via CSS, you must import the SVG as an inline component, inject it via raw markup, or use CSS mask-image."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best way to handle hundreds of icons in a Vite enterprise project without bundle bloat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use unplugin-icons with unplugin-auto-import or compile icons into an external SVG <symbol> sprite sheet. Importing hundreds of individual SVGs as React components inflates your main JavaScript chunk with inline SVG paths. Sprites or on-demand tree-shaken unplugin loaders ensure icons are loaded asynchronously or cached via HTTP."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does vite-plugin-svgr support SVGO optimization out of the box?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. vite-plugin-svgr delegates to @svgr/core, which bundles svgo by default. You can customize SVGO plugins (such as removing unwanted title tags, stripping hardcoded widths/heights, or preserving viewBox) inside your vite.config.ts svgrOptions object."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; line-height: 1.6; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #3A4E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item, html[data-theme="light"] .callout-box { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .table-wrap, html[data-theme="light"] table, html[data-theme="light"] th, html[data-theme="light"] td { border-color: #E5E5E5; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { color: #3F3F46; border-bottom-color: #F4F4F5; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F0F0F2; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IconStash.io home">
+    <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+    <span>IconStash</span>
+  </a>
+  <nav>
+    <a href="/#/">Search 134K+ Icons</a>
+    <a href="/articles/">Articles &amp; Guides</a>
+    <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+    <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+    <a href="/#/" class="header-cta">Explore Free Icons</a>
+  </nav>
+</header>
+
+<div class="page-container">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/articles/">Articles</a>
+    <span class="sep">/</span>
+    <span>How to Import SVG Icons in Vite</span>
+  </nav>
+
+  <header class="article-hero">
+    <span class="tag">Vite &amp; Tooling</span>
+    <h1>How to Import &amp; Use SVG Icons in Vite: The Complete Developer Guide</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+      <span>•</span>
+      <span>Updated October 1, 2026</span>
+      <span>•</span>
+      <span>11 min read</span>
+      <span>•</span>
+      <span>Covers Vite 6, 5 &amp; 4 (React, Vue, Svelte, TS)</span>
+    </div>
+  </header>
+
+  <figure class="hero-figure">
+    <img src="/assets/articles/vite-svg-icons-guide.jpg" alt="How to Import and Use SVG Icons in Vite Guide" width="1200" height="675" loading="eager">
+    <figcaption>Vite SVG Pipeline: From Static URL Assets to Type-Safe React and Vue Icon Components</figcaption>
+  </figure>
+
+  <div class="article-layout">
+    <main class="article-main">
+      <div class="featured-summary">
+        <p><strong>Executive Summary &amp; Architecture Matrix:</strong> In modern web development, Vite has emerged as the standard frontend bundler. However, handling SVG icons often creates unexpected roadblocks because Vite treats SVGs as static asset URLs by default, breaking dynamic CSS styling and component-level props.</p>
+        <ul>
+          <li><strong>Default Asset Import (<code>import icon from './icon.svg'</code>):</strong> Returns a cached URL string. Best for decorative banners and static images rendered via <code>&lt;img&gt;</code>, but cannot be colored via CSS.</li>
+          <li><strong>Raw Content Import (<code>import svg from './icon.svg?raw'</code>):</strong> Bundles the SVG markup directly as a string for injection without external plugins.</li>
+          <li><strong>Component Transformation (<code>vite-plugin-svgr</code> for React, <code>vite-svg-loader</code> for Vue):</strong> Transforms SVGs into JSX/TSX or Vue SFCs with full <code>currentColor</code> and prop support.</li>
+          <li><strong>Universal Scalable Pipeline (<code>unplugin-icons</code>):</strong> Delivers zero-config, on-demand tree-shaking across 100+ open-source icon sets with zero build-time bloat.</li>
+        </ul>
+      </div>
+
+      <h2 id="why-vite-handles-svg-differently">1. Why Vite Handles SVGs Differently Than Webpack</h2>
+      <p>Developers transitioning from Webpack-based boilerplates (such as Create React App) frequently expect <code>import { ReactComponent as Icon } from './icon.svg'</code> to work out of the box. In Create React App, Webpack bundled <code>@svgr/webpack</code> behind the scenes.</p>
+      <p>Vite is built on native ES modules (ESM) and Rollup. In Vite, importing any file with an <code>.svg</code> extension defaults to an <strong>asset URL reference</strong>:</p>
+
+      <pre><code>// App.tsx
+import viteLogo from '/vite.svg'; // returns "/vite.svg" or "/assets/vite.abc123.svg"
+
+export function Header() {
+  return &lt;img src={viteLogo} alt="Vite Logo" className="w-6 h-6" /&gt;;
+}</code></pre>
+
+      <p>While this is optimal for large raster images or complex illustrations, it creates three major limitations for UI icons:</p>
+      <ol>
+        <li><strong>No CSS Color Synchronization:</strong> Because the SVG renders inside an isolated <code>&lt;img&gt;</code> context, CSS properties like <code>fill</code>, <code>stroke</code>, and <code>currentColor</code> cannot penetrate the boundary. Hover color changes become impossible without CSS filter hacks.</li>
+        <li><strong>Extra Network Handshakes:</strong> If icons are not inlined or cached aggressively, rendering dozens of small <code>&lt;img src="..."&gt;</code> icons creates multiple HTTP requests or image decode overhead.</li>
+        <li><strong>TypeScript Declaration Errors:</strong> Out of the box, TypeScript does not recognize <code>.svg</code> imports as React components or raw strings, throwing <code>Cannot find module './icon.svg' or its corresponding type declarations. (TS2307)</code>.</li>
+      </ol>
+
+      <h2 id="method-1-static-asset-and-raw-imports">2. Native Asset Imports: ?url vs ?raw vs ?inline</h2>
+      <p>Vite provides built-in query suffixes that give you granular control over asset loading without installing third-party plugins. Understanding these query parameters is fundamental to mastering Vite's pipeline.</p>
+
+      <h3>The Standard URL Query (<code>?url</code>)</h3>
+      <p>Explicitly signals to Vite that you want the hashed asset URL. Vite emits the file into your production build directory (<code>dist/assets/</code>) and returns its public URL path:</p>
+      <pre><code>import searchIconUrl from './assets/search.svg?url';
+
+console.log(searchIconUrl); // Output in prod: "/assets/search.d3e4f5.svg"</code></pre>
+
+      <h3>The Raw String Query (<code>?raw</code>)</h3>
+      <p>When you append <code>?raw</code>, Vite loads the raw text content of the SVG file directly into your JavaScript bundle as an exported string. This allows client-side injection without external compiler plugins:</p>
+      <pre><code>// Vanilla JS / React / Svelte
+import heartSvgRaw from './assets/heart.svg?raw';
+
+export function HeartIcon() {
+  return (
+    &lt;span 
+      className="inline-flex text-rose-500 hover:text-rose-600 transition-colors"
+      dangerouslySetInnerHTML={{ __html: heartSvgRaw }} 
+    /&gt;
+  );
+}</code></pre>
+
+      <div class="callout-box">
+        <div class="callout-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Security Warning: Sanitizing Raw SVG Content
+        </div>
+        <p>Using <code>dangerouslySetInnerHTML</code> or Vue's <code>v-html</code> with <code>?raw</code> can expose your application to Cross-Site Scripting (XSS) if you ever import user-supplied SVGs or unverified third-party assets containing <code>&lt;script&gt;</code> tags or inline event handlers. When using trusted open-source icons from <a href="https://iconstash.io">IconStash</a> (all SVGO sanitized), raw imports are safe, but sanitization via DOMPurify is recommended for dynamic inputs.</p>
+      </div>
+
+      <h2 id="method-2-vite-plugin-svgr-react">3. React: Full Component Integration with vite-plugin-svgr</h2>
+      <p>For React projects, the premier industry solution is <code>vite-plugin-svgr</code>. It leverages <code>@svgr/core</code> to compile SVGs into real React functional components at build time, granting direct access to SVG props (<code>className</code>, <code>style</code>, <code>onClick</code>, <code>fill</code>, <code>strokeWidth</code>).</p>
+
+      <h3>Step 1: Installation</h3>
+      <pre><code>npm install -D vite-plugin-svgr</code></pre>
+
+      <h3>Step 2: Vite Configuration (vite.config.ts)</h3>
+      <p>In your <code>vite.config.ts</code>, register the plugin and specify your import query preferences:</p>
+      <pre><code>import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    svgr({
+      // Configure SVGR options
+      svgrOptions: {
+        icon: true, // Replace hardcoded width/height with 1em for responsive scaling
+        svgo: true, // Run SVGO optimization automatically
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false, // Essential: preserve viewBox for proper scaling!
+                },
+              },
+            },
+          ],
+        },
+      },
+      // Restrict component transformation to files imported with '?react'
+      include: '**/*.svg?react',
+    }),
+  ],
+});</code></pre>
+
+      <h3>Step 3: TypeScript Declaration (src/vite-env.d.ts)</h3>
+      <p>To eliminate TypeScript compiler warnings and enable autocomplete, add the client types reference to your <code>src/vite-env.d.ts</code> file:</p>
+      <pre><code>/// &lt;reference types="vite/client" /&gt;
+/// &lt;reference types="vite-plugin-svgr/client" /&gt;</code></pre>
+
+      <p>If you prefer explicit typings for <code>?react</code> imports, you can specify:</p>
+      <pre><code>declare module '*.svg?react' {
+  import React from 'react';
+  const SVG: React.FC&lt;React.SVGProps&lt;SVGSVGElement&gt; &amp; { title?: string }&gt;;
+  export default SVG;
+}</code></pre>
+
+      <h3>Step 4: Usage in Components</h3>
+      <pre><code>import React from 'react';
+import CheckCircleIcon from './icons/check-circle.svg?react';
+
+export function StatusCard({ isCompleted }: { isCompleted: boolean }) {
+  return (
+    &lt;div className="flex items-center gap-3 p-4 bg-zinc-900 border border-zinc-800 rounded-lg"&gt;
+      &lt;CheckCircleIcon 
+        className={`w-5 h-5 transition-colors ${
+          isCompleted ? 'text-lime-400' : 'text-zinc-600'
+        }`}
+        strokeWidth={2}
+      /&gt;
+      &lt;span className="text-zinc-200 text-sm font-medium"&gt;
+        {isCompleted ? 'Verification Complete' : 'Pending Verification'}
+      &lt;/span&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+      <h2 id="method-3-vue-3-integration">4. Vue 3: Dynamic Icons with vite-svg-loader</h2>
+      <p>If you are building with Vue 3 or Nuxt 3 on Vite, the equivalent high-performance solution is <code>vite-svg-loader</code>. It compiles SVG files into Vue Single File Components (SFCs) on the fly.</p>
+
+      <h3>Step 1: Installation</h3>
+      <pre><code>npm install -D vite-svg-loader</code></pre>
+
+      <h3>Step 2: Configuration (vite.config.js / vite.config.ts)</h3>
+      <pre><code>import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import svgLoader from 'vite-svg-loader';
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    svgLoader({
+      svgoConfig: {
+        multipass: true,
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeViewBox: false,
+              },
+            },
+          },
+        ],
+      },
+      defaultImport: 'url', // Default to 'url', require '?component' for Vue SFCs
+    }),
+  ],
+});</code></pre>
+
+      <h3>Step 3: Component Usage in Vue 3</h3>
+      <p>With <code>vite-svg-loader</code>, you can import the same SVG file as a component, as a URL, or as raw code depending on your specific needs:</p>
+      <pre><code>&lt;script setup lang="ts"&gt;
+// Import as an interactive Vue component
+import BellIcon from '@/assets/icons/bell.svg?component';
+// Or as a static URL string
+import bellUrl from '@/assets/icons/bell.svg?url';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;button class="icon-button"&gt;
+    &lt;!-- Renders inline SVG with full CSS styling and Vue props --&gt;
+    &lt;BellIcon class="w-6 h-6 text-zinc-400 hover:text-lime-400" /&gt;
+    &lt;span class="sr-only"&gt;Notifications&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/template&gt;</code></pre>
+
+      <h2 id="method-4-unplugin-icons-universal">5. The Universal Solution: unplugin-icons</h2>
+      <p>When building enterprise applications that require dozens or hundreds of icons across disparate sets (such as Lucide, Tabler, Heroicons, and Phosphor), converting every SVG individually creates enormous maintenance baggage.</p>
+      <p>The modern gold standard across Vite, Rollup, Webpack, Nuxt, and Svelte is <strong><code>unplugin-icons</code></strong>. It connects to open-source icon sets (via Iconify's datasets) and compiles only the icons you use directly into your framework components at build time.</p>
+
+      <h3>Installation</h3>
+      <pre><code>npm install -D unplugin-icons @iconify/json</code></pre>
+
+      <h3>Configuration</h3>
+      <pre><code>// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import Icons from 'unplugin-icons/vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    Icons({
+      compiler: 'jsx',
+      jsx: 'react',
+      autoInstall: true, // Automatically installs icon packs as you import them
+      scale: 1.2, // Default size scaling (1em * scale)
+      defaultClass: 'inline-block shrink-0',
+    }),
+  ],
+});</code></pre>
+
+      <h3>Importing Icons on Demand</h3>
+      <p>You can now import icons from any popular open-source library simply using the virtual path convention <code>~icons/{collection}/{icon_name}</code>:</p>
+      <pre><code>import IconSearch from '~icons/lucide/search';
+import IconBrandGithub from '~icons/tabler/brand-github';
+import IconSparkles from '~icons/ph/sparkle';
+
+export function Toolbar() {
+  return (
+    &lt;div className="flex gap-4 items-center"&gt;
+      &lt;IconSearch className="text-zinc-400 hover:text-lime-400 w-5 h-5 cursor-pointer" /&gt;
+      &lt;IconBrandGithub className="text-zinc-400 hover:text-white w-5 h-5" /&gt;
+      &lt;IconSparkles className="text-amber-400 w-5 h-5" /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+      <p>Because <code>unplugin-icons</code> resolves icons at build time, it performs <strong>100% dead-code elimination (tree-shaking)</strong>. Only the exact SVG paths for <code>search</code>, <code>brand-github</code>, and <code>sparkle</code> enter your production bundle, saving megabytes compared to legacy icon font libraries.</p>
+
+      <h2 id="vite-svg-methods-comparison">6. Architectural Decision Matrix: Which Approach to Choose?</h2>
+      <p>Each method carries trade-offs between setup complexity, bundle size, CSS styleability, and runtime performance. Use this decision matrix to pick the right strategy for your web application:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Bundle Size Impact</th>
+              <th>CSS Theming (currentColor)</th>
+              <th>TypeScript Support</th>
+              <th>Runtime Overhead</th>
+              <th>Best Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Default <code>?url</code></strong></td>
+              <td>Zero (External Asset)</td>
+              <td>No (Isolated in <code>&lt;img&gt;</code>)</td>
+              <td>Native (String URL)</td>
+              <td>Zero JS / Image decode</td>
+              <td>Decorative hero illustrations, banners, non-interactive graphics</td>
+            </tr>
+            <tr>
+              <td><strong>Raw String <code>?raw</code></strong></td>
+              <td>String in JS bundle</td>
+              <td>Yes (via <code>innerHTML</code>)</td>
+              <td>Native (String)</td>
+              <td>DOM parsing on mount</td>
+              <td>Zero-dependency lightweight utilities, micro-frontends</td>
+            </tr>
+            <tr>
+              <td><strong><code>vite-plugin-svgr</code></strong></td>
+              <td>JSX AST in JS bundle</td>
+              <td>Full (Native SVG props)</td>
+              <td>Requires declaration</td>
+              <td>React VDOM reconciliation</td>
+              <td>Interactive React UI components, design systems, buttons</td>
+            </tr>
+            <tr>
+              <td><strong><code>vite-svg-loader</code></strong></td>
+              <td>Vue AST in JS bundle</td>
+              <td>Full (Native Vue props)</td>
+              <td>Built-in</td>
+              <td>Vue VDOM reconciliation</td>
+              <td>Interactive Vue 3 / Nuxt applications</td>
+            </tr>
+            <tr>
+              <td><strong><code>unplugin-icons</code></strong></td>
+              <td>Tree-shaken JSX/SFC</td>
+              <td>Full (Native props)</td>
+              <td>Automatic (virtual)</td>
+              <td>Minimal compiled nodes</td>
+              <td>Multi-library icon systems, dashboards, rapid prototyping</td>
+            </tr>
+            <tr>
+              <td><strong>SVG Symbol Sprite</strong></td>
+              <td>Single cached file</td>
+              <td>CSS variables / currentColor</td>
+              <td>Type-safe ID helpers</td>
+              <td>Zero JS AST parsing</td>
+              <td>Enterprise applications with 100+ icons rendered repeatedly</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="production-performance-tips">7. Production Performance &amp; SVGO Optimization</h2>
+      <p>When importing dozens of SVGs directly into your JavaScript bundle, SVGO optimization is critical. Raw SVGs exported from design software like Figma or Adobe Illustrator contain unneeded metadata, XML namespaces, hidden editor layers, and explicit hardcoded colors that break UI themes.</p>
+
+      <h3>1. Always Strip Hardcoded Width and Height</h3>
+      <p>Configure SVGO to remove <code>width</code> and <code>height</code> attributes while strictly preserving the <code>viewBox</code>. This allows the icon to scale fluidly according to parent CSS classes (such as <code>w-5 h-5</code> or <code>width: 1.25rem</code>):</p>
+      <pre><code>// svgo.config.js
+module.exports = {
+  plugins: [
+    {
+      name: 'preset-default',
+      params: {
+        overrides: {
+          removeViewBox: false, // NEVER remove viewBox in responsive UI
+        },
+      },
+    },
+    'removeDimensions', // Strips width and height attributes
+  ],
+};</code></pre>
+
+      <h3>2. Convert Hardcoded Fills and Strokes to currentColor</h3>
+      <p>If your SVG contains <code>fill="#000000"</code> or <code>stroke="#333333"</code>, it will ignore CSS color utility classes. Replace hardcoded hex codes with <code>currentColor</code> so the SVG automatically inherits the typography color of its parent button or text container:</p>
+      <pre><code>&lt;!-- Before: Hardcoded fill ignores CSS --&gt;
+&lt;svg viewBox="0 0 24 24" fill="#1E293B"&gt;...&lt;/svg&gt;
+
+&lt;!-- After: Responsive to parent typography color --&gt;
+&lt;svg viewBox="0 0 24 24" fill="currentColor"&gt;...&lt;/svg&gt;</code></pre>
+
+      <div class="callout-box">
+        <div class="callout-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+          Pro-Tip: Instant Ready-to-Paste Icons from IconStash
+        </div>
+        <p>Instead of manually cleaning and configuring SVGO plugins for every icon, you can search over 134,701 vector icons on <a href="https://iconstash.io">IconStash</a>. With one click, copy clean SVGO-optimized SVG markup or copy React JSX directly configured with <code>currentColor</code>, standard <code>viewBox</code>, and zero attribution licensing.</p>
+      </div>
+
+      <h2 id="frequently-asked-questions">8. Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Why does Vite import SVG as a URL string instead of a React component by default?</h3>
+        <p>By default, Vite adheres to web-standard ES module semantics for static assets. When you run <code>import icon from './icon.svg'</code>, Vite resolves the file to a static asset URL string pointing to the public output path. Transforming SVG markup into a JavaScript React or Vue component requires an AST compiler plugin such as <code>vite-plugin-svgr</code> or <code>vite-svg-loader</code>.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I fix "Cannot find module ./icon.svg or its corresponding type declarations" in TypeScript?</h3>
+        <p>Add a declaration file in your project (such as <code>src/vite-env.d.ts</code>) declaring the SVG module format. If using <code>vite-plugin-svgr</code> with <code>?react</code> queries, include <code>/// &lt;reference types="vite-plugin-svgr/client" /&gt;</code>. For standard raw or component imports, declare <code>declare module '*.svg?react' { import { FC, SVGProps } from 'react'; const content: FC&lt;SVGProps&lt;SVGSVGElement&gt;&gt;; export default content; }</code>.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What is the difference between ?raw and ?url in Vite SVG imports?</h3>
+        <p>Using <code>?url</code> forces Vite to resolve the SVG as a URL string (e.g. <code>/assets/icon.a1b2c3.svg</code>) suitable for <code>&lt;img src={url}&gt;</code> or CSS <code>background-image</code>. Using <code>?raw</code> tells Vite to read the file contents as a plain text utf-8 string containing raw SVG markup, which can be injected directly into the DOM.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I change the stroke and fill color of an SVG imported with an img tag in Vite?</h3>
+        <p>No. When an SVG is rendered inside an HTML <code>&lt;img&gt;</code> tag, the browser executes it in an isolated browsing context where parent CSS rules and <code>currentColor</code> do not penetrate. To dynamically recolor SVGs via CSS, you must import the SVG as an inline component, inject it via raw markup, or use CSS <code>mask-image</code>.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What is the best way to handle hundreds of icons in a Vite enterprise project without bundle bloat?</h3>
+        <p>Use <code>unplugin-icons</code> with <code>unplugin-auto-import</code> or compile icons into an external SVG <code>&lt;symbol&gt;</code> sprite sheet. Importing hundreds of individual SVGs as React components inflates your main JavaScript chunk with inline SVG paths. Sprites or on-demand tree-shaken unplugin loaders ensure icons are loaded asynchronously or cached via HTTP.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Does vite-plugin-svgr support SVGO optimization out of the box?</h3>
+        <p>Yes. <code>vite-plugin-svgr</code> delegates to <code>@svgr/core</code>, which bundles SVGO by default. You can customize SVGO plugins (such as removing unwanted title tags, stripping hardcoded widths/heights, or preserving viewBox) inside your <code>vite.config.ts</code> <code>svgrOptions</code> object.</p>
+      </div>
+
+      <div class="cta-banner">
+        <h3>Find &amp; Export 134K+ Vector Icons in 1 Click</h3>
+        <p>Search Lucide, Tabler, Phosphor, Heroicons, and 24 other curated open-source libraries. Copy clean SVG code, React JSX, or download optimized SVG files instantly.</p>
+        <a href="/#/" class="header-cta" style="font-size: 15px; padding: 12px 28px;">Search Icons on IconStash</a>
+      </div>
+    </main>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card toc-nav">
+        <div class="sidebar-title">Table of Contents</div>
+        <ol>
+          <li><a href="#why-vite-handles-svg-differently">1. Why Vite Handles SVGs Differently</a></li>
+          <li><a href="#method-1-static-asset-and-raw-imports">2. Native Asset Imports (?url vs ?raw)</a></li>
+          <li><a href="#method-2-vite-plugin-svgr-react">3. React with vite-plugin-svgr</a></li>
+          <li><a href="#method-3-vue-3-integration">4. Vue 3 with vite-svg-loader</a></li>
+          <li><a href="#method-4-unplugin-icons-universal">5. Universal unplugin-icons</a></li>
+          <li><a href="#vite-svg-methods-comparison">6. Architectural Decision Matrix</a></li>
+          <li><a href="#production-performance-tips">7. Production Performance &amp; SVGO</a></li>
+          <li><a href="#frequently-asked-questions">8. Frequently Asked Questions</a></li>
+        </ol>
+      </div>
+
+      <div class="cta-sidebar-box">
+        <h4>Need Free Vector Icons?</h4>
+        <p>Access 134,701 vector icons from 28 open-source libraries with 94.5% zero attribution required.</p>
+        <a href="/#/" class="cta-sidebar-btn">Search IconStash Free</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>&copy; 2026 IconStash. An open source initiative by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener">Great Software Company</a>. Built for developers.</p>
+  <p style="margin-top: 8px;"><a href="/articles/">Articles &amp; Guides</a> &bull; <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a> &bull; <a href="/Glossary/icon-svg-terminology/">Glossary</a> &bull; <a href="/about/">About</a></p>
+</footer>
+
+</body>
+</html>
