@@ -144,6 +144,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [How to Import & Use SVG Icons in Vite: The Complete Developer Guide](https://iconstash.io/articles/how-to-import-svg-icons-in-vite-guide/)
 - [How to Animate SVG Icons on Hover with CSS: Micro-Interactions & Transitions](https://iconstash.io/articles/svg-icon-hover-effects-css-guide/)
 - [How to Create & Use SVG Sprites in Modern Web Development: The 2026 Guide](https://iconstash.io/articles/how-to-create-svg-sprites-guide/)
+- [Remix Icon: The Complete 2026 Developer & Designer Guide](https://iconstash.io/articles/remix-icons-complete-guide/)
+- [How to Create an Animated SVG Loading Spinner with CSS](https://iconstash.io/articles/how-to-create-animated-svg-loading-spinner-guide/)
+- [SVG Typography & Font Glyphs Glossary (32+ Terms)](https://iconstash.io/Glossary/svg-typography-and-font-glyphs-glossary/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives
