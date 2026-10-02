@@ -120,6 +120,22 @@ for (const item of deliverables) {
   // 9. Light theme contrast verification
   assert(content.includes('html[data-theme="light"] pre code'), 'Light theme pre code contrast rule present');
   assert(content.includes('html[data-theme="light"] pre'), 'Light theme pre block rule present');
+
+  // 10. Theme toggle and persistence verification
+  assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
+  assert(content.includes("localStorage.getItem('theme')"), 'Theme persistence script present');
+
+  // 11. No raw unrendered LaTeX math formulas
+  assert(!content.includes('$$\\text{') && !content.includes('\\times') && !content.includes('\\approx'), 'No unrendered LaTeX math delimiters ($$ or \\times) found');
+
+  // 12. Viewport responsiveness tag
+  assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
+
+  // 13. Glossary DefinedTermSet enrichment
+  if (item.schemaType === 'DefinedTermSet') {
+    const mainSchema = JSON.parse(content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]).find(s => s['@type'] === 'DefinedTermSet');
+    assert(mainSchema && mainSchema.hasDefinedTerm && mainSchema.hasDefinedTerm.length >= 8, `DefinedTermSet contains hasDefinedTerm array (found ${mainSchema && mainSchema.hasDefinedTerm ? mainSchema.hasDefinedTerm.length : 0} terms)`);
+  }
 }
 
 // 10. Site Integration Verification: articles/index.html

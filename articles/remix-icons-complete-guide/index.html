@@ -155,6 +155,22 @@
     .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
     .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
 
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    /* Interactive state toggle demo */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 13px; padding: 8px 16px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 8px; }
+    .demo-toggle-btn:hover { background: #2A2A2A; border-color: #C1DD2D; }
+    .icon-interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; }
+    .interactive-icon-box { background: #0E0E0E; border: 1px solid #1F1F1F; border-radius: 10px; padding: 18px 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: all 150ms ease; }
+    .interactive-icon-box:hover { border-color: #333; background: #121212; }
+    .interactive-icon-box svg { width: 32px; height: 32px; color: #C1DD2D; }
+    .interactive-icon-label { font-size: 12.5px; font-weight: 600; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .interactive-icon-badge { font-size: 11px; color: #888; background: #1A1A1A; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; font-weight: 700; }
+
     .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
     .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
     .breadcrumb a { color: #888; }
@@ -279,6 +295,18 @@
     html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
     html[data-theme="light"] .cta-banner p { color: #525252; }
     html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .theme-toggle-btn { border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .theme-toggle-btn:hover { border-color: #A3A3A3; color: #171717; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-title { color: #0A0A0A; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .demo-toggle-btn:hover { background: #E4E4E7; }
+    html[data-theme="light"] .interactive-icon-box { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-icon-box:hover { background: #F4F4F5; }
+    html[data-theme="light"] .interactive-icon-box svg { color: #6D8200; }
+    html[data-theme="light"] .interactive-icon-label { color: #0A0A0A; }
+    html[data-theme="light"] .interactive-icon-badge { background: #E4E4E7; color: #3F3F46; }
   </style>
 </head>
 <body>
@@ -293,6 +321,9 @@
       <a href="/library/remix/">Remix Icons Collection</a>
       <a href="/Glossary/icon-svg-terminology/">Glossary</a>
       <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
       <a href="/#/" class="header-cta">Open App</a>
     </nav>
   </header>
@@ -330,11 +361,11 @@
         <section class="featured-summary">
           <p><strong>Executive Summary &amp; Key Takeaways:</strong></p>
           <ul>
-            <li><strong>Scale &amp; Coverage:</strong> Remix Icon is one of the world's most adopted open-source icon sets, containing 2,800+ glyphs organized across 16 categories on an exact 24&times;24 grid.</li>
+            <li><strong>Scale &amp; Coverage:</strong> Remix Icon is one of the world's most adopted open-source icon sets, containing 3,200+ glyphs (3,244 indexed in IconStash v4.6.0) organized across 16 categories on an exact 24&times;24 grid.</li>
             <li><strong>Dual Visual States:</strong> Every icon ships in paired <code>-line</code> (outline) and <code>-fill</code> (solid) variants, eliminating the need to mix icon libraries for active navigation states.</li>
             <li><strong>Permissive Open-Source Licensing:</strong> Licensed under Apache 2.0, allowing unrestricted commercial use, SaaS embedding, modification, and re-distribution without royalties.</li>
             <li><strong>Zero-Bloat Modern Tooling:</strong> First-class support for React (<code>@remixicon/react</code>), Vue, Vite, Tailwind CSS, CDN web fonts, and direct SVG sprite sheets.</li>
-            <li><strong>Direct IconStash Indexing:</strong> Explore and search all 2,800+ icons with instant JSX and SVG copy at <a href="/library/remix/">IconStash Remix Library</a>.</li>
+            <li><strong>Direct IconStash Indexing:</strong> Explore and search all 3,244 Remix icons with instant JSX and SVG copy at <a href="/library/remix/">IconStash Remix Library</a>.</li>
           </ul>
         </section>
 
@@ -384,6 +415,49 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="interactive-demo-card">
+          <div class="interactive-demo-header">
+            <div class="interactive-demo-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Live Demonstration: Optical Zero-CLS State Switching</span>
+            </div>
+            <button type="button" class="demo-toggle-btn" id="stateToggleBtn">
+              <span>Toggle State:</span>
+              <strong id="currentVariantLabel">Line (-line)</strong>
+            </button>
+          </div>
+          <div class="icon-interactive-grid">
+            <div class="interactive-icon-box">
+              <svg viewBox="0 0 24 24" class="remix-demo-svg" data-line="M12 1.99961L1 9.99961L2.5 11.1996L4 9.99961V20.9996C4 21.5519 4.44772 21.9996 5 21.9996H19C19.5523 21.9996 20 21.5519 20 20.9996V9.99961L21.5 11.1996L23 9.99961L12 1.99961ZM18 19.9996H6V8.39961L12 4.03597L18 8.39961V19.9996Z" data-fill="M12 1.99961L1 9.99961L2.5 11.1996L4 9.99961V20.9996C4 21.5519 4.44772 21.9996 5 21.9996H19C19.5523 21.9996 20 21.5519 20 20.9996V9.99961L21.5 11.1996L23 9.99961L12 1.99961Z">
+                <path fill="currentColor" d="M12 1.99961L1 9.99961L2.5 11.1996L4 9.99961V20.9996C4 21.5519 4.44772 21.9996 5 21.9996H19C19.5523 21.9996 20 21.5519 20 20.9996V9.99961L21.5 11.1996L23 9.99961L12 1.99961ZM18 19.9996H6V8.39961L12 4.03597L18 8.39961V19.9996Z"/>
+              </svg>
+              <span class="interactive-icon-label">ri-home-5</span>
+              <span class="interactive-icon-badge">Navigation</span>
+            </div>
+            <div class="interactive-icon-box">
+              <svg viewBox="0 0 24 24" class="remix-demo-svg" data-line="M16.5 3C19.5376 3 22 5.5 22 9C22 16 14.5 20 12 21.5C9.5 20 2 16 2 9C2 5.5 4.5 3 7.5 3C9.35997 3 11 4 12 5C13 4 14.64 3 16.5 3ZM12.9339 18.6038C13.8155 18.0485 15.1584 17.1121 16.5057 15.9388C18.9048 13.849 20 11.6031 20 9C20 6.60254 18.3975 5 16.5 5C14.8975 5 13.5 6.5 13 7.5H11C10.5 6.5 9.10254 5 7.5 5C5.60254 5 4 6.60254 4 9C4 11.6031 5.0952 13.849 7.49429 15.9388C8.84157 17.1121 10.1845 18.0485 11.0661 18.6038L12 19.1915L12.9339 18.6038Z" data-fill="M16.5 3C19.5376 3 22 5.5 22 9C22 16 14.5 20 12 21.5C9.5 20 2 16 2 9C2 5.5 4.5 3 7.5 3C9.35997 3 11 4 12 5C13 4 14.64 3 16.5 3Z">
+                <path fill="currentColor" d="M16.5 3C19.5376 3 22 5.5 22 9C22 16 14.5 20 12 21.5C9.5 20 2 16 2 9C2 5.5 4.5 3 7.5 3C9.35997 3 11 4 12 5C13 4 14.64 3 16.5 3ZM12.9339 18.6038C13.8155 18.0485 15.1584 17.1121 16.5057 15.9388C18.9048 13.849 20 11.6031 20 9C20 6.60254 18.3975 5 16.5 5C14.8975 5 13.5 6.5 13 7.5H11C10.5 6.5 9.10254 5 7.5 5C5.60254 5 4 6.60254 4 9C4 11.6031 5.0952 13.849 7.49429 15.9388C8.84157 17.1121 10.1845 18.0485 11.0661 18.6038L12 19.1915L12.9339 18.6038Z"/>
+              </svg>
+              <span class="interactive-icon-label">ri-heart-3</span>
+              <span class="interactive-icon-badge">Favorite</span>
+            </div>
+            <div class="interactive-icon-box">
+              <svg viewBox="0 0 24 24" class="remix-demo-svg" data-line="M12 18.26L4.94702 22.2082L6.52202 14.2794L0.587891 8.7918L8.61493 7.84006L12 0.5L15.3851 7.84006L23.4121 8.7918L17.478 14.2794L19.053 22.2082L12 18.26ZM12 15.986L16.2941 18.3901L15.3351 13.5623L18.9482 10.2207L14.0694 9.64121L12 5.17228L9.9306 9.64121L5.0518 10.2207L8.66488 13.5623L7.70588 18.3901L12 15.986Z" data-fill="M12 18.26L4.94702 22.2082L6.52202 14.2794L0.587891 8.7918L8.61493 7.84006L12 0.5L15.3851 7.84006L23.4121 8.7918L17.478 14.2794L19.053 22.2082L12 18.26Z">
+                <path fill="currentColor" d="M12 18.26L4.94702 22.2082L6.52202 14.2794L0.587891 8.7918L8.61493 7.84006L12 0.5L15.3851 7.84006L23.4121 8.7918L17.478 14.2794L19.053 22.2082L12 18.26ZM12 15.986L16.2941 18.3901L15.3351 13.5623L18.9482 10.2207L14.0694 9.64121L12 5.17228L9.9306 9.64121L5.0518 10.2207L8.66488 13.5623L7.70588 18.3901L12 15.986Z"/>
+              </svg>
+              <span class="interactive-icon-label">ri-star</span>
+              <span class="interactive-icon-badge">Bookmark</span>
+            </div>
+            <div class="interactive-icon-box">
+              <svg viewBox="0 0 24 24" class="remix-demo-svg" data-line="M5 18H19V11C19 7.13401 15.866 4 12 4C8.13401 4 5 7.13401 5 11V18ZM12 2C16.9706 2 21 6.02944 21 11V19H22V21H2V19H3V11C3 6.02944 7.02944 2 12 2ZM9 22H15C15 23.6569 13.6569 25 12 25C10.3431 25 9 23.6569 9 22Z" data-fill="M12 2C16.9706 2 21 6.02944 21 11V19H22V21H2V19H3V11C3 6.02944 7.02944 2 12 2ZM9 22H15C15 23.6569 13.6569 25 12 25C10.3431 25 9 23.6569 9 22Z">
+                <path fill="currentColor" d="M5 18H19V11C19 7.13401 15.866 4 12 4C8.13401 4 5 7.13401 5 11V18ZM12 2C16.9706 2 21 6.02944 21 11V19H22V21H2V19H3V11C3 6.02944 7.02944 2 12 2ZM9 22H15C15 23.6569 13.6569 25 12 25C10.3431 25 9 23.6569 9 22Z"/>
+              </svg>
+              <span class="interactive-icon-label">ri-notification-3</span>
+              <span class="interactive-icon-badge">Alerts</span>
+            </div>
+          </div>
         </div>
 
         <h2>3. How to Use Remix Icon in React &amp; Next.js (Zero Bundle Bloat)</h2>
@@ -517,7 +591,7 @@ export default defineConfig({
             <tbody>
               <tr>
                 <td><strong>Total Icon Count</strong></td>
-                <td><strong>2,800+</strong></td>
+                <td><strong>3,244 (v4.6.0)</strong></td>
                 <td>~1,450</td>
                 <td>~5,200</td>
                 <td>~2,000</td>
@@ -559,7 +633,7 @@ export default defineConfig({
               </tr>
               <tr>
                 <td><strong>Direct Search on IconStash</strong></td>
-                <td><a href="/library/remix/">Indexed (2,800+)</a></td>
+                <td><a href="/library/remix/">Indexed (3,244)</a></td>
                 <td><a href="/library/lucide/">Indexed (1,450+)</a></td>
                 <td><a href="/library/tabler/">Indexed (5,200+)</a></td>
                 <td>Indexed (Free)</td>
@@ -612,7 +686,7 @@ export default defineConfig({
         </div>
         <div class="faq-item">
           <h3>Can I search, copy, and export Remix Icons directly on IconStash?</h3>
-          <p>Yes. IconStash indexes the entire Remix Icon collection at <a href="/library/remix/">https://iconstash.io/library/remix/</a>. You can search 2,800+ Remix icons by keyword, filter between line and fill styles, copy raw optimized SVGs or React JSX components in one click, and download customized SVG or PNG assets.</p>
+          <p>Yes. IconStash indexes the entire Remix Icon collection at <a href="/library/remix/">https://iconstash.io/library/remix/</a>. You can search 3,244 Remix icons (v4.6.0) by keyword, filter between line and fill styles, copy raw optimized SVGs or React JSX components in one click, and download customized SVG or PNG assets.</p>
         </div>
         <div class="faq-item">
           <h3>How do I change the color of Remix Icons dynamically in CSS?</h3>
@@ -620,7 +694,7 @@ export default defineConfig({
         </div>
 
         <div class="cta-banner">
-          <h3>Search 2,800+ Remix Icons Instantly</h3>
+          <h3>Search 3,200+ Remix Icons Instantly</h3>
           <p>Browse, customize, recolor, and copy production-ready Remix Icons directly into your React, Vue, or Tailwind projects with IconStash.</p>
           <a href="/library/remix/" class="header-cta">Explore Remix Icons Now &rarr;</a>
         </div>
@@ -654,5 +728,39 @@ export default defineConfig({
   <footer class="site-footer">
     <p>&copy; 2026 IconStash &bull; Built with passion for developers and designers &bull; <a href="/privacy/">Privacy</a> &bull; <a href="/terms/">Terms</a> &bull; <a href="/about/">About Jouni Flemming</a></p>
   </footer>
+
+  <script>
+    // Theme toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Interactive Line vs Fill State Switcher
+    const stateToggleBtn = document.getElementById('stateToggleBtn');
+    const currentVariantLabel = document.getElementById('currentVariantLabel');
+    const demoSvgs = document.querySelectorAll('.remix-demo-svg');
+    let isFilled = false;
+
+    if (stateToggleBtn) {
+      stateToggleBtn.addEventListener('click', () => {
+        isFilled = !isFilled;
+        currentVariantLabel.textContent = isFilled ? 'Filled (-fill)' : 'Line (-line)';
+        demoSvgs.forEach(svg => {
+          const path = svg.querySelector('path');
+          if (path) {
+            path.setAttribute('d', isFilled ? svg.getAttribute('data-fill') : svg.getAttribute('data-line'));
+          }
+        });
+      });
+    }
+  </script>
 </body>
 </html>
