@@ -147,6 +147,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Remix Icon: The Complete 2026 Developer & Designer Guide](https://iconstash.io/articles/remix-icons-complete-guide/)
 - [How to Create an Animated SVG Loading Spinner with CSS](https://iconstash.io/articles/how-to-create-animated-svg-loading-spinner-guide/)
 - [SVG Typography & Font Glyphs Glossary (32+ Terms)](https://iconstash.io/Glossary/svg-typography-and-font-glyphs-glossary/)
+- [Simple Icons: Complete Guide to 3,100+ Free SVG Brand & Tech Logos (2026)](https://iconstash.io/articles/simple-icons-complete-guide/)
+- [Radix Icons Complete Guide: Setup, React, Tailwind & Shadcn UI (2026)](https://iconstash.io/articles/radix-icons-complete-guide/)
+- [SVG Clipping, Masking & Compositing Glossary (35+ Terms)](https://iconstash.io/Glossary/svg-clipping-masking-and-compositing-glossary/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives

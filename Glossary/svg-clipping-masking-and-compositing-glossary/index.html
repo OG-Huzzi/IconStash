@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Clipping, Masking &amp; Compositing Glossary: 35+ Terms | IconStash</title>
+  <meta name="description" content="Comprehensive glossary of 35+ SVG clipping, masking, and compositing terms: clipPath, clip-rule, maskUnits, alpha vs luminance masks, and blend modes.">
+  <meta name="keywords" content="svg clipping glossary, svg mask, clipPath svg, clip-rule evenodd, mask-type alpha luminance, maskUnits objectBoundingBox, mix-blend-mode svg, css clip-path polygon, svg compositing">
+  <meta property="og:title" content="SVG Clipping, Masking &amp; Compositing Glossary: 35+ Terms Explained">
+  <meta property="og:description" content="Comprehensive glossary of 35+ SVG clipping, masking, and compositing terms: clipPath, clip-rule, maskUnits, alpha vs luminance masks, and blend modes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/Glossary/svg-clipping-masking-and-compositing-glossary/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-clipping-masking-and-compositing-glossary.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="SVG Clipping Masking and Compositing Technical Glossary">
+  <meta property="article:published_time" content="2026-10-04T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-04T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Glossary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Clipping, Masking &amp; Compositing Glossary: 35+ Terms Explained">
+  <meta name="twitter:description" content="Comprehensive glossary of 35+ SVG clipping, masking, and compositing terms: clipPath, clip-rule, maskUnits, alpha vs luminance masks, and blend modes.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-clipping-masking-and-compositing-glossary.jpg">
+  <link rel="canonical" href="https://iconstash.io/Glossary/svg-clipping-masking-and-compositing-glossary/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "SVG Clipping, Masking & Compositing Glossary",
+    "description": "An exhaustive technical glossary defining 35+ crucial terms in SVG vector clipping paths, alpha and luminance masks, CSS masking stencils, and GPU compositing.",
+    "url": "https://iconstash.io/Glossary/svg-clipping-masking-and-compositing-glossary/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "datePublished": "2026-10-04",
+    "dateModified": "2026-10-04",
+    "hasDefinedTerm": [
+      { "@type": "DefinedTerm", "name": "<clipPath>", "description": "The root SVG container element defining a 1-bit binary stencil geometry that cuts away outer graphics without antialiased partial opacity." },
+      { "@type": "DefinedTerm", "name": "clip-rule", "description": "Determines the ray-casting algorithm used to evaluate whether coordinates fall inside or outside self-intersecting clip paths: nonzero or evenodd." },
+      { "@type": "DefinedTerm", "name": "clipPathUnits", "description": "Specifies the coordinate system for clip geometry: userSpaceOnUse (absolute pixel units) or objectBoundingBox (fractional 0 to 1 scaling relative to target)." },
+      { "@type": "DefinedTerm", "name": "<mask>", "description": "An SVG container element creating an 8-bit soft-edged alpha or luminance transparency mask that modulates pixel opacity from 0.0 to 1.0." },
+      { "@type": "DefinedTerm", "name": "mask-type", "description": "A CSS and SVG property specifying whether a mask calculates transparency from color luminance (Rec. 709) or purely from the alpha channel." },
+      { "@type": "DefinedTerm", "name": "maskUnits", "description": "Defines the coordinate system governing the boundary rectangle (x, y, width, height) of the <mask> element." },
+      { "@type": "DefinedTerm", "name": "maskContentUnits", "description": "Defines the coordinate system applied to child graphic elements inside the <mask> container." },
+      { "@type": "DefinedTerm", "name": "mask-composite", "description": "Controls how multiple CSS mask image layers are composited together using Porter-Duff compositing operators: add, subtract, intersect, or exclude." },
+      { "@type": "DefinedTerm", "name": "mix-blend-mode", "description": "Defines how an element's vector content blends with the visual background colors behind it, including multiply, screen, and overlay." },
+      { "@type": "DefinedTerm", "name": "isolation: isolate", "description": "Creates a new stacking context and prevents descendant blend modes from bleeding out into ancestral document backgrounds." },
+      { "@type": "DefinedTerm", "name": "userSpaceOnUse", "description": "Coordinate mapping referencing the current user coordinate system established by the SVG viewport rather than the target element's bounding box." },
+      { "@type": "DefinedTerm", "name": "objectBoundingBox", "description": "Relative coordinate mapping where values range from 0.0 to 1.0, scaling proportionally to the target element's rendered width and height." },
+      { "@type": "DefinedTerm", "name": "Luminance Mask", "description": "A mask mode calculating target opacity by computing weighted RGB brightness using the ITU-R BT.709 formula (0.2126R + 0.7152G + 0.0722B)." },
+      { "@type": "DefinedTerm", "name": "Alpha Mask", "description": "A mask mode deriving target pixel transparency strictly from the alpha transparency channel of the mask graphic, ignoring RGB color values." },
+      { "@type": "DefinedTerm", "name": "CSS polygon()", "description": "A CSS basic shape function defining an arbitrary polygonal clipping boundary using coordinate percentage or pixel pairs." },
+      { "@type": "DefinedTerm", "name": "CSS path()", "description": "A CSS basic shape function accepting raw SVG path data string (M, L, C, Z commands) to clip standard HTML DOM elements." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Glossary", "item": "https://iconstash.io/Glossary/icon-svg-terminology/" },
+      { "@type": "ListItem", "position": 3, "name": "SVG Clipping, Masking & Compositing Glossary", "item": "https://iconstash.io/Glossary/svg-clipping-masking-and-compositing-glossary/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the key technical difference between SVG clipping (clipPath) and masking (mask)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SVG clipping (<clipPath>) is a 1-bit binary operation: a pixel is either 100% inside the clip region (visible) or 100% outside (hidden). It cannot produce semi-transparent gradients or soft feathered edges. SVG masking (<mask>) is an 8-bit multi-level transparency operation: it supports fractional alpha values between 0.0 and 1.0, allowing soft shadows, gradients, and antialiased feathering."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does mask-type: luminance differ from mask-type: alpha?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "mask-type: luminance calculates pixel opacity from the relative luminance of the mask image colors using the Rec. 709 formula (white #FFF is 100% opaque, black #000 is 100% transparent, and 50% grey #808080 is 50% translucent). mask-type: alpha completely ignores RGB color values and computes transparency purely from the image's alpha channel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do CSS box-shadow and drop-shadow fail on elements with clip-path applied?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When clip-path is applied to an element, the browser clips the entire element box, which includes any CSS box-shadow cast outside the element perimeter. To display a shadow around a clipped shape, either apply filter: drop-shadow() to a parent container element wrapping the clipped child, or apply filter: drop-shadow() directly if supported."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between userSpaceOnUse and objectBoundingBox in clipPathUnits?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "userSpaceOnUse interprets coordinates in absolute user space units (such as pixels on the SVG canvas). If the target element moves or resizes, the clip path does not automatically scale with it. objectBoundingBox interprets coordinates as normalized fractions between 0.0 and 1.0, automatically scaling the clip path proportionally to the target element's bounding box dimensions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does isolation: isolate do when using SVG blend modes in CSS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "isolation: isolate establishes a new stacking context on the target element. This confines any descendant mix-blend-mode operations (such as multiply or screen) strictly within that element's boundary, preventing the blending calculations from interacting with or bleeding into the page's root background."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do nonzero and evenodd clip-rules work in self-intersecting vector paths?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "clip-rule: nonzero casts an imaginary ray from a point to infinity and counts how many path segments cross it and their direction (clockwise vs counter-clockwise). If the net sum is non-zero, the point is inside. clip-rule: evenodd counts the total number of path crossings regardless of direction: if the count is odd, the point is inside; if even, it is outside, creating cutout holes in overlapping donut shapes."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    /* Category Blocks & Term Cards */
+    .category-block { margin-bottom: 40px; }
+    .cat-heading { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #262626; padding-bottom: 10px; margin-bottom: 20px; font-size: 20px; font-weight: 800; color: #FFF; }
+    .cat-heading .badge { font-size: 12px; font-weight: 700; background: rgba(193,221,45,0.12); color: #C1DD2D; border: 1px solid rgba(193,221,45,0.25); padding: 4px 10px; border-radius: 999px; text-transform: uppercase; font-family: "JetBrains Mono", monospace; }
+
+    .term-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 22px; margin-bottom: 16px; transition: border-color 150ms ease, background 150ms ease; }
+    .term-card:hover { border-color: #333; background: #141414; }
+    .term-title { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .term-title span { font-size: 17px; font-weight: 800; color: #FFF; }
+    .term-title code { font-size: 13px; color: #C1DD2D; background: #1A1A1A; padding: 2px 8px; border-radius: 4px; font-family: "JetBrains Mono", monospace; }
+    .term-desc { font-size: 15px; line-height: 1.7; color: #A3A3A3; margin-bottom: 12px; }
+    .code-snippet { background: #0A0A0A; border: 1px solid #1F1F1F; border-radius: 6px; padding: 10px 14px; font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: #D4D4D4; overflow-x: auto; }
+
+    /* Formula card */
+    .formula-card { background: #141414; border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-family: "JetBrains Mono", monospace; font-size: 14px; color: #E5E5E5; }
+
+    /* Interactive Mask & Clip Simulator */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 13px; padding: 8px 14px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .demo-toggle-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+    .sim-canvas-box { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 32px 16px; min-height: 240px; position: relative; overflow: hidden; }
+    .sim-explanation { margin-top: 16px; font-size: 13.5px; color: #AAA; text-align: center; max-width: 580px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .cat-heading { color: #0A0A0A; border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .cat-heading .badge { background: #F0F4D8; color: #5C6E00; border-color: #CCD895; }
+    html[data-theme="light"] .term-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .term-card:hover { background: #F4F4F5; }
+    html[data-theme="light"] .term-title span { color: #0A0A0A; }
+    html[data-theme="light"] .term-title code { background: #F4F4F5; color: #5C6E00; }
+    html[data-theme="light"] .term-desc { color: #383838; }
+    html[data-theme="light"] .code-snippet { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; color: #18181B; }
+    html[data-theme="light"] .cta-sidebar-box { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #525252; }
+    html[data-theme="light"] .cta-banner { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-banner p { color: #525252; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .theme-toggle-btn { border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .theme-toggle-btn:hover { border-color: #A3A3A3; color: #171717; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-title { color: #0A0A0A; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .demo-toggle-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
+    html[data-theme="light"] .demo-toggle-btn:hover:not(.active) { background: #E4E4E7; }
+    html[data-theme="light"] .sim-canvas-box { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .sim-explanation { color: #525252; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 135K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary Hub</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <span class="sep">/</span>
+      <span>SVG Clipping, Masking &amp; Compositing</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Technical Reference &bull; 35+ Terms &bull; 2026 Edition</span>
+      <h1>SVG Clipping, Masking &amp; Compositing Glossary: 35+ Terms</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <span>Updated October 4, 2026</span>
+        <span>&bull;</span>
+        <span>15 min read</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="/assets/articles/svg-clipping-masking-and-compositing-glossary.jpg" alt="SVG Clipping Masking and Compositing Vector Illustration" width="1200" height="675" loading="eager">
+      <figcaption>An exhaustive architectural glossary covering 1-bit vector clipping, 8-bit alpha/luminance masks, and GPU compositing rules.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary &amp; Core Distinctions:</strong> Clipping, masking, and blend compositing are the three fundamental pillars of modern visual styling in SVG and CSS. While frequently conflated, they operate on completely distinct mathematical pipelines:</p>
+          <ul>
+            <li><strong>Clipping (&lt;clipPath&gt;):</strong> A 1-bit binary stencil. Every pixel is either 100% visible or 100% hidden. Zero intermediate opacity, minimal GPU raster overhead.</li>
+            <li><strong>Masking (&lt;mask&gt;):</strong> An 8-bit multi-channel transparency stencil. Modulates pixel opacity smoothly from 0.0 to 1.0 using luminance or alpha values.</li>
+            <li><strong>Compositing (blend modes):</strong> Calculates mathematical color blending between overlapping graphics using Porter-Duff formulas and color channels.</li>
+          </ul>
+        </div>
+
+        <!-- Interactive Stencil & Mask Simulator -->
+        <div class="interactive-demo-card">
+          <div class="interactive-demo-header">
+            <div class="interactive-demo-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              <span>Live Stencil, Alpha &amp; Luminance Mask Simulator</span>
+            </div>
+            <div class="demo-controls">
+              <button class="demo-toggle-btn active" id="btnModeClip" type="button">Vector ClipPath (1-Bit)</button>
+              <button class="demo-toggle-btn" id="btnModeAlpha" type="button">Alpha Mask (Soft Edge)</button>
+              <button class="demo-toggle-btn" id="btnModeLuminance" type="button">Luminance Mask (Rec. 709)</button>
+            </div>
+          </div>
+          <div class="sim-canvas-box">
+            <svg id="simSvg" viewBox="0 0 320 180" width="320" height="180">
+              <defs>
+                <!-- 1-Bit Vector ClipPath -->
+                <clipPath id="simClip">
+                  <circle cx="160" cy="90" r="60" />
+                </clipPath>
+                <!-- Soft Radial Alpha Mask -->
+                <radialGradient id="simAlphaGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="1" />
+                  <stop offset="70%" stop-color="#fff" stop-opacity="0.8" />
+                  <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+                </radialGradient>
+                <mask id="simAlphaMask" mask-type="alpha">
+                  <circle cx="160" cy="90" r="70" fill="url(#simAlphaGrad)" />
+                </mask>
+                <!-- Linear Luminance Mask -->
+                <linearGradient id="simLumGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#FFFFFF" />
+                  <stop offset="50%" stop-color="#808080" />
+                  <stop offset="100%" stop-color="#000000" />
+                </linearGradient>
+                <mask id="simLumMask" mask-type="luminance">
+                  <rect x="60" y="20" width="200" height="140" fill="url(#simLumGrad)" />
+                </mask>
+              </defs>
+              <!-- Target Graphic: Multi-color gradient mesh pattern -->
+              <g id="simTargetGraphic" clip-path="url(#simClip)">
+                <rect x="0" y="0" width="320" height="180" fill="#18181B" />
+                <circle cx="120" cy="70" r="50" fill="#C1DD2D" />
+                <circle cx="200" cy="110" r="55" fill="#38BDF8" opacity="0.9" />
+                <rect x="130" y="50" width="60" height="80" rx="10" fill="#EC4899" opacity="0.85" />
+              </g>
+            </svg>
+            <div class="sim-explanation" id="simExplanation">
+              <strong>1-Bit Binary Clipping:</strong> The target is cleanly punched out using a circular <code>&lt;clipPath&gt;</code> stencil. Pixels outside r=60 are discarded with zero feathering.
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 1: Vector Clipping Elements & Rules -->
+        <div class="category-block" id="cat-clipping">
+          <div class="cat-heading">
+            <span>1. Core Vector Clipping Elements &amp; Rules</span>
+            <span class="badge">1-Bit Stencils</span>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>&lt;clipPath&gt;</span> <code>&lt;clipPath id="..."&gt;</code></div>
+            <p class="term-desc">The primary SVG container element defining a clipping boundary. Everything inside the geometry is rendered; everything outside is clipped away. It cannot contain visual styling attributes like fills, strokes, or opacity.</p>
+            <div class="code-snippet">&lt;clipPath id="avatarCut"&gt;&lt;circle cx="50" cy="50" r="40" /&gt;&lt;/clipPath&gt;</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>clip-path: url()</span> <code>clip-path: url(#id)</code></div>
+            <p class="term-desc">The CSS and presentation attribute applied to a graphic or DOM container referencing an SVG <code>&lt;clipPath&gt;</code> element. Hardware-accelerated in modern browser compositing engines.</p>
+            <div class="code-snippet">.icon-badge { clip-path: url(#avatarCut); }</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>clip-rule</span> <code>clip-rule="nonzero | evenodd"</code></div>
+            <p class="term-desc">Specifies the ray-intersection winding rule used to determine the interior of intersecting shapes inside a <code>&lt;clipPath&gt;</code>. Defaults to <code>nonzero</code>.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>nonzero Winding Rule</span> <code>nonzero</code></div>
+            <p class="term-desc">Calculates interior regions by casting a ray from a point to infinity and tracking the direction of crossing path segments. If clockwise and counter-clockwise crossings do not cancel out to zero, the pixel is clipped inside.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>evenodd Winding Rule</span> <code>evenodd</code></div>
+            <p class="term-desc">Calculates interior regions by counting total path segment crossings. Odd counts are interior (visible); even counts are exterior (cutout holes). Indispensable for compound icons with hollow cutouts (like donut and padlock icons).</p>
+            <div class="code-snippet">&lt;clipPath clip-rule="evenodd"&gt;&lt;path d="..." /&gt;&lt;/clipPath&gt;</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>clipPathUnits</span> <code>clipPathUnits="userSpaceOnUse | objectBoundingBox"</code></div>
+            <p class="term-desc">Defines the coordinate system governing the shapes inside <code>&lt;clipPath&gt;</code>. Defaults to <code>userSpaceOnUse</code>.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>userSpaceOnUse (Clip Coordinates)</span> <code>userSpaceOnUse</code></div>
+            <p class="term-desc">Coordinates inside the clip path correspond directly to pixel units in the current SVG user viewport, maintaining fixed absolute scale regardless of target size.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>objectBoundingBox (Clip Coordinates)</span> <code>objectBoundingBox</code></div>
+            <p class="term-desc">Coordinates inside the clip path are treated as fractional values between <code>0.0</code> and <code>1.0</code> relative to the target element's bounding box, automatically scaling proportionally as the target resizes.</p>
+            <div class="code-snippet">&lt;clipPath id="scaleCut" clipPathUnits="objectBoundingBox"&gt;&lt;circle cx="0.5" cy="0.5" r="0.5" /&gt;&lt;/clipPath&gt;</div>
+          </div>
+        </div>
+
+        <!-- Category 2: Masking Elements & Transparency -->
+        <div class="category-block" id="cat-masking">
+          <div class="cat-heading">
+            <span>2. Masking Elements, Channels &amp; Units</span>
+            <span class="badge">8-Bit Alpha</span>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>&lt;mask&gt;</span> <code>&lt;mask id="..."&gt;</code></div>
+            <p class="term-desc">An SVG container element creating a soft-edged 8-bit transparency mask. Child shapes can have varying colors, opacities, and gradients to create sophisticated fade effects.</p>
+            <div class="code-snippet">&lt;mask id="fadeMask"&gt;&lt;rect width="100%" height="100%" fill="url(#grad)" /&gt;&lt;/mask&gt;</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-type</span> <code>mask-type="luminance | alpha"</code></div>
+            <p class="term-desc">A CSS property and SVG 2 attribute dictating whether the mask computes transparency from luminance (brightness) or the alpha channel. Defaults to <code>luminance</code> in SVG 1.1 and <code>alpha</code> in CSS masking specifications.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>Luminance Mask</span> <code>mask-type: luminance</code></div>
+            <p class="term-desc">Derives transparency from the perceptual brightness of RGB colors using the ITU-R BT.709 relative luminance formula. Pure white (<code>#FFFFFF</code>) is 100% opaque; pure black (<code>#000000</code>) is 100% transparent; middle grey (<code>#808080</code>) is 50% translucent.</p>
+            <div class="formula-card">
+              Opacity = (0.2126 &times; R) + (0.7152 &times; G) + (0.0722 &times; B) &times; Alpha
+            </div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>Alpha Mask</span> <code>mask-type: alpha</code></div>
+            <p class="term-desc">Derives transparency strictly from the alpha channel of the mask image. RGB colors are completely ignored: a solid black circle with <code>opacity="1"</code> renders 100% opaque, unlike in luminance mode.</p>
+            <div class="code-snippet">mask { mask-type: alpha; }</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>maskUnits</span> <code>maskUnits="userSpaceOnUse | objectBoundingBox"</code></div>
+            <p class="term-desc">Defines the coordinate system governing the boundary rectangle (<code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>) of the <code>&lt;mask&gt;</code> element itself. Defaults to <code>objectBoundingBox</code> with standard margins <code>x="-10%" y="-10%" width="120%" height="120%"</code>.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>maskContentUnits</span> <code>maskContentUnits="userSpaceOnUse | objectBoundingBox"</code></div>
+            <p class="term-desc">Defines the coordinate system governing graphic child elements placed <em>inside</em> the <code>&lt;mask&gt;</code> container. Defaults to <code>userSpaceOnUse</code>.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-image</span> <code>mask-image: url(...)</code></div>
+            <p class="term-desc">The modern CSS property for applying SVG masks or raster gradient masks directly to HTML elements, replacing older browser-prefixed <code>-webkit-mask-image</code> properties.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-mode</span> <code>mask-mode="match-source | luminance | alpha"</code></div>
+            <p class="term-desc">A CSS masking property instructing the browser whether to infer mask type automatically from the source format (<code>match-source</code>) or force luminance or alpha interpretation.</p>
+          </div>
+        </div>
+
+        <!-- Category 3: CSS Mask Compositing & Positioning -->
+        <div class="category-block" id="cat-compositing">
+          <div class="cat-heading">
+            <span>3. CSS Mask Compositing &amp; Positioning</span>
+            <span class="badge">Multi-Layer Rules</span>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-composite</span> <code>mask-composite: add | subtract | intersect | exclude</code></div>
+            <p class="term-desc">Controls how multiple CSS mask image layers are combined together using Porter-Duff compositing operators. Enables boolean geometric operations directly in CSS.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-composite: add</span> <code>add</code></div>
+            <p class="term-desc">Computes the union of two mask layers: regions visible in either mask remain visible (Porter-Duff <em>Source Over</em>).</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-composite: subtract</span> <code>subtract</code></div>
+            <p class="term-desc">Cuts the second mask layer out from the first mask layer (Porter-Duff <em>Source Out</em>), creating dynamic stencil cutouts.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-composite: intersect</span> <code>intersect</code></div>
+            <p class="term-desc">Only retains regions where both mask layers overlap (Porter-Duff <em>Source In</em>).</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-composite: exclude</span> <code>exclude</code></div>
+            <p class="term-desc">Computes the XOR symmetric difference: regions covered by only one mask are visible; overlapping regions are completely punched out.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-size</span> <code>mask-size: contain | cover | &lt;length&gt;</code></div>
+            <p class="term-desc">Specifies the sizing dimensions of mask image layers, behaving identically to <code>background-size</code> in CSS.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-position</span> <code>mask-position: center | &lt;position&gt;</code></div>
+            <p class="term-desc">Sets the spatial placement of mask layers relative to the mask origin box.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-repeat</span> <code>mask-repeat: no-repeat | repeat</code></div>
+            <p class="term-desc">Governs tiling behavior for raster or vector mask layers across the target element boundary.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-clip</span> <code>mask-clip: border-box | padding-box | content-box</code></div>
+            <p class="term-desc">Determines which box model boundary limits the mask execution area.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mask-origin</span> <code>mask-origin: border-box | padding-box | content-box</code></div>
+            <p class="term-desc">Specifies the reference box from which <code>mask-position</code> coordinates are calculated.</p>
+          </div>
+        </div>
+
+        <!-- Category 4: Blend Modes & Hardware Layers -->
+        <div class="category-block" id="cat-blend-modes">
+          <div class="cat-heading">
+            <span>4. Blend Modes &amp; Hardware Compositing</span>
+            <span class="badge">GPU Layers</span>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>mix-blend-mode</span> <code>mix-blend-mode: &lt;blend-mode&gt;</code></div>
+            <p class="term-desc">Specifies how an element's colors blend with background colors behind it. Standard modes include <code>multiply</code>, <code>screen</code>, <code>overlay</code>, <code>darken</code>, <code>lighten</code>, <code>color-dodge</code>, and <code>difference</code>.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>background-blend-mode</span> <code>background-blend-mode: &lt;blend-mode&gt;</code></div>
+            <p class="term-desc">Blends multiple background images or gradient layers defined on the same element.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>isolation: isolate</span> <code>isolation: isolate</code></div>
+            <p class="term-desc">Creates a new CSS stacking context, restricting <code>mix-blend-mode</code> calculations strictly to elements within this component tree and preventing blending from leaking onto global body canvases.</p>
+            <div class="code-snippet">.card-wrapper { isolation: isolate; }</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>Hardware Layer Promotion</span> <code>will-change: clip-path</code></div>
+            <p class="term-desc">Promotes a clipped or masked element to its own independent GPU compositing texture, preventing expensive software repaint cycles during continuous scroll or transform animations.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>filter: drop-shadow() vs box-shadow</span> <code>drop-shadow()</code></div>
+            <p class="term-desc">While <code>box-shadow</code> is sliced off by <code>clip-path</code>, applying <code>filter: drop-shadow()</code> casts a shadow conforming precisely to the clipped vector contour.</p>
+          </div>
+        </div>
+
+        <!-- Category 5: Modern CSS Basic Shape Functions -->
+        <div class="category-block" id="cat-basic-shapes">
+          <div class="cat-heading">
+            <span>5. Modern CSS Basic Shape Functions</span>
+            <span class="badge">CSS Shapes</span>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>polygon()</span> <code>clip-path: polygon(...)</code></div>
+            <p class="term-desc">Defines a polygonal clipping boundary using coordinate pairs. Widely used for angled banners, geometric badges, and hexagon avatars.</p>
+            <div class="code-snippet">clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>path()</span> <code>clip-path: path('M ... Z')</code></div>
+            <p class="term-desc">Accepts an arbitrary SVG path string directly in CSS, allowing complex vector silhouettes to clip standard HTML elements without embedding an inline SVG tag.</p>
+            <div class="code-snippet">clip-path: path('M12 2L2 22h20L12 2z');</div>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>inset()</span> <code>clip-path: inset(10px round 8px)</code></div>
+            <p class="term-desc">Defines an inset rectangular clipping box with optional border radii, perfect for smooth card reveal animations.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>circle()</span> <code>clip-path: circle(50% at center)</code></div>
+            <p class="term-desc">Creates a circular clipping region parameterized by radius and center coordinate anchors.</p>
+          </div>
+
+          <div class="term-card">
+            <div class="term-title"><span>ellipse()</span> <code>clip-path: ellipse(50% 30% at 50% 50%)</code></div>
+            <p class="term-desc">Creates an elliptical clipping mask with distinct horizontal and vertical radii.</p>
+          </div>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>What is the key technical difference between SVG clipping (clipPath) and masking (mask)?</h3>
+          <p>SVG clipping (<code>&lt;clipPath&gt;</code>) is a 1-bit binary operation: a pixel is either 100% inside the clip region (visible) or 100% outside (hidden). It cannot produce semi-transparent gradients or soft feathered edges. SVG masking (<code>&lt;mask&gt;</code>) is an 8-bit multi-level transparency operation: it supports fractional alpha values between 0.0 and 1.0, allowing soft shadows, gradients, and antialiased feathering.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does mask-type: luminance differ from mask-type: alpha?</h3>
+          <p><code>mask-type: luminance</code> calculates pixel opacity from the relative luminance of the mask image colors using the Rec. 709 formula (white <code>#FFF</code> is 100% opaque, black <code>#000</code> is 100% transparent, and 50% grey <code>#808080</code> is 50% translucent). <code>mask-type: alpha</code> completely ignores RGB color values and computes transparency purely from the image's alpha channel.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Why do CSS box-shadow and drop-shadow fail on elements with clip-path applied?</h3>
+          <p>When <code>clip-path</code> is applied to an element, the browser clips the entire element box, which includes any CSS <code>box-shadow</code> cast outside the element perimeter. To display a shadow around a clipped shape, either apply <code>filter: drop-shadow()</code> to a parent container element wrapping the clipped child, or apply <code>filter: drop-shadow()</code> directly if supported.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the difference between userSpaceOnUse and objectBoundingBox in clipPathUnits?</h3>
+          <p><code>userSpaceOnUse</code> interprets coordinates in absolute user space units (such as pixels on the SVG canvas). If the target element moves or resizes, the clip path does not automatically scale with it. <code>objectBoundingBox</code> interprets coordinates as normalized fractions between 0.0 and 1.0, automatically scaling the clip path proportionally to the target element's bounding box dimensions.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What does isolation: isolate do when using SVG blend modes in CSS?</h3>
+          <p><code>isolation: isolate</code> establishes a new stacking context on the target element. This confines any descendant <code>mix-blend-mode</code> operations (such as multiply or screen) strictly within that element's boundary, preventing the blending calculations from interacting with or bleeding into the page's root background.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do nonzero and evenodd clip-rules work in self-intersecting vector paths?</h3>
+          <p><code>clip-rule: nonzero</code> casts an imaginary ray from a point to infinity and counts how many path segments cross it and their direction (clockwise vs counter-clockwise). If the net sum is non-zero, the point is inside. <code>clip-rule: evenodd</code> counts the total number of path crossings regardless of direction: if the count is odd, the point is inside; if even, it is outside, creating cutout holes in overlapping donut shapes.</p>
+        </div>
+
+        <div class="cta-banner">
+          <h3>Explore 135,000+ Vector Icons on IconStash</h3>
+          <p>Search, customize, and copy perfectly optimized SVGs with seamless clipping and masking support across 28+ open-source icon libraries.</p>
+          <a href="/#/" class="header-cta">Open Icon Search &rarr;</a>
+        </div>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Glossary Categories</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#cat-clipping">1. Core Vector Clipping</a></li>
+              <li><a href="#cat-masking">2. Masking &amp; Transparency</a></li>
+              <li><a href="#cat-compositing">3. CSS Mask Compositing</a></li>
+              <li><a href="#cat-blend-modes">4. Blend Modes &amp; GPU Layers</a></li>
+              <li><a href="#cat-basic-shapes">5. CSS Basic Shape Functions</a></li>
+              <li><a href="#frequently-asked-questions">FAQ</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Looking for Vector Icons?</h4>
+          <p>Search over 135,000 free icons indexed across 28 libraries with instant SVG exports.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search 135K+ Icons</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash &bull; Built with passion for developers and designers &bull; <a href="/privacy/">Privacy</a> &bull; <a href="/terms/">Terms</a> &bull; <a href="/about/">About Jouni Flemming</a></p>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Live Stencil & Mask Simulator
+    const btnModeClip = document.getElementById('btnModeClip');
+    const btnModeAlpha = document.getElementById('btnModeAlpha');
+    const btnModeLuminance = document.getElementById('btnModeLuminance');
+    const simTargetGraphic = document.getElementById('simTargetGraphic');
+    const simExplanation = document.getElementById('simExplanation');
+
+    function setMaskMode(mode) {
+      [btnModeClip, btnModeAlpha, btnModeLuminance].forEach(b => b.classList.remove('active'));
+      simTargetGraphic.removeAttribute('clip-path');
+      simTargetGraphic.removeAttribute('mask');
+
+      if (mode === 'clip') {
+        btnModeClip.classList.add('active');
+        simTargetGraphic.setAttribute('clip-path', 'url(#simClip)');
+        simExplanation.innerHTML = '<strong>1-Bit Binary Clipping:</strong> The target is cleanly punched out using a circular <code>&lt;clipPath&gt;</code> stencil. Pixels outside r=60 are discarded with zero feathering.';
+      } else if (mode === 'alpha') {
+        btnModeAlpha.classList.add('active');
+        simTargetGraphic.setAttribute('mask', 'url(#simAlphaMask)');
+        simExplanation.innerHTML = '<strong>8-Bit Alpha Mask:</strong> Uses a radial gradient alpha channel. The edges feather smoothly into transparency from 100% at the center to 0% at the perimeter.';
+      } else if (mode === 'luminance') {
+        btnModeLuminance.classList.add('active');
+        simTargetGraphic.setAttribute('mask', 'url(#simLumMask)');
+        simExplanation.innerHTML = '<strong>Rec. 709 Luminance Mask:</strong> The opacity is calculated from a linear black-to-white gradient. White is 100% opaque, 50% grey is 50% translucent, and black is 100% transparent.';
+      }
+    }
+
+    if (btnModeClip && btnModeAlpha && btnModeLuminance) {
+      btnModeClip.addEventListener('click', () => setMaskMode('clip'));
+      btnModeAlpha.addEventListener('click', () => setMaskMode('alpha'));
+      btnModeLuminance.addEventListener('click', () => setMaskMode('luminance'));
+    }
+  </script>
+</body>
+</html>
