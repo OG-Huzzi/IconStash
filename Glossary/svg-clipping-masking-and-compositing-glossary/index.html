@@ -59,21 +59,41 @@
     "dateModified": "2026-10-04",
     "hasDefinedTerm": [
       { "@type": "DefinedTerm", "name": "<clipPath>", "description": "The root SVG container element defining a 1-bit binary stencil geometry that cuts away outer graphics without antialiased partial opacity." },
+      { "@type": "DefinedTerm", "name": "clip-path: url()", "description": "The CSS and presentation attribute applied to a graphic or container referencing an SVG <clipPath> stencil element." },
       { "@type": "DefinedTerm", "name": "clip-rule", "description": "Determines the ray-casting algorithm used to evaluate whether coordinates fall inside or outside self-intersecting clip paths: nonzero or evenodd." },
-      { "@type": "DefinedTerm", "name": "clipPathUnits", "description": "Specifies the coordinate system for clip geometry: userSpaceOnUse (absolute pixel units) or objectBoundingBox (fractional 0 to 1 scaling relative to target)." },
+      { "@type": "DefinedTerm", "name": "nonzero Winding Rule", "description": "Ray-casting algorithm counting the directional sign of intersecting path segments to determine whether a point is interior." },
+      { "@type": "DefinedTerm", "name": "evenodd Winding Rule", "description": "Ray-casting algorithm evaluating the parity of path crossings to punch hollow cutout holes in overlapping vector shapes." },
+      { "@type": "DefinedTerm", "name": "clipPathUnits", "description": "Specifies the coordinate system for clip geometry: userSpaceOnUse (canvas pixel units) or objectBoundingBox (relative 0 to 1 scaling)." },
+      { "@type": "DefinedTerm", "name": "userSpaceOnUse (Clip Coordinates)", "description": "Coordinate mapping referencing the current user coordinate space established by the SVG viewport rather than target dimensions." },
+      { "@type": "DefinedTerm", "name": "objectBoundingBox (Clip Coordinates)", "description": "Relative coordinate mapping where values range from 0.0 to 1.0, scaling proportionally to the target bounding box." },
       { "@type": "DefinedTerm", "name": "<mask>", "description": "An SVG container element creating an 8-bit soft-edged alpha or luminance transparency mask that modulates pixel opacity from 0.0 to 1.0." },
       { "@type": "DefinedTerm", "name": "mask-type", "description": "A CSS and SVG property specifying whether a mask calculates transparency from color luminance (Rec. 709) or purely from the alpha channel." },
-      { "@type": "DefinedTerm", "name": "maskUnits", "description": "Defines the coordinate system governing the boundary rectangle (x, y, width, height) of the <mask> element." },
-      { "@type": "DefinedTerm", "name": "maskContentUnits", "description": "Defines the coordinate system applied to child graphic elements inside the <mask> container." },
-      { "@type": "DefinedTerm", "name": "mask-composite", "description": "Controls how multiple CSS mask image layers are composited together using Porter-Duff compositing operators: add, subtract, intersect, or exclude." },
-      { "@type": "DefinedTerm", "name": "mix-blend-mode", "description": "Defines how an element's vector content blends with the visual background colors behind it, including multiply, screen, and overlay." },
-      { "@type": "DefinedTerm", "name": "isolation: isolate", "description": "Creates a new stacking context and prevents descendant blend modes from bleeding out into ancestral document backgrounds." },
-      { "@type": "DefinedTerm", "name": "userSpaceOnUse", "description": "Coordinate mapping referencing the current user coordinate system established by the SVG viewport rather than the target element's bounding box." },
-      { "@type": "DefinedTerm", "name": "objectBoundingBox", "description": "Relative coordinate mapping where values range from 0.0 to 1.0, scaling proportionally to the target element's rendered width and height." },
       { "@type": "DefinedTerm", "name": "Luminance Mask", "description": "A mask mode calculating target opacity by computing weighted RGB brightness using the ITU-R BT.709 formula (0.2126R + 0.7152G + 0.0722B)." },
       { "@type": "DefinedTerm", "name": "Alpha Mask", "description": "A mask mode deriving target pixel transparency strictly from the alpha transparency channel of the mask graphic, ignoring RGB color values." },
-      { "@type": "DefinedTerm", "name": "CSS polygon()", "description": "A CSS basic shape function defining an arbitrary polygonal clipping boundary using coordinate percentage or pixel pairs." },
-      { "@type": "DefinedTerm", "name": "CSS path()", "description": "A CSS basic shape function accepting raw SVG path data string (M, L, C, Z commands) to clip standard HTML DOM elements." }
+      { "@type": "DefinedTerm", "name": "maskUnits", "description": "Defines the coordinate system governing the boundary rectangle (x, y, width, height) of the <mask> element." },
+      { "@type": "DefinedTerm", "name": "maskContentUnits", "description": "Defines the coordinate system applied to child graphic elements inside the <mask> container." },
+      { "@type": "DefinedTerm", "name": "mask-image", "description": "The modern CSS property for applying SVG masks or raster gradient masks directly to HTML elements." },
+      { "@type": "DefinedTerm", "name": "mask-mode", "description": "A CSS masking property instructing the browser whether to infer mask type automatically from source format or force luminance or alpha interpretation." },
+      { "@type": "DefinedTerm", "name": "mask-composite", "description": "Controls how multiple CSS mask image layers are composited together using Porter-Duff compositing operators: add, subtract, intersect, or exclude." },
+      { "@type": "DefinedTerm", "name": "mask-composite: add", "description": "Computes the union of two mask layers: regions visible in either mask remain visible (Porter-Duff Source Over)." },
+      { "@type": "DefinedTerm", "name": "mask-composite: subtract", "description": "Cuts the second mask layer out from the first mask layer (Porter-Duff Source Out), creating dynamic stencil cutouts." },
+      { "@type": "DefinedTerm", "name": "mask-composite: intersect", "description": "Only retains regions where both mask layers overlap (Porter-Duff Source In)." },
+      { "@type": "DefinedTerm", "name": "mask-composite: exclude", "description": "Computes the XOR symmetric difference: regions covered by only one mask are visible; overlapping regions are completely punched out." },
+      { "@type": "DefinedTerm", "name": "mask-size", "description": "Specifies the sizing dimensions of mask image layers, behaving identically to background-size in CSS." },
+      { "@type": "DefinedTerm", "name": "mask-position", "description": "Sets the spatial placement of mask layers relative to the mask origin box." },
+      { "@type": "DefinedTerm", "name": "mask-repeat", "description": "Governs tiling behavior for raster or vector mask layers across the target element boundary." },
+      { "@type": "DefinedTerm", "name": "mask-clip", "description": "Determines which box model boundary limits the mask execution area." },
+      { "@type": "DefinedTerm", "name": "mask-origin", "description": "Specifies the reference box from which mask-position coordinates are calculated." },
+      { "@type": "DefinedTerm", "name": "mix-blend-mode", "description": "Defines how an element's vector content blends with the visual background colors behind it, including multiply, screen, and overlay." },
+      { "@type": "DefinedTerm", "name": "background-blend-mode", "description": "Blends multiple background images or gradient layers defined on the same element." },
+      { "@type": "DefinedTerm", "name": "isolation: isolate", "description": "Creates a new stacking context and prevents descendant blend modes from bleeding out into ancestral document backgrounds." },
+      { "@type": "DefinedTerm", "name": "Hardware Layer Promotion", "description": "Promotes a clipped or masked element to its own independent GPU compositing texture (will-change: clip-path) to prevent repaint cycles." },
+      { "@type": "DefinedTerm", "name": "filter: drop-shadow() vs box-shadow", "description": "While box-shadow is sliced off by clip-path, filter: drop-shadow() casts a shadow conforming precisely to the clipped vector contour." },
+      { "@type": "DefinedTerm", "name": "polygon()", "description": "A CSS basic shape function defining an arbitrary polygonal clipping boundary using coordinate percentage or pixel pairs." },
+      { "@type": "DefinedTerm", "name": "path()", "description": "A CSS basic shape function accepting raw SVG path data string (M, L, C, Z commands) to clip standard HTML DOM elements." },
+      { "@type": "DefinedTerm", "name": "inset()", "description": "Defines an inset rectangular clipping box with optional border radii, ideal for smooth card reveal animations." },
+      { "@type": "DefinedTerm", "name": "circle()", "description": "Creates a circular clipping region parameterized by radius and center coordinate anchors." },
+      { "@type": "DefinedTerm", "name": "ellipse()", "description": "Creates an elliptical clipping mask with distinct horizontal and vertical radii." }
     ]
   },
   {
@@ -211,6 +231,16 @@
     /* Formula card */
     .formula-card { background: #141414; border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-family: "JetBrains Mono", monospace; font-size: 14px; color: #E5E5E5; }
 
+    /* Filter Search Box */
+    .filter-search-box { margin: 28px 0 32px; }
+    .filter-input { width: 100%; background: #121212; border: 1px solid #262626; color: #FFF; font-size: 15px; padding: 14px 20px; border-radius: 8px; font-family: inherit; outline: none; transition: border-color 150ms ease; }
+    .filter-input:focus { border-color: #C1DD2D; }
+    .filter-input::placeholder { color: #666; }
+    .no-results-box { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 24px; text-align: center; margin: 30px 0; color: #888; }
+    .no-results-box p { margin-bottom: 14px; font-size: 15px; }
+    .reset-filter-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; }
+    .reset-filter-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+
     /* Interactive Mask & Clip Simulator */
     .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
     .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
@@ -293,6 +323,11 @@
     html[data-theme="light"] .faq-item p { color: #525252; }
     html[data-theme="light"] .cat-heading { color: #0A0A0A; border-bottom-color: #E5E5E5; }
     html[data-theme="light"] .cat-heading .badge { background: #F0F4D8; color: #5C6E00; border-color: #CCD895; }
+    html[data-theme="light"] .filter-input { background: #FFFFFF; border-color: #E5E5E5; color: #0A0A0A; }
+    html[data-theme="light"] .filter-input:focus { border-color: #6D8200; }
+    html[data-theme="light"] .no-results-box { background: #FFFFFF; border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .reset-filter-btn { background: #F4F4F5; border-color: #E5E5E5; color: #5C6E00; }
+    html[data-theme="light"] .reset-filter-btn:hover { background: #6D8200; color: #FFFFFF; }
     html[data-theme="light"] .term-card { background: #FFFFFF; border-color: #E5E5E5; }
     html[data-theme="light"] .term-card:hover { background: #F4F4F5; }
     html[data-theme="light"] .term-title span { color: #0A0A0A; }
@@ -425,6 +460,15 @@
               <strong>1-Bit Binary Clipping:</strong> The target is cleanly punched out using a circular <code>&lt;clipPath&gt;</code> stencil. Pixels outside r=60 are discarded with zero feathering.
             </div>
           </div>
+        </div>
+
+        <div class="filter-search-box">
+          <input type="text" id="termFilter" class="filter-input" placeholder="Filter 35+ SVG clipping, masking &amp; compositing terms (e.g. clipPath, maskUnits, evenodd, blend-mode)..." aria-label="Filter terms">
+        </div>
+
+        <div id="noResults" class="no-results-box" style="display: none;">
+          <p>No SVG clipping or masking terms found matching "<span id="noResultsQuery"></span>".</p>
+          <button type="button" id="resetFilterBtn" class="reset-filter-btn">Reset Filter</button>
         </div>
 
         <!-- Category 1: Vector Clipping Elements & Rules -->
@@ -659,7 +703,7 @@
           </div>
         </div>
 
-        <h2>Frequently Asked Questions</h2>
+        <h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
         <div class="faq-item">
           <h3>What is the key technical difference between SVG clipping (clipPath) and masking (mask)?</h3>
           <p>SVG clipping (<code>&lt;clipPath&gt;</code>) is a 1-bit binary operation: a pixel is either 100% inside the clip region (visible) or 100% outside (hidden). It cannot produce semi-transparent gradients or soft feathered edges. SVG masking (<code>&lt;mask&gt;</code>) is an 8-bit multi-level transparency operation: it supports fractional alpha values between 0.0 and 1.0, allowing soft shadows, gradients, and antialiased feathering.</p>
@@ -765,6 +809,51 @@
       btnModeClip.addEventListener('click', () => setMaskMode('clip'));
       btnModeAlpha.addEventListener('click', () => setMaskMode('alpha'));
       btnModeLuminance.addEventListener('click', () => setMaskMode('luminance'));
+    }
+
+    // Instant term filter with section awareness and no-results handling
+    const filterInput = document.getElementById('termFilter');
+    const categories = document.querySelectorAll('.category-block');
+    const noResults = document.getElementById('noResults');
+    const noResultsQuery = document.getElementById('noResultsQuery');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+
+    function applyFilter(query) {
+      const q = query.toLowerCase().trim();
+      let totalVisible = 0;
+
+      categories.forEach(cat => {
+        const cards = cat.querySelectorAll('.term-card');
+        let catVisible = 0;
+        cards.forEach(card => {
+          const match = q === '' || card.textContent.toLowerCase().includes(q);
+          card.style.display = match ? 'block' : 'none';
+          if (match) catVisible++;
+        });
+        cat.style.display = (catVisible > 0 || q === '') ? 'block' : 'none';
+        totalVisible += catVisible;
+      });
+
+      if (totalVisible === 0 && q !== '') {
+        noResults.style.display = 'block';
+        noResultsQuery.textContent = query;
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    if (filterInput) {
+      filterInput.addEventListener('input', (e) => {
+        applyFilter(e.target.value);
+      });
+    }
+
+    if (resetFilterBtn) {
+      resetFilterBtn.addEventListener('click', () => {
+        if (filterInput) filterInput.value = '';
+        applyFilter('');
+        if (filterInput) filterInput.focus();
+      });
     }
   </script>
 </body>

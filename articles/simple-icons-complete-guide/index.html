@@ -368,12 +368,12 @@
           </ul>
         </div>
 
-        <h2>1. Why Simple Icons Dominates the Modern Web</h2>
+        <h2 id="why-simple-icons-dominates">1. Why Simple Icons Dominates the Modern Web</h2>
         <p>Whether building developer portfolios, SaaS authentication dialogs ("Sign in with Google / GitHub / Apple"), customer integration directories, or footer social menus, every engineering team encounters the exact same challenge: sourcing clean, accurate, and up-to-date corporate brand logos.</p>
         <p>In the past, developers scoured search engines for EPS and SVG assets, often ending up with misaligned bounding boxes, multi-megabyte illustrator exports, converted bitmaps, or outdated corporate marks. <strong>Simple Icons</strong> solved this systemic frontend issue by creating an open-source, community-governed registry of over 3,100 vector logos maintained with meticulous precision.</p>
         <p>Unlike general-purpose UI icon libraries like <a href="/articles/lucide-icons-complete-guide/">Lucide</a>, <a href="/articles/heroicons-complete-guide/">Heroicons</a>, or <a href="/articles/tabler-icons-complete-guide/">Tabler</a>—which focus on geometric interface metaphors like arrows, checkmarks, and search magnifying glasses—Simple Icons exclusively serves the domain of company logos, programming languages, cloud providers, and digital services.</p>
 
-        <h2>2. Technical Architecture: 24x24 Grid &amp; Single-Path Compound Geometry</h2>
+        <h2 id="technical-architecture">2. Technical Architecture: 24x24 Grid &amp; Single-Path Compound Geometry</h2>
         <p>To guarantee that any brand logo can be dropped into an existing button, navigation rail, or avatar stack without breaking layout flow, Simple Icons enforces non-negotiable geometric constraints across its entire repository:</p>
         <ul>
           <li><strong>Strict 24x24 Bounding Box:</strong> All paths are drawn within a <code>viewBox="0 0 24 24"</code> coordinate space, ensuring uniform optical scale and seamless alignment with standard UI icon systems.</li>
@@ -423,7 +423,7 @@
           </div>
         </div>
 
-        <h2>3. How to Use Simple Icons in React &amp; Next.js (Zero Bundle Bloat)</h2>
+        <h2 id="react-nextjs-setup">3. How to Use Simple Icons in React &amp; Next.js (Zero Bundle Bloat)</h2>
         <p>The biggest architectural risk when using Simple Icons is JavaScript bundle bloat. Because the library contains over 3,100 icons, an accidental barrel import pulls hundreds of kilobytes of unused vector paths into client browser memory.</p>
 
         <h3>Option A: The Official React Package (@icons-pack/react-simple-icons)</h3>
@@ -491,7 +491,7 @@ export function BrandIcon({ path, size = 24, title, className, ...props }: Brand
 // GitHub Path constant from IconStash:
 export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
 
-        <h2>4. Resolving the Dark Mode Inversion Dilemma</h2>
+        <h2 id="dark-mode-theming">4. Resolving the Dark Mode Inversion Dilemma</h2>
         <p>One of the most frequent visual bugs developers report when implementing Simple Icons is the <strong>invisible dark mode logo bug</strong>. Many premier technology brands have black or near-black official primary colors:</p>
         <ul>
           <li><strong>GitHub:</strong> Official Brand Hex is <code>#181717</code></li>
@@ -526,7 +526,7 @@ export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
 [data-theme="light"] .social-icon-btn[data-brand="apple"] { color: #000000; }
 [data-theme="light"] .social-icon-btn[data-brand="x"] { color: #000000; }</code></pre>
 
-        <h2>5. Trademark Law, CC0 Licensing &amp; Commercial Usage</h2>
+        <h2 id="trademark-licensing">5. Trademark Law, CC0 Licensing &amp; Commercial Usage</h2>
         <p>A common misconception in the frontend community is that because Simple Icons is open-source, developers can freely alter and repurpose any logo for any commercial objective without restriction.</p>
         <p>It is vital to distinguish between <strong>Copyright on the SVG code</strong> and <strong>Trademark rights on the corporate brand</strong>:</p>
         <ul>
@@ -542,7 +542,7 @@ export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
           <p>You may safely use Simple Icons under the legal doctrine of <strong>nominative fair use</strong>: referring to the actual product or service (e.g. "Deploy to AWS", "Follow us on YouTube", "Export to Figma"). You <em>may not</em> alter corporate logos, combine them into your own company emblem, or use them in a manner that falsely implies official endorsement, partnership, or sponsorship by the trademark owner.</p>
         </div>
 
-        <h2>6. Head-to-Head Comparison: Simple Icons vs. Alternatives</h2>
+        <h2 id="comparison-table">6. Head-to-Head Comparison: Simple Icons vs. Alternatives</h2>
         <div class="table-wrap">
           <table>
             <thead>
@@ -608,7 +608,7 @@ export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
           </table>
         </div>
 
-        <h2>7. Production Checklist for Shipping Brand Icons</h2>
+        <h2 id="production-checklist">7. Production Checklist for Shipping Brand Icons</h2>
         <p>Before deploying brand marks to production, verify each item in this engineering checklist:</p>
         <ol>
           <li><strong>Tree-Shaking Verified:</strong> Confirm via bundle analyzer that only the specific imported icons are bundled, not the full 3,100-glyph index.</li>
@@ -618,7 +618,7 @@ export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
           <li><strong>Legal Nominative Usage:</strong> Confirm no logos are presented in a misleading way that implies corporate backing or sponsorship.</li>
         </ol>
 
-        <h2>8. Frequently Asked Questions</h2>
+        <h2 id="frequently-asked-questions">8. Frequently Asked Questions</h2>
         <div class="faq-item">
           <h3>What license does Simple Icons use, and can I use brand logos in commercial SaaS?</h3>
           <p>The vector code itself is licensed under CC0 1.0 Universal (public domain). However, the underlying marks are trademarks belonging to each organization. Nominative fair use (auth buttons, social links, technology badges) is universally permitted in commercial SaaS, provided you do not imply false endorsement.</p>
@@ -656,14 +656,14 @@ export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
           <div class="sidebar-title">Table of Contents</div>
           <nav class="toc-nav">
             <ol>
-              <li><a href="#1-why-simple-icons-dominates-the-modern-web">1. Why Simple Icons Dominates</a></li>
-              <li><a href="#2-technical-architecture-24x24-grid-amp-single-path-compound-geometry">2. Technical Architecture</a></li>
-              <li><a href="#3-how-to-use-simple-icons-in-react-amp-nextjs-zero-bundle-bloat">3. React &amp; Next.js Setup</a></li>
-              <li><a href="#4-resolving-the-dark-mode-inversion-dilemma">4. Dark Mode Theming</a></li>
-              <li><a href="#5-trademark-law-cc0-licensing-amp-commercial-usage">5. Trademark &amp; Licensing</a></li>
-              <li><a href="#6-head-to-head-comparison-simple-icons-vs-alternatives">6. Comparison Table</a></li>
-              <li><a href="#7-production-checklist-for-shipping-brand-icons">7. Production Checklist</a></li>
-              <li><a href="#8-frequently-asked-questions">8. FAQ</a></li>
+              <li><a href="#why-simple-icons-dominates">1. Why Simple Icons Dominates</a></li>
+              <li><a href="#technical-architecture">2. Technical Architecture</a></li>
+              <li><a href="#react-nextjs-setup">3. React &amp; Next.js Setup</a></li>
+              <li><a href="#dark-mode-theming">4. Dark Mode Theming</a></li>
+              <li><a href="#trademark-licensing">5. Trademark &amp; Licensing</a></li>
+              <li><a href="#comparison-table">6. Comparison Table</a></li>
+              <li><a href="#production-checklist">7. Production Checklist</a></li>
+              <li><a href="#frequently-asked-questions">8. FAQ</a></li>
             </ol>
           </nav>
         </div>
@@ -682,30 +682,27 @@ export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
   </footer>
 
   <script>
-    // Theme toggle
+    // Theme toggle & persistence
     const toggleBtn = document.getElementById('themeToggle');
     const htmlEl = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
     htmlEl.setAttribute('data-theme', savedTheme);
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        htmlEl.setAttribute('data-theme', nextTheme);
-        localStorage.setItem('theme', nextTheme);
-      });
-    }
 
     // Interactive Brand Color Switcher
     const btnBrandColor = document.getElementById('btnBrandColor');
     const btnCurrentColor = document.getElementById('btnCurrentColor');
     const btnDarkModeInvert = document.getElementById('btnDarkModeInvert');
     const brandBoxes = document.querySelectorAll('.brand-icon-box');
+    let currentBrandMode = 'brand';
 
     function setMode(mode) {
+      currentBrandMode = mode;
       [btnBrandColor, btnCurrentColor, btnDarkModeInvert].forEach(b => b.classList.remove('active'));
       if (mode === 'brand') btnBrandColor.classList.add('active');
       if (mode === 'current') btnCurrentColor.classList.add('active');
       if (mode === 'invert') btnDarkModeInvert.classList.add('active');
+
+      const isLight = htmlEl.getAttribute('data-theme') === 'light';
 
       brandBoxes.forEach(box => {
         const svg = box.querySelector('.brand-demo-svg');
@@ -715,12 +712,23 @@ export const GITHUB_PATH = "M12 .297c-6.63 0-12 5.373-12 12 ...";</code></pre>
           svg.style.color = hex;
           svg.style.fill = hex;
         } else if (mode === 'current') {
-          svg.style.color = '#C1DD2D';
-          svg.style.fill = '#C1DD2D';
+          const accentColor = isLight ? '#5C6E00' : '#C1DD2D';
+          svg.style.color = accentColor;
+          svg.style.fill = accentColor;
         } else if (mode === 'invert') {
-          svg.style.color = invert;
-          svg.style.fill = invert;
+          const invertColor = isLight ? (hex === '#000000' || hex === '#181717' ? hex : '#171717') : invert;
+          svg.style.color = invertColor;
+          svg.style.fill = invertColor;
         }
+      });
+    }
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+        setMode(currentBrandMode);
       });
     }
 

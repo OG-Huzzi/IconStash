@@ -139,10 +139,28 @@ for (const item of deliverables) {
   // 12. Viewport responsiveness tag
   assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
 
-  // 13. Glossary DefinedTermSet enrichment
+  // 13. Table of Contents Anchor Integrity Verification
+  const tocNavMatch = content.match(/<nav class="toc-nav"[\s\S]*?<\/nav>/);
+  if (tocNavMatch) {
+    const anchorMatches = [...tocNavMatch[0].matchAll(/href="#([^"]+)"/g)].map(m => m[1]);
+    let allAnchorsFound = true;
+    for (const aId of anchorMatches) {
+      if (!content.includes(`id="${aId}"`)) {
+        allAnchorsFound = false;
+        console.error(`    Missing anchor ID on page: id="${aId}"`);
+      }
+    }
+    assert(allAnchorsFound && anchorMatches.length >= 5, `All Table of Contents anchors (${anchorMatches.length} links) resolve to valid id attributes`);
+  }
+
+  // 14. Glossary DefinedTermSet enrichment & instant filter components
   if (item.schemaType === 'DefinedTermSet') {
+    assert(content.includes('id="termFilter"'), 'Glossary has instant search filter element #termFilter');
+    assert(content.includes('id="noResults"'), 'Glossary has #noResults alert container');
+    assert(content.includes('id="resetFilterBtn"'), 'Glossary has #resetFilterBtn button');
+
     const mainSchema = JSON.parse(content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]).find(s => s['@type'] === 'DefinedTermSet');
-    assert(mainSchema && mainSchema.hasDefinedTerm && mainSchema.hasDefinedTerm.length >= 8, `DefinedTermSet contains hasDefinedTerm array (found ${mainSchema && mainSchema.hasDefinedTerm ? mainSchema.hasDefinedTerm.length : 0} terms)`);
+    assert(mainSchema && mainSchema.hasDefinedTerm && mainSchema.hasDefinedTerm.length >= 35, `DefinedTermSet contains all 35+ terms in hasDefinedTerm (found ${mainSchema && mainSchema.hasDefinedTerm ? mainSchema.hasDefinedTerm.length : 0} terms)`);
   }
 }
 

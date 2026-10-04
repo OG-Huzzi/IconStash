@@ -369,7 +369,7 @@
           </ul>
         </div>
 
-        <h2>1. Why 15x15? The Spatial Philosophy Behind Radix Icons</h2>
+        <h2 id="spatial-philosophy-15x15">1. Why 15x15? The Spatial Philosophy Behind Radix Icons</h2>
         <p>In modern web interface engineering, the prevailing default icon canvas is 24x24 pixels (<a href="/articles/lucide-icons-complete-guide/">Lucide</a>, <a href="/articles/tabler-icons-complete-guide/">Tabler</a>, <a href="/articles/remix-icons-complete-guide/">Remix Icon</a>). While 24px is ideal for touch targets and mobile navigation tabs, it often presents optical scaling issues in dense desktop web applications.</p>
         <p>Consider a standard SaaS data table or compact dropdown menu: the typography is set to <code>text-sm</code> (14px) with a 20px line-height. When you insert a 24x24 icon into that row, one of two compromises occurs:</p>
         <ol>
@@ -421,7 +421,7 @@
           </div>
         </div>
 
-        <h2>2. Installing and Using Radix Icons in React &amp; Next.js</h2>
+        <h2 id="react-nextjs-setup">2. Installing and Using Radix Icons in React &amp; Next.js</h2>
         <p>Radix Icons is packaged officially under <code>@radix-ui/react-icons</code>. Every icon is exported as a standalone functional React component, typed with <code>React.ForwardRefExoticComponent&lt;IconProps &amp; React.RefAttributes&lt;SVGSVGElement&gt;&gt;</code>.</p>
 
         <pre><code># Install the official Radix Icons package
@@ -433,7 +433,7 @@ import {
   ChevronDownIcon, 
   CheckIcon, 
   Cross2Icon, 
-  MagnifyingGlassIcon,
+  MagnifyingGlassIcon, 
   GearIcon 
 } from '@radix-ui/react-icons';
 
@@ -454,7 +454,7 @@ export function ActionMenu() {
   );
 }</code></pre>
 
-        <h2>3. Radix Icons in Shadcn UI Architecture</h2>
+        <h2 id="shadcn-ui-architecture">3. Radix Icons in Shadcn UI Architecture</h2>
         <p>When Guillermo Rauch, shadcn, and the frontend community created <strong>Shadcn UI</strong>, they built its headless behavioral foundation directly on top of <strong>Radix Primitives</strong> (<code>@radix-ui/react-dialog</code>, <code>@radix-ui/react-dropdown-menu</code>, <code>@radix-ui/react-select</code>).</p>
         <p>Because Radix Primitives and Radix Icons share the exact same WorkOS design team DNA, Radix Icons was the natural default visual companion. In a classic Shadcn UI Select component, notice how the scroll buttons and trigger chevrons utilize Radix Icons:</p>
 
@@ -493,14 +493,28 @@ SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;</code></pre>
           <p>While newer Shadcn UI documentation examples often showcase Lucide Icons for broad coverage (~1,450 icons), many enterprise design systems stick with Radix Icons for high-density components (data tables, code editors, command palettes, and complex filters) where 15px geometry prevents visual clutter.</p>
         </div>
 
-        <h2>4. Building a Type-Safe, Polymorphic Icon Component</h2>
-        <p>In large-scale production applications, scattering raw SVG imports directly across hundreds of files creates maintenance friction when global accessibility requirements, analytics tracking, or hover animations change. The best practice is wrapping <code>@radix-ui/react-icons</code> in an extensible TypeScript component:</p>
+        <h2 id="polymorphic-icon-wrapper">4. Building a Type-Safe, Polymorphic Icon Component</h2>
+        <p>In large-scale production applications, scattering raw SVG imports directly across hundreds of files creates maintenance friction when global accessibility requirements, analytics tracking, or hover animations change. The recommended pattern is wrapping <code>@radix-ui/react-icons</code> in an extensible TypeScript component with an explicit icon registry:</p>
 
-        <pre><code>// components/Icon.tsx
+        <pre><code>// components/Icon.tsx - Production-Ready Explicit Registry (Optimal Tree-Shaking)
 import React from 'react';
-import * as RadixIcons from '@radix-ui/react-icons';
+import { 
+  CheckIcon, 
+  ChevronDownIcon, 
+  Cross2Icon, 
+  MagnifyingGlassIcon, 
+  GearIcon 
+} from '@radix-ui/react-icons';
 
-export type IconName = keyof typeof RadixIcons;
+export const iconRegistry = {
+  check: CheckIcon,
+  chevronDown: ChevronDownIcon,
+  cross: Cross2Icon,
+  search: MagnifyingGlassIcon,
+  settings: GearIcon,
+} as const;
+
+export type IconName = keyof typeof iconRegistry;
 
 export interface IconProps extends React.SVGProps&lt;SVGSVGElement&gt; {
   name: IconName;
@@ -509,7 +523,7 @@ export interface IconProps extends React.SVGProps&lt;SVGSVGElement&gt; {
 }
 
 export function Icon({ name, size = 15, label, className, ...props }: IconProps) {
-  const Component = RadixIcons[name] as React.ComponentType&lt;React.SVGProps&lt;SVGSVGElement&gt;&gt;;
+  const Component = iconRegistry[name];
 
   if (!Component) {
     if (process.env.NODE_ENV !== 'production') {
@@ -531,7 +545,9 @@ export function Icon({ name, size = 15, label, className, ...props }: IconProps)
   );
 }</code></pre>
 
-        <h2>5. Head-to-Head Comparison: Radix Icons vs. Other UI Libraries</h2>
+        <p><strong>Tree-Shaking Architecture Insight:</strong> While using <code>import * as RadixIcons</code> is common in rapid prototyping, it prevents modern bundlers (Vite/Rollup, Turbopack) from eliminating unused icons due to dynamic indexed property access, pulling all 318 components into client chunks. The explicit registry pattern above guarantees that only the icons your application actually renders are bundled into production JavaScript.</p>
+
+        <h2 id="comparison-table">5. Head-to-Head Comparison: Radix Icons vs. Other UI Libraries</h2>
         <div class="table-wrap">
           <table>
             <thead>
@@ -589,7 +605,7 @@ export function Icon({ name, size = 15, label, className, ...props }: IconProps)
           </table>
         </div>
 
-        <h2>6. Production Performance &amp; Tree-Shaking Verification</h2>
+        <h2 id="performance-benchmarks">6. Production Performance &amp; Tree-Shaking Verification</h2>
         <p>Radix Icons is packaged using modern ES modules with individual module exports. When compiled using Vite (Rollup) or Next.js (Turbopack / Webpack 5), dead-code elimination guarantees that only the icons you explicitly import are bundled into client assets.</p>
 
         <h3>Tree-Shaking Benchmark Results:</h3>
@@ -600,7 +616,7 @@ export function Icon({ name, size = 15, label, className, ...props }: IconProps)
         </ul>
         <p>Because there are zero React context providers, style inject scripts, or runtime measurement hooks, Radix Icons executes with the fastest possible JavaScript parsing time and zero Cumulative Layout Shift (CLS).</p>
 
-        <h2>7. Production Checklist for Shipping Radix Icons</h2>
+        <h2 id="production-checklist">7. Production Checklist for Shipping Radix Icons</h2>
         <ol>
           <li><strong>Retain Natural 15px Grid:</strong> Prefer <code>width={15} height={15}</code> or Tailwind <code>w-[15px] h-[15px]</code> for razor-sharp pixel snapping on 1x displays.</li>
           <li><strong>Avoid Arbitrary Aspect Distortion:</strong> Always scale width and height proportionally to preserve geometric ratios.</li>
@@ -608,7 +624,7 @@ export function Icon({ name, size = 15, label, className, ...props }: IconProps)
           <li><strong>Theme with currentColor:</strong> Leverage <code>fill="currentColor"</code> or <code>stroke="currentColor"</code> so the icon automatically adopts parent text colors across dark and light themes.</li>
         </ol>
 
-        <h2>8. Frequently Asked Questions</h2>
+        <h2 id="frequently-asked-questions">8. Frequently Asked Questions</h2>
         <div class="faq-item">
           <h3>Why are Radix Icons designed on a 15x15 pixel grid instead of standard 24x24?</h3>
           <p>Radix Icons were specifically engineered by WorkOS for dense, professional SaaS interfaces, component primitives, and design systems. While 24x24 icons often look oversized or require unnatural decimal scaling in 14px body text, compact select menus, dropdowns, and input adornments, 15x15 icons snap crisply to pixel boundaries and align perfectly alongside 14px to 16px typography without blurry subpixel anti-aliasing.</p>
@@ -646,14 +662,14 @@ export function Icon({ name, size = 15, label, className, ...props }: IconProps)
           <div class="sidebar-title">Table of Contents</div>
           <nav class="toc-nav">
             <ol>
-              <li><a href="#1-why-15x15-the-spatial-philosophy-behind-radix-icons">1. 15x15 Spatial Philosophy</a></li>
-              <li><a href="#2-installing-and-using-radix-icons-in-react-amp-nextjs">2. React &amp; Next.js Setup</a></li>
-              <li><a href="#3-radix-icons-in-shadcn-ui-architecture">3. Shadcn UI Architecture</a></li>
-              <li><a href="#4-building-a-type-safe-polymorphic-icon-component">4. Polymorphic Icon Wrapper</a></li>
-              <li><a href="#5-head-to-head-comparison-radix-icons-vs-other-ui-libraries">5. Comparison Table</a></li>
-              <li><a href="#6-production-performance-amp-tree-shaking-verification">6. Performance Benchmarks</a></li>
-              <li><a href="#7-production-checklist-for-shipping-radix-icons">7. Production Checklist</a></li>
-              <li><a href="#8-frequently-asked-questions">8. FAQ</a></li>
+              <li><a href="#spatial-philosophy-15x15">1. 15x15 Spatial Philosophy</a></li>
+              <li><a href="#react-nextjs-setup">2. React &amp; Next.js Setup</a></li>
+              <li><a href="#shadcn-ui-architecture">3. Shadcn UI Architecture</a></li>
+              <li><a href="#polymorphic-icon-wrapper">4. Polymorphic Icon Wrapper</a></li>
+              <li><a href="#comparison-table">5. Comparison Table</a></li>
+              <li><a href="#performance-benchmarks">6. Performance Benchmarks</a></li>
+              <li><a href="#production-checklist">7. Production Checklist</a></li>
+              <li><a href="#frequently-asked-questions">8. FAQ</a></li>
             </ol>
           </nav>
         </div>
