@@ -150,6 +150,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Simple Icons: Complete Guide to 3,100+ Free SVG Brand & Tech Logos (2026)](https://iconstash.io/articles/simple-icons-complete-guide/)
 - [Radix Icons Complete Guide: Setup, React, Tailwind & Shadcn UI (2026)](https://iconstash.io/articles/radix-icons-complete-guide/)
 - [SVG Clipping, Masking & Compositing Glossary (35+ Terms)](https://iconstash.io/Glossary/svg-clipping-masking-and-compositing-glossary/)
+- [Fluent UI Icons Complete Guide: Setup, React, Web Components & Sizing (2026)](https://iconstash.io/articles/fluent-ui-icons-complete-guide/)
+- [Carbon Icons Complete Guide: Setup, React, Angular & IBM Design System (2026)](https://iconstash.io/articles/carbon-icons-complete-guide/)
+- [SVG Stroke, Fill & Painting Glossary (38+ Terms)](https://iconstash.io/Glossary/svg-stroke-fill-and-painting-glossary/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives

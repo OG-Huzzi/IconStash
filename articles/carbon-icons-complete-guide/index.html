@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Icons Complete Guide: Setup, React, Angular &amp; IBM Design System (2026) | IconStash</title>
+  <meta name="description" content="Master IBM Carbon Icons: 2,600+ enterprise icons, 16/20/24/32px grids, @carbon/icons-react setup, Angular &amp; Vue packages, tree-shaking and theming.">
+  <meta name="keywords" content="carbon icons, ibm carbon icons, @carbon/icons-react, carbon design system icons, ibm icons react, carbon icons angular, carbon icons vue, enterprise ui icons, open source svg icons">
+  <meta property="og:title" content="Carbon Icons Complete Guide: Setup, React, Angular &amp; IBM Design System (2026)">
+  <meta property="og:description" content="Master IBM Carbon Icons: 2,600+ enterprise icons, 16/20/24/32px grids, @carbon/icons-react setup, Angular &amp; Vue packages, tree-shaking and theming.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/carbon-icons-complete-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/carbon-icons-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="IBM Carbon Icons Complete Developer Guide">
+  <meta property="article:published_time" content="2026-10-07T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-07T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Carbon Icons">
+  <meta property="article:tag" content="IBM Design System">
+  <meta property="article:tag" content="Enterprise UI">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Angular">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Carbon Icons Complete Guide: Setup, React, Angular &amp; IBM Design System (2026)">
+  <meta name="twitter:description" content="Master IBM Carbon Icons: 2,600+ enterprise icons, 16/20/24/32px grids, @carbon/icons-react setup, Angular &amp; Vue packages, tree-shaking and theming.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/carbon-icons-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/carbon-icons-complete-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Carbon Icons Complete Guide: Setup, React, Angular & IBM Design System (2026)",
+    "description": "Master IBM Carbon Icons: 2,600+ enterprise icons, 16/20/24/32px grids, @carbon/icons-react setup, Angular & Vue packages, tree-shaking and theming.",
+    "image": "https://iconstash.io/assets/articles/carbon-icons-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-07",
+    "dateModified": "2026-10-07",
+    "mainEntityOfPage": "https://iconstash.io/articles/carbon-icons-complete-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Carbon Design System", "sameAs": "https://carbondesignsystem.com" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "React (software library)", "sameAs": "https://en.wikipedia.org/wiki/React_(software_library)" },
+      { "@type": "Thing", "name": "Angular (application platform)", "sameAs": "https://en.wikipedia.org/wiki/Angular_(application_platform)" }
+    ],
+    "keywords": ["carbon icons", "ibm carbon icons", "@carbon/icons-react", "carbon design system icons", "ibm icons react", "enterprise ui icons"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Carbon Icons Complete Guide", "item": "https://iconstash.io/articles/carbon-icons-complete-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is IBM Carbon Icons, and what makes it distinct from general-purpose icon packs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Carbon Icons is the official iconography system of the IBM Carbon Design System, engineered specifically for enterprise software, cloud consoles, cybersecurity, and data-dense dashboards. Rather than generic playful glyphs, Carbon Icons features mathematically strict geometry, industrial line weights, and four discrete optical grids (16, 20, 24, and 32px) tailored for complex workflows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are the four optical size grids (16px, 20px, 24px, 32px) structured in Carbon Icons?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In Carbon Icons, each size tier is an independently drawn vector asset. 16px is optimized for dense table cells and dropdown menus with simplified internal geometry; 20px aligns with standard body text and form inputs; 24px provides foundational navigation clarity; and 32px delivers rich visual accents for hero banners and empty state illustrations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install Carbon Icons in React with zero bundle overhead?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install the package with npm install @carbon/icons-react. Always import icons via direct named imports such as import { Cloud, Terminal, Analytics } from '@carbon/icons-react' or specific size subpaths. In modern bundlers (Vite, Webpack 5, Next.js), tree-shaking discards unused icons, ensuring each component adds under 1KB to your final bundle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What license governs Carbon Icons, and can it be used in commercial SaaS products?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IBM Carbon Icons is licensed under the permissive Apache License 2.0. You are fully permitted to use, modify, distribute, and embed Carbon Icons in commercial SaaS products, internal tools, and open-source applications without royalty fees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Carbon Icons offer official packages for Vue, Svelte, and Angular?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. In addition to @carbon/icons-react, IBM maintains official sister packages including @carbon/icons-vue for Vue 3, carbon-icons-svelte for Svelte 5, and @carbon/icons-angular for Angular 18+. IconStash also indexes all 2,644 raw SVG assets for zero-dependency usage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I search and copy Carbon Icons on IconStash?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can search, filter, and inspect all 2,644 IBM Carbon Icons at https://iconstash.io/library/carbon/. IconStash provides live previewing across dark and light backgrounds, optical size comparisons, and instant one-click export to clean SVG, PNG, and React JSX components."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* Interactive Carbon Sandbox */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-controls-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 13px; padding: 7px 14px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .demo-toggle-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+
+    .carbon-icon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-top: 16px; }
+    .carbon-icon-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 12px; background: #141414; border: 1px solid #262626; border-radius: 8px; gap: 10px; text-align: center; }
+    .carbon-icon-preview { display: flex; align-items: center; justify-content: center; height: 52px; width: 52px; background: #1F1F1F; border-radius: 8px; color: #C1DD2D; transition: all 200ms ease; }
+    .carbon-icon-name { font-size: 12.5px; font-weight: 600; color: #FFF; }
+    .carbon-icon-meta { font-size: 11px; color: #888; font-family: "JetBrains Mono", monospace; }
+
+    .code-generator-box { background: #0E0E0E; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #C1DD2D; overflow-x: auto; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #383838; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .cta-sidebar-box { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #525252; }
+    html[data-theme="light"] .cta-banner { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-banner p { color: #525252; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .theme-toggle-btn { border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .theme-toggle-btn:hover { border-color: #A3A3A3; color: #171717; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-title { color: #0A0A0A; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .demo-toggle-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
+    html[data-theme="light"] .demo-toggle-btn:hover:not(.active) { background: #E4E4E7; }
+    html[data-theme="light"] .carbon-icon-grid { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .carbon-icon-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .carbon-icon-preview { background: #F4F4F5; color: #6D8200; }
+    html[data-theme="light"] .carbon-icon-name { color: #0A0A0A; }
+    html[data-theme="light"] .code-generator-box { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 135K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/library/carbon/">Carbon Icons (2.6K)</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Carbon Icons Complete Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Enterprise Architecture &bull; IBM Carbon Design System &bull; 2026 Edition</span>
+      <h1>Carbon Icons Complete Guide: Setup, React, Angular &amp; IBM Design System</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <span>Published October 7, 2026</span>
+        <span>&bull;</span>
+        <span>15 min read</span>
+        <span>&bull;</span>
+        <span>2,644 Icons Indexed</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="/assets/articles/carbon-icons-guide.jpg" alt="IBM Carbon Design System Architecture Illustration" width="1200" height="675" loading="eager">
+      <figcaption>IBM Carbon Icons: Precision-engineered vector iconography powering mission-critical enterprise consoles and data systems.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary:</strong> The IBM Carbon Design System is an industry benchmark for enterprise product engineering. With over <strong>2,644 meticulously crafted vector icons</strong> indexed on IconStash, this guide provides complete architecture for:</p>
+          <ul>
+            <li><strong>Optical Grid System:</strong> Hand-crafted 16px, 20px, 24px, and 32px grids engineered for high-density SaaS consoles.</li>
+            <li><strong>Framework Ecosystem:</strong> Official zero-dependency component packages across React 19, Angular 18+, Vue 3, and Svelte 5.</li>
+            <li><strong>High-Information Density UI:</strong> Resolving visual clutter in telemetry tables, terminal monitors, and cloud infrastructure graphs.</li>
+            <li><strong>Tree-Shaking &amp; Performance:</strong> Subpath imports and SVG sprite optimization under the Apache 2.0 open-source license.</li>
+          </ul>
+        </div>
+
+        <section id="introduction">
+          <h2>1. Introduction to IBM Carbon Icons</h2>
+          <p>Enterprise software represents the most demanding environment for user interface design. Unlike consumer mobile apps with sparse screens and generous whitespace, enterprise products—such as cloud infrastructure consoles, cybersecurity event visualizers, financial trading terminals, and database engines—must display hundreds of data points simultaneously.</p>
+          <p>In high-density views, consumer-oriented icon libraries fail. Their playful rounded corners, non-standard optical centers, and arbitrary line thicknesses create distracting visual noise. The <strong>IBM Carbon Design System</strong> solves this with an industrial, grid-snapped icon philosophy based on 90-degree and 45-degree angles, fixed stroke terminals, and systematic optical scale tiers.</p>
+          <p>Every single icon is licensed under the permissive <strong>Apache License 2.0</strong> and fully indexed on <a href="/library/carbon/">IconStash's Carbon Library Hub</a>.</p>
+        </section>
+
+        <!-- Interactive Carbon Sandbox -->
+        <div class="interactive-demo-card">
+          <div class="interactive-demo-header">
+            <div class="interactive-demo-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <span>Live Carbon Optical Size &amp; Framework Code Generator</span>
+            </div>
+            <div class="demo-controls-group">
+              <button class="demo-toggle-btn active" id="btnCarbon16" type="button">16px (Dense)</button>
+              <button class="demo-toggle-btn" id="btnCarbon20" type="button">20px (Input)</button>
+              <button class="demo-toggle-btn" id="btnCarbon24" type="button">24px (Nav)</button>
+              <button class="demo-toggle-btn" id="btnCarbon32" type="button">32px (Display)</button>
+            </div>
+            <div class="demo-controls-group">
+              <button class="demo-toggle-btn active" id="btnFwReact" type="button">React</button>
+              <button class="demo-toggle-btn" id="btnFwVue" type="button">Vue</button>
+              <button class="demo-toggle-btn" id="btnFwSvelte" type="button">Svelte</button>
+            </div>
+          </div>
+
+          <div class="carbon-icon-grid" id="carbonGrid">
+            <div class="carbon-icon-card">
+              <div class="carbon-icon-preview" id="prevCloud">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M12.5 6A3.5 3.5 0 0 0 6 4.3 4 4 0 0 0 2 8a4 4 0 0 0 4 4h6.5a3.5 3.5 0 0 0 0-7ZM6 10.5a2.5 2.5 0 0 1 0-5 2.47 2.47 0 0 1 1.25.34l.43.25.3-.39a2 2 0 0 1 3.52 1.3V7.5h1a2 2 0 0 1 0 4H6Z"/>
+                </svg>
+              </div>
+              <span class="carbon-icon-name">Cloud</span>
+              <span class="carbon-icon-meta" id="metaCloud">Cloud16</span>
+            </div>
+
+            <div class="carbon-icon-card">
+              <div class="carbon-icon-preview" id="prevTerminal">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M14 2H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Zm-1 10H3V4h10v8ZM4.5 9.5l2-2-2-2L5.2 4.8l2.7 2.7-2.7 2.7-.7-.7ZM9 9h3v1H9V9Z"/>
+                </svg>
+              </div>
+              <span class="carbon-icon-name">Terminal</span>
+              <span class="carbon-icon-meta" id="metaTerminal">Terminal16</span>
+            </div>
+
+            <div class="carbon-icon-card">
+              <div class="carbon-icon-preview" id="prevAnalytics">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M13 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM3 2h10a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Zm2 10h1.5V7H5v5Zm3 0h1.5V5H8v7Zm3 0h1.5V9H11v3Z"/>
+                </svg>
+              </div>
+              <span class="carbon-icon-name">Analytics</span>
+              <span class="carbon-icon-meta" id="metaAnalytics">Analytics16</span>
+            </div>
+
+            <div class="carbon-icon-card">
+              <div class="carbon-icon-preview" id="prevSecurity">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M8 1 2 3.5V8c0 3.8 2.6 6.9 6 8 3.4-1.1 6-4.2 6-8V3.5L8 1Zm4.5 7c0 3-1.9 5.5-4.5 6.5C5.4 13.5 3.5 11 3.5 8V4.6L8 2.7l4.5 1.9V8Z"/>
+                </svg>
+              </div>
+              <span class="carbon-icon-name">Security</span>
+              <span class="carbon-icon-meta" id="metaSecurity">Security16</span>
+            </div>
+          </div>
+
+          <div class="code-generator-box" id="codeGeneratorSnippet">
+            import { Cloud16, Terminal16, Analytics16, Security16 } from '@carbon/icons-react';
+          </div>
+        </div>
+
+        <section id="optical-grids">
+          <h2>2. The 4 Optical Grid Tiers: 16px, 20px, 24px, 32px</h2>
+          <p>Carbon does not treat icons as elastic stamps. Instead, IBM designers developed four discrete optical size grids to handle specific spatial hierarchies:</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Optical Grid</th>
+                  <th>Stroke &amp; Geometry Rules</th>
+                  <th>Primary Interface Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>16&times;16 px</strong></td>
+                  <td>1px stroke weight, simplified inner counters, removed secondary strokes</td>
+                  <td>Data tables, compact select options, tree view expanders, inline breadcrumbs</td>
+                </tr>
+                <tr>
+                  <td><strong>20&times;20 px</strong></td>
+                  <td>1.5px stroke weight, standard padding (2px inset)</td>
+                  <td>Form input field icons, action buttons, table header sorting triggers</td>
+                </tr>
+                <tr>
+                  <td><strong>24&times;24 px</strong></td>
+                  <td>2px stroke weight, full geometric expression</td>
+                  <td>Main side navigation rails, modal headers, standard toolbar utilities</td>
+                </tr>
+                <tr>
+                  <td><strong>32&times;32 px</strong></td>
+                  <td>2px stroke weight with enlarged open counter balance</td>
+                  <td>Dashboard metric cards, empty state illustrations, landing pages</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>By specifying the optical size at import time (such as <code>Cloud16</code> vs <code>Cloud24</code>), enterprise applications eliminate blurry subpixel interpolation on standard 1080p and 1440p enterprise office monitors.</p>
+        </section>
+
+        <section id="installation-and-frameworks">
+          <h2>3. Installation &amp; Framework Support (React, Vue, Svelte, Angular)</h2>
+          <p>The Carbon ecosystem maintains first-party npm packages for all major web frameworks:</p>
+
+          <pre><code># For React 18 &amp; 19
+npm install @carbon/icons-react
+
+# For Vue 3
+npm install @carbon/icons-vue
+
+# For Svelte 5
+npm install carbon-icons-svelte
+
+# For Angular 18+
+npm install @carbon/icons-angular</code></pre>
+
+          <h3>React Usage Pattern</h3>
+          <p>Every icon component accepts standard SVG HTML attributes, custom <code>size</code> numbers (16, 20, 24, 32), and accessible title props:</p>
+
+          <pre><code>import React from 'react';
+import { Cloud16, Terminal20, Analytics24 } from '@carbon/icons-react';
+
+export const EnterpriseDashboardHeader = () => {
+  return (
+    &lt;header className="flex items-center justify-between p-4 bg-zinc-900 border-b border-zinc-800"&gt;
+      &lt;div className="flex items-center gap-2 text-zinc-100 font-semibold"&gt;
+        &lt;Cloud16 aria-hidden="true" className="text-lime-400" /&gt;
+        &lt;span&gt;Cloud Cluster: US-East-1&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div className="flex items-center gap-3"&gt;
+        &lt;button
+          type="button"
+          aria-label="Launch Cloud Terminal"
+          className="p-2 rounded bg-zinc-800 text-zinc-300 hover:text-white"
+        &gt;
+          &lt;Terminal20 aria-hidden="true" /&gt;
+        &lt;/button&gt;
+        &lt;button
+          type="button"
+          aria-label="View Telemetry Analytics"
+          className="p-2 rounded bg-zinc-800 text-zinc-300 hover:text-white"
+        &gt;
+          &lt;Analytics24 aria-hidden="true" /&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+  );
+};</code></pre>
+        </section>
+
+        <section id="tree-shaking">
+          <h2>4. Production Tree-Shaking &amp; Subpath Optimization</h2>
+          <p>Because the total Carbon collection spans over 2,600 icons across multiple sizes (resulting in over 9,000 compiled exports), bundle optimization is vital:</p>
+          <div class="callout-box">
+            <div class="callout-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+              <span>The Subpath Direct Import Rule</span>
+            </div>
+            <p>If your project utilizes legacy Webpack 4 or tools without robust package exports resolution, import directly via subpath: <code>import Cloud16 from '@carbon/icons-react/lib/cloud/16';</code>. In modern Vite 6 and Next.js 15 setups, top-level named imports <code>import { Cloud16 } from '@carbon/icons-react';</code> tree-shake automatically to &lt; 850 bytes per icon.</p>
+          </div>
+        </section>
+
+        <section id="theming-and-colors">
+          <h2>5. Theming, currentColor &amp; Enterprise Color Tokens</h2>
+          <p>Every Carbon icon glyph renders paths using <code>fill="currentColor"</code>. In enterprise SaaS architectures, color represents semantic state rather than mere decoration:</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Semantic Token</th>
+                  <th>Hex (Dark Theme)</th>
+                  <th>Hex (Light Theme)</th>
+                  <th>Enterprise Meaning</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>$icon-primary</code></td>
+                  <td>#F4F4F4</td>
+                  <td>#161616</td>
+                  <td>High-emphasis interactive elements and active titles</td>
+                </tr>
+                <tr>
+                  <td><code>$icon-secondary</code></td>
+                  <td>#C6C6C6</td>
+                  <td>#525252</td>
+                  <td>Supporting navigation actions and inactive toolbars</td>
+                </tr>
+                <tr>
+                  <td><code>$support-success</code></td>
+                  <td>#42BE65</td>
+                  <td>#24A148</td>
+                  <td>Healthy cluster status, passing CI/CD pipelines</td>
+                </tr>
+                <tr>
+                  <td><code>$support-warning</code></td>
+                  <td>#F1C21B</td>
+                  <td>#F1C21B</td>
+                  <td>High memory pressure, pending security reviews</td>
+                </tr>
+                <tr>
+                  <td><code>$support-error</code></td>
+                  <td>#FF8389</td>
+                  <td>#DA1E28</td>
+                  <td>Node outage, database connection failure, blocked build</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="accessibility">
+          <h2>6. Accessibility &amp; Screen Reader Semantics</h2>
+          <p>Carbon Design System enforces rigorous accessibility standards under <strong>WCAG 2.2 AA / Section 508</strong>. The React components provide built-in title handling:</p>
+
+          <pre><code>{/* Standalone Icon with Screen Reader Announcer */}
+&lt;Security16 title="System Protected with Mutual TLS" aria-label="System Protected" /&gt;
+
+{/* Decorative Icon beside visible text */}
+&lt;button type="button" className="btn-save"&gt;
+  &lt;Save16 aria-hidden="true" /&gt;
+  &lt;span&gt;Deploy Changes&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </section>
+
+        <section id="comparison">
+          <h2>7. Head-to-Head Comparison: Carbon Icons vs. Competitors</h2>
+          <p>How does Carbon Icons compare to other premier enterprise and frontend icon sets?</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Icon Set</th>
+                  <th>Total Icons</th>
+                  <th>Grid Sizing</th>
+                  <th>License</th>
+                  <th>Ecosystem Fit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>IBM Carbon Icons</strong></td>
+                  <td>2,644+</td>
+                  <td>16, 20, 24, 32px</td>
+                  <td>Apache 2.0</td>
+                  <td>Enterprise SaaS, Cloud Consoles, Data Analytics</td>
+                </tr>
+                <tr>
+                  <td><strong>Microsoft Fluent UI</strong></td>
+                  <td>20,170+</td>
+                  <td>16, 20, 24, 28, 32, 48px</td>
+                  <td>MIT</td>
+                  <td>Enterprise Office/Windows, Consumer SaaS</td>
+                </tr>
+                <tr>
+                  <td><strong>Lucide Icons</strong></td>
+                  <td>1,970+</td>
+                  <td>Single 24px grid</td>
+                  <td>ISC</td>
+                  <td>Modern Web Apps, Next.js, Indie SaaS</td>
+                </tr>
+                <tr>
+                  <td><strong>Google Material Symbols</strong></td>
+                  <td>18,500+</td>
+                  <td>Variable font axes</td>
+                  <td>Apache 2.0</td>
+                  <td>Mobile, Android, Consumer Web</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>8. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is IBM Carbon Icons, and what makes it distinct from general-purpose icon packs?</h3>
+            <p>Carbon Icons is the official iconography system of the IBM Carbon Design System, engineered specifically for enterprise software, cloud consoles, cybersecurity, and data-dense dashboards. Rather than generic playful glyphs, Carbon Icons features mathematically strict geometry, industrial line weights, and four discrete optical grids (16, 20, 24, and 32px) tailored for complex workflows.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How are the four optical size grids (16px, 20px, 24px, 32px) structured in Carbon Icons?</h3>
+            <p>In Carbon Icons, each size tier is an independently drawn vector asset. 16px is optimized for dense table cells and dropdown menus with simplified internal geometry; 20px aligns with standard body text and form inputs; 24px provides foundational navigation clarity; and 32px delivers rich visual accents for hero banners and empty state illustrations.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I install Carbon Icons in React with zero bundle overhead?</h3>
+            <p>Install the package with <code>npm install @carbon/icons-react</code>. Always import icons via direct named imports such as <code>import { Cloud, Terminal, Analytics } from '@carbon/icons-react'</code> or specific size subpaths. In modern bundlers (Vite, Webpack 5, Next.js), tree-shaking discards unused icons, ensuring each component adds under 1KB to your final bundle.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What license governs Carbon Icons, and can it be used in commercial SaaS products?</h3>
+            <p>IBM Carbon Icons is licensed under the permissive Apache License 2.0. You are fully permitted to use, modify, distribute, and embed Carbon Icons in commercial SaaS products, internal tools, and open-source applications without royalty fees.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Does Carbon Icons offer official packages for Vue, Svelte, and Angular?</h3>
+            <p>Yes. In addition to <code>@carbon/icons-react</code>, IBM maintains official sister packages including <code>@carbon/icons-vue</code> for Vue 3, <code>carbon-icons-svelte</code> for Svelte 5, and <code>@carbon/icons-angular</code> for Angular 18+. IconStash also indexes all 2,644 raw SVG assets for zero-dependency usage.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How can I search and copy Carbon Icons on IconStash?</h3>
+            <p>You can search, filter, and inspect all 2,644 IBM Carbon Icons at <a href="/library/carbon/">https://iconstash.io/library/carbon/</a>. IconStash provides live previewing across dark and light backgrounds, optical size comparisons, and instant one-click export to clean SVG, PNG, and React JSX components.</p>
+          </div>
+        </section>
+
+        <section class="cta-banner">
+          <h3>Explore 2,644+ IBM Carbon Icons</h3>
+          <p>Instant search, multi-size optical previewing, and zero-dependency vector exports for enterprise developers.</p>
+          <a href="/library/carbon/" class="header-cta" style="font-size: 15px; padding: 12px 28px;">Browse Carbon Icons on IconStash</a>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#introduction">1. Introduction to IBM Carbon Icons</a></li>
+              <li><a href="#optical-grids">2. The 4 Optical Grid Tiers</a></li>
+              <li><a href="#installation-and-frameworks">3. Installation &amp; Frameworks</a></li>
+              <li><a href="#tree-shaking">4. Tree-Shaking &amp; Optimization</a></li>
+              <li><a href="#theming-and-colors">5. Theming &amp; Color Tokens</a></li>
+              <li><a href="#accessibility">6. Accessibility &amp; Screen Readers</a></li>
+              <li><a href="#comparison">7. Head-to-Head Comparison</a></li>
+              <li><a href="#faq">8. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Enterprise Icon Search</h4>
+          <p>Compare Carbon Icons side-by-side with 28+ open-source libraries instantly on IconStash.</p>
+          <a href="/#/" class="cta-sidebar-btn">Launch Icon Search</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash &bull; Built with passion for developers and designers &bull; <a href="/privacy/">Privacy</a> &bull; <a href="/terms/">Terms</a> &bull; <a href="/about/">About Jouni Flemming</a></p>
+  </footer>
+
+  <script>
+    // Theme toggle script
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Interactive Carbon Sandbox Logic
+    let currentCarbonSize = '16';
+    let currentFramework = 'React';
+
+    const btnCarbon16 = document.getElementById('btnCarbon16');
+    const btnCarbon20 = document.getElementById('btnCarbon20');
+    const btnCarbon24 = document.getElementById('btnCarbon24');
+    const btnCarbon32 = document.getElementById('btnCarbon32');
+
+    const btnFwReact = document.getElementById('btnFwReact');
+    const btnFwVue = document.getElementById('btnFwVue');
+    const btnFwSvelte = document.getElementById('btnFwSvelte');
+    const snippetEl = document.getElementById('codeGeneratorSnippet');
+
+    const sizeBtns = [btnCarbon16, btnCarbon20, btnCarbon24, btnCarbon32];
+    const fwBtns = [btnFwReact, btnFwVue, btnFwSvelte];
+
+    function updateCarbonDemo() {
+      ['Cloud', 'Terminal', 'Analytics', 'Security'].forEach(name => {
+        const metaEl = document.getElementById(`meta${name}`);
+        const prevEl = document.getElementById(`prev${name}`);
+        if (metaEl) metaEl.textContent = `${name}${currentCarbonSize}`;
+        if (prevEl) {
+          const svgEl = prevEl.querySelector('svg');
+          if (svgEl) {
+            svgEl.setAttribute('width', currentCarbonSize);
+            svgEl.setAttribute('height', currentCarbonSize);
+          }
+        }
+      });
+
+      if (currentFramework === 'React') {
+        snippetEl.textContent = `import { Cloud${currentCarbonSize}, Terminal${currentCarbonSize}, Analytics${currentCarbonSize}, Security${currentCarbonSize} } from '@carbon/icons-react';`;
+      } else if (currentFramework === 'Vue') {
+        snippetEl.textContent = `import { Cloud${currentCarbonSize}, Terminal${currentCarbonSize}, Analytics${currentCarbonSize}, Security${currentCarbonSize} } from '@carbon/icons-vue';`;
+      } else if (currentFramework === 'Svelte') {
+        snippetEl.textContent = `import { Cloud${currentCarbonSize}, Terminal${currentCarbonSize}, Analytics${currentCarbonSize}, Security${currentCarbonSize} } from 'carbon-icons-svelte';`;
+      }
+    }
+
+    sizeBtns.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', () => {
+          sizeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCarbonSize = btn.id.replace('btnCarbon', '');
+          updateCarbonDemo();
+        });
+      }
+    });
+
+    fwBtns.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', () => {
+          fwBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFramework = btn.id.replace('btnFw', '');
+          updateCarbonDemo();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
