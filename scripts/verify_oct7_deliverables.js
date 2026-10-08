@@ -102,6 +102,7 @@ for (const item of deliverables) {
       
       const mainSchema = schemas.find(s => s['@type'] === item.schemaType || s['@type'] === 'Article' || s['@type'] === 'TechArticle');
       assert(mainSchema, `Schema contains ${item.schemaType}`);
+      assert(mainSchema && mainSchema.description && mainSchema.description.length <= 155, `Schema description length (${mainSchema ? mainSchema.description.length : 0}) <= 155`);
       assert(mainSchema && mainSchema.author && mainSchema.author.name === 'Jouni Flemming', 'Schema author is Jouni Flemming');
       assert(mainSchema && mainSchema.publisher && mainSchema.publisher.parentOrganization && mainSchema.publisher.parentOrganization.name === 'Great Software Company', 'Parent organization is Great Software Company');
 
@@ -160,6 +161,8 @@ for (const item of deliverables) {
     assert(content.includes('id="termFilter"'), 'Glossary has instant search filter element #termFilter');
     assert(content.includes('id="noResults"'), 'Glossary has #noResults alert container');
     assert(content.includes('id="resetFilterBtn"'), 'Glossary has #resetFilterBtn button');
+    assert(content.includes('html[data-theme="light"] #simPath'), 'Glossary has light theme simulator path contrast rule');
+    assert(content.includes('html[data-theme="light"] #simArrow path'), 'Glossary has light theme simulator marker contrast rule');
 
     const jsonLdData = JSON.parse(content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
     const mainSchema = jsonLdData.find(s => s['@type'] === 'DefinedTermSet');

@@ -34,7 +34,7 @@
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
     "name": "SVG Stroke, Fill & Painting Glossary",
-    "description": "An exhaustive technical glossary defining 38+ essential terms across W3C SVG 2 painting, vector stroking, line joins, caps, fill rules, paint order, markers, and GPU rendering hints.",
+    "description": "Glossary of 38+ SVG stroke, fill, and painting terms: stroke-width, vector-effect non-scaling-stroke, paint-order, stroke-dasharray & markers.",
     "url": "https://iconstash.io/Glossary/svg-stroke-fill-and-painting-glossary/",
     "publisher": {
       "@type": "Organization",
@@ -335,6 +335,8 @@
     html[data-theme="light"] .demo-toggle-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
     html[data-theme="light"] .demo-toggle-btn:hover:not(.active) { background: #E4E4E7; }
     html[data-theme="light"] .sim-canvas-box { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] #simPath { stroke: #6D8200; fill: rgba(109, 130, 0, 0.15); }
+    html[data-theme="light"] #simArrow path { fill: #6D8200; }
     html[data-theme="light"] .sim-explanation { color: #525252; }
   </style>
 </head>
@@ -868,26 +870,19 @@
       const q = query.trim().toLowerCase();
       let totalVisible = 0;
 
-      termCards.forEach(card => {
-        const titleText = card.querySelector('.term-title')?.textContent.toLowerCase() || '';
-        const descText = card.querySelector('.term-desc')?.textContent.toLowerCase() || '';
-        const codeText = card.querySelector('.code-snippet')?.textContent.toLowerCase() || '';
-
-        if (!q || titleText.includes(q) || descText.includes(q) || codeText.includes(q)) {
-          card.style.display = 'block';
-          totalVisible++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      // Update category blocks visibility
       categories.forEach(cat => {
-        const visibleInCat = cat.querySelectorAll('.term-card:not([style*="display: none"])').length;
-        cat.style.display = visibleInCat > 0 ? 'block' : 'none';
+        const cards = cat.querySelectorAll('.term-card');
+        let catVisible = 0;
+        cards.forEach(card => {
+          const match = q === '' || card.textContent.toLowerCase().includes(q);
+          card.style.display = match ? 'block' : 'none';
+          if (match) catVisible++;
+        });
+        cat.style.display = (catVisible > 0 || q === '') ? 'block' : 'none';
+        totalVisible += catVisible;
       });
 
-      if (totalVisible === 0) {
+      if (totalVisible === 0 && q !== '') {
         noResults.style.display = 'block';
         if (noResultsQuery) noResultsQuery.textContent = query;
       } else {
@@ -903,6 +898,7 @@
       resetFilterBtn.addEventListener('click', () => {
         if (filterInput) filterInput.value = '';
         applyFilter('');
+        if (filterInput) filterInput.focus();
       });
     }
   </script>
