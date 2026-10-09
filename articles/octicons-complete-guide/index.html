@@ -825,6 +825,25 @@ export default async function PullRequestPage({ params }: { params: { id: string
     let currentGrid = '16';
     let currentSyntax = 'React';
 
+    const octiconPaths = {
+      Commit: {
+        '16': 'M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z',
+        '24': 'M16.944 11h4.306a.75.75 0 0 1 0 1.5h-4.306a5.001 5.001 0 0 1-9.888 0H2.75a.75.75 0 0 1 0-1.5h4.306a5.001 5.001 0 0 1 9.888 0m-1.444.75a3.5 3.5 0 1 0-7 0a3.5 3.5 0 0 0 7 0'
+      },
+      Branch: {
+        '16': 'M9.5 3.25a2.25 2.25 0 1 1 .5 1.43v5.64a2.25 2.25 0 1 1-1.5 0V7.5a1 1 0 0 0-1-1H5.5v1.82a2.25 2.25 0 1 1-1.5 0V3.75a2.25 2.25 0 1 1 1.5 0v1.75h2a2.5 2.5 0 0 1 2.5 2.5v1.07a2.25 2.25 0 0 1-.5.18Z',
+        '24': 'M15 4.75a3.25 3.25 0 1 1 6.5 0a3.25 3.25 0 0 1-6.5 0M2.5 19.25a3.25 3.25 0 1 1 6.5 0a3.25 3.25 0 0 1-6.5 0m0-14.5a3.25 3.25 0 1 1 6.5 0a3.25 3.25 0 0 1-6.5 0M5.75 6.5a1.75 1.75 0 1 0-.001-3.501A1.75 1.75 0 0 0 5.75 6.5m0 14.5a1.75 1.75 0 1 0-.001-3.501A1.75 1.75 0 0 0 5.75 21m12.5-14.5a1.75 1.75 0 1 0-.001-3.501A1.75 1.75 0 0 0 18.25 6.5'
+      },
+      PullRequest: {
+        '16': 'M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.5 5.396l2.323-2.323a.75.75 0 0 1 1.06 1.06l-2.853 2.854a.75.75 0 0 1-1.06 0L6.116 4.134a.75.75 0 1 1 1.06-1.06ZM14.5 9.75a2.25 2.25 0 1 1-3 2.122V8.5a.75.75 0 0 1 1.5 0v3.372a2.25 2.25 0 0 1 1.5-2.122Z',
+        '24': 'M16 19.25a3.25 3.25 0 1 1 6.5 0a3.25 3.25 0 0 1-6.5 0m-14.5 0a3.25 3.25 0 1 1 6.5 0a3.25 3.25 0 0 1-6.5 0m0-14.5a3.25 3.25 0 1 1 6.5 0a3.25 3.25 0 0 1-6.5 0M4.75 3a1.75 1.75 0 1 0 .001 3.501A1.75 1.75 0 0 0 4.75 3m0 14.5a1.75 1.75 0 1 0 .001 3.501A1.75 1.75 0 0 0 4.75 17.5m14.5 0a1.75 1.75 0 1 0 .001 3.501a1.75 1.75 0 0 0-.001-3.501'
+      },
+      Issue: {
+        '16': 'M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z',
+        '24': 'M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12S5.925 1 12 1M2.5 12a9.5 9.5 0 0 0 9.5 9.5a9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5A9.5 9.5 0 0 0 2.5 12m9.5 2a2 2 0 1 1-.001-3.999A2 2 0 0 1 12 14'
+      }
+    };
+
     const btnGrid16 = document.getElementById('btnGrid16');
     const btnGrid24 = document.getElementById('btnGrid24');
     const btnSynReact = document.getElementById('btnSynReact');
@@ -837,9 +856,13 @@ export default async function PullRequestPage({ params }: { params: { id: string
         const svgEl = document.getElementById(`svg${name}`);
         const metaEl = document.getElementById(`meta${name}`);
         if (svgEl) {
-          svgEl.setAttribute('width', sizeVal);
-          svgEl.setAttribute('height', sizeVal);
+          svgEl.setAttribute('width', sizeVal === '16' ? '20' : '28');
+          svgEl.setAttribute('height', sizeVal === '16' ? '20' : '28');
           svgEl.setAttribute('viewBox', `0 0 ${sizeVal} ${sizeVal}`);
+          const pathEl = svgEl.querySelector('path');
+          if (pathEl && octiconPaths[name]) {
+            pathEl.setAttribute('d', octiconPaths[name][currentGrid]);
+          }
         }
         if (metaEl) {
           metaEl.textContent = `${name} (${sizeVal}px)`;
@@ -847,9 +870,10 @@ export default async function PullRequestPage({ params }: { params: { id: string
       });
 
       if (currentSyntax === 'React') {
-        codeOutput.textContent = `import { GitCommitIcon, GitBranchIcon, GitPullRequestIcon, IssueOpenedIcon } from '@primer/octicons-react';\n\n// Usage with optical size:\n<GitBranchIcon size={${sizeVal}} aria-hidden="true" />`;
+        codeOutput.textContent = `import { GitCommitIcon, GitBranchIcon, GitPullRequestIcon, IssueOpenedIcon } from '@primer/octicons-react';\n\n// Usage with optical size (${sizeVal}px):\n<GitBranchIcon size={${sizeVal}} aria-hidden="true" />`;
       } else {
-        codeOutput.textContent = `<svg class="octicon octicon-git-branch" width="${sizeVal}" height="${sizeVal}" viewBox="0 0 ${sizeVal} ${sizeVal}" fill="currentColor" aria-hidden="true">\n  <path d="..." />\n</svg>`;
+        const branchPath = octiconPaths['Branch'][currentGrid];
+        codeOutput.textContent = `<!-- Raw 0-byte JS ${sizeVal}px Vector -->\n<svg class="octicon octicon-git-branch-${sizeVal}" width="${sizeVal}" height="${sizeVal}" viewBox="0 0 ${sizeVal} ${sizeVal}" fill="currentColor" aria-hidden="true">\n  <path d="${branchPath}" />\n</svg>`;
       }
     }
 
@@ -884,6 +908,9 @@ export default async function PullRequestPage({ params }: { params: { id: string
         updateOcticonDemo();
       });
     }
+
+    // Initialize sandbox output on load
+    updateOcticonDemo();
   </script>
 </body>
 </html>

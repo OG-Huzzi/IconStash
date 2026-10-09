@@ -379,6 +379,7 @@
     html[data-theme="light"] .tree-node-code { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
     html[data-theme="light"] #simPath { stroke: #5C6E00; }
     html[data-theme="light"] #simArrow path { fill: #5C6E00; }
+    html[data-theme="light"] .tree-visualizer text { fill: #18181B; }
   </style>
 </head>
 <body>
@@ -442,22 +443,6 @@
           </ul>
         </div>
 
-        <!-- Filter Search Bar -->
-        <div class="filter-section">
-          <div class="filter-wrapper">
-            <div class="filter-input-wrap">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              <input type="text" id="termFilter" class="filter-input" placeholder="Search SVG elements (e.g. defs, symbol, foreignObject, clipPath)..." aria-label="Filter SVG terms">
-            </div>
-            <div class="filter-count" id="filterCount">Showing 42 / 42 elements</div>
-          </div>
-        </div>
-
-        <div class="no-results-box" id="noResults">
-          <p>No SVG elements matching your query were found.</p>
-          <button type="button" class="reset-filter-btn" id="resetFilterBtn">Reset Search</button>
-        </div>
-
         <!-- Interactive Tree Simulator -->
         <div class="interactive-tree-card">
           <div class="interactive-tree-header">
@@ -482,13 +467,11 @@
           <div class="tree-stage">
             <div class="tree-visualizer" id="treeVisualizer">
               <svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100">
-                <defs>
-                  <marker id="simArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                    <path d="M0,0 L0,6 L6,3 z" fill="#C1DD2D"/>
-                  </marker>
-                </defs>
-                <path id="simPath" d="M10,80 Q50,10 90,80" fill="none" stroke="#C1DD2D" stroke-width="3" marker-end="url(#simArrow)"/>
-                <circle cx="50" cy="45" r="16" fill="rgba(193,221,45,0.2)" stroke="#C1DD2D" stroke-width="2"/>
+                <rect x="6" y="6" width="88" height="88" fill="rgba(193,221,45,0.06)" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 2" rx="4"/>
+                <text x="12" y="24" fill="#C1DD2D" font-size="9" font-family="monospace">&lt;svg&gt;</text>
+                <text x="12" y="36" fill="#888" font-size="7" font-family="monospace">0,0</text>
+                <text x="64" y="88" fill="#888" font-size="7" font-family="monospace">100,100</text>
+                <circle cx="50" cy="55" r="18" fill="rgba(193,221,45,0.25)" stroke="#C1DD2D" stroke-width="2"/>
               </svg>
             </div>
             <div class="tree-details">
@@ -501,7 +484,23 @@
           </div>
         </div>
 
-        <section id="structural-containers">
+        <!-- Filter Search Bar -->
+        <div class="filter-section">
+          <div class="filter-wrapper">
+            <div class="filter-input-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="termFilter" class="filter-input" placeholder="Search SVG elements (e.g. defs, symbol, foreignObject, clipPath)..." aria-label="Filter SVG terms">
+            </div>
+            <div class="filter-count" id="filterCount">Showing 42 / 42 elements</div>
+          </div>
+        </div>
+
+        <div class="no-results-box" id="noResults" style="display: none;">
+          <p>No SVG elements matching "<span id="noResultsQuery"></span>" were found.</p>
+          <button type="button" class="reset-filter-btn" id="resetFilterBtn">Reset Search</button>
+        </div>
+
+        <section id="structural-containers" class="category-block">
           <h2>1. Structural &amp; Container Elements</h2>
           <p>Container elements form the skeleton of an SVG document. They define coordinate spaces, establish grouping boundaries, and control element reuse.</p>
 
@@ -568,7 +567,7 @@
           </div>
         </section>
 
-        <section id="basic-shape-elements">
+        <section id="basic-shape-elements" class="category-block">
           <h2>2. Basic Shape Primitives</h2>
           <p>These elements produce concrete vector shapes defined by mathematical geometric formulas.</p>
 
@@ -636,7 +635,7 @@
           </div>
         </section>
 
-        <section id="hybrid-and-embedded-elements">
+        <section id="hybrid-and-embedded-elements" class="category-block">
           <h2>3. Embedded &amp; Hybrid Content</h2>
           <p>Elements bridging vector geometry with external raster images and native HTML DOM layouts.</p>
 
@@ -664,7 +663,7 @@
           </div>
         </section>
 
-        <section id="vector-typography-elements">
+        <section id="vector-typography-elements" class="category-block">
           <h2>4. Vector Typography Elements</h2>
           <p>Elements dedicated to rendering selectable, searchable, and stylable typography inside vector viewports.</p>
 
@@ -701,7 +700,7 @@
           </div>
         </section>
 
-        <section id="clipping-masking-markers">
+        <section id="clipping-masking-markers" class="category-block">
           <h2>5. Clipping, Masking &amp; Marker Attachments</h2>
           <p>Elements controlling rendering visibility bounds, transparency stencils, and path vertex adornments.</p>
 
@@ -740,7 +739,7 @@
           </div>
         </section>
 
-        <section id="paint-servers">
+        <section id="paint-servers" class="category-block">
           <h2>6. Paint Servers &amp; Gradients</h2>
           <p>Elements providing procedural color ramps and repeating geometric patterns across fill and stroke channels.</p>
 
@@ -789,7 +788,7 @@
           </div>
         </section>
 
-        <section id="filters-and-metadata">
+        <section id="filters-and-metadata" class="category-block">
           <h2>7. Filter Shaders &amp; Document Metadata</h2>
           <p>Elements providing GPU-accelerated graphics pipelines and accessible document metadata.</p>
 
@@ -974,26 +973,32 @@
     // Instant Filter & Search Functionality
     const termFilter = document.getElementById('termFilter');
     const termCards = document.querySelectorAll('.term-card');
+    const categories = document.querySelectorAll('.category-block');
     const noResults = document.getElementById('noResults');
+    const noResultsQuery = document.getElementById('noResultsQuery');
     const resetFilterBtn = document.getElementById('resetFilterBtn');
     const filterCount = document.getElementById('filterCount');
     const totalTerms = termCards.length;
 
     function runFilter() {
-      const q = termFilter.value.toLowerCase().trim();
+      const q = termFilter ? termFilter.value.toLowerCase().trim() : '';
       let matchCount = 0;
 
-      termCards.forEach(card => {
-        const name = card.querySelector('.term-name').textContent.toLowerCase();
-        const desc = card.querySelector('.term-desc').textContent.toLowerCase();
-        const cat = card.querySelector('.term-category').textContent.toLowerCase();
+      categories.forEach(cat => {
+        const cards = cat.querySelectorAll('.term-card');
+        let catVisible = 0;
+        cards.forEach(card => {
+          const name = card.querySelector('.term-name')?.textContent.toLowerCase() || '';
+          const desc = card.querySelector('.term-desc')?.textContent.toLowerCase() || '';
+          const catName = card.querySelector('.term-category')?.textContent.toLowerCase() || '';
+          const codeSnippet = card.querySelector('.term-code')?.textContent.toLowerCase() || '';
 
-        if (name.includes(q) || desc.includes(q) || cat.includes(q)) {
-          card.style.display = 'block';
-          matchCount++;
-        } else {
-          card.style.display = 'none';
-        }
+          const match = q === '' || name.includes(q) || desc.includes(q) || catName.includes(q) || codeSnippet.includes(q);
+          card.style.display = match ? 'block' : 'none';
+          if (match) catVisible++;
+        });
+        cat.style.display = (catVisible > 0 || q === '') ? 'block' : 'none';
+        matchCount += catVisible;
       });
 
       if (filterCount) {
@@ -1001,7 +1006,12 @@
       }
 
       if (noResults) {
-        noResults.style.display = matchCount === 0 ? 'block' : 'none';
+        if (matchCount === 0 && q !== '') {
+          noResults.style.display = 'block';
+          if (noResultsQuery) noResultsQuery.textContent = termFilter.value;
+        } else {
+          noResults.style.display = 'none';
+        }
       }
     }
 
@@ -1011,9 +1021,9 @@
 
     if (resetFilterBtn) {
       resetFilterBtn.addEventListener('click', () => {
-        termFilter.value = '';
+        if (termFilter) termFilter.value = '';
         runFilter();
-        termFilter.focus();
+        if (termFilter) termFilter.focus();
       });
     }
 
@@ -1022,46 +1032,55 @@
       svg: {
         title: '<svg viewBox="0 0 100 100">',
         desc: 'The root SVG viewport and canvas. Establishes the coordinate plane and defines how graphic elements are mapped to pixels.',
-        code: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">\n  <!-- Child vector graphic nodes -->\n</svg>'
+        code: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">\n  <!-- Child vector graphic nodes -->\n</svg>',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><rect x="6" y="6" width="88" height="88" fill="rgba(193,221,45,0.06)" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 2" rx="4"/><text x="12" y="24" fill="#C1DD2D" font-size="9" font-family="monospace">&lt;svg&gt;</text><text x="12" y="36" fill="#888" font-size="7" font-family="monospace">0,0</text><text x="64" y="88" fill="#888" font-size="7" font-family="monospace">100,100</text><circle cx="50" cy="55" r="18" fill="rgba(193,221,45,0.25)" stroke="#C1DD2D" stroke-width="2"/></svg>'
       },
       defs: {
         title: '<defs> (Definitions Cache)',
         desc: 'Stores gradients, filters, clipPaths, and markers in memory. Elements inside <defs> do not render on screen until explicitly referenced.',
-        code: '<defs>\n  <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">...</linearGradient>\n  <clipPath id="circleClip">...</clipPath>\n</defs>'
+        code: '<defs>\n  <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">...</linearGradient>\n  <clipPath id="circleClip">...</clipPath>\n</defs>',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><defs><linearGradient id="demoGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C1DD2D"/><stop offset="100%" stop-color="#3B82F6"/></linearGradient></defs><rect x="15" y="15" width="70" height="70" rx="8" fill="url(#demoGrad)" stroke="#C1DD2D" stroke-width="2"/><text x="50" y="54" text-anchor="middle" fill="#0A0A0A" font-size="10" font-weight="bold" font-family="monospace">&lt;defs&gt;</text></svg>'
       },
       symbol: {
         title: '<symbol id="starIcon" viewBox="0 0 24 24">',
         desc: 'A reusable icon template with its own independent coordinate system and viewBox. Cloned on demand via <use>.',
-        code: '<symbol id="star" viewBox="0 0 24 24">\n  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87..." />\n</symbol>'
+        code: '<symbol id="star" viewBox="0 0 24 24">\n  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87..." />\n</symbol>',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><rect x="10" y="10" width="80" height="80" rx="6" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="3 3"/><text x="50" y="24" text-anchor="middle" fill="#888" font-size="8" font-family="monospace">&lt;symbol id="star"&gt;</text><polygon points="50,30 55,44 70,44 58,54 62,68 50,59 38,68 42,54 30,44 45,44" fill="#C1DD2D" stroke="#C1DD2D" stroke-width="1"/></svg>'
       },
       use: {
         title: '<use href="#starIcon" x="10" y="10">',
         desc: 'Clones a <symbol> or <g> into an SVG Shadow DOM boundary, cascading CSS presentation properties like fill and stroke.',
-        code: '<use href="#star" x="10" y="10" width="24" height="24" fill="#C1DD2D" />'
+        code: '<use href="#star" x="10" y="10" width="24" height="24" fill="#C1DD2D" />',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><defs><g id="miniStar"><polygon points="12,2 14,8 20,8 15,12 17,18 12,14 7,18 9,12 4,8 10,8" fill="#C1DD2D"/></g></defs><use href="#miniStar" x="5" y="15"/><use href="#miniStar" x="35" y="10" transform="scale(1.3)"/><use href="#miniStar" x="65" y="15" transform="scale(0.85)"/><text x="50" y="78" text-anchor="middle" fill="#C1DD2D" font-size="9" font-family="monospace">&lt;use href="#star" /&gt;</text><text x="50" y="90" text-anchor="middle" fill="#888" font-size="7.5">3 cloned instances</text></svg>'
       },
       g: {
         title: '<g transform="rotate(45)" fill="currentColor">',
         desc: 'A logical grouping node that propagates coordinate transformations, opacity, and styles to all nested children.',
-        code: '<g transform="scale(1.5)" fill="#C1DD2D">\n  <circle cx="20" cy="20" r="5" />\n  <rect x="30" y="15" width="10" height="10" />\n</g>'
+        code: '<g transform="scale(1.5)" fill="#C1DD2D">\n  <circle cx="20" cy="20" r="5" />\n  <rect x="30" y="15" width="10" height="10" />\n</g>',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><g transform="rotate(15 50 48)" fill="rgba(193,221,45,0.2)" stroke="#C1DD2D" stroke-width="2"><rect x="25" y="23" width="50" height="50" rx="6"/><circle cx="50" cy="48" r="14" fill="#C1DD2D"/></g><text x="50" y="94" text-anchor="middle" fill="#888" font-size="8" font-family="monospace">&lt;g transform="rotate(15)"&gt;</text></svg>'
       },
       path: {
         title: '<path d="M10,80 Q50,10 90,80">',
         desc: 'The foundational vector outline element. Creates lines, Bézier curves, arcs, and compound paths through the "d" string syntax.',
-        code: '<path d="M10,80 Q50,10 90,80" fill="none" stroke="#C1DD2D" stroke-width="3" />'
+        code: '<path d="M10,80 Q50,10 90,80" fill="none" stroke="#C1DD2D" stroke-width="3" />',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><defs><marker id="simArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="#C1DD2D"/></marker></defs><path id="simPath" d="M10,75 Q50,15 90,75" fill="none" stroke="#C1DD2D" stroke-width="3" marker-end="url(#simArrow)"/><circle cx="10" cy="75" r="3" fill="#FFF"/><circle cx="50" cy="15" r="3" fill="#FFF"/><circle cx="90" cy="75" r="3" fill="#FFF"/><text x="50" y="92" text-anchor="middle" fill="#888" font-size="7.5" font-family="monospace">d="M10,75 Q50,15 90,75"</text></svg>'
       },
       clipPath: {
         title: '<clipPath id="badgeClip">',
         desc: 'Hard scissoring stencil that restricts rendering strictly to the mathematical silhouette of internal shapes.',
-        code: '<clipPath id="badgeClip">\n  <rect x="0" y="0" width="50" height="50" rx="10" />\n</clipPath>'
+        code: '<clipPath id="badgeClip">\n  <rect x="0" y="0" width="50" height="50" rx="10" />\n</clipPath>',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><defs><clipPath id="circleClipDemo"><circle cx="50" cy="45" r="26"/></clipPath></defs><rect x="15" y="10" width="70" height="70" fill="#C1DD2D" clip-path="url(#circleClipDemo)"/><circle cx="50" cy="45" r="26" fill="none" stroke="#FFF" stroke-width="1.5" stroke-dasharray="3 3"/><text x="50" y="92" text-anchor="middle" fill="#888" font-size="8" font-family="monospace">&lt;clipPath&gt; silhouette</text></svg>'
       },
       foreignObject: {
         title: '<foreignObject width="100" height="60">',
         desc: 'Bridge enabling native HTML5 and CSS Flexbox/Grid containers to live inside the SVG coordinate plane.',
-        code: '<foreignObject x="0" y="0" width="100" height="60">\n  <div xmlns="http://www.w3.org/1999/xhtml" class="badge">Active</div>\n</foreignObject>'
+        code: '<foreignObject x="0" y="0" width="100" height="60">\n  <div xmlns="http://www.w3.org/1999/xhtml" class="badge">Active</div>\n</foreignObject>',
+        svg: '<svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100"><rect x="6" y="6" width="88" height="88" rx="8" fill="rgba(193,221,45,0.08)" stroke="#C1DD2D" stroke-width="1"/><foreignObject x="12" y="24" width="76" height="50"><div xmlns="http://www.w3.org/1999/xhtml" style="background:#C1DD2D; color:#0A0A0A; padding:6px; border-radius:6px; font-size:9px; font-weight:bold; text-align:center; font-family:sans-serif;">HTML &lt;div&gt;<br/><span style="font-size:7px; font-weight:normal;">Inside SVG</span></div></foreignObject><text x="50" y="90" text-anchor="middle" fill="#888" font-size="7.5" font-family="monospace">&lt;foreignObject&gt;</text></svg>'
       }
     };
 
     const nodeButtons = document.querySelectorAll('.node-select-btn');
+    const treeVisualizer = document.getElementById('treeVisualizer');
     const treeTitle = document.getElementById('treeNodeTitle');
     const treeDesc = document.getElementById('treeNodeDesc');
     const treeCode = document.getElementById('treeNodeCode');
@@ -1076,6 +1095,9 @@
           treeTitle.textContent = d.title;
           treeDesc.textContent = d.desc;
           treeCode.textContent = d.code;
+          if (treeVisualizer && d.svg) {
+            treeVisualizer.innerHTML = d.svg;
+          }
         }
       });
     });

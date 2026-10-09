@@ -156,11 +156,26 @@ for (const item of deliverables) {
     assert(allAnchorsFound && anchorMatches.length >= 5, `All Table of Contents anchors (${anchorMatches.length} links) resolve to valid id attributes`);
   }
 
-  // 14. Glossary DefinedTermSet enrichment & instant filter components
+  // 14. Interactive Demos Initialization & Path Integrity
+  if (item.slug === 'octicons-complete-guide') {
+    assert(content.includes('octiconPaths'), 'Octicons guide defines dual-optical vector path dictionary');
+    assert(content.includes('16.944 11h4.306'), 'Octicons guide includes authentic 24px vector path coordinates');
+    assert(content.includes('updateOcticonDemo()'), 'Octicons demo initializes output on page load');
+  }
+  if (item.slug === 'iconoir-complete-guide') {
+    assert(content.includes('updateIconoirDemo()'), 'Iconoir demo initializes output on page load');
+  }
+
+  // 15. Glossary DefinedTermSet enrichment & instant filter components
   if (item.schemaType === 'DefinedTermSet') {
     assert(content.includes('id="termFilter"'), 'Glossary has instant search filter element #termFilter');
     assert(content.includes('id="noResults"'), 'Glossary has #noResults alert container');
+    assert(content.includes('id="noResultsQuery"'), 'Glossary has #noResultsQuery query feedback container');
     assert(content.includes('id="resetFilterBtn"'), 'Glossary has #resetFilterBtn button');
+    const categoryBlockCount = (content.match(/class="[^"]*category-block[^"]*"/g) || []).length;
+    assert(categoryBlockCount >= 7, `Glossary contains ${categoryBlockCount} category-block groupings (>= 7 required)`);
+    assert(content.includes('treeVisualizer.innerHTML = d.svg'), 'Glossary DOM node inspector dynamically updates stage visualizer');
+    assert(content.includes('html[data-theme="light"] .tree-visualizer text'), 'Glossary has light theme visualizer text contrast rule');
     assert(content.includes('html[data-theme="light"] #simPath'), 'Glossary has light theme simulator path contrast rule');
     assert(content.includes('html[data-theme="light"] #simArrow path'), 'Glossary has light theme simulator marker contrast rule');
 
