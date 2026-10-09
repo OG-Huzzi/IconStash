@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Elements &amp; Document Tags Glossary: 42+ Nodes Explained | IconStash</title>
+  <meta name="description" content="Glossary of 42+ SVG elements &amp; tags: defs, symbol, use, g, path, foreignObject, clipPath, mask, linearGradient, marker, and document nodes.">
+  <meta name="keywords" content="svg elements glossary, svg tags list, svg defs tag, svg symbol vs use, svg foreignobject, svg g element, svg document structure, svg tags explained">
+  <meta property="og:title" content="SVG Elements &amp; Document Tags Glossary: 42+ Nodes Explained">
+  <meta property="og:description" content="Glossary of 42+ SVG elements &amp; tags: defs, symbol, use, g, path, foreignObject, clipPath, mask, linearGradient, marker, and document nodes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/Glossary/svg-elements-and-tags-glossary/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-elements-and-tags-glossary.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="SVG Elements and Document Tags Vector Diagram">
+  <meta property="article:published_time" content="2026-10-09T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-09T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Glossary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Elements &amp; Document Tags Glossary: 42+ Nodes Explained">
+  <meta name="twitter:description" content="Glossary of 42+ SVG elements &amp; tags: defs, symbol, use, g, path, foreignObject, clipPath, mask, linearGradient, marker, and document nodes.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-elements-and-tags-glossary.jpg">
+  <link rel="canonical" href="https://iconstash.io/Glossary/svg-elements-and-tags-glossary/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "SVG Elements & Document Tags Glossary",
+    "description": "Glossary of 42+ SVG elements & tags: defs, symbol, use, g, path, foreignObject, clipPath, mask, linearGradient, marker, and document nodes.",
+    "url": "https://iconstash.io/Glossary/svg-elements-and-tags-glossary/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "datePublished": "2026-10-09",
+    "dateModified": "2026-10-09",
+    "hasDefinedTerm": [
+      { "@type": "DefinedTerm", "name": "<svg>", "description": "The root document container and coordinate system establishing element that defines the SVG viewport, viewBox, and XML namespace." },
+      { "@type": "DefinedTerm", "name": "<g>", "description": "The grouping container element used to group related graphical elements together, enabling shared attributes, CSS styles, and coordinate transformations." },
+      { "@type": "DefinedTerm", "name": "<defs>", "description": "The definitions container element used to store reusable graphical nodes like gradients, masks, and symbols without immediately rendering them." },
+      { "@type": "DefinedTerm", "name": "<symbol>", "description": "A reusable vector template element that defines its own independent viewBox and coordinate system, designed for instantiation via <use>." },
+      { "@type": "DefinedTerm", "name": "<use>", "description": "The cloning element that references an external or internal node via href, duplicating it in the SVG render tree using a Shadow DOM boundary." },
+      { "@type": "DefinedTerm", "name": "<path>", "description": "The foundational vector geometry element that defines custom outlines, curves, arcs, and polylines using the comprehensive 'd' attribute syntax." },
+      { "@type": "DefinedTerm", "name": "<rect>", "description": "A basic vector shape element used to draw rectangles and squares, supporting corner rounding via the rx and ry attributes." },
+      { "@type": "DefinedTerm", "name": "<circle>", "description": "A basic vector shape element defining a circular shape specified by its center coordinates (cx, cy) and radius (r)." },
+      { "@type": "DefinedTerm", "name": "<ellipse>", "description": "A basic vector shape element defining an elliptical shape with independent horizontal (rx) and vertical (ry) radii." },
+      { "@type": "DefinedTerm", "name": "<line>", "description": "A basic vector geometry element used to render a single straight line segment connecting two points (x1, y1) and (x2, y2)." },
+      { "@type": "DefinedTerm", "name": "<polyline>", "description": "A vector shape element connecting a sequence of connected straight line segments through a space- or comma-delimited points list." },
+      { "@type": "DefinedTerm", "name": "<polygon>", "description": "A closed vector shape element consisting of straight connected line segments where the last point automatically connects to the initial point." },
+      { "@type": "DefinedTerm", "name": "<foreignObject>", "description": "A bridge element allowing standard HTML, XHTML, and CSS content (such as form inputs and rich typography) to be rendered directly inside SVG." },
+      { "@type": "DefinedTerm", "name": "<image>", "description": "An embedding element used to render raster bitmap images (PNG, JPEG, WebP) or nested vector SVG documents within an SVG canvas." },
+      { "@type": "DefinedTerm", "name": "<text>", "description": "The primary typography element used to render selectable, searchable vector text strings directly onto the SVG graphics surface." },
+      { "@type": "DefinedTerm", "name": "<tspan>", "description": "A sub-text styling element nested inside <text> to apply inline styling, positioning adjustments (dx, dy), or font variations." },
+      { "@type": "DefinedTerm", "name": "<textPath>", "description": "A typography layout element that binds text glyphs along the arbitrary trajectory of a referenced vector <path>." },
+      { "@type": "DefinedTerm", "name": "<clipPath>", "description": "A hard clipping container element restricting the visible rendering area of target elements to the precise silhouette of child vector shapes." },
+      { "@type": "DefinedTerm", "name": "<mask>", "description": "A compositing container element providing soft alpha or luminance masking based on child element pixel brightness and transparency." },
+      { "@type": "DefinedTerm", "name": "<linearGradient>", "description": "A paint server element defining a smooth linear color transition along a directional vector defined by coordinates (x1, y1) to (x2, y2)." },
+      { "@type": "DefinedTerm", "name": "<radialGradient>", "description": "A paint server element creating smooth circular or elliptical color gradations radiating outward from a focal point (fx, fy) to radius (r)." },
+      { "@type": "DefinedTerm", "name": "<stop>", "description": "A color waypoint element nested inside gradients defining color values and transition offsets along the gradient axis." },
+      { "@type": "DefinedTerm", "name": "<pattern>", "description": "A tiled paint server element that repeats a designated vector or image tile seamlessly across shape fill or stroke surfaces." },
+      { "@type": "DefinedTerm", "name": "<marker>", "description": "A reusable vector glyph element attached automatically to path vertices to render arrowheads, endpoint caps, and midpoint dots." },
+      { "@type": "DefinedTerm", "name": "<filter>", "description": "A multi-pass GPU image processing container that applies primitive shader filters like blurs, color matrices, and lighting." },
+      { "@type": "DefinedTerm", "name": "<feGaussianBlur>", "description": "A filter primitive applying a two-pass Gaussian blur convolution matrix across an input image defined by stdDeviation." },
+      { "@type": "DefinedTerm", "name": "<feColorMatrix>", "description": "A filter primitive performing 4x5 affine matrix color transformations, altering RGBA channel values, saturation, or hue rotations." },
+      { "@type": "DefinedTerm", "name": "<feDropShadow>", "description": "A hardware-accelerated filter primitive generating an integrated Gaussian drop shadow with configurable dx, dy, and stdDeviation." },
+      { "@type": "DefinedTerm", "name": "<feMerge>", "description": "A compositing filter primitive layering multiple sub-filter results on top of one another in sequential rendering order." },
+      { "@type": "DefinedTerm", "name": "<feMergeNode>", "description": "A child node of <feMerge> specifying the input graphic or filter pipeline buffer to be composited." },
+      { "@type": "DefinedTerm", "name": "<feOffset>", "description": "A filter primitive translating an input graphic by designated pixel offsets (dx, dy) without altering its geometry." },
+      { "@type": "DefinedTerm", "name": "<feBlend>", "description": "A compositing filter primitive combining two input images using standard mathematical blend modes like multiply, screen, or overlay." },
+      { "@type": "DefinedTerm", "name": "<animate>", "description": "A SMIL animation element that animates scalar attributes or CSS properties over time without requiring external JavaScript." },
+      { "@type": "DefinedTerm", "name": "<animateTransform>", "description": "A SMIL animation element animating 2D geometric transformations: translation, scaling, rotation, skewX, or skewY." },
+      { "@type": "DefinedTerm", "name": "<animateMotion>", "description": "A motion path animation element that guides a target element along the trajectory of a vector curve, optionally orienting to path tangent." },
+      { "@type": "DefinedTerm", "name": "<mpath>", "description": "A child element of <animateMotion> referencing an external or defined vector <path> to serve as the motion trajectory." },
+      { "@type": "DefinedTerm", "name": "<title>", "description": "An accessible metadata element providing a plain-text title for an SVG element, exposed by browsers as a tooltip and screen reader label." },
+      { "@type": "DefinedTerm", "name": "<desc>", "description": "An accessible metadata element offering a detailed descriptive summary of complex SVG graphics for assistive technologies." },
+      { "@type": "DefinedTerm", "name": "<metadata>", "description": "A semantic metadata container element designed to hold RDF, Dublin Core, copyright data, or design tool serialization state." },
+      { "@type": "DefinedTerm", "name": "<style>", "description": "An embedded stylesheet element containing CSS rules and selectors scoped to the host SVG document." },
+      { "@type": "DefinedTerm", "name": "<script>", "description": "An embedded or linked JavaScript element executing procedural script operations within the SVG DOM context." },
+      { "@type": "DefinedTerm", "name": "<view>", "description": "A declarative viewport element defining a targeted viewBox and zoom state that can be linked via URI fragments (e.g., #svgView)." }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Glossary", "item": "https://iconstash.io/Glossary/icon-svg-terminology/" },
+      { "@type": "ListItem", "position": 3, "name": "SVG Elements & Document Tags Glossary", "item": "https://iconstash.io/Glossary/svg-elements-and-tags-glossary/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between <defs> and <symbol> in SVG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "<defs> is a general container that prevents any child elements from rendering directly on screen until referenced. <symbol> is a specialized container that not only prevents direct rendering but also establishes its own independent viewBox and aspect ratio settings, allowing cloned instances via <use> to scale independently."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the <use> tag clone elements across the SVG DOM tree?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The <use> tag references a target element by its URI or ID (e.g. href='#icon-search'). The browser clones the referenced node into a closed SVG Shadow DOM boundary attached to the <use> element. Properties like fill, stroke, and transformations can cascade from the <use> element into the cloned subtree."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What capabilities does <foreignObject> introduce to vector documents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "<foreignObject> acts as an architectural bridge between SVG and HTML/CSS. It allows developers to embed arbitrary HTML elements—such as responsive <div> layouts, complex CSS flexboxes, interactive buttons, form inputs, and styled typography—directly within an SVG coordinate system."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is <clipPath> faster for simple shape clipping compared to <mask>?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "<clipPath> performs a binary 1-bit geometric scissor test: an interior pixel is either drawn or not drawn. <mask>, by contrast, performs a full 8-bit luminance or alpha raster calculation for every pixel, which requires more GPU memory bandwidth and compositing passes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do <title> and <desc> enhance SVG web accessibility (WCAG)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When an <svg> element includes <title id='icon-title'> and <desc id='icon-desc'> connected via aria-labelledby='icon-title icon-desc', assistive technologies read the plain-text title as the element's accessible name and the description as its accessible context, fulfilling WCAG 2.2 accessibility standards."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do SVG paint servers like <linearGradient> and <pattern> interact with shape fills?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Paint servers defined in <defs> (such as <linearGradient id='brandGrad'> or <pattern id='mesh'>) are referenced by presentation attributes or CSS via url(#brandGrad). The browser paints the calculated gradient ramp or repeating geometric tile across the target element's fill or stroke surface."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    /* Filter & Search Bar */
+    .filter-section { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 20px 24px; margin: 32px 0; }
+    .filter-wrapper { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .filter-input-wrap { position: relative; flex: 1; min-width: 240px; }
+    .filter-input-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #737373; pointer-events: none; }
+    .filter-input { width: 100%; background: #0A0A0A; border: 1px solid #333; border-radius: 8px; padding: 12px 14px 12px 42px; color: #FFF; font-size: 14.5px; font-family: inherit; transition: border-color 150ms ease; }
+    .filter-input:focus { outline: none; border-color: #C1DD2D; }
+    .filter-input::placeholder { color: #666; }
+    .filter-count { font-size: 13.5px; color: #888; font-family: "JetBrains Mono", monospace; }
+
+    .no-results-box { display: none; background: #171717; border: 1px dashed #333; border-radius: 10px; padding: 36px 24px; text-align: center; margin: 28px 0; }
+    .no-results-box p { color: #A3A3A3; margin-bottom: 14px; font-size: 15px; }
+    .reset-filter-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 8px 18px; border-radius: 6px; font-weight: 700; font-size: 13.5px; cursor: pointer; transition: all 150ms ease; }
+    .reset-filter-btn:hover { background: #D2ED3E; }
+
+    /* Interactive Tree Simulator */
+    .interactive-tree-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .interactive-tree-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #222; padding-bottom: 14px; flex-wrap: wrap; gap: 12px; }
+    .interactive-tree-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .node-selector-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .node-select-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-family: "JetBrains Mono", monospace; font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; }
+    .node-select-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .node-select-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+
+    .tree-stage { display: grid; grid-template-columns: 1fr; gap: 16px; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 20px; }
+    @media (min-width: 768px) {
+      .tree-stage { grid-template-columns: 1.2fr 1.8fr; }
+    }
+    .tree-visualizer { background: #141414; border: 1px solid #262626; border-radius: 8px; padding: 18px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 180px; }
+    .tree-visualizer svg { max-width: 160px; max-height: 140px; }
+    .tree-details { background: #121212; border: 1px solid #262626; border-radius: 8px; padding: 18px; }
+    .tree-node-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 6px; font-family: "JetBrains Mono", monospace; }
+    .tree-node-desc { font-size: 13.5px; color: #A3A3A3; line-height: 1.6; margin-bottom: 12px; }
+    .tree-node-code { background: #0A0A0A; border: 1px solid #222; border-radius: 6px; padding: 10px 14px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: #C1DD2D; overflow-x: auto; }
+
+    /* Term Cards */
+    .term-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 24px 28px; margin-bottom: 20px; transition: border-color 150ms ease; }
+    .term-card:hover { border-color: #333; }
+    .term-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+    .term-name { font-size: 21px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .term-name a { color: #FFF; }
+    .term-name a:hover { color: #C1DD2D; }
+    .term-category { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.1); color: #C1DD2D; padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .term-desc { color: #D4D4D4; font-size: 15.5px; line-height: 1.7; margin-bottom: 14px; }
+    .term-code { background: #0A0A0A; border: 1px solid #1F1F1F; border-radius: 6px; padding: 12px 16px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #E5E5E5; overflow-x: auto; margin-top: 10px; }
+    .term-code code { color: #C1DD2D; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #383838; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .cta-sidebar-box { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #525252; }
+    html[data-theme="light"] .cta-banner { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-banner p { color: #525252; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .theme-toggle-btn { border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .theme-toggle-btn:hover { border-color: #A3A3A3; color: #171717; }
+    html[data-theme="light"] .filter-section { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .filter-input { background: #F4F4F5; border-color: #D4D4D8; color: #171717; }
+    html[data-theme="light"] .filter-input:focus { border-color: #6D8200; }
+    html[data-theme="light"] .term-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .term-card:hover { border-color: #D4D4D8; }
+    html[data-theme="light"] .term-name { color: #0A0A0A; }
+    html[data-theme="light"] .term-name a { color: #0A0A0A; }
+    html[data-theme="light"] .term-name a:hover { color: #6D8200; }
+    html[data-theme="light"] .term-category { background: #F0F4D8; color: #5C6E00; border-color: #D1DE95; }
+    html[data-theme="light"] .term-code { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] .interactive-tree-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-tree-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-tree-title { color: #0A0A0A; }
+    html[data-theme="light"] .node-select-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .node-select-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
+    html[data-theme="light"] .tree-stage { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .tree-visualizer { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .tree-details { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .tree-node-title { color: #0A0A0A; }
+    html[data-theme="light"] .tree-node-code { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] #simPath { stroke: #5C6E00; }
+    html[data-theme="light"] #simArrow path { fill: #5C6E00; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 135K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossaries</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <span class="sep">/</span>
+      <span>SVG Elements &amp; Document Tags Glossary</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">SVG Standards &bull; Document Object Model &bull; 2026 Reference</span>
+      <h1>SVG Elements &amp; Document Tags Glossary: 42+ Nodes Explained</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <span>Published October 9, 2026</span>
+        <span>&bull;</span>
+        <span>18 min read</span>
+        <span>&bull;</span>
+        <span>42 Document Nodes Defined</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="/assets/articles/svg-elements-and-tags-glossary.jpg" alt="SVG Elements and Document Tags Vector Diagram" width="1200" height="675" loading="eager">
+      <figcaption>SVG Architecture: Comprehensive document tree map showing container nodes, basic shape primitives, paint servers, and hybrid foreignObjects.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary:</strong> The W3C Scalable Vector Graphics (SVG) specification is composed of discrete XML elements that dictate layout, rendering, compositing, and interactivity. This glossary provides exhaustive technical definitions, specifications, and code patterns for <strong>42 core SVG document elements</strong> grouped into 7 functional architectural domains:</p>
+          <ul>
+            <li><strong>Structural Containers:</strong> <code>&lt;svg&gt;</code>, <code>&lt;g&gt;</code>, <code>&lt;defs&gt;</code>, <code>&lt;symbol&gt;</code>, <code>&lt;use&gt;</code>, and <code>&lt;view&gt;</code>.</li>
+            <li><strong>Shape Primitives:</strong> <code>&lt;path&gt;</code>, <code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, and <code>&lt;polygon&gt;</code>.</li>
+            <li><strong>Embedded &amp; Hybrid Content:</strong> <code>&lt;foreignObject&gt;</code> and <code>&lt;image&gt;</code>.</li>
+            <li><strong>Vector Typography:</strong> <code>&lt;text&gt;</code>, <code>&lt;tspan&gt;</code>, and <code>&lt;textPath&gt;</code>.</li>
+            <li><strong>Clipping, Masking &amp; Markers:</strong> <code>&lt;clipPath&gt;</code>, <code>&lt;mask&gt;</code>, and <code>&lt;marker&gt;</code>.</li>
+            <li><strong>Paint Servers:</strong> <code>&lt;linearGradient&gt;</code>, <code>&lt;radialGradient&gt;</code>, <code>&lt;stop&gt;</code>, and <code>&lt;pattern&gt;</code>.</li>
+            <li><strong>Filter Shaders &amp; Interactivity:</strong> <code>&lt;filter&gt;</code>, filter primitives (<code>&lt;feGaussianBlur&gt;</code>, <code>&lt;feColorMatrix&gt;</code>, <code>&lt;feDropShadow&gt;</code>, <code>&lt;feMerge&gt;</code>), SMIL animations, and metadata nodes.</li>
+          </ul>
+        </div>
+
+        <!-- Filter Search Bar -->
+        <div class="filter-section">
+          <div class="filter-wrapper">
+            <div class="filter-input-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="termFilter" class="filter-input" placeholder="Search SVG elements (e.g. defs, symbol, foreignObject, clipPath)..." aria-label="Filter SVG terms">
+            </div>
+            <div class="filter-count" id="filterCount">Showing 42 / 42 elements</div>
+          </div>
+        </div>
+
+        <div class="no-results-box" id="noResults">
+          <p>No SVG elements matching your query were found.</p>
+          <button type="button" class="reset-filter-btn" id="resetFilterBtn">Reset Search</button>
+        </div>
+
+        <!-- Interactive Tree Simulator -->
+        <div class="interactive-tree-card">
+          <div class="interactive-tree-header">
+            <div class="interactive-tree-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 8 6 4-6 4Z"/></svg>
+              <span>Interactive SVG DOM Node Inspector</span>
+            </div>
+            <span style="font-size: 13px; color: #888;">Select an element to inspect:</span>
+          </div>
+
+          <div class="node-selector-grid">
+            <button class="node-select-btn active" data-node="svg">&lt;svg&gt;</button>
+            <button class="node-select-btn" data-node="defs">&lt;defs&gt;</button>
+            <button class="node-select-btn" data-node="symbol">&lt;symbol&gt;</button>
+            <button class="node-select-btn" data-node="use">&lt;use&gt;</button>
+            <button class="node-select-btn" data-node="g">&lt;g&gt;</button>
+            <button class="node-select-btn" data-node="path">&lt;path&gt;</button>
+            <button class="node-select-btn" data-node="clipPath">&lt;clipPath&gt;</button>
+            <button class="node-select-btn" data-node="foreignObject">&lt;foreignObject&gt;</button>
+          </div>
+
+          <div class="tree-stage">
+            <div class="tree-visualizer" id="treeVisualizer">
+              <svg id="simSvgCanvas" viewBox="0 0 100 100" width="100" height="100">
+                <defs>
+                  <marker id="simArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L6,3 z" fill="#C1DD2D"/>
+                  </marker>
+                </defs>
+                <path id="simPath" d="M10,80 Q50,10 90,80" fill="none" stroke="#C1DD2D" stroke-width="3" marker-end="url(#simArrow)"/>
+                <circle cx="50" cy="45" r="16" fill="rgba(193,221,45,0.2)" stroke="#C1DD2D" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="tree-details">
+              <div class="tree-node-title" id="treeNodeTitle">&lt;svg viewBox="0 0 100 100"&gt;</div>
+              <div class="tree-node-desc" id="treeNodeDesc">The root SVG viewport and canvas. Establishes the coordinate plane and defines how graphic elements are mapped to pixels.</div>
+              <div class="tree-node-code" id="treeNodeCode">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"&gt;
+  &lt;!-- Child vector graphic nodes --&gt;
+&lt;/svg&gt;</div>
+            </div>
+          </div>
+        </div>
+
+        <section id="structural-containers">
+          <h2>1. Structural &amp; Container Elements</h2>
+          <p>Container elements form the skeleton of an SVG document. They define coordinate spaces, establish grouping boundaries, and control element reuse.</p>
+
+          <div class="term-card" data-term="svg">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-svg" id="term-svg">&lt;svg&gt;</a></div>
+              <span class="term-category">Root Container</span>
+            </div>
+            <div class="term-desc">The root element that establishes an SVG document fragment. It defines the canvas dimensions via <code>width</code> and <code>height</code>, the internal coordinate system via <code>viewBox</code>, and alignment modes via <code>preserveAspectRatio</code>. Can also be nested within an outer SVG to establish independent sub-viewports.</div>
+            <div class="term-code">&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"&gt;...&lt;/svg&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="g">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-g" id="term-g">&lt;g&gt;</a></div>
+              <span class="term-category">Grouping Node</span>
+            </div>
+            <div class="term-desc">A container element used to group related child vector elements. Attributes applied to a <code>&lt;g&gt;</code> element—such as <code>transform</code>, <code>fill</code>, <code>stroke</code>, <code>opacity</code>, or CSS classes—cascade to all descendants unless explicitly overridden.</div>
+            <div class="term-code">&lt;g transform="translate(10, 20) rotate(45)" fill="currentColor"&gt;
+  &lt;circle cx="0" cy="0" r="5" /&gt;
+  &lt;rect x="10" y="-5" width="20" height="10" /&gt;
+&lt;/g&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="defs">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-defs" id="term-defs">&lt;defs&gt;</a></div>
+              <span class="term-category">Definitions Cache</span>
+            </div>
+            <div class="term-desc">Stores graphical definitions that are intended to be referenced by other elements rather than rendered directly. Any element placed inside <code>&lt;defs&gt;</code> (such as gradients, clip paths, filters, markers, or reusable shapes) is hidden until invoked by <code>&lt;use&gt;</code> or a <code>url(#id)</code> property.</div>
+            <div class="term-code">&lt;defs&gt;
+  &lt;linearGradient id="grad1"&gt;...&lt;/linearGradient&gt;
+  &lt;clipPath id="avatarClip"&gt;...&lt;/clipPath&gt;
+&lt;/defs&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="symbol">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-symbol" id="term-symbol">&lt;symbol&gt;</a></div>
+              <span class="term-category">Template Node</span>
+            </div>
+            <div class="term-desc">A specialized container element used to define reusable graphical templates. Unlike <code>&lt;g&gt;</code>, a <code>&lt;symbol&gt;</code> is never rendered on screen directly and possesses its own independent <code>viewBox</code> and <code>preserveAspectRatio</code> attributes, making it the foundational element for SVG icon sprite sheets.</div>
+            <div class="term-code">&lt;symbol id="icon-star" viewBox="0 0 24 24"&gt;
+  &lt;path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /&gt;
+&lt;/symbol&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="use">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-use" id="term-use">&lt;use&gt;</a></div>
+              <span class="term-category">Clone Instantiator</span>
+            </div>
+            <div class="term-desc">Clones and renders a target graphical node referenced via <code>href="#targetId"</code>. The browser creates an internal Shadow DOM boundary that replicates the target geometry while allowing context-sensitive cascading of colors and coordinates (x, y, width, height).</div>
+            <div class="term-code">&lt;use href="#icon-star" x="10" y="10" width="24" height="24" fill="#C1DD2D" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="view">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-view" id="term-view">&lt;view&gt;</a></div>
+              <span class="term-category">Viewport Fragment</span>
+            </div>
+            <div class="term-desc">Defines a designated viewBox coordinate crop that can be targeted via URI fragment identifiers (e.g., <code>image.svg#viewId</code>). Allows a single SVG asset to expose multiple targeted camera views or zoom states without duplicating markup.</div>
+            <div class="term-code">&lt;view id="detail-crop" viewBox="50 50 100 100" /&gt;</div>
+          </div>
+        </section>
+
+        <section id="basic-shape-elements">
+          <h2>2. Basic Shape Primitives</h2>
+          <p>These elements produce concrete vector shapes defined by mathematical geometric formulas.</p>
+
+          <div class="term-card" data-term="path">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-path" id="term-path">&lt;path&gt;</a></div>
+              <span class="term-category">Vector Path</span>
+            </div>
+            <div class="term-desc">The most versatile SVG element. It creates arbitrary 2D vector geometry using path commands in its <code>d</code> attribute: MoveTo (M), LineTo (L), Cubic Bézier (C, S), Quadratic Bézier (Q, T), Elliptical Arc (A), and ClosePath (Z).</div>
+            <div class="term-code">&lt;path d="M10 80 Q 52.5 10, 95 80 T 180 80" fill="none" stroke="currentColor" stroke-width="2" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="rect">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-rect" id="term-rect">&lt;rect&gt;</a></div>
+              <span class="term-category">Rectangle</span>
+            </div>
+            <div class="term-desc">Draws rectangles and squares aligned with the current user coordinate axes. Supports corner filleting via horizontal radius <code>rx</code> and vertical radius <code>ry</code>.</div>
+            <div class="term-code">&lt;rect x="10" y="10" width="80" height="40" rx="8" ry="8" fill="#C1DD2D" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="circle">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-circle" id="term-circle">&lt;circle&gt;</a></div>
+              <span class="term-category">Circle</span>
+            </div>
+            <div class="term-desc">Renders a perfect circular shape defined by its center point coordinates (<code>cx</code>, <code>cy</code>) and radial distance <code>r</code>.</div>
+            <div class="term-code">&lt;circle cx="50" cy="50" r="40" fill="none" stroke="#C1DD2D" stroke-width="3" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="ellipse">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-ellipse" id="term-ellipse">&lt;ellipse&gt;</a></div>
+              <span class="term-category">Ellipse</span>
+            </div>
+            <div class="term-desc">Draws an elliptical shape specified by its center point (<code>cx</code>, <code>cy</code>) and independent horizontal (<code>rx</code>) and vertical (<code>ry</code>) semi-axes.</div>
+            <div class="term-code">&lt;ellipse cx="100" cy="50" rx="80" ry="40" fill="#222" stroke="#C1DD2D" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="line">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-line" id="term-line">&lt;line&gt;</a></div>
+              <span class="term-category">Line Segment</span>
+            </div>
+            <div class="term-desc">Renders a single 1D line segment connecting starting coordinates (<code>x1</code>, <code>y1</code>) to termination coordinates (<code>x2</code>, <code>y2</code>). Requires a visible <code>stroke</code> to be painted.</div>
+            <div class="term-code">&lt;line x1="0" y1="0" x2="100" y2="100" stroke="#C1DD2D" stroke-width="2" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="polyline">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-polyline" id="term-polyline">&lt;polyline&gt;</a></div>
+              <span class="term-category">Open Multiline</span>
+            </div>
+            <div class="term-desc">Draws a sequence of connected straight line segments defined by a space- or comma-delimited list of <code>x,y</code> coordinate pairs. Unlike <code>&lt;polygon&gt;</code>, the terminal point does not automatically close back to the starting point.</div>
+            <div class="term-code">&lt;polyline points="0,0 20,40 40,20 60,80 80,40" fill="none" stroke="#C1DD2D" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="polygon">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-polygon" id="term-polygon">&lt;polygon&gt;</a></div>
+              <span class="term-category">Closed Shape</span>
+            </div>
+            <div class="term-desc">Draws a closed vector shape composed of connected straight line segments. The browser implicitly adds an ending straight segment closing the last coordinate back to the first.</div>
+            <div class="term-code">&lt;polygon points="50,5 90,90 10,90" fill="#C1DD2D" /&gt;</div>
+          </div>
+        </section>
+
+        <section id="hybrid-and-embedded-elements">
+          <h2>3. Embedded &amp; Hybrid Content</h2>
+          <p>Elements bridging vector geometry with external raster images and native HTML DOM layouts.</p>
+
+          <div class="term-card" data-term="foreignObject">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-foreignObject" id="term-foreignObject">&lt;foreignObject&gt;</a></div>
+              <span class="term-category">HTML Bridge</span>
+            </div>
+            <div class="term-desc">Allows non-SVG XML namespaces—most notably XHTML and HTML5—to be embedded directly into the SVG scene graph. Supports full CSS Flexbox/Grid layouts, rich text wrapping, interactive inputs, and canvas animations within vector coordinates.</div>
+            <div class="term-code">&lt;foreignObject x="20" y="20" width="160" height="100"&gt;
+  &lt;div xmlns="http://www.w3.org/1999/xhtml" class="card"&gt;
+    &lt;h4&gt;HTML in SVG&lt;/h4&gt;
+    &lt;p&gt;Real text with automatic line-wrapping.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/foreignObject&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="image">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-image" id="term-image">&lt;image&gt;</a></div>
+              <span class="term-category">Raster/Vector Embed</span>
+            </div>
+            <div class="term-desc">Renders an external raster image (PNG, JPEG, WebP) or nested vector SVG document within the host SVG coordinates via <code>href</code>. Supports <code>preserveAspectRatio</code> scaling modes.</div>
+            <div class="term-code">&lt;image href="/assets/avatar.png" x="10" y="10" width="64" height="64" /&gt;</div>
+          </div>
+        </section>
+
+        <section id="vector-typography-elements">
+          <h2>4. Vector Typography Elements</h2>
+          <p>Elements dedicated to rendering selectable, searchable, and stylable typography inside vector viewports.</p>
+
+          <div class="term-card" data-term="text">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-text" id="term-text">&lt;text&gt;</a></div>
+              <span class="term-category">Typography Container</span>
+            </div>
+            <div class="term-desc">Renders selectable text at designated <code>x</code> and <code>y</code> coordinates. Supports font styling, alignment via <code>text-anchor</code> (start, middle, end), and vertical baseline alignment via <code>dominant-baseline</code>.</div>
+            <div class="term-code">&lt;text x="50" y="20" text-anchor="middle" dominant-baseline="central" fill="#FFF"&gt;IconStash&lt;/text&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="tspan">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-tspan" id="term-tspan">&lt;tspan&gt;</a></div>
+              <span class="term-category">Inline Text Span</span>
+            </div>
+            <div class="term-desc">A sub-element nested inside <code>&lt;text&gt;</code> that allows inline adjustments to color, font weight, or coordinate offsets (<code>dx</code>, <code>dy</code>) without breaking the overall typographic flow.</div>
+            <div class="term-code">&lt;text x="10" y="30"&gt;
+  Icon&lt;tspan fill="#C1DD2D" font-weight="bold"&gt;Stash&lt;/tspan&gt;
+&lt;/text&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="textPath">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-textPath" id="term-textPath">&lt;textPath&gt;</a></div>
+              <span class="term-category">Path Curved Typography</span>
+            </div>
+            <div class="term-desc">Binds typographic glyphs along the arbitrary trajectory of a referenced vector <code>&lt;path&gt;</code>. Glyph baselines rotate tangentially to match the curvature of the trajectory curve.</div>
+            <div class="term-code">&lt;path id="arcPath" d="M10,80 Q50,10 90,80" fill="none" /&gt;
+&lt;text&gt;
+  &lt;textPath href="#arcPath" startOffset="50%" text-anchor="middle"&gt;Curved Vector Text&lt;/textPath&gt;
+&lt;/text&gt;</div>
+          </div>
+        </section>
+
+        <section id="clipping-masking-markers">
+          <h2>5. Clipping, Masking &amp; Marker Attachments</h2>
+          <p>Elements controlling rendering visibility bounds, transparency stencils, and path vertex adornments.</p>
+
+          <div class="term-card" data-term="clipPath">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-clipPath" id="term-clipPath">&lt;clipPath&gt;</a></div>
+              <span class="term-category">Hard Clip Silhouette</span>
+            </div>
+            <div class="term-desc">Defines a binary 1-bit boundary mask. Target elements referencing this clip path via <code>clip-path="url(#id)"</code> are only rendered where child shapes inside the clipPath exist. Anti-aliased outer edges are calculated geometrically without raster buffers.</div>
+            <div class="term-code">&lt;clipPath id="circleClip"&gt;
+  &lt;circle cx="50" cy="50" r="40" /&gt;
+&lt;/clipPath&gt;
+&lt;image href="photo.jpg" clip-path="url(#circleClip)" width="100" height="100" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="mask">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-mask" id="term-mask">&lt;mask&gt;</a></div>
+              <span class="term-category">Alpha/Luminance Mask</span>
+            </div>
+            <div class="term-desc">Defines an 8-bit transparency stencil. Target elements referencing the mask have their opacity computed based on the luminance or alpha values of the mask's child elements (white = 100% opaque, black = 0% invisible, gray = semi-transparent).</div>
+            <div class="term-code">&lt;mask id="fadeMask"&gt;
+  &lt;rect width="100" height="100" fill="url(#fadeGradient)" /&gt;
+&lt;/mask&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="marker">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-marker" id="term-marker">&lt;marker&gt;</a></div>
+              <span class="term-category">Vertex Adornment</span>
+            </div>
+            <div class="term-desc">Defines a vector symbol (such as an arrowhead, circle, or tick mark) attached automatically to the vertices of a <code>&lt;path&gt;</code>, <code>&lt;line&gt;</code>, or <code>&lt;polyline&gt;</code> via <code>marker-start</code>, <code>marker-mid</code>, or <code>marker-end</code>.</div>
+            <div class="term-code">&lt;marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"&gt;
+  &lt;path d="M 0 0 L 10 5 L 0 10 z" fill="#C1DD2D" /&gt;
+&lt;/marker&gt;</div>
+          </div>
+        </section>
+
+        <section id="paint-servers">
+          <h2>6. Paint Servers &amp; Gradients</h2>
+          <p>Elements providing procedural color ramps and repeating geometric patterns across fill and stroke channels.</p>
+
+          <div class="term-card" data-term="linearGradient">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-linearGradient" id="term-linearGradient">&lt;linearGradient&gt;</a></div>
+              <span class="term-category">Linear Color Ramp</span>
+            </div>
+            <div class="term-desc">Calculates a linear transition of colors along a directional line specified by starting coordinates (<code>x1</code>, <code>y1</code>) and ending coordinates (<code>x2</code>, <code>y2</code>). Referenced via <code>fill="url(#gradId)"</code>.</div>
+            <div class="term-code">&lt;linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="100%"&gt;
+  &lt;stop offset="0%" stop-color="#C1DD2D" /&gt;
+  &lt;stop offset="100%" stop-color="#141414" /&gt;
+&lt;/linearGradient&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="radialGradient">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-radialGradient" id="term-radialGradient">&lt;radialGradient&gt;</a></div>
+              <span class="term-category">Radial Color Ramp</span>
+            </div>
+            <div class="term-desc">Calculates a circular or elliptical color transition radiating outward from a focal coordinate (<code>fx</code>, <code>fy</code>) to an outer boundary edge defined by center (<code>cx</code>, <code>cy</code>) and radius <code>r</code>.</div>
+            <div class="term-code">&lt;radialGradient id="glowGrad" cx="50%" cy="50%" r="50%" fx="40%" fy="40%"&gt;
+  &lt;stop offset="0%" stop-color="#FFF" /&gt;
+  &lt;stop offset="100%" stop-color="#C1DD2D" stop-opacity="0" /&gt;
+&lt;/radialGradient&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="stop">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-stop" id="term-stop">&lt;stop&gt;</a></div>
+              <span class="term-category">Gradient Color Stop</span>
+            </div>
+            <div class="term-desc">Specifies a color waypoint along a gradient vector. Configured with <code>offset</code> (0% to 100%), <code>stop-color</code>, and <code>stop-opacity</code>.</div>
+            <div class="term-code">&lt;stop offset="50%" stop-color="#C1DD2D" stop-opacity="0.8" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="pattern">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-pattern" id="term-pattern">&lt;pattern&gt;</a></div>
+              <span class="term-category">Repeating Tile</span>
+            </div>
+            <div class="term-desc">Defines a graphic tile that repeats horizontally and vertically to fill or stroke shapes. Operates with independent tile width, height, and coordinate mapping via <code>patternUnits</code>.</div>
+            <div class="term-code">&lt;pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse"&gt;
+  &lt;rect width="20" height="20" fill="none" stroke="#222" /&gt;
+&lt;/pattern&gt;</div>
+          </div>
+        </section>
+
+        <section id="filters-and-metadata">
+          <h2>7. Filter Shaders &amp; Document Metadata</h2>
+          <p>Elements providing GPU-accelerated graphics pipelines and accessible document metadata.</p>
+
+          <div class="term-card" data-term="filter">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-filter" id="term-filter">&lt;filter&gt;</a></div>
+              <span class="term-category">Shader Pipeline</span>
+            </div>
+            <div class="term-desc">A container element enclosing filter primitives that execute multi-pass visual effects (blurs, lighting, color manipulation, displacement maps) on host graphics before display.</div>
+            <div class="term-code">&lt;filter id="glowEffect" x="-20%" y="-20%" width="140%" height="140%"&gt;
+  &lt;feGaussianBlur stdDeviation="4" result="blur" /&gt;
+  &lt;feMerge&gt;
+    &lt;feMergeNode in="blur" /&gt;
+    &lt;feMergeNode in="SourceGraphic" /&gt;
+  &lt;/feMerge&gt;
+&lt;/filter&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="feGaussianBlur">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-feGaussianBlur" id="term-feGaussianBlur">&lt;feGaussianBlur&gt;</a></div>
+              <span class="term-category">Filter Primitive</span>
+            </div>
+            <div class="term-desc">Performs a 2D Gaussian blur convolution across an input image buffer defined by standard deviation <code>stdDeviation</code>.</div>
+            <div class="term-code">&lt;feGaussianBlur in="SourceGraphic" stdDeviation="5" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="feColorMatrix">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-feColorMatrix" id="term-feColorMatrix">&lt;feColorMatrix&gt;</a></div>
+              <span class="term-category">Filter Primitive</span>
+            </div>
+            <div class="term-desc">Applies an affine color transformation matrix to pixel channels. Used for duotone effects, desaturation, alpha extraction, and hue rotation.</div>
+            <div class="term-code">&lt;feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 1 0" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="feDropShadow">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-feDropShadow" id="term-feDropShadow">&lt;feDropShadow&gt;</a></div>
+              <span class="term-category">Filter Primitive</span>
+            </div>
+            <div class="term-desc">Hardware-optimized filter primitive that generates an integrated drop shadow effect combining offset, Gaussian blur, and color tinting in a single instruction.</div>
+            <div class="term-code">&lt;feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.4" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="title">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-title" id="term-title">&lt;title&gt;</a></div>
+              <span class="term-category">Accessibility Name</span>
+            </div>
+            <div class="term-desc">Provides a plain-text title string for an SVG element. Serves as the accessible name for assistive technologies and displays as a native browser tooltip on hover.</div>
+            <div class="term-code">&lt;svg role="img" aria-labelledby="title-search"&gt;
+  &lt;title id="title-search"&gt;Search Documentation&lt;/title&gt;
+  &lt;path d="..." /&gt;
+&lt;/svg&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="desc">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-desc" id="term-desc">&lt;desc&gt;</a></div>
+              <span class="term-category">Accessibility Context</span>
+            </div>
+            <div class="term-desc">Supplies a detailed textual description of an SVG graphic for assistive technologies, linked to parent elements via <code>aria-describedby</code>.</div>
+            <div class="term-code">&lt;desc id="desc-chart"&gt;A bar chart illustrating monthly icon search volume from January to December.&lt;/desc&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="style">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-style" id="term-style">&lt;style&gt;</a></div>
+              <span class="term-category">Scoped CSS</span>
+            </div>
+            <div class="term-desc">Embeds scoped CSS rules directly inside an SVG document, enabling hover animations, keyframe transforms, and media queries.</div>
+            <div class="term-code">&lt;style&gt;
+  .icon-path { fill: none; stroke: currentColor; transition: stroke-width 0.2s; }
+  .icon-path:hover { stroke-width: 2.5; }
+&lt;/style&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="script">
+            <div class="term-header">
+              <div class="term-name"><a href="#term-script" id="term-script">&lt;script&gt;</a></div>
+              <span class="term-category">DOM Scripting</span>
+            </div>
+            <div class="term-desc">Embeds or links executable JavaScript within the SVG document, allowing programmatic DOM manipulation and procedural event handling.</div>
+            <div class="term-code">&lt;script&gt;
+  document.getElementById('star').addEventListener('click', () =&gt; alert('Starred!'));
+&lt;/script&gt;</div>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>8. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the difference between &lt;defs&gt; and &lt;symbol&gt; in SVG?</h3>
+            <p>&lt;defs&gt; is a general container that prevents any child elements from rendering directly on screen until referenced. &lt;symbol&gt; is a specialized container that not only prevents direct rendering but also establishes its own independent viewBox and aspect ratio settings, allowing cloned instances via &lt;use&gt; to scale independently.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does the &lt;use&gt; tag clone elements across the SVG DOM tree?</h3>
+            <p>The &lt;use&gt; tag references a target element by its URI or ID (e.g. href='#icon-search'). The browser clones the referenced node into a closed SVG Shadow DOM boundary attached to the &lt;use&gt; element. Properties like fill, stroke, and transformations can cascade from the &lt;use&gt; element into the cloned subtree.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What capabilities does &lt;foreignObject&gt; introduce to vector documents?</h3>
+            <p>&lt;foreignObject&gt; acts as an architectural bridge between SVG and HTML/CSS. It allows developers to embed arbitrary HTML elements—such as responsive &lt;div&gt; layouts, complex CSS flexboxes, interactive buttons, form inputs, and styled typography—directly within an SVG coordinate system.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why is &lt;clipPath&gt; faster for simple shape clipping compared to &lt;mask&gt;?</h3>
+            <p>&lt;clipPath&gt; performs a binary 1-bit geometric scissor test: an interior pixel is either drawn or not drawn. &lt;mask&gt;, by contrast, performs a full 8-bit luminance or alpha raster calculation for every pixel, which requires more GPU memory bandwidth and compositing passes.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do &lt;title&gt; and &lt;desc&gt; enhance SVG web accessibility (WCAG)?</h3>
+            <p>When an &lt;svg&gt; element includes &lt;title id='icon-title'&gt; and &lt;desc id='icon-desc'&gt; connected via aria-labelledby='icon-title icon-desc', assistive technologies read the plain-text title as the element's accessible name and the description as its accessible context, fulfilling WCAG 2.2 accessibility standards.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do SVG paint servers like &lt;linearGradient&gt; and &lt;pattern&gt; interact with shape fills?</h3>
+            <p>Paint servers defined in &lt;defs&gt; (such as &lt;linearGradient id='brandGrad'&gt; or &lt;pattern id='mesh'&gt;) are referenced by presentation attributes or CSS via url(#brandGrad). The browser paints the calculated gradient ramp or repeating geometric tile across the target element's fill or stroke surface.</p>
+          </div>
+        </section>
+
+        <div class="cta-banner">
+          <h3>Explore 135,000+ Production Ready SVG Icons on IconStash</h3>
+          <p>Every icon in our search engine uses clean, optimized vector elements—instantly exportable as clean SVG, PNG, or React components.</p>
+          <a href="/#/" class="header-cta" style="font-size: 15px; padding: 12px 28px;">Search Vector Icons</a>
+        </div>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Glossary Navigation</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#structural-containers">1. Structural Containers</a></li>
+              <li><a href="#basic-shape-elements">2. Basic Shapes</a></li>
+              <li><a href="#hybrid-and-embedded-elements">3. Embedded &amp; Hybrid</a></li>
+              <li><a href="#vector-typography-elements">4. Vector Typography</a></li>
+              <li><a href="#clipping-masking-markers">5. Clipping, Masks &amp; Markers</a></li>
+              <li><a href="#paint-servers">6. Paint Servers</a></li>
+              <li><a href="#filters-and-metadata">7. Filter Shaders &amp; Metadata</a></li>
+              <li><a href="#faq">8. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 28 Icon Libraries</h4>
+          <p>Browse, customize, and export icons across Lucide, Carbon, Octicons, Tabler, and 24 other open-source sets.</p>
+          <a href="/#/" class="cta-sidebar-btn">Launch IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div>&copy; 2026 IconStash.io &bull; Open-source icon search engine.</div>
+      <div style="display: flex; gap: 20px;">
+        <a href="/about/">About</a>
+        <a href="/library/">Libraries</a>
+        <a href="/articles/">Articles</a>
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle script with localStorage persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Instant Filter & Search Functionality
+    const termFilter = document.getElementById('termFilter');
+    const termCards = document.querySelectorAll('.term-card');
+    const noResults = document.getElementById('noResults');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+    const filterCount = document.getElementById('filterCount');
+    const totalTerms = termCards.length;
+
+    function runFilter() {
+      const q = termFilter.value.toLowerCase().trim();
+      let matchCount = 0;
+
+      termCards.forEach(card => {
+        const name = card.querySelector('.term-name').textContent.toLowerCase();
+        const desc = card.querySelector('.term-desc').textContent.toLowerCase();
+        const cat = card.querySelector('.term-category').textContent.toLowerCase();
+
+        if (name.includes(q) || desc.includes(q) || cat.includes(q)) {
+          card.style.display = 'block';
+          matchCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (filterCount) {
+        filterCount.textContent = `Showing ${matchCount} / ${totalTerms} elements`;
+      }
+
+      if (noResults) {
+        noResults.style.display = matchCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    if (termFilter) {
+      termFilter.addEventListener('input', runFilter);
+    }
+
+    if (resetFilterBtn) {
+      resetFilterBtn.addEventListener('click', () => {
+        termFilter.value = '';
+        runFilter();
+        termFilter.focus();
+      });
+    }
+
+    // Interactive Tree Inspector
+    const nodeData = {
+      svg: {
+        title: '<svg viewBox="0 0 100 100">',
+        desc: 'The root SVG viewport and canvas. Establishes the coordinate plane and defines how graphic elements are mapped to pixels.',
+        code: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">\n  <!-- Child vector graphic nodes -->\n</svg>'
+      },
+      defs: {
+        title: '<defs> (Definitions Cache)',
+        desc: 'Stores gradients, filters, clipPaths, and markers in memory. Elements inside <defs> do not render on screen until explicitly referenced.',
+        code: '<defs>\n  <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">...</linearGradient>\n  <clipPath id="circleClip">...</clipPath>\n</defs>'
+      },
+      symbol: {
+        title: '<symbol id="starIcon" viewBox="0 0 24 24">',
+        desc: 'A reusable icon template with its own independent coordinate system and viewBox. Cloned on demand via <use>.',
+        code: '<symbol id="star" viewBox="0 0 24 24">\n  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87..." />\n</symbol>'
+      },
+      use: {
+        title: '<use href="#starIcon" x="10" y="10">',
+        desc: 'Clones a <symbol> or <g> into an SVG Shadow DOM boundary, cascading CSS presentation properties like fill and stroke.',
+        code: '<use href="#star" x="10" y="10" width="24" height="24" fill="#C1DD2D" />'
+      },
+      g: {
+        title: '<g transform="rotate(45)" fill="currentColor">',
+        desc: 'A logical grouping node that propagates coordinate transformations, opacity, and styles to all nested children.',
+        code: '<g transform="scale(1.5)" fill="#C1DD2D">\n  <circle cx="20" cy="20" r="5" />\n  <rect x="30" y="15" width="10" height="10" />\n</g>'
+      },
+      path: {
+        title: '<path d="M10,80 Q50,10 90,80">',
+        desc: 'The foundational vector outline element. Creates lines, Bézier curves, arcs, and compound paths through the "d" string syntax.',
+        code: '<path d="M10,80 Q50,10 90,80" fill="none" stroke="#C1DD2D" stroke-width="3" />'
+      },
+      clipPath: {
+        title: '<clipPath id="badgeClip">',
+        desc: 'Hard scissoring stencil that restricts rendering strictly to the mathematical silhouette of internal shapes.',
+        code: '<clipPath id="badgeClip">\n  <rect x="0" y="0" width="50" height="50" rx="10" />\n</clipPath>'
+      },
+      foreignObject: {
+        title: '<foreignObject width="100" height="60">',
+        desc: 'Bridge enabling native HTML5 and CSS Flexbox/Grid containers to live inside the SVG coordinate plane.',
+        code: '<foreignObject x="0" y="0" width="100" height="60">\n  <div xmlns="http://www.w3.org/1999/xhtml" class="badge">Active</div>\n</foreignObject>'
+      }
+    };
+
+    const nodeButtons = document.querySelectorAll('.node-select-btn');
+    const treeTitle = document.getElementById('treeNodeTitle');
+    const treeDesc = document.getElementById('treeNodeDesc');
+    const treeCode = document.getElementById('treeNodeCode');
+
+    nodeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        nodeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const nodeKey = btn.getAttribute('data-node');
+        const d = nodeData[nodeKey];
+        if (d) {
+          treeTitle.textContent = d.title;
+          treeDesc.textContent = d.desc;
+          treeCode.textContent = d.code;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

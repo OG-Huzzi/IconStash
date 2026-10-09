@@ -153,6 +153,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Fluent UI Icons Complete Guide: Setup, React, Web Components & Sizing (2026)](https://iconstash.io/articles/fluent-ui-icons-complete-guide/)
 - [Carbon Icons Complete Guide: Setup, React, Angular & IBM Design System (2026)](https://iconstash.io/articles/carbon-icons-complete-guide/)
 - [SVG Stroke, Fill & Painting Glossary (38+ Terms)](https://iconstash.io/Glossary/svg-stroke-fill-and-painting-glossary/)
+- [Octicons Complete Guide: Setup, React, Primer & GitHub Design System (2026)](https://iconstash.io/articles/octicons-complete-guide/)
+- [Iconoir Icons Complete Guide: Setup, React, Vue, CSS & Figma (2026)](https://iconstash.io/articles/iconoir-complete-guide/)
+- [SVG Elements & Document Tags Glossary (42+ Terms)](https://iconstash.io/Glossary/svg-elements-and-tags-glossary/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives

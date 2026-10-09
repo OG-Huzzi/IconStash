@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iconoir Icons Complete Guide: Setup, React, Vue, CSS &amp; Figma (2026) | IconStash</title>
+  <meta name="description" content="Master Iconoir: 2,000+ open-source icons, 24px grid, 1.5px stroke, iconoir-react &amp; Vue setup, CSS mask icons, zero paywalls, and tree-shaking.">
+  <meta name="keywords" content="iconoir, iconoir icons, iconoir react, iconoir-react, iconoir vue, iconoir css, free open source icons, minimal svg icons, iconoir guide">
+  <meta property="og:title" content="Iconoir Icons Complete Guide: Setup, React, Vue, CSS &amp; Figma (2026)">
+  <meta property="og:description" content="Master Iconoir: 2,000+ open-source icons, 24px grid, 1.5px stroke, iconoir-react &amp; Vue setup, CSS mask icons, zero paywalls, and tree-shaking.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/iconoir-complete-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/iconoir-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Iconoir Open Source Vector Icon Library Architecture">
+  <meta property="article:published_time" content="2026-10-09T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-09T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Iconoir">
+  <meta property="article:tag" content="SVG Icons">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Vue">
+  <meta property="article:tag" content="CSS Mask">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Iconoir Icons Complete Guide: Setup, React, Vue, CSS &amp; Figma (2026)">
+  <meta name="twitter:description" content="Master Iconoir: 2,000+ open-source icons, 24px grid, 1.5px stroke, iconoir-react &amp; Vue setup, CSS mask icons, zero paywalls, and tree-shaking.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/iconoir-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/iconoir-complete-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Iconoir Icons Complete Guide: Setup, React, Vue, CSS & Figma (2026)",
+    "description": "Master Iconoir: 2,000+ open-source icons, 24px grid, 1.5px stroke, iconoir-react & Vue setup, CSS mask icons, zero paywalls, and tree-shaking.",
+    "image": "https://iconstash.io/assets/articles/iconoir-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-09",
+    "dateModified": "2026-10-09",
+    "mainEntityOfPage": "https://iconstash.io/articles/iconoir-complete-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Iconoir", "sameAs": "https://iconoir.com" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "React (software library)", "sameAs": "https://en.wikipedia.org/wiki/React_(software_library)" },
+      { "@type": "Thing", "name": "Vue.js", "sameAs": "https://en.wikipedia.org/wiki/Vue.js" }
+    ],
+    "keywords": ["iconoir", "iconoir icons", "iconoir react", "iconoir-react", "iconoir vue", "iconoir css", "minimal svg icons"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Iconoir Complete Guide", "item": "https://iconstash.io/articles/iconoir-complete-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Iconoir, and why is it considered one of the purest open-source icon libraries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Iconoir is an open-source SVG icon library featuring over 2,020 icons drawn on a 24x24 grid with a consistent 1.5px stroke weight. Unlike many commercial sets that gate essential glyphs behind 'Pro' paywalls, Iconoir is 100% free under the MIT License with no premium tiers, logins, or restricted assets."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What grid and default stroke specifications does Iconoir use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Iconoir is built on a 24x24 pixel grid with an optical 2px internal padding and a baseline stroke-width of 1.5px. Its stroke-linecap and stroke-linejoin are round by default, creating a warm, modern aesthetic that fits minimalist SaaS and consumer mobile applications."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install and use Iconoir in React and Next.js with tree-shaking?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install the package with npm install iconoir-react. Import icons as named components, for example: import { Calendar, CheckCircle, Search } from 'iconoir-react'. Modern bundlers (Vite, Webpack, Next.js 15) automatically tree-shake unused icons, keeping your final JavaScript bundle lean."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Iconoir support zero-JS CSS mask-image implementation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Iconoir provides an official CSS package via npm install iconoir. It maps icons as CSS mask-image stencils. You can render icons purely through CSS classes (e.g., <i class='iconoir-calendar'></i>) and tint them dynamically using the CSS background-color property."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I dynamically customize the stroke-width of Iconoir components in React?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. All iconoir-react components accept standard SVG presentation attributes. You can override the default 1.5px stroke weight by passing strokeWidth={2} or strokeWidth={1} directly to the component, or by wrapping your app in the IconoirProvider context."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I search, recolor, and download Iconoir icons?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can search, filter, and inspect all 2,020 Iconoir icons directly on IconStash at https://iconstash.io/library/iconoir/. IconStash provides instant keyword search, live dark/light canvas preview, and one-click export to clean SVG, PNG, and React JSX components."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* Interactive Demo Card */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-controls-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 13px; padding: 7px 14px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .demo-toggle-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+
+    .iconoir-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-top: 16px; }
+    .iconoir-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 12px; background: #141414; border: 1px solid #262626; border-radius: 8px; gap: 10px; text-align: center; }
+    .iconoir-preview { display: flex; align-items: center; justify-content: center; height: 52px; width: 52px; background: #1F1F1F; border-radius: 8px; color: #C1DD2D; transition: all 200ms ease; }
+    .iconoir-name { font-size: 12.5px; font-weight: 600; color: #FFF; }
+    .iconoir-meta { font-size: 11px; color: #888; font-family: "JetBrains Mono", monospace; }
+
+    .code-generator-box { background: #0E0E0E; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #C1DD2D; overflow-x: auto; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #383838; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .cta-sidebar-box { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #525252; }
+    html[data-theme="light"] .cta-banner { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-banner p { color: #525252; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .theme-toggle-btn { border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .theme-toggle-btn:hover { border-color: #A3A3A3; color: #171717; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-title { color: #0A0A0A; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .demo-toggle-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
+    html[data-theme="light"] .demo-toggle-btn:hover:not(.active) { background: #E4E4E7; }
+    html[data-theme="light"] .iconoir-grid { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .iconoir-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .iconoir-preview { background: #F4F4F5; color: #6D8200; }
+    html[data-theme="light"] .iconoir-name { color: #0A0A0A; }
+    html[data-theme="light"] .code-generator-box { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 135K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/library/iconoir/">Iconoir (2.0K)</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Iconoir Complete Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Design Systems &bull; Open-Source Iconography &bull; 2026 Edition</span>
+      <h1>Iconoir Icons Complete Guide: Setup, React, Vue, CSS &amp; Figma</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <span>Published October 9, 2026</span>
+        <span>&bull;</span>
+        <span>15 min read</span>
+        <span>&bull;</span>
+        <span>2,020 Icons Indexed</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="/assets/articles/iconoir-guide.jpg" alt="Iconoir Open Source Vector Icon Library Architecture" width="1200" height="675" loading="eager">
+      <figcaption>Iconoir: 2,000+ pure vector outline icons engineered for modern web apps, mobile interfaces, and Figma design systems.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary:</strong> Iconoir is one of the cleanest open-source icon ecosystems available today. With over <strong>2,020 outline icons</strong> indexed on IconStash, this guide provides complete architecture for:</p>
+          <ul>
+            <li><strong>Design Geometry:</strong> Strict 24x24 optical grid, uniform 1.5px stroke caliper, and zero commercial paywalls (100% MIT).</li>
+            <li><strong>React &amp; React Native:</strong> Complete setup with <code>iconoir-react</code> and <code>iconoir-react-native</code>, tree-shaking, and SVG props.</li>
+            <li><strong>Vue 3 &amp; Svelte 5:</strong> Native modern component libraries without legacy wrappers or runtime bloat.</li>
+            <li><strong>Zero-JS CSS Masks:</strong> Stenciling icons via <code>iconoir.css</code> and CSS <code>mask-image</code> for pure stylesheet theming.</li>
+            <li><strong>Figma Handoff:</strong> Syncing icon components between Figma Community files and code repositories without coordinate shifts.</li>
+          </ul>
+        </div>
+
+        <section id="introduction">
+          <h2>1. Introduction to Iconoir</h2>
+          <p>In modern web and mobile product design, consistency is paramount. A user interface that combines heavy 2px strokes from one library with delicate 1px lines from another feels fragmented and unpolished. Furthermore, developers are often frustrated by commercial icon libraries that offer a modest free tier but gate the most critical glyphs (cloud storage, AI sparkles, battery states, enterprise integrations) behind recurring subscription paywalls.</p>
+          <p><strong>Iconoir</strong> was created to solve both problems. It is an open-source, community-driven icon library created by Luca Burgio featuring over <strong>2,020 meticulously crafted vector icons</strong>. Every single icon in Iconoir is drawn on the exact same <strong>24x24 pixel grid</strong> using a consistent <strong>1.5px stroke weight</strong>, rounded terminals, and balanced negative space.</p>
+          <p>There are no "Pro" tiers, no locked SVGs, no email signups, and no artificial restrictions. The entire collection is licensed under the permissive <strong>MIT License</strong> and fully indexed on <a href="/library/iconoir/">IconStash's Iconoir Library Hub</a>.</p>
+        </section>
+
+        <section id="design-philosophy">
+          <h2>2. Design Philosophy: The 24x24 &amp; 1.5px Stroke Standard</h2>
+          <p>Iconoir stands out for its visual balance. Many icon libraries adopt either a chunky 2px stroke (like Lucide and Feather) which can feel heavy in minimal, typography-forward interfaces, or an ultra-fine 1px stroke which loses clarity on standard DPI monitors. Iconoir selected <strong>1.5px on a 24x24 canvas</strong> as the ideal golden ratio.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Geometric Attribute</th>
+                  <th>Iconoir Specification</th>
+                  <th>Visual Effect &amp; Technical Advantage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Canvas Grid</strong></td>
+                  <td><code>24 x 24 px</code></td>
+                  <td>Standard modern viewport canvas matching iOS and Android touch targets and desktop SaaS menus.</td>
+                </tr>
+                <tr>
+                  <td><strong>Optical Padding</strong></td>
+                  <td><code>2px bounding margin</code></td>
+                  <td>Prevents edge clipping when strokes are thickened or when drop-shadow filters are applied.</td>
+                </tr>
+                <tr>
+                  <td><strong>Default Stroke Caliper</strong></td>
+                  <td><code>1.5px</code></td>
+                  <td>Provides crisp definition on 1x displays while looking refined and sophisticated on Retina screens.</td>
+                </tr>
+                <tr>
+                  <td><strong>Cap &amp; Join Style</strong></td>
+                  <td><code>stroke-linecap: round</code><br><code>stroke-linejoin: round</code></td>
+                  <td>Eliminates sharp needle corners; delivers a friendly, modern visual rhythm across all glyphs.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Interactive Demo Sandbox -->
+          <div class="interactive-demo-card">
+            <div class="interactive-demo-header">
+              <div class="interactive-demo-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m12 6 4 6h-8l4-6z"/></svg>
+                <span>Live Iconoir Stroke &amp; Framework Sandbox</span>
+              </div>
+              <div class="demo-controls-group">
+                <span style="font-size: 13px; color: #888;">Stroke:</span>
+                <button class="demo-toggle-btn active" id="btnStroke15">1.5px</button>
+                <button class="demo-toggle-btn" id="btnStroke20">2.0px</button>
+                <button class="demo-toggle-btn" id="btnStroke10">1.0px</button>
+                <span style="font-size: 13px; color: #888; margin-left: 8px;">Framework:</span>
+                <button class="demo-toggle-btn active" id="btnFwReact">React</button>
+                <button class="demo-toggle-btn" id="btnFwVue">Vue</button>
+                <button class="demo-toggle-btn" id="btnFwCss">CSS Mask</button>
+              </div>
+            </div>
+
+            <div class="iconoir-grid">
+              <div class="iconoir-card">
+                <div class="iconoir-preview" id="prevCalendar">
+                  <svg id="svgCalendar" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4V2m0 2v2m0-2h-4.5M3 10v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9H3Zm0 0V6a2 2 0 0 1 2-2h2m0-2v2m0-2v2m0 0h3.5M9 14v2m0 0v2m0-2h6m0-2v2m0 0v2"/></svg>
+                </div>
+                <div class="iconoir-name">Calendar</div>
+                <div class="iconoir-meta" id="metaCalendar">stroke: 1.5px</div>
+              </div>
+
+              <div class="iconoir-card">
+                <div class="iconoir-preview" id="prevCheck">
+                  <svg id="svgCheck" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 12.5 3 3 7-7"/><circle cx="12" cy="12" r="9"/></svg>
+                </div>
+                <div class="iconoir-name">Check Circle</div>
+                <div class="iconoir-meta" id="metaCheck">stroke: 1.5px</div>
+              </div>
+
+              <div class="iconoir-card">
+                <div class="iconoir-preview" id="prevSearch">
+                  <svg id="svgSearch" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+                </div>
+                <div class="iconoir-name">Search</div>
+                <div class="iconoir-meta" id="metaSearch">stroke: 1.5px</div>
+              </div>
+
+              <div class="iconoir-card">
+                <div class="iconoir-preview" id="prevShield">
+                  <svg id="svgShield" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6.5C4 17 8 21.5 12 22c4-.5 8-5 8-10.5V5l-8-3Z"/></svg>
+                </div>
+                <div class="iconoir-name">Shield</div>
+                <div class="iconoir-meta" id="metaShield">stroke: 1.5px</div>
+              </div>
+            </div>
+
+            <div class="code-generator-box" id="iconoirCodeOutput">
+              import { Calendar, CheckCircle, Search, Shield } from 'iconoir-react';
+            </div>
+          </div>
+        </section>
+
+        <section id="react-and-react-native-setup">
+          <h2>3. React &amp; React Native Setup</h2>
+          <p>Iconoir provides first-class support for React through <code>iconoir-react</code> and for mobile apps through <code>iconoir-react-native</code>. Both libraries export tree-shakeable SVG components with full TypeScript support.</p>
+
+          <h3>React Installation</h3>
+          <pre><code>npm install iconoir-react</code></pre>
+
+          <h3>Basic Component Usage in React</h3>
+          <pre><code>import React from 'react';
+import { Calendar, CheckCircle, Search, Shield } from 'iconoir-react';
+
+export function NavigationToolbar() {
+  return (
+    &lt;nav className="flex items-center gap-4"&gt;
+      &lt;button type="button" className="btn-icon" aria-label="Search"&gt;
+        &lt;Search width={20} height={20} strokeWidth={1.5} /&gt;
+      &lt;/button&gt;
+      &lt;button type="button" className="btn-icon" aria-label="Calendar events"&gt;
+        &lt;Calendar width={20} height={20} strokeWidth={1.5} /&gt;
+      &lt;/button&gt;
+    &lt;/nav&gt;
+  );
+}</code></pre>
+
+          <h3>Global Theming with <code>IconoirProvider</code></h3>
+          <p>If you prefer not to pass <code>strokeWidth</code>, <code>color</code>, or <code>width</code> props to every individual icon in your application, you can wrap your root component with <code>IconoirProvider</code>:</p>
+
+          <pre><code>import { IconoirProvider, Bell, Settings, User } from 'iconoir-react';
+
+export function App() {
+  return (
+    &lt;IconoirProvider
+      iconProps={{
+        color: 'currentColor',
+        strokeWidth: 1.75,
+        width: '1.25em',
+        height: '1.25em'
+      }}
+    &gt;
+      &lt;header&gt;
+        &lt;Bell /&gt;
+        &lt;Settings /&gt;
+        &lt;User /&gt;
+      &lt;/header&gt;
+    &lt;/IconoirProvider&gt;
+  );
+}</code></pre>
+
+          <h3>React Native Integration</h3>
+          <p>For cross-platform mobile apps built with Expo or React Native CLI, install <code>iconoir-react-native</code> alongside <code>react-native-svg</code>:</p>
+          <pre><code>npm install iconoir-react-native react-native-svg</code></pre>
+          <pre><code>import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Shield, CheckCircle } from 'iconoir-react-native';
+
+export function SecurityBadge() {
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Shield width={24} height={24} color="#C1DD2D" strokeWidth={1.5} /&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+        </section>
+
+        <section id="vue-and-svelte-setup">
+          <h2>4. Vue 3 &amp; Svelte 5 Integration</h2>
+          <p>Iconoir avoids framework favoritism by providing official, independently published packages for Vue 3 and Svelte 5.</p>
+
+          <h3>Vue 3 Setup (<code>iconoir-vue</code>)</h3>
+          <pre><code>npm install iconoir-vue</code></pre>
+          <pre><code>&lt;script setup&gt;
+import { Calendar, Search, Shield } from 'iconoir-vue';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class="toolbar"&gt;
+    &lt;Search :stroke-width="1.5" width="20" height="20" /&gt;
+    &lt;Calendar :stroke-width="1.5" width="20" height="20" /&gt;
+    &lt;Shield :stroke-width="1.5" width="20" height="20" /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+
+          <h3>Svelte 5 Setup</h3>
+          <pre><code>npm install iconoir-svelte</code></pre>
+          <pre><code>&lt;script&gt;
+  import { CheckCircle, ArrowRight } from 'iconoir-svelte';
+&lt;/script&gt;
+
+&lt;button class="cta-button"&gt;
+  &lt;span&gt;Get Started&lt;/span&gt;
+  &lt;ArrowRight strokeWidth={1.5} size={20} /&gt;
+&lt;/button&gt;</code></pre>
+        </section>
+
+        <section id="zero-js-css-masks">
+          <h2>5. Zero-JS CSS Mask Icons (<code>iconoir.css</code>)</h2>
+          <p>One of Iconoir's most powerful yet underutilized features is its pure CSS package: <code>iconoir.css</code>. This approach uses the modern CSS property <code>mask-image</code> to display icons with <strong>zero client-side JavaScript execution</strong>.</p>
+
+          <h3>Installation</h3>
+          <pre><code>npm install iconoir</code></pre>
+          <p>Or import via CDN directly into your HTML document:</p>
+          <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css"&gt;</code></pre>
+
+          <h3>How CSS Mask Icons Work</h3>
+          <p>Instead of injecting heavy inline SVGs or managing font glyphs, the CSS mask pattern loads the SVG as an alpha stencil. The browser paints whatever <code>background-color</code> is active through the visible stencil lines:</p>
+
+          <pre><code>/* Inside iconoir.css */
+.iconoir-calendar {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: currentColor;
+  -webkit-mask-image: url('data:image/svg+xml;utf8,...');
+  mask-image: url('data:image/svg+xml;utf8,...');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}</code></pre>
+
+          <p>Because <code>background-color</code> is set to <code>currentColor</code>, you can recolor the icon instantly with any typography utility in Tailwind CSS or standard CSS:</p>
+
+          <pre><code>&lt;!-- Instant recoloring via text color --&gt;
+&lt;i class="iconoir-calendar text-emerald-500 hover:text-emerald-400"&gt;&lt;/i&gt;
+&lt;i class="iconoir-shield text-rose-500"&gt;&lt;/i&gt;</code></pre>
+        </section>
+
+        <section id="dynamic-stroke-customization">
+          <h2>6. Dynamic Stroke Customization &amp; Accessibility</h2>
+          <p>Because all Iconoir assets use native vector stroke paths rather than pre-baked filled outlines, you can alter the line weight dynamically across responsive breakpoints or interaction states.</p>
+
+          <h3>Hover Micro-Interactions</h3>
+          <p>You can create playful micro-interactions where an icon thickens from <code>1.5px</code> to <code>2.25px</code> when hovered:</p>
+
+          <pre><code>.interactive-icon {
+  stroke-width: 1.5;
+  transition: stroke-width 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-icon:hover {
+  stroke-width: 2.25;
+}</code></pre>
+
+          <div class="callout-box">
+            <div class="callout-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <span>Accessibility Notice</span>
+            </div>
+            <p style="margin-bottom: 0;">When thickening stroke on hover, ensure the icon element includes <code>vector-effect: non-scaling-stroke</code> if parent containers are subject to CSS scale transforms. This prevents strokes from blowing out on high-DPI displays.</p>
+          </div>
+        </section>
+
+        <section id="iconoir-vs-other-libraries">
+          <h2>7. Iconoir vs. Other Popular Icon Libraries</h2>
+          <p>Here is how Iconoir compares to Lucide, Feather, Tabler, and Phosphor in 2026:</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Iconoir</th>
+                  <th>Lucide Icons</th>
+                  <th>Feather Icons</th>
+                  <th>Tabler Icons</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Icon Count</strong></td>
+                  <td>2,020+ icons</td>
+                  <td>1,979 icons</td>
+                  <td>286 icons</td>
+                  <td>6,324 icons</td>
+                </tr>
+                <tr>
+                  <td><strong>Default Stroke</strong></td>
+                  <td>1.5px</td>
+                  <td>2.0px</td>
+                  <td>2.0px</td>
+                  <td>2.0px</td>
+                </tr>
+                <tr>
+                  <td><strong>Grid Dimensions</strong></td>
+                  <td>24 x 24</td>
+                  <td>24 x 24</td>
+                  <td>24 x 24</td>
+                  <td>24 x 24</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS Mask Support</strong></td>
+                  <td>Official (iconoir.css)</td>
+                  <td>Unofficial plugins</td>
+                  <td>No</td>
+                  <td>Unofficial plugins</td>
+                </tr>
+                <tr>
+                  <td><strong>License</strong></td>
+                  <td>MIT (100% Free)</td>
+                  <td>ISC (100% Free)</td>
+                  <td>MIT</td>
+                  <td>MIT</td>
+                </tr>
+                <tr>
+                  <td><strong>Maintenance Status</strong></td>
+                  <td>Actively updated (2026)</td>
+                  <td>Actively updated</td>
+                  <td>Deprecated / Archived</td>
+                  <td>Actively updated</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>8. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is Iconoir, and why is it considered one of the purest open-source icon libraries?</h3>
+            <p>Iconoir is an open-source SVG icon library featuring over 2,020 icons drawn on a 24x24 grid with a consistent 1.5px stroke weight. Unlike many commercial sets that gate essential glyphs behind 'Pro' paywalls, Iconoir is 100% free under the MIT License with no premium tiers, logins, or restricted assets.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What grid and default stroke specifications does Iconoir use?</h3>
+            <p>Iconoir is built on a 24x24 pixel grid with an optical 2px internal padding and a baseline stroke-width of 1.5px. Its stroke-linecap and stroke-linejoin are round by default, creating a warm, modern aesthetic that fits minimalist SaaS and consumer mobile applications.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I install and use Iconoir in React and Next.js with tree-shaking?</h3>
+            <p>Install the package with npm install iconoir-react. Import icons as named components, for example: import { Calendar, CheckCircle, Search } from 'iconoir-react'. Modern bundlers (Vite, Webpack, Next.js 15) automatically tree-shake unused icons, keeping your final JavaScript bundle lean.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Does Iconoir support zero-JS CSS mask-image implementation?</h3>
+            <p>Yes. Iconoir provides an official CSS package via npm install iconoir. It maps icons as CSS mask-image stencils. You can render icons purely through CSS classes (e.g., &lt;i class='iconoir-calendar'&gt;&lt;/i&gt;) and tint them dynamically using the CSS background-color property.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I dynamically customize the stroke-width of Iconoir components in React?</h3>
+            <p>Yes. All iconoir-react components accept standard SVG presentation attributes. You can override the default 1.5px stroke weight by passing strokeWidth={2} or strokeWidth={1} directly to the component, or by wrapping your app in the IconoirProvider context.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Where can I search, recolor, and download Iconoir icons?</h3>
+            <p>You can search, filter, and inspect all 2,020 Iconoir icons directly on IconStash at https://iconstash.io/library/iconoir/. IconStash provides instant keyword search, live dark/light canvas preview, and one-click export to clean SVG, PNG, and React JSX components.</p>
+          </div>
+        </section>
+
+        <div class="cta-banner">
+          <h3>Explore All 2,020 Iconoir Icons on IconStash</h3>
+          <p>Search, preview, stroke customize, and export any Iconoir icon directly into clean SVG, PNG, or React components with zero friction.</p>
+          <a href="/library/iconoir/" class="header-cta" style="font-size: 15px; padding: 12px 28px;">Browse Iconoir Library</a>
+        </div>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#introduction">1. Introduction to Iconoir</a></li>
+              <li><a href="#design-philosophy">2. Design Philosophy &amp; 1.5px Stroke</a></li>
+              <li><a href="#react-and-react-native-setup">3. React &amp; React Native Setup</a></li>
+              <li><a href="#vue-and-svelte-setup">4. Vue 3 &amp; Svelte 5 Setup</a></li>
+              <li><a href="#zero-js-css-masks">5. Zero-JS CSS Mask Icons</a></li>
+              <li><a href="#dynamic-stroke-customization">6. Dynamic Stroke Customization</a></li>
+              <li><a href="#iconoir-vs-other-libraries">7. Iconoir vs Other Libraries</a></li>
+              <li><a href="#faq">8. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 135,000+ Icons</h4>
+          <p>IconStash unites Iconoir, Lucide, Carbon, Tabler, and 24 other open-source sets in one unified search engine.</p>
+          <a href="/#/" class="cta-sidebar-btn">Launch IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div>&copy; 2026 IconStash.io &bull; Open-source icon search engine.</div>
+      <div style="display: flex; gap: 20px;">
+        <a href="/about/">About</a>
+        <a href="/library/">Libraries</a>
+        <a href="/articles/">Articles</a>
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle script with localStorage persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Interactive Iconoir Sandbox
+    let currentStroke = '1.5';
+    let currentFw = 'React';
+
+    const btnStroke15 = document.getElementById('btnStroke15');
+    const btnStroke20 = document.getElementById('btnStroke20');
+    const btnStroke10 = document.getElementById('btnStroke10');
+    const strokeBtns = [btnStroke15, btnStroke20, btnStroke10];
+
+    const btnFwReact = document.getElementById('btnFwReact');
+    const btnFwVue = document.getElementById('btnFwVue');
+    const btnFwCss = document.getElementById('btnFwCss');
+    const fwBtns = [btnFwReact, btnFwVue, btnFwCss];
+
+    const codeOutput = document.getElementById('iconoirCodeOutput');
+
+    function updateIconoirDemo() {
+      ['Calendar', 'Check', 'Search', 'Shield'].forEach(name => {
+        const svgEl = document.getElementById(`svg${name}`);
+        const metaEl = document.getElementById(`meta${name}`);
+        if (svgEl) {
+          svgEl.setAttribute('stroke-width', currentStroke);
+        }
+        if (metaEl) {
+          metaEl.textContent = `stroke: ${currentStroke}px`;
+        }
+      });
+
+      if (currentFw === 'React') {
+        codeOutput.textContent = `import { Calendar, CheckCircle, Search, Shield } from 'iconoir-react';\n\n// Usage with custom stroke:\n<Calendar strokeWidth={${currentStroke}} width={24} height={24} />`;
+      } else if (currentFw === 'Vue') {
+        codeOutput.textContent = `import { Calendar, CheckCircle, Search, Shield } from 'iconoir-vue';\n\n<!-- Usage in template -->\n<Calendar :stroke-width="${currentStroke}" width="24" height="24" />`;
+      } else {
+        codeOutput.textContent = `/* Zero-JS CSS Mask stencil */\n<i class="iconoir-calendar" style="--stroke-width: ${currentStroke}px;"></i>\n\n.iconoir-calendar {\n  mask-image: url('/assets/icons/calendar.svg');\n  background-color: currentColor;\n}`;
+      }
+    }
+
+    strokeBtns.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', () => {
+          strokeBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          if (btn.id === 'btnStroke15') currentStroke = '1.5';
+          if (btn.id === 'btnStroke20') currentStroke = '2.0';
+          if (btn.id === 'btnStroke10') currentStroke = '1.0';
+          updateIconoirDemo();
+        });
+      }
+    });
+
+    fwBtns.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', () => {
+          fwBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          if (btn.id === 'btnFwReact') currentFw = 'React';
+          if (btn.id === 'btnFwVue') currentFw = 'Vue';
+          if (btn.id === 'btnFwCss') currentFw = 'CSS Mask';
+          updateIconoirDemo();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
