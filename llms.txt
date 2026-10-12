@@ -156,6 +156,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Octicons Complete Guide: Setup, React, Primer & GitHub Design System (2026)](https://iconstash.io/articles/octicons-complete-guide/)
 - [Iconoir Icons Complete Guide: Setup, React, Vue, CSS & Figma (2026)](https://iconstash.io/articles/iconoir-complete-guide/)
 - [SVG Elements & Document Tags Glossary (42+ Terms)](https://iconstash.io/Glossary/svg-elements-and-tags-glossary/)
+- [Solar Icons Complete Guide: Setup, React, 6 Styles & Figma UI (2026)](https://iconstash.io/articles/solar-icons-complete-guide/)
+- [Hugeicons Complete Guide: Setup, React, Vue, Figma & Next.js (2026)](https://iconstash.io/articles/hugeicons-complete-guide/)
+- [12 Best Free Animated SVG Icon Libraries for Modern Web Apps (2026 Ranked)](https://iconstash.io/Listicles/best-animated-svg-icon-libraries/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives

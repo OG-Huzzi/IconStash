@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hugeicons Complete Guide: Setup, React, Vue, Figma &amp; Next.js (2026) | IconStash</title>
+  <meta name="description" content="Master 5,115+ free Hugeicons: Stroke Rounded, Solid and Bulk styles, @hugeicons/react setup, Vue 3, tree-shaking, and Figma UI workflow.">
+  <meta name="keywords" content="hugeicons, hugeicons react, @hugeicons/react, hugeicons vue, hugeicons figma, stroke rounded icons, bulk icons, hugeicons free vs pro, vector icons 2026">
+  <meta property="og:title" content="Hugeicons Complete Guide: Setup, React, Vue, Figma &amp; Next.js (2026)">
+  <meta property="og:description" content="Master 5,115+ free Hugeicons: Stroke Rounded, Solid and Bulk styles, @hugeicons/react setup, Vue 3, tree-shaking, and Figma UI workflow.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/hugeicons-complete-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/hugeicons-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Hugeicons Vector System Architecture, Decoupled React Engine and Figma Workflow">
+  <meta property="article:published_time" content="2026-10-12T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-12T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Hugeicons">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Vue">
+  <meta property="article:tag" content="Figma">
+  <meta property="article:tag" content="Design Systems">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hugeicons Complete Guide: Setup, React, Vue, Figma &amp; Next.js (2026)">
+  <meta name="twitter:description" content="Master 5,115+ free Hugeicons: Stroke Rounded, Solid and Bulk styles, @hugeicons/react setup, Vue 3, tree-shaking, and Figma UI workflow.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/hugeicons-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/hugeicons-complete-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Hugeicons Complete Guide: Setup, React, Vue, Figma & Next.js (2026)",
+    "description": "Master 5,115+ free Hugeicons: Stroke Rounded, Solid and Bulk styles, @hugeicons/react setup, Vue 3, tree-shaking, and Figma UI workflow.",
+    "image": "https://iconstash.io/assets/articles/hugeicons-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-12",
+    "dateModified": "2026-10-12",
+    "mainEntityOfPage": "https://iconstash.io/articles/hugeicons-complete-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Icon (computing)", "sameAs": "https://en.wikipedia.org/wiki/Icon_(computing)" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "React (software library)", "sameAs": "https://en.wikipedia.org/wiki/React_(software_library)" },
+      { "@type": "Thing", "name": "Vue.js", "sameAs": "https://en.wikipedia.org/wiki/Vue.js" }
+    ],
+    "keywords": ["hugeicons", "hugeicons react", "@hugeicons/react", "hugeicons vue", "hugeicons figma", "stroke rounded icons", "bulk icons"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Hugeicons Complete Guide", "item": "https://iconstash.io/articles/hugeicons-complete-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Hugeicons, and how does its decoupled architecture work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hugeicons is a modern vector icon system featuring 5,115 free MIT-licensed icons indexed on IconStash (and over 60,000 across its full ecosystem). It uses a decoupled architecture where a core rendering component (@hugeicons/react or @hugeicons/vue) is separated from pure icon vector definitions (@hugeicons/core-free-icons). This separation prevents duplicate component boilerplate and enables flawless tree-shaking."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install and use Hugeicons in a React or Next.js application?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install the core wrapper and free icon packages with npm install @hugeicons/react @hugeicons/core-free-icons. In your component, import the HugeiconsIcon component from @hugeicons/react and specific named icon objects (such as Home01Icon or Settings01Icon) from @hugeicons/core-free-icons. Render with <HugeiconsIcon icon={Home01Icon} size={24} color='currentColor' strokeWidth={1.5} />."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Hugeicons handle active and hover state toggling via altIcon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The HugeiconsIcon React and Vue components provide built-in state toggling support via the altIcon prop. You can supply a stroke icon as the primary icon and a solid variant as the altIcon. The component can dynamically switch between outline and solid representations based on hover, focus, or component state without mounting multiple SVG DOM nodes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are Hugeicons free for commercial use without attribution?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The 5,115 free icons in Hugeicons Core Free Icons indexed on IconStash are licensed under the MIT License. You can freely use, modify, embed, and ship them in commercial SaaS platforms, client projects, and mobile apps with zero royalties and no mandatory attribution."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What visual styles does Hugeicons offer, and how do Stroke Rounded vs Bulk differ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hugeicons spans multiple visual styles including Stroke Rounded (1.5px lines with rounded caps on a 24px grid), Stroke Sharp (mitered corners), Solid (filled silhouettes), Bulk (multi-tone layered fills with 20% opacity depth), Duotone, and Twotone. The Bulk style creates rich layered illustrations without requiring external raster images."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I search, preview, and download Hugeicons for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can search, compare, customize, and export all 5,115 free Hugeicons directly on IconStash at https://iconstash.io/library/hugeicons/. IconStash provides instant live search, light and dark background previews, and one-click copy to clean SVG, PNG, and React JSX."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* Interactive Demo Card */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-controls-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 12.5px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .demo-toggle-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+
+    .hugeicon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-top: 16px; }
+    .hugeicon-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 12px; background: #141414; border: 1px solid #262626; border-radius: 8px; gap: 10px; text-align: center; }
+    .hugeicon-preview { display: flex; align-items: center; justify-content: center; height: 52px; width: 52px; background: #1F1F1F; border-radius: 8px; color: #C1DD2D; transition: all 200ms ease; }
+    .hugeicon-name { font-size: 12.5px; font-weight: 600; color: #FFF; }
+    .hugeicon-meta { font-size: 11px; color: #888; font-family: "JetBrains Mono", monospace; }
+
+    .code-generator-box { background: #0E0E0E; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #C1DD2D; overflow-x: auto; }
+
+    .style-chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+    .style-chip-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 18px; }
+    .style-chip-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 700; color: #FFF; font-size: 15px; }
+    .style-chip-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(193,221,45,0.12); color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .style-chip-card p { font-size: 13.5px; color: #AAA; line-height: 1.6; margin: 0; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #383838; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .cta-sidebar-box { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #525252; }
+    html[data-theme="light"] .cta-banner { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-banner p { color: #525252; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .theme-toggle-btn { border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .theme-toggle-btn:hover { border-color: #A3A3A3; color: #171717; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-title { color: #0A0A0A; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .demo-toggle-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
+    html[data-theme="light"] .demo-toggle-btn:hover:not(.active) { background: #E4E4E7; }
+    html[data-theme="light"] .hugeicon-grid { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .hugeicon-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .hugeicon-preview { background: #F4F4F5; color: #5C6E00; }
+    html[data-theme="light"] .hugeicon-name { color: #0A0A0A; }
+    html[data-theme="light"] .code-generator-box { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] .style-chip-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .style-chip-head { color: #0A0A0A; }
+    html[data-theme="light"] .style-chip-badge { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] .style-chip-card p { color: #525252; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/library/hugeicons/">Hugeicons</a>
+      <a href="/articles/">Articles</a>
+      <a href="/Listicles/best-minimal-line-icon-packs/">Line Packs</a>
+      <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle visual theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Hugeicons Complete Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Engineering Blueprint</span>
+      <h1>Hugeicons Complete Guide: Setup, React, Vue, Figma &amp; Next.js (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>October 12, 2026</span>
+        <span>•</span>
+        <span>15 min read</span>
+        <span>•</span>
+        <span>5,115 Vectors Indexed</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="/assets/articles/hugeicons-guide.jpg" alt="Hugeicons Vector System Architecture, Decoupled React Engine and Figma Workflow" width="1200" height="675">
+      <figcaption>Hugeicons architectural overview: decoupled component wrappers, multi-variant design tokens, and Next.js 15 RSC compatibility.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Engineering Summary:</strong> Hugeicons has emerged as one of the premier vector design systems in modern software engineering, with 5,115 free open-source MIT icons indexed on IconStash.</p>
+          <ul>
+            <li><strong>Decoupled Component Pattern:</strong> The <code>@hugeicons/react</code> rendering wrapper is separated from <code>@hugeicons/core-free-icons</code> data definitions, enabling zero duplicate bundle bloat.</li>
+            <li><strong>Style Versatility:</strong> Stroke Rounded (1.5px lines with rounded joints), Stroke Sharp, Solid, Bulk (layered translucency), Duotone, and Twotone.</li>
+            <li><strong>Interactive State Switching:</strong> Native support for the <code>altIcon</code> prop allows single-component toggling between outline and solid states on hover or active selection.</li>
+            <li><strong>Full Ecosystem Support:</strong> Dedicated packages for React, Vue 3 (Composition API), Svelte, React Native, and Figma component variants.</li>
+          </ul>
+        </div>
+
+        <nav class="toc-nav" style="background:#121212; border:1px solid #222; border-radius:10px; padding:20px; margin-bottom:36px;">
+          <strong style="color:#FFF; display:block; margin-bottom:12px; font-size:15px;">Table of Contents</strong>
+          <ol style="margin-left:20px; margin-bottom:0;">
+            <li><a href="#what-is-hugeicons">1. What is Hugeicons? Scale, Licensing &amp; Philosophy</a></li>
+            <li><a href="#decoupled-architecture">2. The Decoupled Architecture Pattern</a></li>
+            <li><a href="#visual-styles">3. Deep Dive into Hugeicons Visual Styles</a></li>
+            <li><a href="#interactive-sandbox">4. Interactive Hugeicons Component Sandbox</a></li>
+            <li><a href="#react-nextjs-setup">5. React &amp; Next.js 15 RSC Setup: Code &amp; Benchmarks</a></li>
+            <li><a href="#state-toggling-alticon">6. Dynamic State Toggling with the altIcon Prop</a></li>
+            <li><a href="#vue-setup">7. Vue 3 &amp; Nuxt 3 Composition API Setup</a></li>
+            <li><a href="#figma-workflow">8. Figma Workflow &amp; Design Token Synchronization</a></li>
+            <li><a href="#comparative-analysis">9. Hugeicons vs Lucide vs Phosphor Comparative Benchmark</a></li>
+            <li><a href="#accessibility">10. Production ARIA &amp; Accessibility Doctrine</a></li>
+            <li><a href="#frequently-asked-questions">11. Frequently Asked Questions</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="what-is-hugeicons">1. What is Hugeicons? Scale, Licensing &amp; Philosophy</h2>
+        <p>In modern interface engineering, visual inconsistency is a common disease: development teams frequently combine multiple disparate icon packs, resulting in clashing stroke weights, mismatched terminal cap radii, and broken baseline optical alignments. <strong>Hugeicons</strong> was architected from the ground up to eliminate this problem.</p>
+        <p>With <strong>5,115 free vector icons</strong> indexed in IconStash under the permissive <strong>MIT License</strong>, Hugeicons provides one of the broadest open-source design systems available. Across its broader commercial ecosystem, Hugeicons spans over 60,000 icons covering fintech, artificial intelligence, multimedia, developer tooling, healthcare, and enterprise commerce.</p>
+        <p>Every glyph is standardized upon a rigorous <strong>24x24 pixel grid</strong> with a default 1.5px optical stroke weight. Rounded terminals are precisely radiused to <code>round</code> stroke-linecap and <code>round</code> stroke-linejoin, ensuring harmonious alignment with modern sans-serif typography like Inter, Geist, and SF Pro.</p>
+
+        <h2 id="decoupled-architecture">2. The Decoupled Architecture Pattern</h2>
+        <p>Most icon libraries distribute monolithic packages where each icon is a complete React or Vue component containing its own wrapper element, default props, and SVG markup. While straightforward, this monolithic pattern causes significant bundle overhead when multiple icons are rendered on a page, as React generates redundant wrapper code for every symbol.</p>
+        <p>Hugeicons pioneers a <strong>decoupled component architecture</strong>:</p>
+        <ul>
+          <li><strong>Wrapper Component (<code>@hugeicons/react</code>):</strong> A single, highly optimized rendering engine that manages props (<code>size</code>, <code>color</code>, <code>strokeWidth</code>, <code>className</code>, <code>altIcon</code>) and accessibility attributes.</li>
+          <li><strong>Pure Vector Data (<code>@hugeicons/core-free-icons</code>):</strong> Lightweight JavaScript tuples containing only raw SVG path coordinate strings.</li>
+        </ul>
+
+        <div class="callout-box">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span>Tree-Shaking Advantage of Decoupled Vector Tuples</span>
+          </div>
+          <p>Because the vector data file exports pure object literals without JSX component functions, your bundler (Vite, Rollup, Webpack 5, Turbopack) tree-shakes unused icons cleanly. Each imported Hugeicon adds only <strong>~450 bytes of minified JavaScript</strong> to your application bundle.</p>
+        </div>
+
+        <h2 id="visual-styles">3. Deep Dive into Hugeicons Visual Styles</h2>
+        <p>Hugeicons offers an impressive range of stylistic expressions designed for distinct UX requirements:</p>
+
+        <div class="style-chip-grid">
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Stroke Rounded</span>
+              <span class="style-chip-badge">24px · 1.5px</span>
+            </div>
+            <p>The primary workhorse of Hugeicons. Features 1.5px geometric outlines with soft rounded corners and caps. Perfect for modern SaaS dashboards and web apps.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Solid</span>
+              <span class="style-chip-badge">Silhouette Fill</span>
+            </div>
+            <p>High-contrast, filled silhouettes designed for active navigation states, callout badges, and selected toggle buttons.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Bulk</span>
+              <span class="style-chip-badge">Layered Opacity</span>
+            </div>
+            <p>Innovative layered vectors combining a primary solid foreground with a 20% to 30% translucent background silhouette, creating visual depth.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Stroke Sharp</span>
+              <span class="style-chip-badge">Mitered Edges</span>
+            </div>
+            <p>Features 90-degree mitered sharp vertices. Excellent for brutalist, architectural, or technical hardware monitoring interfaces.</p>
+          </div>
+        </div>
+
+        <h2 id="interactive-sandbox">4. Interactive Hugeicons Component Sandbox</h2>
+        <p>Interact with the live Hugeicons sandbox below to inspect Stroke Rounded, Solid, and Bulk representations with live code output:</p>
+
+        <div class="interactive-demo-card">
+          <div class="interactive-demo-header">
+            <div class="interactive-demo-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 12h16"/><path d="M12 4v16"/></svg>
+              <span>Hugeicons Component Live Sandbox</span>
+            </div>
+            <div class="demo-controls-group">
+              <button class="demo-toggle-btn active" id="btnStroke">Stroke Rounded</button>
+              <button class="demo-toggle-btn" id="btnSolid">Solid</button>
+              <button class="demo-toggle-btn" id="btnBulk">Bulk</button>
+            </div>
+          </div>
+
+          <div class="hugeicon-grid">
+            <div class="hugeicon-card">
+              <div class="hugeicon-preview" id="prevHome">
+                <svg id="svgHugeHome" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2.5 12.5L10.5 4.5C11.3 3.7 12.7 3.7 13.5 4.5L21.5 12.5M5 10.5V19C5 20.1 5.9 21 7 21H17C18.1 21 19 20.1 19 19V10.5"/>
+                </svg>
+              </div>
+              <span class="hugeicon-name">Home01Icon</span>
+              <span class="hugeicon-meta" id="metaHugeHome">Stroke</span>
+            </div>
+            <div class="hugeicon-card">
+              <div class="hugeicon-preview" id="prevCalendar">
+                <svg id="svgHugeCalendar" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="17" rx="3"/><path d="M16 2v4M8 2v4M3 9h18"/>
+                </svg>
+              </div>
+              <span class="hugeicon-name">Calendar01Icon</span>
+              <span class="hugeicon-meta" id="metaHugeCalendar">Stroke</span>
+            </div>
+            <div class="hugeicon-card">
+              <div class="hugeicon-preview" id="prevBell">
+                <svg id="svgHugeBell" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 9A6 6 0 0 0 6 9c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>
+                </svg>
+              </div>
+              <span class="hugeicon-name">Notification01Icon</span>
+              <span class="hugeicon-meta" id="metaHugeBell">Stroke</span>
+            </div>
+            <div class="hugeicon-card">
+              <div class="hugeicon-preview" id="prevSettings">
+                <svg id="svgHugeSettings" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              </div>
+              <span class="hugeicon-name">Settings01Icon</span>
+              <span class="hugeicon-meta" id="metaHugeSettings">Stroke</span>
+            </div>
+          </div>
+
+          <pre class="code-generator-box" id="hugeCodeOutput">// Decoupled React Implementation
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Home01Icon, Calendar01Icon } from '@hugeicons/core-free-icons';
+
+export function NavigationBar() {
+  return (
+    &lt;HugeiconsIcon icon={Home01Icon} size={24} color="currentColor" strokeWidth={1.5} /&gt;
+  );
+}</pre>
+        </div>
+
+        <h2 id="react-nextjs-setup">5. React &amp; Next.js 15 RSC Setup: Code &amp; Benchmarks</h2>
+        <p>To implement Hugeicons in a React or Next.js application, install both the wrapper and the free icon library:</p>
+
+        <pre><code>npm install @hugeicons/react @hugeicons/core-free-icons
+# or using pnpm
+pnpm add @hugeicons/react @hugeicons/core-free-icons
+# or using bun
+bun add @hugeicons/react @hugeicons/core-free-icons</code></pre>
+
+        <p>In your components, import <code>HugeiconsIcon</code> from the wrapper package and specific named icons from the core package:</p>
+
+        <pre><code>import React from 'react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import {
+  Home01Icon,
+  Search01Icon,
+  Notification01Icon,
+  UserCircle02Icon
+} from '@hugeicons/core-free-icons';
+
+export function AppNavBar() {
+  return (
+    &lt;nav className="flex items-center justify-between px-6 py-3 border-b border-zinc-800 bg-zinc-950"&gt;
+      &lt;div className="flex items-center gap-2"&gt;
+        &lt;HugeiconsIcon icon={Home01Icon} size={24} color="#C1DD2D" strokeWidth={1.5} /&gt;
+        &lt;span className="font-bold text-white"&gt;SaaS Console&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div className="flex items-center gap-3"&gt;
+        &lt;button aria-label="Search" className="p-2 text-zinc-400 hover:text-white"&gt;
+          &lt;HugeiconsIcon icon={Search01Icon} size={20} /&gt;
+        &lt;/button&gt;
+        &lt;button aria-label="Notifications" className="p-2 text-zinc-400 hover:text-white"&gt;
+          &lt;HugeiconsIcon icon={Notification01Icon} size={20} /&gt;
+        &lt;/button&gt;
+        &lt;HugeiconsIcon icon={UserCircle02Icon} size={28} className="text-zinc-200" /&gt;
+      &lt;/div&gt;
+    &lt;/nav&gt;
+  );
+}</code></pre>
+
+        <div class="callout-box">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>Next.js 15 Server Components (RSC) Behavior</span>
+          </div>
+          <p>By default, <code>HugeiconsIcon</code> contains zero browser-only lifecycle methods. In Next.js 15 Server Components, it renders purely static HTML vector tags during server streaming, eliminating hydration mismatches and contributing <strong>0 bytes of client-side runtime JS</strong>.</p>
+        </div>
+
+        <h2 id="state-toggling-alticon">6. Dynamic State Toggling with the altIcon Prop</h2>
+        <p>One of the most ergonomic features of <code>@hugeicons/react</code> is the <code>altIcon</code> prop. In interactive user interfaces, buttons frequently toggle from an outline state to a filled active state when selected. Rather than using ternary JSX operations:</p>
+
+        <pre><code>// Traditional cumbersome pattern:
+{isActive ? &lt;BookmarkSolidIcon /&gt; : &lt;BookmarkOutlineIcon /&gt;}
+
+// Modern Hugeicons pattern using altIcon:
+import { useState } from 'react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Bookmark01Icon } from '@hugeicons/core-free-icons';
+
+export function BookmarkToggle() {
+  const [bookmarked, setBookmarked] = useState(false);
+
+  return (
+    &lt;button
+      onClick={() =&gt; setBookmarked(!bookmarked)}
+      aria-pressed={bookmarked}
+      aria-label="Save to bookmarks"
+      className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 transition"
+    &gt;
+      &lt;HugeiconsIcon
+        icon={Bookmark01Icon}
+        size={24}
+        color={bookmarked ? '#C1DD2D' : 'currentColor'}
+        strokeWidth={1.5}
+      /&gt;
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+        <h2 id="vue-setup">7. Vue 3 &amp; Nuxt 3 Composition API Setup</h2>
+        <p>For Vue 3 and Nuxt 3 developers, Hugeicons maintains an official companion package: <code>@hugeicons/vue</code>.</p>
+
+        <pre><code>npm install @hugeicons/vue @hugeicons/core-free-icons</code></pre>
+
+        <p>Inside any single-file component using <code>&lt;script setup&gt;</code>:</p>
+
+        <pre><code>&lt;script setup lang="ts"&gt;
+import { HugeiconsIcon } from '@hugeicons/vue';
+import { DashboardSquare01Icon, Analytics01Icon } from '@hugeicons/core-free-icons';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;aside class="dashboard-sidebar"&gt;
+    &lt;nav&gt;
+      &lt;a href="/dashboard" class="nav-item"&gt;
+        &lt;HugeiconsIcon :icon="DashboardSquare01Icon" :size="20" color="#C1DD2D" /&gt;
+        &lt;span&gt;Overview&lt;/span&gt;
+      &lt;/a&gt;
+      &lt;a href="/analytics" class="nav-item"&gt;
+        &lt;HugeiconsIcon :icon="Analytics01Icon" :size="20" color="currentColor" /&gt;
+        &lt;span&gt;Metrics&lt;/span&gt;
+      &lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/aside&gt;
+&lt;/template&gt;</code></pre>
+
+        <h2 id="figma-workflow">8. Figma Workflow &amp; Design Token Synchronization</h2>
+        <p>Hugeicons was constructed hand-in-hand with the official Figma Community plugins. In production design systems, Hugeicons components integrate seamlessly:</p>
+        <ul>
+          <li><strong>Component Variants:</strong> Every icon contains properties for <code>Style</code> (Stroke, Solid, Bulk, Duotone), allowing designers to swap visual treatments with one click.</li>
+          <li><strong>Swap Preservation:</strong> Instance swaps retain overrides for bounding frame constraints, optical alignments, and color variables.</li>
+          <li><strong>Variable Token Binding:</strong> All vector paths bind to semantic color tokens (e.g., <code>color/icon/primary</code> and <code>color/icon/muted</code>) directly matching frontend CSS tokens.</li>
+        </ul>
+
+        <h2 id="comparative-analysis">9. Hugeicons vs Lucide vs Phosphor Comparative Benchmark</h2>
+        <p>A technical comparison between Hugeicons and the foremost developer icon libraries on IconStash:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Library</th>
+                <th>Free Icons</th>
+                <th>Architecture Pattern</th>
+                <th>Avg Minified Weight</th>
+                <th>License</th>
+                <th>Key Advantage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Hugeicons</strong></td>
+                <td>5,115</td>
+                <td>Decoupled (Wrapper + Core Data)</td>
+                <td>~450 B / icon</td>
+                <td>MIT</td>
+                <td>Decoupled bundle efficiency &amp; altIcon toggling</td>
+              </tr>
+              <tr>
+                <td><strong>Lucide</strong></td>
+                <td>1,979</td>
+                <td>Monolithic React Components</td>
+                <td>~850 B / icon</td>
+                <td>ISC</td>
+                <td>Ubiquitous shadcn/ui community defaults</td>
+              </tr>
+              <tr>
+                <td><strong>Phosphor</strong></td>
+                <td>9,198</td>
+                <td>Component Context Provider</td>
+                <td>~950 B / icon</td>
+                <td>MIT</td>
+                <td>6 continuous optical line weights</td>
+              </tr>
+              <tr>
+                <td><strong>Solar Icons</strong></td>
+                <td>7,410</td>
+                <td>Subpath Style Imports</td>
+                <td>~800 B / icon</td>
+                <td>CC BY 4.0</td>
+                <td>Fintech squircle geometry &amp; Broken stencils</td>
+              </tr>
+              <tr>
+                <td><strong>Tabler Icons</strong></td>
+                <td>6,324</td>
+                <td>Direct SVG Component Exports</td>
+                <td>~1.1 KB / icon</td>
+                <td>MIT</td>
+                <td>Massive coverage of enterprise domain concepts</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="accessibility">10. Production ARIA &amp; Accessibility Doctrine</h2>
+        <p>To ensure WCAG 2.2 AA and Section 508 compliance when shipping Hugeicons:</p>
+        <ol>
+          <li><strong>Decorative Contexts:</strong> When an icon is rendered alongside descriptive text, mark it with <code>aria-hidden="true"</code>:
+            <pre><code>&lt;button className="btn"&gt;
+  &lt;HugeiconsIcon icon={Download01Icon} size={18} aria-hidden="true" /&gt;
+  &lt;span&gt;Export Report&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+          </li>
+          <li><strong>Icon-Only Interactive Triggers:</strong> Provide accessible naming either on the parent trigger button (<code>aria-label</code>) or directly via the component:
+            <pre><code>&lt;button aria-label="Toggle navigation drawer" className="p-2"&gt;
+  &lt;HugeiconsIcon icon={Menu01Icon} size={24} aria-hidden="true" /&gt;
+&lt;/button&gt;</code></pre>
+          </li>
+          <li><strong>Color Contrast:</strong> When rendering Hugeicons in <code>Stroke Rounded</code> style, ensure the stroke color against its container background satisfies the minimum <strong>3:1 non-text contrast ratio</strong> required by WCAG 1.4.11.</li>
+        </ol>
+
+        <h2 id="frequently-asked-questions">11. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>What is Hugeicons, and how does its decoupled architecture work?</h3>
+          <p>Hugeicons is a modern vector icon system featuring 5,115 free MIT-licensed icons indexed on IconStash (and over 60,000 across its full ecosystem). It uses a decoupled architecture where a core rendering component (@hugeicons/react or @hugeicons/vue) is separated from pure icon vector definitions (@hugeicons/core-free-icons). This separation prevents duplicate component boilerplate and enables flawless tree-shaking.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I install and use Hugeicons in a React or Next.js application?</h3>
+          <p>Install the core wrapper and free icon packages with npm install @hugeicons/react @hugeicons/core-free-icons. In your component, import the HugeiconsIcon component from @hugeicons/react and specific named icon objects (such as Home01Icon or Settings01Icon) from @hugeicons/core-free-icons. Render with &lt;HugeiconsIcon icon={Home01Icon} size={24} color='currentColor' strokeWidth={1.5} /&gt;.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does Hugeicons handle active and hover state toggling via altIcon?</h3>
+          <p>The HugeiconsIcon React and Vue components provide built-in state toggling support via the altIcon prop. You can supply a stroke icon as the primary icon and a solid variant as the altIcon. The component can dynamically switch between outline and solid representations based on hover, focus, or component state without mounting multiple SVG DOM nodes.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Are Hugeicons free for commercial use without attribution?</h3>
+          <p>Yes. The 5,115 free icons in Hugeicons Core Free Icons indexed on IconStash are licensed under the MIT License. You can freely use, modify, embed, and ship them in commercial SaaS platforms, client projects, and mobile apps with zero royalties and no mandatory attribution.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What visual styles does Hugeicons offer, and how do Stroke Rounded vs Bulk differ?</h3>
+          <p>Hugeicons spans multiple visual styles including Stroke Rounded (1.5px lines with rounded caps on a 24px grid), Stroke Sharp (mitered corners), Solid (filled silhouettes), Bulk (multi-tone layered fills with 20% opacity depth), Duotone, and Twotone. The Bulk style creates rich layered illustrations without requiring external raster images.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Where can I search, preview, and download Hugeicons for free?</h3>
+          <p>You can search, compare, customize, and export all 5,115 free Hugeicons directly on IconStash at https://iconstash.io/library/hugeicons/. IconStash provides instant live search, light and dark background previews, and one-click copy to clean SVG, PNG, and React JSX.</p>
+        </div>
+
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Library Facts</div>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Indexed Count:</strong> 5,115 icons</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Grid Standard:</strong> 24 × 24 px</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Default Stroke:</strong> 1.5 px</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>License:</strong> MIT License</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:0;"><strong>Free &amp; Zero Attribution:</strong> Yes</p>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search Hugeicons on IconStash</h4>
+          <p>Search all 5,115 Hugeicons with instant keyword matching, dark mode previews, and one-click copy to JSX.</p>
+          <a href="/library/hugeicons/" class="cta-sidebar-btn">Search Hugeicons Now →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <h3>Search 134,701 Icons Across 28 Libraries</h3>
+    <p>Zero paywalls, zero login, zero subscription fees. Find the perfect SVG vector icon in seconds on IconStash.</p>
+    <a href="/" class="header-cta" style="font-size:15px; padding:12px 28px;">Start Searching Free →</a>
+  </section>
+
+  <footer class="site-footer">
+    <div style="max-width:1080px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <span>© 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a></span>
+      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+        <a href="/">Browse Icons</a>
+        <a href="/about/">About</a>
+        <a href="/articles/">Articles</a>
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle script with localStorage persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Hugeicons Interactive Demo Engine
+    const hugePaths = {
+      Stroke: {
+        Home: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M2.5 12.5L10.5 4.5C11.3 3.7 12.7 3.7 13.5 4.5L21.5 12.5M5 10.5V19C5 20.1 5.9 21 7 21H17C18.1 21 19 20.1 19 19V10.5' },
+        Calendar: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M16 2v4M8 2v4M3 9h18M4 5h16a1 1 0 0 1 1 1v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1z' },
+        Bell: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M18 9A6 6 0 0 0 6 9c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0' },
+        Settings: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.4-3a7.4 7.4 0 0 0-.2-1.7l2-1.5-2-3.5-2.4 1a7.6 7.6 0 0 0-2.9-1.7L13.5 2h-3l-.4 2.6A7.6 7.6 0 0 0 7.2 6.3l-2.4-1-2 3.5 2 1.5A7.4 7.4 0 0 0 4.6 12l-2 1.5 2 3.5 2.4-1a7.6 7.6 0 0 0 2.9 1.7L10.5 22h3l.4-2.6a7.6 7.6 0 0 0 2.9-1.7l2.4 1 2-3.5-2-1.5c.1-.6.2-1.1.2-1.7z' }
+      },
+      Solid: {
+        Home: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2.5a2.5 2.5 0 0 0-1.77.73L2.4 11.06A2 2 0 0 0 3.82 14.5H4v5.5A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2v-5.5h.18a2 2 0 0 0 1.42-3.44l-7.83-7.83A2.5 2.5 0 0 0 12 2.5z' },
+        Calendar: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M17 3V2a1 1 0 1 0-2 0v1H9V2a1 1 0 1 0-2 0v1H5a3 3 0 0 0-3 3v13a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2zm2 6H5V7h14v2z' },
+        Bell: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a7 7 0 0 0-7 7v4.3L3.3 16.4A2 2 0 0 0 4.7 19.8h14.6a2 2 0 0 0 1.4-3.4L19 13.3V9a7 7 0 0 0-7-7zm-2.5 19a2.5 2.5 0 0 0 5 0h-5z' },
+        Settings: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9.4 3.2a8.6 8.6 0 0 0-.25-1.5l2.1-1.6-2-3.5-2.5 1a8.6 8.6 0 0 0-2.6-1.5L15.8 2h-3.6l-.35 2.6a8.6 8.6 0 0 0-2.6 1.5l-2.5-1-2 3.5 2.1 1.6A8.6 8.6 0 0 0 6.6 12l-2.1 1.6 2 3.5 2.5-1a8.6 8.6 0 0 0 2.6 1.5l.35 2.6h3.6l.35-2.6a8.6 8.6 0 0 0 2.6-1.5l2.5 1 2-3.5-2.1-1.6c.15-.5.25-1 .25-1.5z' }
+      },
+      Bulk: {
+        Home: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2.5a2.5 2.5 0 0 0-1.77.73L2.4 11.06A2 2 0 0 0 3.82 14.5H4v5.5A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2v-5.5h.18a2 2 0 0 0 1.42-3.44l-7.83-7.83A2.5 2.5 0 0 0 12 2.5z' },
+        Calendar: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M17 3V2a1 1 0 1 0-2 0v1H9V2a1 1 0 1 0-2 0v1H5a3 3 0 0 0-3 3v13a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3h-2zm2 6H5V7h14v2z' },
+        Bell: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a7 7 0 0 0-7 7v4.3L3.3 16.4A2 2 0 0 0 4.7 19.8h14.6a2 2 0 0 0 1.4-3.4L19 13.3V9a7 7 0 0 0-7-7zm-2.5 19a2.5 2.5 0 0 0 5 0h-5z' },
+        Settings: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9.4 3.2a8.6 8.6 0 0 0-.25-1.5l2.1-1.6-2-3.5-2.5 1a8.6 8.6 0 0 0-2.6-1.5L15.8 2h-3.6l-.35 2.6a8.6 8.6 0 0 0-2.6 1.5l-2.5-1-2 3.5 2.1 1.6A8.6 8.6 0 0 0 6.6 12l-2.1 1.6 2 3.5 2.5-1a8.6 8.6 0 0 0 2.6 1.5l.35 2.6h3.6l.35-2.6a8.6 8.6 0 0 0 2.6-1.5l2.5 1 2-3.5-2.1-1.6c.15-.5.25-1 .25-1.5z' }
+      }
+    };
+
+    let activeHugeStyle = 'Stroke';
+
+    function setHugeStyle(style) {
+      activeHugeStyle = style;
+
+      ['Home', 'Calendar', 'Bell', 'Settings'].forEach(name => {
+        const svgEl = document.getElementById(`svgHuge${name}`);
+        const metaEl = document.getElementById(`metaHuge${name}`);
+        const data = hugePaths[style][name];
+
+        if (svgEl && data) {
+          svgEl.setAttribute('fill', data.fill);
+          svgEl.setAttribute('stroke', data.stroke);
+          svgEl.setAttribute('stroke-width', data.sw);
+          const pathEl = svgEl.querySelector('path');
+          if (pathEl) {
+            pathEl.setAttribute('d', data.d);
+          }
+          if (style === 'Bulk') {
+            svgEl.style.opacity = '0.85';
+          } else {
+            svgEl.style.opacity = '1';
+          }
+        }
+        if (metaEl) {
+          metaEl.textContent = style;
+        }
+      });
+
+      const codeBox = document.getElementById('hugeCodeOutput');
+      if (codeBox) {
+        if (style === 'Stroke') {
+          codeBox.textContent = `// Decoupled React Implementation (Stroke Rounded)\nimport { HugeiconsIcon } from '@hugeicons/react';\nimport { Home01Icon, Calendar01Icon, Notification01Icon, Settings01Icon } from '@hugeicons/core-free-icons';\n\nexport function NavigationBar() {\n  return (\n    <div className="flex gap-4 items-center">\n      <HugeiconsIcon icon={Home01Icon} size={24} color="currentColor" strokeWidth={1.5} />\n      <HugeiconsIcon icon={Calendar01Icon} size={24} color="currentColor" strokeWidth={1.5} />\n      <HugeiconsIcon icon={Notification01Icon} size={24} color="currentColor" strokeWidth={1.5} />\n      <HugeiconsIcon icon={Settings01Icon} size={24} color="currentColor" strokeWidth={1.5} />\n    </div>\n  );\n}`;
+        } else if (style === 'Solid') {
+          codeBox.textContent = `// Solid Silhouette Variant (@hugeicons/react)\nimport { HugeiconsIcon } from '@hugeicons/react';\nimport { Home01SolidIcon, Calendar01SolidIcon } from '@hugeicons/core-free-icons';\n\nexport function ActiveNavItem() {\n  return <HugeiconsIcon icon={Home01SolidIcon} size={24} color="#C1DD2D" />;\n}`;
+        } else {
+          codeBox.textContent = `// Bulk Multi-Layered Variant (@hugeicons/react)\nimport { HugeiconsIcon } from '@hugeicons/react';\nimport { Home01BulkIcon, Notification01BulkIcon } from '@hugeicons/core-free-icons';\n\nexport function DashboardCard() {\n  return <HugeiconsIcon icon={Notification01BulkIcon} size={28} color="currentColor" />;\n}`;
+        }
+      }
+    }
+
+    const btnStroke = document.getElementById('btnStroke');
+    const btnSolid = document.getElementById('btnSolid');
+    const btnBulk = document.getElementById('btnBulk');
+
+    const allHugeButtons = [btnStroke, btnSolid, btnBulk];
+
+    allHugeButtons.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', () => {
+          allHugeButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const style = btn.id.replace('btn', '');
+          setHugeStyle(style);
+        });
+      }
+    });
+
+    // Initialize sandbox
+    setHugeStyle('Stroke');
+  </script>
+</body>
+</html>

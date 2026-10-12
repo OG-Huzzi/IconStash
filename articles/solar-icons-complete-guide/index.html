@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar Icons Complete Guide: Setup, React, 6 Styles &amp; Figma UI (2026) | IconStash</title>
+  <meta name="description" content="Master 7,410+ Solar Icons: Linear, Bold, Broken and Duotone styles, @solar-icons/react setup, SolarProvider theming, and Figma design integration.">
+  <meta name="keywords" content="solar icons, solar icons react, @solar-icons/react, solar icons figma, solar icon library, duotone solar icons, broken style icons, fintech vector icons 2026">
+  <meta property="og:title" content="Solar Icons Complete Guide: Setup, React, 6 Styles &amp; Figma UI (2026)">
+  <meta property="og:description" content="Master 7,410+ Solar Icons: Linear, Bold, Broken and Duotone styles, @solar-icons/react setup, SolarProvider theming, and Figma design integration.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/solar-icons-complete-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/solar-icons-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Solar Icons Vector System Architecture and 6 Visual Styles">
+  <meta property="article:published_time" content="2026-10-12T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-12T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Solar Icons">
+  <meta property="article:tag" content="Vector Icons">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Figma">
+  <meta property="article:tag" content="UI Design">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Solar Icons Complete Guide: Setup, React, 6 Styles &amp; Figma UI (2026)">
+  <meta name="twitter:description" content="Master 7,410+ Solar Icons: Linear, Bold, Broken &amp; Duotone styles, @solar-icons/react setup, SolarProvider theming, and Figma design system integration.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/solar-icons-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/solar-icons-complete-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Solar Icons Complete Guide: Setup, React, 6 Styles & Figma UI (2026)",
+    "description": "Master 7,410+ Solar Icons: Linear, Bold, Broken and Duotone styles, @solar-icons/react setup, SolarProvider theming, and Figma design integration.",
+    "image": "https://iconstash.io/assets/articles/solar-icons-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-12",
+    "dateModified": "2026-10-12",
+    "mainEntityOfPage": "https://iconstash.io/articles/solar-icons-complete-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Icon (computing)", "sameAs": "https://en.wikipedia.org/wiki/Icon_(computing)" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "React (software library)", "sameAs": "https://en.wikipedia.org/wiki/React_(software_library)" },
+      { "@type": "Thing", "name": "User interface design", "sameAs": "https://en.wikipedia.org/wiki/User_interface_design" }
+    ],
+    "keywords": ["solar icons", "solar icons react", "@solar-icons/react", "solar icons figma", "broken style icons", "duotone icons"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Solar Icons Complete Guide", "item": "https://iconstash.io/articles/solar-icons-complete-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What makes Solar Icons unique compared to other vector icon libraries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Solar Icons features 7,410 vector icons designed on a 24px grid with signature squircle geometry and smooth corner curvature. Unlike single-style libraries, Solar provides 6 synchronized stylistic treatments per symbol: Linear, Bold, Bold Duotone, Broken, Outline, and Line Duotone, making it especially popular in fintech, crypto, and modern SaaS dashboards."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install and import Solar Icons in React with subpath tree-shaking?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Install the official package with npm install @solar-icons/react. Import specific styles using direct subpath imports such as import { HomeIcon } from '@solar-icons/react/linear' or import { HomeIcon } from '@solar-icons/react/broken'. This isolates the imports to only the required vector glyphs and guarantees zero bundle bloat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the purpose of the SolarProvider component in @solar-icons/react?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The SolarProvider component provides React context for defining global default icon attributes across an entire application. By wrapping your app in <SolarProvider size={24} color='currentColor' strokeWidth={1.5}>, every child Solar icon inherits consistent dimensions, colors, and line weights without having to pass manual props to each instance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What license governs Solar Icons and can I use them in commercial SaaS products?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Solar Icons is published under the Creative Commons Attribution 4.0 International license (CC BY 4.0). You are permitted to use, modify, and distribute Solar Icons in commercial SaaS apps, client projects, and mobile applications, with a simple attribution note in your credits, documentation, or legal page."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do the Broken and Duotone styles in Solar Icons work under the hood?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Broken style uses intentional vector gap paths to create a modern architectural stencil silhouette, rendering as a single stroke path with 0.5px to 1.5px gaps. The Bold Duotone and Line Duotone styles split the vector into two sub-paths: a primary 100% opacity foreground layer and a secondary 20% to 30% translucent accent fill layer, both inheriting currentColor."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I search, preview, and download all 7,410 Solar Icons for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can search, filter by style, compare, and copy clean SVG code for all 7,410 Solar Icons directly on IconStash at https://iconstash.io/library/solar/. IconStash provides instant full-text search, light/dark mode previews, and one-click copy to SVG and React JSX."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* Interactive Demo Card */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-controls-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 12.5px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .demo-toggle-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+
+    .solar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-top: 16px; }
+    .solar-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 12px; background: #141414; border: 1px solid #262626; border-radius: 8px; gap: 10px; text-align: center; }
+    .solar-preview { display: flex; align-items: center; justify-content: center; height: 52px; width: 52px; background: #1F1F1F; border-radius: 8px; color: #C1DD2D; transition: all 200ms ease; }
+    .solar-name { font-size: 12.5px; font-weight: 600; color: #FFF; }
+    .solar-meta { font-size: 11px; color: #888; font-family: "JetBrains Mono", monospace; }
+
+    .code-generator-box { background: #0E0E0E; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #C1DD2D; overflow-x: auto; }
+
+    .style-chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+    .style-chip-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 18px; }
+    .style-chip-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 700; color: #FFF; font-size: 15px; }
+    .style-chip-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(193,221,45,0.12); color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .style-chip-card p { font-size: 13.5px; color: #AAA; line-height: 1.6; margin: 0; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #383838; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .cta-sidebar-box { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #525252; }
+    html[data-theme="light"] .cta-banner { background: #F8FAEE; border-color: #CCD895; }
+    html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
+    html[data-theme="light"] .cta-banner p { color: #525252; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .theme-toggle-btn { border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .theme-toggle-btn:hover { border-color: #A3A3A3; color: #171717; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-title { color: #0A0A0A; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .demo-toggle-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
+    html[data-theme="light"] .demo-toggle-btn:hover:not(.active) { background: #E4E4E7; }
+    html[data-theme="light"] .solar-grid { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .solar-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .solar-preview { background: #F4F4F5; color: #5C6E00; }
+    html[data-theme="light"] .solar-name { color: #0A0A0A; }
+    html[data-theme="light"] .code-generator-box { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] .style-chip-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .style-chip-head { color: #0A0A0A; }
+    html[data-theme="light"] .style-chip-badge { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] .style-chip-card p { color: #525252; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/library/solar/">Solar Icons</a>
+      <a href="/articles/">Articles</a>
+      <a href="/Listicles/best-duotone-icon-packs/">Duotone Packs</a>
+      <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle visual theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Solar Icons Complete Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Design System Spotlight</span>
+      <h1>Solar Icons Complete Guide: Setup, React, 6 Styles &amp; Figma UI (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>October 12, 2026</span>
+        <span>•</span>
+        <span>14 min read</span>
+        <span>•</span>
+        <span>7,410 Vectors Indexed</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="/assets/articles/solar-icons-guide.jpg" alt="Solar Icons Vector System Architecture and 6 Visual Styles" width="1200" height="675">
+      <figcaption>Solar Icons vector architecture: squircle corner smoothing, 6 synchronized styles, and componentized React &amp; Figma workflows.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Engineering Summary:</strong> Solar Icons by 480 Design is one of the most comprehensive modern icon libraries on the web, boasting 7,410 distinct vector icons across 6 synchronized stylistic treatments.</p>
+          <ul>
+            <li><strong>6 Stylistic Variations:</strong> Linear (1.5px outline), Bold (solid silhouette), Bold Duotone (solid + 20% accent fill), Broken (interrupted contour stencil), Outline (contoured stroke), and Line Duotone (linear + translucent accent).</li>
+            <li><strong>Optimized React Integration:</strong> Subpath imports via <code>@solar-icons/react</code> deliver granular tree-shaking (~0.8 KB minified gzipped per icon).</li>
+            <li><strong>Global Context Theming:</strong> The <code>&lt;SolarProvider&gt;</code> component centralizes default sizes, stroke widths, and colors across enterprise frontend applications.</li>
+            <li><strong>Design-to-Code Parity:</strong> Seamless Figma plugin alignment with variant tokens matching production component exports.</li>
+          </ul>
+        </div>
+
+        <nav class="toc-nav" style="background:#121212; border:1px solid #222; border-radius:10px; padding:20px; margin-bottom:36px;">
+          <strong style="color:#FFF; display:block; margin-bottom:12px; font-size:15px;">Table of Contents</strong>
+          <ol style="margin-left:20px; margin-bottom:0;">
+            <li><a href="#what-is-solar-icons">1. What is Solar Icons? Geometry, Heritage &amp; Scale</a></li>
+            <li><a href="#six-visual-styles">2. The 6 Visual Styles Explained with Vector Mechanics</a></li>
+            <li><a href="#interactive-sandbox">3. Interactive Solar Icons Sandbox &amp; Live Generator</a></li>
+            <li><a href="#react-setup">4. React &amp; Next.js Setup: @solar-icons/react &amp; Tree-Shaking</a></li>
+            <li><a href="#solar-provider">5. Centralized Theming with &lt;SolarProvider&gt;</a></li>
+            <li><a href="#vue-and-vanilla">6. Vue 3 &amp; Vanilla SVG Workflows</a></li>
+            <li><a href="#figma-design-tokens">7. Figma Component Token Architecture</a></li>
+            <li><a href="#comparative-benchmark">8. Solar Icons vs Lucide, Phosphor &amp; Tabler Benchmark</a></li>
+            <li><a href="#accessibility">9. Accessibility (ARIA) &amp; Touch Target Doctrine</a></li>
+            <li><a href="#frequently-asked-questions">10. Frequently Asked Questions</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="what-is-solar-icons">1. What is Solar Icons? Geometry, Heritage &amp; Scale</h2>
+        <p>In modern web software and mobile application design, interface iconography often suffers from a frustrating compromise: libraries offer either a single generic outline style or a fragmented collection of inconsistent glyphs. <strong>Solar Icons</strong>, crafted by the design studio 480 Design, solves this structural problem by providing an expansive system of <strong>7,410 meticulously drawn vector icons</strong> indexed on IconStash.</p>
+        <p>The defining aesthetic characteristic of Solar Icons is its commitment to <strong>squircle geometry and continuous curvature</strong>. Rather than sharp polygonal vertices or basic circular fillets, Solar icons utilize cubic Bézier curves (superellipse contours) that blend seamlessly into modern operating system aesthetics, including iOS and contemporary SaaS dashboards.</p>
+        <p>Built upon a strict <strong>24x24 pixel grid</strong> with an optical safe margin of 2px on all edges, every glyph maintains an optical center of gravity that aligns naturally with Latin typography, navigation sidebars, and high-density tabular data grids.</p>
+
+        <h2 id="six-visual-styles">2. The 6 Visual Styles Explained with Vector Mechanics</h2>
+        <p>The foundational superpower of Solar Icons is that every functional concept (such as <code>Home</code>, <code>Bell</code>, <code>Settings</code>, or <code>Shield</code>) is crafted across six parallel visual treatments. This enables seamless state management: a button can render in <em>Linear</em> in its idle state, switch to <em>Broken</em> on active hover, and toggle to <em>Bold Duotone</em> when selected.</p>
+
+        <div class="style-chip-grid">
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Linear</span>
+              <span class="style-chip-badge">1.5px Stroke</span>
+            </div>
+            <p>Clean, open outline vectors drawn with round stroke caps and smooth joins. Ideal for secondary navigation, settings panels, and subtle inline actions.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Bold</span>
+              <span class="style-chip-badge">Solid Fill</span>
+            </div>
+            <p>Heavy silhouette fills with optimized interior counters. Conveys maximum visual weight, perfect for primary mobile tab bars and active tab indicators.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Bold Duotone</span>
+              <span class="style-chip-badge">Solid + 20% Alpha</span>
+            </div>
+            <p>Splits the glyph into a 100% foreground silhouette and a 20% translucent accent fill layer. Delivers rich visual depth without raster image overhead.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Broken</span>
+              <span class="style-chip-badge">Stencil Gap</span>
+            </div>
+            <p>Signature stencil aesthetic featuring strategic 1.5px breaks in the continuous stroke contour. Adds an editorial, high-end architectural feel to modern interfaces.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Outline</span>
+              <span class="style-chip-badge">Contoured Path</span>
+            </div>
+            <p>Outlined vector paths with double boundary lines, providing distinct graphic definition on both dark and light high-contrast surfaces.</p>
+          </div>
+          <div class="style-chip-card">
+            <div class="style-chip-head">
+              <span>Line Duotone</span>
+              <span class="style-chip-badge">Stroke + 20% Alpha</span>
+            </div>
+            <p>Combines standard 1.5px linear stroke perimeters with subtle 20% opacity interior accent shapes, blending clarity with rich color accents.</p>
+          </div>
+        </div>
+
+        <p>From an SVG DOM standpoint, Duotone styles operate cleanly via CSS <code>currentColor</code>. The primary path inherits the full font color, while the secondary decorative path applies <code>opacity="0.2"</code> or a CSS token slot, ensuring zero external stylesheet dependencies.</p>
+
+        <h2 id="interactive-sandbox">3. Interactive Solar Icons Sandbox &amp; Live Generator</h2>
+        <p>Test the six stylistic treatments of Solar Icons below. Toggle styles to observe how the path coordinates, visual weight, and markup change instantly:</p>
+
+        <div class="interactive-demo-card">
+          <div class="interactive-demo-header">
+            <div class="interactive-demo-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M14 9h5"/><path d="M14 15h5"/></svg>
+              <span>Solar Style Interactive Explorer</span>
+            </div>
+            <div class="demo-controls-group">
+              <button class="demo-toggle-btn active" id="btnLinear">Linear</button>
+              <button class="demo-toggle-btn" id="btnBold">Bold</button>
+              <button class="demo-toggle-btn" id="btnBoldDuotone">Bold Duotone</button>
+              <button class="demo-toggle-btn" id="btnBroken">Broken</button>
+            </div>
+          </div>
+
+          <div class="solar-grid">
+            <div class="solar-card">
+              <div class="solar-preview" id="previewHome">
+                <svg id="svgHome" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12.2l8.8-7.3a2 2 0 0 1 2.4 0l8.8 7.3M5 10v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9"/>
+                </svg>
+              </div>
+              <span class="solar-name">Home</span>
+              <span class="solar-meta" id="metaHome">Linear</span>
+            </div>
+            <div class="solar-card">
+              <div class="solar-preview" id="previewBell">
+                <svg id="svgBell" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+              </div>
+              <span class="solar-name">Notification</span>
+              <span class="solar-meta" id="metaBell">Linear</span>
+            </div>
+            <div class="solar-card">
+              <div class="solar-preview" id="previewSettings">
+                <svg id="svgSettings" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              </div>
+              <span class="solar-name">Settings</span>
+              <span class="solar-meta" id="metaSettings">Linear</span>
+            </div>
+            <div class="solar-card">
+              <div class="solar-preview" id="previewUser">
+                <svg id="svgUser" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+              <span class="solar-name">User Profile</span>
+              <span class="solar-meta" id="metaUser">Linear</span>
+            </div>
+          </div>
+
+          <pre class="code-generator-box" id="solarCodeOutput">// Live Generated React Import
+import { HomeIcon, BellIcon, SettingsIcon, UserIcon } from '@solar-icons/react/linear';
+
+export function Navigation() {
+  return &lt;HomeIcon size={24} color="currentColor" strokeWidth={1.5} /&gt;;
+}</pre>
+        </div>
+
+        <h2 id="react-setup">4. React &amp; Next.js Setup: @solar-icons/react &amp; Tree-Shaking</h2>
+        <p>In React and Next.js applications (including Next.js 15 App Router and React 19 Server Components), Solar Icons provides official component wrappers via <code>@solar-icons/react</code>. To install the package:</p>
+
+        <pre><code>npm install @solar-icons/react
+# or with pnpm
+pnpm add @solar-icons/react
+# or with bun
+bun add @solar-icons/react</code></pre>
+
+        <p>To ensure perfect bundle isolation and eliminate unused styles, always use <strong>subpath imports</strong> targeting the specific visual style required:</p>
+
+        <pre><code>// Optimal Tree-Shaking: Import directly from the style subpath
+import { HomeIcon, MagnifierIcon } from '@solar-icons/react/linear';
+import { BellIcon } from '@solar-icons/react/broken';
+import { UserCircleIcon } from '@solar-icons/react/bold-duotone';
+
+export function DashboardHeader() {
+  return (
+    &lt;header className="flex items-center justify-between p-4"&gt;
+      &lt;div className="flex items-center gap-2"&gt;
+        &lt;HomeIcon size={24} className="text-zinc-400 hover:text-white transition-colors" /&gt;
+        &lt;span className="font-semibold"&gt;Command Center&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;div className="flex items-center gap-4"&gt;
+        &lt;button aria-label="Search" className="p-2 rounded-lg bg-zinc-900"&gt;
+          &lt;MagnifierIcon size={20} color="currentColor" /&gt;
+        &lt;/button&gt;
+        &lt;button aria-label="Notifications" className="p-2 rounded-lg bg-zinc-900 relative"&gt;
+          &lt;BellIcon size={20} color="#C1DD2D" /&gt;
+        &lt;/button&gt;
+        &lt;UserCircleIcon size={28} color="currentColor" /&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+  );
+}</code></pre>
+
+        <div class="callout-box">
+          <div class="callout-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            <span>Next.js 15 Server Components (RSC) Zero-JS Guarantee</span>
+          </div>
+          <p>Because <code>@solar-icons/react</code> outputs standard pure SVG elements without client-side React hooks or event listeners, Solar components execute on the server during SSR. In static Next.js App Router pages, they contribute <strong>0 KB of client-side JavaScript</strong> to your first-load bundle.</p>
+        </div>
+
+        <h2 id="solar-provider">5. Centralized Theming with &lt;SolarProvider&gt;</h2>
+        <p>In large design systems, passing <code>size</code>, <code>color</code>, and <code>strokeWidth</code> to dozens of individual icon instances creates maintenance friction. Solar Icons resolves this with <code>SolarProvider</code>, which injects global defaults across the component tree:</p>
+
+        <pre><code>import React from 'react';
+import { SolarProvider } from '@solar-icons/react';
+import { HomeIcon, SettingsIcon, BellIcon } from '@solar-icons/react/linear';
+
+export function AppRoot({ children }: { children: React.ReactNode }) {
+  return (
+    &lt;SolarProvider
+      size={20}
+      color="currentColor"
+      strokeWidth={1.5}
+    &gt;
+      &lt;div className="app-shell"&gt;
+        &lt;nav className="sidebar"&gt;
+          {/* All child icons automatically inherit size={20} and strokeWidth={1.5} */}
+          &lt;HomeIcon /&gt;
+          &lt;SettingsIcon /&gt;
+          &lt;BellIcon /&gt;
+        &lt;/nav&gt;
+        &lt;main&gt;{children}&lt;/main&gt;
+      &lt;/div&gt;
+    &lt;/SolarProvider&gt;
+  );
+}</code></pre>
+
+        <h2 id="vue-and-vanilla">6. Vue 3 &amp; Vanilla SVG Workflows</h2>
+        <p>For Vue 3 and Nuxt applications, Solar provides <code>@solar-icons/vue</code>. Icons can be installed and utilized with the Composition API:</p>
+
+        <pre><code>&lt;script setup lang="ts"&gt;
+import { HomeIcon, BellIcon } from '@solar-icons/vue/linear';
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class="nav-bar"&gt;
+    &lt;HomeIcon :size="24" color="currentColor" :stroke-width="1.5" /&gt;
+    &lt;BellIcon :size="24" color="#C1DD2D" /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+
+        <p>If you prefer zero dependencies or are developing in Astro or Hugo, you can export raw SVG code straight from IconStash. Clean Solar SVGs require only the <code>viewBox="0 0 24 24"</code> and <code>fill="currentColor"</code> or <code>stroke="currentColor"</code>:</p>
+
+        <pre><code>&lt;!-- Raw 0-Dependency Solar SVG: Bell Linear --&gt;
+&lt;svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"&gt;
+  &lt;path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/&gt;
+&lt;/svg&gt;</code></pre>
+
+        <h2 id="figma-design-tokens">7. Figma Component Token Architecture</h2>
+        <p>Design teams building UI component libraries in Figma benefit from the official <strong>Solar Icons Figma Plugin</strong>. Solar is structured natively with Figma component properties:</p>
+        <ul>
+          <li><strong>Variant: Style:</strong> Seamlessly toggle between <code>Linear</code>, <code>Bold</code>, <code>Bold Duotone</code>, <code>Broken</code>, <code>Outline</code>, and <code>Line Duotone</code> without resetting component overrides.</li>
+          <li><strong>Stroke Preservation:</strong> Linear and Broken variants utilize live vectors with configurable outline thickness (1px, 1.5px, 2px).</li>
+          <li><strong>Color Tokens:</strong> Layer names are normalized to <code>Primary</code> and <code>Secondary</code> across all 7,410 glyphs, allowing instant batch binding to Figma Design Tokens or CSS Variables.</li>
+        </ul>
+
+        <h2 id="comparative-benchmark">8. Solar Icons vs Lucide, Phosphor &amp; Tabler Benchmark</h2>
+        <p>How does Solar Icons compare against the other leading open-source icon libraries indexed on IconStash? Here is the architectural comparison:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Library</th>
+                <th>Icons Indexed</th>
+                <th>Distinct Styles</th>
+                <th>Grid Base</th>
+                <th>License</th>
+                <th>Best For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Solar Icons</strong></td>
+                <td>7,410</td>
+                <td>6 (Linear, Bold, Duotone, Broken...)</td>
+                <td>24px</td>
+                <td>CC BY 4.0</td>
+                <td>Fintech, crypto &amp; multi-state SaaS UI</td>
+              </tr>
+              <tr>
+                <td><strong>Lucide</strong></td>
+                <td>1,979</td>
+                <td>1 (Uniform Outline)</td>
+                <td>24px</td>
+                <td>ISC (Permissive)</td>
+                <td>Minimalist general SaaS &amp; shadcn/ui</td>
+              </tr>
+              <tr>
+                <td><strong>Phosphor</strong></td>
+                <td>9,198</td>
+                <td>6 (Thin, Light, Regular, Bold, Fill, Duotone)</td>
+                <td>24px</td>
+                <td>MIT</td>
+                <td>Variable weight typography systems</td>
+              </tr>
+              <tr>
+                <td><strong>Tabler Icons</strong></td>
+                <td>6,324</td>
+                <td>2 (Outline &amp; Filled)</td>
+                <td>24px</td>
+                <td>MIT</td>
+                <td>Developer admin templates &amp; dashboards</td>
+              </tr>
+              <tr>
+                <td><strong>Hugeicons</strong></td>
+                <td>5,115 (Free)</td>
+                <td>5 (Stroke, Solid, Bulk, Duotone...)</td>
+                <td>24px</td>
+                <td>MIT</td>
+                <td>Modern product apps &amp; React/Vue setups</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="accessibility">9. Accessibility (ARIA) &amp; Touch Target Doctrine</h2>
+        <p>Whenever icons are placed in production web apps, strict accessibility rules must be followed to avoid confusing assistive technologies:</p>
+        <ol>
+          <li><strong>Purely Decorative Icons:</strong> When an icon accompanies visible label text (such as a 'Download CSV' button with a download icon), hide the icon from the accessibility tree by specifying <code>aria-hidden="true"</code>.</li>
+          <li><strong>Icon-Only Action Buttons:</strong> When an icon serves as an interactive button with no text (e.g., a bell notification trigger), provide an explicit <code>aria-label</code> on the parent button:
+            <pre><code>&lt;button aria-label="View unread notifications" className="btn-icon"&gt;
+  &lt;BellIcon size={20} aria-hidden="true" /&gt;
+&lt;/button&gt;</code></pre>
+          </li>
+          <li><strong>Touch Target Sizing:</strong> While Solar icons are designed on a 24px grid, interactive buttons must meet the WCAG 2.2 AA minimum target size of <strong>24x24 CSS pixels</strong> and the recommended AAA target of <strong>44x44 CSS pixels</strong>. Wrap the 24px icon in a padded interactive hit area rather than scaling the icon itself.</li>
+        </ol>
+
+        <h2 id="frequently-asked-questions">10. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>What makes Solar Icons unique compared to other vector icon libraries?</h3>
+          <p>Solar Icons features 7,410 vector icons designed on a 24px grid with signature squircle geometry and smooth corner curvature. Unlike single-style libraries, Solar provides 6 synchronized stylistic treatments per symbol: Linear, Bold, Bold Duotone, Broken, Outline, and Line Duotone, making it especially popular in fintech, crypto, and modern SaaS dashboards.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I install and import Solar Icons in React with subpath tree-shaking?</h3>
+          <p>Install the official package with npm install @solar-icons/react. Import specific styles using direct subpath imports such as import { HomeIcon } from '@solar-icons/react/linear' or import { HomeIcon } from '@solar-icons/react/broken'. This isolates the imports to only the required vector glyphs and guarantees zero bundle bloat.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the purpose of the SolarProvider component in @solar-icons/react?</h3>
+          <p>The SolarProvider component provides React context for defining global default icon attributes across an entire application. By wrapping your app in &lt;SolarProvider size={24} color='currentColor' strokeWidth={1.5}&gt;, every child Solar icon inherits consistent dimensions, colors, and line weights without having to pass manual props to each instance.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What license governs Solar Icons and can I use them in commercial SaaS products?</h3>
+          <p>Solar Icons is published under the Creative Commons Attribution 4.0 International license (CC BY 4.0). You are permitted to use, modify, and distribute Solar Icons in commercial SaaS apps, client projects, and mobile applications, with a simple attribution note in your credits, documentation, or legal page.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do the Broken and Duotone styles in Solar Icons work under the hood?</h3>
+          <p>The Broken style uses intentional vector gap paths to create a modern architectural stencil silhouette, rendering as a single stroke path with 0.5px to 1.5px gaps. The Bold Duotone and Line Duotone styles split the vector into two sub-paths: a primary 100% opacity foreground layer and a secondary 20% to 30% translucent accent fill layer, both inheriting currentColor.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Where can I search, preview, and download all 7,410 Solar Icons for free?</h3>
+          <p>You can search, filter by style, compare, and copy clean SVG code for all 7,410 Solar Icons directly on IconStash at https://iconstash.io/library/solar/. IconStash provides instant full-text search, light/dark mode previews, and one-click copy to SVG and React JSX.</p>
+        </div>
+
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Library Facts</div>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Indexed Count:</strong> 7,410 icons</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Grid Standard:</strong> 24 × 24 px</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Visual Styles:</strong> 6 Variants</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>License:</strong> CC BY 4.0</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:0;"><strong>Authors:</strong> 480 Design</p>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search Solar on IconStash</h4>
+          <p>Browse all 7,410 Solar icons with real-time style filtering, dark mode preview, and instant SVG/React export.</p>
+          <a href="/library/solar/" class="cta-sidebar-btn">Explore Solar Icons →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <h3>Search 134,701 Icons Across 28 Libraries</h3>
+    <p>Zero paywalls, zero login, zero subscription fees. Find the perfect SVG vector icon in seconds on IconStash.</p>
+    <a href="/" class="header-cta" style="font-size:15px; padding:12px 28px;">Start Searching Free →</a>
+  </section>
+
+  <footer class="site-footer">
+    <div style="max-width:1080px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <span>© 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a></span>
+      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+        <a href="/">Browse Icons</a>
+        <a href="/about/">About</a>
+        <a href="/articles/">Articles</a>
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle script with localStorage persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Solar Interactive Demo Engine
+    const solarPaths = {
+      Linear: {
+        Home: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M2 12.2l8.8-7.3a2 2 0 0 1 2.4 0l8.8 7.3M5 10v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9' },
+        Bell: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0' },
+        Settings: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.4-3a7.4 7.4 0 0 0-.2-1.7l2-1.5-2-3.5-2.4 1a7.6 7.6 0 0 0-2.9-1.7L13.5 2h-3l-.4 2.6A7.6 7.6 0 0 0 7.2 6.3l-2.4-1-2 3.5 2 1.5A7.4 7.4 0 0 0 4.6 12l-2 1.5 2 3.5 2.4-1a7.6 7.6 0 0 0 2.9 1.7L10.5 22h3l.4-2.6a7.6 7.6 0 0 0 2.9-1.7l2.4 1 2-3.5-2-1.5c.1-.6.2-1.1.2-1.7z' },
+        User: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z' }
+      },
+      Bold: {
+        Home: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a2 2 0 0 0-1.28.47L2.4 9.38A2 2 0 0 0 3.68 12.8H4v7.2A2 2 0 0 0 6 22h4v-6h4v6h4a2 2 0 0 0 2-2v-7.2h.32a2 2 0 0 0 1.28-3.42l-8.32-6.91A2 2 0 0 0 12 2z' },
+        Bell: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a7 7 0 0 0-7 7v4.28L3.28 16.4A2 2 0 0 0 4.7 19.8h14.6a2 2 0 0 0 1.42-3.4L19 13.28V9a7 7 0 0 0-7-7zm-2.5 19a2.5 2.5 0 0 0 5 0h-5z' },
+        Settings: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9.4 3.2a8.6 8.6 0 0 0-.25-1.5l2.1-1.6-2-3.5-2.5 1a8.6 8.6 0 0 0-2.6-1.5L15.8 2h-3.6l-.35 2.6a8.6 8.6 0 0 0-2.6 1.5l-2.5-1-2 3.5 2.1 1.6A8.6 8.6 0 0 0 6.6 12l-2.1 1.6 2 3.5 2.5-1a8.6 8.6 0 0 0 2.6 1.5l.35 2.6h3.6l.35-2.6a8.6 8.6 0 0 0 2.6-1.5l2.5 1 2-3.5-2.1-1.6c.15-.5.25-1 .25-1.5z' },
+        User: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 12c-4.42 0-8 2.69-8 6v1a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1c0-3.31-3.58-6-8-6z' }
+      },
+      BoldDuotone: {
+        Home: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a2 2 0 0 0-1.28.47L2.4 9.38A2 2 0 0 0 3.68 12.8H4v7.2A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2v-7.2h.32a2 2 0 0 0 1.28-3.42l-8.32-6.91A2 2 0 0 0 12 2z' },
+        Bell: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a7 7 0 0 0-7 7v4.28L3.28 16.4A2 2 0 0 0 4.7 19.8h14.6a2 2 0 0 0 1.42-3.4L19 13.28V9a7 7 0 0 0-7-7zm-2.5 19a2.5 2.5 0 0 0 5 0h-5z' },
+        Settings: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9.4 3.2a8.6 8.6 0 0 0-.25-1.5l2.1-1.6-2-3.5-2.5 1a8.6 8.6 0 0 0-2.6-1.5L15.8 2h-3.6l-.35 2.6a8.6 8.6 0 0 0-2.6 1.5l-2.5-1-2 3.5 2.1 1.6A8.6 8.6 0 0 0 6.6 12l-2.1 1.6 2 3.5 2.5-1a8.6 8.6 0 0 0 2.6 1.5l.35 2.6h3.6l.35-2.6a8.6 8.6 0 0 0 2.6-1.5l2.5 1 2-3.5-2.1-1.6c.15-.5.25-1 .25-1.5z' },
+        User: { fill: 'currentColor', stroke: 'none', sw: '0', d: 'M12 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 12c-4.42 0-8 2.69-8 6v1a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-1c0-3.31-3.58-6-8-6z' }
+      },
+      Broken: {
+        Home: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M2 12.2l4-3.3M9.5 5.9l1.7-1.4a2 2 0 0 1 2.4 0l7.2 6M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9' },
+        Bell: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M18 11v-3A6 6 0 0 0 6 8c0 2.5-.5 5-2 7M10 17h11s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0' },
+        Settings: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.4-3a7.4 7.4 0 0 0-.2-1.7l2-1.5-2-3.5-2.4 1M11 2.1l-.5 2.5A7.6 7.6 0 0 0 7.2 6.3l-2.4-1-2 3.5 2 1.5A7.4 7.4 0 0 0 4.6 12l-2 1.5 2 3.5 2.4-1a7.6 7.6 0 0 0 2.9 1.7L10.5 22h3l.4-2.6a7.6 7.6 0 0 0 2.9-1.7l2.4 1 2-3.5-2-1.5' },
+        User: { fill: 'none', stroke: 'currentColor', sw: '1.5', d: 'M16 19v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z' }
+      }
+    };
+
+    let activeSolarStyle = 'Linear';
+
+    function setSolarStyle(style) {
+      activeSolarStyle = style;
+      const subpathMap = {
+        Linear: 'linear',
+        Bold: 'bold',
+        BoldDuotone: 'bold-duotone',
+        Broken: 'broken'
+      };
+
+      ['Home', 'Bell', 'Settings', 'User'].forEach(name => {
+        const svgEl = document.getElementById(`svg${name}`);
+        const metaEl = document.getElementById(`meta${name}`);
+        const data = solarPaths[style][name];
+
+        if (svgEl && data) {
+          svgEl.setAttribute('fill', data.fill);
+          svgEl.setAttribute('stroke', data.stroke);
+          svgEl.setAttribute('stroke-width', data.sw);
+          const pathEl = svgEl.querySelector('path');
+          if (pathEl) {
+            pathEl.setAttribute('d', data.d);
+          }
+          if (style === 'BoldDuotone') {
+            svgEl.style.opacity = '0.9';
+          } else {
+            svgEl.style.opacity = '1';
+          }
+        }
+        if (metaEl) {
+          metaEl.textContent = style;
+        }
+      });
+
+      const subpath = subpathMap[style];
+      const codeBox = document.getElementById('solarCodeOutput');
+      if (codeBox) {
+        codeBox.textContent = `// Live Generated React Import (@solar-icons/react/${subpath})\nimport { HomeIcon, BellIcon, SettingsIcon, UserIcon } from '@solar-icons/react/${subpath}';\n\nexport function Navigation() {\n  return (\n    <div className="flex gap-4 items-center text-zinc-100">\n      <HomeIcon size={24} color="currentColor" />\n      <BellIcon size={24} color="currentColor" />\n      <SettingsIcon size={24} color="currentColor" />\n      <UserIcon size={24} color="currentColor" />\n    </div>\n  );\n}`;
+      }
+    }
+
+    const btnLinear = document.getElementById('btnLinear');
+    const btnBold = document.getElementById('btnBold');
+    const btnBoldDuotone = document.getElementById('btnBoldDuotone');
+    const btnBroken = document.getElementById('btnBroken');
+
+    const allButtons = [btnLinear, btnBold, btnBoldDuotone, btnBroken];
+
+    allButtons.forEach(btn => {
+      if (btn) {
+        btn.addEventListener('click', () => {
+          allButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const style = btn.id.replace('btn', '');
+          setSolarStyle(style);
+        });
+      }
+    });
+
+    // Initialize sandbox
+    setSolarStyle('Linear');
+  </script>
+</body>
+</html>
