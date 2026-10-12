@@ -152,12 +152,29 @@ for (const item of deliverables) {
   assert(content.includes("localStorage.getItem('theme')"), 'Theme persistence script present');
 
   // 11. No raw unrendered LaTeX math formulas
-  assert(!content.includes('$$\\text{') && !content.includes('\\times') && !content.includes('\\approx'), 'No unrendered LaTeX math delimiters ($$ or \\times) found');
+  assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx'), 'No unrendered LaTeX math delimiters ($$ or \\times) found');
 
   // 12. Viewport responsiveness tag
   assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
 
-  // 13. Table of Contents Anchor Integrity Verification (if applicable)
+  // 13. Internal Link Integrity (all internal href and src point to files on disk)
+  const hrefMatches = content.match(/href="(\/[^"]*)"/g) || [];
+  const srcMatches = content.match(/src="(\/[^"]*)"/g) || [];
+  const internalLinks = [...hrefMatches, ...srcMatches].map(m => m.split('"')[1]);
+  let allLinksValid = true;
+  for (const link of internalLinks) {
+    const clean = link.split('#')[0].split('?')[0];
+    if (!clean || clean === '/') continue;
+    let target = clean.startsWith('/') ? clean.slice(1) : clean;
+    if (target.endsWith('/')) target += 'index.html';
+    if (!fs.existsSync(target)) {
+      allLinksValid = false;
+      console.error(`    Broken internal link in ${item.slug}: ${link} (disk target: ${target})`);
+    }
+  }
+  assert(allLinksValid && internalLinks.length > 0, `All internal links in ${item.slug} resolve to valid files on disk`);
+
+  // 14. Table of Contents Anchor Integrity Verification (if applicable)
   const tocNavMatch = content.match(/<nav class="toc-nav"[\s\S]*?<\/nav>/);
   if (tocNavMatch) {
     const anchorMatches = [...tocNavMatch[0].matchAll(/href="#([^"]+)"/g)].map(m => m[1]);
@@ -205,6 +222,7 @@ const llms = fs.readFileSync('llms.txt', 'utf8');
 for (const item of deliverables) {
   assert(llms.includes(item.canonical), `llms.txt includes ${item.canonical}`);
 }
+assert(llms.includes('Last updated: 2026-10-12'), 'llms.txt has updated timestamp 2026-10-12');
 
 console.log(`\n========================================`);
 console.log(`VERIFICATION SUMMARY: ${passed} PASSED, ${failed} FAILED`);
