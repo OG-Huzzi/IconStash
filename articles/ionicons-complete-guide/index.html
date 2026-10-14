@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ionicons Complete Guide: Modern Web, React, Vue &amp; Mobile (2026) | IconStash</title>
+  <meta name="description" content="Master 1,300+ Ionicons: Outline, Filled &amp; Sharp variants, Web Components, @ionic/react tree-shaking, Angular addIcons, and cross-platform UI workflows.">
+  <meta name="keywords" content="ionicons, ionicons react, ionicons angular, ionicons vue, ionicons svg, ion-icon web component, cross platform icons, mobile ui icons 2026">
+  <meta property="og:title" content="Ionicons Complete Guide: Modern Web, React, Vue &amp; Mobile (2026)">
+  <meta property="og:description" content="Master 1,300+ Ionicons: Outline, Filled &amp; Sharp variants, Web Components, @ionic/react tree-shaking, Angular addIcons, and cross-platform UI workflows.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/ionicons-complete-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/ionicons-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Ionicons Cross-Platform Vector Architecture and Framework Integration">
+  <meta property="article:published_time" content="2026-10-14T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-14T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Ionicons">
+  <meta property="article:tag" content="Mobile UI">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Angular">
+  <meta property="article:tag" content="Web Components">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ionicons Complete Guide: Modern Web, React, Vue &amp; Mobile (2026)">
+  <meta name="twitter:description" content="Master 1,300+ Ionicons: Outline, Filled &amp; Sharp variants, Web Components, @ionic/react tree-shaking, Angular addIcons, and cross-platform UI workflows.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/ionicons-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/ionicons-complete-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Ionicons Complete Guide: Modern Web, React, Vue & Mobile (2026)",
+    "description": "Master 1,300+ Ionicons: Outline, Filled & Sharp variants, Web Components, @ionic/react tree-shaking, Angular addIcons, and cross-platform UI workflows.",
+    "image": "https://iconstash.io/assets/articles/ionicons-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-14",
+    "dateModified": "2026-10-14",
+    "mainEntityOfPage": "https://iconstash.io/articles/ionicons-complete-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Icon (computing)", "sameAs": "https://en.wikipedia.org/wiki/Icon_(computing)" },
+      { "@type": "Thing", "name": "Web Components", "sameAs": "https://en.wikipedia.org/wiki/Web_Components" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "Mobile application development", "sameAs": "https://en.wikipedia.org/wiki/Mobile_application_development" },
+      { "@type": "Thing", "name": "User interface design", "sameAs": "https://en.wikipedia.org/wiki/User_interface_design" }
+    ],
+    "keywords": ["ionicons", "ionicons react", "ionicons angular", "ionicons vue", "ion-icon", "mobile icons"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Ionicons Complete Guide", "item": "https://iconstash.io/articles/ionicons-complete-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What makes Ionicons distinct from other open-source icon libraries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ionicons is specifically architected for cross-platform hybrid and web applications. Every icon is handcrafted in three distinct visual styles: Outline (iOS aesthetic with smooth rounded strokes), Filled (active and solid state), and Sharp (Android Material Design aesthetic with crisp 90-degree square vertices). Additionally, Ionicons natively powers the custom HTML element <ion-icon> that automatically switches glyphs based on device operating system."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does tree-shaking work with Ionicons in React and Next.js?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tree-shaking in React is achieved by importing specific named icon objects directly from the subpath 'ionicons/icons' (e.g., import { heartOutline, settingsSharp } from 'ionicons/icons') and passing them to <IonIcon icon={heartOutline} />. This bundles only the minimal SVG string representation for the referenced glyphs, resulting in zero unused bundle bloat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are icons registered in modern Angular standalone components?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In modern Angular (v17+ standalone components), icons are registered using the addIcons() utility imported from 'ionicons'. Inside the component constructor or route initializer, call addIcons({ 'heart-outline': heartOutline }), and reference it in the template as <ion-icon name='heart-outline'></ion-icon>. This ensures strict static analysis and tree-shaking."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Ionicons in standard HTML or websites without Ionic Framework?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Ionicons is completely decoupled from Ionic Framework. You can include the standalone Web Component runtime via CDN using &lt;script type='module' src='https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js'&gt;&lt;/script&gt; and immediately drop &lt;ion-icon name='heart-outline'&gt;&lt;/ion-icon&gt; into any vanilla HTML, WordPress, Astro, or static site."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What license governs Ionicons and can I use it in commercial apps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ionicons is 100% free and open-source under the MIT License. You can use it in commercial SaaS applications, proprietary iOS and Android mobile apps, commercial themes, and enterprise software without any royalty payments or licensing restrictions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I search, preview, and copy Ionicons SVGs for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can search and preview all 1,300+ Ionicons directly on IconStash at https://iconstash.io/library/ionicons/. IconStash provides instant full-text search, style filtering (Outline, Filled, Sharp), and one-click copy to clean SVG or React JSX components."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* Interactive Demo Card */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-controls-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 12.5px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .demo-toggle-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+
+    .ionic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 20px; margin-top: 16px; }
+    .ionic-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 12px; background: #141414; border: 1px solid #262626; border-radius: 8px; gap: 10px; text-align: center; }
+    .ionic-preview { display: flex; align-items: center; justify-content: center; height: 52px; width: 52px; background: #1F1F1F; border-radius: 8px; color: #C1DD2D; transition: all 200ms ease; }
+    .ionic-name { font-size: 12.5px; font-weight: 600; color: #FFF; }
+    .ionic-meta { font-size: 11px; color: #888; font-family: "JetBrains Mono", monospace; }
+
+    .code-generator-box { background: #0E0E0E; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #C1DD2D; overflow-x: auto; }
+
+    .style-chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+    .style-chip-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 18px; }
+    .style-chip-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 700; color: #FFF; font-size: 15px; }
+    .style-chip-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(193,221,45,0.12); color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .style-chip-card p { font-size: 13.5px; color: #AAA; line-height: 1.6; margin: 0; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #383838; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .ionic-grid { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .ionic-card { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .ionic-preview { background: #F4F4F5; color: #6D8200; }
+    html[data-theme="light"] .ionic-name { color: #111827; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #6D8200; }
+    html[data-theme="light"] .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    html[data-theme="light"] .code-generator-box { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .style-chip-card { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .style-chip-head { color: #111827; }
+    html[data-theme="light"] .style-chip-card p { color: #4B5563; }
+    html[data-theme="light"] .callout-box { background: #FFF; border-color: #E5E5E5; border-left-color: #849E00; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open Icon App</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Ionicons Complete Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Cross-Platform UI System</span>
+      <h1>Ionicons Complete Guide: Modern Web, React, Vue &amp; Mobile (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>Published Oct 14, 2026</span>
+        <span>•</span>
+        <span>15 min read</span>
+        <span>•</span>
+        <span>Covers Outline, Filled &amp; Sharp</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="https://iconstash.io/assets/articles/ionicons-guide.jpg" alt="Ionicons Cross-Platform Vector Architecture and Framework Integration" width="1200" height="675" loading="eager">
+      <figcaption>Ionicons cross-platform vector system: iOS-curved Outline, high-contrast Filled, and Android-angular Sharp variants with native framework wrappers.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <main class="article-main">
+        <section class="featured-summary">
+          <p><strong>Executive Architectural Takeaway:</strong> With over 800,000+ weekly downloads on npm and more than 1,300+ meticulously handcrafted symbols, Ionicons remains the gold standard for cross-platform iconography bridging native mobile (iOS/Android) and modern responsive web applications. Built by the Ionic Framework engineering team, Ionicons delivers three specialized visual modes per symbol, zero-overhead Web Components, and strict tree-shaking support across React, Vue, and Angular.</p>
+          <ul>
+            <li><strong>3 Distinct Visual Styles:</strong> Outline (iOS rounded curves), Filled (solid contrast states), and Sharp (Android angular geometry).</li>
+            <li><strong>Decoupled Architecture:</strong> Usable as standard Web Components, framework components, or raw SVG vectors without installing Ionic Framework.</li>
+            <li><strong>Framework-Native Packages:</strong> Zero-bloat subpath imports in <code>ionicons/icons</code> for React, Vue 3, and Angular standalone components.</li>
+            <li><strong>100% Permissive Open Source:</strong> Fully licensed under the MIT License for commercial and open-source software.</li>
+          </ul>
+        </section>
+
+        <section id="introduction">
+          <h2>1. Introduction: The Power of Cross-Platform Native Iconography</h2>
+          <p>Building applications that simultaneously target mobile devices (via Capacitor, React Native, or PWAs) and responsive desktop browsers requires an icon system that respects conflicting operating system design conventions. While iOS interfaces emphasize smooth continuous fillets, subtle 1.5px/2px stroke outlines, and gentle tap feedback, Android Material Design favors bold, geometric silhouette fills and crisp sharp vertices.</p>
+          <p><strong>Ionicons</strong> solves this fundamental design dichotomy by crafting every single concept into three synchronized, independent vector glyphs:</p>
+          <ol>
+            <li><strong>Outline (<code>-outline</code>):</strong> Delicate 32px stroke-based outlines featuring circular corner joints, perfectly harmonizing with Apple HIG (Human Interface Guidelines).</li>
+            <li><strong>Filled (default):</strong> High-density solid silhouettes, ideal for active bottom-tab selections, pressed states, and primary callouts.</li>
+            <li><strong>Sharp (<code>-sharp</code>):</strong> Squared-off vector joints and unfilleted geometric boundaries tailored to Google's Material Design principles.</li>
+          </ol>
+          <p>On <a href="/">IconStash</a>, you can browse all 1,300+ vector paths in the <a href="/library/ionicons/">Ionicons Library</a>, copy clean SVG code directly, or export optimized React JSX components.</p>
+        </section>
+
+        <section id="three-styles">
+          <h2>2. The Three Architectural Styles: Outline, Filled, and Sharp</h2>
+          <p>Understanding the geometric differences between Ionicons styles is essential for creating cohesive design systems:</p>
+
+          <div class="style-chip-grid">
+            <div class="style-chip-card">
+              <div class="style-chip-head">
+                <span>Outline Style</span>
+                <span class="style-chip-badge">-outline</span>
+              </div>
+              <p>Constructed on a 512x512 coordinate canvas with 32px standard stroke width, rounded line caps (<code>stroke-linecap="round"</code>), and rounded line joins (<code>stroke-linejoin="round"</code>). The default choice for modern, minimal iOS navigation.</p>
+            </div>
+            <div class="style-chip-card">
+              <div class="style-chip-head">
+                <span>Filled Style</span>
+                <span class="style-chip-badge">default</span>
+              </div>
+              <p>Solid filled silhouettes sharing identical outer contours with the Outline version. When toggling between unread and read status, or active and inactive sidebar links, switching to Filled preserves exact optical volume without shifting surrounding text.</p>
+            </div>
+            <div class="style-chip-card">
+              <div class="style-chip-head">
+                <span>Sharp Style</span>
+                <span class="style-chip-badge">-sharp</span>
+              </div>
+              <p>Features zero corner radii on interior and exterior joints (<code>stroke-linejoin="miter"</code>). Designed specifically to match the architectural feel of Android Material UI components and brutalist web aesthetics.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="interactive-switcher">
+          <h2>3. Interactive Tri-Style Icon Switcher &amp; Code Generator</h2>
+          <p>Toggle between the three Ionicons variants below to inspect their underlying vector geometry in real time. Notice how the stroke joints and fills adapt, and view the live-generated React, Angular, and HTML code snippets:</p>
+
+          <div class="interactive-demo-card">
+            <div class="interactive-demo-header">
+              <div class="interactive-demo-title">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>Live Ionicons Vector Sandbox</span>
+              </div>
+              <div class="demo-controls-group">
+                <button id="btnOutline" class="demo-toggle-btn active">Outline Style</button>
+                <button id="btnFilled" class="demo-toggle-btn">Filled Style</button>
+                <button id="btnSharp" class="demo-toggle-btn">Sharp Style</button>
+              </div>
+            </div>
+
+            <div class="ionic-grid">
+              <div class="ionic-card">
+                <div class="ionic-preview">
+                  <svg id="svgHeart" viewBox="0 0 512 512" width="28" height="28" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+                    <path id="pathHeart" d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.71 0-95.08 42.66-95.08 95.81 0 76.53 85.71 141.74 151.36 184.28 20.34 13.18 40.85 23.91 40.85 23.91s20.51-10.73 40.85-23.91c65.65-42.54 151.36-107.75 151.36-184.28 0-53.15-42.37-95.81-95.08-95.81z" />
+                  </svg>
+                </div>
+                <span class="ionic-name">Heart</span>
+                <span class="ionic-meta" id="metaHeart">heart-outline</span>
+              </div>
+
+              <div class="ionic-card">
+                <div class="ionic-preview">
+                  <svg id="svgSettings" viewBox="0 0 512 512" width="28" height="28" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+                    <path id="pathSettings" d="M262.29 192.31a64 64 0 1057.4 57.4 64.13 64.13 0 00-57.4-57.4z" />
+                    <circle cx="256" cy="256" r="48" fill="none" stroke="currentColor" stroke-width="32" />
+                  </svg>
+                </div>
+                <span class="ionic-name">Settings</span>
+                <span class="ionic-meta" id="metaSettings">settings-outline</span>
+              </div>
+
+              <div class="ionic-card">
+                <div class="ionic-preview">
+                  <svg id="svgNotifications" viewBox="0 0 512 512" width="28" height="28" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+                    <path id="pathNotifications" d="M427.7 347.46C399.3 322.24 384 274.65 384 213.28V192c0-70.67-57.33-128-128-128s-128 57.33-128 128v21.28c0 61.37-15.3 108.96-43.7 134.18A16 16 0 0096 384h320a16 16 0 0011.7-26.54z" />
+                    <path d="M320 384a64 64 0 01-128 0" fill="none" stroke="currentColor" stroke-width="32" />
+                  </svg>
+                </div>
+                <span class="ionic-name">Notifications</span>
+                <span class="ionic-meta" id="metaNotifications">notifications-outline</span>
+              </div>
+
+              <div class="ionic-card">
+                <div class="ionic-preview">
+                  <svg id="svgPerson" viewBox="0 0 512 512" width="28" height="28" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="256" cy="144" r="96" fill="none" stroke="currentColor" stroke-width="32" />
+                    <path d="M400 400c0-66.27-64.48-120-144-120S112 333.73 112 400" fill="none" stroke="currentColor" stroke-width="32" />
+                  </svg>
+                </div>
+                <span class="ionic-name">Person</span>
+                <span class="ionic-meta" id="metaPerson">person-outline</span>
+              </div>
+            </div>
+
+            <div class="code-generator-box" id="ionicCodeBox">
+// Live Generated React Import (ionicons/icons)
+import { IonIcon } from '@ionic/react';
+import { heartOutline, settingsOutline, notificationsOutline, personOutline } from 'ionicons/icons';
+
+export function NavigationTabs() {
+  return (
+    &lt;div className="flex gap-4 items-center text-zinc-100"&gt;
+      &lt;IonIcon icon={heartOutline} size="large" /&gt;
+      &lt;IonIcon icon={settingsOutline} size="large" /&gt;
+      &lt;IonIcon icon={notificationsOutline} size="large" /&gt;
+      &lt;IonIcon icon={personOutline} size="large" /&gt;
+    &lt;/div&gt;
+  );
+}
+            </div>
+          </div>
+        </section>
+
+        <section id="web-components">
+          <h2>4. Vanilla HTML &amp; Web Components: The &lt;ion-icon&gt; Custom Element</h2>
+          <p>Ionicons was engineered from day one around the W3C Web Components standard. The custom element <code>&lt;ion-icon&gt;</code> uses Shadow DOM to fetch and render raw SVGs asynchronously on demand. This provides automatic lazy loading, ensuring that only the SVGs actually visible in the DOM are downloaded over the network.</p>
+
+          <pre><code>&lt;!-- Include Ionicons Web Component Runtime via CDN --&gt;
+&lt;script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"&gt;&lt;/script&gt;
+&lt;script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"&gt;&lt;/script&gt;
+
+&lt;!-- Render icons by string name --&gt;
+&lt;ion-icon name="heart-outline" style="font-size: 24px; color: #C1DD2D;"&gt;&lt;/ion-icon&gt;
+&lt;ion-icon name="settings-sharp" size="large"&gt;&lt;/ion-icon&gt;
+
+&lt;!-- Platform-Adaptive Mode: iOS renders outline, Android renders sharp --&gt;
+&lt;ion-icon ios="heart-outline" md="heart-sharp"&gt;&lt;/ion-icon&gt;</code></pre>
+
+          <p>The <code>size</code> attribute accepts <code>"small"</code> (16px) or <code>"large"</code> (32px), while standard sizing is driven directly through CSS <code>font-size</code> and color via <code>color</code> (which inherits <code>currentColor</code>).</p>
+        </section>
+
+        <section id="react-nextjs">
+          <h2>5. React &amp; Next.js 15 Integration: Subpath Tree-Shaking</h2>
+          <p>In React and Next.js applications, passing raw string names to web components can cause hydration mismatches in Server-Side Rendering (SSR). Instead, use the official React wrapper <code>@ionic/react</code> with direct subpath imports from <code>ionicons/icons</code>:</p>
+
+          <pre><code>// 1. Install dependencies
+// npm install @ionic/react ionicons
+
+import React from 'react';
+import { IonIcon } from '@ionic/react';
+// Direct subpath import guarantees 100% tree-shaking
+import { 
+  homeOutline, 
+  home, 
+  analyticsOutline, 
+  settingsOutline 
+} from 'ionicons/icons';
+
+interface SidebarItemProps {
+  label: string;
+  icon: string;
+  activeIcon: string;
+  isActive: boolean;
+}
+
+export function SidebarItem({ label, icon, activeIcon, isActive }: SidebarItemProps) {
+  return (
+    &lt;a className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+      isActive ? 'bg-zinc-800 text-lime-400' : 'text-zinc-400 hover:text-white'
+    }`}&gt;
+      &lt;IonIcon 
+        icon={isActive ? activeIcon : icon} 
+        style={{ fontSize: '20px' }} 
+        aria-hidden="true" 
+      /&gt;
+      &lt;span&gt;{label}&lt;/span&gt;
+    &lt;/a&gt;
+  );
+}</code></pre>
+        </section>
+
+        <section id="angular-standalone">
+          <h2>6. Angular Modern Architecture: Standalone Components &amp; addIcons()</h2>
+          <p>Modern Angular (v17+) uses Standalone Components and strict signal-based reactivity. Ionicons provides the optimized <code>addIcons()</code> registry pattern to prevent bloat in enterprise Angular production bundles:</p>
+
+          <pre><code>// app-header.component.ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { heartOutline, settingsSharp, personOutline } from 'ionicons/icons';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon],
+  template: `
+    &lt;ion-header&gt;
+      &lt;ion-toolbar&gt;
+        &lt;ion-title&gt;Enterprise Dashboard&lt;/ion-title&gt;
+        &lt;ion-buttons slot="end"&gt;
+          &lt;ion-button aria-label="Favorites"&gt;
+            &lt;ion-icon name="heart-outline"&gt;&lt;/ion-icon&gt;
+          &lt;/ion-button&gt;
+          &lt;ion-button aria-label="Settings"&gt;
+            &lt;ion-icon name="settings-sharp"&gt;&lt;/ion-icon&gt;
+          &lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+      &lt;/ion-toolbar&gt;
+    &lt;/ion-header&gt;
+  `
+})
+export class AppHeaderComponent {
+  constructor() {
+    // Explicit registration guarantees exact Rollup tree-shaking
+    addIcons({
+      'heart-outline': heartOutline,
+      'settings-sharp': settingsSharp,
+      'person-outline': personOutline
+    });
+  }
+}</code></pre>
+        </section>
+
+        <section id="vue-integration">
+          <h2>7. Vue 3 Integration: Composition API &amp; Vite Optimization</h2>
+          <p>For Vue 3 and Nuxt 3 applications, Ionicons integrates seamlessly with the Composition API:</p>
+
+          <pre><code>&lt;!-- components/NavBar.vue --&gt;
+&lt;template&gt;
+  &lt;nav class="nav-container"&gt;
+    &lt;button @click="toggleActive" class="icon-btn" aria-label="Bookmark"&gt;
+      &lt;ion-icon :icon="isActive ? bookmark : bookmarkOutline" class="nav-icon"&gt;&lt;/ion-icon&gt;
+    &lt;/button&gt;
+  &lt;/nav&gt;
+&lt;/template&gt;
+
+&lt;script setup lang="ts"&gt;
+import { ref } from 'vue';
+import { IonIcon } from '@ionic/vue';
+import { bookmarkOutline, bookmark } from 'ionicons/icons';
+
+const isActive = ref(false);
+const toggleActive = () =&gt; {
+  isActive.value = !isActive.value;
+};
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+.nav-icon {
+  font-size: 24px;
+  color: #C1DD2D;
+  transition: transform 150ms ease;
+}
+.nav-icon:hover {
+  transform: scale(1.1);
+}
+&lt;/style&gt;</code></pre>
+        </section>
+
+        <section id="mobile-adaptive">
+          <h2>8. Mobile Cross-Platform Workflows: Capacitor, iOS &amp; Android Adaptation</h2>
+          <p>When developing mobile apps using <strong>Capacitor</strong> or <strong>React Native</strong>, displaying platform-authentic iconography significantly improves user satisfaction and App Store review ratings. Apple users expect thin, rounded outlines, while Android users expect geometric Material fills.</p>
+          <p>Ionicons provides automated platform detection out of the box. By setting both the <code>ios</code> and <code>md</code> attributes on any <code>&lt;ion-icon&gt;</code>, the component inspects <code>navigator.userAgent</code> (or the Capacitor device platform bridge) and dynamically selects the correct visual treatment:</p>
+
+          <pre><code>&lt;!-- Automatically serves heart-outline on iOS and heart-sharp on Android --&gt;
+&lt;ion-icon ios="heart-outline" md="heart-sharp"&gt;&lt;/ion-icon&gt;
+
+&lt;!-- Automatically serves share-outline on iOS and share-social-sharp on Android --&gt;
+&lt;ion-icon ios="share-outline" md="share-social-sharp"&gt;&lt;/ion-icon&gt;</code></pre>
+        </section>
+
+        <section id="comparison-table">
+          <h2>9. Comprehensive Library Benchmark Comparison</h2>
+          <p>Here is how Ionicons measures up against other top-tier icon systems in 2026:</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Ionicons</th>
+                  <th><a href="/articles/lucide-icons-complete-guide/">Lucide Icons</a></th>
+                  <th><a href="/articles/material-symbols-complete-guide/">Material Symbols</a></th>
+                  <th><a href="/articles/font-awesome-guide/">Font Awesome 6</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Total Icon Count</strong></td>
+                  <td>1,300+ icons</td>
+                  <td>1,500+ icons</td>
+                  <td>3,300+ glyphs</td>
+                  <td>2,000+ free</td>
+                </tr>
+                <tr>
+                  <td><strong>Visual Styles</strong></td>
+                  <td>Outline, Filled, Sharp</td>
+                  <td>Clean Outline</td>
+                  <td>Outlined, Rounded, Sharp</td>
+                  <td>Solid, Regular, Brands</td>
+                </tr>
+                <tr>
+                  <td><strong>Weekly NPM Downloads</strong></td>
+                  <td>~800,000+</td>
+                  <td>~2,500,000+</td>
+                  <td>~400,000+</td>
+                  <td>~2,000,000+</td>
+                </tr>
+                <tr>
+                  <td><strong>Primary Grid Size</strong></td>
+                  <td>512x512 (scaled to 24px)</td>
+                  <td>24x24 (2px stroke)</td>
+                  <td>24x24 / 20x20</td>
+                  <td>16x16 / 32x32</td>
+                </tr>
+                <tr>
+                  <td><strong>License</strong></td>
+                  <td>MIT</td>
+                  <td>MIT</td>
+                  <td>Apache 2.0</td>
+                  <td>CC BY 4.0 / SIL OFL</td>
+                </tr>
+                <tr>
+                  <td><strong>Best Fit Use-Case</strong></td>
+                  <td>Mobile apps, Capacitor, PWAs, Angular/React</td>
+                  <td>Next.js, Tailwind, shadcn/ui web dashboards</td>
+                  <td>Google Material Design 3, Android, Cloud</td>
+                  <td>General web development &amp; legacy CMS</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What makes Ionicons distinct from other open-source icon libraries?</h3>
+            <p>Ionicons is specifically architected for cross-platform hybrid and web applications. Every icon is handcrafted in three distinct visual styles: Outline (iOS aesthetic with smooth rounded strokes), Filled (active and solid state), and Sharp (Android Material Design aesthetic with crisp 90-degree square vertices). Additionally, Ionicons natively powers the custom HTML element &lt;ion-icon&gt; that automatically switches glyphs based on device operating system.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does tree-shaking work with Ionicons in React and Next.js?</h3>
+            <p>Tree-shaking in React is achieved by importing specific named icon objects directly from the subpath 'ionicons/icons' (e.g., import { heartOutline, settingsSharp } from 'ionicons/icons') and passing them to &lt;IonIcon icon={heartOutline} /&gt;. This bundles only the minimal SVG string representation for the referenced glyphs, resulting in zero unused bundle bloat.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How are icons registered in modern Angular standalone components?</h3>
+            <p>In modern Angular (v17+ standalone components), icons are registered using the addIcons() utility imported from 'ionicons'. Inside the component constructor or route initializer, call addIcons({ 'heart-outline': heartOutline }), and reference it in the template as &lt;ion-icon name='heart-outline'&gt;&lt;/ion-icon&gt;. This ensures strict static analysis and tree-shaking.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can I use Ionicons in standard HTML or websites without Ionic Framework?</h3>
+            <p>Yes. Ionicons is completely decoupled from Ionic Framework. You can include the standalone Web Component runtime via CDN using &lt;script type='module' src='https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js'&gt;&lt;/script&gt; and immediately drop &lt;ion-icon name='heart-outline'&gt;&lt;/ion-icon&gt; into any vanilla HTML, WordPress, Astro, or static site.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What license governs Ionicons and can I use it in commercial apps?</h3>
+            <p>Ionicons is 100% free and open-source under the MIT License. You can use it in commercial SaaS applications, proprietary iOS and Android mobile apps, commercial themes, and enterprise software without any royalty payments or licensing restrictions.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Where can I search, preview, and copy Ionicons SVGs for free?</h3>
+            <p>You can search and preview all 1,300+ Ionicons directly on IconStash at <a href="/library/ionicons/">https://iconstash.io/library/ionicons/</a>. IconStash provides instant full-text search, style filtering (Outline, Filled, Sharp), and one-click copy to clean SVG or React JSX components.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Table of Contents</h3>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#introduction">1. Cross-Platform Iconography</a></li>
+              <li><a href="#three-styles">2. The 3 Visual Styles</a></li>
+              <li><a href="#interactive-switcher">3. Interactive Live Sandbox</a></li>
+              <li><a href="#web-components">4. Web Components &amp; CDN</a></li>
+              <li><a href="#react-nextjs">5. React &amp; Next.js Setup</a></li>
+              <li><a href="#angular-standalone">6. Angular Standalone Setup</a></li>
+              <li><a href="#vue-integration">7. Vue 3 Integration</a></li>
+              <li><a href="#mobile-adaptive">8. Mobile &amp; Capacitor</a></li>
+              <li><a href="#comparison-table">9. Library Benchmark</a></li>
+              <li><a href="#faq">10. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Library Overview</h3>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Total Glyphs:</strong> 1,300+ Icons</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Visual Styles:</strong> Outline, Filled, Sharp</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>License:</strong> MIT (Free Commercial)</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Weekly Downloads:</strong> ~800,000+</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:0;"><strong>Authors:</strong> Ionic Framework Team</p>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search Ionicons on IconStash</h4>
+          <p>Browse all 1,300+ Ionicons with real-time style filtering, dark mode preview, and instant SVG/React export.</p>
+          <a href="/library/ionicons/" class="cta-sidebar-btn">Explore Ionicons →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <h3>Search 134,701 Icons Across 28 Libraries</h3>
+    <p>Zero paywalls, zero login, zero subscription fees. Find the perfect SVG vector icon in seconds on IconStash.</p>
+    <a href="/" class="header-cta" style="font-size:15px; padding:12px 28px;">Start Searching Free →</a>
+  </section>
+
+  <footer class="site-footer">
+    <div style="max-width:1080px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <span>© 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a></span>
+      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+        <a href="/">Browse Icons</a>
+        <a href="/about/">About</a>
+        <a href="/articles/">Articles</a>
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle script with localStorage persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Ionicons Interactive Sandbox Engine
+    const btnOutline = document.getElementById('btnOutline');
+    const btnFilled = document.getElementById('btnFilled');
+    const btnSharp = document.getElementById('btnSharp');
+    const ionicCodeBox = document.getElementById('ionicCodeBox');
+
+    const metaHeart = document.getElementById('metaHeart');
+    const metaSettings = document.getElementById('metaSettings');
+    const metaNotifications = document.getElementById('metaNotifications');
+    const metaPerson = document.getElementById('metaPerson');
+
+    const svgHeart = document.getElementById('svgHeart');
+    const svgSettings = document.getElementById('svgSettings');
+    const svgNotifications = document.getElementById('svgNotifications');
+    const svgPerson = document.getElementById('svgPerson');
+
+    function setIonicStyle(style) {
+      [btnOutline, btnFilled, btnSharp].forEach(b => {
+        if (b) b.classList.remove('active');
+      });
+
+      if (style === 'Outline') {
+        btnOutline.classList.add('active');
+        svgHeart.setAttribute('fill', 'none');
+        svgHeart.setAttribute('stroke', 'currentColor');
+        svgHeart.setAttribute('stroke-linejoin', 'round');
+        svgSettings.setAttribute('fill', 'none');
+        svgSettings.setAttribute('stroke', 'currentColor');
+        svgNotifications.setAttribute('fill', 'none');
+        svgNotifications.setAttribute('stroke', 'currentColor');
+        svgPerson.setAttribute('fill', 'none');
+        svgPerson.setAttribute('stroke', 'currentColor');
+
+        metaHeart.textContent = 'heart-outline';
+        metaSettings.textContent = 'settings-outline';
+        metaNotifications.textContent = 'notifications-outline';
+        metaPerson.textContent = 'person-outline';
+
+        ionicCodeBox.textContent = `// Live Generated React Import (ionicons/icons)\nimport { IonIcon } from '@ionic/react';\nimport { heartOutline, settingsOutline, notificationsOutline, personOutline } from 'ionicons/icons';\n\nexport function NavigationTabs() {\n  return (\n    <div className="flex gap-4 items-center text-zinc-100">\n      <IonIcon icon={heartOutline} size="large" />\n      <IonIcon icon={settingsOutline} size="large" />\n      <IonIcon icon={notificationsOutline} size="large" />\n      <IonIcon icon={personOutline} size="large" />\n    </div>\n  );\n}`;
+      } else if (style === 'Filled') {
+        btnFilled.classList.add('active');
+        svgHeart.setAttribute('fill', 'currentColor');
+        svgHeart.setAttribute('stroke', 'none');
+        svgSettings.setAttribute('fill', 'currentColor');
+        svgSettings.setAttribute('stroke', 'none');
+        svgNotifications.setAttribute('fill', 'currentColor');
+        svgNotifications.setAttribute('stroke', 'none');
+        svgPerson.setAttribute('fill', 'currentColor');
+        svgPerson.setAttribute('stroke', 'none');
+
+        metaHeart.textContent = 'heart';
+        metaSettings.textContent = 'settings';
+        metaNotifications.textContent = 'notifications';
+        metaPerson.textContent = 'person';
+
+        ionicCodeBox.textContent = `// Live Generated React Import (ionicons/icons)\nimport { IonIcon } from '@ionic/react';\nimport { heart, settings, notifications, person } from 'ionicons/icons';\n\nexport function NavigationTabs() {\n  return (\n    <div className="flex gap-4 items-center text-zinc-100">\n      <IonIcon icon={heart} size="large" />\n      <IonIcon icon={settings} size="large" />\n      <IonIcon icon={notifications} size="large" />\n      <IonIcon icon={person} size="large" />\n    </div>\n  );\n}`;
+      } else if (style === 'Sharp') {
+        btnSharp.classList.add('active');
+        svgHeart.setAttribute('fill', 'currentColor');
+        svgHeart.setAttribute('stroke', 'none');
+        svgHeart.setAttribute('stroke-linejoin', 'miter');
+        svgSettings.setAttribute('fill', 'currentColor');
+        svgSettings.setAttribute('stroke', 'none');
+        svgNotifications.setAttribute('fill', 'currentColor');
+        svgNotifications.setAttribute('stroke', 'none');
+        svgPerson.setAttribute('fill', 'currentColor');
+        svgPerson.setAttribute('stroke', 'none');
+
+        metaHeart.textContent = 'heart-sharp';
+        metaSettings.textContent = 'settings-sharp';
+        metaNotifications.textContent = 'notifications-sharp';
+        metaPerson.textContent = 'person-sharp';
+
+        ionicCodeBox.textContent = `// Live Generated React Import (ionicons/icons)\nimport { IonIcon } from '@ionic/react';\nimport { heartSharp, settingsSharp, notificationsSharp, personSharp } from 'ionicons/icons';\n\nexport function NavigationTabs() {\n  return (\n    <div className="flex gap-4 items-center text-zinc-100">\n      <IonIcon icon={heartSharp} size="large" />\n      <IonIcon icon={settingsSharp} size="large" />\n      <IonIcon icon={notificationsSharp} size="large" />\n      <IonIcon icon={personSharp} size="large" />\n    </div>\n  );\n}`;
+      }
+    }
+
+    if (btnOutline) btnOutline.addEventListener('click', () => setIonicStyle('Outline'));
+    if (btnFilled) btnFilled.addEventListener('click', () => setIonicStyle('Filled'));
+    if (btnSharp) btnSharp.addEventListener('click', () => setIonicStyle('Sharp'));
+
+    setIonicStyle('Outline');
+  </script>
+</body>
+</html>

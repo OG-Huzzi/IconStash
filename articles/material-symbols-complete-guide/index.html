@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Material Symbols Complete Guide: Variable Fonts, SVG &amp; React (2026) | IconStash</title>
+  <meta name="description" content="Master Google Material Symbols: Outlined, Rounded &amp; Sharp styles, variable font axes (wght, opsz, FILL, GRAD), SVG extraction, and React tree-shaking.">
+  <meta name="keywords" content="material symbols, google material symbols, material symbols vs material icons, material symbols react, variable font icons, material symbols svg, material symbols outlined rounded sharp 2026">
+  <meta property="og:title" content="Material Symbols Complete Guide: Variable Fonts, SVG &amp; React (2026)">
+  <meta property="og:description" content="Master Google Material Symbols: Outlined, Rounded &amp; Sharp styles, variable font axes (wght, opsz, FILL, GRAD), SVG extraction, and React tree-shaking.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/material-symbols-complete-guide/">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/material-symbols-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:image:alt" content="Google Material Symbols Variable Iconography Architecture and CSS Customization">
+  <meta property="article:published_time" content="2026-10-14T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-14T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Guides &amp; Tutorials">
+  <meta property="article:tag" content="Material Symbols">
+  <meta property="article:tag" content="Google Icons">
+  <meta property="article:tag" content="Variable Fonts">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="SVG">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Material Symbols Complete Guide: Variable Fonts, SVG &amp; React (2026)">
+  <meta name="twitter:description" content="Master Google Material Symbols: Outlined, Rounded &amp; Sharp styles, variable font axes (wght, opsz, FILL, GRAD), SVG extraction, and React tree-shaking.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/material-symbols-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/material-symbols-complete-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Material Symbols Complete Guide: Variable Fonts, SVG & React (2026)",
+    "description": "Master Google Material Symbols: Outlined, Rounded & Sharp styles, variable font axes (wght, opsz, FILL, GRAD), SVG extraction, and React tree-shaking.",
+    "image": "https://iconstash.io/assets/articles/material-symbols-guide.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "IconStash",
+      "url": "https://iconstash.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/logo.png"
+      },
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Great Software Company",
+        "url": "https://greatsoftwarecompany.com"
+      }
+    },
+    "datePublished": "2026-10-14",
+    "dateModified": "2026-10-14",
+    "mainEntityOfPage": "https://iconstash.io/articles/material-symbols-complete-guide/",
+    "articleSection": "Guides & Tutorials",
+    "proficiencyLevel": "Beginner to Advanced",
+    "about": [
+      { "@type": "Thing", "name": "Icon (computing)", "sameAs": "https://en.wikipedia.org/wiki/Icon_(computing)" },
+      { "@type": "Thing", "name": "Variable fonts", "sameAs": "https://en.wikipedia.org/wiki/Variable_fonts" },
+      { "@type": "Thing", "name": "Scalable Vector Graphics", "sameAs": "https://en.wikipedia.org/wiki/Scalable_Vector_Graphics" },
+      { "@type": "Thing", "name": "React (software library)", "sameAs": "https://en.wikipedia.org/wiki/React_(software_library)" },
+      { "@type": "Thing", "name": "User interface design", "sameAs": "https://en.wikipedia.org/wiki/User_interface_design" }
+    ],
+    "keywords": ["material symbols", "google material symbols", "material symbols react", "variable font icons", "material symbols vs material icons"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "IconStash", "item": "https://iconstash.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
+      { "@type": "ListItem", "position": 3, "name": "Material Symbols Complete Guide", "item": "https://iconstash.io/articles/material-symbols-complete-guide/" }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between Material Symbols and legacy Material Icons?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Material Symbols is Google's modern variable font and SVG icon system, replacing the legacy static Material Icons. Symbols consolidates over 3,300 glyphs across 3 core styles (Outlined, Rounded, and Sharp) and provides 4 dynamic variable axes (weight, optical size, grade, and fill) that can be adjusted continuously in CSS via font-variation-settings, whereas legacy Material Icons only offered static font weights and limited predefined sizes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the four variable font axes in Material Symbols?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The four variable axes are: 1. Weight (wght: 100 to 700) controlling stroke thickness; 2. Fill (FILL: 0 or 1) toggling between outline and solid silhouettes; 3. Grade (GRAD: -25 to 200) adjusting visual stroke density without altering exterior bounding dimensions; and 4. Optical Size (opsz: 20px to 48px) adjusting stroke geometry and spacing specifically for display at different rendering resolutions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I use the Material Symbols variable web font or raw SVG icons in production?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If your application requires extensive live icon theming, smooth hover weight transitions, or hundreds of distinct icons across your UI, the WOFF2 variable font (subsetted to ~35-50KB) is extremely fast. However, for modern component-driven React, Next.js, or Vite applications where only 15 to 40 icons are loaded per page, using tree-shaken raw SVG components yields zero FOIT (flash of invisible text), optimal Core Web Vitals (LCP/CLS), and zero unused CSS font downloads."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install and use Material Symbols in React with full tree-shaking?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can use the official @material-symbols/svg-700 or @iconify/react package. For example, using @iconify/react with npm install @iconify/react @iconify-json/material-symbols: import { Icon } from '@iconify/react'; <Icon icon='material-symbols:settings-rounded' width={24} height={24} />. This bundles only the exact vector paths rendered in the component tree."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What license governs Google Material Symbols and is commercial use free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Google Material Symbols is released under the permissive Apache License 2.0. You can use, customize, bundle, and redistribute the icons freely in commercial SaaS products, open-source applications, websites, and mobile apps without paying royalties or licensing fees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I search, preview, and download individual Material Symbols SVGs for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can search and download all Google Material Symbols directly on IconStash at https://iconstash.io/library/materialsymbols/ and https://iconstash.io/library/materialsymbolslight/. IconStash provides instant full-text search, style filtering (Outlined, Rounded, Sharp), live preview, and one-click copy to SVG and React JSX."
+        }
+      }
+    ]
+  }]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13.5px; color: #888; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+    .hero-figure { margin: 28px 0 36px; border-radius: 12px; overflow: hidden; border: 1px solid #222; background: #121212; }
+    .hero-figure img { width: 100%; height: auto; display: block; }
+    .hero-figure figcaption { font-size: 13px; color: #888; padding: 10px 16px; background: #141414; border-top: 1px solid #222; text-align: center; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 16px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    p code, li code { word-break: break-word; }
+    pre code { background: transparent; padding: 0; color: inherit; word-break: normal; }
+
+    .table-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid #222; border-radius: 8px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; padding: 14px 16px; font-weight: 700; border-bottom: 2px solid #262626; white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid #1E1E1E; color: #D4D4D4; }
+    tr:nth-child(even) td { background: #0E0E0E; }
+    tr:hover td { background: #161616; }
+
+    .callout-box { background: #121212; border: 1px solid #222; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+    .callout-title { font-size: 15px; font-weight: 700; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+    /* Interactive Live Sandbox Card */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 28px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    
+    .demo-sliders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; background: #0E0E0E; padding: 18px; border-radius: 8px; border: 1px solid #222; margin-bottom: 20px; }
+    .slider-control { display: flex; flex-direction: column; gap: 6px; }
+    .slider-label { font-size: 12.5px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .slider-label span { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .slider-input { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+
+    .symbol-preview-stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 24px; }
+    .symbol-card { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 14px; background: #141414; border: 1px solid #262626; border-radius: 8px; gap: 12px; text-align: center; }
+    .symbol-glyph { font-family: "Material Symbols Outlined"; color: #C1DD2D; transition: font-variation-settings 100ms ease; display: inline-block; }
+    .symbol-label { font-size: 13px; font-weight: 600; color: #FFF; }
+    .symbol-tag { font-size: 11px; color: #888; font-family: "JetBrains Mono", monospace; }
+
+    .code-generator-box { background: #0E0E0E; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 16px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #C1DD2D; overflow-x: auto; }
+
+    .style-chip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+    .style-chip-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 18px; }
+    .style-chip-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 700; color: #FFF; font-size: 15px; }
+    .style-chip-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(193,221,45,0.12); color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .style-chip-card p { font-size: 13.5px; color: #AAA; line-height: 1.6; margin: 0; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 20px 24px; }
+    .faq-item h3 { margin-top: 0; font-size: 17px; color: #FFF; margin-bottom: 10px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 15px; line-height: 1.7; }
+
+    .cta-banner { background: linear-gradient(135deg, #181C0B 0%, #111406 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 36px; text-align: center; margin: 60px 0 20px; }
+    .cta-banner h3 { color: #FFF; font-size: 24px; margin-bottom: 10px; font-weight: 800; }
+    .cta-banner p { color: #A3A3A3; max-width: 540px; margin: 0 auto 20px; font-size: 15px; }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 60px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 1023px) {
+      .cta-sidebar-box { display: none; }
+    }
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light theme contrast rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #F0F4D8; color: #5C6E00; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a:hover { color: #526300; }
+    html[data-theme="light"] .hero-figure { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .hero-figure figcaption { background: #E4E4E7; color: #525252; border-top-color: #D4D4D8; }
+    html[data-theme="light"] .sidebar-card, html[data-theme="light"] .faq-item { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .faq-item h3 { color: #0A0A0A; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #0A0A0A; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #383838; }
+    html[data-theme="light"] tr:nth-child(even) td { background: #FAFAFA; }
+    html[data-theme="light"] tr:hover td { background: #F4F4F5; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .demo-sliders-grid { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .slider-label { color: #4B5563; }
+    html[data-theme="light"] .symbol-preview-stage { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] .symbol-card { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .symbol-glyph { color: #6D8200; }
+    html[data-theme="light"] .symbol-label { color: #111827; }
+    html[data-theme="light"] .code-generator-box { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .style-chip-card { background: #FFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .style-chip-head { color: #111827; }
+    html[data-theme="light"] .style-chip-card p { color: #4B5563; }
+    html[data-theme="light"] .callout-box { background: #FFF; border-color: #E5E5E5; border-left-color: #849E00; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open Icon App</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Material Symbols Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Google Design System</span>
+      <h1>Material Symbols Complete Guide: Variable Fonts, SVG &amp; React (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>Published Oct 14, 2026</span>
+        <span>•</span>
+        <span>16 min read</span>
+        <span>•</span>
+        <span>Covers Outlined, Rounded &amp; Sharp</span>
+      </div>
+    </header>
+
+    <figure class="hero-figure">
+      <img src="https://iconstash.io/assets/articles/material-symbols-guide.jpg" alt="Google Material Symbols Variable Iconography Architecture and CSS Customization" width="1200" height="675" loading="eager">
+      <figcaption>Google Material Symbols variable font system: real-time typography axis adjustments across Outlined, Rounded, and Sharp glyph families.</figcaption>
+    </figure>
+
+    <div class="article-layout">
+      <main class="article-main">
+        <section class="featured-summary">
+          <p><strong>Executive Architectural Takeaway:</strong> Google Material Symbols represents the single largest leap forward in modern web typography and iconography since the inception of CSS web fonts. By unifying over 3,300+ vector glyphs into a single WOFF2 variable font engine with 4 parametric axes (<code>wght</code>, <code>opsz</code>, <code>FILL</code>, and <code>GRAD</code>), Material Symbols eliminates rigid multi-font downloads and gives engineers continuous, CSS-driven visual control.</p>
+          <ul>
+            <li><strong>3 Unified Styles:</strong> Outlined, Rounded, and Sharp variants built on an optical 24px and 20px baseline grid.</li>
+            <li><strong>4 Variable Font Axes:</strong> Weight (100–700), Fill (0 or 1), Grade (-25 to 200), and Optical Size (20px–48px).</li>
+            <li><strong>Direct SVG &amp; React Support:</strong> Zero-runtime tree-shaking with <code>@material-symbols/svg</code> or <code>@iconify/react</code>.</li>
+            <li><strong>Permissive License:</strong> 100% open-source under Apache 2.0 — completely free for enterprise commercial SaaS.</li>
+          </ul>
+        </section>
+
+        <section id="introduction">
+          <h2>1. The Evolution of Google Iconography: Material Icons vs Material Symbols</h2>
+          <p>For nearly a decade, Google’s original <a href="/articles/material-icons-guide/">Material Icons</a> library served as the undisputed workhorse of enterprise SaaS and Android application development. However, the legacy Material Icons suite was constructed on static font architecture: if an engineer needed an icon in both an outlined and a filled state, the browser was forced to download two separate, heavy font files. Fine-tuning stroke weights or compensating for dark mode optical irradiation required cumbersome SVG filter hacks or manual path overrides.</p>
+          <p>In 2022, Google introduced <strong>Material Symbols</strong> under the Material Design 3 (Material You) umbrella, completely re-engineering their entire visual glyph library from scratch. Instead of maintaining disconnected static font files, Google consolidated all 3,300+ glyphs into cutting-edge OpenType variable font tables.</p>
+          <p>On <a href="/">IconStash</a>, we index both <a href="/library/materialsymbols/">Material Symbols</a> and <a href="/library/materialsymbolslight/">Material Symbols Light</a>, giving developers full access to raw SVG vector paths, optimized React components, and instant copy-paste code snippets.</p>
+        </section>
+
+        <section id="variable-axes">
+          <h2>2. Architectural Deep-Dive: The 4 Parametric Variable Axes</h2>
+          <p>The core breakthrough of Material Symbols is its use of OpenType Font Variations (defined in the CSS Fonts Module Level 4). By declaring values for four standardized 4-character tags in <code>font-variation-settings</code>, you can alter the physical geometry of any glyph in real time without causing layout reflows or downloading additional network assets.</p>
+
+          <div class="style-chip-grid">
+            <div class="style-chip-card">
+              <div class="style-chip-head">
+                <span>Weight (wght)</span>
+                <span class="style-chip-badge">100 .. 700</span>
+              </div>
+              <p>Controls the stroke thickness of the vector outlines. 400 is the standard UI default, 100 provides ultra-clean micro-strokes for dense tables, and 700 creates bold emphatic emphasis.</p>
+            </div>
+            <div class="style-chip-card">
+              <div class="style-chip-head">
+                <span>Fill (FILL)</span>
+                <span class="style-chip-badge">0 .. 1</span>
+              </div>
+              <p>Toggles or continuously interpolates between an open line drawing (0) and a fully solid glyph silhouette (1). Ideal for active navigation tabs, favoriting buttons, and selection highlights.</p>
+            </div>
+            <div class="style-chip-card">
+              <div class="style-chip-head">
+                <span>Grade (GRAD)</span>
+                <span class="style-chip-badge">-25 .. 200</span>
+              </div>
+              <p>Adjusts the visual density and perceptual weight of lines <em>without</em> altering the exterior bounding box of the glyph. Critical for dark mode compensation to prevent dark-on-light optical bleeding.</p>
+            </div>
+            <div class="style-chip-card">
+              <div class="style-chip-head">
+                <span>Optical Size (opsz)</span>
+                <span class="style-chip-badge">20 .. 48</span>
+              </div>
+              <p>Alters stroke thickness and interior letterform spacing proportionally to the rendered display size, ensuring crisp legibility at small sizes (20px) and refined balance at large titles (48px).</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="interactive-sandbox">
+          <h2>3. Live Variable Axis Sandbox &amp; Interactive Generator</h2>
+          <p>Use the live sandbox below to test the parametric capabilities of Google Material Symbols. Adjust the weight, optical size, grade, and fill sliders in real time to observe how the glyph paths adapt dynamically, and copy the generated CSS rules for your own stylesheet:</p>
+
+          <div class="interactive-demo-card">
+            <div class="interactive-demo-header">
+              <div class="interactive-demo-title">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Live Material Symbols Variable Engine</span>
+              </div>
+            </div>
+
+            <div class="demo-sliders-grid">
+              <div class="slider-control">
+                <div class="slider-label"><span>Weight ('wght')</span> <span id="valWght">400</span></div>
+                <input type="range" min="100" max="700" step="100" value="400" id="rangeWght" class="slider-input">
+              </div>
+              <div class="slider-control">
+                <div class="slider-label"><span>Fill ('FILL')</span> <span id="valFill">0</span></div>
+                <input type="range" min="0" max="1" step="1" value="0" id="rangeFill" class="slider-input">
+              </div>
+              <div class="slider-control">
+                <div class="slider-label"><span>Grade ('GRAD')</span> <span id="valGrad">0</span></div>
+                <input type="range" min="-25" max="200" step="25" value="0" id="rangeGrad" class="slider-input">
+              </div>
+              <div class="slider-control">
+                <div class="slider-label"><span>Optical Size ('opsz')</span> <span id="valOpsz">24px</span></div>
+                <input type="range" min="20" max="48" step="4" value="24" id="rangeOpsz" class="slider-input">
+              </div>
+            </div>
+
+            <div class="symbol-preview-stage">
+              <div class="symbol-card">
+                <span class="symbol-glyph" id="symHome">home</span>
+                <span class="symbol-label">Home</span>
+                <span class="symbol-tag">home</span>
+              </div>
+              <div class="symbol-card">
+                <span class="symbol-glyph" id="symSearch">search</span>
+                <span class="symbol-label">Search</span>
+                <span class="symbol-tag">search</span>
+              </div>
+              <div class="symbol-card">
+                <span class="symbol-glyph" id="symSettings">settings</span>
+                <span class="symbol-label">Settings</span>
+                <span class="symbol-tag">settings</span>
+              </div>
+              <div class="symbol-card">
+                <span class="symbol-glyph" id="symFavorite">favorite</span>
+                <span class="symbol-label">Favorite</span>
+                <span class="symbol-tag">favorite</span>
+              </div>
+              <div class="symbol-card">
+                <span class="symbol-glyph" id="symNotifications">notifications</span>
+                <span class="symbol-label">Alerts</span>
+                <span class="symbol-tag">notifications</span>
+              </div>
+              <div class="symbol-card">
+                <span class="symbol-glyph" id="symPerson">person</span>
+                <span class="symbol-label">User</span>
+                <span class="symbol-tag">person</span>
+              </div>
+            </div>
+
+            <div class="code-generator-box" id="cssOutputBox">
+/* Generated CSS Variable Settings */
+.material-symbols-custom {
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 24px;
+}
+            </div>
+          </div>
+        </section>
+
+        <section id="google-fonts-setup">
+          <h2>4. Google Fonts CDN Integration &amp; CSS Classes</h2>
+          <p>For projects utilizing web fonts, Google provides high-speed CDN delivery via Google Fonts. When requesting the stylesheet, specify the exact axis ranges you intend to use to optimize the font payload delivered to the client:</p>
+
+          <pre><code>&lt;!-- Optimized Google Fonts CDN Request with Variable Axes --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link 
+  rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" 
+/&gt;</code></pre>
+
+          <p>Next, define clean reusable utility classes in your global stylesheet:</p>
+
+          <pre><code>/* Global Material Symbols CSS Rules */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  /* Default baseline axis values */
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Dynamic Active State: Fluid Fill &amp; Weight Transition */
+.nav-tab:hover .material-symbols-outlined,
+.nav-tab.active .material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 50,
+    'opsz' 24;
+  transition: font-variation-settings 180ms ease;
+}</code></pre>
+
+          <p>In HTML, simply insert the ligaturized identifier inside the element:</p>
+
+          <pre><code>&lt;button class="nav-tab active" aria-label="Application Settings"&gt;
+  &lt;span class="material-symbols-outlined"&gt;settings&lt;/span&gt;
+  &lt;span&gt;Settings&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        </section>
+
+        <section id="svg-vs-font">
+          <h2>5. Raw SVG Icons vs Variable Font: Performance &amp; Core Web Vitals</h2>
+          <p>A critical architectural choice when implementing Material Symbols is deciding between the <strong>WOFF2 Variable Web Font</strong> and <strong>Raw Inline SVG Components</strong>. The ideal approach depends entirely on your application's size and architecture:</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Evaluation Metric</th>
+                  <th>WOFF2 Variable Font</th>
+                  <th>Raw Inline SVG Components</th>
+                  <th>Architectural Recommendation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Initial Network Payload</strong></td>
+                  <td>~38KB to 240KB (depending on subsetting)</td>
+                  <td>0KB initial font overhead; ~400B per rendered SVG</td>
+                  <td>SVGs win for landing pages; Font wins for 200+ icon consoles</td>
+                </tr>
+                <tr>
+                  <td><strong>Core Web Vitals (CLS &amp; FOIT)</strong></td>
+                  <td>Risk of FOIT (invisible flash) before font loads</td>
+                  <td>Zero FOIT; 100% synchronous render during DOM parse</td>
+                  <td>Inline SVG guarantees 0 CLS and optimal LCP</td>
+                </tr>
+                <tr>
+                  <td><strong>Tree-Shaking Efficiency</strong></td>
+                  <td>Requires build-time glyph subsetting (pyftsubset)</td>
+                  <td>Native bundler tree-shaking (Rollup, Vite, Webpack)</td>
+                  <td>SVG components eliminate all unreferenced glyphs</td>
+                </tr>
+                <tr>
+                  <td><strong>Dynamic Weight Transitions</strong></td>
+                  <td>Smooth continuous interpolation in CSS</td>
+                  <td>Requires morphing paths or swapping discrete SVGs</td>
+                  <td>Variable font provides unmatched hover physics</td>
+                </tr>
+                <tr>
+                  <td><strong>Accessibility &amp; AccName</strong></td>
+                  <td>Requires explicit <code>aria-hidden="true"</code> + text labels</td>
+                  <td>Native <code>&lt;title&gt;</code>, <code>&lt;desc&gt;</code> &amp; ARIA semantics</td>
+                  <td>Inline SVG provides more robust screen reader support</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout-box">
+            <div class="callout-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span>The FOIT Antipattern in Icon Fonts</span>
+            </div>
+            <p style="margin-bottom:0;">When using icon fonts with text ligatures (e.g. <code>&lt;span&gt;favorite&lt;/span&gt;</code>), slow networks can cause users to see raw text like "favorite" or "settings" for several seconds before the font file downloads. If you use the web font approach, always declare <code>font-display: block;</code> or pair with preloaded WOFF2 assets.</p>
+          </div>
+        </section>
+
+        <section id="react-integration">
+          <h2>6. Modern React &amp; Next.js 15 Integration Patterns</h2>
+          <p>For modern React, Next.js, and Vite architectures, importing raw SVG paths as modular React components is the recommended industry standard. This completely avoids font downloading and provides perfect tree-shaking.</p>
+
+          <h3>Pattern A: Using @iconify/react with Material Symbols</h3>
+          <p>The <a href="/articles/react-icons-complete-guide-2026/">Iconify React framework</a> provides a clean, battle-tested component wrapper with full offline bundle support:</p>
+
+          <pre><code>// 1. Install dependencies
+// npm install @iconify/react @iconify-json/material-symbols
+
+import React from 'react';
+import { Icon } from '@iconify/react';
+
+export function DashboardHeader() {
+  return (
+    &lt;header className="flex items-center justify-between p-4 bg-zinc-900 border-b border-zinc-800"&gt;
+      &lt;div className="flex items-center gap-3"&gt;
+        {/* Outlined variant */}
+        &lt;Icon icon="material-symbols:dashboard-outline" width="24" height="24" className="text-lime-400" /&gt;
+        &lt;h1 className="text-lg font-bold text-white"&gt;Analytics Console&lt;/h1&gt;
+      &lt;/div&gt;
+
+      &lt;div className="flex items-center gap-4"&gt;
+        {/* Rounded variant */}
+        &lt;button aria-label="Notifications" className="p-2 hover:bg-zinc-800 rounded-lg text-zinc-300"&gt;
+          &lt;Icon icon="material-symbols:notifications-rounded" width="22" height="22" /&gt;
+        &lt;/button&gt;
+        {/* Sharp variant */}
+        &lt;button aria-label="Account Settings" className="p-2 hover:bg-zinc-800 rounded-lg text-zinc-300"&gt;
+          &lt;Icon icon="material-symbols:account-circle-sharp" width="22" height="22" /&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+  );
+}</code></pre>
+
+          <h3>Pattern B: Custom Zero-Dependency React SVG Component</h3>
+          <p>If you prefer zero external dependencies, you can download raw SVGs directly from <a href="/library/materialsymbols/">IconStash Material Symbols</a> and drop them into a unified SVG wrapper:</p>
+
+          <pre><code>// components/icons/MaterialSymbolIcon.tsx
+import React from 'react';
+
+interface MaterialIconProps extends React.SVGProps&lt;SVGSVGElement&gt; {
+  size?: number | string;
+  className?: string;
+  children: React.ReactNode;
+}
+
+export function MaterialSymbolIcon({
+  size = 24,
+  className = '',
+  children,
+  ...props
+}: MaterialIconProps) {
+  return (
+    &lt;svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 -960 960 960"
+      width={size}
+      height={size}
+      fill="currentColor"
+      className={`inline-block shrink-0 ${className}`}
+      aria-hidden="true"
+      {...props}
+    &gt;
+      {children}
+    &lt;/svg&gt;
+  );
+}
+
+// Example: Home Symbol Component
+export function HomeSymbol(props: Omit&lt;MaterialIconProps, 'children'&gt;) {
+  return (
+    &lt;MaterialSymbolIcon {...props}&gt;
+      &lt;path d="M160-120v-480l320-240 320 240v480H560v-280H400v280H160Z" /&gt;
+    &lt;/MaterialSymbolIcon&gt;
+  );
+}</code></pre>
+        </section>
+
+        <section id="tailwind-css">
+          <h2>7. Tailwind CSS Configuration &amp; Utility Classes</h2>
+          <p>If you are using <a href="/articles/how-to-use-svg-icons-in-tailwind-css-guide/">Tailwind CSS</a>, you can extend your Tailwind configuration to generate clean utility classes for variable font axes:</p>
+
+          <pre><code>// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        symbol: ['"Material Symbols Outlined"', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.symbol-thin': { 'font-variation-settings': "'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24" },
+        '.symbol-regular': { 'font-variation-settings': "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" },
+        '.symbol-bold': { 'font-variation-settings': "'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 24" },
+        '.symbol-filled': { 'font-variation-settings': "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" },
+        '.symbol-filled-bold': { 'font-variation-settings': "'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24" },
+      });
+    },
+  ],
+};</code></pre>
+
+          <p>Now in your HTML or JSX markup, you can toggle weights and fill states with simple Tailwind classes:</p>
+
+          <pre><code>&lt;span class="font-symbol symbol-regular hover:symbol-filled transition-all text-lime-400 text-2xl"&gt;
+  star
+&lt;/span&gt;</code></pre>
+        </section>
+
+        <section id="migration-guide">
+          <h2>8. Migration Guide: Upgrading from Legacy Material Icons</h2>
+          <p>Upgrading an existing production application from legacy Material Icons to Material Symbols is straightforward but requires attention to three key differences:</p>
+          <ol>
+            <li><strong>Coordinate ViewBox Change:</strong> While legacy Material Icons used a <code>0 0 24 24</code> or <code>0 0 48 48</code> coordinate system, raw Material Symbols SVGs from Google utilize an inverted typography font grid of <code>viewBox="0 -960 960 960"</code>. Ensure any custom path transform math is updated.</li>
+            <li><strong>Font Family Renaming:</strong> The CSS font-family name changes from <code>'Material Icons'</code> to <code>'Material Symbols Outlined'</code> (or <code>'Material Symbols Rounded'</code> / <code>'Material Symbols Sharp'</code>).</li>
+            <li><strong>Removal of Two-Tone Class:</strong> The old "Two-Tone" style has been deprecated by Google. In Material Symbols, two-tone effects are replaced by applying translucent CSS fills or targeting sub-elements with CSS masks.</li>
+          </ol>
+        </section>
+
+        <section id="comparison-table">
+          <h2>9. Comprehensive Library Benchmark Comparison</h2>
+          <p>How does Google Material Symbols compare against other premier open-source icon libraries indexed on IconStash?</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Google Material Symbols</th>
+                  <th><a href="/articles/lucide-icons-complete-guide/">Lucide Icons</a></th>
+                  <th><a href="/articles/tabler-icons-complete-guide/">Tabler Icons</a></th>
+                  <th><a href="/articles/phosphor-icons-complete-guide/">Phosphor Icons</a></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Total Icon Count</strong></td>
+                  <td>3,300+ glyphs</td>
+                  <td>1,500+ icons</td>
+                  <td>6,100+ icons</td>
+                  <td>9,000+ glyphs</td>
+                </tr>
+                <tr>
+                  <td><strong>Variable Font Axes</strong></td>
+                  <td>Yes (4 axes: wght, opsz, FILL, GRAD)</td>
+                  <td>No (SVG stroke-width via CSS)</td>
+                  <td>No (SVG stroke-width via CSS)</td>
+                  <td>Yes (Weight axis font option)</td>
+                </tr>
+                <tr>
+                  <td><strong>Visual Styles</strong></td>
+                  <td>Outlined, Rounded, Sharp</td>
+                  <td>Clean Outline</td>
+                  <td>Outline, Filled</td>
+                  <td>6 weights (Thin, Light, Bold, Duotone)</td>
+                </tr>
+                <tr>
+                  <td><strong>Primary Grid Size</strong></td>
+                  <td>20px &amp; 24px (scalable 20..48)</td>
+                  <td>24px (2px stroke)</td>
+                  <td>24px (2px stroke)</td>
+                  <td>16px &amp; 24px</td>
+                </tr>
+                <tr>
+                  <td><strong>License</strong></td>
+                  <td>Apache 2.0</td>
+                  <td>MIT</td>
+                  <td>MIT</td>
+                  <td>MIT</td>
+                </tr>
+                <tr>
+                  <td><strong>Best Fit Use-Case</strong></td>
+                  <td>Android, Google Cloud, Material Design 3</td>
+                  <td>Next.js, shadcn/ui, Tailwind web apps</td>
+                  <td>High-density SaaS &amp; admin dashboards</td>
+                  <td>Multi-weight enterprise design systems</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the difference between Material Symbols and legacy Material Icons?</h3>
+            <p>Material Symbols is Google's modern variable font and SVG icon system, replacing the legacy static Material Icons. Symbols consolidates over 3,300 glyphs across 3 core styles (Outlined, Rounded, and Sharp) and provides 4 dynamic variable axes (weight, optical size, grade, and fill) that can be adjusted continuously in CSS via font-variation-settings, whereas legacy Material Icons only offered static font weights and limited predefined sizes.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What are the four variable font axes in Material Symbols?</h3>
+            <p>The four variable axes are: 1. Weight (wght: 100 to 700) controlling stroke thickness; 2. Fill (FILL: 0 or 1) toggling between outline and solid silhouettes; 3. Grade (GRAD: -25 to 200) adjusting visual stroke density without altering exterior bounding dimensions; and 4. Optical Size (opsz: 20px to 48px) adjusting stroke geometry and spacing specifically for display at different rendering resolutions.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Should I use the Material Symbols variable web font or raw SVG icons in production?</h3>
+            <p>If your application requires extensive live icon theming, smooth hover weight transitions, or hundreds of distinct icons across your UI, the WOFF2 variable font (subsetted to ~35-50KB) is extremely fast. However, for modern component-driven React, Next.js, or Vite applications where only 15 to 40 icons are loaded per page, using tree-shaken raw SVG components yields zero FOIT (flash of invisible text), optimal Core Web Vitals (LCP/CLS), and zero unused CSS font downloads.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do I install and use Material Symbols in React with full tree-shaking?</h3>
+            <p>You can use the official @material-symbols/svg-700 or @iconify/react package. For example, using @iconify/react with npm install @iconify/react @iconify-json/material-symbols: import { Icon } from '@iconify/react'; &lt;Icon icon='material-symbols:settings-rounded' width={24} height={24} /&gt;. This bundles only the exact vector paths rendered in the component tree.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What license governs Google Material Symbols and is commercial use free?</h3>
+            <p>Google Material Symbols is released under the permissive Apache License 2.0. You can use, customize, bundle, and redistribute the icons freely in commercial SaaS products, open-source applications, websites, and mobile apps without paying royalties or licensing fees.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Where can I search, preview, and download individual Material Symbols SVGs for free?</h3>
+            <p>You can search and download all Google Material Symbols directly on IconStash at <a href="/library/materialsymbols/">https://iconstash.io/library/materialsymbols/</a> and <a href="/library/materialsymbolslight/">https://iconstash.io/library/materialsymbolslight/</a>. IconStash provides instant full-text search, style filtering (Outlined, Rounded, Sharp), live preview, and one-click copy to SVG and React JSX.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Table of Contents</h3>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#introduction">1. Evolution &amp; History</a></li>
+              <li><a href="#variable-axes">2. The 4 Parametric Axes</a></li>
+              <li><a href="#interactive-sandbox">3. Live Variable Sandbox</a></li>
+              <li><a href="#google-fonts-setup">4. Google Fonts CDN Setup</a></li>
+              <li><a href="#svg-vs-font">5. SVG vs Variable Font</a></li>
+              <li><a href="#react-integration">6. React &amp; Next.js Setup</a></li>
+              <li><a href="#tailwind-css">7. Tailwind CSS Config</a></li>
+              <li><a href="#migration-guide">8. Migration from Icons</a></li>
+              <li><a href="#comparison-table">9. Library Benchmark</a></li>
+              <li><a href="#faq">10. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Library Overview</h3>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Total Glyphs:</strong> 3,300+ per style</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Grid Sizes:</strong> 20px &amp; 24px</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>Visual Styles:</strong> Outlined, Rounded, Sharp</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:8px;"><strong>License:</strong> Apache 2.0</p>
+          <p style="font-size:14px; color:#BBB; margin-bottom:0;"><strong>Maintainer:</strong> Google Fonts Team</p>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search Material Symbols</h4>
+          <p>Browse all 3,300+ Google Material Symbols with real-time style filtering, dark mode preview, and instant SVG/React export.</p>
+          <a href="/library/materialsymbols/" class="cta-sidebar-btn">Explore Material Symbols →</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="cta-banner">
+    <h3>Search 134,701 Icons Across 28 Libraries</h3>
+    <p>Zero paywalls, zero login, zero subscription fees. Find the perfect SVG vector icon in seconds on IconStash.</p>
+    <a href="/" class="header-cta" style="font-size:15px; padding:12px 28px;">Start Searching Free →</a>
+  </section>
+
+  <footer class="site-footer">
+    <div style="max-width:1080px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <span>© 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a></span>
+      <div style="display:flex; gap:18px; flex-wrap:wrap;">
+        <a href="/">Browse Icons</a>
+        <a href="/about/">About</a>
+        <a href="/articles/">Articles</a>
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+        <a href="/privacy/">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle script with localStorage persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Material Symbols Live Variable Engine
+    const rangeWght = document.getElementById('rangeWght');
+    const rangeFill = document.getElementById('rangeFill');
+    const rangeGrad = document.getElementById('rangeGrad');
+    const rangeOpsz = document.getElementById('rangeOpsz');
+
+    const valWght = document.getElementById('valWght');
+    const valFill = document.getElementById('valFill');
+    const valGrad = document.getElementById('valGrad');
+    const valOpsz = document.getElementById('valOpsz');
+
+    const cssOutputBox = document.getElementById('cssOutputBox');
+    const previewGlyphs = document.querySelectorAll('.symbol-glyph');
+
+    function updateSymbolAxes() {
+      const wght = rangeWght ? rangeWght.value : 400;
+      const fill = rangeFill ? rangeFill.value : 0;
+      const grad = rangeGrad ? rangeGrad.value : 0;
+      const opsz = rangeOpsz ? rangeOpsz.value : 24;
+
+      if (valWght) valWght.textContent = wght;
+      if (valFill) valFill.textContent = fill;
+      if (valGrad) valGrad.textContent = grad;
+      if (valOpsz) valOpsz.textContent = `${opsz}px`;
+
+      const settingsStr = `'FILL' ${fill}, 'wght' ${wght}, 'GRAD' ${grad}, 'opsz' ${opsz}`;
+
+      previewGlyphs.forEach(el => {
+        el.style.fontVariationSettings = settingsStr;
+        el.style.fontSize = `${opsz}px`;
+      });
+
+      if (cssOutputBox) {
+        cssOutputBox.textContent = `/* Generated CSS Variable Settings */\n.material-symbols-custom {\n  font-family: 'Material Symbols Outlined';\n  font-variation-settings: ${settingsStr};\n  font-size: ${opsz}px;\n}`;
+      }
+    }
+
+    [rangeWght, rangeFill, rangeGrad, rangeOpsz].forEach(input => {
+      if (input) {
+        input.addEventListener('input', updateSymbolAxes);
+      }
+    });
+
+    updateSymbolAxes();
+  </script>
+</body>
+</html>

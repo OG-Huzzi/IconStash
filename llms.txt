@@ -159,6 +159,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Solar Icons Complete Guide: Setup, React, 6 Styles & Figma UI (2026)](https://iconstash.io/articles/solar-icons-complete-guide/)
 - [Hugeicons Complete Guide: Setup, React, Vue, Figma & Next.js (2026)](https://iconstash.io/articles/hugeicons-complete-guide/)
 - [12 Best Free Animated SVG Icon Libraries for Modern Web Apps (2026 Ranked)](https://iconstash.io/Listicles/best-animated-svg-icon-libraries/)
+- [Material Symbols Complete Guide: Variable Fonts, SVG & React (2026)](https://iconstash.io/articles/material-symbols-complete-guide/)
+- [Ionicons Complete Guide: Modern Web, React, Vue & Mobile (2026)](https://iconstash.io/articles/ionicons-complete-guide/)
+- [12 Best Icon Packs for SaaS Dashboards and Admin Panels (2026)](https://iconstash.io/Listicles/best-dashboard-icon-packs/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives
@@ -198,4 +201,4 @@ Q: How do I compare the same icon across libraries? A: Open any concept page suc
 
 Q: Can I browse icons by library, category, or style? A: Yes — https://iconstash.io/library/, https://iconstash.io/category/, and https://iconstash.io/style/ each index the full catalogue.
 
-Last updated: 2026-10-12
+Last updated: 2026-10-14
