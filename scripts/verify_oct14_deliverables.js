@@ -224,6 +224,20 @@ for (const item of deliverables) {
 }
 assert(llms.includes('Last updated: 2026-10-14'), 'llms.txt has updated timestamp 2026-10-14');
 
+// Interactive Sandbox & Vector Integrity Verification
+console.log('\n--- Checking Interactive Sandboxes & Vector Integrity ---');
+const matSymbolsContent = fs.readFileSync('articles/material-symbols-complete-guide/index.html', 'utf8');
+assert(matSymbolsContent.includes('&display=swap'), 'Material Symbols Google Fonts link includes &display=swap for Core Web Vitals');
+assert(matSymbolsContent.includes("font-feature-settings: 'liga'"), 'Material Symbols glyph style includes font-feature-settings: liga for robust ligature rendering');
+
+const ioniconsContent = fs.readFileSync('articles/ionicons-complete-guide/index.html', 'utf8');
+assert(ioniconsContent.includes('const ionicGlyphs = {'), 'Ionicons sandbox includes multi-variant glyph data dictionary');
+assert(ioniconsContent.includes('M352.92 80C288 80 256 144') && ioniconsContent.includes('d="m256 448l-9-6c-42.78'), 'Ionicons sandbox includes authentic Outline and Sharp vector paths from library');
+
+const dashboardContent = fs.readFileSync('Listicles/best-dashboard-icon-packs/index.html', 'utf8');
+assert(dashboardContent.includes("svg.setAttribute('viewBox', '0 0 256 256')"), 'Dashboard sandbox dynamically sets 256x256 viewBox for Phosphor icons');
+assert(dashboardContent.includes("svg.setAttribute('viewBox', '0 0 24 24')"), 'Dashboard sandbox dynamically sets 24x24 viewBox for Tabler and Lucide icons');
+
 console.log(`\n========================================`);
 console.log(`VERIFICATION SUMMARY: ${passed} PASSED, ${failed} FAILED`);
 console.log(`========================================\n`);

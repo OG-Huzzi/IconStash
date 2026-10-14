@@ -808,7 +808,7 @@ const toggleActive = () =&gt; {
       });
     }
 
-    // Ionicons Interactive Sandbox Engine
+    // Ionicons Interactive Sandbox Engine with authentic vector definitions
     const btnOutline = document.getElementById('btnOutline');
     const btnFilled = document.getElementById('btnFilled');
     const btnSharp = document.getElementById('btnSharp');
@@ -824,22 +824,41 @@ const toggleActive = () =&gt; {
     const svgNotifications = document.getElementById('svgNotifications');
     const svgPerson = document.getElementById('svgPerson');
 
+    const ionicGlyphs = {
+      Outline: {
+        heart: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M352.92 80C288 80 256 144 256 144s-32-64-96.92-64c-52.76 0-94.54 44.14-95.08 96.81c-1.1 109.33 86.73 187.08 183 252.42a16 16 0 0 0 18 0c96.26-65.34 184.09-143.09 183-252.42c-.54-52.67-42.32-96.81-95.08-96.81"/>',
+        settings: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M262.29 192.31a64 64 0 1 0 57.4 57.4a64.13 64.13 0 0 0-57.4-57.4M416.39 256a154 154 0 0 1-1.53 20.79l45.21 35.46a10.81 10.81 0 0 1 2.45 13.75l-42.77 74a10.81 10.81 0 0 1-13.14 4.59l-44.9-18.08a16.11 16.11 0 0 0-15.17 1.75A164.5 164.5 0 0 1 325 400.8a15.94 15.94 0 0 0-8.82 12.14l-6.73 47.89a11.08 11.08 0 0 1-10.68 9.17h-85.54a11.11 11.11 0 0 1-10.69-8.87l-6.72-47.82a16.07 16.07 0 0 0-9-12.22a155 155 0 0 1-21.46-12.57a16 16 0 0 0-15.11-1.71l-44.89 18.07a10.81 10.81 0 0 1-13.14-4.58l-42.77-74a10.8 10.8 0 0 1 2.45-13.75l38.21-30a16.05 16.05 0 0 0 6-14.08c-.36-4.17-.58-8.33-.58-12.5s.21-8.27.58-12.35a16 16 0 0 0-6.07-13.94l-38.19-30A10.81 10.81 0 0 1 49.48 186l42.77-74a10.81 10.81 0 0 1 13.14-4.59l44.9 18.08a16.11 16.11 0 0 0 15.17-1.75A164.5 164.5 0 0 1 187 111.2a15.94 15.94 0 0 0 8.82-12.14l6.73-47.89A11.08 11.08 0 0 1 213.23 42h85.54a11.11 11.11 0 0 1 10.69 8.87l6.72 47.82a16.07 16.07 0 0 0 9 12.22a155 155 0 0 1 21.46 12.57a16 16 0 0 0 15.11 1.71l44.89-18.07a10.81 10.81 0 0 1 13.14 4.58l42.77 74a10.8 10.8 0 0 1-2.45 13.75l-38.21 30a16.05 16.05 0 0 0-6.05 14.08c.33 4.14.55 8.3.55 12.47"/>',
+        notifications: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M427.68 351.43C402 320 383.87 304 383.87 217.35C383.87 138 343.35 109.73 310 96c-4.43-1.82-8.6-6-9.95-10.55C294.2 65.54 277.8 48 256 48s-38.21 17.55-44 37.47c-1.35 4.6-5.52 8.71-9.95 10.53c-33.39 13.75-73.87 41.92-73.87 121.35C128.13 304 110 320 84.32 351.43C73.68 364.45 83 384 101.61 384h308.88c18.51 0 27.77-19.61 17.19-32.57M320 384v16a64 64 0 0 1-128 0v-16"/>',
+        person: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96"/><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304Z"/>'
+      },
+      Filled: {
+        heart: '<path fill="currentColor" d="M256 448a32 32 0 0 1-18-5.57c-78.59-53.35-112.62-89.93-131.39-112.8c-40-48.75-59.15-98.8-58.61-153C48.63 114.52 98.46 64 159.08 64c44.08 0 74.61 24.83 92.39 45.51a6 6 0 0 0 9.06 0C278.31 88.81 308.84 64 352.92 64c60.62 0 110.45 50.52 111.08 112.64c.54 54.21-18.63 104.26-58.61 153c-18.77 22.87-52.8 59.45-131.39 112.8a32 32 0 0 1-18 5.56"/>',
+        settings: '<circle cx="256" cy="256" r="48" fill="currentColor"/><path fill="currentColor" d="m470.39 300l-.47-.38l-31.56-24.75a16.11 16.11 0 0 1-6.1-13.33v-11.56a16 16 0 0 1 6.11-13.22L469.92 212l.47-.38a26.68 26.68 0 0 0 5.9-34.06l-42.71-73.9a1.6 1.6 0 0 1-.13-.22A26.86 26.86 0 0 0 401 92.14l-.35.13l-37.1 14.93a15.94 15.94 0 0 1-14.47-1.29q-4.92-3.1-10-5.86a15.94 15.94 0 0 1-8.19-11.82l-5.59-39.59l-.12-.72A27.22 27.22 0 0 0 298.76 26h-85.52a26.92 26.92 0 0 0-26.45 22.39l-.09.56l-5.57 39.67a16 16 0 0 1-8.13 11.82a175 175 0 0 0-10 5.82a15.92 15.92 0 0 1-14.43 1.27l-37.13-15l-.35-.14a26.87 26.87 0 0 0-32.48 11.34l-.13.22l-42.77 73.95a26.71 26.71 0 0 0 5.9 34.1l.47.38l31.56 24.75a16.11 16.11 0 0 1 6.1 13.33v11.56a16 16 0 0 1-6.11 13.22L42.08 300l-.47.38a26.68 26.68 0 0 0-5.9 34.06l42.71 73.9a1.6 1.6 0 0 1 .13.22a26.86 26.86 0 0 0 32.45 11.3l.35-.13l37.07-14.93a15.94 15.94 0 0 1 14.47 1.29q4.92 3.11 10 5.86a15.94 15.94 0 0 1 8.19 11.82l5.56 39.59l.12.72A27.22 27.22 0 0 0 213.24 486h85.52a26.92 26.92 0 0 0 26.45-22.39l.09-.56l5.57-39.67a16 16 0 0 1 8.18-11.82c3.42-1.84 6.76-3.79 10-5.82a15.92 15.92 0 0 1 14.43-1.27l37.13 14.95l.35.14a26.85 26.85 0 0 0 32.48-11.34a3 3 0 0 1 .13-.22l42.71-73.89a26.7 26.7 0 0 0-5.89-34.11m-134.48-40.24a80 80 0 1 1-83.66-83.67a80.21 80.21 0 0 1 83.66 83.67"/>',
+        notifications: '<path fill="currentColor" d="M440.08 341.31c-1.66-2-3.29-4-4.89-5.93c-22-26.61-35.31-42.67-35.31-118c0-39-9.33-71-27.72-95c-13.56-17.73-31.89-31.18-56.05-41.12a3 3 0 0 1-.82-.67C306.6 51.49 282.82 32 256 32s-50.59 19.49-59.28 48.56a3.1 3.1 0 0 1-.81.65c-56.38 23.21-83.78 67.74-83.78 136.14c0 75.36-13.29 91.42-35.31 118c-1.6 1.93-3.23 3.89-4.89 5.93a35.16 35.16 0 0 0-4.65 37.62c6.17 13 19.32 21.07 34.33 21.07H410.5c14.94 0 28-8.06 34.19-21a35.17 35.17 0 0 0-4.61-37.66M256 480a80.06 80.06 0 0 0 70.44-42.13a4 4 0 0 0-3.54-5.87H189.12a4 4 0 0 0-3.55 5.87A80.06 80.06 0 0 0 256 480"/>',
+        person: '<path fill="currentColor" d="M332.64 64.58C313.18 43.57 286 32 256 32c-30.16 0-57.43 11.5-76.8 32.38c-19.58 21.11-29.12 49.8-26.88 80.78C156.76 206.28 203.27 256 256 256s99.16-49.71 103.67-110.82c2.27-30.7-7.33-59.33-27.03-80.6M432 480H80a31 31 0 0 1-24.2-11.13c-6.5-7.77-9.12-18.38-7.18-29.11C57.06 392.94 83.4 353.61 124.8 326c36.78-24.51 83.37-38 131.2-38s94.42 13.5 131.2 38c41.4 27.6 67.74 66.93 76.18 113.75c1.94 10.73-.68 21.34-7.18 29.11A31 31 0 0 1 432 480"/>'
+      },
+      Sharp: {
+        heart: '<path fill="currentColor" d="m256 448l-9-6c-42.78-28.57-96.91-60.86-137-108.32c-42.25-50-62.52-101.35-62-157C48.63 114.54 98.46 64 159.08 64c48.11 0 80.1 28 96.92 48.21C272.82 92 304.81 64 352.92 64c60.62 0 110.45 50.54 111.08 112.65c.56 55.68-19.71 107-62 157c-40.09 47.49-94.22 79.78-137 108.35Z"/>',
+        settings: '<path fill="currentColor" d="M256 176a80 80 0 1 0 80 80a80.24 80.24 0 0 0-80-80m172.72 80a165.5 165.5 0 0 1-1.64 22.34l48.69 38.12a11.59 11.59 0 0 1 2.63 14.78l-46.06 79.52a11.64 11.64 0 0 1-14.14 4.93l-57.25-23a176.6 176.6 0 0 1-38.82 22.67l-8.56 60.78a11.93 11.93 0 0 1-11.51 9.86h-92.12a12 12 0 0 1-11.51-9.53l-8.56-60.78A169.3 169.3 0 0 1 151.05 393L93.8 416a11.64 11.64 0 0 1-14.14-4.92L33.6 331.57a11.59 11.59 0 0 1 2.63-14.78l48.69-38.12A175 175 0 0 1 83.28 256a165.5 165.5 0 0 1 1.64-22.34l-48.69-38.12a11.59 11.59 0 0 1-2.63-14.78l46.06-79.52a11.64 11.64 0 0 1 14.14-4.93l57.25 23a176.6 176.6 0 0 1 38.82-22.67l8.56-60.78A11.93 11.93 0 0 1 209.94 26h92.12a12 12 0 0 1 11.51 9.53l8.56 60.78A169.3 169.3 0 0 1 361 119l57.2-23a11.64 11.64 0 0 1 14.14 4.92l46.06 79.52a11.59 11.59 0 0 1-2.63 14.78l-48.69 38.12a175 175 0 0 1 1.64 22.66"/>',
+        notifications: '<path fill="currentColor" d="M256 480a80.09 80.09 0 0 0 73.3-48H182.7a80.09 80.09 0 0 0 73.3 48m144-192v-60.53C400 157 372.64 95.61 304 80l-8-48h-80l-8 48c-68.88 15.61-96 76.76-96 147.47V288l-48 64v48h384v-48Z"/>',
+        person: '<path fill="currentColor" d="M256 256a112 112 0 1 0-112-112a112 112 0 0 0 112 112m0 32c-69.42 0-208 42.88-208 128v64h416v-64c0-85.12-138.58-128-208-128"/>'
+      }
+    };
+
     function setIonicStyle(style) {
       [btnOutline, btnFilled, btnSharp].forEach(b => {
         if (b) b.classList.remove('active');
       });
 
+      const glyphSet = ionicGlyphs[style];
+      if (!glyphSet) return;
+
       if (style === 'Outline') {
         btnOutline.classList.add('active');
-        svgHeart.setAttribute('fill', 'none');
-        svgHeart.setAttribute('stroke', 'currentColor');
-        svgHeart.setAttribute('stroke-linejoin', 'round');
-        svgSettings.setAttribute('fill', 'none');
-        svgSettings.setAttribute('stroke', 'currentColor');
-        svgNotifications.setAttribute('fill', 'none');
-        svgNotifications.setAttribute('stroke', 'currentColor');
-        svgPerson.setAttribute('fill', 'none');
-        svgPerson.setAttribute('stroke', 'currentColor');
+        svgHeart.innerHTML = glyphSet.heart;
+        svgSettings.innerHTML = glyphSet.settings;
+        svgNotifications.innerHTML = glyphSet.notifications;
+        svgPerson.innerHTML = glyphSet.person;
 
         metaHeart.textContent = 'heart-outline';
         metaSettings.textContent = 'settings-outline';
@@ -849,14 +868,10 @@ const toggleActive = () =&gt; {
         ionicCodeBox.textContent = `// Live Generated React Import (ionicons/icons)\nimport { IonIcon } from '@ionic/react';\nimport { heartOutline, settingsOutline, notificationsOutline, personOutline } from 'ionicons/icons';\n\nexport function NavigationTabs() {\n  return (\n    <div className="flex gap-4 items-center text-zinc-100">\n      <IonIcon icon={heartOutline} size="large" />\n      <IonIcon icon={settingsOutline} size="large" />\n      <IonIcon icon={notificationsOutline} size="large" />\n      <IonIcon icon={personOutline} size="large" />\n    </div>\n  );\n}`;
       } else if (style === 'Filled') {
         btnFilled.classList.add('active');
-        svgHeart.setAttribute('fill', 'currentColor');
-        svgHeart.setAttribute('stroke', 'none');
-        svgSettings.setAttribute('fill', 'currentColor');
-        svgSettings.setAttribute('stroke', 'none');
-        svgNotifications.setAttribute('fill', 'currentColor');
-        svgNotifications.setAttribute('stroke', 'none');
-        svgPerson.setAttribute('fill', 'currentColor');
-        svgPerson.setAttribute('stroke', 'none');
+        svgHeart.innerHTML = glyphSet.heart;
+        svgSettings.innerHTML = glyphSet.settings;
+        svgNotifications.innerHTML = glyphSet.notifications;
+        svgPerson.innerHTML = glyphSet.person;
 
         metaHeart.textContent = 'heart';
         metaSettings.textContent = 'settings';
@@ -866,15 +881,10 @@ const toggleActive = () =&gt; {
         ionicCodeBox.textContent = `// Live Generated React Import (ionicons/icons)\nimport { IonIcon } from '@ionic/react';\nimport { heart, settings, notifications, person } from 'ionicons/icons';\n\nexport function NavigationTabs() {\n  return (\n    <div className="flex gap-4 items-center text-zinc-100">\n      <IonIcon icon={heart} size="large" />\n      <IonIcon icon={settings} size="large" />\n      <IonIcon icon={notifications} size="large" />\n      <IonIcon icon={person} size="large" />\n    </div>\n  );\n}`;
       } else if (style === 'Sharp') {
         btnSharp.classList.add('active');
-        svgHeart.setAttribute('fill', 'currentColor');
-        svgHeart.setAttribute('stroke', 'none');
-        svgHeart.setAttribute('stroke-linejoin', 'miter');
-        svgSettings.setAttribute('fill', 'currentColor');
-        svgSettings.setAttribute('stroke', 'none');
-        svgNotifications.setAttribute('fill', 'currentColor');
-        svgNotifications.setAttribute('stroke', 'none');
-        svgPerson.setAttribute('fill', 'currentColor');
-        svgPerson.setAttribute('stroke', 'none');
+        svgHeart.innerHTML = glyphSet.heart;
+        svgSettings.innerHTML = glyphSet.settings;
+        svgNotifications.innerHTML = glyphSet.notifications;
+        svgPerson.innerHTML = glyphSet.person;
 
         metaHeart.textContent = 'heart-sharp';
         metaSettings.textContent = 'settings-sharp';
