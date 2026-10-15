@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Add Drop Shadows & Filter Effects to SVG in CSS (2026)</title>
+  <meta name="description" content="Master CSS filter drop-shadow, SVG feDropShadow, glow shaders, and fix clipping bugs on vector icons with zero DOM bloat. Complete 2026 guide.">
+  <meta name="keywords" content="svg drop shadow css, filter drop-shadow vs box-shadow svg, feDropShadow svg, svg glow effect css, svg filter clipping fix, svg shadow blur, modern svg styling">
+  <meta property="og:title" content="How to Add Drop Shadows & Filter Effects to SVG in CSS (2026)">
+  <meta property="og:description" content="Master CSS filter drop-shadow, SVG feDropShadow, glow shaders, and fix clipping bugs on vector icons with zero DOM bloat. Complete 2026 guide.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-drop-shadow-and-filter-effects-css-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-drop-shadow-and-filter-effects-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-15T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-15T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="CSS & Web Performance">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Web Design">
+  <meta property="article:tag" content="Frontend Development">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Add Drop Shadows & Filter Effects to SVG in CSS (2026)">
+  <meta name="twitter:description" content="Master CSS filter drop-shadow, SVG feDropShadow, glow shaders, and fix clipping bugs on vector icons with zero DOM bloat. Complete 2026 guide.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-drop-shadow-and-filter-effects-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-drop-shadow-and-filter-effects-css-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Add Drop Shadows & Filter Effects to SVG in CSS (2026)",
+      "description": "Master CSS filter drop-shadow, SVG feDropShadow, glow shaders, and fix clipping bugs on vector icons with zero DOM bloat. Complete 2026 guide.",
+      "image": "https://iconstash.io/assets/articles/svg-drop-shadow-and-filter-effects-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-15",
+      "dateModified": "2026-10-15",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-drop-shadow-and-filter-effects-css-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "CSS & Web Performance",
+      "proficiencyLevel": "Intermediate to Advanced",
+      "keywords": ["SVG drop shadow", "CSS filter drop-shadow", "feDropShadow", "SVG glow effect", "SVG clipping bug", "SVG shaders"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Drop Shadows & Filter Effects"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why does CSS box-shadow create a square box around my SVG icon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSS box-shadow calculates its shadow exclusively from the rectangular layout bounding box of the HTML element, ignoring transparency and alpha channels. To cast a shadow adhering to the actual vector geometry of SVG paths, you must use filter: drop-shadow() or native SVG <feDropShadow>."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between CSS filter: drop-shadow() and SVG <feDropShadow>?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSS filter: drop-shadow() is a high-level shorthand evaluated by the browser compositor on the rendered alpha silhouette of the element. SVG <feDropShadow> is an internal XML filter primitive that can be chained inside <defs> with other SVG filters like <feColorMatrix>, <feBlend>, and <feGaussianBlur> for advanced multi-stage rendering."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you fix SVG drop shadows getting clipped at the edges?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Shadow clipping occurs when blur radii extend beyond the SVG viewBox or filter subregion boundaries. To fix it, set overflow: visible on the <svg> element in CSS, or expand the filter subregion attributes on the <filter> element: x='-30%' y='-30%' width='160%' height='160%'."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does filter: drop-shadow() hurt web page rendering performance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Static drop-shadows have virtually zero overhead once rasterized to GPU textures. However, animating blur radius or color on 60 FPS hover interactions causes continuous layout repaints. Use transform: translateY() with will-change: transform, or preload static blur passes to maintain smooth 60 FPS transitions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I stack multiple drop shadows on a single SVG element?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. CSS filter accepts multiple space-separated drop-shadow functions: filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 12px 24px rgba(193,221,45,0.2)). In SVG filters, chain multiple <feDropShadow> primitives or merge them with <feMerge>."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does drop-shadow interact with currentColor in SVG icons?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you omit the color parameter in CSS filter: drop-shadow(0 4px 12px), the browser defaults to the element's computed color property. When your SVG stroke or fill uses currentColor, the shadow color automatically tracks the text color."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Visual comparison cards */
+    .visual-demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 28px 0; }
+    .demo-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 24px; text-align: center; }
+    .demo-card .preview-box { height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; background: #080808; border-radius: 8px; border: 1px dashed #262626; position: relative; overflow: hidden; }
+    .demo-card h4 { font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .demo-card p { font-size: 13px; color: #888; margin-bottom: 0; line-height: 1.5; }
+
+    /* Formula card */
+    .formula-card { background: #14180A; border: 1px solid rgba(193,221,45,0.3); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
+    .formula-card .formula-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #C1DD2D; font-weight: 700; margin-bottom: 8px; }
+    .formula-card .formula-math { font-family: "JetBrains Mono", monospace; font-size: 15px; color: #FFF; }
+
+    /* Takeaways & FAQ */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav { display: none; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .demo-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .demo-card h4 { color: #18181B; }
+    html[data-theme="light"] .demo-card .preview-box { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .formula-card { background: #F7FEE7; border-color: #BEF264; }
+    html[data-theme="light"] .formula-card .formula-math { color: #365314; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>SVG Drop Shadows &amp; Filter Effects</span>
+    </nav>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <header class="article-hero">
+          <span class="tag">CSS Architecture &amp; Vector Graphics</span>
+          <h1>How to Add Drop Shadows &amp; Filter Effects to SVG in CSS (2026)</h1>
+          <div class="article-meta">
+            <span><strong>Published:</strong> October 15, 2026</span>
+            <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+            <span>14 min read</span>
+          </div>
+        </header>
+
+        <div class="featured-summary">
+          <p><strong>Executive Takeaway:</strong> Standard CSS <code>box-shadow</code> always creates a rectangular bounding shadow on SVG elements, ignoring vector transparency. To project authentic contour shadows on vector icons, modern frontend engineers have two primary weapons:</p>
+          <ul>
+            <li><strong>CSS <code>filter: drop-shadow()</code>:</strong> The fastest, cleanest method for UI icons. Evaluated on the alpha channel with zero markup changes.</li>
+            <li><strong>SVG <code>&lt;feDropShadow&gt;</code> &amp; Shaders:</strong> XML-based filter primitives inside <code>&lt;defs&gt;</code> that enable multi-pass neon glows, inner shadows, and matrix color transformations.</li>
+            <li><strong>The Clipping Fix:</strong> Avoid edge truncation bugs by specifying <code>overflow: visible</code> or configuring <code>x="-30%" y="-30%" width="160%" height="160%"</code> subregions.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-drop-shadow-and-filter-effects-guide.jpg" alt="Glowing SVG drop shadow and filter effects technical architecture" width="1200" height="675" loading="lazy" />
+          <figcaption>Figure 1: Architectural comparison of CSS alpha drop-shadows versus SVG filter primitives.</figcaption>
+        </figure>
+
+        <h2 id="the-box-shadow-problem">1. The Core Problem: Why CSS box-shadow Fails on SVG</h2>
+        <p>Almost every web developer has attempted to add elevation to an SVG icon by writing <code>box-shadow: 0 8px 16px rgba(0,0,0,0.2)</code>, only to be horrified by the result: an ugly rectangular black card framing their transparent vector art.</p>
+        <p>This happens because of the fundamental CSS box model. The <code>box-shadow</code> property calculates shadow coordinates strictly from the outer boundary box of the HTML element container (the layout box). It has zero knowledge of the internal vector paths, bezier curves, or transparent alpha pixels inside the SVG canvas.</p>
+
+        <div class="visual-demo-grid">
+          <div class="demo-card">
+            <div class="preview-box">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" style="box-shadow: 0 10px 20px rgba(193,221,45,0.4); border-radius: 4px; background: rgba(255,255,255,0.05);"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/></svg>
+            </div>
+            <h4>box-shadow (Antipattern)</h4>
+            <p>Shadow adheres to the square element box, ruining the transparent icon silhouette.</p>
+          </div>
+          <div class="demo-card">
+            <div class="preview-box">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" style="filter: drop-shadow(0 10px 14px rgba(193,221,45,0.5));"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/></svg>
+            </div>
+            <h4>filter: drop-shadow() (Modern Standard)</h4>
+            <p>Shadow hugs every individual vector contour, stroke curve, and transparent counter.</p>
+          </div>
+        </div>
+
+        <p>To produce a real silhouette shadow, the browser rendering pipeline must perform an <strong>alpha-mask rasterization</strong>: extract the opacity values of each rendered pixel, blur those alpha channels, offset them by coordinate vectors <code>(dx, dy)</code>, multiply by the shadow color, and composite the result behind the source vector.</p>
+
+        <h2 id="css-drop-shadow-syntax">2. CSS filter: drop-shadow() In-Depth</h2>
+        <p>The CSS <code>filter: drop-shadow()</code> function is supported across 100% of modern evergreen browsers. It applies hardware-accelerated contour shadows directly to inline SVGs, <code>&lt;img src="icon.svg"&gt;</code>, and CSS background mask stencils.</p>
+
+        <h3>Syntax &amp; Parameters</h3>
+        <pre><code>/* Syntax */
+filter: drop-shadow(offset-x offset-y blur-radius color);
+
+/* Real World Production Example */
+.icon-elevated {
+  filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.35));
+}
+
+/* Inheriting Theme Colors via currentColor */
+.icon-brand-glow {
+  color: #C1DD2D;
+  filter: drop-shadow(0px 4px 12px currentColor);
+}</code></pre>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Required?</th>
+                <th>Description</th>
+                <th>Best Practice Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>offset-x (dx)</code></td>
+                <td>Required</td>
+                <td>Horizontal offset along X axis. Positive moves right, negative moves left.</td>
+                <td><code>0px</code> for ambient/diffuse, <code>1px-4px</code> for directional light.</td>
+              </tr>
+              <tr>
+                <td><code>offset-y (dy)</code></td>
+                <td>Required</td>
+                <td>Vertical offset along Y axis. Positive moves downward, mimicking top lighting.</td>
+                <td><code>2px-8px</code> depending on elevation tier.</td>
+              </tr>
+              <tr>
+                <td><code>blur-radius</code></td>
+                <td>Optional (defaults to 0)</td>
+                <td>Gaussian blur sigma radius. Larger values yield softer, larger shadows.</td>
+                <td><code>4px-16px</code>. Avoid <code>&gt;32px</code> on low-power devices.</td>
+              </tr>
+              <tr>
+                <td><code>color</code></td>
+                <td>Optional</td>
+                <td>Hex, RGBA, HSL, or <code>currentColor</code>. Defaults to text color if omitted.</td>
+                <td>Use semi-transparent RGBA (e.g. <code>rgba(0,0,0,0.3)</code>) for natural depth.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Distinction: drop-shadow() vs box-shadow</div>
+          <div class="formula-math">
+            box-shadow: (x, y, blur, spread, color) [Supports 4th 'spread' parameter]<br>
+            filter: drop-shadow(x, y, blur, color) [NO 'spread' parameter allowed]
+          </div>
+        </div>
+        <p><strong>Critical Warning:</strong> Unlike <code>box-shadow</code>, CSS <code>filter: drop-shadow()</code> does <em>not</em> accept a 4th spread-radius parameter. If you write <code>filter: drop-shadow(0 4px 6px 2px #000)</code>, browsers will flag the CSS rule as invalid and drop the entire style declaration.</p>
+
+        <h3>Stacking Multiple Drop Shadows</h3>
+        <p>A natural physical shadow consists of two distinct components: a sharp, dark contact shadow close to the base, and a soft, diffuse ambient shadow dispersing outward. You can chain multiple <code>drop-shadow()</code> calls inside a single CSS <code>filter</code> property:</p>
+        <pre><code>/* 2-Tier Realistic Physical Elevation */
+.realistic-vector-elevation {
+  filter: 
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25))   /* Contact shadow */
+    drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15)); /* Ambient dispersion */
+}
+
+/* Cyberpunk Dual-Tone Neon Glow */
+.cyberpunk-icon {
+  filter: 
+    drop-shadow(0 0 6px rgba(193, 221, 45, 0.8))  /* Intense inner core */
+    drop-shadow(0 0 20px rgba(0, 240, 255, 0.4)); /* Outer ambient field */
+}</code></pre>
+
+        <h2 id="svg-fedropshadow-primitive">3. Native SVG &lt;feDropShadow&gt; Filter Primitive</h2>
+        <p>While CSS <code>filter: drop-shadow()</code> is simple and convenient, raw SVG files and standalone graphic systems often require the filter definition to travel <em>inside the SVG XML markup itself</em>. This guarantees that exported assets, standalone SVG files, or design-tokenized vectors render identically anywhere without external CSS stylesheets.</p>
+
+        <p>The SVG Filter Specification introduced the <code>&lt;feDropShadow&gt;</code> element to consolidate what previously required four separate SVG primitives (<code>&lt;feGaussianBlur&gt;</code>, <code>&lt;feOffset&gt;</code>, <code>&lt;feFlood&gt;</code>, and <code>&lt;feComposite&gt;</code>) into one clean node.</p>
+
+        <pre><code>&lt;svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#C1DD2D" stroke-width="2" class="svg-filtered"&gt;
+  &lt;defs&gt;
+    &lt;!-- Define reusable contour shadow --&gt;
+    &lt;filter id="brandDropShadow" x="-20%" y="-20%" width="140%" height="140%"&gt;
+      &lt;feDropShadow 
+        dx="0" 
+        dy="4" 
+        stdDeviation="3" 
+        flood-color="#C1DD2D" 
+        flood-opacity="0.45" /&gt;
+    &lt;/filter&gt;
+  &lt;/defs&gt;
+
+  &lt;!-- Apply via filter attribute or CSS --&gt;
+  &lt;g filter="url(#brandDropShadow)"&gt;
+    &lt;path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre>
+
+        <h3>Key Attributes of &lt;feDropShadow&gt;:</h3>
+        <ul>
+          <li><strong><code>dx</code> &amp; <code>dy</code>:</strong> Coordinate offsets along X and Y axes. Standard unit is user-space pixels.</li>
+          <li><strong><code>stdDeviation</code>:</strong> The standard deviation for the Gaussian blur kernel. Note: <code>stdDeviation="3"</code> roughly corresponds to a CSS blur radius of 6px (since CSS blur radius is approximately <code>2 * stdDeviation</code>).</li>
+          <li><strong><code>flood-color</code>:</strong> Hex, RGB, or semantic color string defining the shadow tint.</li>
+          <li><strong><code>flood-opacity</code>:</strong> Opacity scalar between <code>0.0</code> and <code>1.0</code>.</li>
+        </ul>
+
+        <h2 id="the-clipping-bug">4. The Infamous SVG Shadow Clipping Bug (And How to Fix It)</h2>
+        <p>Have you ever applied a soft, wide drop shadow to an SVG icon only to see a sharp, razor-cut line cutting off the blur at the edges? This is the most common bug in SVG styling, and it stems from two independent boundary constraints in the browser rendering engine:</p>
+
+        <div class="visual-demo-grid">
+          <div class="demo-card">
+            <div class="preview-box">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" style="filter: drop-shadow(0 14px 6px rgba(239,68,68,0.8)); overflow: hidden;"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/></svg>
+            </div>
+            <h4>Clipped Boundary (Bug)</h4>
+            <p>Blur rays cut off abruptly at the viewBox viewport or HTML bounding rect.</p>
+          </div>
+          <div class="demo-card">
+            <div class="preview-box">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" style="filter: drop-shadow(0 14px 6px rgba(193,221,45,0.8)); overflow: visible;"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/></svg>
+            </div>
+            <h4>Unclipped Natural Spread (Fixed)</h4>
+            <p><code>overflow: visible</code> and expanded subregion permits full feathering.</p>
+          </div>
+        </div>
+
+        <h3>Fix 1: The CSS overflow: visible Rule</h3>
+        <p>By default, the SVG specification requires browsers to clip any graphical content that extends outside the element's defined <code>viewBox</code> or dimensions (<code>overflow: hidden</code>). When you apply a 12px blur, pixels expand outside the 24×24 box, triggering the hard cut.</p>
+        <p>The quickest fix in CSS is simply resetting the container overflow:</p>
+        <pre><code>svg.icon-with-shadow {
+  overflow: visible; /* Prevents hard cutoff at viewBox boundary */
+}</code></pre>
+
+        <h3>Fix 2: Expanding the Filter Subregion in XML</h3>
+        <p>If you are using native SVG <code>&lt;filter&gt;</code> elements, the filter primitive itself has a default rendering subregion: <code>x="-10%" y="-10%" width="120%" height="120%"</code>. If your shadow blur or offset extends beyond 10% of the bounding box, the filter engine itself truncates the pixels before they ever reach the DOM.</p>
+        <p>To give your blur ample canvas space to decay naturally to 0% alpha, generously expand the subregion:</p>
+        <pre><code>&lt;!-- Generous 50% expansion on all sides --&gt;
+&lt;filter id="safeGlow" x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox"&gt;
+  &lt;feDropShadow dx="0" dy="12" stdDeviation="8" flood-color="#C1DD2D" flood-opacity="0.3" /&gt;
+&lt;/filter&gt;</code></pre>
+
+        <h2 id="advanced-vector-glows">5. Advanced Vector Glows &amp; Multi-Pass Shaders</h2>
+        <p>Single drop shadows are just the starting point. By chaining SVG filter primitives in XML, you can achieve visual effects that pure CSS cannot reproduce, such as luminous neon glows and metallic bevel cutouts.</p>
+
+        <h3>Building a Luminous Neon Vector Glow</h3>
+        <p>A true neon glow requires three layers: a razor-sharp high-opacity inner core, a medium semi-transparent halo, and a wide ambient bloom. We construct this using <code>&lt;feGaussianBlur&gt;</code> and <code>&lt;feMerge&gt;</code>:</p>
+
+        <pre><code>&lt;svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#C1DD2D" stroke-width="2"&gt;
+  &lt;defs&gt;
+    &lt;filter id="neonGlowShader" x="-50%" y="-50%" width="200%" height="200%"&gt;
+      &lt;!-- Pass 1: Wide ambient diffusion --&gt;
+      &lt;feGaussianBlur in="SourceGraphic" stdDeviation="6" result="ambientBlur" /&gt;
+      
+      &lt;!-- Pass 2: Medium intense halo --&gt;
+      &lt;feGaussianBlur in="SourceGraphic" stdDeviation="2" result="haloBlur" /&gt;
+      
+      &lt;!-- Pass 3: Composite layers with original crisp vector on top --&gt;
+      &lt;feMerge&gt;
+        &lt;feMergeNode in="ambientBlur" /&gt;
+        &lt;feMergeNode in="haloBlur" /&gt;
+        &lt;feMergeNode in="SourceGraphic" /&gt;
+      &lt;/feMerge&gt;
+    &lt;/filter&gt;
+  &lt;/defs&gt;
+
+  &lt;path filter="url(#neonGlowShader)" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /&gt;
+&lt;/svg&gt;</code></pre>
+
+        <h2 id="theme-switching-contrast">6. Theme Switching &amp; Dark Mode Adaptation</h2>
+        <p>A shadow designed for dark mode (bright neon glow or subtle deep black) will look completely out of place on a light theme canvas. Dark mode shadows need to provide illumination or subtle black depth, whereas light mode shadows must provide contrast and elevation without turning into murky halos.</p>
+
+        <pre><code>:root {
+  --icon-shadow: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08)) 
+                 drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+}
+
+html[data-theme="dark"] {
+  --icon-shadow: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5)) 
+                 drop-shadow(0 0 12px rgba(193, 221, 45, 0.2));
+}
+
+.theme-aware-icon {
+  filter: var(--icon-shadow);
+  transition: filter 250ms ease;
+}
+
+/* Accessibility: Turn off heavy blurs for forced-colors users */
+@media (forced-colors: active) {
+  .theme-aware-icon {
+    filter: none !important;
+  }
+}</code></pre>
+
+        <h2 id="performance-gpu">7. Performance &amp; Hardware Acceleration</h2>
+        <p>A common pitfall among frontend engineers is animating <code>filter: drop-shadow()</code> on <code>:hover</code>. For instance:</p>
+        <pre><code>/* ⚠️ PERFORMANCE ANTIPATTERN */
+.icon-bad-hover {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  transition: filter 200ms ease;
+}
+.icon-bad-hover:hover {
+  filter: drop-shadow(0 12px 24px rgba(193,221,45,0.6)); /* Triggers layout repaint every frame! */
+}</code></pre>
+
+        <p>When the browser animates CSS filters, it cannot simply translate a texture on the GPU. Instead, it must re-calculate Gaussian blur kernels on the CPU or pixel shader on <strong>every single 16.6ms animation frame</strong>, causing noticeable frame drops (jank) on mobile processors and high-refresh-rate displays.</p>
+
+        <h3>The 60 FPS GPU-Accelerated Alternative:</h3>
+        <p>To achieve buttery-smooth 60 FPS hover interactions without CPU paint thrashing, render the shadow statically on a pseudo-element or composite layer, and animate <code>transform: translateY()</code> or <code>opacity</code>:</p>
+
+        <pre><code>/* 🚀 60 FPS ACCELERATED PATTERN */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Apply static shadow to SVG */
+.icon-btn svg {
+  filter: drop-shadow(0 4px 12px rgba(193, 221, 45, 0.35));
+}
+
+/* Elevate on hover via GPU translate */
+.icon-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+}</code></pre>
+
+        <h2 id="framework-recipes">8. Modern Framework Implementations</h2>
+
+        <h3>React / Next.js Component</h3>
+        <pre><code>import React from 'react';
+
+interface GlowIconProps extends React.SVGProps&lt;SVGSVGElement&gt; {
+  glowColor?: string;
+  glowIntensity?: 'subtle' | 'vibrant' | 'none';
+}
+
+export const GlowIcon: React.FC&lt;GlowIconProps&gt; = ({
+  glowColor = '#C1DD2D',
+  glowIntensity = 'vibrant',
+  children,
+  className = '',
+  style,
+  ...props
+}) => {
+  const getFilter = () => {
+    switch (glowIntensity) {
+      case 'subtle':
+        return `drop-shadow(0 2px 6px ${glowColor}40)`;
+      case 'vibrant':
+        return `drop-shadow(0 2px 4px ${glowColor}60) drop-shadow(0 8px 20px ${glowColor}30)`;
+      default:
+        return 'none';
+    }
+  };
+
+  return (
+    &lt;svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      className={`overflow-visible transition-transform duration-200 hover:-translate-y-0.5 ${className}`}
+      style={{ filter: getFilter(), ...style }}
+      {...props}
+    &gt;
+      {children}
+    &lt;/svg&gt;
+  );
+};</code></pre>
+
+        <h3>Tailwind CSS v4 Utility Classes</h3>
+        <p>In modern Tailwind CSS, you can apply arbitrary drop shadows directly using Tailwind's filter engine:</p>
+        <pre><code>&lt;!-- Tailwind v4 Arbitrary Drop Shadow on SVG Icon --&gt;
+&lt;svg 
+  class="w-6 h-6 stroke-lime-400 overflow-visible [filter:drop-shadow(0_4px_12px_rgba(193,221,45,0.45))] hover:-translate-y-1 transition-transform" 
+  viewBox="0 0 24 24"&gt;
+  &lt;path d="..." /&gt;
+&lt;/svg&gt;</code></pre>
+
+        <div class="takeaway-box">
+          <h3>Summary &amp; Best Practices Checklist</h3>
+          <ul>
+            <li><strong>Never use box-shadow on transparent SVGs:</strong> Always use <code>filter: drop-shadow()</code> or <code>&lt;feDropShadow&gt;</code>.</li>
+            <li><strong>Fix clipping immediately:</strong> Add <code>overflow: visible</code> to the SVG element or expand filter subregions in XML.</li>
+            <li><strong>Double-layer for realism:</strong> Combine one tight contact shadow with one wide ambient dispersion shadow.</li>
+            <li><strong>Animate transforms, not blur radii:</strong> Keep hover interactions at 60 FPS by moving the vector rather than recalculating blur kernels.</li>
+            <li><strong>Explore 134K+ SVG icons on IconStash:</strong> Export clean, production-ready SVGs with customizable stroke weights and test them live.</li>
+          </ul>
+        </div>
+
+        <h2 id="faq">9. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Why does CSS box-shadow create a square box around my SVG icon?</h3>
+          <p>CSS box-shadow calculates its shadow exclusively from the rectangular layout bounding box of the HTML element, ignoring transparency and alpha channels. To cast a shadow adhering to the actual vector geometry of SVG paths, you must use filter: drop-shadow() or native SVG &lt;feDropShadow&gt;.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the difference between CSS filter: drop-shadow() and SVG &lt;feDropShadow&gt;?</h3>
+          <p>CSS filter: drop-shadow() is a high-level shorthand evaluated by the browser compositor on the rendered alpha silhouette of the element. SVG &lt;feDropShadow&gt; is an internal XML filter primitive that can be chained inside &lt;defs&gt; with other SVG filters like &lt;feColorMatrix&gt;, &lt;feBlend&gt;, and &lt;feGaussianBlur&gt; for advanced multi-stage rendering.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you fix SVG drop shadows getting clipped at the edges?</h3>
+          <p>Shadow clipping occurs when blur radii extend beyond the SVG viewBox or filter subregion boundaries. To fix it, set overflow: visible on the &lt;svg&gt; element in CSS, or expand the filter subregion attributes on the &lt;filter&gt; element: x="-30%" y="-30%" width="160%" height="160%".</p>
+        </div>
+        <div class="faq-item">
+          <h3>Does filter: drop-shadow() hurt web page rendering performance?</h3>
+          <p>Static drop-shadows have virtually zero overhead once rasterized to GPU textures. However, animating blur radius or color on 60 FPS hover interactions causes continuous layout repaints. Use transform: translateY() with will-change: transform, or preload static blur passes to maintain smooth 60 FPS transitions.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I stack multiple drop shadows on a single SVG element?</h3>
+          <p>Yes. CSS filter accepts multiple space-separated drop-shadow functions: filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) drop-shadow(0 12px 24px rgba(193,221,45,0.2)). In SVG filters, chain multiple &lt;feDropShadow&gt; primitives or merge them with &lt;feMerge&gt;.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does drop-shadow interact with currentColor in SVG icons?</h3>
+          <p>If you omit the color parameter in CSS filter: drop-shadow(0 4px 12px), the browser defaults to the element's computed color property. When your SVG stroke or fill uses currentColor, the shadow color automatically tracks the text color.</p>
+        </div>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#the-box-shadow-problem">1. The box-shadow Problem</a></li>
+              <li><a href="#css-drop-shadow-syntax">2. CSS drop-shadow() Syntax</a></li>
+              <li><a href="#svg-fedropshadow-primitive">3. SVG &lt;feDropShadow&gt; Primitive</a></li>
+              <li><a href="#the-clipping-bug">4. Fixing the Clipping Bug</a></li>
+              <li><a href="#advanced-vector-glows">5. Advanced Vector Glows</a></li>
+              <li><a href="#theme-switching-contrast">6. Theme Switching &amp; Contrast</a></li>
+              <li><a href="#performance-gpu">7. Performance &amp; GPU Tuning</a></li>
+              <li><a href="#framework-recipes">8. Framework Recipes</a></li>
+              <li><a href="#faq">9. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 134K+ Icons</h4>
+          <p>Copy clean SVG, React JSX, and Vue components with custom stroke weights and instant drop-shadow previews.</p>
+          <a href="/#/" class="cta-sidebar-btn">Open IconStash Free →</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <a href="/">IconStash</a>. Open-source icon search engine unifying 28 icon sets &amp; 134,701 vector icons.</p>
+    <p style="margin-top: 8px;">
+      <a href="/about/">About</a> &bull;
+      <a href="/contact/">Contact</a> &bull;
+      <a href="/privacy/">Privacy Policy</a> &bull;
+      <a href="/terms/">Terms of Service</a> &bull;
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/stats/">Stats</a>
+    </p>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -162,6 +162,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Material Symbols Complete Guide: Variable Fonts, SVG & React (2026)](https://iconstash.io/articles/material-symbols-complete-guide/)
 - [Ionicons Complete Guide: Modern Web, React, Vue & Mobile (2026)](https://iconstash.io/articles/ionicons-complete-guide/)
 - [12 Best Icon Packs for SaaS Dashboards and Admin Panels (2026)](https://iconstash.io/Listicles/best-dashboard-icon-packs/)
+- [How to Add Drop Shadows & Filter Effects to SVG in CSS (2026)](https://iconstash.io/articles/svg-drop-shadow-and-filter-effects-css-guide/)
+- [How to Lazy Load & Code-Split SVG Icons: The 2026 Performance Guide](https://iconstash.io/articles/svg-icon-lazy-loading-and-code-splitting-guide/)
+- [Font Awesome vs Bootstrap Icons: The Definitive 2026 Comparison](https://iconstash.io/articles/font-awesome-vs-bootstrap-icons-2026/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives
@@ -201,4 +204,4 @@ Q: How do I compare the same icon across libraries? A: Open any concept page suc
 
 Q: Can I browse icons by library, category, or style? A: Yes — https://iconstash.io/library/, https://iconstash.io/category/, and https://iconstash.io/style/ each index the full catalogue.
 
-Last updated: 2026-10-14
+Last updated: 2026-10-15
