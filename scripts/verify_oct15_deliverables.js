@@ -111,6 +111,7 @@ for (const item of deliverables) {
 
       const breadcrumb = schemas.find(s => s['@type'] === 'BreadcrumbList');
       assert(breadcrumb && breadcrumb.itemListElement && breadcrumb.itemListElement.length === 3, 'BreadcrumbList has 3 items');
+      assert(breadcrumb && breadcrumb.itemListElement && breadcrumb.itemListElement[2] && breadcrumb.itemListElement[2].item === item.canonical, `BreadcrumbList item 3 has item matching canonical (${item.canonical})`);
 
       const faq = schemas.find(s => s['@type'] === 'FAQPage');
       assert(faq && faq.mainEntity && faq.mainEntity.length >= 5, `FAQPage has >= 5 questions (found ${faq ? faq.mainEntity.length : 0})`);
@@ -135,11 +136,28 @@ for (const item of deliverables) {
   // 10. Theme toggle and persistence verification
   assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
   assert(content.includes("localStorage.getItem('theme')"), 'Theme persistence script present');
+  assert(content.includes('.site-header nav a:not(.header-cta) { display: none; }'), 'Mobile nav preserves #themeToggle button visibility');
+  assert(!content.includes('.site-header nav { display: none; }'), 'Mobile nav does not coarsely hide entire nav element');
 
-  // 11. No raw unrendered LaTeX math formulas
+  // 11. Table responsiveness check
+  assert(content.includes('min-width: 640px;'), 'Data tables enforce min-width: 640px for mobile horizontal scrolling');
+
+  // 12. Interactive Developer Sandbox & Tools verification
+  if (item.slug === 'svg-drop-shadow-and-filter-effects-css-guide') {
+    assert(content.includes('id="shadowPlayground"'), 'Interactive SVG Drop Shadow sandbox present');
+    assert(content.includes('id="liveSvgTarget"'), 'Interactive live filter SVG target element present');
+  } else if (item.slug === 'svg-icon-lazy-loading-and-code-splitting-guide') {
+    assert(content.includes('id="cwvSimulator"'), 'Interactive CWV & Bundle Size simulator present');
+    assert(content.includes('id="sliderIconCount"'), 'Interactive icon count slider present');
+  } else if (item.slug === 'font-awesome-vs-bootstrap-icons-2026') {
+    assert(content.includes('id="migrationHelper"'), 'Interactive Migration & Vector Comparator tool present');
+    assert(content.includes('id="migChips"') && content.includes('class="mig-chip'), 'Interactive concept selector chips present');
+  }
+
+  // 13. No raw unrendered LaTeX math formulas
   assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx'), 'No unrendered LaTeX math delimiters ($$ or \\times) found');
 
-  // 12. Viewport responsiveness tag
+  // 14. Viewport responsiveness tag
   assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
 
   // 13. Internal Link Integrity (all internal href and src point to files on disk)
@@ -190,6 +208,9 @@ assert(articlesIndex.includes('"position": 112') && articlesIndex.includes('"pos
 console.log('\n--- Checking Site Integration in compare/index.html ---');
 const compareIndex = fs.readFileSync('compare/index.html', 'utf8');
 assert(compareIndex.includes('/articles/font-awesome-vs-bootstrap-icons-2026/'), 'compare/index.html features link to Font Awesome vs Bootstrap comparison');
+assert(!compareIndex.includes('style="color: #FFF;'), 'compare/index.html banner does not use hardcoded #FFF contrast-breaking color');
+assert(compareIndex.includes('var(--control-blue'), 'compare/index.html banner uses theme-adaptive control-blue');
+assert(compareIndex.includes('var(--text-primary'), 'compare/index.html banner uses theme-adaptive text-primary');
 
 // Sitemap Verification: articles-sitemap.xml
 console.log('\n--- Checking articles-sitemap.xml ---');

@@ -94,7 +94,8 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Font Awesome vs Bootstrap Icons"
+          "name": "Font Awesome vs Bootstrap Icons",
+          "item": "https://iconstash.io/articles/font-awesome-vs-bootstrap-icons-2026/"
         }
       ]
     },
@@ -211,8 +212,8 @@
     code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
 
     /* Tables */
-    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
     th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
     td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
     tr:last-child td { border-bottom: none; }
@@ -228,6 +229,30 @@
     .vs-card h4 { font-size: 20px; color: #FFF; margin-bottom: 12px; font-weight: 800; }
     .vs-card ul { margin: 0 0 0 18px; font-size: 14.5px; color: #BBB; }
     .vs-card li { margin-bottom: 8px; }
+
+    /* Migration Sandbox */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 32px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .mig-chips-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .mig-chip { background: #181818; border: 1px solid #333; color: #BBB; font-size: 12.5px; font-weight: 600; padding: 6px 14px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .mig-chip:hover, .mig-chip.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .mig-comparison-card { display: grid; grid-template-columns: 1fr auto 1.3fr; gap: 16px; align-items: center; background: #0A0A0A; border: 1px solid #262626; border-radius: 10px; padding: 20px; }
+    @media (max-width: 768px) { .mig-comparison-card { grid-template-columns: 1fr; } .mig-arrow { display: none; } }
+    .mig-side { display: flex; flex-direction: column; gap: 8px; }
+    .mig-brand-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 800; color: #888; }
+    .winner-tag { color: #C1DD2D; }
+    .mig-class-box { background: #161616; border: 1px solid #333; border-radius: 6px; padding: 8px 12px; font-family: "JetBrains Mono", monospace; font-size: 14px; color: #E5E5E5; }
+    .winner-class { border-color: rgba(193,221,45,0.4); color: #C1DD2D; background: #14180A; }
+    .mig-meta-text { font-size: 12.5px; color: #777; line-height: 1.4; }
+    .mig-arrow { font-size: 24px; color: #555; text-align: center; }
+    .mig-preview-box { display: flex; align-items: center; gap: 14px; }
+    .mig-winner-details { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
+    .copy-css-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-css-btn:hover { background: #C1DD2D; color: #0A0A0A; }
 
     /* Architecture / Formula Card */
     .arch-card { background: #14180A; border: 1px solid rgba(193,221,45,0.3); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
@@ -265,7 +290,9 @@
 
     @media (max-width: 768px) {
       .page-container { padding: 28px 16px 60px; }
-      .site-header nav { display: none; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
       .article-hero h1 { font-size: 26px; }
       .featured-summary { padding: 18px 20px; }
       pre { padding: 14px; font-size: 12.5px; }
@@ -297,6 +324,18 @@
     html[data-theme="light"] .vs-card.winner { background: #F7FEE7; border-color: #BEF264; }
     html[data-theme="light"] .vs-card h4 { color: #18181B; }
     html[data-theme="light"] .vs-card ul { color: #3F3F46; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .mig-chip { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
+    html[data-theme="light"] .mig-chip:hover, html[data-theme="light"] .mig-chip.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .mig-comparison-card { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .mig-class-box { background: #F4F4F5; border-color: #D4D4D8; color: #18181B; }
+    html[data-theme="light"] .winner-class { background: #F7FEE7; border-color: #BEF264; color: #365314; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .copy-css-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
+    html[data-theme="light"] .copy-css-btn:hover { background: #849E00; color: #FFF; }
     html[data-theme="light"] .arch-card { background: #F7FEE7; border-color: #BEF264; }
     html[data-theme="light"] .arch-card .arch-flow { color: #365314; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
@@ -637,6 +676,63 @@ export function StatusBadge() {
           <li><strong>Batch Replace Classes:</strong> Run a codebase regex search: replace <code>fa-solid fa-([a-z0-9-]+)</code> with <code>bi bi-$1</code> (adjusting mapped aliases like <code>magnifying-glass</code> &rarr; <code>search</code> and <code>user</code> &rarr; <code>person</code>).</li>
         </ol>
 
+        <!-- Live Interactive Migration Helper: Font Awesome -> Bootstrap Icons -->
+        <div class="interactive-sandbox" id="migrationHelper">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+              <span>Interactive Migration Helper: Font Awesome &rarr; Bootstrap Icons</span>
+            </div>
+            <span class="sandbox-badge">Instant Class &amp; Vector Mapper</span>
+          </div>
+
+          <p style="font-size: 14.5px; color: #AAA; margin-bottom: 16px;">Select any common UI icon to instantly map Font Awesome classes to free Bootstrap Icons, preview the exact SVG vector, and copy production React JSX or HTML:</p>
+
+          <div class="mig-chips-grid" id="migChips">
+            <button type="button" class="mig-chip active" data-concept="home">Home / Dashboard</button>
+            <button type="button" class="mig-chip" data-concept="search">Search</button>
+            <button type="button" class="mig-chip" data-concept="gear">Settings / Gear</button>
+            <button type="button" class="mig-chip" data-concept="user">User / Profile</button>
+            <button type="button" class="mig-chip" data-concept="cart">Shopping Cart</button>
+            <button type="button" class="mig-chip" data-concept="envelope">Mail / Envelope</button>
+            <button type="button" class="mig-chip" data-concept="check">Checkmark / Success</button>
+            <button type="button" class="mig-chip" data-concept="trash">Trash / Delete</button>
+            <button type="button" class="mig-chip" data-concept="bell">Bell / Notification</button>
+          </div>
+
+          <div class="mig-comparison-card">
+            <div class="mig-side">
+              <div class="mig-brand-tag">Font Awesome (v6/v7)</div>
+              <div class="mig-class-box" id="faClassBox">fa-solid fa-house</div>
+              <div class="mig-meta-text">Requires font download or @fortawesome wrapper. Thin/Light locked behind $99/yr Pro.</div>
+            </div>
+
+            <div class="mig-arrow">&rarr;</div>
+
+            <div class="mig-side winner-side">
+              <div class="mig-brand-tag winner-tag">Bootstrap Icons (100% Free MIT)</div>
+              <div class="mig-preview-box">
+                <svg id="migSvgPreview" width="36" height="36" fill="currentColor" viewBox="0 0 16 16" style="color: #C1DD2D;">
+                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                  <path d="m8 3.293 6 6V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V9.293l6-6Z"/>
+                </svg>
+                <div class="mig-winner-details">
+                  <div class="mig-class-box winner-class" id="biClassBox">bi bi-house</div>
+                  <div class="mig-meta-text" style="color: #C1DD2D;">Strict 16×16 grid &bull; Zero FOIT &bull; 0 KB extra font files</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box" style="margin-top: 18px;">
+            <div class="code-box-head">
+              <span id="migSnippetTitle">Bootstrap Icons React &amp; HTML Component</span>
+              <button type="button" id="copyMigBtn" class="copy-css-btn">Copy Snippet</button>
+            </div>
+            <pre style="margin: 0; padding: 12px 16px;"><code id="migSnippetCode">&lt;i class="bi bi-house"&gt;&lt;/i&gt;</code></pre>
+          </div>
+        </div>
+
         <h2 id="the-verdict-2026">7. Which Should You Choose in 2026?</h2>
         <div class="takeaway-box">
           <h3>The Decision Matrix</h3>
@@ -732,6 +828,116 @@ export function StatusBadge() {
         localStorage.setItem('theme', nextTheme);
       });
     }
+
+    // Interactive Migration Helper Engine
+    const migIcons = {
+      home: {
+        fa: 'fa-solid fa-house',
+        bi: 'bi bi-house',
+        desc: 'Strict 16×16 grid • Zero FOIT • 0 KB extra font files',
+        path: '<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/><path d="m8 3.293 6 6V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V9.293l6-6Z"/>',
+        html: '<i class="bi bi-house"></i>',
+        react: "import { House } from 'react-bootstrap-icons';\n\n<House size={20} className=\"text-neutral-200\" />"
+      },
+      search: {
+        fa: 'fa-solid fa-magnifying-glass',
+        bi: 'bi bi-search',
+        desc: 'Sharp 16px pixel raster • Flawless search bar alignment',
+        path: '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>',
+        html: '<i class="bi bi-search"></i>',
+        react: "import { Search } from 'react-bootstrap-icons';\n\n<Search size={18} />"
+      },
+      gear: {
+        fa: 'fa-solid fa-gear',
+        bi: 'bi bi-gear',
+        desc: 'Centered 16x16 anchor • Smooth rotating transition ready',
+        path: '<path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>',
+        html: '<i class="bi bi-gear"></i>',
+        react: "import { Gear } from 'react-bootstrap-icons';\n\n<Gear size={20} />"
+      },
+      user: {
+        fa: 'fa-solid fa-user',
+        bi: 'bi bi-person',
+        desc: 'Zero em-box misalignment • Free solid & outline variants',
+        path: '<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>',
+        html: '<i class="bi bi-person"></i>',
+        react: "import { Person } from 'react-bootstrap-icons';\n\n<Person size={20} />"
+      },
+      cart: {
+        fa: 'fa-solid fa-cart-shopping',
+        bi: 'bi bi-cart',
+        desc: 'E-commerce staple • MIT licensed with zero royalties',
+        path: '<path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>',
+        html: '<i class="bi bi-cart"></i>',
+        react: "import { Cart } from 'react-bootstrap-icons';\n\n<Cart size={20} />"
+      },
+      envelope: {
+        fa: 'fa-solid fa-envelope',
+        bi: 'bi bi-envelope',
+        desc: 'Precise 16px geometry • No fixed-width hacks required',
+        path: '<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>',
+        html: '<i class="bi bi-envelope"></i>',
+        react: "import { Envelope } from 'react-bootstrap-icons';\n\n<Envelope size={20} />"
+      },
+      check: {
+        fa: 'fa-solid fa-check',
+        bi: 'bi bi-check2',
+        desc: 'Clean 2-pixel stroke weight • Instant visual recognition',
+        path: '<path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>',
+        html: '<i class="bi bi-check2"></i>',
+        react: "import { Check2 } from 'react-bootstrap-icons';\n\n<Check2 size={22} className=\"text-emerald-400\" />"
+      },
+      trash: {
+        fa: 'fa-solid fa-trash-can',
+        bi: 'bi bi-trash3',
+        desc: 'Modern v1.11+ revision with detachable lid aesthetics',
+        path: '<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5a.5.5 0 0 1 .47-.528M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5m2.472.5a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L10 5.5a.5.5 0 0 1 .472-.53"/>',
+        html: '<i class="bi bi-trash3"></i>',
+        react: "import { Trash3 } from 'react-bootstrap-icons';\n\n<Trash3 size={18} className=\"text-red-400\" />"
+      },
+      bell: {
+        fa: 'fa-solid fa-bell',
+        bi: 'bi bi-bell',
+        desc: 'Notification badge ready • Free filled and ring styles',
+        path: '<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>',
+        html: '<i class="bi bi-bell"></i>',
+        react: "import { Bell } from 'react-bootstrap-icons';\n\n<Bell size={20} />"
+      }
+    };
+
+    const faClassBox = document.getElementById('faClassBox');
+    const biClassBox = document.getElementById('biClassBox');
+    const migSvgPreview = document.getElementById('migSvgPreview');
+    const migSnippetCode = document.getElementById('migSnippetCode');
+    const copyMigBtn = document.getElementById('copyMigBtn');
+
+    function selectMigIcon(key) {
+      const data = migIcons[key] || migIcons.home;
+      if (faClassBox) faClassBox.textContent = data.fa;
+      if (biClassBox) biClassBox.textContent = data.bi;
+      if (migSvgPreview) migSvgPreview.innerHTML = data.path;
+      if (migSnippetCode) migSnippetCode.textContent = `// React JSX Component\n${data.react}\n\n<!-- HTML Utility Class -->\n${data.html}`;
+    }
+
+    document.querySelectorAll('.mig-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.mig-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const concept = chip.getAttribute('data-concept');
+        selectMigIcon(concept);
+      });
+    });
+
+    if (copyMigBtn && migSnippetCode) {
+      copyMigBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(migSnippetCode.textContent).then(() => {
+          copyMigBtn.textContent = 'Copied!';
+          setTimeout(() => { copyMigBtn.textContent = 'Copy Snippet'; }, 2000);
+        });
+      });
+    }
+
+    selectMigIcon('home');
   </script>
 </body>
 </html>

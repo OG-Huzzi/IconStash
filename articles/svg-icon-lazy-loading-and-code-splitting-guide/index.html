@@ -94,7 +94,8 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Lazy Loading & Code-Splitting SVG Icons"
+          "name": "Lazy Loading & Code-Splitting SVG Icons",
+          "item": "https://iconstash.io/articles/svg-icon-lazy-loading-and-code-splitting-guide/"
         }
       ]
     },
@@ -211,8 +212,8 @@
     code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
 
     /* Tables */
-    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
     th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
     td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
     tr:last-child td { border-bottom: none; }
@@ -223,6 +224,26 @@
     .metric-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 20px; text-align: center; }
     .metric-card .stat-val { font-size: 28px; font-weight: 900; color: #C1DD2D; font-family: "JetBrains Mono", monospace; margin-bottom: 4px; }
     .metric-card .stat-label { font-size: 12.5px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+
+    /* Interactive Simulator */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 32px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sim-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sim-grid { grid-template-columns: 1fr; } }
+    .sim-controls { display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .sandbox-slider { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+    .sim-select { width: 100%; background: #0A0A0A; border: 1px solid #333; color: #FFF; font-size: 13px; padding: 10px 12px; border-radius: 6px; font-family: "Inter", sans-serif; cursor: pointer; }
+    .sim-results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .sim-metric-card { background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; padding: 16px; text-align: center; }
+    .sim-val { font-size: 24px; font-weight: 900; color: #C1DD2D; font-family: "JetBrains Mono", monospace; margin-bottom: 4px; }
+    .sim-lbl { font-size: 11.5px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
 
     /* Semantic Math / Architecture Cards */
     .arch-card { background: #14180A; border: 1px solid rgba(193,221,45,0.3); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
@@ -260,7 +281,9 @@
 
     @media (max-width: 768px) {
       .page-container { padding: 28px 16px 60px; }
-      .site-header nav { display: none; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
       .article-hero h1 { font-size: 26px; }
       .featured-summary { padding: 18px 20px; }
       pre { padding: 14px; font-size: 12.5px; }
@@ -291,6 +314,15 @@
     html[data-theme="light"] .metric-card { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .metric-card .stat-val { color: #4D6300; }
     html[data-theme="light"] .metric-card .stat-label { color: #71717A; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .sim-select { background: #FFF; border-color: #D4D4D8; color: #18181B; }
+    html[data-theme="light"] .sim-metric-card { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .sim-lbl { color: #71717A; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
     html[data-theme="light"] .arch-card { background: #F7FEE7; border-color: #BEF264; }
     html[data-theme="light"] .arch-card .arch-flow { color: #365314; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
@@ -392,6 +424,68 @@ import { FiHome, FiSettings, FiUser } from 'react-icons/fi';</code></pre>
           <div class="arch-flow">
             [Naive Monolithic Import] ──&gt; Parse 1,979 Icons (680 KB) ──&gt; Main Thread Freeze (82ms) ──&gt; Poor INP<br>
             [Dynamic Code-Splitting]  ──&gt; Load 4 Active Icons (1.8 KB)  ──&gt; Zero Thread Lag (0.2ms)  ──&gt; 100 INP Score
+          </div>
+        </div>
+
+        <!-- Live Interactive Icon Bundling & CWV Simulator -->
+        <div class="interactive-sandbox" id="cwvSimulator">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              <span>Interactive Icon Bundle &amp; Core Web Vitals Simulator</span>
+            </div>
+            <span class="sandbox-badge">Real-Time Metric Calculator</span>
+          </div>
+
+          <div class="sim-grid">
+            <div class="sim-controls">
+              <div class="control-row">
+                <label>Total Unique Icons in Application: <span id="valIconCount" class="stat-num">120 icons</span></label>
+                <input type="range" id="sliderIconCount" min="10" max="600" value="120" step="10" class="sandbox-slider" />
+              </div>
+              <div class="control-row">
+                <label>Icon Bundling Architecture</label>
+                <select id="selectStrategy" class="sim-select">
+                  <option value="barrel">1. Monolithic Barrel Import (import { ... } from 'huge-icons')</option>
+                  <option value="subpath">2. Direct Subpath Imports (import User from 'icons/user')</option>
+                  <option value="lazy" selected>3. Viewport Observer + React.lazy() (Recommended)</option>
+                  <option value="rsc">4. Next.js 15 Server Components (0 KB Client JS)</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <label>Simulated Device &amp; Network Profile</label>
+                <select id="selectProfile" class="sim-select">
+                  <option value="mobile-4g">Mobile (Mid-tier Moto G4, 4G Slow, 150ms RTT)</option>
+                  <option value="desktop-fast">Desktop (MacBook / High-speed Fiber)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sim-results-grid">
+              <div class="sim-metric-card">
+                <div class="sim-val" id="resBundle">3.6 KB</div>
+                <div class="sim-lbl">Client JS Payload</div>
+              </div>
+              <div class="sim-metric-card">
+                <div class="sim-val" id="resParse">1 ms</div>
+                <div class="sim-lbl">Main Thread Parse / Hydration</div>
+              </div>
+              <div class="sim-metric-card">
+                <div class="sim-val" id="resInp" style="color: #C1DD2D;">12 ms</div>
+                <div class="sim-lbl">Interaction to Next Paint (INP)</div>
+              </div>
+              <div class="sim-metric-card">
+                <div class="sim-val" id="resRating" style="color: #C1DD2D;">100 (Good)</div>
+                <div class="sim-lbl">Lighthouse Status</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box" style="margin-top: 18px;">
+            <div class="code-box-head">
+              <span id="strategySnippetTitle">Strategy 3: Dynamic Viewport Observer + React.lazy() (Recommended)</span>
+            </div>
+            <pre style="margin: 0; padding: 12px 16px;"><code id="strategySnippetCode">// Recommended configuration will appear here</code></pre>
           </div>
         </div>
 
@@ -733,6 +827,110 @@ export async function loadViteIcon(name: string) {
         localStorage.setItem('theme', nextTheme);
       });
     }
+
+    // Interactive Icon Bundling & CWV Simulator
+    const sliderIconCount = document.getElementById('sliderIconCount');
+    const selectStrategy = document.getElementById('selectStrategy');
+    const selectProfile = document.getElementById('selectProfile');
+    const valIconCount = document.getElementById('valIconCount');
+
+    const resBundle = document.getElementById('resBundle');
+    const resParse = document.getElementById('resParse');
+    const resInp = document.getElementById('resInp');
+    const resRating = document.getElementById('resRating');
+    const strategySnippetTitle = document.getElementById('strategySnippetTitle');
+    const strategySnippetCode = document.getElementById('strategySnippetCode');
+
+    const strategyConfigs = {
+      barrel: {
+        title: 'Strategy 1: Monolithic Barrel File Antipattern',
+        code: `// ⚠️ Antipattern: Imports all icons from root package\nimport { User, Settings, Check, Bell } from 'huge-icons';\n// Forces bundler to parse thousands of re-exports on cold boot`,
+        calc: (count, isMobile) => {
+          const bundleKb = Math.min(650, Math.round(240 + count * 0.7));
+          const parseMs = isMobile ? Math.round(bundleKb * 0.28) : Math.round(bundleKb * 0.08);
+          const inpMs = isMobile ? Math.round(120 + bundleKb * 0.22) : Math.round(40 + bundleKb * 0.05);
+          return { bundleKb, parseMs, inpMs };
+        }
+      },
+      subpath: {
+        title: 'Strategy 2: Direct Subpath Imports',
+        code: `// ✅ Good: Direct subpath imports isolate only used vectors\nimport User from 'huge-icons/dist/esm/User';\nimport Settings from 'huge-icons/dist/esm/Settings';\n// Zero unused icons leak into client chunk`,
+        calc: (count, isMobile) => {
+          const bundleKb = Math.max(2.5, +(count * 0.85).toFixed(1));
+          const parseMs = isMobile ? Math.round(bundleKb * 0.22) : Math.round(bundleKb * 0.04);
+          const inpMs = isMobile ? Math.round(28 + bundleKb * 0.15) : Math.round(14 + bundleKb * 0.03);
+          return { bundleKb, parseMs, inpMs };
+        }
+      },
+      lazy: {
+        title: 'Strategy 3: Dynamic Viewport Observer + React.lazy() (Recommended)',
+        code: `// 🚀 Flawless: Micro-chunks loaded on demand as user scrolls\nconst LazyIcon = React.lazy(() => import('@/icons/' + name));\n// Initial bundle impact: < 4 KB; Zero off-screen payload`,
+        calc: (count, isMobile) => {
+          const initialIcons = Math.min(8, count);
+          const bundleKb = +(initialIcons * 0.45).toFixed(1);
+          const parseMs = isMobile ? 1 : 0;
+          const inpMs = isMobile ? 12 : 6;
+          return { bundleKb, parseMs, inpMs };
+        }
+      },
+      rsc: {
+        title: 'Strategy 4: Next.js 15 React Server Components (RSC)',
+        code: `// ⚡ Ultimate Performance: 0 KB Client JavaScript\n// Evaluated purely on Node.js/Edge runtime; pure inline SVG in HTML stream\nexport async function ServerIcon({ name }) { ... }`,
+        calc: (count, isMobile) => {
+          return { bundleKb: 0, parseMs: 0, inpMs: isMobile ? 8 : 4 };
+        }
+      }
+    };
+
+    function updateSimulation() {
+      if (!sliderIconCount || !selectStrategy) return;
+      const count = parseInt(sliderIconCount.value, 10);
+      const strat = selectStrategy.value;
+      const isMobile = selectProfile ? selectProfile.value === 'mobile-4g' : true;
+
+      if (valIconCount) valIconCount.textContent = `${count} icons`;
+
+      const cfg = strategyConfigs[strat] || strategyConfigs.lazy;
+      const { bundleKb, parseMs, inpMs } = cfg.calc(count, isMobile);
+
+      if (resBundle) resBundle.textContent = `${bundleKb} KB`;
+      if (resParse) resParse.textContent = `${parseMs} ms`;
+      if (resInp) {
+        resInp.textContent = `${inpMs} ms`;
+        if (inpMs <= 50) {
+          resInp.style.color = '#C1DD2D';
+        } else if (inpMs <= 150) {
+          resInp.style.color = '#F59E0B';
+        } else {
+          resInp.style.color = '#EF4444';
+        }
+      }
+
+      if (resRating) {
+        if (inpMs <= 50) {
+          resRating.textContent = '100 (Good)';
+          resRating.style.color = '#C1DD2D';
+        } else if (inpMs <= 150) {
+          resRating.textContent = '82 (Moderate)';
+          resRating.style.color = '#F59E0B';
+        } else {
+          resRating.textContent = '48 (Poor INP)';
+          resRating.style.color = '#EF4444';
+        }
+      }
+
+      if (strategySnippetTitle) strategySnippetTitle.textContent = cfg.title;
+      if (strategySnippetCode) strategySnippetCode.textContent = cfg.code;
+    }
+
+    [sliderIconCount, selectStrategy, selectProfile].forEach(el => {
+      if (el) {
+        el.addEventListener('input', updateSimulation);
+        el.addEventListener('change', updateSimulation);
+      }
+    });
+
+    updateSimulation();
   </script>
 </body>
 </html>

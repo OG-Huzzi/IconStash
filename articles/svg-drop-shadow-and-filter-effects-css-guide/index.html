@@ -94,7 +94,8 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "SVG Drop Shadows & Filter Effects"
+          "name": "SVG Drop Shadows & Filter Effects",
+          "item": "https://iconstash.io/articles/svg-drop-shadow-and-filter-effects-css-guide/"
         }
       ]
     },
@@ -211,8 +212,8 @@
     code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
 
     /* Tables */
-    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
     th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
     td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
     tr:last-child td { border-bottom: none; }
@@ -224,6 +225,29 @@
     .demo-card .preview-box { height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; background: #080808; border-radius: 8px; border: 1px dashed #262626; position: relative; overflow: hidden; }
     .demo-card h4 { font-size: 16px; color: #FFF; margin-bottom: 8px; }
     .demo-card p { font-size: 13px; color: #888; margin-bottom: 0; line-height: 1.5; }
+
+    /* Interactive Live Sandbox */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 32px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+    .sandbox-controls { display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .sandbox-slider { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+    .color-picker-input { width: 36px; height: 32px; border: 1px solid #333; border-radius: 4px; background: transparent; cursor: pointer; padding: 0; }
+    .sandbox-stage { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .stage-preview { width: 100%; height: 160px; background: #080808; border: 1px dashed #262626; border-radius: 10px; display: flex; align-items: center; justify-content: center; position: relative; }
+    .icon-presets-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .preset-btn { background: #1A1A1A; border: 1px solid #333; color: #AAA; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-btn:hover, .preset-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
+    .copy-css-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-css-btn:hover { background: #C1DD2D; color: #0A0A0A; }
 
     /* Formula card */
     .formula-card { background: #14180A; border: 1px solid rgba(193,221,45,0.3); border-radius: 10px; padding: 20px 24px; margin: 24px 0; }
@@ -261,7 +285,9 @@
 
     @media (max-width: 768px) {
       .page-container { padding: 28px 16px 60px; }
-      .site-header nav { display: none; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
       .article-hero h1 { font-size: 26px; }
       .featured-summary { padding: 18px 20px; }
       pre { padding: 14px; font-size: 12.5px; }
@@ -292,6 +318,17 @@
     html[data-theme="light"] .demo-card { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .demo-card h4 { color: #18181B; }
     html[data-theme="light"] .demo-card .preview-box { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .stage-preview { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .preset-btn { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
+    html[data-theme="light"] .preset-btn:hover, html[data-theme="light"] .preset-btn.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .copy-css-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
+    html[data-theme="light"] .copy-css-btn:hover { background: #849E00; color: #FFF; }
     html[data-theme="light"] .formula-card { background: #F7FEE7; border-color: #BEF264; }
     html[data-theme="light"] .formula-card .formula-math { color: #365314; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
@@ -458,6 +495,71 @@ filter: drop-shadow(offset-x offset-y blur-radius color);
     drop-shadow(0 0 6px rgba(193, 221, 45, 0.8))  /* Intense inner core */
     drop-shadow(0 0 20px rgba(0, 240, 255, 0.4)); /* Outer ambient field */
 }</code></pre>
+
+        <!-- Live Interactive SVG Drop Shadow & Glow Playground -->
+        <div class="interactive-sandbox" id="shadowPlayground">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>Interactive SVG Drop Shadow &amp; Glow Playground</span>
+            </div>
+            <span class="sandbox-badge">Live Real-Time Engine</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label>Offset X (dx): <span id="valOffsetX" class="stat-num">0px</span></label>
+                <input type="range" id="sliderOffsetX" min="-24" max="24" value="0" class="sandbox-slider" />
+              </div>
+              <div class="control-row">
+                <label>Offset Y (dy): <span id="valOffsetY" class="stat-num">8px</span></label>
+                <input type="range" id="sliderOffsetY" min="-24" max="24" value="8" class="sandbox-slider" />
+              </div>
+              <div class="control-row">
+                <label>Blur Radius: <span id="valBlur" class="stat-num">16px</span></label>
+                <input type="range" id="sliderBlur" min="0" max="40" value="16" class="sandbox-slider" />
+              </div>
+              <div class="control-row">
+                <label>Shadow Color &amp; Alpha</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="color" id="pickerColor" value="#c1dd2d" class="color-picker-input" />
+                  <input type="range" id="sliderAlpha" min="0" max="100" value="45" class="sandbox-slider" style="flex: 1;" />
+                  <span id="valAlpha" class="stat-num">45%</span>
+                </div>
+              </div>
+              <div class="control-row" style="margin-top: 6px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                  <input type="checkbox" id="checkNeonGlow" style="accent-color: #C1DD2D;" />
+                  <span>Enable Multi-Pass Neon Glow Bloom</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="sandbox-stage">
+              <div class="stage-preview" id="stagePreview">
+                <svg id="liveSvgTarget" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="overflow: visible; filter: drop-shadow(0px 8px 16px rgba(193,221,45,0.45)); transition: filter 50ms linear;">
+                  <path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/>
+                  <path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/>
+                </svg>
+              </div>
+              <div class="icon-presets-row">
+                <button type="button" class="preset-btn active" data-icon="shield">Shield</button>
+                <button type="button" class="preset-btn" data-icon="bolt">Lightning</button>
+                <button type="button" class="preset-btn" data-icon="star">Star</button>
+                <button type="button" class="preset-btn" data-icon="heart">Heart</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <span>Computed CSS Rule</span>
+              <button type="button" id="copyCssBtn" class="copy-css-btn">Copy CSS</button>
+            </div>
+            <pre style="margin: 0; padding: 12px 16px;"><code id="cssGeneratedOutput">filter: drop-shadow(0px 8px 16px rgba(193, 221, 45, 0.45));</code></pre>
+          </div>
+        </div>
 
         <h2 id="svg-fedropshadow-primitive">3. Native SVG &lt;feDropShadow&gt; Filter Primitive</h2>
         <p>While CSS <code>filter: drop-shadow()</code> is simple and convenient, raw SVG files and standalone graphic systems often require the filter definition to travel <em>inside the SVG XML markup itself</em>. This guarantees that exported assets, standalone SVG files, or design-tokenized vectors render identically anywhere without external CSS stylesheets.</p>
@@ -757,6 +859,100 @@ export const GlowIcon: React.FC&lt;GlowIconProps&gt; = ({
         localStorage.setItem('theme', nextTheme);
       });
     }
+
+    // Interactive SVG Drop Shadow & Glow Engine
+    const sliderOffsetX = document.getElementById('sliderOffsetX');
+    const sliderOffsetY = document.getElementById('sliderOffsetY');
+    const sliderBlur = document.getElementById('sliderBlur');
+    const pickerColor = document.getElementById('pickerColor');
+    const sliderAlpha = document.getElementById('sliderAlpha');
+    const checkNeonGlow = document.getElementById('checkNeonGlow');
+    const liveSvgTarget = document.getElementById('liveSvgTarget');
+    const cssGeneratedOutput = document.getElementById('cssGeneratedOutput');
+    const copyCssBtn = document.getElementById('copyCssBtn');
+
+    const valOffsetX = document.getElementById('valOffsetX');
+    const valOffsetY = document.getElementById('valOffsetY');
+    const valBlur = document.getElementById('valBlur');
+    const valAlpha = document.getElementById('valAlpha');
+
+    function hexToRgba(hex, alphaPercent) {
+      let c = hex.replace('#', '');
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      const num = parseInt(c, 16);
+      const r = (num >> 16) & 255;
+      const g = (num >> 8) & 255;
+      const b = num & 255;
+      const a = (alphaPercent / 100).toFixed(2);
+      return `rgba(${r}, ${g}, ${b}, ${a})`;
+    }
+
+    function updateShadow() {
+      if (!liveSvgTarget) return;
+      const dx = sliderOffsetX ? sliderOffsetX.value : 0;
+      const dy = sliderOffsetY ? sliderOffsetY.value : 8;
+      const blur = sliderBlur ? sliderBlur.value : 16;
+      const hex = pickerColor ? pickerColor.value : '#c1dd2d';
+      const alpha = sliderAlpha ? sliderAlpha.value : 45;
+      const isNeon = checkNeonGlow && checkNeonGlow.checked;
+
+      if (valOffsetX) valOffsetX.textContent = `${dx}px`;
+      if (valOffsetY) valOffsetY.textContent = `${dy}px`;
+      if (valBlur) valBlur.textContent = `${blur}px`;
+      if (valAlpha) valAlpha.textContent = `${alpha}%`;
+
+      const rgba = hexToRgba(hex, alpha);
+      let filterVal = `drop-shadow(${dx}px ${dy}px ${blur}px ${rgba})`;
+
+      if (isNeon) {
+        const intenseRgba = hexToRgba(hex, Math.min(100, Math.round(alpha * 1.6)));
+        const ambientBlur = Math.max(20, Math.round(blur * 2));
+        filterVal = `drop-shadow(0 0 6px ${intenseRgba}) drop-shadow(${dx}px ${dy}px ${ambientBlur}px ${rgba})`;
+      }
+
+      liveSvgTarget.style.filter = filterVal;
+      liveSvgTarget.style.stroke = hex;
+
+      if (cssGeneratedOutput) {
+        cssGeneratedOutput.textContent = `/* SVG Drop Shadow & Glow */\n.icon-drop-shadow {\n  filter: ${filterVal};\n  overflow: visible;\n}`;
+      }
+    }
+
+    [sliderOffsetX, sliderOffsetY, sliderBlur, pickerColor, sliderAlpha, checkNeonGlow].forEach(el => {
+      if (el) {
+        el.addEventListener('input', updateShadow);
+        el.addEventListener('change', updateShadow);
+      }
+    });
+
+    if (copyCssBtn && cssGeneratedOutput) {
+      copyCssBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(cssGeneratedOutput.textContent).then(() => {
+          copyCssBtn.textContent = 'Copied!';
+          setTimeout(() => { copyCssBtn.textContent = 'Copy CSS'; }, 2000);
+        });
+      });
+    }
+
+    const iconPaths = {
+      shield: '<path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/>',
+      bolt: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+      star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+      heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>'
+    };
+
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const iconKey = btn.getAttribute('data-icon');
+        if (liveSvgTarget && iconPaths[iconKey]) {
+          liveSvgTarget.innerHTML = iconPaths[iconKey];
+        }
+      });
+    });
+
+    updateShadow();
   </script>
 </body>
 </html>
