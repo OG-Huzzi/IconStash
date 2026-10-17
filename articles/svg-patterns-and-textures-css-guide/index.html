@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use SVG Patterns & Background Textures in CSS (2026) | IconStash</title>
+  <meta name="description" content="Master SVG pattern fills, seamless geometric textures, feTurbulence noise shaders, and CSS background-image integration with zero-DOM performance in 2026.">
+  <meta name="keywords" content="svg patterns css, svg background texture, patternUnits userSpaceOnUse, patternTransform svg, feTurbulence noise texture, svg data uri css background, seamless vector tiling">
+  <meta property="og:title" content="How to Use SVG Patterns & Background Textures in CSS (2026)">
+  <meta property="og:description" content="Master SVG pattern fills, seamless geometric textures, feTurbulence noise shaders, and CSS background-image integration with zero-DOM performance in 2026.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-patterns-and-textures-css-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-patterns-and-textures-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-17T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-17T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="CSS & Shaders">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Web Design">
+  <meta property="article:tag" content="Graphics">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use SVG Patterns & Background Textures in CSS (2026)">
+  <meta name="twitter:description" content="Master SVG pattern fills, seamless geometric textures, feTurbulence noise shaders, and CSS background-image integration with zero-DOM performance in 2026.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-patterns-and-textures-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-patterns-and-textures-css-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Use SVG Patterns & Background Textures in CSS (2026)",
+      "description": "Master SVG pattern fills, seamless geometric textures, feTurbulence noise shaders, and CSS background-image integration with zero-DOM performance in 2026.",
+      "image": "https://iconstash.io/assets/articles/svg-patterns-and-textures-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-17",
+      "dateModified": "2026-10-17",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-patterns-and-textures-css-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "CSS & Shaders",
+      "proficiencyLevel": "Intermediate to Advanced",
+      "keywords": ["SVG patterns", "CSS background textures", "patternUnits", "patternTransform", "feTurbulence", "SVG Data URI", "geometric textures"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Patterns & Background Textures",
+          "item": "https://iconstash.io/articles/svg-patterns-and-textures-css-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between patternUnits='userSpaceOnUse' and 'objectBoundingBox'?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "patternUnits='userSpaceOnUse' anchors repeating pattern tile dimensions to absolute coordinate units (like pixels), ensuring texture scale remains consistent regardless of how large the target shape is. In contrast, 'objectBoundingBox' (the default) calculates tile dimensions as proportional fractions (0.0 to 1.0) of the bounding box of the element being filled, causing the pattern to stretch if the element resizes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you embed an SVG pattern directly into a CSS background-image property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can encode the SVG code as an inline UTF-8 Data URI: background-image: url(\"data:image/svg+xml,%3Csvg ... %3E%3C/svg%3E\"). Crucially, all hash symbols (#) in color definitions must be URL-encoded as %23 (e.g., %23C1DD2D), and double quotes should be replaced with single quotes or encoded as %22."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does patternTransform rotate or skew repeating SVG patterns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The patternTransform attribute accepts standard SVG affine transformation commands such as rotate(45), scale(1.5), or skewX(20). It transforms the repeating coordinate grid of the pattern tile without transforming the target element that displays the fill."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you use CSS variables inside SVG pattern fills?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, when using inline SVG <defs><pattern> elements, child shapes inside the pattern can reference CSS custom properties via fill: var(--pattern-color) or stroke: var(--grid-line). This allows instant light/dark mode theme adaptation by toggling CSS variables on parent containers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do procedural SVG noise textures created with feTurbulence work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The SVG <feTurbulence> filter primitive generates Perlin noise or fractal noise using mathematical algorithms on the GPU. By setting baseFrequency (e.g. 0.8) and stitchTiles='stitch', it creates seamless film grain or paper textures at virtually 0 KB file size, eliminating heavy PNG textures."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do seamless SVG pattern tiles show subtle hairline cracks in some browsers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hairline seams occur due to fractional subpixel rounding during browser GPU rasterization on high-DPI displays. You can eliminate seams by rounding tile dimensions to whole integers, applying shape-rendering: crispEdges for rectilinear grids, or slightly overlapping child tile elements by 0.5px."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Pattern visual gallery cards */
+    .pattern-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin: 28px 0; }
+    .pattern-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 18px; }
+    .pattern-swatch { height: 110px; border-radius: 6px; border: 1px solid #262626; margin-bottom: 12px; }
+    .pattern-card h4 { font-size: 15px; color: #FFF; margin-bottom: 6px; }
+    .pattern-card p { font-size: 13px; color: #888; margin-bottom: 0; line-height: 1.5; }
+
+    /* Interactive Pattern Playground */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 32px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .pattern-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pattern-chip { background: #1A1A1A; border: 1px solid #333; color: #AAA; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .pattern-chip:hover, .pattern-chip.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+
+    .sandbox-slider { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .pattern-live-stage { width: 100%; height: 200px; border: 1px solid #262626; border-radius: 10px; background-color: #0A0A0A; position: relative; transition: all 150ms ease; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
+    .code-tabs { display: flex; gap: 8px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 2px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.1); }
+    .copy-css-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-css-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+
+    /* Takeaways & FAQ */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .pattern-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .pattern-card h4 { color: #18181B; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .pattern-live-stage { background-color: #FAFAFA; border-color: #D4D4D8; }
+    html[data-theme="light"] .pattern-chip { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
+    html[data-theme="light"] .pattern-chip:hover, html[data-theme="light"] .pattern-chip.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .copy-css-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
+    html[data-theme="light"] .copy-css-btn:hover { background: #849E00; color: #FFF; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>SVG Patterns &amp; Background Textures</span>
+    </nav>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <header class="article-hero">
+          <span class="tag">CSS &amp; Vector Shaders</span>
+          <h1>How to Use SVG Patterns &amp; Background Textures in CSS (2026)</h1>
+          <div class="article-meta">
+            <span>By <a href="/about/" rel="author" style="color:#C1DD2D;font-weight:600;">Jouni Flemming</a></span>
+            <span>&bull;</span>
+            <span>Published October 17, 2026</span>
+            <span>&bull;</span>
+            <span>13 min read</span>
+            <span>&bull;</span>
+            <span>Zero-DOM Textures</span>
+          </div>
+        </header>
+
+        <div class="featured-summary">
+          <p><strong>Executive Summary:</strong> Repeating background textures, polka dot grids, isometric meshes, and film grain bring rich tactile depth to modern web UI. While bitmap PNG and WebP textures add heavy network payloads and blur on high-DPI screens, mathematical SVG patterns render with crisp vector fidelity at under 1KB. This comprehensive guide details native <code>&lt;pattern&gt;</code> mechanics, coordinate systems, <code>patternTransform</code> affine rotations, CSS Data URI integration, and GPU procedural noise shaders.</p>
+          <ul>
+            <li><strong>Infinite Resolution:</strong> Vector geometry never pixelates on 4K, 5K, or mobile Retina displays.</li>
+            <li><strong>Zero HTTP Requests:</strong> Self-contained CSS Data URIs eliminate external asset handshakes and blocking waterfalls.</li>
+            <li><strong>CSS Custom Property Theming:</strong> Dynamic fill and stroke colors adjust automatically with light and dark mode toggles.</li>
+            <li><strong>GPU-Accelerated Noise:</strong> Procedural grain generated with <code>&lt;feTurbulence&gt;</code> replaces bulky raster noise images.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-patterns-and-textures-guide.jpg" alt="Developer Designing SVG Repeating Patterns and Procedural Background Textures" width="1200" height="675">
+          <figcaption>Modern UI vector patterns: from mathematical coordinate lattices to CSS background-image Data URIs and SVG filters.</figcaption>
+        </figure>
+
+        <section id="pattern-primitives">
+          <h2>1. The SVG &lt;pattern&gt; Element &amp; Coordinate Model</h2>
+          <p>The SVG <code>&lt;pattern&gt;</code> element is a paint server defined inside a <code>&lt;defs&gt;</code> block. It describes a discrete 2D graphic tile that tiles across the X and Y axes when applied to the <code>fill</code> or <code>stroke</code> of another vector element.</p>
+
+          <pre><code>&lt;svg width="0" height="0" style="position: absolute;" aria-hidden="true"&gt;
+  &lt;defs&gt;
+    &lt;pattern id="dot-grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse"&gt;
+      &lt;circle cx="12" cy="12" r="2" fill="#C1DD2D" /&gt;
+    &lt;/pattern&gt;
+  &lt;/defs&gt;
+&lt;/svg&gt;</code></pre>
+
+          <p>Understanding the difference between <code>patternUnits</code> and <code>patternContentUnits</code> is essential for predictable rendering:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Attribute &amp; Value</th>
+                  <th>Reference Coordinate System</th>
+                  <th>Primary Developer Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>patternUnits="userSpaceOnUse"</code></td>
+                  <td>Current user coordinate space (fixed pixels)</td>
+                  <td>UI background grids, polka dots, architectural blueprints</td>
+                </tr>
+                <tr>
+                  <td><code>patternUnits="objectBoundingBox"</code></td>
+                  <td>Fractions (0.0 to 1.0) of target element box</td>
+                  <td>Proportional chart hatching, scalable bar charts</td>
+                </tr>
+                <tr>
+                  <td><code>patternContentUnits="userSpaceOnUse"</code></td>
+                  <td>Absolute coordinate units for inner child shapes</td>
+                  <td>Shapes drawn with standard pixel radii, widths, paths</td>
+                </tr>
+                <tr>
+                  <td><code>patternContentUnits="objectBoundingBox"</code></td>
+                  <td>Fractional coordinates for inner child shapes</td>
+                  <td>Relative vector paths that scale to fill tile boundary</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Interactive Pattern Generator Sandbox -->
+        <section id="interactive-pattern-generator">
+          <h2>2. Interactive SVG Pattern &amp; Texture Generator</h2>
+          <p>Experiment with procedural geometric patterns below. Tweak tile size, stroke weight, rotation, and color tokens, then copy either native SVG XML or production CSS Data URI code with a single click.</p>
+
+          <div class="interactive-sandbox" id="patternSandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                <span>Live Pattern &amp; Texture Workbench</span>
+              </div>
+              <span class="sandbox-badge">Interactive Tool</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label>Pattern Motif:</label>
+                  <div class="pattern-chips" id="patternChips">
+                    <button class="pattern-chip active" data-pattern="dots">Polka Dots</button>
+                    <button class="pattern-chip" data-pattern="grid">Tech Grid</button>
+                    <button class="pattern-chip" data-pattern="diagonal">Diagonal Lines</button>
+                    <button class="pattern-chip" data-pattern="cross">Cross-Hatch</button>
+                    <button class="pattern-chip" data-pattern="isometric">Isometric Cube</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>Tile Size: <span class="stat-num" id="valTileSize">24px</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderTileSize" min="12" max="64" value="24">
+                </div>
+
+                <div class="control-row">
+                  <label>Element Caliper / Stroke: <span class="stat-num" id="valStrokeWidth">1.5px</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderStrokeWidth" min="0.5" max="5" step="0.5" value="1.5">
+                </div>
+
+                <div class="control-row">
+                  <label>Pattern Rotation (patternTransform): <span class="stat-num" id="valRotation">0&deg;</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderRotation" min="0" max="90" step="5" value="0">
+                </div>
+
+                <div class="control-row">
+                  <label>Color Accent: <span class="stat-num" id="valColor">#C1DD2D</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderOpacity" min="10" max="100" value="80">
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="pattern-live-stage" id="livePatternStage">
+                  <!-- Injected Pattern SVG -->
+                  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <pattern id="sandboxTile" width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(0)">
+                        <circle cx="12" cy="12" r="2" fill="#C1DD2D" opacity="0.8" />
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#sandboxTile)" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs">
+                  <button class="code-tab-btn active" id="tabCss">CSS Data URI</button>
+                  <button class="code-tab-btn" id="tabSvg">SVG XML</button>
+                </div>
+                <button class="copy-css-btn" id="copyPatternCodeBtn">Copy Code</button>
+              </div>
+              <pre style="margin:0; border-radius:0; border:none; background:#080808;"><code id="patternOutputCode">.textured-background {
+  background-color: #0A0A0A;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='2' fill='%23C1DD2D' opacity='0.8'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="css-data-uris">
+          <h2>3. Embedding SVG Patterns in CSS via Data URIs</h2>
+          <p>While referencing an inline SVG <code>&lt;pattern&gt;</code> element via <code>fill="url(#id)"</code> is standard within SVG graphics, HTML layout containers (such as heroes, cards, and modal backdrops) require patterns applied to the standard CSS <code>background-image</code> property.</p>
+
+          <p>Using a UTF-8 Data URI gives you the best of both worlds: zero additional HTTP round trips, zero layout flash, and full gzip compression benefits.</p>
+
+          <h3>Critical Encoding Rules for SVG in CSS</h3>
+          <ul>
+            <li><strong>Always URL-encode the hash symbol (<code>#</code>):</strong> Browsers treat <code>#</code> in a URL as the start of a fragment identifier. You must convert hex codes like <code>#C1DD2D</code> to <code>%23C1DD2D</code>.</li>
+            <li><strong>Use Single Quotes for Attributes:</strong> Wrapping the <code>url("...")</code> in double quotes and inner XML attributes in single quotes avoids complex quotation escaping.</li>
+            <li><strong>Include the <code>xmlns</code> Attribute:</strong> Standalone SVGs inside Data URIs require the XML namespace declaration: <code>xmlns="http://www.w3.org/2000/svg"</code>.</li>
+          </ul>
+
+          <pre><code>/* Pure CSS Polka Dot Texture */
+.hero-dot-matrix {
+  background-color: #0A0A0A;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='1.5' fill='%23C1DD2D' opacity='0.25'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Diagonal Engineering Hatch */
+.card-hatch-pattern {
+  background-color: #121212;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M0 16L16 0M-4 4L4 -4M12 20L20 12' stroke='%23262626' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}</code></pre>
+        </section>
+
+        <section id="patterntransform-techniques">
+          <h2>4. Mastering patternTransform: Angled &amp; Dynamic Textures</h2>
+          <p>Creating seamless diagonal or skewed patterns previously required calculating irrational trigonometry values inside SVG path coordinates. The <code>patternTransform</code> attribute solves this cleanly by applying an affine matrix transformation to the entire repeating coordinate space.</p>
+
+          <pre><code>&lt;defs&gt;
+  &lt;!-- 45-degree rotated diagonal line pattern --&gt;
+  &lt;pattern
+    id="angled-stripes"
+    width="20"
+    height="20"
+    patternUnits="userSpaceOnUse"
+    patternTransform="rotate(45)"
+  &gt;
+    &lt;line x1="0" y1="0" x2="0" y2="20" stroke="#C1DD2D" stroke-width="2" /&gt;
+  &lt;/pattern&gt;
+&lt;/defs&gt;</code></pre>
+
+          <p>Common transformation directives include:</p>
+          <ul>
+            <li><code>rotate(angle, [cx, cy])</code>: Rotates the tile grid. 45 degrees creates classic warning stripes or cross-hatching.</li>
+            <li><code>scale(sx, [sy])</code>: Dynamically scales pattern density without altering inner path code.</li>
+            <li><code>skewX(angle)</code>: Shears vertical strokes for speed or mechanical styling.</li>
+          </ul>
+        </section>
+
+        <section id="procedural-noise-feturbulence">
+          <h2>5. Procedural Noise &amp; Grain with feTurbulence</h2>
+          <p>Modern design systems frequently use subtle film grain to break up flat digital surfaces. Traditional implementations rely on 200KB PNG noise overlays. With SVG filter primitives, you can generate GPU-accelerated Perlin noise in 8 lines of code:</p>
+
+          <pre><code>&lt;!-- Zero-byte procedural noise overlay --&gt;
+&lt;svg class="noise-generator" aria-hidden="true" style="position: absolute; width: 0; height: 0;"&gt;
+  &lt;filter id="subtle-grain" x="0%" y="0%" width="100%" height="100%"&gt;
+    &lt;feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.85"
+      numOctaves="3"
+      stitchTiles="stitch"
+      result="noise"
+    /&gt;
+    &lt;feColorMatrix
+      type="matrix"
+      values="1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              0 0 0 0.06 0"
+    /&gt;
+  &lt;/filter&gt;
+&lt;/svg&gt;</code></pre>
+
+          <p>Apply this filter to a full-screen pseudo-element in CSS:</p>
+          <pre><code>.grainy-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: url(#subtle-grain);
+  pointer-events: none;
+  z-index: 1;
+}</code></pre>
+        </section>
+
+        <section id="subpixel-seam-fixes">
+          <h2>6. Eliminating Subpixel Seams &amp; Blurring Cracks</h2>
+          <p>A notorious visual glitch with repeating SVG patterns is the appearance of hairline cracks or faint grid seams between tiles. This occurs because browser compositors round fractional floating-point pixels during display scaling (particularly at 125%, 150%, and 175% Windows display scaling).</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Seam Bug Cause</th>
+                  <th>Engineering Solution</th>
+                  <th>Code Implementation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fractional tile dimensions</td>
+                  <td>Enforce integer coordinates divisible by 2 or 4</td>
+                  <td><code>width="24" height="24"</code></td>
+                </tr>
+                <tr>
+                  <td>Subpixel antialiasing edge blur</td>
+                  <td>Disable antialiasing on rectilinear boundaries</td>
+                  <td><code>shape-rendering="crispEdges"</code></td>
+                </tr>
+                <tr>
+                  <td>Tile boundary gap</td>
+                  <td>Extend strokes or rectangles 0.5px past tile edge</td>
+                  <td><code>&lt;rect x="-0.5" y="-0.5" width="25" height="25"&gt;</code></td>
+                </tr>
+                <tr>
+                  <td>CSS background-size rounding</td>
+                  <td>Match CSS <code>background-size</code> to SVG tile size</td>
+                  <td><code>background-size: 24px 24px;</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="takeaway-box" id="key-takeaways">
+          <h3>Key Architecture Takeaways</h3>
+          <p>SVG patterns deliver scalable, infinitely crisp visual textures at a fraction of the bandwidth demanded by legacy raster images. By configuring <code>patternUnits="userSpaceOnUse"</code> for fixed UI grids, utilizing <code>patternTransform</code> for rotational variations, embedding UTF-8 Data URIs into CSS, and generating procedural noise with <code>feTurbulence</code>, you maintain immaculate visual craft with zero DOM bloat.</p>
+        </div>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the difference between patternUnits="userSpaceOnUse" and "objectBoundingBox"?</h3>
+            <p>patternUnits="userSpaceOnUse" anchors repeating pattern tile dimensions to absolute coordinate units (like pixels), ensuring texture scale remains consistent regardless of how large the target shape is. In contrast, "objectBoundingBox" (the default) calculates tile dimensions as proportional fractions (0.0 to 1.0) of the bounding box of the element being filled, causing the pattern to stretch if the element resizes.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you embed an SVG pattern directly into a CSS background-image property?</h3>
+            <p>You can encode the SVG code as an inline UTF-8 Data URI: background-image: url("data:image/svg+xml,%3Csvg ... %3E%3C/svg%3E"). Crucially, all hash symbols (#) in color definitions must be URL-encoded as %23 (e.g., %23C1DD2D), and double quotes should be replaced with single quotes or encoded as %22.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does patternTransform rotate or skew repeating SVG patterns?</h3>
+            <p>The patternTransform attribute accepts standard SVG affine transformation commands such as rotate(45), scale(1.5), or skewX(20). It transforms the repeating coordinate grid of the pattern tile without transforming the target element that displays the fill.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can you use CSS variables inside SVG pattern fills?</h3>
+            <p>Yes, when using inline SVG defs pattern elements, child shapes inside the pattern can reference CSS custom properties via fill: var(--pattern-color) or stroke: var(--grid-line). This allows instant light/dark mode theme adaptation by toggling CSS variables on parent containers.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do procedural SVG noise textures created with feTurbulence work?</h3>
+            <p>The SVG feTurbulence filter primitive generates Perlin noise or fractal noise using mathematical algorithms on the GPU. By setting baseFrequency (e.g. 0.8) and stitchTiles="stitch", it creates seamless film grain or paper textures at virtually 0 KB file size, eliminating heavy PNG textures.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why do seamless SVG pattern tiles show subtle hairline cracks in some browsers?</h3>
+            <p>Hairline seams occur due to fractional subpixel rounding during browser GPU rasterization on high-DPI displays. You can eliminate seams by rounding tile dimensions to whole integers, applying shape-rendering: crispEdges for rectilinear grids, or slightly overlapping child tile elements by 0.5px.</p>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Contents</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#pattern-primitives">1. Pattern Primitives &amp; Units</a></li>
+              <li><a href="#interactive-pattern-generator">2. Interactive Generator</a></li>
+              <li><a href="#css-data-uris">3. CSS Data URIs</a></li>
+              <li><a href="#patterntransform-techniques">4. patternTransform Directives</a></li>
+              <li><a href="#procedural-noise-feturbulence">5. feTurbulence Noise</a></li>
+              <li><a href="#subpixel-seam-fixes">6. Subpixel Seam Fixes</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134,000+ Clean SVGs</h4>
+          <p>Download production-ready, SVGO-optimized icons across 28 open-source sets.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash. Clean, fast, searchable open-source icons for developers.</p>
+    <p style="margin-top: 8px;">
+      <a href="/about/">About</a> &bull;
+      <a href="/contact/">Contact</a> &bull;
+      <a href="/privacy/">Privacy Policy</a> &bull;
+      <a href="/terms/">Terms of Service</a> &bull;
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/stats/">Stats</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle & persistence
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Interactive Pattern Generator Logic
+    let currentMotif = 'dots';
+    let activeTab = 'css';
+
+    const sliderTileSize = document.getElementById('sliderTileSize');
+    const sliderStrokeWidth = document.getElementById('sliderStrokeWidth');
+    const sliderRotation = document.getElementById('sliderRotation');
+    const sliderOpacity = document.getElementById('sliderOpacity');
+
+    const valTileSize = document.getElementById('valTileSize');
+    const valStrokeWidth = document.getElementById('valStrokeWidth');
+    const valRotation = document.getElementById('valRotation');
+
+    const liveStage = document.getElementById('livePatternStage');
+    const outputCodeEl = document.getElementById('patternOutputCode');
+    const tabCssBtn = document.getElementById('tabCss');
+    const tabSvgBtn = document.getElementById('tabSvg');
+    const copyBtn = document.getElementById('copyPatternCodeBtn');
+    const chips = document.querySelectorAll('.pattern-chip');
+
+    function buildPattern() {
+      const size = parseInt(sliderTileSize.value, 10);
+      const stroke = parseFloat(sliderStrokeWidth.value);
+      const rot = parseInt(sliderRotation.value, 10);
+      const alpha = (parseInt(sliderOpacity.value, 10) / 100).toFixed(2);
+      const hexColor = '#C1DD2D';
+      const encodedColor = '%23C1DD2D';
+
+      valTileSize.textContent = `${size}px`;
+      valStrokeWidth.textContent = `${stroke}px`;
+      valRotation.textContent = `${rot}&deg;`;
+
+      let innerSvgXml = '';
+      let innerUriXml = '';
+
+      if (currentMotif === 'dots') {
+        const r = Math.max(1, (stroke * 1.5)).toFixed(1);
+        const half = (size / 2).toFixed(1);
+        innerSvgXml = `<circle cx="${half}" cy="${half}" r="${r}" fill="${hexColor}" opacity="${alpha}" />`;
+        innerUriXml = `%3Ccircle cx='${half}' cy='${half}' r='${r}' fill='${encodedColor}' opacity='${alpha}'/%3E`;
+      } else if (currentMotif === 'grid') {
+        innerSvgXml = `<path d="M ${size} 0 L 0 0 0 ${size}" fill="none" stroke="${hexColor}" stroke-width="${stroke}" opacity="${alpha}" />`;
+        innerUriXml = `%3Cpath d='M ${size} 0 L 0 0 0 ${size}' fill='none' stroke='${encodedColor}' stroke-width='${stroke}' opacity='${alpha}'/%3E`;
+      } else if (currentMotif === 'diagonal') {
+        innerSvgXml = `<line x1="0" y1="${size}" x2="${size}" y2="0" stroke="${hexColor}" stroke-width="${stroke}" opacity="${alpha}" />`;
+        innerUriXml = `%3Cline x1='0' y1='${size}' x2='${size}' y2='0' stroke='${encodedColor}' stroke-width='${stroke}' opacity='${alpha}'/%3E`;
+      } else if (currentMotif === 'cross') {
+        const half = (size / 2).toFixed(1);
+        innerSvgXml = `<path d="M 0 ${half} L ${size} ${half} M ${half} 0 L ${half} ${size}" fill="none" stroke="${hexColor}" stroke-width="${stroke}" opacity="${alpha}" />`;
+        innerUriXml = `%3Cpath d='M 0 ${half} L ${size} ${half} M ${half} 0 L ${half} ${size}' fill='none' stroke='${encodedColor}' stroke-width='${stroke}' opacity='${alpha}'/%3E`;
+      } else if (currentMotif === 'isometric') {
+        const half = (size / 2).toFixed(1);
+        innerSvgXml = `<polyline points="0,${half} ${half},0 ${size},${half} ${half},${size} 0,${half}" fill="none" stroke="${hexColor}" stroke-width="${stroke}" opacity="${alpha}" />`;
+        innerUriXml = `%3Cpolyline points='0,${half} ${half},0 ${size},${half} ${half},${size} 0,${half}' fill='none' stroke='${encodedColor}' stroke-width='${stroke}' opacity='${alpha}'/%3E`;
+      }
+
+      // Update Live Stage
+      liveStage.innerHTML = `
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="sandboxTile" width="${size}" height="${size}" patternUnits="userSpaceOnUse" patternTransform="rotate(${rot})">
+              ${innerSvgXml}
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#sandboxTile)" />
+        </svg>
+      `;
+
+      // Update Code
+      if (activeTab === 'css') {
+        const transformAttr = rot !== 0 ? ` transform='rotate(${rot})'` : '';
+        const dataUri = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='${size}' height='${size}' viewBox='0 0 ${size} ${size}'${transformAttr}%3E${innerUriXml}%3C/svg%3E`;
+        outputCodeEl.textContent = `/* Clean CSS Background Texture */
+.textured-surface {
+  background-color: #0A0A0A;
+  background-image: url("${dataUri}");
+  background-repeat: repeat;
+  background-size: ${size}px ${size}px;
+}`;
+      } else {
+        const transformAttr = rot !== 0 ? ` patternTransform="rotate(${rot})"` : '';
+        outputCodeEl.textContent = `<!-- Native SVG Pattern Definition -->
+<svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+  <defs>
+    <pattern id="custom-pattern" width="${size}" height="${size}" patternUnits="userSpaceOnUse"${transformAttr}>
+      ${innerSvgXml}
+    </pattern>
+  </defs>
+</svg>
+
+<!-- Applied to any SVG shape -->
+<rect width="100%" height="100%" fill="url(#custom-pattern)" />`;
+      }
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentMotif = chip.getAttribute('data-pattern');
+        buildPattern();
+      });
+    });
+
+    [sliderTileSize, sliderStrokeWidth, sliderRotation, sliderOpacity].forEach(el => {
+      el.addEventListener('input', buildPattern);
+      el.addEventListener('change', buildPattern);
+    });
+
+    tabCssBtn.addEventListener('click', () => {
+      tabCssBtn.classList.add('active');
+      tabSvgBtn.classList.remove('active');
+      activeTab = 'css';
+      buildPattern();
+    });
+
+    tabSvgBtn.addEventListener('click', () => {
+      tabSvgBtn.classList.add('active');
+      tabCssBtn.classList.remove('active');
+      activeTab = 'svg';
+      buildPattern();
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(outputCodeEl.textContent).then(() => {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 2000);
+        });
+      });
+    }
+
+    buildPattern();
+  </script>
+</body>
+</html>

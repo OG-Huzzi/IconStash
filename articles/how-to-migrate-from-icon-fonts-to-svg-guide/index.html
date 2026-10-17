@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Migrate from Icon Fonts to SVG in 2026: Step-by-Step Guide | IconStash</title>
+  <meta name="description" content="Step-by-step guide to migrating from icon fonts to SVG in 2026: extraction, SVGO optimization, React and Vue components, CSS currentColor, and zero-FOIT.">
+  <meta name="keywords" content="migrate icon font to svg, font awesome to svg migration, convert webfont icons to svg, svg sprite migration, react icon component migration, icon font accessibility, svgo optimization">
+  <meta property="og:title" content="How to Migrate from Icon Fonts to SVG in 2026: Step-by-Step Guide">
+  <meta property="og:description" content="Step-by-step guide to migrating from icon fonts to SVG in 2026: extraction, SVGO optimization, React and Vue components, CSS currentColor, and zero-FOIT.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-migrate-from-icon-fonts-to-svg-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/migrate-icon-fonts-to-svg-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-17T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-17T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Web Performance & Architecture">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Frontend Architecture">
+  <meta property="article:tag" content="Web Performance">
+  <meta property="article:tag" content="CSS">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Migrate from Icon Fonts to SVG in 2026: Step-by-Step Guide">
+  <meta name="twitter:description" content="Step-by-step guide to migrating from icon fonts to SVG in 2026: extraction, SVGO optimization, React and Vue components, CSS currentColor, and zero-FOIT.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/migrate-icon-fonts-to-svg-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-migrate-from-icon-fonts-to-svg-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Migrate from Icon Fonts to SVG in 2026: Step-by-Step Guide",
+      "description": "Step-by-step guide to migrating from icon fonts to SVG in 2026: extraction, SVGO optimization, React and Vue components, CSS currentColor, and zero-FOIT.",
+      "image": "https://iconstash.io/assets/articles/migrate-icon-fonts-to-svg-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-17",
+      "dateModified": "2026-10-17",
+      "mainEntityOfPage": "https://iconstash.io/articles/how-to-migrate-from-icon-fonts-to-svg-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "Web Performance & Architecture",
+      "proficiencyLevel": "Intermediate to Advanced",
+      "keywords": ["icon fonts to svg", "svg migration", "svgo", "svg sprites", "react icon components", "foit elimination", "web performance"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Migrate Icon Fonts to SVG",
+          "item": "https://iconstash.io/articles/how-to-migrate-from-icon-fonts-to-svg-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why should engineering teams migrate from icon fonts to SVG in 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Icon fonts suffer from Flash of Invisible Text (FOIT), blurriness caused by subpixel font antialiasing on non-Retina displays, inability to style individual vector paths with multiple colors, and serious accessibility failures where screen readers speak private Unicode characters or skip interactive buttons entirely. SVGs render deterministically, load instantly without network blocking, and tree-shake down to only the exact glyphs you use."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you extract raw SVG files from legacy WOFF or TTF icon fonts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can extract individual vector paths using Node.js tools like opentype.js or CLI utilities like font-blast. Alternatively, open web services such as IcoMoon or Fontello parse existing font glyph tables and export clean standalone SVGs with verified viewBox boundaries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does CSS currentColor replace font color inheritance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Setting fill='currentColor' or stroke='currentColor' in your SVG markup allows the vector to automatically adopt the CSS color value of its parent HTML element. This replicates font-like color cascading for hover states, active links, and dark mode switches without writing custom SVG color overrides."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should you choose inline SVGs, SVG sprites, or React icon components?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Modern component frameworks (React, Vue, Svelte, Next.js) benefit most from standalone SVG components with tree-shaking, which ship zero unnecessary bytes. Multi-page applications (Rails, Laravel, Django, WordPress) benefit most from external SVG symbol sprites referenced via svg and use href, which cache globally across navigations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent layout shifts (CLS) when replacing icon font spans with SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Icon fonts frequently cause layout shifts when custom font files finish downloading. With SVGs, explicitly define width, height, and display: inline-block with vertical-align: -0.125em in your CSS. Because SVGs render synchronously with HTML, layout dimensions are computed immediately during initial layout, eliminating Cumulative Layout Shift (CLS)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does SVGO optimize extracted font vectors for production?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVGO strips out editor metadata, removes useless defs and clipPath containers, collapses redundant path transforms, rounds decimal coordinates to 2 decimal places, and merges contiguous path segments, typically cutting raw exported vector file sizes by 40% to 75%."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Architecture grid */
+    .architecture-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 28px 0; }
+    .arch-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 22px; }
+    .arch-card h4 { font-size: 16px; color: #FFF; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+    .arch-card .pill { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 700; background: rgba(193,221,45,0.1); color: #C1DD2D; border: 1px solid rgba(193,221,45,0.25); }
+    .arch-card p { font-size: 13.5px; color: #999; margin-bottom: 0; line-height: 1.6; }
+
+    /* Interactive Migration Playground */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 32px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+    
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    
+    .preset-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #AAA; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover, .preset-chip.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+
+    .strategy-select { width: 100%; padding: 10px 14px; background: #161616; border: 1px solid #333; color: #FFF; border-radius: 6px; font-size: 13.5px; outline: none; }
+    .strategy-select:focus { border-color: #C1DD2D; }
+
+    .preview-stage-container { display: flex; flex-direction: column; gap: 16px; }
+    .preview-stage { width: 100%; min-height: 160px; background: #080808; border: 1px dashed #262626; border-radius: 10px; display: flex; align-items: center; justify-content: space-around; padding: 20px; position: relative; }
+    .preview-col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .preview-col-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: #888; }
+    .preview-icon-box { width: 64px; height: 64px; border: 1px solid #222; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #121212; position: relative; }
+    .font-glyph-render { font-family: monospace; font-size: 32px; color: #999; line-height: 1; }
+    .svg-vector-render { width: 36px; height: 36px; color: #C1DD2D; stroke-width: 2; }
+
+    .metrics-pills { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+    .metric-pill { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 10px 14px; text-align: center; }
+    .metric-val { font-size: 18px; font-weight: 800; color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+    .metric-name { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
+    .copy-css-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-css-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+
+    /* Takeaways & FAQ */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .arch-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .arch-card h4 { color: #18181B; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .preview-icon-box { background: #FFFFFF; border-color: #D4D4D8; }
+    html[data-theme="light"] .metric-pill { background: #FFFFFF; border-color: #E4E4E7; }
+    html[data-theme="light"] .preset-chip { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
+    html[data-theme="light"] .preset-chip:hover, html[data-theme="light"] .preset-chip.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .strategy-select { background: #FFFFFF; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .copy-css-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
+    html[data-theme="light"] .copy-css-btn:hover { background: #849E00; color: #FFF; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Migrate Icon Fonts to SVG</span>
+    </nav>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <header class="article-hero">
+          <span class="tag">Engineering Migration</span>
+          <h1>How to Migrate from Icon Fonts to SVG in 2026: Step-by-Step Guide</h1>
+          <div class="article-meta">
+            <span>By <a href="/about/" rel="author" style="color:#C1DD2D;font-weight:600;">Jouni Flemming</a></span>
+            <span>&bull;</span>
+            <span>Published October 17, 2026</span>
+            <span>&bull;</span>
+            <span>14 min read</span>
+            <span>&bull;</span>
+            <span>Zero-FOIT Architecture</span>
+          </div>
+        </header>
+
+        <div class="featured-summary">
+          <p><strong>Executive Summary:</strong> Migrating from monolithic web icon fonts (Font Awesome, Glyphicons, custom WOFF2 sets) to modern SVG vectors is one of the highest-ROI frontend refactors available. This guide provides an end-to-end blueprint to extract vector paths, optimize geometry with SVGO, implement tree-shaking icon components, eliminate Cumulative Layout Shift (CLS), and achieve 100% WCAG accessibility compliance.</p>
+          <ul>
+            <li><strong>Zero FOIT &amp; FOUT:</strong> SVGs render synchronously inside HTML, eliminating empty square flashes and layout shifts during slow font loads.</li>
+            <li><strong>Massive Payload Reduction:</strong> Replace 150KB+ monolithic font files with modular icon components consuming under 2KB per page.</li>
+            <li><strong>Pixel-Perfect Sharpness:</strong> Native vector rendering bypasses browser font antialiasing bugs on Windows DirectWrite and non-Retina displays.</li>
+            <li><strong>Automated Tooling:</strong> Complete codemods, SVGO optimization scripts, and React/Vue migration pipelines.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/migrate-icon-fonts-to-svg-guide.jpg" alt="Icon Font to SVG Modernization Architectural Diagram" width="1200" height="675">
+          <figcaption>Modern frontend architecture replacing monolithic font glyph files with modular, tree-shakable SVG vectors and accessible DOM nodes.</figcaption>
+        </figure>
+
+        <section id="why-migrate">
+          <h2>1. Why the Industry Abandoned Icon Fonts</h2>
+          <p>For nearly a decade, icon fonts reigned as the default technique for serving icons on the web. Packing hundreds of miniature glyphs into a TrueType or WOFF file and triggering them with CSS class selectors like <code>&lt;i class="fa fa-envelope"&gt;&lt;/i&gt;</code> offered simplicity during the HTTP/1.1 era. However, modern web standards and Core Web Vitals have made their structural flaws undeniable.</p>
+          
+          <p>The core weaknesses of icon fonts include:</p>
+          <ul>
+            <li><strong>Flash of Invisible Text (FOIT):</strong> Browsers hold text rendering while waiting for the icon font asset to download. Users see empty gaps or broken question marks on mobile networks.</li>
+            <li><strong>Accessibility Failures:</strong> Screen readers encounter font glyphs mapped to Private Use Area (PUA) Unicode codes. Assistive technologies either skip buttons entirely or vocalize incomprehensible glyph codepoints to visually impaired users.</li>
+            <li><strong>Anti-Aliasing Blurriness:</strong> Browsers apply subpixel font-smoothing filters (such as ClearType or DirectWrite) designed for text reading. Sharp geometric vector strokes become fuzzy, clipped, or unevenly weighted.</li>
+            <li><strong>Zero Multi-Color Support:</strong> Fonts are monochromatic by definition. You cannot style dual-tone strokes, secondary opacity layers, or gradient fills without complex CSS layering hacks.</li>
+            <li><strong>Monolithic Bloat:</strong> If your web app uses only 12 icons from a 1,500-glyph icon font, your users still pay the bandwidth penalty for the entire 120KB to 250KB font binary.</li>
+          </ul>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Performance Dimension</th>
+                  <th>Legacy Icon Fonts (WOFF2)</th>
+                  <th>Modern SVG Components / Sprites</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Render Timing</strong></td>
+                  <td>Asynchronous (triggers FOIT/FOUT &amp; CLS)</td>
+                  <td>Synchronous (zero render delay, 0 CLS)</td>
+                </tr>
+                <tr>
+                  <td><strong>Rendering Quality</strong></td>
+                  <td>Font antialiasing engine (blurry on Windows)</td>
+                  <td>Native vector rasterizer (crisp on all DPIs)</td>
+                </tr>
+                <tr>
+                  <td><strong>Color &amp; Theming</strong></td>
+                  <td>Monochrome only</td>
+                  <td>Multi-color, duotone, gradients, CSS variables</td>
+                </tr>
+                <tr>
+                  <td><strong>Tree-Shaking</strong></td>
+                  <td>Impossible without custom font-rebuilding</td>
+                  <td>100% automated with Rollup, Vite &amp; Webpack</td>
+                </tr>
+                <tr>
+                  <td><strong>Screen Reader UX</strong></td>
+                  <td>Garbled PUA characters or silent links</td>
+                  <td>Semantic <code>aria-hidden</code> or accessible <code>&lt;title&gt;</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Average Payload</strong></td>
+                  <td>90KB – 220KB per page load</td>
+                  <td>0.8KB – 4KB (only imported glyphs)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Interactive Migration Playground -->
+        <section id="interactive-migration-tool">
+          <h2>2. Interactive Legacy Markup Translator &amp; Benchmark</h2>
+          <p>Use this interactive tool to test how your legacy icon font tags translate into modern SVG architectures. Compare the visual sharpness, code output, and estimated bundle savings in real time.</p>
+
+          <div class="interactive-sandbox" id="migrationSandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+                <span>Legacy Icon Font Translator</span>
+              </div>
+              <span class="sandbox-badge">Interactive Tool</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label>Select Legacy Preset:</label>
+                  <div class="preset-group" id="presetChips">
+                    <button class="preset-chip active" data-preset="envelope">fa-envelope</button>
+                    <button class="preset-chip" data-preset="gear">fa-gear</button>
+                    <button class="preset-chip" data-preset="shield">fa-shield</button>
+                    <button class="preset-chip" data-preset="user">fa-user</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label for="migrationStrategy">Target SVG Architecture:</label>
+                  <select class="strategy-select" id="migrationStrategy">
+                    <option value="inline">Inline SVG Component (React / TSX)</option>
+                    <option value="sprite">SVG Symbol Sprite (&lt;use href="#icon"&gt;)</option>
+                    <option value="vue">Vue 3 SFC Icon Component</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label>Accessibility Context:</label>
+                  <select class="strategy-select" id="a11yContext">
+                    <option value="decorative">Decorative (next to visible text)</option>
+                    <option value="interactive">Interactive Button (icon-only button)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="preview-stage-container">
+                <div class="preview-stage">
+                  <div class="preview-col">
+                    <div class="preview-icon-box">
+                      <span class="font-glyph-render" id="fontPreviewGlyph">&#9993;</span>
+                    </div>
+                    <span class="preview-col-label">Legacy Font (Antialiased)</span>
+                  </div>
+                  <div style="font-size: 20px; color: #444;">&rarr;</div>
+                  <div class="preview-col">
+                    <div class="preview-icon-box" style="border-color: rgba(193,221,45,0.4);">
+                      <svg class="svg-vector-render" id="svgTargetRender" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                    </div>
+                    <span class="preview-col-label" style="color:#C1DD2D;">Native SVG Vector</span>
+                  </div>
+                </div>
+
+                <div class="metrics-pills">
+                  <div class="metric-pill">
+                    <div class="metric-val" id="metricPayload">-98.2%</div>
+                    <div class="metric-name">Network Payload</div>
+                  </div>
+                  <div class="metric-pill">
+                    <div class="metric-val" id="metricRender">0 ms</div>
+                    <div class="metric-name">FOIT Delay (Zero CLS)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <span id="codeBoxLabel">Generated React / TSX Component</span>
+                <button class="copy-css-btn" id="copyCodeBtn">Copy Code</button>
+              </div>
+              <pre style="margin:0; border-radius:0; border:none; background:#080808;"><code id="migratedOutputCode">export function EnvelopeIcon({ className = "w-5 h-5", ...props }) {
+  return (
+    &lt;svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    &gt;
+      &lt;path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /&gt;
+      &lt;polyline points="22,6 12,13 2,6" /&gt;
+    &lt;/svg&gt;
+  );
+}</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="extraction-workflow">
+          <h2>3. Extracting Vector Paths from Existing Fonts</h2>
+          <p>If your codebase relies on custom-generated font files (from IcoMoon, Fontello, or Fontastic) and the original SVG files have been misplaced, you must extract clean vector paths from the font binary. Do not take raster screenshots—extract mathematical glyph curves programmatically.</p>
+
+          <h3>Method A: Automated Extraction via Opentype.js</h3>
+          <p>Using a Node.js script with <code>opentype.js</code>, you can parse any <code>.woff</code> or <code>.ttf</code> file, iterate through glyph tables, and emit standard SVG files with normalized coordinate viewBoxes:</p>
+
+          <pre><code>// extract-font-to-svg.js
+const fs = require('fs');
+const opentype = require('opentype.js');
+
+opentype.load('./src/assets/legacy-icons.woff', (err, font) => {
+  if (err) throw err;
+
+  const glyphCount = font.numGlyphs;
+  console.log(`Extracting ${glyphCount} glyphs from font...`);
+
+  for (let i = 0; i &lt; glyphCount; i++) {
+    const glyph = font.glyphs.get(i);
+    if (!glyph.unicode) continue;
+
+    const glyphName = glyph.name || `icon-${glyph.unicode.toString(16)}`;
+    const path = glyph.getPath(0, 800, 800);
+    const svgPathData = path.toPathData(2);
+
+    const svgContent = `&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="24" height="24"&gt;
+  &lt;path fill="currentColor" d="${svgPathData}" /&gt;
+&lt;/svg&gt;`;
+
+    fs.writeFileSync(`./extracted/${glyphName}.svg`, svgContent);
+  }
+});</code></pre>
+
+          <h3>Method B: CLI Batch Extraction with Font-Blast</h3>
+          <p>For Font Awesome or IcoMoon packages, the npm utility <code>font-blast</code> automates extraction and mapping to character codes:</p>
+          <pre><code># Install font-blast globally
+npm install -g font-blast
+
+# Extract glyphs to a directory of individual SVGs
+font-blast ./fonts/fontawesome-webfont.svg ./extracted-svgs/</code></pre>
+        </section>
+
+        <section id="svgo-optimization">
+          <h2>4. Normalizing &amp; Optimizing SVGs with SVGO</h2>
+          <p>Raw vector paths extracted from fonts usually contain coordinate transforms, inverted Y-axes (because font coordinates measure from baseline upward, whereas SVGs measure from top-left downward), and bloated precision decimals. You must run them through <strong>SVGO</strong> with a tailored configuration.</p>
+
+          <pre><code>// svgo.config.js
+module.exports = {
+  multipass: true,
+  plugins: [
+    {
+      name: 'preset-default',
+      params: {
+        overrides: {
+          removeViewBox: false, // Essential: viewBox must be preserved!
+          cleanupNumericValues: { floatPrecision: 2 },
+          convertPathData: { floatPrecision: 2 }
+        }
+      }
+    },
+    'removeDimensions',       // Enables CSS-driven responsive sizing
+    'sortAttrs',
+    {
+      name: 'addAttributesToSVGElement',
+      params: {
+        attributes: [
+          { 'fill': 'currentColor' } // Ensures CSS color inheritance
+        ]
+      }
+    }
+  ]
+};</code></pre>
+          <p>Run the optimization across your extracted folder:</p>
+          <pre><code>npx svgo -f ./extracted-svgs -o ./src/icons --config ./svgo.config.js</code></pre>
+        </section>
+
+        <section id="architecture-decision">
+          <h2>5. Architectural Patterns: Inline, Sprites, or Components</h2>
+          <p>Once your SVGs are clean, choose the architecture that matches your stack. The three industry-standard strategies are outlined below:</p>
+
+          <div class="architecture-grid">
+            <div class="arch-card">
+              <h4>React / TSX Components <span class="pill">Best for React/Next</span></h4>
+              <p>Each icon is a standalone TypeScript component compiled with SVGR. Supports tree-shaking, props for <code>size</code> and <code>color</code>, and zero HTTP overhead.</p>
+            </div>
+            <div class="arch-card">
+              <h4>SVG Symbol Sprites <span class="pill">Best for MPA</span></h4>
+              <p>All icons are bundled into a single <code>sprite.svg</code> file loaded once. Views render lightweight <code>&lt;svg&gt;&lt;use href="#icon"&gt;&lt;/use&gt;&lt;/svg&gt;</code> tags.</p>
+            </div>
+            <div class="arch-card">
+              <h4>CSS Mask Stencils <span class="pill">Best for Buttons</span></h4>
+              <p>Icons rendered as pure CSS backgrounds via <code>mask-image</code>. Enables 100% CSS styling without injecting inline SVG DOM elements.</p>
+            </div>
+          </div>
+
+          <h3>Building a Reusable React Icon Component</h3>
+          <p>In React and Next.js applications, avoid monolithic icon libraries that prevent tree-shaking. Instead, construct a unified base icon wrapper:</p>
+          <pre><code>// components/IconBase.tsx
+import React, { ComponentPropsWithoutRef } from 'react';
+
+export interface IconProps extends ComponentPropsWithoutRef&lt;'svg'&gt; {
+  size?: number | string;
+  title?: string;
+}
+
+export function IconBase({
+  size = 20,
+  title,
+  children,
+  className = '',
+  ...props
+}: IconProps) {
+  const isAriaHidden = !title;
+
+  return (
+    &lt;svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden={isAriaHidden}
+      role={title ? 'img' : undefined}
+      className={`inline-block shrink-0 align-middle ${className}`}
+      {...props}
+    &gt;
+      {title &amp;&amp; &lt;title&gt;{title}&lt;/title&gt;}
+      {children}
+    &lt;/svg&gt;
+  );
+}</code></pre>
+        </section>
+
+        <section id="css-theming-migration">
+          <h2>6. Refactoring CSS: Sizing, Baseline &amp; currentColor</h2>
+          <p>When swapping <code>&lt;i class="fa fa-*"&gt;</code> for SVG elements, legacy CSS targeting font properties will break. Follow this mapping table to refactor your global stylesheet:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Legacy Icon Font Property</th>
+                  <th>Modern SVG CSS Replacement</th>
+                  <th>Technical Rationale</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>font-size: 16px;</code></td>
+                  <td><code>width: 1em; height: 1em;</code></td>
+                  <td>Scales the vector proportionally with neighboring typography.</td>
+                </tr>
+                <tr>
+                  <td><code>color: #3B82F6;</code></td>
+                  <td><code>color: #3B82F6;</code> (with <code>currentColor</code>)</td>
+                  <td>SVG inherits parent text color automatically via currentColor.</td>
+                </tr>
+                <tr>
+                  <td><code>line-height: 1;</code></td>
+                  <td><code>vertical-align: -0.125em;</code></td>
+                  <td>Aligns the vector optical center with lowercase text baselines.</td>
+                </tr>
+                <tr>
+                  <td><code>-webkit-font-smoothing: antialiased;</code></td>
+                  <td><code>shape-rendering: geometricPrecision;</code></td>
+                  <td>Directs GPU rasterization to maintain smooth vector arcs.</td>
+                </tr>
+                <tr>
+                  <td><code>content: "\f007";</code></td>
+                  <td>Removed entirely</td>
+                  <td>Eliminates brittle Unicode pseudo-element mappings.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <pre><code>/* Global SVG icon utility class */
+.icon {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  stroke: none;
+  flex-shrink: 0;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+/* For stroked icon systems (Lucide, Heroicons, Feather) */
+.icon-stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}</code></pre>
+        </section>
+
+        <section id="accessibility-checklist">
+          <h2>7. The WCAG Icon Accessibility Overhaul</h2>
+          <p>One of the primary reasons enterprises migrate to SVG is regulatory compliance with WCAG 2.2 AA standards. Screen readers handle SVGs with precision when marked up correctly.</p>
+
+          <h3>Pattern 1: Purely Decorative Icons</h3>
+          <p>When an icon accompanies descriptive visible text (e.g. an envelope icon next to "Send Message"), it must be hidden from assistive technologies to avoid redundant screen reader announcements:</p>
+          <pre><code>&lt;!-- Decorative icon inside a button --&gt;
+&lt;button class="btn"&gt;
+  &lt;svg class="icon" aria-hidden="true" focusable="false"&gt;
+    &lt;use href="#envelope"&gt;&lt;/use&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Send Message&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+          <h3>Pattern 2: Standalone Interactive Buttons</h3>
+          <p>When an icon is the only element inside a button (e.g. a search magnifying glass or a modal close "X"), you must provide an accessible name via <code>aria-label</code> on the interactive parent:</p>
+          <pre><code>&lt;!-- Interactive icon-only button --&gt;
+&lt;button class="icon-btn" aria-label="Close dialog"&gt;
+  &lt;svg class="icon" aria-hidden="true" focusable="false"&gt;
+    &lt;use href="#close"&gt;&lt;/use&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+        </section>
+
+        <div class="takeaway-box" id="key-takeaways">
+          <h3>Key Migration Takeaways</h3>
+          <p>Migrating from icon fonts to SVG transforms your frontend architecture from a brittle, font-dependent subsystem into a modern, deterministic vector pipeline. By automating vector extraction, applying SVGO normalization, leveraging <code>currentColor</code>, and adopting accessible markup patterns, your application achieves zero-FOIT rendering, faster page loads, and bulletproof accessibility.</p>
+        </div>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>Why should engineering teams migrate from icon fonts to SVG in 2026?</h3>
+            <p>Icon fonts suffer from Flash of Invisible Text (FOIT), blurriness caused by subpixel font antialiasing on non-Retina displays, inability to style individual vector paths with multiple colors, and serious accessibility failures where screen readers speak private Unicode characters or skip interactive buttons entirely. SVGs render deterministically, load instantly without network blocking, and tree-shake down to only the exact glyphs you use.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you extract raw SVG files from legacy WOFF or TTF icon fonts?</h3>
+            <p>You can extract individual vector paths using Node.js tools like opentype.js or CLI utilities like font-blast. Alternatively, open web services such as IcoMoon or Fontello parse existing font glyph tables and export clean standalone SVGs with verified viewBox boundaries.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does CSS currentColor replace font color inheritance?</h3>
+            <p>Setting fill="currentColor" or stroke="currentColor" in your SVG markup allows the vector to automatically adopt the CSS color value of its parent HTML element. This replicates font-like color cascading for hover states, active links, and dark mode switches without writing custom SVG color overrides.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Should you choose inline SVGs, SVG sprites, or React icon components?</h3>
+            <p>Modern component frameworks (React, Vue, Svelte, Next.js) benefit most from standalone SVG components with tree-shaking, which ship zero unnecessary bytes. Multi-page applications (Rails, Laravel, Django, WordPress) benefit most from external SVG symbol sprites referenced via svg and use href, which cache globally across navigations.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you prevent layout shifts (CLS) when replacing icon font spans with SVG?</h3>
+            <p>Icon fonts frequently cause layout shifts when custom font files finish downloading. With SVGs, explicitly define width, height, and display: inline-block with vertical-align: -0.125em in your CSS. Because SVGs render synchronously with HTML, layout dimensions are computed immediately during initial layout, eliminating Cumulative Layout Shift (CLS).</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does SVGO optimize extracted font vectors for production?</h3>
+            <p>SVGO strips out editor metadata, removes useless defs and clipPath containers, collapses redundant path transforms, rounds decimal coordinates to 2 decimal places, and merges contiguous path segments, typically cutting raw exported vector file sizes by 40% to 75%.</p>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Contents</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#why-migrate">1. Why Abandon Icon Fonts</a></li>
+              <li><a href="#interactive-migration-tool">2. Interactive Translator</a></li>
+              <li><a href="#extraction-workflow">3. Extracting Vector Paths</a></li>
+              <li><a href="#svgo-optimization">4. SVGO Optimization</a></li>
+              <li><a href="#architecture-decision">5. Architectural Patterns</a></li>
+              <li><a href="#css-theming-migration">6. Refactoring CSS</a></li>
+              <li><a href="#accessibility-checklist">7. WCAG Accessibility</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134,000+ Clean SVGs</h4>
+          <p>Download production-ready, SVGO-optimized icons across 28 open-source sets.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash. Clean, fast, searchable open-source icons for developers.</p>
+    <p style="margin-top: 8px;">
+      <a href="/about/">About</a> &bull;
+      <a href="/contact/">Contact</a> &bull;
+      <a href="/privacy/">Privacy Policy</a> &bull;
+      <a href="/terms/">Terms of Service</a> &bull;
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/stats/">Stats</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle & persistence
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Interactive Legacy Markup Translator
+    const presetData = {
+      envelope: {
+        glyph: '&#9993;',
+        d: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6',
+        name: 'EnvelopeIcon',
+        svgId: 'icon-envelope'
+      },
+      gear: {
+        glyph: '&#9881;',
+        d: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z',
+        name: 'SettingsIcon',
+        svgId: 'icon-settings'
+      },
+      shield: {
+        glyph: '&#128737;',
+        d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+        name: 'ShieldIcon',
+        svgId: 'icon-shield'
+      },
+      user: {
+        glyph: '&#128100;',
+        d: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+        name: 'UserIcon',
+        svgId: 'icon-user'
+      }
+    };
+
+    let currentPreset = 'envelope';
+    const chips = document.querySelectorAll('.preset-chip');
+    const stratSelect = document.getElementById('migrationStrategy');
+    const a11ySelect = document.getElementById('a11yContext');
+    const fontGlyphEl = document.getElementById('fontPreviewGlyph');
+    const svgRenderEl = document.getElementById('svgTargetRender');
+    const codeEl = document.getElementById('migratedOutputCode');
+    const codeLabel = document.getElementById('codeBoxLabel');
+    const copyBtn = document.getElementById('copyCodeBtn');
+
+    function updateTranslator() {
+      const p = presetData[currentPreset];
+      const strat = stratSelect.value;
+      const a11y = a11ySelect.value;
+
+      fontGlyphEl.innerHTML = p.glyph;
+      svgRenderEl.innerHTML = `<path d="${p.d}" />`;
+
+      let generated = '';
+      if (strat === 'inline') {
+        codeLabel.textContent = 'Generated React / TSX Component';
+        const a11yProp = a11y === 'decorative' ? 'aria-hidden="true"' : 'role="img" aria-label="Icon"';
+        generated = `export function ${p.name}({ className = "w-5 h-5", ...props }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      ${a11yProp}
+      {...props}
+    >
+      <path d="${p.d}" />
+    </svg>
+  );
+}`;
+      } else if (strat === 'sprite') {
+        codeLabel.textContent = 'HTML5 SVG Sprite Reference';
+        const a11yAttrs = a11y === 'decorative' 
+          ? 'aria-hidden="true" focusable="false"' 
+          : 'role="img" aria-label="Icon description"';
+        generated = `<!-- Clean HTML5 SVG Symbol Reference -->
+<svg class="icon icon-${currentPreset}" ${a11yAttrs}>
+  <use href="#${p.svgId}"></use>
+</svg>`;
+      } else if (strat === 'vue') {
+        codeLabel.textContent = 'Vue 3 Single File Component (SFC)';
+        const a11yProp = a11y === 'decorative' ? 'aria-hidden="true"' : 'role="img"';
+        generated = `<template>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    :stroke-width="strokeWidth"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    :class="['icon', customClass]"
+    ${a11yProp}
+  >
+    <path d="${p.d}" />
+  </svg>
+</template>
+
+<script setup>
+defineProps({
+  strokeWidth: { type: [Number, String], default: 2 },
+  customClass: { type: String, default: 'w-5 h-5' }
+});
+<\/script>`;
+      }
+
+      codeEl.textContent = generated;
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentPreset = chip.getAttribute('data-preset');
+        updateTranslator();
+      });
+    });
+
+    stratSelect.addEventListener('change', updateTranslator);
+    a11ySelect.addEventListener('change', updateTranslator);
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeEl.textContent).then(() => {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 2000);
+        });
+      });
+    }
+
+    updateTranslator();
+  </script>
+</body>
+</html>

@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Coordinate Systems, ViewBox &amp; Units Glossary: 40+ Terms | IconStash</title>
+  <meta name="description" content="Glossary of 40+ SVG coordinate, viewBox, viewport, and unit terms: userSpaceOnUse, objectBoundingBox, preserveAspectRatio, meet vs slice, and DOMMatrix.">
+  <meta name="keywords" content="svg coordinate system glossary, svg viewbox explained, userspaceonuse vs objectboundingbox, preserveaspectratio meet slice, getscreenctm dommatrix, svg units px em, svg viewport">
+  <meta property="og:title" content="SVG Coordinate Systems, ViewBox &amp; Units Glossary: 40+ Terms">
+  <meta property="og:description" content="Glossary of 40+ SVG coordinate, viewBox, viewport, and unit terms: userSpaceOnUse, objectBoundingBox, preserveAspectRatio, meet vs slice, and DOMMatrix.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/Glossary/svg-coordinate-systems-and-units-glossary/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-coordinate-systems-and-units-glossary.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-17T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-17T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Glossary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Coordinate Systems, ViewBox &amp; Units Glossary: 40+ Terms">
+  <meta name="twitter:description" content="Glossary of 40+ SVG coordinate, viewBox, viewport, and unit terms: userSpaceOnUse, objectBoundingBox, preserveAspectRatio, meet vs slice, and DOMMatrix.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-coordinate-systems-and-units-glossary.jpg">
+  <link rel="canonical" href="https://iconstash.io/Glossary/svg-coordinate-systems-and-units-glossary/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "DefinedTermSet",
+      "name": "SVG Coordinate Systems, ViewBox & Units Glossary",
+      "description": "Glossary of 40+ SVG coordinate, viewBox, viewport, and unit terms: userSpaceOnUse, objectBoundingBox, preserveAspectRatio, meet vs slice, and DOMMatrix.",
+      "url": "https://iconstash.io/Glossary/svg-coordinate-systems-and-units-glossary/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/"
+      },
+      "datePublished": "2026-10-17",
+      "dateModified": "2026-10-17",
+      "hasDefinedTerm": [
+        { "@type": "DefinedTerm", "name": "viewport", "description": "The rectangular display window on the webpage allocated to the SVG element by CSS or HTML width and height attributes." },
+        { "@type": "DefinedTerm", "name": "viewBox", "description": "An SVG attribute defining the internal user coordinate system bounding box (min-x, min-y, width, height) mapped into the external viewport." },
+        { "@type": "DefinedTerm", "name": "preserveAspectRatio", "description": "Instructs the browser how to scale and align the viewBox user coordinate system when its aspect ratio differs from the viewport container." },
+        { "@type": "DefinedTerm", "name": "preserveAspectRatio: meet", "description": "Scales the viewBox uniformly until the entire viewBox fits inside the viewport, preserving aspect ratio while potentially leaving letterbox bars." },
+        { "@type": "DefinedTerm", "name": "preserveAspectRatio: slice", "description": "Scales the viewBox uniformly until it completely covers the viewport, preserving aspect ratio by slicing off overflowing edges." },
+        { "@type": "DefinedTerm", "name": "preserveAspectRatio: none", "description": "Disables uniform aspect ratio constraints, stretching the vector graphic non-uniformly to fill the exact width and height of the viewport." },
+        { "@type": "DefinedTerm", "name": "xMinYMin", "description": "Aligns the minimum X and minimum Y coordinates of the viewBox with the top-left corner of the viewport." },
+        { "@type": "DefinedTerm", "name": "xMidYMin", "description": "Horizontally centers the viewBox along the X-axis while aligning its top edge with the top of the viewport." },
+        { "@type": "DefinedTerm", "name": "xMaxYMin", "description": "Aligns the right edge of the viewBox with the right edge of the viewport, anchored to the top." },
+        { "@type": "DefinedTerm", "name": "xMinYMid", "description": "Aligns the left edge of the viewBox with the left viewport boundary, centered vertically along the Y-axis." },
+        { "@type": "DefinedTerm", "name": "xMidYMid", "description": "The default alignment setting centering the viewBox both horizontally and vertically inside the viewport." },
+        { "@type": "DefinedTerm", "name": "xMaxYMid", "description": "Aligns the right edge of the viewBox with the right viewport boundary, centered vertically." },
+        { "@type": "DefinedTerm", "name": "xMinYMax", "description": "Anchors the viewBox to the bottom-left corner of the viewport." },
+        { "@type": "DefinedTerm", "name": "xMidYMax", "description": "Horizontally centers the viewBox along the X-axis, anchored to the bottom edge of the viewport." },
+        { "@type": "DefinedTerm", "name": "xMaxYMax", "description": "Anchors the viewBox to the bottom-right corner of the viewport." },
+        { "@type": "DefinedTerm", "name": "user coordinate system (User Space)", "description": "The local, infinite Cartesian 2D coordinate space where vector path coordinates and geometrical primitives are positioned before viewport mapping." },
+        { "@type": "DefinedTerm", "name": "viewport coordinate system", "description": "The coordinate system established by the dimensions and position of the outer SVG viewport on the host webpage." },
+        { "@type": "DefinedTerm", "name": "initial coordinate system", "description": "The initial user coordinate system where the origin (0,0) coincides with the top-left corner of the SVG viewport before any transformations are applied." },
+        { "@type": "DefinedTerm", "name": "client coordinate system", "description": "The browser window pixel coordinate system returned by mouse events (clientX, clientY), translated into SVG user space via getScreenCTM." },
+        { "@type": "DefinedTerm", "name": "current coordinate system", "description": "The active coordinate space resulting from accumulated affine transformations applied to parent elements (<g>, <svg>, <use>)." },
+        { "@type": "DefinedTerm", "name": "transformed coordinate space", "description": "A localized user coordinate system altered by translate, rotate, scale, or matrix operations on a container element." },
+        { "@type": "DefinedTerm", "name": "userSpaceOnUse", "description": "A coordinate mapping mode where gradient, pattern, clipPath, or mask coordinates reference the current user coordinate system in fixed units." },
+        { "@type": "DefinedTerm", "name": "objectBoundingBox", "description": "The default mapping mode where coordinates are computed as fractions or percentages (0.0 to 1.0) of the target element's tight bounding box." },
+        { "@type": "DefinedTerm", "name": "patternUnits & patternContentUnits", "description": "Attributes governing whether repeating pattern tile dimensions and inner tile graphics reference fixed user units or relative object bounding box fractions." },
+        { "@type": "DefinedTerm", "name": "maskUnits & maskContentUnits", "description": "Attributes determining whether an SVG mask geometry and its inner luminance/alpha shapes calculate in user space or relative to the masked element." },
+        { "@type": "DefinedTerm", "name": "clipPathUnits", "description": "Controls whether coordinates inside a <clipPath> reference absolute userSpaceOnUse units or 0-to-1 objectBoundingBox percentages." },
+        { "@type": "DefinedTerm", "name": "gradientUnits", "description": "Defines whether linear and radial gradient vector coordinates (x1, y1, x2, y2) are resolved in userSpaceOnUse or objectBoundingBox space." },
+        { "@type": "DefinedTerm", "name": "user units (unitless values)", "description": "Pure numbers specified in SVG path data and attributes (e.g. width='24') that correspond directly to 1 user space unit, equivalent to 1 CSS px by default." },
+        { "@type": "DefinedTerm", "name": "CSS px in SVG", "description": "The reference pixel unit in SVG conforming to CSS Values and Units Level 4, defined as 1/96 of an inch relative to standard viewing distances." },
+        { "@type": "DefinedTerm", "name": "absolute length units (cm, mm, in, pt, pc)", "description": "Physical real-world measurement units converted to user units using standard CSS ratios (1in = 96px, 1pt = 1.333px, 1cm = 37.795px)." },
+        { "@type": "DefinedTerm", "name": "font-relative units (em, ex, ch, rem)", "description": "Dynamic units computed from the font metrics of the SVG element or root document, allowing vector icons to scale with typographic font-size." },
+        { "@type": "DefinedTerm", "name": "percentage units (%)", "description": "Relative length values resolved against the width, height, or diagonal normalized length of the current SVG viewport." },
+        { "@type": "DefinedTerm", "name": "vector-effect: non-scaling-stroke", "description": "A vector rendering property locking stroke thickness to a constant display pixel width regardless of zoom, scaling, or viewBox distortion." },
+        { "@type": "DefinedTerm", "name": "CTM (Current Transformation Matrix)", "description": "An affine 3x3 transformation matrix mapping coordinates from local user space directly to the viewport coordinate system." },
+        { "@type": "DefinedTerm", "name": "Screen CTM (getScreenCTM)", "description": "The SVG DOM method returning the DOMMatrix that transforms user space coordinates directly into client screen pixels." },
+        { "@type": "DefinedTerm", "name": "SVGMatrix / DOMMatrix", "description": "The standard JavaScript geometric interface representing a 2D or 3D affine matrix used for matrix multiplication and coordinate projection." },
+        { "@type": "DefinedTerm", "name": "matrix(a,b,c,d,e,f)", "description": "A compact affine matrix function in SVG transforms specifying [scaleX, skewY, skewX, scaleY, translateX, translateY]." },
+        { "@type": "DefinedTerm", "name": "transform-origin (SVG vs CSS)", "description": "The anchor point for vector rotations and scaling, defaulting to (0,0) in SVG specification space rather than (50%, 50%) as in CSS box model." },
+        { "@type": "DefinedTerm", "name": "currentTranslate & currentScale", "description": "DOM properties on the root SVGSVGElement representing browser user-panning offsets and zoom scaling factors." },
+        { "@type": "DefinedTerm", "name": "nested viewport (<svg> in <svg>)", "description": "An SVG element placed inside another SVG element, creating an isolated local viewport with its own independent viewBox and coordinate origin." },
+        { "@type": "DefinedTerm", "name": "symbol viewport mapping", "description": "The coordinate transformation occurring when an SVG <symbol> with its own viewBox is instantiated via an external or inline <use> element." },
+        { "@type": "DefinedTerm", "name": "overflow: visible vs hidden", "description": "Determines whether vector graphics extending outside the rectangular bounds of the SVG viewport are rendered or clipped." },
+        { "@type": "DefinedTerm", "name": "clip: rect()", "description": "A legacy CSS clipping property defining rectangular visibility limits for an SVG viewport, superseded by modern clip-path." },
+        { "@type": "DefinedTerm", "name": "zoomAndPan", "description": "An SVG attribute (magnify | disable) controlling whether user-agent interactive zooming and panning gestures are enabled." }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Glossary",
+          "item": "https://iconstash.io/Glossary/icon-svg-terminology/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Coordinate Systems, ViewBox & Units Glossary",
+          "item": "https://iconstash.io/Glossary/svg-coordinate-systems-and-units-glossary/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between an SVG viewport and viewBox?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The viewport is the physical or CSS layout rectangle allocated to the SVG on the webpage (defined by width and height in HTML/CSS). The viewBox is the internal camera or canvas coordinate system (min-x, min-y, width, height) in which vector paths are drawn. The browser maps the internal viewBox onto the external viewport using preserveAspectRatio rules."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does userSpaceOnUse differ from objectBoundingBox?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "userSpaceOnUse resolves coordinates in the current user coordinate space using absolute units (pixels), keeping gradients, patterns, and masks consistent across different elements. objectBoundingBox treats coordinates as relative fractions (0.0 to 1.0) of the bounding box of the target element, causing visual effects to stretch proportionally if the element changes shape."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do preserveAspectRatio='meet' and 'slice' behave when scaling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both preserve uniform aspect ratios without distorting geometry. 'meet' scales the viewBox until the entire viewBox fits inside the viewport, potentially creating empty letterbox bars on the sides. 'slice' scales the viewBox until it completely covers the viewport, slicing off whatever vector content extends outside the viewport bounds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you translate browser screen coordinates (clientX, clientY) into SVG user coordinates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Create a DOMPoint representing the mouse coordinates, obtain the element's inverse Screen Current Transformation Matrix via svg.getScreenCTM().inverse(), and apply point.matrixTransform(inverseMatrix). This calculates the exact user space coordinate regardless of viewport scaling, CSS translations, or zoom levels."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do unitless numbers in SVG default to CSS pixels?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Under the W3C SVG 2 and CSS specifications, one user coordinate unit equals one reference CSS pixel (1/96 of an inch). Omitting units (e.g. width='24') allows mathematical operations, coordinate transforms, and viewBox mappings to function without unit conversion overhead."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What causes SVG icons to scale disproportionately or warp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVG warping occurs when an explicit width and height with different aspect ratios are applied to an SVG that either lacks a viewBox attribute or has preserveAspectRatio='none'. Adding a square viewBox (e.g. 0 0 24 24) and omitting preserveAspectRatio='none' prevents non-uniform distortion."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    /* Instant Search Filter Bar */
+    .filter-search-box { margin: 32px 0 24px; position: sticky; top: 68px; z-index: 50; }
+    .filter-input { width: 100%; padding: 14px 20px; font-size: 15px; border-radius: 8px; border: 1px solid #333; background: #121212; color: #FFF; outline: none; transition: all 150ms ease; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .filter-input:focus { border-color: #C1DD2D; box-shadow: 0 0 0 3px rgba(193,221,45,0.2); }
+    .no-results-box { padding: 32px; text-align: center; background: #141414; border: 1px solid #262626; border-radius: 8px; margin: 24px 0; color: #888; }
+    .reset-filter-btn { background: #262626; border: 1px solid #404040; color: #C1DD2D; font-weight: 700; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 12px; }
+
+    /* Category Blocks & Term Cards */
+    .category-block { margin-bottom: 48px; }
+    .cat-heading { display: flex; align-items: baseline; justify-content: space-between; font-size: 22px; font-weight: 800; color: #FFF; border-bottom: 1px solid #222; padding-bottom: 12px; margin-bottom: 20px; }
+    .cat-heading .badge { font-size: 12px; font-weight: 700; color: #C1DD2D; background: rgba(193,221,45,0.1); border: 1px solid rgba(193,221,45,0.25); padding: 3px 10px; border-radius: 999px; font-family: "JetBrains Mono", monospace; }
+
+    .term-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 22px 24px; margin-bottom: 16px; transition: all 150ms ease; }
+    .term-card:hover { border-color: #383838; transform: translateY(-2px); }
+    .term-title { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .term-title span { font-size: 18px; font-weight: 800; color: #FFF; }
+    .term-title code { background: #1A1A1A; color: #C1DD2D; padding: 2px 8px; border-radius: 4px; font-size: 13px; font-family: "JetBrains Mono", monospace; }
+    .term-desc { color: #D4D4D4; font-size: 15.5px; line-height: 1.7; margin-bottom: 12px; }
+    .code-snippet { background: #0A0A0A; border: 1px solid #222; border-radius: 6px; padding: 10px 14px; font-family: "JetBrains Mono", monospace; font-size: 13px; color: #C1DD2D; overflow-x: auto; margin-top: 8px; }
+
+    /* Interactive ViewBox Simulator */
+    .interactive-demo-card { background: #141414; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 32px 0; }
+    .interactive-demo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .interactive-demo-title { font-size: 16px; font-weight: 700; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .demo-controls-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .demo-toggle-btn { background: #1F1F1F; border: 1px solid #333; color: #C1DD2D; font-weight: 700; font-size: 13px; padding: 7px 14px; border-radius: 6px; cursor: pointer; transition: all 150ms ease; display: inline-flex; align-items: center; gap: 6px; }
+    .demo-toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+    .demo-toggle-btn:hover:not(.active) { background: #2A2A2A; border-color: #C1DD2D; }
+
+    .sim-canvas-box { background: #0A0A0A; border: 1px solid #222; border-radius: 10px; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 240px; position: relative; }
+    .sim-explanation { margin-top: 16px; font-size: 14px; color: #A3A3A3; text-align: center; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Takeaways & FAQ */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; }
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] .cat-heading { color: #0A0A0A; border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .cat-heading .badge { background: #F0F4D8; color: #5C6E00; border-color: #CCD895; }
+    html[data-theme="light"] .filter-input { background: #FFFFFF; border-color: #E5E5E5; color: #0A0A0A; }
+    html[data-theme="light"] .filter-input:focus { border-color: #6D8200; }
+    html[data-theme="light"] .no-results-box { background: #FFFFFF; border-color: #E5E5E5; color: #525252; }
+    html[data-theme="light"] .reset-filter-btn { background: #F4F4F5; border-color: #E5E5E5; color: #5C6E00; }
+    html[data-theme="light"] .reset-filter-btn:hover { background: #6D8200; color: #FFFFFF; }
+    html[data-theme="light"] .term-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .term-card:hover { background: #F4F4F5; }
+    html[data-theme="light"] .term-title span { color: #0A0A0A; }
+    html[data-theme="light"] .term-title code { background: #F4F4F5; color: #5C6E00; }
+    html[data-theme="light"] .term-desc { color: #383838; }
+    html[data-theme="light"] .code-snippet { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-demo-card { background: #FFFFFF; border-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-header { border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .interactive-demo-title { color: #0A0A0A; }
+    html[data-theme="light"] .demo-toggle-btn { background: #F4F4F5; border-color: #E4E4E7; color: #5C6E00; }
+    html[data-theme="light"] .demo-toggle-btn.active { background: #6D8200; color: #FFF; border-color: #6D8200; }
+    html[data-theme="light"] .demo-toggle-btn:hover:not(.active) { background: #E4E4E7; }
+    html[data-theme="light"] .sim-canvas-box { background: #FAFAFA; border-color: #E5E5E5; }
+    html[data-theme="light"] #simPath { stroke: #6D8200; fill: rgba(109, 130, 0, 0.15); }
+    html[data-theme="light"] #simArrow path { fill: #6D8200; }
+    html[data-theme="light"] .sim-explanation { color: #525252; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <span class="sep">/</span>
+      <span>SVG Coordinate Systems, ViewBox &amp; Units Glossary</span>
+    </nav>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <header class="article-hero">
+          <span class="tag">SVG Standards &amp; W3C Specs</span>
+          <h1>SVG Coordinate Systems, ViewBox &amp; Units Glossary: 40+ Terms Explained</h1>
+          <div class="article-meta">
+            <span>By <a href="/about/" rel="author" style="color:#C1DD2D;font-weight:600;">Jouni Flemming</a></span>
+            <span>&bull;</span>
+            <span>Published October 17, 2026</span>
+            <span>&bull;</span>
+            <span>44 Defined Terms</span>
+            <span>&bull;</span>
+            <span>Interactive Simulator</span>
+          </div>
+        </header>
+
+        <div class="featured-summary">
+          <p><strong>Executive Summary:</strong> The SVG coordinate space is the foundation of modern vector graphics. Mastering how an infinite 2D Cartesian user space maps into a browser layout viewport governs everything from pixel-perfect icon rendering and responsive scaling to GPU matrix transformations. This comprehensive reference defines 44 core SVG coordinate system, viewBox, viewport, and unit terms with live code examples and an interactive preserveAspectRatio simulator.</p>
+          <ul>
+            <li><strong>Viewport vs. ViewBox:</strong> Clear mathematical distinctions between external HTML layout frames and internal vector canvases.</li>
+            <li><strong>UserSpaceOnUse vs. ObjectBoundingBox:</strong> Resolving absolute coordinate spaces versus relative bounding fractions in patterns, gradients, and masks.</li>
+            <li><strong>PreserveAspectRatio Matrix Modes:</strong> Uniform scaling mechanics (<code>meet</code> vs. <code>slice</code>) and 9 directional alignment anchors.</li>
+            <li><strong>Matrix Transformation APIs:</strong> Navigating CTM, Screen CTM, DOMPoint, and mouse coordinate projections.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-coordinate-systems-and-units-glossary.jpg" alt="SVG Coordinate Systems, Viewport, ViewBox and Aspect Ratio Scaling Vector Graphic" width="1200" height="675">
+          <figcaption>W3C SVG coordinate transformation pipeline: from local user coordinate space through viewBox projection to browser client screen pixels.</figcaption>
+        </figure>
+
+        <!-- Interactive Simulator Section -->
+        <section id="interactive-viewbox-simulator">
+          <h2>Interactive ViewBox &amp; PreserveAspectRatio Simulator</h2>
+          <p>Test how different <code>preserveAspectRatio</code> directives map a fixed 100x100 viewBox onto a wide 260x120 viewport container. Switch modes to observe meet letterboxing, slice overflow clipping, and anchor alignments.</p>
+
+          <div class="interactive-demo-card">
+            <div class="interactive-demo-header">
+              <div class="interactive-demo-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <span>ViewBox Projection Simulator</span>
+              </div>
+              <div class="demo-controls-group">
+                <button class="demo-toggle-btn active" data-ratio="xMidYMid meet">meet (Default)</button>
+                <button class="demo-toggle-btn" data-ratio="xMidYMid slice">slice (Cover)</button>
+                <button class="demo-toggle-btn" data-ratio="none">none (Stretch)</button>
+                <button class="demo-toggle-btn" data-ratio="xMinYMin meet">xMinYMin meet</button>
+                <button class="demo-toggle-btn" data-ratio="xMaxYMax meet">xMaxYMax meet</button>
+              </div>
+            </div>
+
+            <div class="sim-canvas-box">
+              <svg width="280" height="130" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" id="simSvgCanvas" style="background:#111; border:2px dashed #444; border-radius:6px; overflow:hidden;">
+                <!-- Grid background -->
+                <defs>
+                  <marker id="simArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#C1DD2D" />
+                  </marker>
+                </defs>
+                <rect id="simPath" x="5" y="5" width="90" height="90" rx="10" stroke="#C1DD2D" stroke-width="4" fill="rgba(193,221,45,0.15)" />
+                <circle cx="50" cy="50" r="30" stroke="#C1DD2D" stroke-width="3" fill="none" />
+                <line x1="10" y1="50" x2="90" y2="50" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 4" />
+                <line x1="50" y1="10" x2="50" y2="90" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 4" />
+                <text x="50" y="54" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">100x100</text>
+              </svg>
+              <div class="sim-explanation" id="simExplanationText">
+                <code>preserveAspectRatio="xMidYMid meet"</code> scales the 100x100 user space uniformly to fit completely within the 280x130 viewport, leaving letterbox spacing on the left and right.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Search / Filter Bar -->
+        <div class="filter-search-box">
+          <input type="text" id="termFilter" class="filter-input" placeholder="Instant search 44+ coordinate &amp; viewBox terms (e.g. userSpaceOnUse, meet, CTM, DOMMatrix)..." aria-label="Filter terms">
+        </div>
+
+        <div id="noResults" class="no-results-box" style="display: none;">
+          <p>No coordinate terms found matching "<strong id="noResultsQuery"></strong>".</p>
+          <button id="resetFilterBtn" class="reset-filter-btn">Reset Search Filter</button>
+        </div>
+
+        <!-- 7 Category Blocks with 44 Total Terms -->
+
+        <!-- Category 1 -->
+        <div class="category-block" id="viewport-viewbox" data-category="viewport-viewbox">
+          <div class="cat-heading">
+            <span>1. Viewport, ViewBox &amp; Coordinate Mapping</span>
+            <span class="badge">6 terms</span>
+          </div>
+
+          <div class="term-card" data-term="viewport">
+            <div class="term-title"><span>viewport</span><code>SVG Viewport Container</code></div>
+            <p class="term-desc">The finite rectangular layout window allocated to the SVG element on the web page. Established by CSS <code>width</code>/<code>height</code> or SVG presentation attributes. Serves as the clipping and projection frame for all vector content.</p>
+            <div class="code-snippet">&lt;svg width="400" height="300"&gt; &lt;!-- 400x300 CSS Viewport Window --&gt;&lt;/svg&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="viewBox">
+            <div class="term-title"><span>viewBox</span><code>viewBox="min-x min-y width height"</code></div>
+            <p class="term-desc">Defines the virtual camera aperture and internal user coordinate system. Specifies the rectangular bounds of vector space that the browser maps onto the external viewport.</p>
+            <div class="code-snippet">&lt;svg viewBox="0 0 24 24" width="48" height="48"&gt; &lt;!-- Scales 24x24 coords to 48px --&gt;&lt;/svg&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="preserveAspectRatio">
+            <div class="term-title"><span>preserveAspectRatio</span><code>preserveAspectRatio="[align] [meetOrSlice]"</code></div>
+            <p class="term-desc">Controls how the browser projects the internal user coordinate system into an external viewport with a different aspect ratio. Dictates whether vectors scale uniformly or stretch non-uniformly.</p>
+            <div class="code-snippet">preserveAspectRatio="xMidYMid meet" &lt;!-- Uniform scale, centered, letterboxed --&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="preserveAspectRatio: meet">
+            <div class="term-title"><span>preserveAspectRatio: meet</span><code>Uniform Fit (Contain)</code></div>
+            <p class="term-desc">Scales the viewBox uniformly until both dimensions fit completely inside the viewport. Equivalent to CSS <code>object-fit: contain</code>. Never clips graphic content, but may create pillarbox or letterbox margins.</p>
+            <div class="code-snippet">preserveAspectRatio="xMidYMid meet"</div>
+          </div>
+
+          <div class="term-card" data-term="preserveAspectRatio: slice">
+            <div class="term-title"><span>preserveAspectRatio: slice</span><code>Uniform Cover (Clip)</code></div>
+            <p class="term-desc">Scales the viewBox uniformly until it completely covers the viewport container. Equivalent to CSS <code>object-fit: cover</code>. Fills the entire viewport with zero dead margin, but slices off vector parts extending past edges.</p>
+            <div class="code-snippet">preserveAspectRatio="xMidYMid slice"</div>
+          </div>
+
+          <div class="term-card" data-term="preserveAspectRatio: none">
+            <div class="term-title"><span>preserveAspectRatio: none</span><code>Non-Uniform Stretch (Fill)</code></div>
+            <p class="term-desc">Disables uniform aspect ratio preservation completely. Distorts vector geometry non-uniformly so the viewBox coordinates stretch to match the exact width and height of the host viewport.</p>
+            <div class="code-snippet">preserveAspectRatio="none" &lt;!-- Geometric shapes will warp --&gt;</div>
+          </div>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="category-block" id="alignment-anchors" data-category="alignment-anchors">
+          <div class="cat-heading">
+            <span>2. Aspect Ratio Alignment Anchors</span>
+            <span class="badge">9 terms</span>
+          </div>
+
+          <div class="term-card" data-term="xMinYMin">
+            <div class="term-title"><span>xMinYMin</span><code>Top-Left Anchor</code></div>
+            <p class="term-desc">Aligns the minimum X coordinate of the viewBox with the left viewport edge, and the minimum Y with the top edge. Anchors content to top-left during aspect ratio scaling.</p>
+            <div class="code-snippet">preserveAspectRatio="xMinYMin meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMidYMin">
+            <div class="term-title"><span>xMidYMin</span><code>Top-Center Anchor</code></div>
+            <p class="term-desc">Horizontally centers the viewBox along the X-axis while anchoring its minimum Y edge flush with the top of the viewport.</p>
+            <div class="code-snippet">preserveAspectRatio="xMidYMin meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMaxYMin">
+            <div class="term-title"><span>xMaxYMin</span><code>Top-Right Anchor</code></div>
+            <p class="term-desc">Aligns the maximum X boundary with the right edge of the viewport, anchored to the top.</p>
+            <div class="code-snippet">preserveAspectRatio="xMaxYMin meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMinYMid">
+            <div class="term-title"><span>xMinYMid</span><code>Middle-Left Anchor</code></div>
+            <p class="term-desc">Aligns the left edge flush with the left viewport boundary while vertically centering the viewBox along the Y-axis.</p>
+            <div class="code-snippet">preserveAspectRatio="xMinYMid meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMidYMid">
+            <div class="term-title"><span>xMidYMid</span><code>Center-Center Anchor (Default)</code></div>
+            <p class="term-desc">The W3C default alignment parameter. Centers the viewBox both horizontally and vertically inside the viewport space.</p>
+            <div class="code-snippet">preserveAspectRatio="xMidYMid meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMaxYMid">
+            <div class="term-title"><span>xMaxYMid</span><code>Middle-Right Anchor</code></div>
+            <p class="term-desc">Aligns the right boundary flush with the right viewport edge while vertically centering the viewBox along the Y-axis.</p>
+            <div class="code-snippet">preserveAspectRatio="xMaxYMid meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMinYMax">
+            <div class="term-title"><span>xMinYMax</span><code>Bottom-Left Anchor</code></div>
+            <p class="term-desc">Anchors the viewBox flush against the bottom-left corner of the viewport frame.</p>
+            <div class="code-snippet">preserveAspectRatio="xMinYMax meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMidYMax">
+            <div class="term-title"><span>xMidYMax</span><code>Bottom-Center Anchor</code></div>
+            <p class="term-desc">Horizontally centers the viewBox along the X-axis while anchoring its bottom edge to the bottom of the viewport.</p>
+            <div class="code-snippet">preserveAspectRatio="xMidYMax meet"</div>
+          </div>
+
+          <div class="term-card" data-term="xMaxYMax">
+            <div class="term-title"><span>xMaxYMax</span><code>Bottom-Right Anchor</code></div>
+            <p class="term-desc">Anchors the viewBox flush against the bottom-right corner of the viewport frame.</p>
+            <div class="code-snippet">preserveAspectRatio="xMaxYMax meet"</div>
+          </div>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="category-block" id="coordinate-spaces" data-category="coordinate-spaces">
+          <div class="cat-heading">
+            <span>3. Coordinate Spaces &amp; Reference Systems</span>
+            <span class="badge">6 terms</span>
+          </div>
+
+          <div class="term-card" data-term="user coordinate system (User Space)">
+            <div class="term-title"><span>user coordinate system (User Space)</span><code>Virtual Canvas Space</code></div>
+            <p class="term-desc">The infinite 2D Cartesian coordinate space in which path coordinates and shapes are defined. Positioned relative to an origin (0,0) with positive X extending right and positive Y extending downward.</p>
+            <div class="code-snippet">&lt;path d="M 10 20 L 50 80" /&gt; &lt;!-- Evaluated in User Space --&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="viewport coordinate system">
+            <div class="term-title"><span>viewport coordinate system</span><code>Layout Frame Coordinates</code></div>
+            <p class="term-desc">The physical pixel coordinate space established by the viewport on the rendered webpage. Its origin (0,0) sits at the top-left corner of the SVG container element.</p>
+            <div class="code-snippet">svg.getBoundingClientRect() &lt;!-- Measures Viewport Coordinate Space --&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="initial coordinate system">
+            <div class="term-title"><span>initial coordinate system</span><code>Unscaled Default Space</code></div>
+            <p class="term-desc">The user coordinate system when no viewBox or transforms are active, where one user unit equals one CSS pixel on the host display.</p>
+            <div class="code-snippet">&lt;svg width="200" height="200"&gt;&lt;circle cx="100" cy="100" r="50"/&gt;&lt;/svg&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="client coordinate system">
+            <div class="term-title"><span>client coordinate system</span><code>Browser Window Pixels</code></div>
+            <p class="term-desc">The pixel coordinate system returned by mouse and pointer events (<code>e.clientX</code>, <code>e.clientY</code>). Mapped into SVG user space via <code>getScreenCTM().inverse()</code>.</p>
+            <div class="code-snippet">const pt = new DOMPoint(e.clientX, e.clientY).matrixTransform(svg.getScreenCTM().inverse());</div>
+          </div>
+
+          <div class="term-card" data-term="current coordinate system">
+            <div class="term-title"><span>current coordinate system</span><code>Active Transformed Frame</code></div>
+            <p class="term-desc">The active local coordinate system resulting from cumulative affine transformations applied by parent <code>&lt;g&gt;</code>, <code>&lt;svg&gt;</code>, or <code>&lt;use&gt;</code> elements.</p>
+            <div class="code-snippet">&lt;g transform="translate(40, 60) rotate(45)"&gt;&lt;!-- Current coordinate system modified --&gt;&lt;/g&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="transformed coordinate space">
+            <div class="term-title"><span>transformed coordinate space</span><code>Rotated/Scaled Space</code></div>
+            <p class="term-desc">A localized user space whose axes have been rotated, translated, or sheared. Child elements position themselves relative to the newly modified axes rather than the root origin.</p>
+            <div class="code-snippet">&lt;g transform="scale(2)"&gt;&lt;rect x="10" y="10" ... /&gt;&lt;!-- Renders at (20,20) --&gt;&lt;/g&gt;</div>
+          </div>
+        </div>
+
+        <!-- Category 4 -->
+        <div class="category-block" id="relative-bounds" data-category="relative-bounds">
+          <div class="cat-heading">
+            <span>4. Unit Interpretations &amp; Relative Bounds</span>
+            <span class="badge">6 terms</span>
+          </div>
+
+          <div class="term-card" data-term="userSpaceOnUse">
+            <div class="term-title"><span>userSpaceOnUse</span><code>Absolute User Coordinates</code></div>
+            <p class="term-desc">Specifies that coordinates and dimensions within paint servers, masks, or clip paths reference the current user coordinate system in absolute units (pixels), maintaining consistent scale regardless of target element dimensions.</p>
+            <div class="code-snippet">gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="100"</div>
+          </div>
+
+          <div class="term-card" data-term="objectBoundingBox">
+            <div class="term-title"><span>objectBoundingBox</span><code>Relative Fraction (0.0 – 1.0)</code></div>
+            <p class="term-desc">The default mode where coordinates are fractions of the bounding box of the element being painted. <code>x1="0" x2="1"</code> spans 100% of the element width.</p>
+            <div class="code-snippet">gradientUnits="objectBoundingBox" x1="0%" y1="0%" x2="100%" y2="0%"</div>
+          </div>
+
+          <div class="term-card" data-term="patternUnits & patternContentUnits">
+            <div class="term-title"><span>patternUnits &amp; patternContentUnits</span><code>Pattern Tile vs Inner Graphics</code></div>
+            <p class="term-desc"><code>patternUnits</code> governs whether the repeating tile box scales with the element or in user pixels. <code>patternContentUnits</code> governs whether shapes inside the tile calculate in user pixels or fractions.</p>
+            <div class="code-snippet">&lt;pattern patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse" ... &gt;</div>
+          </div>
+
+          <div class="term-card" data-term="maskUnits & maskContentUnits">
+            <div class="term-title"><span>maskUnits &amp; maskContentUnits</span><code>Mask Bounds vs Inner Shapes</code></div>
+            <p class="term-desc"><code>maskUnits</code> defines the coordinate system for the clipping bounds of the <code>&lt;mask&gt;</code> element. <code>maskContentUnits</code> dictates whether the inner luminance shapes calculate relative to the masked element.</p>
+            <div class="code-snippet">&lt;mask maskUnits="objectBoundingBox" maskContentUnits="userSpaceOnUse" ... &gt;</div>
+          </div>
+
+          <div class="term-card" data-term="clipPathUnits">
+            <div class="term-title"><span>clipPathUnits</span><code>Clipping Boundary Units</code></div>
+            <p class="term-desc">Specifies whether vector paths inside a <code>&lt;clipPath&gt;</code> evaluate in <code>userSpaceOnUse</code> (fixed pixels) or <code>objectBoundingBox</code> (0-to-1 normalized fractions).</p>
+            <div class="code-snippet">&lt;clipPath id="circleClip" clipPathUnits="objectBoundingBox"&gt; &lt;circle cx="0.5" cy="0.5" r="0.5"/&gt; &lt;/clipPath&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="gradientUnits">
+            <div class="term-title"><span>gradientUnits</span><code>Gradient Vector Resolution</code></div>
+            <p class="term-desc">Controls whether linear/radial gradient vectors (x1, y1, x2, y2) are resolved in <code>userSpaceOnUse</code> or <code>objectBoundingBox</code> space.</p>
+            <div class="code-snippet">&lt;linearGradient id="grad" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1"&gt;</div>
+          </div>
+        </div>
+
+        <!-- Category 5 -->
+        <div class="category-block" id="measurement-units" data-category="measurement-units">
+          <div class="cat-heading">
+            <span>5. Units of Measurement &amp; Dimension Scaling</span>
+            <span class="badge">6 terms</span>
+          </div>
+
+          <div class="term-card" data-term="user units (unitless values)">
+            <div class="term-title"><span>user units (unitless values)</span><code>Standard Coordinate Unit</code></div>
+            <p class="term-desc">Numbers declared without units in SVG attributes (e.g. <code>width="24"</code>, <code>r="5"</code>). Exactly equals 1 user space coordinate, mapping to 1 CSS pixel before viewBox transformations.</p>
+            <div class="code-snippet">&lt;circle cx="12" cy="12" r="10" /&gt; &lt;!-- 12 and 10 are unitless user units --&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="CSS px in SVG">
+            <div class="term-title"><span>CSS px in SVG</span><code>96 DPI Reference Pixel</code></div>
+            <p class="term-desc">The standard CSS pixel unit defined as 1/96th of an inch. In SVG, appending <code>px</code> behaves identically to unitless user units in the absence of CSS font scaling.</p>
+            <div class="code-snippet">&lt;rect width="100px" height="50px" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="absolute length units (cm, mm, in, pt, pc)">
+            <div class="term-title"><span>absolute length units (cm, mm, in, pt, pc)</span><code>Physical Units</code></div>
+            <p class="term-desc">Physical measurement units converted to user units via standard CSS ratios: 1in = 96px, 1pt = 1.333px, 1pc = 16px, 1cm = 37.795px, 1mm = 3.7795px.</p>
+            <div class="code-snippet">&lt;line x1="0" y1="0" x2="2in" y2="0" stroke="black" /&gt; &lt;!-- 192 user units --&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="font-relative units (em, ex, ch, rem)">
+            <div class="term-title"><span>font-relative units (em, ex, ch, rem)</span><code>Typographic Units</code></div>
+            <p class="term-desc">Dynamic units computed from the computed font metrics of the SVG element. Allows vector icons to scale fluidly with neighboring typography when <code>width="1em" height="1em"</code> is set.</p>
+            <div class="code-snippet">&lt;svg width="1.2em" height="1.2em" viewBox="0 0 24 24"&gt; &lt;!-- Scales with font-size --&gt;&lt;/svg&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="percentage units (%)">
+            <div class="term-title"><span>percentage units (%)</span><code>Viewport-Relative Percentages</code></div>
+            <p class="term-desc">Lengths resolved as percentages against the width (for X coordinates), height (for Y coordinates), or normalized diagonal length of the nearest ancestor SVG viewport.</p>
+            <div class="code-snippet">&lt;rect width="50%" height="100%" fill="blue" /&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="vector-effect: non-scaling-stroke">
+            <div class="term-title"><span>vector-effect: non-scaling-stroke</span><code>Constant Display Stroke</code></div>
+            <p class="term-desc">A vector styling property that instructs the browser GPU to calculate stroke thickness after all viewBox and CSS transforms, keeping line caliper locked to display pixels regardless of zoom.</p>
+            <div class="code-snippet">path { vector-effect: non-scaling-stroke; stroke-width: 1.5px; }</div>
+          </div>
+        </div>
+
+        <!-- Category 6 -->
+        <div class="category-block" id="matrix-math" data-category="matrix-math">
+          <div class="cat-heading">
+            <span>6. Matrix Math &amp; Coordinate Transformation Interfaces</span>
+            <span class="badge">6 terms</span>
+          </div>
+
+          <div class="term-card" data-term="CTM (Current Transformation Matrix)">
+            <div class="term-title"><span>CTM (Current Transformation Matrix)</span><code>Local to Viewport Matrix</code></div>
+            <p class="term-desc">The active 3x3 affine matrix transforming 2D coordinates from current user space into the nearest SVG viewport coordinate system.</p>
+            <div class="code-snippet">const matrix = element.getCTM();</div>
+          </div>
+
+          <div class="term-card" data-term="Screen CTM (getScreenCTM)">
+            <div class="term-title"><span>Screen CTM (getScreenCTM)</span><code>User Space to Screen Pixels</code></div>
+            <p class="term-desc">The DOM method returning the transformation matrix that maps coordinates from local user space directly to the client screen display pixel grid.</p>
+            <div class="code-snippet">const screenMatrix = svgElement.getScreenCTM();</div>
+          </div>
+
+          <div class="term-card" data-term="SVGMatrix / DOMMatrix">
+            <div class="term-title"><span>SVGMatrix / DOMMatrix</span><code>Affine Matrix Interface</code></div>
+            <p class="term-desc">The standard JavaScript API representing affine geometric transformation matrices. Provides multiplication, inversion, translation, and rotation methods for vector projection.</p>
+            <div class="code-snippet">const m = new DOMMatrix().translate(10, 20).rotate(45);</div>
+          </div>
+
+          <div class="term-card" data-term="matrix(a,b,c,d,e,f)">
+            <div class="term-title"><span>matrix(a,b,c,d,e,f)</span><code>Affine Matrix Function</code></div>
+            <p class="term-desc">Compact matrix notation representing [scaleX, skewY, skewX, scaleY, translateX, translateY]. Transforms any vector coordinate (x, y) via x' = ax + cy + e, y' = bx + dy + f.</p>
+            <div class="code-snippet">&lt;g transform="matrix(1, 0, 0, 1, 50, 100)"&gt;&lt;!-- Pure translate(50,100) --&gt;&lt;/g&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="transform-origin (SVG vs CSS)">
+            <div class="term-title"><span>transform-origin (SVG vs CSS)</span><code>Transformation Anchor Point</code></div>
+            <p class="term-desc">In native SVG specification space, <code>transform-origin</code> defaults to (0,0) (top-left of the canvas), unlike HTML elements which default to (50%, 50%) (center of bounding box). Modern CSS allows <code>transform-box: fill-box; transform-origin: center;</code> to center rotations.</p>
+            <div class="code-snippet">svg-element { transform-box: fill-box; transform-origin: center; }</div>
+          </div>
+
+          <div class="term-card" data-term="currentTranslate & currentScale">
+            <div class="term-title"><span>currentTranslate &amp; currentScale</span><code>Interactive Pan &amp; Zoom</code></div>
+            <p class="term-desc">DOM properties on the root <code>SVGSVGElement</code> representing the user-agent panning translation point and magnification scale factor applied to the entire graphic.</p>
+            <div class="code-snippet">svg.currentScale = 2.0; svg.currentTranslate.x = 50;</div>
+          </div>
+        </div>
+
+        <!-- Category 7 -->
+        <div class="category-block" id="clipping-nesting" data-category="clipping-nesting">
+          <div class="cat-heading">
+            <span>7. Viewport Clipping, Nesting &amp; Overflow</span>
+            <span class="badge">5 terms</span>
+          </div>
+
+          <div class="term-card" data-term="nested viewport (<svg> in <svg>)">
+            <div class="term-title"><span>nested viewport (&lt;svg&gt; in &lt;svg&gt;)</span><code>Sub-Viewports</code></div>
+            <p class="term-desc">An <code>&lt;svg&gt;</code> element nested inside another <code>&lt;svg&gt;</code> establishes its own local viewport, with an independent coordinate origin, width, height, and viewBox projection.</p>
+            <div class="code-snippet">&lt;svg viewBox="0 0 100 100"&gt; &lt;svg x="50" y="50" width="50" height="50" viewBox="0 0 24 24"&gt;...&lt;/svg&gt; &lt;/svg&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="symbol viewport mapping">
+            <div class="term-title"><span>symbol viewport mapping</span><code>&lt;symbol&gt; with viewBox</code></div>
+            <p class="term-desc">When a <code>&lt;symbol&gt;</code> with its own viewBox is referenced via <code>&lt;use width="X" height="Y"&gt;</code>, the browser creates a synthetic nested viewport, mapping the symbol's viewBox onto the use dimensions.</p>
+            <div class="code-snippet">&lt;symbol id="icon" viewBox="0 0 24 24"&gt;...&lt;/symbol&gt; &lt;use href="#icon" width="48" height="48"/&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="overflow: visible vs hidden">
+            <div class="term-title"><span>overflow: visible vs hidden</span><code>Viewport Clipping Boundary</code></div>
+            <p class="term-desc">Controls whether graphics rendered outside the rectangular viewport limits are clipped (default <code>hidden</code>) or allowed to spill into neighboring document layout (<code>overflow: visible</code>).</p>
+            <div class="code-snippet">svg.icon-spill { overflow: visible; } &lt;!-- Prevents drop-shadow clipping --&gt;</div>
+          </div>
+
+          <div class="term-card" data-term="clip: rect()">
+            <div class="term-title"><span>clip: rect()</span><code>Legacy Viewport Clipping</code></div>
+            <p class="term-desc">A deprecated CSS clipping property formerly used by browser engines to restrict SVG viewport visibility bounds, now superseded by modern <code>clip-path</code>.</p>
+            <div class="code-snippet">clip: rect(0, 100px, 100px, 0);</div>
+          </div>
+
+          <div class="term-card" data-term="zoomAndPan">
+            <div class="term-title"><span>zoomAndPan</span><code>zoomAndPan="magnify | disable"</code></div>
+            <p class="term-desc">An SVG document-level presentation attribute specifying whether the browser should permit user-initiated interactive panning and zooming controls.</p>
+            <div class="code-snippet">&lt;svg zoomAndPan="disable" ... &gt;</div>
+          </div>
+        </div>
+
+        <div class="takeaway-box" id="key-takeaways">
+          <h3>Key Coordinate Systems Takeaways</h3>
+          <p>Mastering SVG coordinate architecture means recognizing the two distinct worlds inside every vector graphic: the host webpage viewport, governed by CSS box model pixels, and the infinite internal user space, governed by mathematical viewBox coordinates. With uniform <code>preserveAspectRatio</code> alignment, precise <code>userSpaceOnUse</code> vs <code>objectBoundingBox</code> decisions, and <code>getScreenCTM()</code> matrix transformations, developers build razor-sharp, distortion-free vector interfaces across all devices.</p>
+        </div>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the difference between an SVG viewport and viewBox?</h3>
+            <p>The viewport is the physical or CSS layout rectangle allocated to the SVG on the webpage (defined by width and height in HTML/CSS). The viewBox is the internal camera or canvas coordinate system (min-x, min-y, width, height) in which vector paths are drawn. The browser maps the internal viewBox onto the external viewport using preserveAspectRatio rules.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does userSpaceOnUse differ from objectBoundingBox?</h3>
+            <p>userSpaceOnUse resolves coordinates in the current user coordinate space using absolute units (pixels), keeping gradients, patterns, and masks consistent across different elements. objectBoundingBox treats coordinates as relative fractions (0.0 to 1.0) of the bounding box of the target element, causing visual effects to stretch proportionally if the element changes shape.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do preserveAspectRatio="meet" and "slice" behave when scaling?</h3>
+            <p>Both preserve uniform aspect ratios without distorting geometry. "meet" scales the viewBox until the entire viewBox fits inside the viewport, potentially creating empty letterbox bars on the sides. "slice" scales the viewBox until it completely covers the viewport, slicing off whatever vector content extends outside the viewport bounds.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you translate browser screen coordinates (clientX, clientY) into SVG user coordinates?</h3>
+            <p>Create a DOMPoint representing the mouse coordinates, obtain the element's inverse Screen Current Transformation Matrix via svg.getScreenCTM().inverse(), and apply point.matrixTransform(inverseMatrix). This calculates the exact user space coordinate regardless of viewport scaling, CSS translations, or zoom levels.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why do unitless numbers in SVG default to CSS pixels?</h3>
+            <p>Under the W3C SVG 2 and CSS specifications, one user coordinate unit equals one reference CSS pixel (1/96 of an inch). Omitting units (e.g. width="24") allows mathematical operations, coordinate transforms, and viewBox mappings to function without unit conversion overhead.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What causes SVG icons to scale disproportionately or warp?</h3>
+            <p>SVG warping occurs when an explicit width and height with different aspect ratios are applied to an SVG that either lacks a viewBox attribute or has preserveAspectRatio="none". Adding a square viewBox (e.g. 0 0 24 24) and omitting preserveAspectRatio="none" prevents non-uniform distortion.</p>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Categories</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#interactive-viewbox-simulator">ViewBox Simulator</a></li>
+              <li><a href="#viewport-viewbox">1. Viewport &amp; ViewBox</a></li>
+              <li><a href="#alignment-anchors">2. Alignment Anchors</a></li>
+              <li><a href="#coordinate-spaces">3. Coordinate Spaces</a></li>
+              <li><a href="#relative-bounds">4. Relative Bounds</a></li>
+              <li><a href="#measurement-units">5. Measurement Units</a></li>
+              <li><a href="#matrix-math">6. Matrix Math &amp; CTM</a></li>
+              <li><a href="#clipping-nesting">7. Viewport Clipping</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134,000+ Clean SVGs</h4>
+          <p>Download production-ready, SVGO-optimized icons across 28 open-source sets.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash. Clean, fast, searchable open-source icons for developers.</p>
+    <p style="margin-top: 8px;">
+      <a href="/about/">About</a> &bull;
+      <a href="/contact/">Contact</a> &bull;
+      <a href="/privacy/">Privacy Policy</a> &bull;
+      <a href="/terms/">Terms of Service</a> &bull;
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/stats/">Stats</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle & persistence
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    }
+
+    // Instant Filter Logic
+    const filterInput = document.getElementById('termFilter');
+    const termCards = document.querySelectorAll('.term-card');
+    const categoryBlocks = document.querySelectorAll('.category-block');
+    const noResults = document.getElementById('noResults');
+    const noResultsQuery = document.getElementById('noResultsQuery');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+
+    function filterTerms() {
+      const q = filterInput.value.toLowerCase().trim();
+      let totalVisible = 0;
+
+      categoryBlocks.forEach(cat => {
+        let catVisible = 0;
+        const cards = cat.querySelectorAll('.term-card');
+        cards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          if (!q || text.includes(q)) {
+            card.style.display = 'block';
+            catVisible++;
+            totalVisible++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        cat.style.display = catVisible > 0 ? 'block' : 'none';
+      });
+
+      if (totalVisible === 0) {
+        noResults.style.display = 'block';
+        noResultsQuery.textContent = q;
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    filterInput.addEventListener('input', filterTerms);
+
+    resetFilterBtn.addEventListener('click', () => {
+      filterInput.value = '';
+      filterTerms();
+      filterInput.focus();
+    });
+
+    // Interactive ViewBox Simulator
+    const simSvg = document.getElementById('simSvgCanvas');
+    const simText = document.getElementById('simExplanationText');
+    const demoBtns = document.querySelectorAll('.demo-toggle-btn');
+
+    const explanations = {
+      'xMidYMid meet': '<code>preserveAspectRatio="xMidYMid meet"</code> scales the 100x100 user space uniformly to fit completely within the 280x130 viewport, leaving letterbox spacing on the left and right.',
+      'xMidYMid slice': '<code>preserveAspectRatio="xMidYMid slice"</code> scales the viewBox uniformly until it completely covers the 280x130 viewport, slicing off the top and bottom vector edges.',
+      'none': '<code>preserveAspectRatio="none"</code> disables uniform scaling, stretching the 100x100 user space non-uniformly across the entire 280x130 container and distorting circles into ovals.',
+      'xMinYMin meet': '<code>preserveAspectRatio="xMinYMin meet"</code> fits the viewBox uniformly inside the viewport and anchors it flush to the top-left corner, leaving all empty space on the right.',
+      'xMaxYMax meet': '<code>preserveAspectRatio="xMaxYMax meet"</code> fits the viewBox uniformly inside the viewport and anchors it flush to the bottom-right corner, leaving all empty space on the left.'
+    };
+
+    demoBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        demoBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const ratio = btn.getAttribute('data-ratio');
+        simSvg.setAttribute('preserveAspectRatio', ratio);
+        if (explanations[ratio]) {
+          simText.innerHTML = explanations[ratio];
+        }
+      });
+    });
+  </script>
+</body>
+</html>
