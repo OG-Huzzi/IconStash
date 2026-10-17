@@ -53,7 +53,12 @@
       "author": {
         "@type": "Person",
         "name": "Jouni Flemming",
-        "url": "https://iconstash.io/about/"
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
       },
       "datePublished": "2026-10-17",
       "dateModified": "2026-10-17",
@@ -214,6 +219,9 @@
     .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
     .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
     .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+    .interactive-demo-title svg { color: #C1DD2D; }
+    #simSvgCanvas { background: #111; border: 2px dashed #444; border-radius: 6px; overflow: hidden; }
 
     .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
     @media (min-width: 1024px) {
@@ -363,6 +371,15 @@
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #6D8200; }
+    html[data-theme="light"] .interactive-demo-title svg { color: #5C6E00; }
+    html[data-theme="light"] .cat-heading .badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] #simSvgCanvas { background: #F4F4F5; border-color: #D4D4D8; }
+    html[data-theme="light"] #simSvgCanvas text { fill: #18181B; }
+    html[data-theme="light"] #simSvgCanvas circle,
+    html[data-theme="light"] #simSvgCanvas line { stroke: #6D8200; }
   </style>
 </head>
 <body>
@@ -399,7 +416,7 @@
           <span class="tag">SVG Standards &amp; W3C Specs</span>
           <h1>SVG Coordinate Systems, ViewBox &amp; Units Glossary: 40+ Terms Explained</h1>
           <div class="article-meta">
-            <span>By <a href="/about/" rel="author" style="color:#C1DD2D;font-weight:600;">Jouni Flemming</a></span>
+            <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
             <span>&bull;</span>
             <span>Published October 17, 2026</span>
             <span>&bull;</span>
@@ -432,7 +449,7 @@
           <div class="interactive-demo-card">
             <div class="interactive-demo-header">
               <div class="interactive-demo-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
                 <span>ViewBox Projection Simulator</span>
               </div>
               <div class="demo-controls-group">
@@ -445,7 +462,7 @@
             </div>
 
             <div class="sim-canvas-box">
-              <svg width="280" height="130" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" id="simSvgCanvas" style="background:#111; border:2px dashed #444; border-radius:6px; overflow:hidden;">
+              <svg width="280" height="130" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" id="simSvgCanvas">
                 <!-- Grid background -->
                 <defs>
                   <marker id="simArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -462,6 +479,63 @@
                 <code>preserveAspectRatio="xMidYMid meet"</code> scales the 100x100 user space uniformly to fit completely within the 280x130 viewport, leaving letterbox spacing on the left and right.
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- Coordinate Spaces Architecture Matrix -->
+        <section id="coordinate-spaces-matrix">
+          <h2>Coordinate Spaces &amp; Unit Systems Matrix</h2>
+          <p>Quick reference comparing how SVG establishes, calculates, and transforms coordinates across different rendering contexts:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Space / Unit Mode</th>
+                  <th>Origin Point (0,0)</th>
+                  <th>Scale / Calculation Base</th>
+                  <th>Primary Applications</th>
+                  <th>DOM Transformation API</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>userSpaceOnUse</code></td>
+                  <td>Top-left of local SVG user coordinate system</td>
+                  <td>Absolute user units defined by viewBox or viewport</td>
+                  <td>Patterns, gradients, masks matching shape geometry</td>
+                  <td><code>element.getCTM()</code></td>
+                </tr>
+                <tr>
+                  <td><code>objectBoundingBox</code></td>
+                  <td>Top-left corner of the element's bounding box</td>
+                  <td>Relative fractions from 0.0 to 1.0 (0% to 100%)</td>
+                  <td>Stretching gradients &amp; masks across dynamic shapes</td>
+                  <td><code>element.getBBox()</code></td>
+                </tr>
+                <tr>
+                  <td><code>viewBox User Space</code></td>
+                  <td>Specified by <code>min-x, min-y</code> parameters</td>
+                  <td>Arbitrary resolution-independent unit grid (e.g. 24x24)</td>
+                  <td>Icon definitions, responsive illustrations</td>
+                  <td><code>svg.getScreenCTM().inverse()</code></td>
+                </tr>
+                <tr>
+                  <td><code>Viewport (CSS Pixels)</code></td>
+                  <td>Top-left of rendered SVG container element</td>
+                  <td>Device pixel ratio scaled by browser layout zoom</td>
+                  <td>Container layout, responsive sizing, touch targets</td>
+                  <td><code>element.getBoundingClientRect()</code></td>
+                </tr>
+                <tr>
+                  <td><code>Screen / Client Space</code></td>
+                  <td>Top-left of browser window / viewport</td>
+                  <td>Hardware pixels relative to device viewport window</td>
+                  <td>Mouse event tracking, cursor drag-and-drop, tooltips</td>
+                  <td><code>DOMPoint.matrixTransform()</code></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
@@ -837,6 +911,7 @@
           <nav class="toc-nav" aria-label="Table of Contents">
             <ol>
               <li><a href="#interactive-viewbox-simulator">ViewBox Simulator</a></li>
+              <li><a href="#coordinate-spaces-matrix">Coordinate Spaces Matrix</a></li>
               <li><a href="#viewport-viewbox">1. Viewport &amp; ViewBox</a></li>
               <li><a href="#alignment-anchors">2. Alignment Anchors</a></li>
               <li><a href="#coordinate-spaces">3. Coordinate Spaces</a></li>
@@ -902,7 +977,7 @@
         cards.forEach(card => {
           const text = card.textContent.toLowerCase();
           if (!q || text.includes(q)) {
-            card.style.display = 'block';
+            card.style.display = '';
             catVisible++;
             totalVisible++;
           } else {
@@ -910,7 +985,7 @@
           }
         });
 
-        cat.style.display = catVisible > 0 ? 'block' : 'none';
+        cat.style.display = catVisible > 0 ? '' : 'none';
       });
 
       if (totalVisible === 0) {

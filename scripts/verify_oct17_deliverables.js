@@ -86,6 +86,7 @@ for (const item of deliverables) {
   // 6. Visible author byline linking to /about/
   assert(content.includes('Jouni Flemming'), 'Author Jouni Flemming present in document');
   assert(content.includes('href="/about/" rel="author"') || content.includes('href="/about/"'), 'Visible author byline links to /about/');
+  assert(!content.includes('href="/about/" rel="author" style="color:#C1DD2D') && !content.includes('href="/about/" style="color:#C1DD2D'), 'Author link does not use hardcoded inline #C1DD2D style (contrast safe)');
 
   // 7. Forbidden strings check
   for (const f of forbidden) {
@@ -104,6 +105,7 @@ for (const item of deliverables) {
       assert(mainSchema, `Schema contains ${item.schemaType}`);
       assert(mainSchema && mainSchema.description && mainSchema.description.length <= 155, `Schema description length (${mainSchema ? mainSchema.description.length : 0}) <= 155`);
       assert(mainSchema && mainSchema.author && mainSchema.author.name === 'Jouni Flemming', 'Schema author is Jouni Flemming');
+      assert(mainSchema && mainSchema.author && mainSchema.author.worksFor && mainSchema.author.worksFor.name === 'Great Software Company', 'Author worksFor is Great Software Company');
       assert(mainSchema && mainSchema.publisher && mainSchema.publisher.parentOrganization && mainSchema.publisher.parentOrganization.name === 'Great Software Company', 'Parent organization is Great Software Company');
 
       // Verify no GitHub link in author schema
@@ -136,6 +138,7 @@ for (const item of deliverables) {
   // 9. Light theme contrast verification
   assert(content.includes('html[data-theme="light"] pre code'), 'Light theme pre code contrast rule present');
   assert(content.includes('html[data-theme="light"] pre'), 'Light theme pre block rule present');
+  assert(content.includes('html[data-theme="light"] .article-meta a'), 'Light theme article-meta a contrast rule present');
 
   // 10. Theme toggle and persistence verification
   assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
@@ -145,6 +148,7 @@ for (const item of deliverables) {
 
   // 11. Table responsiveness check
   assert(content.includes('min-width: 640px;'), 'Data tables enforce min-width: 640px for mobile horizontal scrolling');
+  assert(content.includes('<div class="table-container">') && content.includes('<table>'), 'Deliverable contains responsive data table wrapped in table-container');
 
   // 12. Interactive Developer Sandbox & Tools verification
   if (item.slug === 'how-to-migrate-from-icon-fonts-to-svg-guide') {
@@ -152,11 +156,15 @@ for (const item of deliverables) {
     assert(content.includes('id="presetChips"'), 'Interactive preset chips present');
     assert(content.includes('id="migrationStrategy"'), 'Interactive strategy selector present');
     assert(content.includes('id="copyCodeBtn"'), 'Interactive copy code button present');
+    assert(content.includes('html[data-theme="light"] .svg-vector-render'), 'Light theme svg-vector-render contrast rule present');
+    assert(content.includes('html[data-theme="light"] .metric-val'), 'Light theme metric-val contrast rule present');
   } else if (item.slug === 'svg-patterns-and-textures-css-guide') {
     assert(content.includes('id="patternSandbox"'), 'Interactive Pattern sandbox present');
     assert(content.includes('id="patternChips"'), 'Interactive pattern chips present');
     assert(content.includes('id="sliderTileSize"'), 'Interactive tile size slider present');
     assert(content.includes('id="copyPatternCodeBtn"'), 'Interactive copy code button present');
+    assert(content.includes('html[data-theme="light"] .takeaway-box'), 'Light theme takeaway-box contrast rule present');
+    assert(content.includes('html[data-theme="light"] .control-row .stat-num'), 'Light theme stat-num contrast rule present');
   } else if (item.slug === 'svg-coordinate-systems-and-units-glossary') {
     assert(content.includes('id="termFilter"'), 'Glossary has instant search filter element #termFilter');
     assert(content.includes('id="noResults"'), 'Glossary has #noResults alert container');
@@ -167,6 +175,8 @@ for (const item of deliverables) {
     assert(content.includes('id="simSvgCanvas"'), 'Glossary has simulator SVG canvas');
     assert(content.includes('html[data-theme="light"] #simPath'), 'Glossary has light theme simulator path contrast rule');
     assert(content.includes('html[data-theme="light"] #simArrow path'), 'Glossary has light theme simulator marker contrast rule');
+    assert(content.includes('html[data-theme="light"] #simSvgCanvas'), 'Glossary has light theme simSvgCanvas contrast rule');
+    assert(content.includes('html[data-theme="light"] .cat-heading .badge'), 'Glossary has light theme category badge contrast rule');
   }
 
   // 13. No raw unrendered LaTeX math formulas
