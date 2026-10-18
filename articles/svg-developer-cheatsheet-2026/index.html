@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Ultimate SVG Developer Cheat Sheet 2026: Syntax, Shapes, Paths &amp; CSS | IconStash</title>
+  <meta name="description" content="Instant interactive SVG cheat sheet: 100+ syntax patterns, basic shapes, path commands, viewBox, CSS styling, React JSX &amp; accessibility snippets.">
+  <meta name="keywords" content="svg cheat sheet, svg cheatsheet, svg syntax reference, svg path cheat sheet, svg css styling, react svg cheat sheet, svg viewbox reference">
+  <meta property="og:title" content="The Ultimate SVG Developer Cheat Sheet 2026: Syntax, Shapes, Paths &amp; CSS">
+  <meta property="og:description" content="Instant interactive SVG cheat sheet: 100+ syntax patterns, basic shapes, path commands, viewBox, CSS styling, React JSX &amp; accessibility snippets.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-developer-cheatsheet-2026/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-developer-cheatsheet.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-18T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-18T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Cheat Sheet &amp; Reference">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Cheat Sheet">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="React">
+  <meta property="article:tag" content="Frontend">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Ultimate SVG Developer Cheat Sheet 2026: Syntax, Shapes, Paths &amp; CSS">
+  <meta name="twitter:description" content="Instant interactive SVG cheat sheet: 100+ syntax patterns, basic shapes, path commands, viewBox, CSS styling, React JSX &amp; accessibility snippets.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-developer-cheatsheet.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-developer-cheatsheet-2026/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "The Ultimate SVG Developer Cheat Sheet 2026: Syntax, Shapes, Paths & CSS",
+      "description": "Instant interactive SVG cheat sheet: 100+ syntax patterns, basic shapes, path commands, viewBox, CSS styling, React JSX & accessibility snippets.",
+      "image": "https://iconstash.io/assets/articles/svg-developer-cheatsheet.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-18",
+      "dateModified": "2026-10-18",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-developer-cheatsheet-2026/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "Cheat Sheet & Reference",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["SVG cheat sheet", "SVG quick reference", "SVG path commands", "viewBox syntax", "SVG CSS properties", "React SVG JSX patterns", "SVG accessibility checklist"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Developer Cheat Sheet 2026",
+          "item": "https://iconstash.io/articles/svg-developer-cheatsheet-2026/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the single most important rule for responsive SVG scaling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The single most important rule is defining a valid viewBox attribute (e.g. viewBox='0 0 24 24') while omitting hardcoded pixel width and height attributes in the SVG markup. Then, control dimensions in CSS via width: 100%; height: auto; or explicit utility classes like w-6 h-6. The viewBox establishes the internal coordinate system and preserveAspectRatio governs proportional scaling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does currentColor work for SVG icons in modern design systems?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When you set fill='currentColor' or stroke='currentColor' inside an SVG element, the graphic automatically inherits the computed CSS color value of its immediate parent container. This allows icons to adapt instantaneously to button hover states, active navigation tabs, and dark mode theme transitions without writing custom SVG style rules."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between vector-effect='non-scaling-stroke' and default stroke scaling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default, when an SVG scales up or down, its stroke-width scales proportionally with the viewBox geometry. Setting vector-effect='non-scaling-stroke' instructs the browser to render the stroke at a constant physical pixel width regardless of geometric transforms or viewport zoom levels, keeping icon lines crisp and uniform."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you make an SVG icon completely accessible to screen readers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For decorative icons, add aria-hidden='true' and focusable='false'. For standalone informative icons, add role='img', an aria-labelledby attribute referencing a nested <title id='icon-title'> tag, and provide a concise descriptive label explaining the icon's action or meaning."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best way to prevent SVG ID collisions in React 19 and Next.js 15?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the React useId() hook to generate uniquely scoped identifiers for every <linearGradient>, <clipPath>, or <mask> element, replacing hardcoded strings with dynamic IDs (e.g., id={maskId}). This prevents multi-instance components and SSR hydration from corrupting each other's references."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does an external SVG loaded via <img> ignore CSS styles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When an SVG is embedded via an <img> tag or CSS background-image, the browser executes it in an isolated, sandboxed browsing context for security reasons. External stylesheets and parent CSS cascade cannot cross this security boundary. To style internal SVG elements with CSS, you must embed the SVG inline or use CSS mask-image."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Search & Filter Bar */
+    .cheat-search-box { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 20px 24px; margin: 28px 0 36px; display: flex; flex-direction: column; gap: 14px; }
+    .search-input-wrapper { display: flex; align-items: center; gap: 12px; background: #1A1A1A; border: 1px solid #333; border-radius: 8px; padding: 10px 16px; }
+    .search-input-wrapper svg { color: #888; flex-shrink: 0; }
+    .search-input-wrapper input { background: transparent; border: none; outline: none; color: #FFF; font-size: 15px; width: 100%; font-family: inherit; }
+    .search-input-wrapper input::placeholder { color: #666; }
+    .filter-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-pill { background: #161616; border: 1px solid #262626; color: #888; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .filter-pill:hover, .filter-pill.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+
+    /* Cheat Cards Grid */
+    .cheat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; margin: 28px 0 40px; }
+    .cheat-card { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 150ms ease, transform 150ms ease; }
+    .cheat-card:hover { border-color: rgba(193,221,45,0.4); transform: translateY(-2px); }
+    .cheat-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .cheat-card-title { font-size: 15.5px; font-weight: 700; color: #FFF; }
+    .cheat-badge { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.1); color: #C1DD2D; padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.2); }
+    .cheat-card p { font-size: 13px; color: #999; line-height: 1.5; margin-bottom: 12px; }
+    .snippet-box { background: #0A0A0A; border: 1px solid #1F1F1F; border-radius: 6px; padding: 10px 12px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: #E5E5E5; display: flex; justify-content: space-between; align-items: center; word-break: break-all; gap: 8px; }
+    .card-copy-btn { background: transparent; border: none; color: #888; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; border-radius: 4px; transition: color 120ms ease; }
+    .card-copy-btn:hover { color: #C1DD2D; }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .sandbox-slider { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .cheat-live-stage { width: 100%; height: 220px; border: 1px solid #262626; border-radius: 10px; background-color: #0A0A0A; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+
+    .generated-code-box { margin-top: 10px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+
+    /* Takeaways & Callouts */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .cheat-search-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .search-input-wrapper { background: #FFF; border-color: #D4D4D8; }
+    html[data-theme="light"] .search-input-wrapper input { color: #18181B; }
+    html[data-theme="light"] .filter-pill { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
+    html[data-theme="light"] .filter-pill:hover, html[data-theme="light"] .filter-pill.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .cheat-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cheat-card-title { color: #18181B; }
+    html[data-theme="light"] .cheat-card p { color: #525252; }
+    html[data-theme="light"] .snippet-box { background: #FFF; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .cheat-live-stage { background-color: #FAFAFA; border-color: #D4D4D8; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
+    html[data-theme="light"] .copy-btn:hover { background: #849E00; color: #FFF; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #6D8200; }
+    html[data-theme="light"] .sandbox-title svg { color: #5C6E00; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .cheat-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme" title="Toggle Theme" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/" class="header-cta">Find Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>SVG Developer Cheat Sheet 2026</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Interactive Reference &amp; Cheat Sheet</span>
+      <h1>The Ultimate SVG Developer Cheat Sheet 2026</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-10-18">October 18, 2026</time>
+        <span>&bull;</span>
+        <span>100+ Syntax Patterns &amp; Snippets</span>
+        <span>&bull;</span>
+        <span>Updated for React 19, Tailwind v4 &amp; Modern CSS</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>The Definitive Desktop &amp; Mobile SVG Reference:</strong> Built for front-end engineers, design system authors, and UI developers who need immediate, copy-ready SVG syntax without wading through obsolete W3C specs. Features interactive real-time search, 1-click clipboard copying, and live vector sandboxing.</p>
+          <ul>
+            <li><strong>Instant Filter:</strong> Search 80+ categorized snippets across primitives, path commands, CSS styling, React JSX, and WCAG rules.</li>
+            <li><strong>Live Sandbox Studio:</strong> Test stroke weights, viewBoxes, and currentColor adaptations in real-time.</li>
+            <li><strong>Battle-Tested Reference Tables:</strong> Primitives matrix, path commands, presentation attributes vs modern CSS, and React 19 SSR patterns.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-developer-cheatsheet.jpg" alt="Futuristic SVG developer cheat sheet matrix and syntax dashboard" width="1200" height="675" loading="eager">
+          <figcaption>Figure 1: Comprehensive developer cheat sheet matrix covering primitives, transforms, and CSS tokens.</figcaption>
+        </figure>
+
+        <!-- Live Instant Search Bar -->
+        <div class="cheat-search-box">
+          <div class="search-input-wrapper">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="cheatSearch" placeholder="Filter cheat sheet (e.g. viewBox, stroke-dasharray, useId, evenodd, arc)..." aria-label="Filter cheat sheet">
+          </div>
+          <div class="filter-pills" id="filterPills">
+            <button class="filter-pill active" data-cat="all" type="button">All (80+)</button>
+            <button class="filter-pill" data-cat="primitives" type="button">Basic Shapes</button>
+            <button class="filter-pill" data-cat="paths" type="button">Path Commands</button>
+            <button class="filter-pill" data-cat="styling" type="button">CSS &amp; Styling</button>
+            <button class="filter-pill" data-cat="scaling" type="button">ViewBox &amp; Scaling</button>
+            <button class="filter-pill" data-cat="react" type="button">React 19 &amp; Next.js</button>
+            <button class="filter-pill" data-cat="a11y" type="button">Accessibility</button>
+          </div>
+        </div>
+
+        <!-- Cheat Cards Grid -->
+        <div class="cheat-grid" id="cheatCardsContainer">
+
+          <!-- Card 1 -->
+          <div class="cheat-card" data-cat="scaling" data-search="viewbox responsive coordinate system preserveaspectratio">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Responsive SVG Shell</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Scales fluidly to any CSS container width while maintaining internal coordinate grid.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;svg viewBox="0 0 24 24" width="100%" height="auto"&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;svg viewBox="0 0 24 24" width="100%" height="auto"&gt;' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="cheat-card" data-cat="styling" data-search="currentcolor inheritance color dark mode hover">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">currentColor Icon Token</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Inherits computed CSS text color from parent button or hover state seamlessly.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;path d="..." fill="currentColor" stroke="none" /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;path d="..." fill="currentColor" stroke="none" /&gt;' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="cheat-card" data-cat="styling" data-search="non-scaling-stroke vector-effect zoom border crisp">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Fixed Non-Scaling Stroke</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Preserves fixed 1.5px/2px stroke thickness regardless of zoom or scaling.</p>
+            </div>
+            <div class="snippet-box">
+              <code>vector-effect: non-scaling-stroke;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="vector-effect: non-scaling-stroke;" type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="cheat-card" data-cat="paths" data-search="moveto lineto closepath m l z path grammar">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">M, L &amp; Z Linear Path</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Move pen, draw straight lines, and close contour back to origin with join caps.</p>
+            </div>
+            <div class="snippet-box">
+              <code>d="M 2 2 L 22 12 L 2 22 Z"</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='d="M 2 2 L 22 12 L 2 22 Z"' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="cheat-card" data-cat="paths" data-search="cubic bezier curve c s smooth handles">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">C &amp; S Smooth Cubic Bézier</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Full cubic curve with two control points chained into smooth reflected S shorthand.</p>
+            </div>
+            <div class="snippet-box">
+              <code>d="M 0 50 C 20 0, 40 0, 60 50 S 100 100, 120 50"</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='d="M 0 50 C 20 0, 40 0, 60 50 S 100 100, 120 50"' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="cheat-card" data-cat="paths" data-search="arc elliptical a flags large-arc sweep">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">A (Elliptical Arc) Syntax</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>7 parameters: rx, ry, x-rotation, large-arc-flag, sweep-flag, x, y.</p>
+            </div>
+            <div class="snippet-box">
+              <code>A 12 12 0 0 1 24 12</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="A 12 12 0 0 1 24 12" type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 7 -->
+          <div class="cheat-card" data-cat="primitives" data-search="rounded rectangle rect rx ry border radius">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;rect&gt; with Corner Radii</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Draws rounded container box with unified corner curvature.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;rect x="2" y="2" width="20" height="20" rx="4" /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;rect x="2" y="2" width="20" height="20" rx="4" /&gt;' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 8 -->
+          <div class="cheat-card" data-cat="primitives" data-search="circle cx cy r radius avatar badge">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;circle&gt; Center &amp; Radius</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Perfect vector circle centered at (cx, cy) with radius r.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;circle cx="12" cy="12" r="10" /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;circle cx="12" cy="12" r="10" /&gt;' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 9 -->
+          <div class="cheat-card" data-cat="react" data-search="react useid nextjs ssr collision gradient id">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">React 19 Safe useId() Hook</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Generates collision-free IDs across SSR and multi-instance renders.</p>
+            </div>
+            <div class="snippet-box">
+              <code>const id = useId().replace(/:/g, '');</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="const id = useId().replace(/:/g, '');" type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 10 -->
+          <div class="cheat-card" data-cat="a11y" data-search="accessibility aria-hidden decorative screen reader">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Decorative Icon ARIA</span>
+                <span class="cheat-badge">Accessibility</span>
+              </div>
+              <p>Hides visual UI icon from screen readers when paired with text.</p>
+            </div>
+            <div class="snippet-box">
+              <code>aria-hidden="true" focusable="false"</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='aria-hidden="true" focusable="false"' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 11 -->
+          <div class="cheat-card" data-cat="a11y" data-search="standalone title labelledby accessible aria role img">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Standalone Icon with &lt;title&gt;</span>
+                <span class="cheat-badge">Accessibility</span>
+              </div>
+              <p>Announces semantic meaning when icon has no accompanying label.</p>
+            </div>
+            <div class="snippet-box">
+              <code>role="img" aria-labelledby="t-id"</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet='role="img" aria-labelledby="icon-title"' type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 12 -->
+          <div class="cheat-card" data-cat="styling" data-search="css mask-image external svg tint background">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">CSS mask-image Vector Tint</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Tints external SVG files using CSS background-color without inlining.</p>
+            </div>
+            <div class="snippet-box">
+              <code>mask: url(/icon.svg) no-repeat center / contain;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="mask: url(/icon.svg) no-repeat center / contain;" type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Sandbox Playground -->
+        <section class="interactive-sandbox" id="cheatSandbox">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              <span>Live SVG Geometry &amp; Code Playground</span>
+            </div>
+            <span class="sandbox-badge">Interactive Stage</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label>Select Preset Geometry</label>
+                <div class="filter-pills" id="sandboxPresets">
+                  <button class="filter-pill active" data-preset="shield" type="button">Shield Icon</button>
+                  <button class="filter-pill" data-preset="badge" type="button">Star Badge</button>
+                  <button class="filter-pill" data-preset="gear" type="button">Settings Gear</button>
+                  <button class="filter-pill" data-preset="ring" type="button">Progress Ring</button>
+                </div>
+              </div>
+
+              <div class="control-row">
+                <label>Stroke Width: <span class="stat-num" id="statStroke">2px</span></label>
+                <input type="range" class="sandbox-slider" id="sliderStroke" min="1" max="6" step="0.5" value="2">
+              </div>
+
+              <div class="control-row">
+                <label>Scale Factor: <span class="stat-num" id="statScale">1.0x</span></label>
+                <input type="range" class="sandbox-slider" id="sliderScale" min="0.6" max="1.6" step="0.1" value="1">
+              </div>
+
+              <div class="control-row">
+                <label>Stroke &amp; Fill Style</label>
+                <div class="filter-pills" id="styleModePills">
+                  <button class="filter-pill active" data-style="outline" type="button">Outline Only</button>
+                  <button class="filter-pill" data-style="filled" type="button">Filled</button>
+                  <button class="filter-pill" data-style="duotone" type="button">Duotone Tint</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="cheat-live-stage" id="liveCheatStage">
+                <svg id="stageSvgEl" viewBox="0 0 48 48" width="96" height="96">
+                  <!-- Injected via script -->
+                </svg>
+              </div>
+
+              <div class="generated-code-box">
+                <div class="code-box-head">
+                  <span>Export Ready Code</span>
+                  <button class="copy-btn" id="copyStageCodeBtn" type="button">Copy SVG</button>
+                </div>
+                <pre style="margin:0; border:none; border-radius:0;"><code id="stageCodeSnippet">&lt;!-- Code renders dynamically --&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <h2 id="primitives-matrix">1. SVG Geometric Primitives Reference Matrix</h2>
+        <p>Every built-in SVG shape primitive and its required coordinate attributes:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Element</th>
+                <th>Required Attributes</th>
+                <th>Sizing / Positioning Syntax</th>
+                <th>Default Coordinate Behavior</th>
+                <th>Common Gotcha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>&lt;rect&gt;</strong></td>
+                <td><code>x, y, width, height</code></td>
+                <td><code>&lt;rect x="0" y="0" width="24" height="24" rx="4" /&gt;</code></td>
+                <td>Top-left corner anchored at (x,y)</td>
+                <td>Omitting width or height disables rendering entirely</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;circle&gt;</strong></td>
+                <td><code>cx, cy, r</code></td>
+                <td><code>&lt;circle cx="12" cy="12" r="10" /&gt;</code></td>
+                <td>Center anchored at (cx,cy)</td>
+                <td>Setting negative radius renders nothing</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;ellipse&gt;</strong></td>
+                <td><code>cx, cy, rx, ry</code></td>
+                <td><code>&lt;ellipse cx="12" cy="12" rx="10" ry="6" /&gt;</code></td>
+                <td>Center anchored at (cx,cy)</td>
+                <td>Fails if rx or ry is zero or omitted</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;line&gt;</strong></td>
+                <td><code>x1, y1, x2, y2</code></td>
+                <td><code>&lt;line x1="2" y1="2" x2="22" y2="22" /&gt;</code></td>
+                <td>Stroke connects start to end coordinates</td>
+                <td>Requires stroke and stroke-width; fill has no effect</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;polyline&gt;</strong></td>
+                <td><code>points</code></td>
+                <td><code>&lt;polyline points="2,2 12,12 22,2" /&gt;</code></td>
+                <td>Open connected line segments</td>
+                <td>Default fill is black; set fill="none" for open line graphs</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;polygon&gt;</strong></td>
+                <td><code>points</code></td>
+                <td><code>&lt;polygon points="12,2 22,22 2,22" /&gt;</code></td>
+                <td>Closed geometric polygon</td>
+                <td>Automatically closes last point back to the first point</td>
+              </tr>
+              <tr>
+                <td><strong>&lt;path&gt;</strong></td>
+                <td><code>d</code></td>
+                <td><code>&lt;path d="M 2 2 L 22 22" /&gt;</code></td>
+                <td>Arbitrary complex contours &amp; curves</td>
+                <td>Sensitive to unescaped quotes when embedded in Data URIs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="path-commands-matrix">2. SVG Path Commands Master Matrix</h2>
+        <p>The 10 path instructions supported by all modern SVG rasterization engines:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>Name</th>
+                <th>Parameters</th>
+                <th>Control Handles</th>
+                <th>Geometric Behavior</th>
+                <th>Relative Equivalent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>M</strong></td>
+                <td>MoveTo</td>
+                <td><code>(x, y)+</code></td>
+                <td>0</td>
+                <td>Moves pen without drawing. Implicit subsequent pairs act as LineTo.</td>
+                <td><code>m dx dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>L</strong></td>
+                <td>LineTo</td>
+                <td><code>(x, y)+</code></td>
+                <td>0</td>
+                <td>Draws straight line from pen to coordinates.</td>
+                <td><code>l dx dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>H</strong></td>
+                <td>Horizontal Line</td>
+                <td><code>x+</code></td>
+                <td>0</td>
+                <td>Draws horizontal line; saves byte space over L.</td>
+                <td><code>h dx</code></td>
+              </tr>
+              <tr>
+                <td><strong>V</strong></td>
+                <td>Vertical Line</td>
+                <td><code>y+</code></td>
+                <td>0</td>
+                <td>Draws vertical line; saves byte space over L.</td>
+                <td><code>v dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>C</strong></td>
+                <td>Cubic Bézier</td>
+                <td><code>(x1, y1, x2, y2, x, y)+</code></td>
+                <td>2</td>
+                <td>Full cubic curve with independent start and arrival tangent handles.</td>
+                <td><code>c dx1 dy1, dx2 dy2, dx dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>S</strong></td>
+                <td>Smooth Cubic</td>
+                <td><code>(x2, y2, x, y)+</code></td>
+                <td>1 (1 reflected)</td>
+                <td>Mirrors previous curve's control point for seamless C1 continuity.</td>
+                <td><code>s dx2 dy2, dx dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>Q</strong></td>
+                <td>Quadratic Bézier</td>
+                <td><code>(x1, y1, x, y)+</code></td>
+                <td>1</td>
+                <td>Single control point curve. Faster GPU evaluation than cubic.</td>
+                <td><code>q dx1 dy1, dx dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>T</strong></td>
+                <td>Smooth Quadratic</td>
+                <td><code>(x, y)+</code></td>
+                <td>0 (1 reflected)</td>
+                <td>Mirrors previous Q control handle for chained wave curves.</td>
+                <td><code>t dx dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>A</strong></td>
+                <td>Elliptical Arc</td>
+                <td><code>(rx, ry, rot, laf, swf, x, y)+</code></td>
+                <td>Ellipse geometry</td>
+                <td>Draws elliptical or circular arc between two points.</td>
+                <td><code>a rx ry rot laf swf dx dy</code></td>
+              </tr>
+              <tr>
+                <td><strong>Z</strong></td>
+                <td>ClosePath</td>
+                <td>None</td>
+                <td>0</td>
+                <td>Connects current position back to initial subpath start point.</td>
+                <td><code>z</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="presentation-attributes-css">3. Presentation Attributes vs. Modern CSS Properties</h2>
+        <p>In SVG 2, many legacy XML presentation attributes map directly to CSS properties. Understanding CSS specificity and cascade order prevents common styling overrides:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Presentation Attribute</th>
+                <th>Modern CSS Property</th>
+                <th>Inherited?</th>
+                <th>CSS Specificity Rule</th>
+                <th>Recommended 2026 Best Practice</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>fill="..."</code></td>
+                <td><code>fill: &lt;color&gt; | &lt;url&gt;</code></td>
+                <td>Yes</td>
+                <td>External CSS overrides presentation attribute</td>
+                <td>Set <code>fill: currentColor</code> or CSS variables</td>
+              </tr>
+              <tr>
+                <td><code>stroke="..."</code></td>
+                <td><code>stroke: &lt;color&gt; | &lt;url&gt;</code></td>
+                <td>Yes</td>
+                <td>External CSS overrides presentation attribute</td>
+                <td>Set <code>stroke: currentColor</code> on wrapper</td>
+              </tr>
+              <tr>
+                <td><code>stroke-width="..."</code></td>
+                <td><code>stroke-width: &lt;length&gt;</code></td>
+                <td>Yes</td>
+                <td>External CSS overrides presentation attribute</td>
+                <td>Define default in SVG; adjust with utility classes</td>
+              </tr>
+              <tr>
+                <td><code>stroke-linecap="..."</code></td>
+                <td><code>stroke-linecap: round | square</code></td>
+                <td>Yes</td>
+                <td>External CSS overrides presentation attribute</td>
+                <td>Standardize on <code>round</code> for friendly icons</td>
+              </tr>
+              <tr>
+                <td><code>stroke-linejoin="..."</code></td>
+                <td><code>stroke-linejoin: round | miter</code></td>
+                <td>Yes</td>
+                <td>External CSS overrides presentation attribute</td>
+                <td>Use <code>round</code> to avoid ugly spike corners</td>
+              </tr>
+              <tr>
+                <td><code>vector-effect="..."</code></td>
+                <td><code>vector-effect: non-scaling-stroke</code></td>
+                <td>No</td>
+                <td>CSS property supported in all modern browsers</td>
+                <td>Apply to icons that scale dynamically across viewports</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="viewbox-preserveaspectratio">4. ViewBox &amp; preserveAspectRatio Matrix</h2>
+        <p>The <code>viewBox="min-x min-y width height"</code> defines the virtual camera coordinate bounds. When the aspect ratio of the SVG container does not match the viewBox aspect ratio, <code>preserveAspectRatio</code> dictates alignment and clipping:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Attribute Value</th>
+                <th>Scaling Philosophy</th>
+                <th>Behavior when Container Aspect Mismatches</th>
+                <th>Common Equivalent in CSS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>xMidYMid meet</strong><br><em>(Default)</em></td>
+                <td>Contain</td>
+                <td>Entire graphic fits inside container; letterboxing or pillarboxing occurs</td>
+                <td><code>object-fit: contain</code></td>
+              </tr>
+              <tr>
+                <td><strong>xMidYMid slice</strong></td>
+                <td>Cover</td>
+                <td>Graphic scales to cover entire container; excess geometry is cropped</td>
+                <td><code>object-fit: cover</code></td>
+              </tr>
+              <tr>
+                <td><strong>none</strong></td>
+                <td>Stretch / Distort</td>
+                <td>Graphic stretches non-uniformly to fill exact container width &amp; height</td>
+                <td><code>object-fit: fill</code></td>
+              </tr>
+              <tr>
+                <td><strong>xMinYMin meet</strong></td>
+                <td>Top-Left Align</td>
+                <td>Fits graphic and anchors to top-left corner without distortion</td>
+                <td><code>object-position: top left</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="react-nextjs-patterns">5. Modern React 19 &amp; Next.js 15 SVG Architecture</h2>
+        <p>Best practices for shipping icons in modern React Server Components (RSC) with zero client JavaScript overhead:</p>
+
+        <pre><code>// 1. Zero-JS Server Component (Next.js 15 App Router)
+export function ServerIcon({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    &lt;svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    &gt;
+      &lt;path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /&gt;
+    &lt;/svg&gt;
+  );
+}
+
+// 2. Client Component with Dynamic useId() Gradient
+"use client";
+import { useId } from 'react';
+
+export function ClientGradientIcon() {
+  const gradId = `g-${useId().replace(/:/g, '')}`;
+  return (
+    &lt;svg viewBox="0 0 24 24" className="w-8 h-8"&gt;
+      &lt;defs&gt;
+        &lt;linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1"&gt;
+          &lt;stop offset="0%" stopColor="#C1DD2D" /&gt;
+          &lt;stop offset="100%" stopColor="#06B6D4" /&gt;
+        &lt;/linearGradient&gt;
+      &lt;/defs&gt;
+      &lt;circle cx="12" cy="12" r="10" fill={`url(#${gradId})`} /&gt;
+    &lt;/svg&gt;
+  );
+}</code></pre>
+
+        <div class="takeaway-box">
+          <h3>Cheat Sheet Golden Rules for Production</h3>
+          <ul>
+            <li><strong>Always provide viewBox:</strong> Never omit <code>viewBox</code> unless building fixed 1:1 canvas pixels.</li>
+            <li><strong>CurrentColor is king:</strong> Use <code>currentColor</code> for fills and strokes to avoid theme clashing.</li>
+            <li><strong>Isolate IDs:</strong> Never ship static <code>id</code> attributes in reusable React or Vue components.</li>
+            <li><strong>Sanitize SVGO aggressively:</strong> Strip editor metadata (Illustrator, Figma) but preserve <code>viewBox</code> and required ARIA tags.</li>
+          </ul>
+        </div>
+
+        <h2 id="faq">Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+          <h3>What is the single most important rule for responsive SVG scaling?</h3>
+          <p>The single most important rule is defining a valid <code>viewBox</code> attribute (e.g. <code>viewBox="0 0 24 24"</code>) while omitting hardcoded pixel <code>width</code> and <code>height</code> attributes in the SVG markup. Then, control dimensions in CSS via <code>width: 100%; height: auto;</code> or explicit utility classes like <code>w-6 h-6</code>. The viewBox establishes the internal coordinate system and preserveAspectRatio governs proportional scaling.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How does currentColor work for SVG icons in modern design systems?</h3>
+          <p>When you set <code>fill="currentColor"</code> or <code>stroke="currentColor"</code> inside an SVG element, the graphic automatically inherits the computed CSS color value of its immediate parent container. This allows icons to adapt instantaneously to button hover states, active navigation tabs, and dark mode theme transitions without writing custom SVG style rules.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is the difference between vector-effect="non-scaling-stroke" and default stroke scaling?</h3>
+          <p>By default, when an SVG scales up or down, its <code>stroke-width</code> scales proportionally with the viewBox geometry. Setting <code>vector-effect="non-scaling-stroke"</code> instructs the browser to render the stroke at a constant physical pixel width regardless of geometric transforms or viewport zoom levels, keeping icon lines crisp and uniform.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you make an SVG icon completely accessible to screen readers?</h3>
+          <p>For decorative icons, add <code>aria-hidden="true"</code> and <code>focusable="false"</code>. For standalone informative icons, add <code>role="img"</code>, an <code>aria-labelledby</code> attribute referencing a nested <code>&lt;title id="icon-title"&gt;</code> tag, and provide a concise descriptive label explaining the icon's action or meaning.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is the best way to prevent SVG ID collisions in React 19 and Next.js 15?</h3>
+          <p>Use the React <code>useId()</code> hook to generate uniquely scoped identifiers for every <code>&lt;linearGradient&gt;</code>, <code>&lt;clipPath&gt;</code>, or <code>&lt;mask&gt;</code> element, replacing hardcoded strings with dynamic IDs (e.g., <code>id={maskId}</code>). This prevents multi-instance components and SSR hydration from corrupting each other's references.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Why does an external SVG loaded via &lt;img&gt; ignore CSS styles?</h3>
+          <p>When an SVG is embedded via an <code>&lt;img&gt;</code> tag or CSS background-image, the browser executes it in an isolated, sandboxed browsing context for security reasons. External stylesheets and parent CSS cascade cannot cross this security boundary. To style internal SVG elements with CSS, you must embed the SVG inline or use CSS mask-image.</p>
+        </div>
+
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Cheat Sheet Sections</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#primitives-matrix">1. Primitives Matrix</a></li>
+              <li><a href="#path-commands-matrix">2. Path Commands Matrix</a></li>
+              <li><a href="#presentation-attributes-css">3. Attributes vs CSS</a></li>
+              <li><a href="#viewbox-preserveaspectratio">4. ViewBox &amp; Scaling</a></li>
+              <li><a href="#react-nextjs-patterns">5. React 19 Architecture</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134K+ Icons</h4>
+          <p>Search, customize, and export clean open-source vector icons with instant React &amp; SVG code generation.</p>
+          <a href="/" class="cta-sidebar-btn">Search IconStash &rarr;</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+      <a href="/about/">About</a> &bull;
+      <a href="/contact/">Contact</a> &bull;
+      <a href="/privacy/">Privacy Policy</a> &bull;
+      <a href="/terms/">Terms of Service</a> &bull;
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/stats/">Stats</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle & persistence
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+        renderStage();
+      });
+    }
+
+    // Instant Search & Category Filter
+    const searchInput = document.getElementById('cheatSearch');
+    const filterPills = document.querySelectorAll('#filterPills .filter-pill');
+    const cards = document.querySelectorAll('.cheat-card');
+
+    let currentFilterCat = 'all';
+
+    function applyFilter() {
+      const q = (searchInput.value || '').toLowerCase().trim();
+      cards.forEach(card => {
+        const cat = card.dataset.cat;
+        const searchTerms = (card.dataset.search || '').toLowerCase();
+        const textContent = card.textContent.toLowerCase();
+
+        const matchesCat = currentFilterCat === 'all' || cat === currentFilterCat;
+        const matchesQuery = !q || searchTerms.includes(q) || textContent.includes(q);
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentFilterCat = pill.dataset.cat;
+        applyFilter();
+      });
+    });
+
+    // 1-Click Clipboard Copy on Cards
+    document.querySelectorAll('.card-copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const snippet = btn.dataset.snippet;
+        if (snippet && navigator.clipboard) {
+          navigator.clipboard.writeText(snippet).then(() => {
+            btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#C1DD2D" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+            setTimeout(() => {
+              btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+            }, 1800);
+          });
+        }
+      });
+    });
+
+    // Live Sandbox Studio
+    const presets = {
+      shield: {
+        d: 'M 24 4 L 40 10 V 22 C 40 33 24 44 24 44 C 24 44 8 33 8 22 V 10 Z',
+        viewBox: '0 0 48 48',
+        name: 'Shield Security Badge'
+      },
+      badge: {
+        d: 'M 24 4 L 29 16 L 42 17 L 32 26 L 35 39 L 24 32 L 13 39 L 16 26 L 6 17 L 19 16 Z',
+        viewBox: '0 0 48 48',
+        name: 'Star Badge Emblem'
+      },
+      gear: {
+        d: 'M 24 16 A 8 8 0 1 0 24 32 A 8 8 0 1 0 24 16 Z M 21 4 H 27 V 9 H 21 Z M 21 39 H 27 V 44 H 21 Z M 4 21 H 9 V 27 H 4 Z M 39 21 H 44 V 27 H 39 Z',
+        viewBox: '0 0 48 48',
+        name: 'Settings Gear Geometry'
+      },
+      ring: {
+        d: 'M 24 6 A 18 18 0 1 1 6 24',
+        viewBox: '0 0 48 48',
+        name: 'Progress Arc Ring'
+      }
+    };
+
+    let activePreset = 'shield';
+    let strokeWidthVal = 2;
+    let scaleVal = 1;
+    let styleMode = 'outline';
+
+    const stageSvgEl = document.getElementById('stageSvgEl');
+    const stageCodeSnippet = document.getElementById('stageCodeSnippet');
+    const sliderStroke = document.getElementById('sliderStroke');
+    const sliderScale = document.getElementById('sliderScale');
+    const statStroke = document.getElementById('statStroke');
+    const statScale = document.getElementById('statScale');
+    const copyStageCodeBtn = document.getElementById('copyStageCodeBtn');
+
+    function renderStage() {
+      const p = presets[activePreset];
+      const isLight = htmlEl.getAttribute('data-theme') === 'light';
+      const mainCol = isLight ? '#4D6300' : '#C1DD2D';
+
+      statStroke.textContent = `${strokeWidthVal}px`;
+      statScale.textContent = `${scaleVal.toFixed(1)}x`;
+
+      let fillAttr = 'none';
+      if (styleMode === 'filled') {
+        fillAttr = mainCol;
+      } else if (styleMode === 'duotone') {
+        fillAttr = isLight ? 'rgba(77,99,0,0.18)' : 'rgba(193,221,45,0.18)';
+      }
+
+      stageSvgEl.setAttribute('viewBox', p.viewBox);
+      stageSvgEl.innerHTML = `
+        <g transform="translate(24, 24) scale(${scaleVal}) translate(-24, -24)">
+          <path d="${p.d}" fill="${fillAttr}" stroke="${mainCol}" stroke-width="${strokeWidthVal}" stroke-linecap="round" stroke-linejoin="round" />
+        </g>
+      `;
+
+      stageCodeSnippet.textContent = `<svg viewBox="${p.viewBox}" fill="${fillAttr}" stroke="${mainCol}" stroke-width="${strokeWidthVal}" stroke-linecap="round" stroke-linejoin="round">
+  <path d="${p.d}" />
+</svg>`;
+    }
+
+    document.querySelectorAll('#sandboxPresets .filter-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#sandboxPresets .filter-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activePreset = btn.dataset.preset;
+        renderStage();
+      });
+    });
+
+    document.querySelectorAll('#styleModePills .filter-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#styleModePills .filter-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        styleMode = btn.dataset.style;
+        renderStage();
+      });
+    });
+
+    sliderStroke.addEventListener('input', (e) => {
+      strokeWidthVal = parseFloat(e.target.value);
+      renderStage();
+    });
+
+    sliderScale.addEventListener('input', (e) => {
+      scaleVal = parseFloat(e.target.value);
+      renderStage();
+    });
+
+    if (copyStageCodeBtn) {
+      copyStageCodeBtn.addEventListener('click', () => {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(stageCodeSnippet.textContent).then(() => {
+            copyStageCodeBtn.textContent = 'Copied!';
+            setTimeout(() => { copyStageCodeBtn.textContent = 'Copy SVG'; }, 2000);
+          }).catch(() => {
+            copyStageCodeBtn.textContent = 'Copied!';
+            setTimeout(() => { copyStageCodeBtn.textContent = 'Copy SVG'; }, 2000);
+          });
+        }
+      });
+    }
+
+    renderStage();
+  </script>
+</body>
+</html>
