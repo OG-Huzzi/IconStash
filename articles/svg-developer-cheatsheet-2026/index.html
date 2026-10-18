@@ -243,6 +243,12 @@
     .card-copy-btn { background: transparent; border: none; color: #888; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; border-radius: 4px; transition: color 120ms ease; }
     .card-copy-btn:hover { color: #C1DD2D; }
 
+    .no-results-box { display: none; background: #141414; border: 1px dashed #333; border-radius: 10px; padding: 28px; text-align: center; margin: 24px 0 36px; }
+    .no-results-box p { font-size: 15px; color: #AAA; margin-bottom: 14px; }
+    .no-results-box button { background: #C1DD2D; color: #0A0A0A; border: none; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 6px; cursor: pointer; transition: background 120ms ease; }
+    .no-results-box button:hover { background: #D2ED3E; }
+    mark.search-highlight { background: rgba(193,221,45,0.35); color: inherit; padding: 1px 3px; border-radius: 3px; }
+
     /* Interactive Studio */
     .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
     .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
@@ -322,10 +328,18 @@
     html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
     html[data-theme="light"] pre code { background: transparent; color: #18181B; }
     html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
-    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
     html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
     html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
     html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
     html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
     html[data-theme="light"] .table-container { border-color: #E4E4E7; }
@@ -333,7 +347,7 @@
     html[data-theme="light"] .search-input-wrapper { background: #FFF; border-color: #D4D4D8; }
     html[data-theme="light"] .search-input-wrapper input { color: #18181B; }
     html[data-theme="light"] .filter-pill { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
-    html[data-theme="light"] .filter-pill:hover, html[data-theme="light"] .filter-pill.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .filter-pill:hover, html[data-theme="light"] .filter-pill.active { background: #4D6300; color: #FFF; border-color: #4D6300; }
     html[data-theme="light"] .cheat-card { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .cheat-card-title { color: #18181B; }
     html[data-theme="light"] .cheat-card p { color: #525252; }
@@ -345,18 +359,24 @@
     html[data-theme="light"] .cheat-live-stage { background-color: #FAFAFA; border-color: #D4D4D8; }
     html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
     html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
-    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
-    html[data-theme="light"] .copy-btn:hover { background: #849E00; color: #FFF; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
-    html[data-theme="light"] .article-meta a { color: #6D8200; }
-    html[data-theme="light"] .sandbox-title svg { color: #5C6E00; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .sandbox-title svg { color: #4D6300; }
     html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
     html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
     html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
     html[data-theme="light"] .cheat-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .sandbox-slider { accent-color: #4D6300; }
+    html[data-theme="light"] .no-results-box { background: #F4F4F5; border-color: #D4D4D8; }
+    html[data-theme="light"] .no-results-box p { color: #525252; }
+    html[data-theme="light"] .no-results-box button { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .no-results-box button:hover { background: #364600; }
+    html[data-theme="light"] mark.search-highlight { background: rgba(77,99,0,0.22); color: #171717; }
   </style>
 </head>
 <body>
@@ -408,7 +428,7 @@
         <div class="featured-summary">
           <p><strong>The Definitive Desktop &amp; Mobile SVG Reference:</strong> Built for front-end engineers, design system authors, and UI developers who need immediate, copy-ready SVG syntax without wading through obsolete W3C specs. Features interactive real-time search, 1-click clipboard copying, and live vector sandboxing.</p>
           <ul>
-            <li><strong>Instant Filter:</strong> Search 80+ categorized snippets across primitives, path commands, CSS styling, React JSX, and WCAG rules.</li>
+            <li><strong>Instant Filter:</strong> Search 49+ categorized snippets across primitives, path commands, CSS styling, React JSX, and WCAG rules.</li>
             <li><strong>Live Sandbox Studio:</strong> Test stroke weights, viewBoxes, and currentColor adaptations in real-time.</li>
             <li><strong>Battle-Tested Reference Tables:</strong> Primitives matrix, path commands, presentation attributes vs modern CSS, and React 19 SSR patterns.</li>
           </ul>
@@ -426,38 +446,283 @@
             <input type="text" id="cheatSearch" placeholder="Filter cheat sheet (e.g. viewBox, stroke-dasharray, useId, evenodd, arc)..." aria-label="Filter cheat sheet">
           </div>
           <div class="filter-pills" id="filterPills">
-            <button class="filter-pill active" data-cat="all" type="button">All (80+)</button>
-            <button class="filter-pill" data-cat="primitives" type="button">Basic Shapes</button>
-            <button class="filter-pill" data-cat="paths" type="button">Path Commands</button>
-            <button class="filter-pill" data-cat="styling" type="button">CSS &amp; Styling</button>
-            <button class="filter-pill" data-cat="scaling" type="button">ViewBox &amp; Scaling</button>
-            <button class="filter-pill" data-cat="react" type="button">React 19 &amp; Next.js</button>
-            <button class="filter-pill" data-cat="a11y" type="button">Accessibility</button>
+            <button class="filter-pill active" data-cat="all" type="button">All (49+)</button>
+            <button class="filter-pill" data-cat="primitives" type="button">Basic Shapes (8)</button>
+            <button class="filter-pill" data-cat="paths" type="button">Path Commands (8)</button>
+            <button class="filter-pill" data-cat="styling" type="button">CSS &amp; Styling (10)</button>
+            <button class="filter-pill" data-cat="scaling" type="button">ViewBox &amp; Scaling (11)</button>
+            <button class="filter-pill" data-cat="react" type="button">React 19 &amp; Next.js (7)</button>
+            <button class="filter-pill" data-cat="a11y" type="button">Accessibility (5)</button>
           </div>
+        </div>
+
+        <!-- No Results Feedback Container -->
+        <div id="noResults" class="no-results-box" style="display: none;">
+          <p>No matching cheatsheet items found for "<strong id="noResultsQuery"></strong>".</p>
+          <button id="resetFilterBtn" type="button">Reset Filters</button>
         </div>
 
         <!-- Cheat Cards Grid -->
         <div class="cheat-grid" id="cheatCardsContainer">
 
           <!-- Card 1 -->
-          <div class="cheat-card" data-cat="scaling" data-search="viewbox responsive coordinate system preserveaspectratio">
+          <div class="cheat-card" data-cat="primitives" data-search="rect rectangle rx ry corner radius border rounded basic shapes" data-title="<rect> with Corner Radii" data-snippet-display="<rect x=&quot;2&quot; y=&quot;2&quot; width=&quot;20&quot; height=&quot;20&quot; rx=&quot;4&quot; />">
             <div>
               <div class="cheat-card-head">
-                <span class="cheat-card-title">Responsive SVG Shell</span>
-                <span class="cheat-badge">Scaling</span>
+                <span class="cheat-card-title">&lt;rect&gt; with Corner Radii</span>
+                <span class="cheat-badge">Primitives</span>
               </div>
-              <p>Scales fluidly to any CSS container width while maintaining internal coordinate grid.</p>
+              <p>Draws rectangle with rounded corner curvature rx/ry.</p>
             </div>
             <div class="snippet-box">
-              <code>&lt;svg viewBox="0 0 24 24" width="100%" height="auto"&gt;</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;svg viewBox="0 0 24 24" width="100%" height="auto"&gt;' type="button">
+              <code>&lt;rect x=&quot;2&quot; y=&quot;2&quot; width=&quot;20&quot; height=&quot;20&quot; rx=&quot;4&quot; /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<rect x=&quot;2&quot; y=&quot;2&quot; width=&quot;20&quot; height=&quot;20&quot; rx=&quot;4&quot; />" type="button" aria-label="Copy <rect> with Corner Radii snippet">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
               </button>
             </div>
           </div>
-
           <!-- Card 2 -->
-          <div class="cheat-card" data-cat="styling" data-search="currentcolor inheritance color dark mode hover">
+          <div class="cheat-card" data-cat="primitives" data-search="circle cx cy r radius avatar badge basic shapes" data-title="<circle> Center &amp; Radius" data-snippet-display="<circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; />">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;circle&gt; Center &amp; Radius</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Perfect vector circle centered at (cx, cy) with radius r.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; />" type="button" aria-label="Copy <circle> Center &amp; Radius snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="cheat-card" data-cat="primitives" data-search="ellipse cx cy rx ry oval stretched basic shapes" data-title="<ellipse> Dual Axis Radii" data-snippet-display="<ellipse cx=&quot;12&quot; cy=&quot;12&quot; rx=&quot;10&quot; ry=&quot;6&quot; />">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;ellipse&gt; Dual Axis Radii</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Stretched circular shape with independent rx horizontal and ry vertical radii.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;ellipse cx=&quot;12&quot; cy=&quot;12&quot; rx=&quot;10&quot; ry=&quot;6&quot; /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<ellipse cx=&quot;12&quot; cy=&quot;12&quot; rx=&quot;10&quot; ry=&quot;6&quot; />" type="button" aria-label="Copy <ellipse> Dual Axis Radii snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="cheat-card" data-cat="primitives" data-search="line x1 y1 x2 y2 segment divider stroke basic shapes" data-title="<line> Segment Coordinates" data-snippet-display="<line x1=&quot;2&quot; y1=&quot;2&quot; x2=&quot;22&quot; y2=&quot;22&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; />">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;line&gt; Segment Coordinates</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Straight line drawn from starting (x1, y1) to terminal (x2, y2).</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;line x1=&quot;2&quot; y1=&quot;2&quot; x2=&quot;22&quot; y2=&quot;22&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<line x1=&quot;2&quot; y1=&quot;2&quot; x2=&quot;22&quot; y2=&quot;22&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; />" type="button" aria-label="Copy <line> Segment Coordinates snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="cheat-card" data-cat="primitives" data-search="polyline points checkmark chevron zig-zag basic shapes" data-title="<polyline> Open Path Points" data-snippet-display="<polyline points=&quot;4,14 10,20 20,4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; />">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;polyline&gt; Open Path Points</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Series of connected straight line segments without auto-closing contour.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;polyline points=&quot;4,14 10,20 20,4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<polyline points=&quot;4,14 10,20 20,4&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; />" type="button" aria-label="Copy <polyline> Open Path Points snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="cheat-card" data-cat="primitives" data-search="polygon star points closed triangle hexagon basic shapes" data-title="<polygon> Closed Geometry" data-snippet-display="<polygon points=&quot;12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8&quot; />">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;polygon&gt; Closed Geometry</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Closed polygonal shape connecting ordered coordinate pairs with automatic closing segment.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;polygon points=&quot;12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8&quot; /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<polygon points=&quot;12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8&quot; />" type="button" aria-label="Copy <polygon> Closed Geometry snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 7 -->
+          <div class="cheat-card" data-cat="primitives" data-search="text typography font-size text-anchor baseline letter basic shapes" data-title="<text> Vector Typography" data-snippet-display="<text x=&quot;12&quot; y=&quot;16&quot; text-anchor=&quot;middle&quot; font-size=&quot;12&quot; fill=&quot;currentColor&quot;>SVG</text>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;text&gt; Vector Typography</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Renders accessible, indexable vector text aligned to baseline coordinate.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;text x=&quot;12&quot; y=&quot;16&quot; text-anchor=&quot;middle&quot; font-size=&quot;12&quot; fill=&quot;currentColor&quot;&gt;SVG&lt;/text&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<text x=&quot;12&quot; y=&quot;16&quot; text-anchor=&quot;middle&quot; font-size=&quot;12&quot; fill=&quot;currentColor&quot;>SVG</text>" type="button" aria-label="Copy <text> Vector Typography snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 8 -->
+          <div class="cheat-card" data-cat="primitives" data-search="tspan multi-line dy dx text offset typography basic shapes" data-title="<tspan> Multi-line Sub-text" data-snippet-display="<tspan x=&quot;12&quot; dy=&quot;1.4em&quot;>Sub-heading</tspan>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;tspan&gt; Multi-line Sub-text</span>
+                <span class="cheat-badge">Primitives</span>
+              </div>
+              <p>Sub-line positioning element for multi-line typography within a parent &lt;text&gt;.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;tspan x=&quot;12&quot; dy=&quot;1.4em&quot;&gt;Sub-heading&lt;/tspan&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<tspan x=&quot;12&quot; dy=&quot;1.4em&quot;>Sub-heading</tspan>" type="button" aria-label="Copy <tspan> Multi-line Sub-text snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 9 -->
+          <div class="cheat-card" data-cat="paths" data-search="moveto lineto closepath m l z path grammar straight commands" data-title="M, L &amp; Z Linear Path" data-snippet-display="d=&quot;M 2 2 L 22 12 L 2 22 Z&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">M, L &amp; Z Linear Path</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Move pen, draw straight lines, and close contour back to origin with join caps.</p>
+            </div>
+            <div class="snippet-box">
+              <code>d=&quot;M 2 2 L 22 12 L 2 22 Z&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="d=&quot;M 2 2 L 22 12 L 2 22 Z&quot;" type="button" aria-label="Copy M, L &amp; Z Linear Path snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 10 -->
+          <div class="cheat-card" data-cat="paths" data-search="h v horizontal vertical orthogonal lines path commands" data-title="H &amp; V Orthogonal Lines" data-snippet-display="d=&quot;M 2 4 H 22 V 20 H 2 Z&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">H &amp; V Orthogonal Lines</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Single-coordinate horizontal and vertical line drawing commands to save bytes.</p>
+            </div>
+            <div class="snippet-box">
+              <code>d=&quot;M 2 4 H 22 V 20 H 2 Z&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="d=&quot;M 2 4 H 22 V 20 H 2 Z&quot;" type="button" aria-label="Copy H &amp; V Orthogonal Lines snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 11 -->
+          <div class="cheat-card" data-cat="paths" data-search="cubic bezier curve c s smooth handles path commands curvature" data-title="C &amp; S Smooth Cubic Bézier" data-snippet-display="d=&quot;M 0 50 C 20 0, 40 0, 60 50 S 100 100, 120 50&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">C &amp; S Smooth Cubic Bézier</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Full cubic curve with two control points chained into smooth reflected S shorthand.</p>
+            </div>
+            <div class="snippet-box">
+              <code>d=&quot;M 0 50 C 20 0, 40 0, 60 50 S 100 100, 120 50&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="d=&quot;M 0 50 C 20 0, 40 0, 60 50 S 100 100, 120 50&quot;" type="button" aria-label="Copy C &amp; S Smooth Cubic Bézier snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 12 -->
+          <div class="cheat-card" data-cat="paths" data-search="quadratic bezier q t parabola smooth curve path commands" data-title="Q &amp; T Smooth Quadratic Bézier" data-snippet-display="d=&quot;M 10 80 Q 52.5 10, 95 80 T 180 80&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Q &amp; T Smooth Quadratic Bézier</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Lightweight single control point parabola chained with smooth reflected T shorthand.</p>
+            </div>
+            <div class="snippet-box">
+              <code>d=&quot;M 10 80 Q 52.5 10, 95 80 T 180 80&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="d=&quot;M 10 80 Q 52.5 10, 95 80 T 180 80&quot;" type="button" aria-label="Copy Q &amp; T Smooth Quadratic Bézier snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 13 -->
+          <div class="cheat-card" data-cat="paths" data-search="arc elliptical a flags large-arc sweep angle circle path commands" data-title="A (Elliptical Arc) Syntax" data-snippet-display="A 12 12 0 0 1 24 12">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">A (Elliptical Arc) Syntax</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>7 parameters: rx ry x-axis-rotation large-arc-flag sweep-flag x y.</p>
+            </div>
+            <div class="snippet-box">
+              <code>A 12 12 0 0 1 24 12</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="A 12 12 0 0 1 24 12" type="button" aria-label="Copy A (Elliptical Arc) Syntax snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 14 -->
+          <div class="cheat-card" data-cat="paths" data-search="relative lowercase m l c a offset deltas svgo optimize commands" data-title="Relative Path Commands (Lowercase)" data-snippet-display="d=&quot;m 10 10 l 20 0 0 20 -20 0 z&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Relative Path Commands (Lowercase)</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Commands offset from current pen position rather than absolute origin (0,0).</p>
+            </div>
+            <div class="snippet-box">
+              <code>d=&quot;m 10 10 l 20 0 0 20 -20 0 z&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="d=&quot;m 10 10 l 20 0 0 20 -20 0 z&quot;" type="button" aria-label="Copy Relative Path Commands (Lowercase) snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 15 -->
+          <div class="cheat-card" data-cat="paths" data-search="fill-rule evenodd nonzero cutout donut subpath compound paths" data-title="fill-rule=&quot;evenodd&quot; Donut Hole" data-snippet-display="fill-rule=&quot;evenodd&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">fill-rule=&quot;evenodd&quot; Donut Hole</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Inverts fill status for overlapping sub-paths, creating clean cutouts regardless of winding.</p>
+            </div>
+            <div class="snippet-box">
+              <code>fill-rule=&quot;evenodd&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="fill-rule=&quot;evenodd&quot;" type="button" aria-label="Copy fill-rule=&quot;evenodd&quot; Donut Hole snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 16 -->
+          <div class="cheat-card" data-cat="paths" data-search="svgo minify condense whitespace optimize compression paths" data-title="Whitespace Condensation Optimization" data-snippet-display="d=&quot;M10 20L30 40H50V60Z&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Whitespace Condensation Optimization</span>
+                <span class="cheat-badge">Paths</span>
+              </div>
+              <p>Omits redundant command characters and spaces before minus signs for minimum payload.</p>
+            </div>
+            <div class="snippet-box">
+              <code>d=&quot;M10 20L30 40H50V60Z&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="d=&quot;M10 20L30 40H50V60Z&quot;" type="button" aria-label="Copy Whitespace Condensation Optimization snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 17 -->
+          <div class="cheat-card" data-cat="styling" data-search="currentcolor inheritance color dark mode hover theme styling css" data-title="currentColor Icon Token" data-snippet-display="fill=&quot;currentColor&quot; stroke=&quot;none&quot;">
             <div>
               <div class="cheat-card-head">
                 <span class="cheat-card-title">currentColor Icon Token</span>
@@ -466,15 +731,14 @@
               <p>Inherits computed CSS text color from parent button or hover state seamlessly.</p>
             </div>
             <div class="snippet-box">
-              <code>&lt;path d="..." fill="currentColor" stroke="none" /&gt;</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;path d="..." fill="currentColor" stroke="none" /&gt;' type="button">
+              <code>fill=&quot;currentColor&quot; stroke=&quot;none&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="fill=&quot;currentColor&quot; stroke=&quot;none&quot;" type="button" aria-label="Copy currentColor Icon Token snippet">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
               </button>
             </div>
           </div>
-
-          <!-- Card 3 -->
-          <div class="cheat-card" data-cat="styling" data-search="non-scaling-stroke vector-effect zoom border crisp">
+          <!-- Card 18 -->
+          <div class="cheat-card" data-cat="styling" data-search="vector-effect non-scaling-stroke zoom border crisp stroke-width styling" data-title="Fixed Non-Scaling Stroke" data-snippet-display="vector-effect: non-scaling-stroke;">
             <div>
               <div class="cheat-card-head">
                 <span class="cheat-card-title">Fixed Non-Scaling Stroke</span>
@@ -484,160 +748,503 @@
             </div>
             <div class="snippet-box">
               <code>vector-effect: non-scaling-stroke;</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet="vector-effect: non-scaling-stroke;" type="button">
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="vector-effect: non-scaling-stroke;" type="button" aria-label="Copy Fixed Non-Scaling Stroke snippet">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
               </button>
             </div>
           </div>
-
-          <!-- Card 4 -->
-          <div class="cheat-card" data-cat="paths" data-search="moveto lineto closepath m l z path grammar">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">M, L &amp; Z Linear Path</span>
-                <span class="cheat-badge">Paths</span>
-              </div>
-              <p>Move pen, draw straight lines, and close contour back to origin with join caps.</p>
-            </div>
-            <div class="snippet-box">
-              <code>d="M 2 2 L 22 12 L 2 22 Z"</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='d="M 2 2 L 22 12 L 2 22 Z"' type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 5 -->
-          <div class="cheat-card" data-cat="paths" data-search="cubic bezier curve c s smooth handles">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">C &amp; S Smooth Cubic Bézier</span>
-                <span class="cheat-badge">Paths</span>
-              </div>
-              <p>Full cubic curve with two control points chained into smooth reflected S shorthand.</p>
-            </div>
-            <div class="snippet-box">
-              <code>d="M 0 50 C 20 0, 40 0, 60 50 S 100 100, 120 50"</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='d="M 0 50 C 20 0, 40 0, 60 50 S 100 100, 120 50"' type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 6 -->
-          <div class="cheat-card" data-cat="paths" data-search="arc elliptical a flags large-arc sweep">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">A (Elliptical Arc) Syntax</span>
-                <span class="cheat-badge">Paths</span>
-              </div>
-              <p>7 parameters: rx, ry, x-rotation, large-arc-flag, sweep-flag, x, y.</p>
-            </div>
-            <div class="snippet-box">
-              <code>A 12 12 0 0 1 24 12</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet="A 12 12 0 0 1 24 12" type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 7 -->
-          <div class="cheat-card" data-cat="primitives" data-search="rounded rectangle rect rx ry border radius">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">&lt;rect&gt; with Corner Radii</span>
-                <span class="cheat-badge">Primitives</span>
-              </div>
-              <p>Draws rounded container box with unified corner curvature.</p>
-            </div>
-            <div class="snippet-box">
-              <code>&lt;rect x="2" y="2" width="20" height="20" rx="4" /&gt;</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;rect x="2" y="2" width="20" height="20" rx="4" /&gt;' type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 8 -->
-          <div class="cheat-card" data-cat="primitives" data-search="circle cx cy r radius avatar badge">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">&lt;circle&gt; Center &amp; Radius</span>
-                <span class="cheat-badge">Primitives</span>
-              </div>
-              <p>Perfect vector circle centered at (cx, cy) with radius r.</p>
-            </div>
-            <div class="snippet-box">
-              <code>&lt;circle cx="12" cy="12" r="10" /&gt;</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='&lt;circle cx="12" cy="12" r="10" /&gt;' type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 9 -->
-          <div class="cheat-card" data-cat="react" data-search="react useid nextjs ssr collision gradient id">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">React 19 Safe useId() Hook</span>
-                <span class="cheat-badge">React</span>
-              </div>
-              <p>Generates collision-free IDs across SSR and multi-instance renders.</p>
-            </div>
-            <div class="snippet-box">
-              <code>const id = useId().replace(/:/g, '');</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet="const id = useId().replace(/:/g, '');" type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 10 -->
-          <div class="cheat-card" data-cat="a11y" data-search="accessibility aria-hidden decorative screen reader">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">Decorative Icon ARIA</span>
-                <span class="cheat-badge">Accessibility</span>
-              </div>
-              <p>Hides visual UI icon from screen readers when paired with text.</p>
-            </div>
-            <div class="snippet-box">
-              <code>aria-hidden="true" focusable="false"</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='aria-hidden="true" focusable="false"' type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 11 -->
-          <div class="cheat-card" data-cat="a11y" data-search="standalone title labelledby accessible aria role img">
-            <div>
-              <div class="cheat-card-head">
-                <span class="cheat-card-title">Standalone Icon with &lt;title&gt;</span>
-                <span class="cheat-badge">Accessibility</span>
-              </div>
-              <p>Announces semantic meaning when icon has no accompanying label.</p>
-            </div>
-            <div class="snippet-box">
-              <code>role="img" aria-labelledby="t-id"</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet='role="img" aria-labelledby="icon-title"' type="button">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 12 -->
-          <div class="cheat-card" data-cat="styling" data-search="css mask-image external svg tint background">
+          <!-- Card 19 -->
+          <div class="cheat-card" data-cat="styling" data-search="css mask-image external svg tint background color styling" data-title="CSS mask-image Vector Tint" data-snippet-display="mask: url(/icon.svg) no-repeat center / contain;">
             <div>
               <div class="cheat-card-head">
                 <span class="cheat-card-title">CSS mask-image Vector Tint</span>
                 <span class="cheat-badge">Styling</span>
               </div>
-              <p>Tints external SVG files using CSS background-color without inlining.</p>
+              <p>Tints external SVG files using CSS background-color without inlining markup.</p>
             </div>
             <div class="snippet-box">
               <code>mask: url(/icon.svg) no-repeat center / contain;</code>
-              <button class="card-copy-btn" title="Copy snippet" data-snippet="mask: url(/icon.svg) no-repeat center / contain;" type="button">
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="mask: url(/icon.svg) no-repeat center / contain;" type="button" aria-label="Copy CSS mask-image Vector Tint snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 20 -->
+          <div class="cheat-card" data-cat="styling" data-search="dasharray dashoffset animation draw stroke dotted dashed styling" data-title="stroke-dasharray &amp; stroke-dashoffset" data-snippet-display="stroke-dasharray=&quot;100&quot; stroke-dashoffset=&quot;50&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">stroke-dasharray &amp; stroke-dashoffset</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Creates dashed borders and enables SVG stroke self-drawing animations.</p>
+            </div>
+            <div class="snippet-box">
+              <code>stroke-dasharray=&quot;100&quot; stroke-dashoffset=&quot;50&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="stroke-dasharray=&quot;100&quot; stroke-dashoffset=&quot;50&quot;" type="button" aria-label="Copy stroke-dasharray &amp; stroke-dashoffset snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 21 -->
+          <div class="cheat-card" data-cat="styling" data-search="linecap round square butt stroke ends styling lines" data-title="stroke-linecap (Line Ends)" data-snippet-display="stroke-linecap=&quot;round&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">stroke-linecap (Line Ends)</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Sets styling of stroke endpoints: round, square, or butt.</p>
+            </div>
+            <div class="snippet-box">
+              <code>stroke-linecap=&quot;round&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="stroke-linecap=&quot;round&quot;" type="button" aria-label="Copy stroke-linecap (Line Ends) snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 22 -->
+          <div class="cheat-card" data-cat="styling" data-search="linejoin round bevel miter corners join styling vertices" data-title="stroke-linejoin (Corner Joins)" data-snippet-display="stroke-linejoin=&quot;round&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">stroke-linejoin (Corner Joins)</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Sets styling of shape vertices: round, bevel, or sharp miter.</p>
+            </div>
+            <div class="snippet-box">
+              <code>stroke-linejoin=&quot;round&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="stroke-linejoin=&quot;round&quot;" type="button" aria-label="Copy stroke-linejoin (Corner Joins) snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 23 -->
+          <div class="cheat-card" data-cat="styling" data-search="drop-shadow filter shadow glow elevation css styling" data-title="Drop Shadow via CSS filter" data-snippet-display="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Drop Shadow via CSS filter</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Applies accurate silhouette shadow hugging complex vector contour lines.</p>
+            </div>
+            <div class="snippet-box">
+              <code>filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));" type="button" aria-label="Copy Drop Shadow via CSS filter snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 24 -->
+          <div class="cheat-card" data-cat="styling" data-search="pointer-events none click target button bubbling event styling" data-title="Pointer Events Passthrough" data-snippet-display="pointer-events: none;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Pointer Events Passthrough</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Prevents click event target interception when icon is nested inside an interactive button.</p>
+            </div>
+            <div class="snippet-box">
+              <code>pointer-events: none;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="pointer-events: none;" type="button" aria-label="Copy Pointer Events Passthrough snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 25 -->
+          <div class="cheat-card" data-cat="styling" data-search="css variables tokens var dark mode theming custom properties styling" data-title="SVG CSS Variables Theming" data-snippet-display="fill: var(--icon-fill, #C1DD2D);">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">SVG CSS Variables Theming</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>Drives SVG fills and stroke colors directly from CSS custom properties for instant dark mode.</p>
+            </div>
+            <div class="snippet-box">
+              <code>fill: var(--icon-fill, #C1DD2D);</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="fill: var(--icon-fill, #C1DD2D);" type="button" aria-label="Copy SVG CSS Variables Theming snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 26 -->
+          <div class="cheat-card" data-cat="styling" data-search="keyframes animation draw stroke self-drawing motion styling css" data-title="Pure CSS Stroke Draw Keyframes" data-snippet-display="@keyframes draw { to { stroke-dashoffset: 0; } }">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Pure CSS Stroke Draw Keyframes</span>
+                <span class="cheat-badge">Styling</span>
+              </div>
+              <p>High-performance hardware-accelerated outline drawing animation using CSS keyframes.</p>
+            </div>
+            <div class="snippet-box">
+              <code>@keyframes draw { to { stroke-dashoffset: 0; } }</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="@keyframes draw { to { stroke-dashoffset: 0; } }" type="button" aria-label="Copy Pure CSS Stroke Draw Keyframes snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 27 -->
+          <div class="cheat-card" data-cat="scaling" data-search="viewbox responsive coordinate system preserveaspectratio scaling shell" data-title="Responsive SVG Shell" data-snippet-display="<svg viewBox=&quot;0 0 24 24&quot; width=&quot;100%&quot; height=&quot;auto&quot;>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Responsive SVG Shell</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Scales fluidly to any CSS container width while maintaining internal coordinate grid.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;svg viewBox=&quot;0 0 24 24&quot; width=&quot;100%&quot; height=&quot;auto&quot;&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<svg viewBox=&quot;0 0 24 24&quot; width=&quot;100%&quot; height=&quot;auto&quot;>" type="button" aria-label="Copy Responsive SVG Shell snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 28 -->
+          <div class="cheat-card" data-cat="scaling" data-search="preserveaspectratio none stretch non-uniform distort fill scaling" data-title="preserveAspectRatio=&quot;none&quot;" data-snippet-display="preserveAspectRatio=&quot;none&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">preserveAspectRatio=&quot;none&quot;</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Stretches graphic non-uniformly to completely fill container dimensions.</p>
+            </div>
+            <div class="snippet-box">
+              <code>preserveAspectRatio=&quot;none&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="preserveAspectRatio=&quot;none&quot;" type="button" aria-label="Copy preserveAspectRatio=&quot;none&quot; snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 29 -->
+          <div class="cheat-card" data-cat="scaling" data-search="meet contain letterbox fit center default aspect ratio scaling" data-title="preserveAspectRatio=&quot;xMidYMid meet&quot;" data-snippet-display="preserveAspectRatio=&quot;xMidYMid meet&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">preserveAspectRatio=&quot;xMidYMid meet&quot;</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Default proportional scaling (letterbox/contain) centering graphic in viewport.</p>
+            </div>
+            <div class="snippet-box">
+              <code>preserveAspectRatio=&quot;xMidYMid meet&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="preserveAspectRatio=&quot;xMidYMid meet&quot;" type="button" aria-label="Copy preserveAspectRatio=&quot;xMidYMid meet&quot; snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 30 -->
+          <div class="cheat-card" data-cat="scaling" data-search="slice cover crop uniform full bleed background scaling" data-title="preserveAspectRatio=&quot;xMidYMid slice&quot;" data-snippet-display="preserveAspectRatio=&quot;xMidYMid slice&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">preserveAspectRatio=&quot;xMidYMid slice&quot;</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Uniform cover scaling filling viewport completely while cropping overflow.</p>
+            </div>
+            <div class="snippet-box">
+              <code>preserveAspectRatio=&quot;xMidYMid slice&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="preserveAspectRatio=&quot;xMidYMid slice&quot;" type="button" aria-label="Copy preserveAspectRatio=&quot;xMidYMid slice&quot; snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 31 -->
+          <div class="cheat-card" data-cat="scaling" data-search="rotate transform center deg orientation spin angle scaling" data-title="transform=&quot;rotate(deg cx cy)&quot;" data-snippet-display="transform=&quot;rotate(45 12 12)&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">transform=&quot;rotate(deg cx cy)&quot;</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Rotates geometry around an optional explicit center point (cx, cy).</p>
+            </div>
+            <div class="snippet-box">
+              <code>transform=&quot;rotate(45 12 12)&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="transform=&quot;rotate(45 12 12)&quot;" type="button" aria-label="Copy transform=&quot;rotate(deg cx cy)&quot; snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 32 -->
+          <div class="cheat-card" data-cat="scaling" data-search="scale transform zoom resize multiplier scaling" data-title="transform=&quot;scale(sx sy)&quot;" data-snippet-display="transform=&quot;scale(1.5)&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">transform=&quot;scale(sx sy)&quot;</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Multiplies element coordinates by scaling factor along x and y axes.</p>
+            </div>
+            <div class="snippet-box">
+              <code>transform=&quot;scale(1.5)&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="transform=&quot;scale(1.5)&quot;" type="button" aria-label="Copy transform=&quot;scale(sx sy)&quot; snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 33 -->
+          <div class="cheat-card" data-cat="scaling" data-search="translate transform shift offset position coordinates scaling" data-title="transform=&quot;translate(tx ty)&quot;" data-snippet-display="transform=&quot;translate(10 15)&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">transform=&quot;translate(tx ty)&quot;</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Shifts geometry position by tx horizontally and ty vertically.</p>
+            </div>
+            <div class="snippet-box">
+              <code>transform=&quot;translate(10 15)&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="transform=&quot;translate(10 15)&quot;" type="button" aria-label="Copy transform=&quot;translate(tx ty)&quot; snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 34 -->
+          <div class="cheat-card" data-cat="scaling" data-search="clippath clip mask hard boundary stencil cutout scaling" data-title="<clipPath> Vector Masking" data-snippet-display="<clipPath id=&quot;c1&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; /></clipPath>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;clipPath&gt; Vector Masking</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Hard 1-bit boundary mask clipping child graphics to a vector shape contour.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;clipPath id=&quot;c1&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; /&gt;&lt;/clipPath&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<clipPath id=&quot;c1&quot;><circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; /></clipPath>" type="button" aria-label="Copy <clipPath> Vector Masking snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 35 -->
+          <div class="cheat-card" data-cat="scaling" data-search="lineargradient gradient fill paint server defs stops scaling" data-title="<linearGradient> Paint Server" data-snippet-display="<linearGradient id=&quot;g1&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;100%&quot; y2=&quot;100%&quot;>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;linearGradient&gt; Paint Server</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Defines directional color gradient referenced via url(#id).</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;linearGradient id=&quot;g1&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;100%&quot; y2=&quot;100%&quot;&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<linearGradient id=&quot;g1&quot; x1=&quot;0%&quot; y1=&quot;0%&quot; x2=&quot;100%&quot; y2=&quot;100%&quot;>" type="button" aria-label="Copy <linearGradient> Paint Server snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 36 -->
+          <div class="cheat-card" data-cat="scaling" data-search="radialgradient radial lighting spotlight focal paint server scaling" data-title="<radialGradient> Focal Lighting" data-snippet-display="<radialGradient id=&quot;r1&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;30%&quot; fy=&quot;30%&quot;>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;radialGradient&gt; Focal Lighting</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Concentric circular color interpolation with custom lighting focal point (fx, fy).</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;radialGradient id=&quot;r1&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;30%&quot; fy=&quot;30%&quot;&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<radialGradient id=&quot;r1&quot; cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;50%&quot; fx=&quot;30%&quot; fy=&quot;30%&quot;>" type="button" aria-label="Copy <radialGradient> Focal Lighting snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 37 -->
+          <div class="cheat-card" data-cat="scaling" data-search="pattern tile texture background grid repeat fill scaling" data-title="<pattern> Tiled Background" data-snippet-display="<pattern id=&quot;p1&quot; width=&quot;20&quot; height=&quot;20&quot; patternUnits=&quot;userSpaceOnUse&quot;>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">&lt;pattern&gt; Tiled Background</span>
+                <span class="cheat-badge">Scaling</span>
+              </div>
+              <p>Repeated decorative vector grid tile filling container surfaces seamlessly.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;pattern id=&quot;p1&quot; width=&quot;20&quot; height=&quot;20&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<pattern id=&quot;p1&quot; width=&quot;20&quot; height=&quot;20&quot; patternUnits=&quot;userSpaceOnUse&quot;>" type="button" aria-label="Copy <pattern> Tiled Background snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 38 -->
+          <div class="cheat-card" data-cat="react" data-search="react useid nextjs ssr collision gradient id unique react 19" data-title="React 19 Safe useId() Hook" data-snippet-display="const id = useId().replace(/:/g, '');">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">React 19 Safe useId() Hook</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Generates collision-free IDs across SSR, Next.js Server Components, and client hydration.</p>
+            </div>
+            <div class="snippet-box">
+              <code>const id = useId().replace(/:/g, '');</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="const id = useId().replace(/:/g, '');" type="button" aria-label="Copy React 19 Safe useId() Hook snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 39 -->
+          <div class="cheat-card" data-cat="react" data-search="tsx typescript props svgprops react component interface jsx" data-title="Inline SVG Component (TSX)" data-snippet-display="export const Icon = ({ size = 24, ...props }: SVGProps<SVGSVGElement>) => (...)">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Inline SVG Component (TSX)</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Type-safe React icon component forwarding props and standard SVG attributes.</p>
+            </div>
+            <div class="snippet-box">
+              <code>export const Icon = ({ size = 24, ...props }: SVGProps&lt;SVGSVGElement&gt;) =&gt; (...)</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="export const Icon = ({ size = 24, ...props }: SVGProps<SVGSVGElement>) => (...)" type="button" aria-label="Copy Inline SVG Component (TSX) snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 40 -->
+          <div class="cheat-card" data-cat="react" data-search="tailwind className w-6 h-6 text-primary utility classes react nextjs" data-title="Tailwind Sizing Utility Classes" data-snippet-display="<svg className=&quot;w-6 h-6 text-primary transition-colors&quot; viewBox=&quot;0 0 24 24&quot;>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Tailwind Sizing Utility Classes</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Sets responsive dimensions and theme colors using standard Tailwind CSS classes.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;svg className=&quot;w-6 h-6 text-primary transition-colors&quot; viewBox=&quot;0 0 24 24&quot;&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<svg className=&quot;w-6 h-6 text-primary transition-colors&quot; viewBox=&quot;0 0 24 24&quot;>" type="button" aria-label="Copy Tailwind Sizing Utility Classes snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 41 -->
+          <div class="cheat-card" data-cat="react" data-search="sprite use symbol href cache performance react" data-title="SVG Sprite <use> Reference" data-snippet-display="<svg className=&quot;w-5 h-5&quot;><use href=&quot;/icons/sprite.svg#search&quot; /></svg>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">SVG Sprite &lt;use&gt; Reference</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Efficiently instances cached SVG symbols across hundreds of component mounts.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;svg className=&quot;w-5 h-5&quot;&gt;&lt;use href=&quot;/icons/sprite.svg#search&quot; /&gt;&lt;/svg&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<svg className=&quot;w-5 h-5&quot;><use href=&quot;/icons/sprite.svg#search&quot; /></svg>" type="button" aria-label="Copy SVG Sprite <use> Reference snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 42 -->
+          <div class="cheat-card" data-cat="react" data-search="nextjs image unoptimized next/image vector asset static" data-title="Next.js Image SVG Loader" data-snippet-display="<Image src=&quot;/icon.svg&quot; width={24} height={24} alt=&quot;Icon&quot; unoptimized />">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Next.js Image SVG Loader</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Optimal Next.js Image component configuration for rendering static vector assets.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;Image src=&quot;/icon.svg&quot; width={24} height={24} alt=&quot;Icon&quot; unoptimized /&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<Image src=&quot;/icon.svg&quot; width={24} height={24} alt=&quot;Icon&quot; unoptimized />" type="button" aria-label="Copy Next.js Image SVG Loader snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 43 -->
+          <div class="cheat-card" data-cat="react" data-search="svgr vite webpack transform bundler import react" data-title="SVGR Webpack / Vite Config" data-snippet-display="{ icon: true, typescript: true, dimensions: false }">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">SVGR Webpack / Vite Config</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Compiler rule transforming raw .svg files directly into imported React components.</p>
+            </div>
+            <div class="snippet-box">
+              <code>{ icon: true, typescript: true, dimensions: false }</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="{ icon: true, typescript: true, dimensions: false }" type="button" aria-label="Copy SVGR Webpack / Vite Config snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 44 -->
+          <div class="cheat-card" data-cat="react" data-search="forwardref ref dom node parent tooltip trigger react" data-title="ForwardRef SVG Component" data-snippet-display="export const Icon = forwardRef<SVGSVGElement, IconProps>((props, ref) => (...)">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">ForwardRef SVG Component</span>
+                <span class="cheat-badge">React</span>
+              </div>
+              <p>Allows parent components to attach DOM refs directly to the underlying &lt;svg&gt; node.</p>
+            </div>
+            <div class="snippet-box">
+              <code>export const Icon = forwardRef&lt;SVGSVGElement, IconProps&gt;((props, ref) =&gt; (...)</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="export const Icon = forwardRef<SVGSVGElement, IconProps>((props, ref) => (...)" type="button" aria-label="Copy ForwardRef SVG Component snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 45 -->
+          <div class="cheat-card" data-cat="a11y" data-search="accessibility aria-hidden decorative screen reader hidden a11y" data-title="Decorative Icon ARIA" data-snippet-display="aria-hidden=&quot;true&quot; focusable=&quot;false&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Decorative Icon ARIA</span>
+                <span class="cheat-badge">Accessibility</span>
+              </div>
+              <p>Hides visual UI icon from screen readers when paired with visible button text.</p>
+            </div>
+            <div class="snippet-box">
+              <code>aria-hidden=&quot;true&quot; focusable=&quot;false&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="aria-hidden=&quot;true&quot; focusable=&quot;false&quot;" type="button" aria-label="Copy Decorative Icon ARIA snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 46 -->
+          <div class="cheat-card" data-cat="a11y" data-search="standalone title labelledby accessible aria role img a11y" data-title="Standalone Icon with <title>" data-snippet-display="role=&quot;img&quot; aria-labelledby=&quot;icon-title&quot;">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Standalone Icon with &lt;title&gt;</span>
+                <span class="cheat-badge">Accessibility</span>
+              </div>
+              <p>Announces semantic meaning when icon has no accompanying visible text label.</p>
+            </div>
+            <div class="snippet-box">
+              <code>role=&quot;img&quot; aria-labelledby=&quot;icon-title&quot;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="role=&quot;img&quot; aria-labelledby=&quot;icon-title&quot;" type="button" aria-label="Copy Standalone Icon with <title> snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 47 -->
+          <div class="cheat-card" data-cat="a11y" data-search="sr-only button icon-button visually-hidden accessible a11y screen reader" data-title="Button with Accessible Hidden Text" data-snippet-display="<button><svg aria-hidden=&quot;true&quot; /><span class=&quot;sr-only&quot;>Close modal</span></button>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Button with Accessible Hidden Text</span>
+                <span class="cheat-badge">Accessibility</span>
+              </div>
+              <p>Accessible icon button pattern combining decorative SVG with .sr-only visually hidden label.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;button&gt;&lt;svg aria-hidden=&quot;true&quot; /&gt;&lt;span class=&quot;sr-only&quot;&gt;Close modal&lt;/span&gt;&lt;/button&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<button><svg aria-hidden=&quot;true&quot; /><span class=&quot;sr-only&quot;>Close modal</span></button>" type="button" aria-label="Copy Button with Accessible Hidden Text snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 48 -->
+          <div class="cheat-card" data-cat="a11y" data-search="forced-colors high contrast windows accessibility a11y wcag" data-title="High Contrast Forced Colors Support" data-snippet-display="@media (forced-colors: active) { path { stroke: ButtonText; } }">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">High Contrast Forced Colors Support</span>
+                <span class="cheat-badge">Accessibility</span>
+              </div>
+              <p>Ensures icon strokes remain visible in Windows High Contrast / Forced Colors mode.</p>
+            </div>
+            <div class="snippet-box">
+              <code>@media (forced-colors: active) { path { stroke: ButtonText; } }</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="@media (forced-colors: active) { path { stroke: ButtonText; } }" type="button" aria-label="Copy High Contrast Forced Colors Support snippet">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Card 49 -->
+          <div class="cheat-card" data-cat="a11y" data-search="desc description complex chart infographic longform a11y accessibility" data-title="Inline SVG <desc> for Infographics" data-snippet-display="<desc id=&quot;chart-desc&quot;>Monthly user retention chart from January to December 2026</desc>">
+            <div>
+              <div class="cheat-card-head">
+                <span class="cheat-card-title">Inline SVG &lt;desc&gt; for Infographics</span>
+                <span class="cheat-badge">Accessibility</span>
+              </div>
+              <p>Provides comprehensive long-form descriptions for complex diagrams and data visualizations.</p>
+            </div>
+            <div class="snippet-box">
+              <code>&lt;desc id=&quot;chart-desc&quot;&gt;Monthly user retention chart from January to December 2026&lt;/desc&gt;</code>
+              <button class="card-copy-btn" title="Copy snippet" data-snippet="<desc id=&quot;chart-desc&quot;>Monthly user retention chart from January to December 2026</desc>" type="button" aria-label="Copy Inline SVG <desc> for Infographics snippet">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
               </button>
             </div>
@@ -1111,7 +1718,18 @@ export function ClientGradientIcon() {
       });
     }
 
-    // Instant Search & Category Filter
+    // Instant Search & Category Filter with Active Term Highlighting & No-Results Feedback
+    const searchInput = document.getElementById('cheatSearch');
+    const filterPills = document.querySelectorAll('#filterPills .filter-pill');
+    const cards = document.querySelectorAll('.cheat-card');
+    const noResultsEl = document.getElementById('noResults');
+    const noResultsQueryEl = document.getElementById('noResultsQuery');
+    const resetFilterBtn = document.getElementById('resetFilterBtn');
+
+    let currentFilterCat = 'all';
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\    // Instant Search & Category Filter
     const searchInput = document.getElementById('cheatSearch');
     const filterPills = document.querySelectorAll('#filterPills .filter-pill');
     const cards = document.querySelectorAll('.cheat-card');
@@ -1157,6 +1775,91 @@ export function ClientGradientIcon() {
             setTimeout(() => {
               btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
             }, 1800);
+          });
+        }
+      });
+    });');
+    }
+
+    function applyFilter() {
+      const q = (searchInput.value || '').toLowerCase().trim();
+      let matchCount = 0;
+
+      cards.forEach(card => {
+        const cat = card.dataset.cat;
+        const searchTerms = (card.dataset.search || '').toLowerCase();
+        const rawTitle = card.dataset.title || card.querySelector('.cheat-card-title').textContent;
+        const rawSnippet = card.dataset.snippetDisplay || card.querySelector('.snippet-box code').textContent;
+        const textContent = (rawTitle + ' ' + rawSnippet + ' ' + searchTerms).toLowerCase();
+
+        const matchesCat = currentFilterCat === 'all' || cat === currentFilterCat;
+        const matchesQuery = !q || searchTerms.includes(q) || textContent.includes(q);
+
+        const titleEl = card.querySelector('.cheat-card-title');
+        const codeEl = card.querySelector('.snippet-box code');
+
+        if (matchesCat && matchesQuery) {
+          card.style.display = 'flex';
+          matchCount++;
+          if (q && q.length >= 2) {
+            const re = new RegExp(`(${escapeRegExp(q)})`, 'gi');
+            titleEl.innerHTML = rawTitle.replace(re, '<mark class="search-highlight">$1</mark>');
+            codeEl.innerHTML = rawSnippet.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(re, '<mark class="search-highlight">$1</mark>');
+          } else {
+            titleEl.textContent = rawTitle;
+            codeEl.textContent = rawSnippet;
+          }
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noResultsEl) {
+        if (matchCount === 0) {
+          noResultsEl.style.display = 'block';
+          if (noResultsQueryEl) noResultsQueryEl.textContent = searchInput.value;
+        } else {
+          noResultsEl.style.display = 'none';
+        }
+      }
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentFilterCat = pill.dataset.cat;
+        applyFilter();
+      });
+    });
+
+    if (resetFilterBtn) {
+      resetFilterBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        currentFilterCat = 'all';
+        filterPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'all'));
+        applyFilter();
+      });
+    }
+
+    // 1-Click Clipboard Copy on Cards (Theme Contrast Safe)
+    document.querySelectorAll('.card-copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const snippet = btn.dataset.snippet;
+        const isLight = htmlEl.getAttribute('data-theme') === 'light';
+        const checkStroke = isLight ? '#4D6300' : '#C1DD2D';
+        const origIcon = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+        const copiedIcon = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="${checkStroke}" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+        if (snippet && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(snippet).then(() => {
+            btn.innerHTML = copiedIcon;
+            setTimeout(() => { btn.innerHTML = origIcon; }, 1800);
+          }).catch(() => {
+            btn.innerHTML = copiedIcon;
+            setTimeout(() => { btn.innerHTML = origIcon; }, 1800);
           });
         }
       });

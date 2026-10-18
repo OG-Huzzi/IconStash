@@ -135,6 +135,10 @@ for (const item of deliverables) {
   assert(content.includes('html[data-theme="light"] pre code'), 'Light theme pre code contrast rule present');
   assert(content.includes('html[data-theme="light"] pre'), 'Light theme pre block rule present');
   assert(content.includes('html[data-theme="light"] .article-meta a'), 'Light theme article-meta a contrast rule present');
+  assert(content.includes('html[data-theme="light"] a { color: #4D6300; }'), 'Light theme a color rule uses WCAG AA compliant #4D6300 (> 4.5:1)');
+  assert(content.includes('html[data-theme="light"] .cta-sidebar-box h4'), 'Light theme cta-sidebar-box h4 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .cta-sidebar-box p'), 'Light theme cta-sidebar-box p contrast rule present');
+  assert(content.includes('html[data-theme="light"] .article-hero .tag'), 'Light theme article-hero tag contrast rule present');
 
   // 10. Theme toggle and persistence verification
   assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
@@ -157,11 +161,19 @@ for (const item of deliverables) {
     assert(content.includes('id="shapeChips"'), 'Interactive shape chips present');
     assert(content.includes('id="btnToggleGrid"'), 'Interactive toggle grid button present');
     assert(content.includes('id="copyPathBtn"'), 'Interactive copy code button present');
+    assert(content.includes("activeShapeKey === 'heart'"), 'Path visualizer renders handles for heart');
+    assert(content.includes("activeShapeKey === 'bolt'"), 'Path visualizer renders vertices for bolt');
+    assert(content.includes("activeShapeKey === 'donut'"), 'Path visualizer renders vertices for donut');
   } else if (item.slug === 'svg-developer-cheatsheet-2026') {
     assert(content.includes('id="cheatSearch"'), 'Interactive cheatSearch instant filter present');
     assert(content.includes('id="filterPills"'), 'Interactive category filter pills present');
     assert(content.includes('id="cheatSandbox"'), 'Interactive cheat sheet sandbox present');
     assert(content.includes('id="copyStageCodeBtn"'), 'Interactive copy stage code button present');
+    assert(content.includes('id="noResults"'), 'Cheatsheet has #noResults alert container');
+    assert(content.includes('id="resetFilterBtn"'), 'Cheatsheet has #resetFilterBtn button');
+    assert(content.includes('search-highlight'), 'Cheatsheet has search term highlight styling');
+    const cardMatches = content.match(/class="cheat-card"/g) || [];
+    assert(cardMatches.length >= 40, `Cheatsheet contains >= 40 comprehensive cards (found ${cardMatches.length})`);
   }
 
   // 13. No raw unrendered LaTeX math formulas

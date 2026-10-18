@@ -314,10 +314,18 @@
     html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
     html[data-theme="light"] pre code { background: transparent; color: #18181B; }
     html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
-    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
     html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
     html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
     html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
     html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
     html[data-theme="light"] .table-container { border-color: #E4E4E7; }
@@ -327,16 +335,16 @@
     html[data-theme="light"] .control-row label { color: #4B5563; }
     html[data-theme="light"] .gradient-live-stage { background-color: #FAFAFA; border-color: #D4D4D8; }
     html[data-theme="light"] .gradient-chip { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
-    html[data-theme="light"] .gradient-chip:hover, html[data-theme="light"] .gradient-chip.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .gradient-chip:hover, html[data-theme="light"] .gradient-chip.active { background: #4D6300; color: #FFF; border-color: #4D6300; }
     html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
     html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
-    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
-    html[data-theme="light"] .copy-btn:hover { background: #849E00; color: #FFF; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
-    html[data-theme="light"] .article-meta a { color: #6D8200; }
-    html[data-theme="light"] .sandbox-title svg { color: #5C6E00; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .sandbox-title svg { color: #4D6300; }
     html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
     html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
@@ -344,6 +352,8 @@
     html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
     html[data-theme="light"] .color-picker-group { background: #E4E4E7; border-color: #D4D4D8; }
     html[data-theme="light"] .color-picker-group span { color: #18181B; }
+    html[data-theme="light"] .sandbox-slider { accent-color: #4D6300; }
+    html[data-theme="light"] #liveSvgCanvas .stage-diamond-path { stroke: rgba(0,0,0,0.2); }
   </style>
 </head>
 <body>
@@ -483,7 +493,7 @@
                   <!-- Visual demonstration shapes -->
                   <g transform="translate(30, 20)">
                     <!-- Vector Diamond Icon -->
-                    <path d="M 50 10 L 90 40 L 50 130 L 10 40 Z" fill="url(#demoGradient)" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
+                    <path class="stage-diamond-path" d="M 50 10 L 90 40 L 50 130 L 10 40 Z" fill="url(#demoGradient)" stroke="rgba(255,255,255,0.2)" stroke-width="2" />
                     <!-- Luminous Stroke Ring -->
                     <circle cx="140" cy="70" r="45" fill="none" stroke="url(#demoGradient)" stroke-width="8" stroke-linecap="round" />
                     <!-- Accent Star -->

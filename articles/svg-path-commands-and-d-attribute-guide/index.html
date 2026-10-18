@@ -305,10 +305,18 @@
     html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
     html[data-theme="light"] pre code { background: transparent; color: #18181B; }
     html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
-    html[data-theme="light"] a { color: #6D8200; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
     html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
     html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
     html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
     html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
     html[data-theme="light"] .table-container { border-color: #E4E4E7; }
@@ -318,22 +326,23 @@
     html[data-theme="light"] .control-row label { color: #4B5563; }
     html[data-theme="light"] .path-live-stage { background-color: #FAFAFA; border-color: #D4D4D8; }
     html[data-theme="light"] .path-chip { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
-    html[data-theme="light"] .path-chip:hover, html[data-theme="light"] .path-chip.active { background: #849E00; color: #FFF; border-color: #849E00; }
+    html[data-theme="light"] .path-chip:hover, html[data-theme="light"] .path-chip.active { background: #4D6300; color: #FFF; border-color: #4D6300; }
     html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
     html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
-    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #5C6E00; }
-    html[data-theme="light"] .copy-btn:hover { background: #849E00; color: #FFF; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
-    html[data-theme="light"] .article-meta a { color: #6D8200; }
-    html[data-theme="light"] .sandbox-title svg { color: #5C6E00; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .sandbox-title svg { color: #4D6300; }
     html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
     html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
     html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
     html[data-theme="light"] .hud-readout { background: #F4F4F5; border-color: #E4E4E7; color: #525252; }
     html[data-theme="light"] .hud-highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-slider { accent-color: #4D6300; }
   </style>
 </head>
 <body>
@@ -812,23 +821,56 @@
       curveGroup.innerHTML = `<path d="${s.d}" fill="${fillCol}" fill-rule="${s.fillRule}" stroke="${strokeCol}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />`;
 
       let handlesXml = '';
-      if (showHandles && activeShapeKey === 'wave') {
-        // Render tangent lines and control handles for wave
-        handlesXml += `
-          <!-- Handle Lines -->
-          <line x1="20" y1="90" x2="60" y2="20" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
-          <line x1="120" y1="90" x2="100" y2="20" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
-          <line x1="120" y1="90" x2="140" y2="160" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
-          <line x1="220" y1="90" x2="180" y2="160" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
-          <!-- Control Points (Cyan) -->
-          <circle cx="60" cy="20" r="4.5" fill="${handlePointCol}" />
-          <circle cx="100" cy="20" r="4.5" fill="${handlePointCol}" />
-          <circle cx="180" cy="160" r="4.5" fill="${handlePointCol}" />
-          <!-- Anchor Points (Lime) -->
-          <circle cx="20" cy="90" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
-          <circle cx="120" cy="90" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
-          <circle cx="220" cy="90" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
-        `;
+      if (showHandles) {
+        if (activeShapeKey === 'wave') {
+          handlesXml += `
+            <!-- Handle Lines -->
+            <line x1="20" y1="90" x2="60" y2="20" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <line x1="120" y1="90" x2="100" y2="20" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <line x1="120" y1="90" x2="140" y2="160" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <line x1="220" y1="90" x2="180" y2="160" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <!-- Control Points (Cyan) -->
+            <circle cx="60" cy="20" r="4.5" fill="${handlePointCol}" />
+            <circle cx="100" cy="20" r="4.5" fill="${handlePointCol}" />
+            <circle cx="140" cy="160" r="4" fill="${handlePointCol}" opacity="0.6" />
+            <circle cx="180" cy="160" r="4.5" fill="${handlePointCol}" />
+            <!-- Anchor Points (Lime) -->
+            <circle cx="20" cy="90" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
+            <circle cx="120" cy="90" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
+            <circle cx="220" cy="90" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
+          `;
+        } else if (activeShapeKey === 'heart') {
+          handlesXml += `
+            <line x1="120" y1="150" x2="70" y2="120" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <line x1="40" y1="55" x2="40" y2="85" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <line x1="200" y1="55" x2="200" y2="85" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <line x1="120" y1="150" x2="170" y2="120" stroke="${handleLineCol}" stroke-width="1.2" stroke-dasharray="3,3" />
+            <circle cx="70" cy="120" r="4.5" fill="${handlePointCol}" />
+            <circle cx="40" cy="85" r="4.5" fill="${handlePointCol}" />
+            <circle cx="200" cy="85" r="4.5" fill="${handlePointCol}" />
+            <circle cx="170" cy="120" r="4.5" fill="${handlePointCol}" />
+            <circle cx="120" cy="150" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
+            <circle cx="40" cy="55" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
+            <circle cx="120" cy="50" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
+            <circle cx="200" cy="55" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />
+          `;
+        } else if (activeShapeKey === 'bolt') {
+          const pts = [
+            {x: 130, y: 20}, {x: 70, y: 100}, {x: 115, y: 100},
+            {x: 100, y: 165}, {x: 170, y: 85}, {x: 125, y: 85}
+          ];
+          for (const pt of pts) {
+            handlesXml += `<circle cx="${pt.x}" cy="${pt.y}" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />`;
+          }
+        } else if (activeShapeKey === 'donut') {
+          const pts = [
+            {x: 120, y: 20}, {x: 120, y: 160},
+            {x: 120, y: 60}, {x: 120, y: 120}
+          ];
+          for (const pt of pts) {
+            handlesXml += `<circle cx="${pt.x}" cy="${pt.y}" r="5" fill="${anchorPointCol}" stroke="#0A0A0A" stroke-width="1.5" />`;
+          }
+        }
       }
       handlesGroup.innerHTML = handlesXml;
 
