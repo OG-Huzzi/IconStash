@@ -895,15 +895,45 @@ export function SearchBar() {
       };
 
       function updateConversion() {
-        const raw = inputClass.value.trim().toLowerCase().replace(/^(fa|fas|far|fal|fad|fab)\s+fa-/, '').replace(/^fa-/, '');
+        let rawInput = inputClass.value.trim().toLowerCase();
+        // If input contains HTML tags (like <i class="..."></i>), extract class attribute
+        const classMatch = rawInput.match(/class=["']([^"']+)["']/i);
+        if (classMatch) {
+          rawInput = classMatch[1];
+        }
+        rawInput = rawInput.replace(/<[^>]*>/g, '').trim();
+
+        // Split classes by whitespace
+        const tokens = rawInput.split(/\s+/).filter(Boolean);
+        let raw = '';
+        for (const token of tokens) {
+          // Skip FA style prefixes and sizing/animation utility classes
+          if (/^fa-(solid|regular|brands|light|thin|duotone|sharp|classic)$/.test(token) ||
+              /^(fa|fas|far|fal|fad|fab|fak)$/.test(token) ||
+              /^fa-(2x|3x|4x|5x|6x|7x|8x|9x|10x|xs|sm|lg|xl|2xl|fw|spin|pulse|border|pull-left|pull-right|rotate-\d+|flip-\w+|stack-\d+x|inverse)$/.test(token)) {
+            continue;
+          }
+          if (token.startsWith('fa-')) {
+            raw = token.replace(/^fa-/, '');
+            break;
+          } else if (!raw && token !== 'fa') {
+            raw = token;
+          }
+        }
+        if (!raw) raw = 'search';
+        raw = raw.replace(/[^a-z0-9-]/g, '');
+        if (!raw) raw = 'search';
+
+        const pascalName = raw.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+
         const entry = iconMap[raw] || {
-          comp: raw.charAt(0).toUpperCase() + raw.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase()),
-          pkgLucide: raw.charAt(0).toUpperCase() + raw.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase()),
-          pkgTabler: 'Icon' + raw.charAt(0).toUpperCase() + raw.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase()),
-          pkgPhosphor: raw.charAt(0).toUpperCase() + raw.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase()),
-          pkgHero: raw.charAt(0).toUpperCase() + raw.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase()) + 'Icon',
-          pkgBs: raw.charAt(0).toUpperCase() + raw.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase()),
-          pkgRemix: 'Ri' + raw.charAt(0).toUpperCase() + raw.slice(1).replace(/-([a-z])/g, g => g[1].toUpperCase()) + 'Line'
+          comp: pascalName,
+          pkgLucide: pascalName,
+          pkgTabler: 'Icon' + pascalName,
+          pkgPhosphor: pascalName,
+          pkgHero: pascalName + 'Icon',
+          pkgBs: pascalName,
+          pkgRemix: 'Ri' + pascalName + 'Line'
         };
 
         let snippet = '';

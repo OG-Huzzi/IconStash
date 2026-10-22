@@ -892,7 +892,7 @@
         } else if (currentTab === 'matrix') {
           codeOutput.textContent = `/* 2D Affine Transformation Matrix */\n.my-svg-shape {\n  transform-box: ${activeBoxMode};\n  transform-origin: ${activeBoxMode === 'fill-box' ? 'center' : '0 0'};\n  transform: matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f});\n}`;
         } else {
-          codeOutput.textContent = `&lt;!-- SVG Presentation Attribute --&gt;\n&lt;g transform="translate(${tx}, ${ty}) rotate(${rot}, 100, 100) scale(${sc}) skewX(${skew})"&gt;\n  &lt;path d="M 100,55 L 118,88 L 155,100 L 118,112 L 100,145 L 82,112 L 45,100 L 82,88 Z" fill="#C1DD2D" /&gt;\n&lt;/g&gt;`;
+          codeOutput.textContent = `<!-- SVG Presentation Attribute -->\n<g transform="translate(${tx}, ${ty}) rotate(${rot}, 100, 100) scale(${sc}) skewX(${skew})">\n  <path d="M 100,55 L 118,88 L 155,100 L 118,112 L 100,145 L 82,112 L 45,100 L 82,88 Z" fill="#C1DD2D" />\n</g>`;
         }
       }
 

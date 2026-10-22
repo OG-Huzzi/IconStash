@@ -14,7 +14,7 @@ IconStash (https://iconstash.io) is a 100% client-side web app built by Great So
 - Rendering: 100% client-side (works offline after first load)
 - Export formats: SVG, PNG (16–512px), React JSX, Vue, CSS, HTML, SVG sprite
 - Data snapshot: 2026-05-05
-- Last updated: 2026-08-30
+- Last updated: 2026-10-22
 
 ## Largest Libraries
 - Fluent UI Icons — 20,170 (MIT, Microsoft)

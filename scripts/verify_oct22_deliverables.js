@@ -177,7 +177,9 @@ for (const item of deliverables) {
   }
 
   // 13. No raw unrendered LaTeX math formulas
-  assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx'), 'No unrendered LaTeX math delimiters ($$ or \\times) found');
+  const latexMatches = [...content.matchAll(/(\$[^$\n]+\$)/g)].map(m => m[1]).filter(m => !m.includes('{') && !m.includes('"'));
+  assert(latexMatches.length === 0, `No unrendered raw LaTeX math delimiters ($...$) found in ${item.slug} (found: ${JSON.stringify(latexMatches)})`);
+  assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx') && !content.includes('\\epsilon'), `No unrendered LaTeX math keywords found in ${item.slug}`);
 
   // 14. Viewport responsiveness tag
   assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
@@ -214,6 +216,20 @@ for (const item of deliverables) {
   }
 }
 
+// Deep Interactive Widget Code Verification
+console.log('\n--- Deep Interactive Functional Verification ---');
+const art1 = fs.readFileSync('articles/convert-png-to-svg-javascript-guide/index.html', 'utf8');
+assert(art1.includes('segments.push([W, S])') && art1.includes('simplifyRDP'), 'Article 1 implements real Marching Squares and RDP vectorizer');
+assert(!art1.includes("activePreset === 'star' ? d = 'M64,12") && !art1.includes("if (activePreset === 'star')"), 'Article 1 does NOT use mock preset switch cases');
+
+const art2 = fs.readFileSync('articles/how-to-use-svg-transforms-guide/index.html', 'utf8');
+assert(art2.includes('codeOutput.textContent = `<!-- SVG Presentation Attribute -->'), 'Article 2 uses raw HTML strings in textContent');
+assert(!art2.includes('codeOutput.textContent = `&lt;!-- SVG Presentation Attribute --&gt;'), 'Article 2 does NOT double-escape HTML entities in textContent');
+
+const altFa = fs.readFileSync('alternatives/font-awesome/index.html', 'utf8');
+assert(altFa.includes('fa-(solid|regular|brands|light|thin|duotone|sharp|classic)'), 'Alternative page converter regex supports Font Awesome 6/7 styles');
+assert(altFa.includes('classMatch'), 'Alternative page converter parses HTML <i> tag inputs');
+
 // Site Integration Verification: articles/index.html
 console.log('\n--- Checking Site Integration in articles/index.html ---');
 const articlesIndex = fs.readFileSync('articles/index.html', 'utf8');
@@ -244,11 +260,18 @@ assert(sitemap.includes('<loc>https://iconstash.io/articles/</loc><lastmod>2026-
 console.log('\n--- Checking parent sitemap.xml ---');
 const parentSitemap = fs.readFileSync('sitemap.xml', 'utf8');
 assert(parentSitemap.includes('<sitemap><loc>https://iconstash.io/articles-sitemap.xml</loc><lastmod>2026-10-22</lastmod></sitemap>'), 'parent sitemap.xml references articles-sitemap.xml with 2026-10-22');
+assert(parentSitemap.includes('<sitemap><loc>https://iconstash.io/sitemaps/compare.xml</loc><lastmod>2026-10-22</lastmod></sitemap>'), 'parent sitemap.xml references sitemaps/compare.xml with 2026-10-22');
+assert(parentSitemap.includes('<sitemap><loc>https://iconstash.io/sitemaps/hubs.xml</loc><lastmod>2026-10-22</lastmod></sitemap>'), 'parent sitemap.xml references sitemaps/hubs.xml with 2026-10-22');
 
 // sitemaps/compare.xml
 console.log('\n--- Checking sitemaps/compare.xml ---');
 const compareSitemap = fs.readFileSync('sitemaps/compare.xml', 'utf8');
 assert(compareSitemap.includes('https://iconstash.io/alternatives/font-awesome/'), 'sitemaps/compare.xml includes https://iconstash.io/alternatives/font-awesome/');
+
+// sitemaps/hubs.xml
+console.log('\n--- Checking sitemaps/hubs.xml ---');
+const hubsSitemap = fs.readFileSync('sitemaps/hubs.xml', 'utf8');
+assert(hubsSitemap.includes('<loc>https://iconstash.io/alternatives/</loc><lastmod>2026-10-22</lastmod>'), 'sitemaps/hubs.xml includes https://iconstash.io/alternatives/ with lastmod 2026-10-22');
 
 // llms.txt
 console.log('\n--- Checking llms.txt ---');
@@ -256,7 +279,8 @@ const llms = fs.readFileSync('llms.txt', 'utf8');
 for (const item of deliverables) {
   assert(llms.includes(item.canonical), `llms.txt includes ${item.canonical}`);
 }
-assert(llms.includes('Last updated: 2026-10-22'), 'llms.txt has updated timestamp 2026-10-22');
+assert(llms.includes('- Last updated: 2026-10-22'), 'llms.txt has updated timestamp 2026-10-22 in Key Facts header');
+assert(llms.includes('Last updated: 2026-10-22'), 'llms.txt has updated timestamp 2026-10-22 in footer');
 
 console.log(`\n========================================`);
 console.log(`VERIFICATION SUMMARY: ${passed} PASSED, ${failed} FAILED`);

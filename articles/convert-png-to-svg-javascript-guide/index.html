@@ -520,9 +520,9 @@ function naiveRasterToSvg(imageData) {
 
           <ol>
             <li><strong>Pixel Extraction &amp; Alpha Thresholding:</strong> The image is drawn to a memory-backed <code>&lt;canvas&gt;</code>. Calling <code>ctx.getImageData()</code> yields a flat <code>Uint8ClampedArray</code>. We reject transparent pixels (<code>alpha &lt; threshold</code>) and evaluate color luminance.</li>
-            <li><strong>Boundary Contour Tracing (Marching Squares):</strong> The 2D grid is divided into 2&times;2 pixel cells. Each vertex is evaluated as binary (0 or 1). With $2^4 = 16$ possible cell topologies, an exact lookup table assigns vector line segments connecting contour entry and exit points.</li>
+            <li><strong>Boundary Contour Tracing (Marching Squares):</strong> The 2D grid is divided into 2&times;2 pixel cells. Each vertex is evaluated as binary (0 or 1). With 2<sup>4</sup> = 16 possible cell topologies, an exact lookup table assigns vector line segments connecting contour entry and exit points.</li>
             <li><strong>Contour Stitching:</strong> Independent line segments are linked head-to-tail to build closed polygonal loops. Clockwise loops represent solid foreground fills, while counter-clockwise loops represent holes (such as the interior of an 'O' or a donut icon).</li>
-            <li><strong>Path Simplification (Ramer-Douglas-Peucker):</strong> Raw contour points are noisy and contain redundant collinear vertices. The Ramer-Douglas-Peucker (RDP) algorithm calculates perpendicular point-to-segment distances, pruning any vertex within an epsilon tolerance ($\epsilon$). This removes 80% of coordinates while preserving 99% of visual sharpness.</li>
+            <li><strong>Path Simplification (Ramer-Douglas-Peucker):</strong> Raw contour points are noisy and contain redundant collinear vertices. The Ramer-Douglas-Peucker (RDP) algorithm calculates perpendicular point-to-segment distances, pruning any vertex within an epsilon tolerance (&epsilon;). This removes 80% of coordinates while preserving 99% of visual sharpness.</li>
             <li><strong>B&eacute;zier Curve Fitting &amp; SVG Formatting:</strong> Straight-line polygon edges are smoothed into quadratic or cubic B&eacute;zier commands (<code>C x1 y1, x2 y2, x y</code>), formatted with 2-decimal precision, and wrapped in standard <code>&lt;svg viewBox="..."&gt;</code> containers.</li>
           </ol>
         </section>
@@ -705,7 +705,7 @@ function traceContours(mask, w, h) {
 
         <section>
           <h2 id="path-simplification">6. Point Reduction with Ramer-Douglas-Peucker</h2>
-          <p>Marching Squares generates one coordinate for every single boundary pixel. On complex curves, this leads to thousands of point clusters. The Ramer-Douglas-Peucker algorithm finds a subset of points that approximates the curve within a maximum distance tolerance $\epsilon$:</p>
+          <p>Marching Squares generates one coordinate for every single boundary pixel. On complex curves, this leads to thousands of point clusters. The Ramer-Douglas-Peucker algorithm finds a subset of points that approximates the curve within a maximum distance tolerance &epsilon;:</p>
 
           <pre><code>// Ramer-Douglas-Peucker Polygon Simplification
 function simplifyDouglasPeucker(points, epsilon) {
@@ -1029,46 +1029,120 @@ export function convertPngFileToSvg(inputPath, outputPath) {
         const imgData = ctx.getImageData(0, 0, w, h);
         const px = imgData.data;
 
-        // Marching squares edge collector
+        // Marching Squares boundary contour extraction
         const mask = new Uint8Array(w * h);
         for (let i = 0; i < px.length; i += 4) {
-          const r = px[i], g = px[i+1], b = px[i+2], a = px[i+3];
+          const r = px[i], g = px[i + 1], b = px[i + 2], a = px[i + 3];
           const lum = 0.299 * r + 0.587 * g + 0.114 * b;
           mask[i / 4] = (a > 64 && lum < threshold) ? 1 : 0;
         }
 
-        // Trace horizontal segments
-        let pathCommands = [];
-        for (let y = 0; y < h; y += 2) {
-          let inSpan = false;
-          let startX = 0;
-          for (let x = 0; x < w; x += 2) {
-            const isSet = mask[y * w + x];
-            if (isSet && !inSpan) {
-              inSpan = true;
-              startX = x;
-            } else if (!isSet && inSpan) {
-              inSpan = false;
-              pathCommands.push({ x1: startX, x2: x, y: y });
+        // Extract segments using 16-state Marching Squares
+        const segments = [];
+        for (let y = 0; y < h - 1; y++) {
+          for (let x = 0; x < w - 1; x++) {
+            const tl = mask[y * w + x];
+            const tr = mask[y * w + x + 1];
+            const br = mask[(y + 1) * w + (x + 1)];
+            const bl = mask[(y + 1) * w + x];
+            const state = (tl << 3) | (tr << 2) | (br << 1) | bl;
+            if (state === 0 || state === 15) continue;
+
+            const N = { x: x + 0.5, y: y };
+            const E = { x: x + 1, y: y + 0.5 };
+            const S = { x: x + 0.5, y: y + 1 };
+            const W = { x: x, y: y + 0.5 };
+
+            switch (state) {
+              case 1: segments.push([W, S]); break;
+              case 2: segments.push([S, E]); break;
+              case 3: segments.push([W, E]); break;
+              case 4: segments.push([E, N]); break;
+              case 5: segments.push([W, N]); segments.push([S, E]); break;
+              case 6: segments.push([S, N]); break;
+              case 7: segments.push([W, N]); break;
+              case 8: segments.push([N, W]); break;
+              case 9: segments.push([N, S]); break;
+              case 10: segments.push([N, E]); segments.push([S, W]); break;
+              case 11: segments.push([N, E]); break;
+              case 12: segments.push([E, W]); break;
+              case 13: segments.push([E, S]); break;
+              case 14: segments.push([S, W]); break;
             }
           }
-          if (inSpan) pathCommands.push({ x1: startX, x2: w, y: y });
         }
 
-        // Build continuous boundary outline
-        let d = '';
-        if (activePreset === 'star') {
-          d = 'M64,12 L79.5,43.3 L114,48.3 L89,72.7 L94.9,107 L64,90.8 L33.1,107 L39,72.7 L14,48.3 L48.5,43.3 Z';
-        } else if (activePreset === 'gear') {
-          d = 'M64,18 C71.3,18 78,20.5 83.4,24.7 L91,17 L103,29 L95.3,36.6 C99.5,42 102,48.7 102,56 L113,56 L113,72 L102,72 C102,79.3 99.5,86 95.3,91.4 L103,99 L91,111 L83.4,103.3 C78,107.5 71.3,110 64,110 L64,121 L48,121 L48,110 C40.7,110 34,107.5 28.6,103.3 L21,111 L9,99 L16.7,91.4 C12.5,86 10,79.3 10,72 L-1,72 L-1,56 L10,56 C10,48.7 12.5,42 16.7,36.6 L9,29 L21,17 L28.6,24.7 C34,20.5 40.7,18 48,18 L48,7 L64,7 Z M64,44 C53,44 44,53 44,64 C44,75 53,84 64,84 C75,84 84,75 84,64 C84,53 75,44 64,44 Z';
-        } else if (activePreset === 'heart') {
-          d = 'M64,102 C28,74 20,46 42,32 C56,24 64,32 64,32 C64,32 72,24 86,32 C108,46 100,74 64,102 Z';
-        } else if (activePreset === 'shield') {
-          d = 'M64,18 L106,32 C106,78 64,110 64,110 C64,110 22,78 22,32 Z';
-        } else {
-          // Custom uploaded fallback path
-          d = 'M24,24 L104,24 L104,104 L24,104 Z';
+        // Chain segments into closed loops
+        const segMap = new Map();
+        for (let i = 0; i < segments.length; i++) {
+          const [p1, p2] = segments[i];
+          const key = `${p1.x},${p1.y}`;
+          if (!segMap.has(key)) segMap.set(key, []);
+          segMap.get(key).push({ to: p2, idx: i });
         }
+
+        const used = new Uint8Array(segments.length);
+        const polygons = [];
+        for (let i = 0; i < segments.length; i++) {
+          if (used[i]) continue;
+          used[i] = 1;
+          const poly = [segments[i][0], segments[i][1]];
+          let current = segments[i][1];
+          let safety = 0;
+          while (safety++ < 10000) {
+            const key = `${current.x},${current.y}`;
+            const candidates = segMap.get(key);
+            if (!candidates || candidates.length === 0) break;
+            let found = null;
+            for (const cand of candidates) {
+              if (!used[cand.idx]) { found = cand; break; }
+            }
+            if (!found) break;
+            used[found.idx] = 1;
+            current = found.to;
+            if (Math.abs(current.x - poly[0].x) < 0.001 && Math.abs(current.y - poly[0].y) < 0.001) break;
+            poly.push(current);
+          }
+          if (poly.length >= 4) polygons.push(poly);
+        }
+
+        // Simplify each polygon using Ramer-Douglas-Peucker with tolerance slider
+        function simplifyRDP(pts, eps) {
+          if (pts.length <= 2) return pts;
+          let dmax = 0, idx = 0;
+          const last = pts.length - 1;
+          for (let i = 1; i < last; i++) {
+            const dx = pts[last].x - pts[0].x;
+            const dy = pts[last].y - pts[0].y;
+            let d;
+            if (dx === 0 && dy === 0) {
+              d = Math.hypot(pts[i].x - pts[0].x, pts[i].y - pts[0].y);
+            } else {
+              d = Math.abs(dy * pts[i].x - dx * pts[i].y + pts[last].x * pts[0].y - pts[last].y * pts[0].x) / Math.hypot(dx, dy);
+            }
+            if (d > dmax) { idx = i; dmax = d; }
+          }
+          if (dmax > eps) {
+            const left = simplifyRDP(pts.slice(0, idx + 1), eps);
+            const right = simplifyRDP(pts.slice(idx), eps);
+            return left.slice(0, -1).concat(right);
+          } else {
+            return [pts[0], pts[last]];
+          }
+        }
+
+        let d = '';
+        for (const poly of polygons) {
+          const simp = simplifyRDP(poly, tolerance);
+          if (simp.length < 3) continue;
+          d += `M ${simp[0].x.toFixed(1)} ${simp[0].y.toFixed(1)} `;
+          for (let i = 1; i < simp.length; i++) {
+            d += `L ${simp[i].x.toFixed(1)} ${simp[i].y.toFixed(1)} `;
+          }
+          d += 'Z ';
+        }
+        d = d.trim();
+        if (!d) d = 'M 0 0';
 
         const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="${color}" width="100%" height="100%">\n  <path d="${d}" fill-rule="evenodd" />\n</svg>`;
         lastGeneratedSvg = svgMarkup;
@@ -1100,7 +1174,14 @@ export function convertPngFileToSvg(inputPath, outputPath) {
           const img = new Image();
           img.onload = () => {
             ctx.clearRect(0, 0, 128, 128);
-            ctx.drawImage(img, 0, 0, 128, 128);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, 128, 128);
+            const scale = Math.min(120 / img.width, 120 / img.height);
+            const dw = img.width * scale;
+            const dh = img.height * scale;
+            const dx = (128 - dw) / 2;
+            const dy = (128 - dh) / 2;
+            ctx.drawImage(img, dx, dy, dw, dh);
             activePreset = 'custom';
             presetButtons.forEach(b => b.classList.remove('active'));
             vectorizeCurrent();
