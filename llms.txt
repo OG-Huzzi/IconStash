@@ -171,6 +171,8 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [How to Use SVG Gradients: Linear & Radial Gradient CSS, React & Animation Guide (2026)](https://iconstash.io/articles/how-to-use-svg-gradients-guide/)
 - [SVG Path Commands & the d Attribute: The Complete Visual Developer Guide (2026)](https://iconstash.io/articles/svg-path-commands-and-d-attribute-guide/)
 - [The Ultimate SVG Developer Cheat Sheet 2026: Syntax, Shapes, Paths & CSS](https://iconstash.io/articles/svg-developer-cheatsheet-2026/)
+- [Convert PNG to SVG in JavaScript: Complete Vectorization and Tracing Guide (2026)](https://iconstash.io/articles/convert-png-to-svg-javascript-guide/)
+- [How to Use SVG Transforms: Matrix, Rotate, Scale, Skew & transform-box Guide (2026)](https://iconstash.io/articles/how-to-use-svg-transforms-guide/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives
@@ -183,6 +185,7 @@ Side-by-side comparisons rendered from each library's own SVG source, so the sam
 - [Material Symbols vs Material Design Icons](https://iconstash.io/compare/material-vs-materialsymbols/)
 - [Bootstrap Icons vs Remix Icon](https://iconstash.io/compare/bootstrap-vs-remix/)
 - [Alternatives to every major library](https://iconstash.io/alternatives/)
+- [Best Font Awesome Alternatives 2026](https://iconstash.io/alternatives/font-awesome/)
 - [Icon libraries by framework](https://iconstash.io/icons-for/) — React, Next.js, Vue, Svelte, Tailwind CSS, React Native, Angular
 
 ## Comparisons
@@ -210,4 +213,4 @@ Q: How do I compare the same icon across libraries? A: Open any concept page suc
 
 Q: Can I browse icons by library, category, or style? A: Yes — https://iconstash.io/library/, https://iconstash.io/category/, and https://iconstash.io/style/ each index the full catalogue.
 
-Last updated: 2026-10-18
+Last updated: 2026-10-22

@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use SVG Transforms: Matrix, Rotate, Scale, Skew &amp; transform-box Guide (2026)</title>
+  <meta name="description" content="Master SVG transforms in CSS and HTML: fix transform-origin bugs with transform-box fill-box, understand matrix math, and build smooth vector animations.">
+  <meta name="keywords" content="svg transform, svg transform-origin, transform-box fill-box, svg rotate css, svg matrix transform, svg scale translate, svg animations css">
+  <meta property="og:title" content="How to Use SVG Transforms: Matrix, Rotate, Scale, Skew &amp; transform-box Guide (2026)">
+  <meta property="og:description" content="Master SVG transforms in CSS and HTML: fix transform-origin bugs with transform-box fill-box, understand matrix math, and build smooth vector animations.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-use-svg-transforms-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/how-to-use-svg-transforms-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-22T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-22T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="CSS &amp; Vector Animation">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Frontend">
+  <meta property="article:tag" content="Web Animation">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use SVG Transforms: Matrix, Rotate, Scale, Skew &amp; transform-box Guide (2026)">
+  <meta name="twitter:description" content="Master SVG transforms in CSS and HTML: fix transform-origin bugs with transform-box fill-box, understand matrix math, and build smooth vector animations.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/how-to-use-svg-transforms-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-use-svg-transforms-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Use SVG Transforms: Matrix, Rotate, Scale, Skew & transform-box Guide (2026)",
+      "description": "Master SVG transforms in CSS and HTML: fix transform-origin bugs with transform-box fill-box, understand matrix math, and build smooth vector animations.",
+      "image": "https://iconstash.io/assets/articles/how-to-use-svg-transforms-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-22",
+      "dateModified": "2026-10-22",
+      "mainEntityOfPage": "https://iconstash.io/articles/how-to-use-svg-transforms-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "CSS & Vector Animation",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["svg transform", "transform-origin svg", "transform-box fill-box", "svg rotate css", "svg matrix", "svg animations"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to Use SVG Transforms",
+          "item": "https://iconstash.io/articles/how-to-use-svg-transforms-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do SVG elements rotate around the top-left corner instead of their own center in CSS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default, SVG elements have transform-box: view-box. This causes transform-origin percentages (like 50% 50%) to be computed relative to the entire SVG canvas or viewBox origin (0, 0), rather than the individual shape's bounding box. Adding transform-box: fill-box fixes this instantly, anchoring rotation to the element's actual geometric center."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between the SVG transform attribute and the CSS transform property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The SVG transform attribute uses unitless values, accepts coordinate center arguments directly (e.g. rotate(45 50 50)), and operates in SVG coordinate space. The CSS transform property requires explicit angle and length units (deg, rad, px), relies on transform-origin and transform-box for anchor positioning, and overrides attribute transforms in the cascade."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the 2D affine matrix(a, b, c, d, e, f) function work in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 2D matrix function combines translation, scaling, rotation, and skewing into six values: [a, c, e; b, d, f; 0, 0, 1]. Specifically, 'a' and 'd' control horizontal and vertical scaling, 'b' and 'c' control vertical and horizontal skew/rotation, and 'e' and 'f' define horizontal and vertical translation in pixels."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do nested SVG transforms behave differently depending on the order of functions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Transformation functions are applied via non-commutative matrix multiplication from right to left (or in reverse declaration order). Translating then rotating (translate(50px) rotate(45deg)) moves the element first and spins it around the new coordinate, whereas rotating then translating (rotate(45deg) translate(50px)) shifts the element along the rotated coordinate axis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you resolve Safari and WebKit rendering bugs with animated SVG transforms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Safari historically suffers from repaint clipping and jitter when transforming SVG child nodes. Fix this by wrapping the transformed element in a group (<g>) tag, specifying will-change: transform on the targeted class, setting overflow: visible on the root <svg>, and declaring both transform-box: fill-box and transform-origin: center."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you animate individual paths inside an inline SVG with CSS keyframes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. When an SVG is inlined into the HTML DOM, each internal path, rect, or group can be targeted with CSS class names and animated with standard @keyframes rules. By pairing transform: rotate(...) with transform-box: fill-box and transform-origin: center, internal icon components like clock hands or gear teeth can rotate independently."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .sandbox-slider { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .transform-live-stage { width: 100%; height: 260px; border: 1px solid #262626; border-radius: 10px; background-color: #0E0E0E; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+
+    /* Switch toggle button */
+    .toggle-group { display: flex; gap: 8px; background: #181818; padding: 4px; border-radius: 8px; border: 1px solid #333; }
+    .toggle-btn { flex: 1; background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .toggle-btn.active { background: #C1DD2D; color: #0A0A0A; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
+    .code-tabs { display: flex; gap: 8px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 2px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.1); }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+
+    /* Formula Cards */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    /* Takeaways & Callouts */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .transform-live-stage { background-color: #FAFAFA; border-color: #D4D4D8; }
+    html[data-theme="light"] .toggle-group { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .toggle-btn { color: #525252; }
+    html[data-theme="light"] .toggle-btn.active { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .sandbox-title svg { color: #4D6300; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .sandbox-slider { accent-color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/alternatives/">Alternatives</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme" title="Toggle Theme" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/" class="header-cta">Find Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>How to Use SVG Transforms</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">CSS &amp; Vector Animation</span>
+      <h1>How to Use SVG Transforms: Matrix, Rotate, Scale, Skew &amp; transform-box Guide (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-10-22">October 22, 2026</time>
+        <span>&bull;</span>
+        <span>14 min read</span>
+        <span>&bull;</span>
+        <span>Verified for Chromium 130+, Firefox 131+ &amp; Safari 18+</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <div class="featured-summary">
+          <p>Rotating, scaling, and animating vector graphics often leads to unexpected bugs: elements spinning wildly off-screen, origins tethered to (0, 0), and mismatched coordinates. Mastering SVG transforms requires understanding how SVG coordinate systems interact with CSS standards.</p>
+          <ul>
+            <li><strong>Attribute vs. CSS Property:</strong> Syntax nuances, coordinate systems, and precedence rules.</li>
+            <li><strong>The Origin Trap:</strong> Why <code>transform-origin: 50% 50%</code> fails without <code>transform-box: fill-box</code>.</li>
+            <li><strong>The Core Functions:</strong> Precise geometry behind <code>rotate</code>, <code>scale</code>, <code>translate</code>, <code>skew</code>, and <code>matrix</code>.</li>
+            <li><strong>Interactive Transformation Studio:</strong> Experiment with real-time vector transformations, inspect the affine matrix, and toggle transform-box behaviors.</li>
+            <li><strong>Production UI Recipes:</strong> Centered rotating spinners, collapsible chevron toggles, and WebKit rendering fixes.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/how-to-use-svg-transforms-guide.jpg" alt="Comprehensive SVG transform diagram illustrating 2D affine matrix coordinates, rotation vectors, and transform-box fill-box pivot points" width="1200" height="675">
+          <figcaption>Figure 1: SVG 2D transformation matrix coordinate system: understanding affine projection, pivot origins, and coordinate spaces.</figcaption>
+        </figure>
+
+        <section>
+          <h2 id="attribute-vs-css-property">1. SVG Attribute vs. CSS Property: The Critical Differences</h2>
+          <p>In modern web applications, you can transform SVG elements using two separate interfaces: the native XML <strong><code>transform="..."</code> presentation attribute</strong> or the modern <strong>CSS <code>transform: ...</code> property</strong>. While they look superficially similar, they follow completely different coordinate models.</p>
+
+          <div class="table-container">
+            <table>
+              <caption>Comparison: SVG transform Attribute vs. CSS transform Property</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Feature / Behavior</th>
+                  <th scope="col">SVG transform Attribute</th>
+                  <th scope="col">CSS transform Property</th>
+                  <th scope="col">Best Practice Recommendation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Syntax Units</th>
+                  <td>Unitless numbers: <code>rotate(45)</code>, <code>translate(20, 40)</code></td>
+                  <td>Strict CSS units: <code>rotate(45deg)</code>, <code>translate(20px, 40px)</code></td>
+                  <td>Use explicit CSS units for reactive state transitions</td>
+                </tr>
+                <tr>
+                  <th scope="row">Center Point Override</th>
+                  <td>Built-in coordinates: <code>rotate(45, cx, cy)</code></td>
+                  <td>Requires separate <code>transform-origin</code> property</td>
+                  <td>CSS <code>transform-origin</code> with <code>transform-box</code></td>
+                </tr>
+                <tr>
+                  <th scope="row">CSS Cascade &amp; Specificity</th>
+                  <td>Lowest precedence (presentation attribute level)</td>
+                  <td>Overrides SVG attribute completely in cascade</td>
+                  <td>Avoid mixing both on the exact same DOM node</td>
+                </tr>
+                <tr>
+                  <th scope="row">CSS Animations &amp; Transitions</th>
+                  <td>Requires SMIL <code>&lt;animateTransform&gt;</code> (legacy)</td>
+                  <td>Hardware-accelerated via CSS <code>@keyframes</code></td>
+                  <td>Always use CSS transforms for interactive UI state</td>
+                </tr>
+                <tr>
+                  <th scope="row">Origin Calculation Box</th>
+                  <td>Current User Coordinate System (viewBox space)</td>
+                  <td>Defaults to <code>view-box</code>; switchable to <code>fill-box</code></td>
+                  <td>Explicitly declare <code>transform-box: fill-box</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="the-transform-origin-bug">2. The Infamous transform-origin Bug (and the Fix)</h2>
+          <p>Every developer who has tried rotating an SVG icon with CSS has faced this bug: you write <code>transform: rotate(45deg); transform-origin: center;</code> expecting the icon to spin smoothly in place. Instead, the icon launches across the screen in a massive orbit.</p>
+
+          <p>This occurs because standard HTML elements calculate percentage origins relative to their own border-box. SVG child elements (like <code>&lt;path&gt;</code>, <code>&lt;rect&gt;</code>, or <code>&lt;circle&gt;</code>) do not have a CSS box model. By default in CSS Transforms Module Level 2, their <code>transform-box</code> is set to <code>view-box</code>. This means <code>50% 50%</code> refers to the center of the entire parent <code>&lt;svg viewBox="0 0 500 500"&gt;</code>, rather than the small 24&times;24 icon sitting in the corner!</p>
+
+          <div class="formula-card">
+            <div class="formula-title">The Three-Line Golden Rule for SVG Animations</div>
+            <div class="formula-body">
+              .my-animated-path {<br>
+              &nbsp;&nbsp;transform-box: fill-box;<br>
+              &nbsp;&nbsp;transform-origin: center; /* or 50% 50% */<br>
+              &nbsp;&nbsp;transform: rotate(45deg);<br>
+              }
+            </div>
+            <div class="formula-desc"><code>transform-box: fill-box</code> instructs the browser's layout engine to compute percentages relative to the object bounding box (the tightest axis-aligned rectangle enclosing the vector path).</div>
+          </div>
+
+          <div class="warning-box">
+            <h4>Firefox &amp; WebKit Property Order</h4>
+            <p>Always declare <code>transform-box: fill-box;</code> before or alongside <code>transform-origin</code>. Some legacy WebKit builds fail to update the origin cache if <code>transform-box</code> is altered dynamically after initial layout.</p>
+          </div>
+        </section>
+
+        <!-- Interactive Transformation Studio -->
+        <section>
+          <div class="interactive-sandbox" id="transformSandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+                <span>Live SVG Transform &amp; Matrix Playground</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Affine Math</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label>transform-box Mode</label>
+                  <div class="toggle-group" id="boxToggleGroup">
+                    <button class="toggle-btn active" data-box="fill-box" type="button">fill-box (Correct)</button>
+                    <button class="toggle-btn" data-box="view-box" type="button">view-box (Off-Center Bug)</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>Rotation Angle <span class="stat-num" id="valRotate">45&deg;</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderRotate" min="-180" max="180" value="45">
+                </div>
+
+                <div class="control-row">
+                  <label>Scale Factor <span class="stat-num" id="valScale">1.2x</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderScale" min="0.2" max="2.5" step="0.05" value="1.2">
+                </div>
+
+                <div class="control-row">
+                  <label>Translation X / Y <span class="stat-num" id="valTranslate">0px, 0px</span></label>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                    <input type="range" class="sandbox-slider" id="sliderTx" min="-60" max="60" value="0">
+                    <input type="range" class="sandbox-slider" id="sliderTy" min="-60" max="60" value="0">
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>Skew X <span class="stat-num" id="valSkew">0&deg;</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderSkew" min="-45" max="45" value="0">
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="transform-live-stage" id="liveStage">
+                  <svg id="stageSvg" viewBox="0 0 200 200" width="100%" height="100%" style="overflow:visible;">
+                    <!-- Coordinate Grid -->
+                    <defs>
+                      <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#222" stroke-width="0.5" />
+                      </pattern>
+                    </defs>
+                    <rect width="200" height="200" fill="url(#gridPattern)" />
+                    <!-- Center mark of viewBox -->
+                    <circle cx="100" cy="100" r="3" fill="#666" />
+                    <text x="106" y="98" fill="#666" font-size="10" font-family="monospace">viewBox (100,100)</text>
+
+                    <!-- The Target Transformed Vector Shape -->
+                    <g id="targetGroup" style="transform-box: fill-box; transform-origin: center; transition: transform 60ms linear;">
+                      <!-- Path geometry: A sleek geometric diamond star -->
+                      <path d="M 100,55 L 118,88 L 155,100 L 118,112 L 100,145 L 82,112 L 45,100 L 82,88 Z" fill="#C1DD2D" stroke="#FFF" stroke-width="2" />
+                      <!-- Pivot marker -->
+                      <circle cx="100" cy="100" r="4" fill="#FF4444" stroke="#FFF" stroke-width="1.5" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs">
+                  <button class="code-tab-btn active" id="tabCssCode" type="button">CSS Declarations</button>
+                  <button class="code-tab-btn" id="tabMatrixCode" type="button">Affine Matrix</button>
+                  <button class="code-tab-btn" id="tabSvgAttr" type="button">SVG Attribute</button>
+                </div>
+                <button class="copy-btn" id="copyTransformCode" type="button">Copy Code</button>
+              </div>
+              <pre><code id="generatedTransformCode">// Computing transform code...</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="the-six-core-transforms">3. The 6 Core Transformation Functions</h2>
+          <p>Every 2D transformation in SVG resolves to one of six primitive operations. Understanding their geometric execution ensures you never guess when assembling animations.</p>
+
+          <h3>1. Translate: <code>translate(tx, [ty])</code></h3>
+          <p>Moves the element by <code>tx</code> along the horizontal axis and <code>ty</code> along the vertical axis. If <code>ty</code> is omitted in the SVG presentation attribute, it defaults to <code>0</code>. In CSS, <code>translate: x y</code> is now a standalone property in modern browsers.</p>
+          <pre><code>/* SVG Presentation Attribute */
+&lt;path transform="translate(40, -15)" ... /&gt;
+
+/* Modern CSS Property */
+.icon-path {
+  transform: translate(40px, -15px);
+}</code></pre>
+
+          <h3>2. Rotate: <code>rotate(angle, [cx, cy])</code></h3>
+          <p>Rotates the element clockwise by <code>angle</code>. The SVG attribute version accepts an optional <code>cx, cy</code> parameter that defines the center of rotation directly in coordinate space. In CSS, rotation requires specifying <code>transform-origin</code> separately.</p>
+          <pre><code>/* SVG Attribute: Rotate 90deg around coordinate (60, 60) */
+&lt;path transform="rotate(90, 60, 60)" ... /&gt;
+
+/* CSS Equivalent */
+.icon-path {
+  transform-box: fill-box;
+  transform-origin: 60px 60px;
+  transform: rotate(90deg);
+}</code></pre>
+
+          <h3>3. Scale: <code>scale(sx, [sy])</code></h3>
+          <p>Scales element dimensions by <code>sx</code> horizontally and <code>sy</code> vertically. If <code>sy</code> is omitted, it assumes <code>sy = sx</code> (uniform scaling). Negative values flip the graphic across its axis (e.g. <code>scale(-1, 1)</code> creates an instant horizontal mirror reflection).</p>
+
+          <h3>4. Skew: <code>skewX(angle)</code> &amp; <code>skewY(angle)</code></h3>
+          <p>Shears the coordinate system along the X or Y axis by the given angle. Skewing is particularly useful for creating isometric projections, speed streaks, and dynamic slanted badges.</p>
+
+          <h3>5. The Affine Matrix: <code>matrix(a, b, c, d, e, f)</code></h3>
+          <p>Every sequence of translates, rotates, scales, and skews is multiplied together into a single 3&times;3 affine transformation matrix:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">2D Affine Matrix Multiplication Equation</div>
+            <div class="formula-body">
+              [ x' ] &nbsp; [ a &nbsp; c &nbsp; e ] &nbsp; [ x ]<br>
+              [ y' ] = [ b &nbsp; d &nbsp; f ] &times; [ y ]<br>
+              [ 1 &nbsp;] &nbsp; [ 0 &nbsp; 0 &nbsp; 1 ] &nbsp; [ 1 ]
+            </div>
+            <div class="formula-desc">
+              New coordinates: x' = a &times; x + c &times; y + e<br>
+              New coordinates: y' = b &times; x + d &times; y + f<br>
+              Parameters <code>a</code> and <code>d</code> govern scaling, <code>b</code> and <code>c</code> govern shearing/rotation, and <code>e</code> and <code>f</code> govern pixel offsets.
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="transform-nesting-and-groups">4. Transform Stacking with <code>&lt;g&gt;</code> Groups</h2>
+          <p>One of the most powerful patterns in SVG engineering is combining multiple transformations without computing complex matrix products. By nesting SVG <code>&lt;g&gt;</code> container tags, child elements inherit parent coordinate systems hierarchically.</p>
+
+          <p>Consider an icon where a radar dish rotates continuously while its entire chassis slides across a dashboard:</p>
+
+          <pre><code>&lt;svg viewBox="0 0 200 200" width="200" height="200"&gt;
+  &lt;!-- Parent Group handles linear motion --&gt;
+  &lt;g class="vehicle-slide"&gt;
+    &lt;rect x="20" y="80" width="160" height="40" fill="#333" /&gt;
+    
+    &lt;!-- Child Group handles local rotation around its own pivot --&gt;
+    &lt;g class="radar-dish"&gt;
+      &lt;path d="M 90,60 L 110,60 L 100,30 Z" fill="#C1DD2D" /&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;style&gt;
+  .vehicle-slide {
+    animation: slideAcross 4s ease-in-out infinite alternate;
+  }
+  .radar-dish {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: spinAround 2s linear infinite;
+  }
+
+  @keyframes slideAcross {
+    from { transform: translateX(0); }
+    to { transform: translateX(30px); }
+  }
+  @keyframes spinAround {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+&lt;/style&gt;</code></pre>
+        </section>
+
+        <section>
+          <h2 id="production-ui-recipes">5. Production UI Animation Recipes</h2>
+          
+          <h3>Recipe A: Smooth Circular Spinner (Loading State)</h3>
+          <p>The standard UI spinner should rotate smoothly at 60 FPS without layout jitter. Always declare <code>transform-box: fill-box</code> and <code>will-change: transform</code>:</p>
+          <pre><code>.ui-spinner {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: spinnerRotate 900ms cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes spinnerRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}</code></pre>
+
+          <h3>Recipe B: Accordion Chevron Flip (0&deg; to 180&deg;)</h3>
+          <p>Rotating an accordion disclosure indicator without triggering layout recalculations:</p>
+          <pre><code>.accordion-chevron {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-trigger[aria-expanded="true"] .accordion-chevron {
+  transform: rotate(180deg);
+}</code></pre>
+
+          <h3>Recipe C: Micro-Interaction Hover Bounce</h3>
+          <p>Adding responsive micro-interactions to navigation icons without shifting neighboring text:</p>
+          <pre><code>.nav-icon {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  transition: transform 200ms ease;
+}
+
+.nav-link:hover .nav-icon {
+  transform: scale(1.15) translateY(-2px);
+}</code></pre>
+        </section>
+
+        <section>
+          <h2 id="safari-webkit-quirks">6. Cross-Browser Quirks &amp; Safari WebKit Solutions</h2>
+          <p>WebKit historically implements SVG transformations using a separate rendering pipeline from CSS HTML elements. When animating transforms inside nested SVGs in Safari, developers often encounter unexpected clipping or stuttering.</p>
+
+          <p>Follow these four defensive rules to guarantee universal cross-browser reliability:</p>
+          <ol>
+            <li><strong>Always Set <code>overflow: visible</code>:</strong> Default browser stylesheets apply <code>overflow: hidden</code> to root <code>&lt;svg&gt;</code> elements. If an internal node scales or translates past the boundary, it will be abruptly clipped unless <code>overflow: visible</code> is declared.</li>
+            <li><strong>Combine Transforms into Single Statements:</strong> Avoid separating <code>rotate</code>, <code>scale</code>, and <code>translate</code> into multiple CSS rules. Declare them in one compound string (e.g. <code>transform: translate(10px, 10px) rotate(45deg) scale(1.2);</code>) to ensure consistent matrix multiplication order across rendering engines.</li>
+            <li><strong>Enforce Hardware Promotion:</strong> Adding <code>will-change: transform;</code> hints to the browser compositor to promote the vector element to its own GPU rasterization layer, avoiding expensive CPU repaints on every animation frame.</li>
+            <li><strong>Avoid Mixed Percentage &amp; Pixel Units in Origins:</strong> WebKit versions prior to Safari 17 occasionally miscalculated hybrid declarations like <code>transform-origin: 50% 12px</code>. Stick to either pure percentages (<code>50% 50%</code>) or pure coordinate lengths.</li>
+          </ol>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="takeaway-box">
+          <h3>Key Engineering Takeaways</h3>
+          <ul>
+            <li><strong>Fix the Origin First:</strong> Always include <code>transform-box: fill-box;</code> when setting percentage-based <code>transform-origin</code> on SVG paths.</li>
+            <li><strong>Order Dictates Geometry:</strong> <code>translate()</code> followed by <code>rotate()</code> produces a different visual path than <code>rotate()</code> followed by <code>translate()</code>.</li>
+            <li><strong>Group for Hierarchy:</strong> Use <code>&lt;g&gt;</code> tags to stack independent animation channels (e.g. parent translation + child rotation).</li>
+            <li><strong>GPU Acceleration:</strong> Use <code>will-change: transform;</code> and CSS keyframes rather than manual DOM JavaScript loops for 60 FPS performance.</li>
+          </ul>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="hub-faq">
+          <h2 id="faq">Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>Why do SVG elements rotate around the top-left corner instead of their own center in CSS?</h3>
+            <p>By default, SVG elements have transform-box: view-box. This causes transform-origin percentages (like 50% 50%) to be computed relative to the entire SVG canvas or viewBox origin (0, 0), rather than the individual shape's bounding box. Adding transform-box: fill-box fixes this instantly, anchoring rotation to the element's actual geometric center.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the difference between the SVG transform attribute and the CSS transform property?</h3>
+            <p>The SVG transform attribute uses unitless values, accepts coordinate center arguments directly (e.g. rotate(45 50 50)), and operates in SVG coordinate space. The CSS transform property requires explicit angle and length units (deg, rad, px), relies on transform-origin and transform-box for anchor positioning, and overrides attribute transforms in the cascade.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does the 2D affine matrix(a, b, c, d, e, f) function work in SVG?</h3>
+            <p>The 2D matrix function combines translation, scaling, rotation, and skewing into six values: [a, c, e; b, d, f; 0, 0, 1]. Specifically, 'a' and 'd' control horizontal and vertical scaling, 'b' and 'c' control vertical and horizontal skew/rotation, and 'e' and 'f' define horizontal and vertical translation in pixels.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why do nested SVG transforms behave differently depending on the order of functions?</h3>
+            <p>Transformation functions are applied via non-commutative matrix multiplication from right to left (or in reverse declaration order). Translating then rotating (translate(50px) rotate(45deg)) moves the element first and spins it around the new coordinate, whereas rotating then translating (rotate(45deg) translate(50px)) shifts the element along the rotated coordinate axis.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you resolve Safari and WebKit rendering bugs with animated SVG transforms?</h3>
+            <p>Safari historically suffers from repaint clipping and jitter when transforming SVG child nodes. Fix this by wrapping the transformed element in a group (&lt;g&gt;) tag, specifying will-change: transform on the targeted class, setting overflow: visible on the root &lt;svg&gt;, and declaring both transform-box: fill-box and transform-origin: center.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can you animate individual paths inside an inline SVG with CSS keyframes?</h3>
+            <p>Yes. When an SVG is inlined into the HTML DOM, each internal path, rect, or group can be targeted with CSS class names and animated with standard @keyframes rules. By pairing transform: rotate(...) with transform-box: fill-box and transform-origin: center, internal icon components like clock hands or gear teeth can rotate independently.</p>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#attribute-vs-css-property">1. SVG Attribute vs. CSS Property</a></li>
+              <li><a href="#the-transform-origin-bug">2. The transform-origin Bug &amp; Fix</a></li>
+              <li><a href="#the-six-core-transforms">3. 6 Core Transform Functions</a></li>
+              <li><a href="#transform-nesting-and-groups">4. Transform Stacking with &lt;g&gt;</a></li>
+              <li><a href="#production-ui-recipes">5. Production UI Recipes</a></li>
+              <li><a href="#safari-webkit-quirks">6. Safari &amp; WebKit Solutions</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134,000+ Clean Icons</h4>
+          <p>Every vector icon on IconStash is normalized with clean viewBox coordinate boundaries, making them effortlessly transformable with CSS.</p>
+          <a href="/" class="cta-sidebar-btn">Browse IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:12px; align-items:center;">
+      <p>&copy; 2026 IconStash.io &bull; Offered by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener">Great Software Company</a></p>
+      <p>
+        <a href="/about/">About</a> &bull;
+        <a href="/articles/">Articles</a> &bull;
+        <a href="/alternatives/">Alternatives</a> &bull;
+        <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a> &bull;
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a> &bull;
+        <a href="/privacy/">Privacy Policy</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle & persistence
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const current = htmlEl.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // Interactive Transformation Studio
+    (function initTransformStudio() {
+      const targetGroup = document.getElementById('targetGroup');
+      const sliderRotate = document.getElementById('sliderRotate');
+      const sliderScale = document.getElementById('sliderScale');
+      const sliderTx = document.getElementById('sliderTx');
+      const sliderTy = document.getElementById('sliderTy');
+      const sliderSkew = document.getElementById('sliderSkew');
+
+      const valRotate = document.getElementById('valRotate');
+      const valScale = document.getElementById('valScale');
+      const valTranslate = document.getElementById('valTranslate');
+      const valSkew = document.getElementById('valSkew');
+
+      const boxToggles = document.querySelectorAll('#boxToggleGroup .toggle-btn');
+      const codeOutput = document.getElementById('generatedTransformCode');
+      const copyBtn = document.getElementById('copyTransformCode');
+
+      const tabCss = document.getElementById('tabCssCode');
+      const tabMatrix = document.getElementById('tabMatrixCode');
+      const tabSvgAttr = document.getElementById('tabSvgAttr');
+
+      let currentTab = 'css';
+      let activeBoxMode = 'fill-box';
+
+      function updateTransforms() {
+        const rot = parseInt(sliderRotate.value, 10);
+        const sc = parseFloat(sliderScale.value);
+        const tx = parseInt(sliderTx.value, 10);
+        const ty = parseInt(sliderTy.value, 10);
+        const skew = parseInt(sliderSkew.value, 10);
+
+        valRotate.innerHTML = rot + '&deg;';
+        valScale.textContent = sc.toFixed(2) + 'x';
+        valTranslate.textContent = `${tx}px, ${ty}px`;
+        valSkew.innerHTML = skew + '&deg;';
+
+        // Apply to SVG live node
+        targetGroup.style.transformBox = activeBoxMode;
+        if (activeBoxMode === 'fill-box') {
+          targetGroup.style.transformOrigin = 'center';
+        } else {
+          targetGroup.style.transformOrigin = '0px 0px';
+        }
+
+        const transformCssValue = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${sc}) skewX(${skew}deg)`;
+        targetGroup.style.transform = transformCssValue;
+
+        // Compute 2D Affine Matrix
+        const rad = (rot * Math.PI) / 180;
+        const skewRad = (skew * Math.PI) / 180;
+        const cos = Math.cos(rad);
+        const sin = Math.sin(rad);
+        const tanSkew = Math.tan(skewRad);
+
+        const a = (cos * sc).toFixed(4);
+        const b = (sin * sc).toFixed(4);
+        const c = (-sin * sc + cos * tanSkew).toFixed(4);
+        const d = (cos * sc + sin * tanSkew).toFixed(4);
+        const e = tx;
+        const f = ty;
+
+        if (currentTab === 'css') {
+          codeOutput.textContent = `/* CSS Transformation Rule */\n.my-svg-shape {\n  transform-box: ${activeBoxMode};\n  transform-origin: ${activeBoxMode === 'fill-box' ? 'center' : '0 0'};\n  transform: ${transformCssValue};\n  will-change: transform;\n}`;
+        } else if (currentTab === 'matrix') {
+          codeOutput.textContent = `/* 2D Affine Transformation Matrix */\n.my-svg-shape {\n  transform-box: ${activeBoxMode};\n  transform-origin: ${activeBoxMode === 'fill-box' ? 'center' : '0 0'};\n  transform: matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f});\n}`;
+        } else {
+          codeOutput.textContent = `&lt;!-- SVG Presentation Attribute --&gt;\n&lt;g transform="translate(${tx}, ${ty}) rotate(${rot}, 100, 100) scale(${sc}) skewX(${skew})"&gt;\n  &lt;path d="M 100,55 L 118,88 L 155,100 L 118,112 L 100,145 L 82,112 L 45,100 L 82,88 Z" fill="#C1DD2D" /&gt;\n&lt;/g&gt;`;
+        }
+      }
+
+      boxToggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+          boxToggles.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeBoxMode = btn.dataset.box;
+          updateTransforms();
+        });
+      });
+
+      [sliderRotate, sliderScale, sliderTx, sliderTy, sliderSkew].forEach(slider => {
+        slider.addEventListener('input', updateTransforms);
+      });
+
+      tabCss.addEventListener('click', () => {
+        tabCss.classList.add('active');
+        tabMatrix.classList.remove('active');
+        tabSvgAttr.classList.remove('active');
+        currentTab = 'css';
+        updateTransforms();
+      });
+
+      tabMatrix.addEventListener('click', () => {
+        tabMatrix.classList.add('active');
+        tabCss.classList.remove('active');
+        tabSvgAttr.classList.remove('active');
+        currentTab = 'matrix';
+        updateTransforms();
+      });
+
+      tabSvgAttr.addEventListener('click', () => {
+        tabSvgAttr.classList.add('active');
+        tabCss.classList.remove('active');
+        tabMatrix.classList.remove('active');
+        currentTab = 'attr';
+        updateTransforms();
+      });
+
+      copyBtn.addEventListener('click', () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(codeOutput.textContent).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 2000);
+          });
+        }
+      });
+
+      updateTransforms();
+    })();
+  </script>
+</body>
+</html>

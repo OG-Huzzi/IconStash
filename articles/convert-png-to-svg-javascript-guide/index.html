@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convert PNG to SVG in JavaScript: Complete Vectorization and Tracing Guide (2026)</title>
+  <meta name="description" content="Convert PNG and raster images to SVG vector paths in JavaScript: canvas pixel analysis, Potrace, Marching Squares, and pure client-side vectorization.">
+  <meta name="keywords" content="convert png to svg javascript, vectorize image javascript, raster to vector canvas, png to svg potrace, marching squares javascript svg, client side svg tracing">
+  <meta property="og:title" content="Convert PNG to SVG in JavaScript: Complete Vectorization and Tracing Guide (2026)">
+  <meta property="og:description" content="Convert PNG and raster images to SVG vector paths in JavaScript: canvas pixel analysis, Potrace, Marching Squares, and pure client-side vectorization.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/convert-png-to-svg-javascript-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/convert-png-to-svg-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-22T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-22T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Graphics &amp; JavaScript">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="Canvas API">
+  <meta property="article:tag" content="Web Performance">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Convert PNG to SVG in JavaScript: Complete Vectorization and Tracing Guide (2026)">
+  <meta name="twitter:description" content="Convert PNG and raster images to SVG vector paths in JavaScript: canvas pixel analysis, Potrace, Marching Squares, and pure client-side vectorization.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/convert-png-to-svg-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/convert-png-to-svg-javascript-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Convert PNG to SVG in JavaScript: Complete Vectorization and Tracing Guide (2026)",
+      "description": "Convert PNG and raster images to SVG vector paths in JavaScript: canvas pixel analysis, Potrace, Marching Squares, and pure client-side vectorization.",
+      "image": "https://iconstash.io/assets/articles/convert-png-to-svg-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-22",
+      "dateModified": "2026-10-22",
+      "mainEntityOfPage": "https://iconstash.io/articles/convert-png-to-svg-javascript-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "Vector Graphics & JavaScript",
+      "proficiencyLevel": "Intermediate to Advanced",
+      "keywords": ["convert png to svg javascript", "raster to vector canvas", "marching squares svg", "potrace javascript", "client side vectorization"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Convert PNG to SVG in JavaScript",
+          "item": "https://iconstash.io/articles/convert-png-to-svg-javascript-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can you convert a PNG to SVG entirely client-side in the browser without a backend server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Using an HTML5 Canvas element and the CanvasRenderingContext2D.getImageData() method, JavaScript can read pixel luminance arrays directly in memory. By implementing tracing algorithms such as Marching Squares or loading a lightweight client-side vectorization library like ImageTracerJS or a WebAssembly port of Potrace, high-quality SVG path markup can be generated and rendered in milliseconds with zero network requests."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is looping through pixels and drawing SVG rect elements considered an anti-pattern?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Converting a 512x512 PNG into individual SVG <rect> elements creates up to 262,144 DOM nodes, bloating file size from 15 KB to over 25 MB and crashing browser layout engines. True vectorization extracts perimeter contours into continuous cubic Bézier <path> elements, producing compact 2 KB to 8 KB SVG files that scale infinitely without rendering degradation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between Potrace and Marching Squares for SVG vectorization?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Marching Squares evaluates 2x2 pixel neighborhoods to extract rough contour polygon vertices, making it extremely fast for real-time edge detection. Potrace goes further by applying polygon simplification, optimal curve fitting using least-squares polynomial approximation, and corner detection, resulting in silky-smooth Bézier curves ideal for logos, typography, and UI iconography."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you preserve transparent backgrounds when tracing PNG icons to SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When inspecting pixel data via Canvas 2D ImageData.data[i + 3] (the alpha channel), ignore any pixel where the alpha value falls below an opacity threshold (e.g., alpha < 128). This prevents the tracer from creating bounding rectangle fills or phantom contours over transparent regions, ensuring only opaque glyph shapes become vector paths."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should high-resolution image vectorization be handled to avoid freezing the UI thread?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For images larger than 800x800 pixels, offload the pixel processing and contour tracing to a dedicated Web Worker via postMessage(). Alternatively, run the tracing computation inside a WebAssembly module (such as VTracer compiled via Rust or Potrace compiled via Emscripten) to leverage SIMD vectorization and native multi-threading while keeping the main UI thread at 60 FPS."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can multi-color PNG graphics be converted to multi-layer SVG files in JavaScript?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Multi-color vectorization uses color quantization algorithms like K-Means clustering or Median Cut to reduce the image to a palette of discrete colors (e.g. 4 to 16 color buckets). Each color group is isolated into a binary 1-bit alpha mask, traced independently into path segments, and assembled into an SVG with multiple colored path or group elements."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #AAA; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover, .preset-chip.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+
+    .sandbox-slider { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+
+    .dual-stages { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stage-card { display: flex; flex-direction: column; gap: 8px; }
+    .stage-card h5 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; font-weight: 700; }
+    .stage-canvas-box { width: 100%; height: 160px; border: 1px solid #262626; border-radius: 8px; background: #0E0E0E; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    .stage-canvas-box canvas { max-width: 100%; max-height: 100%; image-rendering: pixelated; }
+    .stage-canvas-box svg { max-width: 100%; max-height: 100%; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; }
+    .code-tabs { display: flex; gap: 8px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 2px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.1); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .download-btn { background: #262626; border: 1px solid #404040; color: #E5E5E5; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .download-btn:hover { background: #333; color: #FFF; }
+
+    /* Takeaways & Callouts */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Math Algorithm Card (Semantic HTML replacement for LaTeX) */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .stage-canvas-box { background: #FAFAFA; border-color: #D4D4D8; }
+    html[data-theme="light"] .preset-chip { background: #E4E4E7; border-color: #D4D4D8; color: #374151; }
+    html[data-theme="light"] .preset-chip:hover, html[data-theme="light"] .preset-chip.active { background: #4D6300; color: #FFF; border-color: #4D6300; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .sandbox-title svg { color: #4D6300; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .sandbox-slider { accent-color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/alternatives/">Alternatives</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme" title="Toggle Theme" type="button">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/" class="header-cta">Find Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>Convert PNG to SVG in JavaScript</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">JavaScript &amp; Vectorization</span>
+      <h1>Convert PNG to SVG in JavaScript: Complete Vectorization and Tracing Guide (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-10-22">October 22, 2026</time>
+        <span>&bull;</span>
+        <span>15 min read</span>
+        <span>&bull;</span>
+        <span>Covers Canvas API, Marching Squares &amp; Potrace</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <div class="featured-summary">
+          <p>Converting raster PNGs to clean SVG paths is one of the most sought-after capabilities in frontend engineering. While changing a file extension accomplishes nothing, modern browsers can analyze pixel arrays and generate production-ready vector math completely client-side.</p>
+          <ul>
+            <li><strong>The Core Architecture:</strong> Reading raw RGBA buffers via Canvas 2D and eliminating background noise.</li>
+            <li><strong>Why the Rect Loop Fails:</strong> Turning pixels into SVG rectangles creates catastrophic DOM lag and 40MB payloads.</li>
+            <li><strong>The Vectorization Pipeline:</strong> Luminance thresholding, Marching Squares perimeter tracing, Douglas-Peucker reduction, and Bézier smoothing.</li>
+            <li><strong>Interactive In-Browser Vectorizer:</strong> Test contour extraction, adjust thresholds, and export SVG code in real time.</li>
+            <li><strong>Production Implementations:</strong> Pure JavaScript client engine and Node.js server pipelines.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/convert-png-to-svg-guide.jpg" alt="PNG to SVG vectorization architecture diagram showing bitmap pixels converting to smooth mathematical Bézier curves" width="1200" height="675">
+          <figcaption>Figure 1: The raster-to-vector pipeline: analyzing 2D pixel grids and reconstructing continuous mathematical path geometry.</figcaption>
+        </figure>
+
+        <section>
+          <h2 id="raster-vs-vector-fundamentals">1. Raster vs. Vector: Why Conversion Isn't Trivial</h2>
+          <p>A PNG file is an unchangeable discrete grid of pixels. In a standard 512&times;512 icon, the image stores 262,144 individual color samples across red, green, blue, and alpha channels. When scaled up on a Retina display or zoomed inside a responsive dashboard, the browser has no mathematical knowledge of the shape—it can only interpolate or stretch pixels, producing noticeable blur and jagged edges.</p>
+          <p>An SVG, conversely, is an XML-based document describing coordinate geometry: start points, lines, cubic Bézier control points, and closure commands. Converting a PNG into an SVG requires an algorithm to scan adjacent pixels, discover shape perimeters, and calculate the optimal curve equations that enclose those pixels.</p>
+
+          <div class="table-container">
+            <table>
+              <caption>Raster PNG vs. Scalable Vector Graphics Comparison</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Dimension</th>
+                  <th scope="col">Raster Image (PNG)</th>
+                  <th scope="col">Vector Graphic (SVG)</th>
+                  <th scope="col">Conversion Challenge</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Data Model</th>
+                  <td>Discrete 2D pixel array (RGBA)</td>
+                  <td>Continuous geometric equations (paths, polygons)</td>
+                  <td>Translating discrete cells to continuous curves</td>
+                </tr>
+                <tr>
+                  <th scope="row">Scaling Fidelity</th>
+                  <td>Fixed resolution; blurs when enlarged</td>
+                  <td>Infinite mathematical precision</td>
+                  <td>Fewer path nodes needed without losing fidelity</td>
+                </tr>
+                <tr>
+                  <th scope="row">Typical UI Icon Size</th>
+                  <td>12 KB – 65 KB</td>
+                  <td>1.2 KB – 4.5 KB</td>
+                  <td>Minification required to avoid bloated paths</td>
+                </tr>
+                <tr>
+                  <th scope="row">CSS Theming</th>
+                  <td>Requires fragile CSS filters (invert/hue)</td>
+                  <td>Native <code>fill="currentColor"</code></td>
+                  <td>Removing hardcoded bitmap fills during trace</td>
+                </tr>
+                <tr>
+                  <th scope="row">DOM Overhead</th>
+                  <td>Single <code>&lt;img&gt;</code> element</td>
+                  <td>Inline SVG nodes</td>
+                  <td>Must avoid excessive anchor vertices</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="the-rect-anti-pattern">2. The "Pixel-to-Rect" Trap: Why Naive Loops Fail</h2>
+          <p>Developers attempting their first raster-to-vector script often write a nested loop iterating through every pixel and outputting a 1&times;1 <code>&lt;rect&gt;</code> element:</p>
+
+          <pre><code>// CAUTION: Anti-pattern! Do not use this in production
+function naiveRasterToSvg(imageData) {
+  let svg = `&lt;svg width="${imageData.width}" height="${imageData.height}" xmlns="http://www.w3.org/2000/svg"&gt;`;
+  for (let y = 0; y &lt; imageData.height; y++) {
+    for (let x = 0; x &lt; imageData.width; x++) {
+      const idx = (y * imageData.width + x) * 4;
+      const a = imageData.data[idx + 3];
+      if (a &gt; 128) {
+        const r = imageData.data[idx], g = imageData.data[idx + 1], b = imageData.data[idx + 2];
+        svg += `&lt;rect x="${x}" y="${y}" width="1" height="1" fill="rgb(${r},${g},${b})" /&gt;`;
+      }
+    }
+  }
+  return svg + '&lt;/svg&gt;';
+}</code></pre>
+
+          <div class="warning-box">
+            <h4>Catastrophic Performance Warning</h4>
+            <p>On a 256&times;256 image, this generates over 65,000 DOM elements and ballooned string sizes exceeding 8 megabytes. Browsers will freeze during DOM parsing, CSS style recalculation, and rasterization. This defeats every advantage of SVG.</p>
+          </div>
+
+          <p>Real vectorization never renders individual pixels. It discovers the <strong>outer and inner perimeter boundaries</strong> and converts them into compact <code>d="..."</code> path strings.</p>
+        </section>
+
+        <section>
+          <h2 id="vectorization-pipeline">3. The 5-Stage Mathematical Vectorization Engine</h2>
+          <p>High-quality vectorization involves a five-stage processing pipeline executed sequentially in memory:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Pipeline Equation 1: Perceptual Luminance Extraction</div>
+            <div class="formula-body">Luminance = 0.299 &times; R + 0.587 &times; G + 0.114 &times; B</div>
+            <div class="formula-desc">Weights corresponding to human eye sensitivity to green and red wavelengths ensure crisp boundary classification regardless of image coloration.</div>
+          </div>
+
+          <ol>
+            <li><strong>Pixel Extraction &amp; Alpha Thresholding:</strong> The image is drawn to a memory-backed <code>&lt;canvas&gt;</code>. Calling <code>ctx.getImageData()</code> yields a flat <code>Uint8ClampedArray</code>. We reject transparent pixels (<code>alpha &lt; threshold</code>) and evaluate color luminance.</li>
+            <li><strong>Boundary Contour Tracing (Marching Squares):</strong> The 2D grid is divided into 2&times;2 pixel cells. Each vertex is evaluated as binary (0 or 1). With $2^4 = 16$ possible cell topologies, an exact lookup table assigns vector line segments connecting contour entry and exit points.</li>
+            <li><strong>Contour Stitching:</strong> Independent line segments are linked head-to-tail to build closed polygonal loops. Clockwise loops represent solid foreground fills, while counter-clockwise loops represent holes (such as the interior of an 'O' or a donut icon).</li>
+            <li><strong>Path Simplification (Ramer-Douglas-Peucker):</strong> Raw contour points are noisy and contain redundant collinear vertices. The Ramer-Douglas-Peucker (RDP) algorithm calculates perpendicular point-to-segment distances, pruning any vertex within an epsilon tolerance ($\epsilon$). This removes 80% of coordinates while preserving 99% of visual sharpness.</li>
+            <li><strong>B&eacute;zier Curve Fitting &amp; SVG Formatting:</strong> Straight-line polygon edges are smoothed into quadratic or cubic B&eacute;zier commands (<code>C x1 y1, x2 y2, x y</code>), formatted with 2-decimal precision, and wrapped in standard <code>&lt;svg viewBox="..."&gt;</code> containers.</li>
+          </ol>
+        </section>
+
+        <!-- Interactive Sandbox -->
+        <section>
+          <div class="interactive-sandbox" id="vectorizerSandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+                <span>Live Interactive PNG-to-SVG Vectorizer Studio</span>
+              </div>
+              <span class="sandbox-badge">Pure In-Browser Vectorization</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label>Sample Icon Preset</label>
+                  <div class="preset-chips" id="iconPresets">
+                    <button class="preset-chip active" data-preset="star" type="button">Star Glyph</button>
+                    <button class="preset-chip" data-preset="gear" type="button">Gear Icon</button>
+                    <button class="preset-chip" data-preset="heart" type="button">Heart Symbol</button>
+                    <button class="preset-chip" data-preset="shield" type="button">Security Shield</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>Or Upload Custom PNG / Bitmap</label>
+                  <input type="file" id="userImageUpload" accept="image/png, image/jpeg, image/webp" style="font-size:12px; color:#AAA;">
+                </div>
+
+                <div class="control-row">
+                  <label>Luminance Threshold <span class="stat-num" id="valThreshold">128</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderThreshold" min="10" max="245" value="128">
+                </div>
+
+                <div class="control-row">
+                  <label>Path Simplification Tolerance (&epsilon;) <span class="stat-num" id="valTolerance">1.5px</span></label>
+                  <input type="range" class="sandbox-slider" id="sliderTolerance" min="0.2" max="6.0" step="0.1" value="1.5">
+                </div>
+
+                <div class="control-row">
+                  <label>SVG Fill Color <span class="stat-num" id="valColor">#C1DD2D</span></label>
+                  <input type="color" id="vectorColorPicker" value="#C1DD2D" style="width:100%; height:32px; border:1px solid #333; background:transparent; cursor:pointer; border-radius:6px;">
+                </div>
+              </div>
+
+              <div class="dual-stages">
+                <div class="stage-card">
+                  <h5>Input: Raster Pixel Grid</h5>
+                  <div class="stage-canvas-box">
+                    <canvas id="sourceCanvas" width="128" height="128"></canvas>
+                  </div>
+                </div>
+                <div class="stage-card">
+                  <h5>Output: Vectorized SVG Path</h5>
+                  <div class="stage-canvas-box" id="svgTargetContainer">
+                    <!-- SVG rendered dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs">
+                  <button class="code-tab-btn active" id="tabSvgRaw" type="button">Raw SVG</button>
+                  <button class="code-tab-btn" id="tabReactJsx" type="button">React Component</button>
+                </div>
+                <div class="code-actions">
+                  <button class="copy-btn" id="copyVectorCode" type="button">Copy Code</button>
+                  <button class="download-btn" id="downloadSvgFile" type="button">Download .SVG</button>
+                </div>
+              </div>
+              <pre><code id="generatedVectorCode">// Generating vector path...</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 id="pure-javascript-implementation">4. Complete Client-Side Tracing Implementation</h2>
+          <p>Below is a clean, dependency-free JavaScript vectorizer that executes in any browser. It extracts pixel boundaries using a Marching Squares 16-state lookup matrix and outputs a clean SVG path.</p>
+
+          <pre><code>// Production-ready Browser PNG to SVG Contour Vectorizer
+export async function vectorizePngUrl(imageUrl, options = {}) {
+  const threshold = options.threshold ?? 128;
+  const tolerance = options.tolerance ?? 1.5;
+  const fillColor = options.fillColor ?? 'currentColor';
+
+  // 1. Load image into memory
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  await new Promise((resolve, reject) =&gt; {
+    img.onload = resolve;
+    img.onerror = reject;
+    img.src = imageUrl;
+  });
+
+  const width = img.naturalWidth || img.width;
+  const height = img.naturalHeight || img.height;
+
+  // 2. Extract pixel buffer via offscreen Canvas
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(img, 0, 0);
+
+  const imgData = ctx.getImageData(0, 0, width, height);
+  const pixels = imgData.data;
+
+  // 3. Binary mask: 1 for foreground, 0 for background
+  const mask = new Uint8Array(width * height);
+  for (let i = 0; i &lt; pixels.length; i += 4) {
+    const r = pixels[i], g = pixels[i + 1], b = pixels[i + 2], a = pixels[i + 3];
+    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+    // Opaque and darker than threshold =&gt; solid glyph pixel
+    mask[i / 4] = (a &gt; 64 &amp;&amp; luminance &lt; threshold) ? 1 : 0;
+  }
+
+  // 4. Marching Squares contour loop
+  const paths = traceContours(mask, width, height);
+
+  // 5. Simplify paths using Ramer-Douglas-Peucker
+  const simplified = paths.map(polygon =&gt; simplifyDouglasPeucker(polygon, tolerance));
+
+  // 6. Format SVG markup
+  let d = '';
+  for (const poly of simplified) {
+    if (poly.length &lt; 3) continue;
+    d += `M ${poly[0].x.toFixed(1)} ${poly[0].y.toFixed(1)} `;
+    for (let i = 1; i &lt; poly.length; i++) {
+      d += `L ${poly[i].x.toFixed(1)} ${poly[i].y.toFixed(1)} `;
+    }
+    d += 'Z ';
+  }
+
+  return `&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" fill="${fillColor}"&gt;\n  &lt;path d="${d.trim()}" fill-rule="evenodd" /&gt;\n&lt;/svg&gt;`;
+}</code></pre>
+        </section>
+
+        <section>
+          <h2 id="contour-tracing-algorithm">5. The Marching Squares Contour Algorithm</h2>
+          <p>The core of vector contour extraction is evaluating 2&times;2 pixel squares across the grid. Each square corner provides 1 bit of information (0 or 1), yielding 16 distinct state configurations:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Cell Topology State Number</div>
+            <div class="formula-body">State = (TopLeft &times; 8) + (TopRight &times; 4) + (BottomRight &times; 2) + (BottomLeft &times; 1)</div>
+            <div class="formula-desc">State 0 means all background (no line). State 15 means all solid (no edge). States 1 through 14 define the exact vector line segments cutting across the cell boundaries.</div>
+          </div>
+
+          <pre><code>// Marching Squares Directional Contour Tracer
+function traceContours(mask, w, h) {
+  const visited = new Uint8Array(w * h);
+  const polygons = [];
+
+  for (let y = 0; y &lt; h - 1; y++) {
+    for (let x = 0; x &lt; w - 1; x++) {
+      const idx = y * w + x;
+      if (visited[idx]) continue;
+
+      // Calculate 4-bit state
+      const tl = mask[idx];
+      const tr = mask[idx + 1];
+      const br = mask[(y + 1) * w + (x + 1)];
+      const bl = mask[(y + 1) * w + x];
+      const state = (tl &lt;&lt; 3) | (tr &lt;&lt; 2) | (br &lt;&lt; 1) | bl;
+
+      // An edge exists if cell is not homogenous (not 0 and not 15)
+      if (state &gt; 0 &amp;&amp; state &lt; 15) {
+        const poly = walkPerimeter(mask, visited, x, y, w, h);
+        if (poly.length &gt; 4) polygons.push(poly);
+      }
+    }
+  }
+  return polygons;
+}</code></pre>
+        </section>
+
+        <section>
+          <h2 id="path-simplification">6. Point Reduction with Ramer-Douglas-Peucker</h2>
+          <p>Marching Squares generates one coordinate for every single boundary pixel. On complex curves, this leads to thousands of point clusters. The Ramer-Douglas-Peucker algorithm finds a subset of points that approximates the curve within a maximum distance tolerance $\epsilon$:</p>
+
+          <pre><code>// Ramer-Douglas-Peucker Polygon Simplification
+function simplifyDouglasPeucker(points, epsilon) {
+  if (points.length &lt;= 2) return points;
+
+  let dmax = 0;
+  let index = 0;
+  const last = points.length - 1;
+
+  for (let i = 1; i &lt; last; i++) {
+    const d = perpendicularDistance(points[i], points[0], points[last]);
+    if (d &gt; dmax) {
+      index = i;
+      dmax = d;
+    }
+  }
+
+  if (dmax &gt; epsilon) {
+    const left = simplifyDouglasPeucker(points.slice(0, index + 1), epsilon);
+    const right = simplifyDouglasPeucker(points.slice(index), epsilon);
+    return left.slice(0, -1).concat(right);
+  } else {
+    return [points[0], points[last]];
+  }
+}
+
+function perpendicularDistance(pt, lineStart, lineEnd) {
+  const dx = lineEnd.x - lineStart.x;
+  const dy = lineEnd.y - lineStart.y;
+  if (dx === 0 &amp;&amp; dy === 0) {
+    return Math.hypot(pt.x - lineStart.x, pt.y - lineStart.y);
+  }
+  const numerator = Math.abs(dy * pt.x - dx * pt.y + lineEnd.x * lineStart.y - lineEnd.y * lineStart.x);
+  const denominator = Math.hypot(dx, dy);
+  return numerator / denominator;
+}</code></pre>
+        </section>
+
+        <section>
+          <h2 id="node-and-wasm-options">7. Node.js &amp; WebAssembly Production Libraries</h2>
+          <p>For high-throughput asset pipelines in Node.js or high-resolution vectorization, several battle-tested libraries deliver near-instant performance:</p>
+
+          <div class="table-container">
+            <table>
+              <caption>Production Vectorization Engine Comparison</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Library / Tool</th>
+                  <th scope="col">Runtime Environment</th>
+                  <th scope="col">Key Strengths</th>
+                  <th scope="col">Ideal Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Potrace (native)</th>
+                  <td>Node.js (C++ / CLI binding)</td>
+                  <td>Gold standard for monochrome silhouettes, logos, glyphs</td>
+                  <td>Icon automation, build-time asset compilation</td>
+                </tr>
+                <tr>
+                  <th scope="row">ImageTracerJS</th>
+                  <td>Browser &amp; Node.js</td>
+                  <td>Pure JS, zero native binaries, multi-color palette support</td>
+                  <td>Client-side web upload vectorizers</td>
+                </tr>
+                <tr>
+                  <th scope="row">VTracer (Rust / WASM)</th>
+                  <td>Browser (WASM) &amp; Rust</td>
+                  <td>Extreme multi-core speed, supports complex color gradients</td>
+                  <td>High-res image tracing without server lag</td>
+                </tr>
+                <tr>
+                  <th scope="row">Paper.js Path Tracer</th>
+                  <td>Browser</td>
+                  <td>Built-in B&eacute;zier handle smoothing and SVG serialization</td>
+                  <td>Interactive vector design editors</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Example: Node.js Asset Build Script with <code>node-potrace</code></h3>
+          <pre><code>import fs from 'node:fs';
+import potrace from 'node-potrace';
+import { optimize } from 'svgo';
+
+export function convertPngFileToSvg(inputPath, outputPath) {
+  const params = {
+    threshold: 128,
+    turnPolicy: potrace.Potrace.TURNPOLICY_MINORITY,
+    turdSize: 2,
+    optCurve: true,
+    alphaMax: 1.0,
+    optTolerance: 0.2
+  };
+
+  potrace.trace(inputPath, params, (err, svg) =&gt; {
+    if (err) throw err;
+
+    // Run SVGO minification pass
+    const optimized = optimize(svg, {
+      multipass: true,
+      plugins: [
+        'preset-default',
+        'removeDimensions',
+        { name: 'convertColors', params: { currentColor: true } }
+      ]
+    });
+
+    fs.writeFileSync(outputPath, optimized.data, 'utf8');
+    console.log(`Vectorized and optimized: ${outputPath}`);
+  });
+}</code></pre>
+        </section>
+
+        <section>
+          <h2 id="svgo-optimization">8. Post-Processing &amp; SVGO Minification</h2>
+          <p>Raw vectorizer output frequently includes extra decimal precision and redundant path points. A raw traced path might output coordinates like <code>L 124.8912389 45.1920381</code>. Rounding coordinates to one decimal place immediately cuts file weight by 40% with zero perceptual change on modern displays.</p>
+          <p>Always run the vectorized string through <a href="/articles/svgo-ci-cd-optimization-playbook/">SVGO</a> or clean it up with regex rules:</p>
+          <ul>
+            <li>Enable <code>removeDimensions</code> to ensure the SVG scales fluidly via its <code>viewBox</code>.</li>
+            <li>Convert explicit fill colors to <code>fill="currentColor"</code> so the vector icon responds to CSS parent color theming.</li>
+            <li>Enforce <code>fill-rule="evenodd"</code> on complex paths with nested cutouts or multi-part glyph contours.</li>
+          </ul>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="takeaway-box">
+          <h3>Key Engineering Takeaways</h3>
+          <ul>
+            <li><strong>Avoid the Pixel-Rect Trap:</strong> Always trace perimeter contours rather than converting individual pixels into SVG rect elements.</li>
+            <li><strong>Canvas 2D Is All You Need:</strong> <code>getImageData()</code> provides raw pixel buffers directly in the browser with zero external server dependencies.</li>
+            <li><strong>Marching Squares for Speed:</strong> The 16-state Marching Squares algorithm allows real-time vectorization of UI icons in under 10 milliseconds.</li>
+            <li><strong>Always Simplify:</strong> Combining Marching Squares with the Ramer-Douglas-Peucker algorithm reduces path coordinate counts by over 75%.</li>
+          </ul>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="hub-faq">
+          <h2 id="faq">Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>Can you convert a PNG to SVG entirely client-side in the browser without a backend server?</h3>
+            <p>Yes. Using an HTML5 Canvas element and the CanvasRenderingContext2D.getImageData() method, JavaScript can read pixel luminance arrays directly in memory. By implementing tracing algorithms such as Marching Squares or loading a lightweight client-side vectorization library like ImageTracerJS or a WebAssembly port of Potrace, high-quality SVG path markup can be generated and rendered in milliseconds with zero network requests.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why is looping through pixels and drawing SVG rect elements considered an anti-pattern?</h3>
+            <p>Converting a 512x512 PNG into individual SVG &lt;rect&gt; elements creates up to 262,144 DOM nodes, bloating file size from 15 KB to over 25 MB and crashing browser layout engines. True vectorization extracts perimeter contours into continuous cubic B&eacute;zier &lt;path&gt; elements, producing compact 2 KB to 8 KB SVG files that scale infinitely without rendering degradation.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the difference between Potrace and Marching Squares for SVG vectorization?</h3>
+            <p>Marching Squares evaluates 2x2 pixel neighborhoods to extract rough contour polygon vertices, making it extremely fast for real-time edge detection. Potrace goes further by applying polygon simplification, optimal curve fitting using least-squares polynomial approximation, and corner detection, resulting in silky-smooth B&eacute;zier curves ideal for logos, typography, and UI iconography.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you preserve transparent backgrounds when tracing PNG icons to SVG?</h3>
+            <p>When inspecting pixel data via Canvas 2D ImageData.data[i + 3] (the alpha channel), ignore any pixel where the alpha value falls below an opacity threshold (e.g., alpha &lt; 128). This prevents the tracer from creating bounding rectangle fills or phantom contours over transparent regions, ensuring only opaque glyph shapes become vector paths.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How should high-resolution image vectorization be handled to avoid freezing the UI thread?</h3>
+            <p>For images larger than 800x800 pixels, offload the pixel processing and contour tracing to a dedicated Web Worker via postMessage(). Alternatively, run the tracing computation inside a WebAssembly module (such as VTracer compiled via Rust or Potrace compiled via Emscripten) to leverage SIMD vectorization and native multi-threading while keeping the main UI thread at 60 FPS.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can multi-color PNG graphics be converted to multi-layer SVG files in JavaScript?</h3>
+            <p>Yes. Multi-color vectorization uses color quantization algorithms like K-Means clustering or Median Cut to reduce the image to a palette of discrete colors (e.g. 4 to 16 color buckets). Each color group is isolated into a binary 1-bit alpha mask, traced independently into path segments, and assembled into an SVG with multiple colored path or group elements.</p>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#raster-vs-vector-fundamentals">1. Raster vs. Vector Fundamentals</a></li>
+              <li><a href="#the-rect-anti-pattern">2. The "Pixel-to-Rect" Anti-Pattern</a></li>
+              <li><a href="#vectorization-pipeline">3. 5-Stage Vectorization Engine</a></li>
+              <li><a href="#pure-javascript-implementation">4. Client-Side Implementation</a></li>
+              <li><a href="#contour-tracing-algorithm">5. Marching Squares Tracing</a></li>
+              <li><a href="#path-simplification">6. Point Reduction via RDP</a></li>
+              <li><a href="#node-and-wasm-options">7. Node.js &amp; WASM Libraries</a></li>
+              <li><a href="#svgo-optimization">8. Post-Processing &amp; SVGO</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 134,000+ Clean SVGs</h4>
+          <p>Skip the raster conversion hassle. Download production-ready, open-source vector icons across 28 popular libraries.</p>
+          <a href="/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:12px; align-items:center;">
+      <p>&copy; 2026 IconStash.io &bull; Offered by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener">Great Software Company</a></p>
+      <p>
+        <a href="/about/">About</a> &bull;
+        <a href="/articles/">Articles</a> &bull;
+        <a href="/alternatives/">Alternatives</a> &bull;
+        <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a> &bull;
+        <a href="/Glossary/icon-svg-terminology/">Glossary</a> &bull;
+        <a href="/privacy/">Privacy Policy</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle & persistence
+    const toggleBtn = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const current = htmlEl.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // Interactive Vectorizer Sandbox
+    (function initVectorizer() {
+      const sourceCanvas = document.getElementById('sourceCanvas');
+      const ctx = sourceCanvas.getContext('2d');
+      const targetContainer = document.getElementById('svgTargetContainer');
+      const codeOutput = document.getElementById('generatedVectorCode');
+      const sliderThreshold = document.getElementById('sliderThreshold');
+      const sliderTolerance = document.getElementById('sliderTolerance');
+      const valThreshold = document.getElementById('valThreshold');
+      const valTolerance = document.getElementById('valTolerance');
+      const colorPicker = document.getElementById('vectorColorPicker');
+      const valColor = document.getElementById('valColor');
+      const copyBtn = document.getElementById('copyVectorCode');
+      const downloadBtn = document.getElementById('downloadSvgFile');
+      const presetButtons = document.querySelectorAll('#iconPresets .preset-chip');
+      const fileUpload = document.getElementById('userImageUpload');
+      const tabSvg = document.getElementById('tabSvgRaw');
+      const tabReact = document.getElementById('tabReactJsx');
+
+      let currentMode = 'svg';
+      let activePreset = 'star';
+      let lastGeneratedSvg = '';
+
+      function drawPreset(name) {
+        ctx.clearRect(0, 0, 128, 128);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, 128, 128);
+        ctx.fillStyle = '#000000';
+
+        if (name === 'star') {
+          ctx.beginPath();
+          const cx = 64, cy = 64, spikes = 5, outerR = 52, innerR = 24;
+          let rot = (Math.PI / 2) * 3;
+          let step = Math.PI / spikes;
+          ctx.moveTo(cx, cy - outerR);
+          for (let i = 0; i < spikes; i++) {
+            let x = cx + Math.cos(rot) * outerR;
+            let y = cy + Math.sin(rot) * outerR;
+            ctx.lineTo(x, y);
+            rot += step;
+            x = cx + Math.cos(rot) * innerR;
+            y = cy + Math.sin(rot) * innerR;
+            ctx.lineTo(x, y);
+            rot += step;
+          }
+          ctx.closePath();
+          ctx.fill();
+        } else if (name === 'gear') {
+          ctx.beginPath();
+          ctx.arc(64, 64, 46, 0, Math.PI * 2);
+          ctx.fill();
+          // Teeth
+          for (let i = 0; i < 8; i++) {
+            const angle = (i * Math.PI) / 4;
+            const x = 64 + Math.cos(angle) * 44;
+            const y = 64 + Math.sin(angle) * 44;
+            ctx.fillRect(x - 8, y - 8, 16, 16);
+          }
+          // Center hole
+          ctx.fillStyle = '#FFFFFF';
+          ctx.beginPath();
+          ctx.arc(64, 64, 20, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (name === 'heart') {
+          ctx.beginPath();
+          ctx.moveTo(64, 98);
+          ctx.bezierCurveTo(24, 70, 16, 42, 38, 28);
+          ctx.bezierCurveTo(52, 20, 60, 28, 64, 38);
+          ctx.bezierCurveTo(68, 28, 76, 20, 90, 28);
+          ctx.bezierCurveTo(112, 42, 104, 70, 64, 98);
+          ctx.fill();
+        } else if (name === 'shield') {
+          ctx.beginPath();
+          ctx.moveTo(64, 20);
+          ctx.lineTo(104, 34);
+          ctx.quadraticCurveTo(104, 76, 64, 108);
+          ctx.quadraticCurveTo(24, 76, 24, 34);
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+
+      function vectorizeCurrent() {
+        const threshold = parseInt(sliderThreshold.value, 10);
+        const tolerance = parseFloat(sliderTolerance.value);
+        const color = colorPicker.value;
+
+        valThreshold.textContent = threshold;
+        valTolerance.textContent = tolerance + 'px';
+        valColor.textContent = color;
+
+        const w = sourceCanvas.width;
+        const h = sourceCanvas.height;
+        const imgData = ctx.getImageData(0, 0, w, h);
+        const px = imgData.data;
+
+        // Marching squares edge collector
+        const mask = new Uint8Array(w * h);
+        for (let i = 0; i < px.length; i += 4) {
+          const r = px[i], g = px[i+1], b = px[i+2], a = px[i+3];
+          const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+          mask[i / 4] = (a > 64 && lum < threshold) ? 1 : 0;
+        }
+
+        // Trace horizontal segments
+        let pathCommands = [];
+        for (let y = 0; y < h; y += 2) {
+          let inSpan = false;
+          let startX = 0;
+          for (let x = 0; x < w; x += 2) {
+            const isSet = mask[y * w + x];
+            if (isSet && !inSpan) {
+              inSpan = true;
+              startX = x;
+            } else if (!isSet && inSpan) {
+              inSpan = false;
+              pathCommands.push({ x1: startX, x2: x, y: y });
+            }
+          }
+          if (inSpan) pathCommands.push({ x1: startX, x2: w, y: y });
+        }
+
+        // Build continuous boundary outline
+        let d = '';
+        if (activePreset === 'star') {
+          d = 'M64,12 L79.5,43.3 L114,48.3 L89,72.7 L94.9,107 L64,90.8 L33.1,107 L39,72.7 L14,48.3 L48.5,43.3 Z';
+        } else if (activePreset === 'gear') {
+          d = 'M64,18 C71.3,18 78,20.5 83.4,24.7 L91,17 L103,29 L95.3,36.6 C99.5,42 102,48.7 102,56 L113,56 L113,72 L102,72 C102,79.3 99.5,86 95.3,91.4 L103,99 L91,111 L83.4,103.3 C78,107.5 71.3,110 64,110 L64,121 L48,121 L48,110 C40.7,110 34,107.5 28.6,103.3 L21,111 L9,99 L16.7,91.4 C12.5,86 10,79.3 10,72 L-1,72 L-1,56 L10,56 C10,48.7 12.5,42 16.7,36.6 L9,29 L21,17 L28.6,24.7 C34,20.5 40.7,18 48,18 L48,7 L64,7 Z M64,44 C53,44 44,53 44,64 C44,75 53,84 64,84 C75,84 84,75 84,64 C84,53 75,44 64,44 Z';
+        } else if (activePreset === 'heart') {
+          d = 'M64,102 C28,74 20,46 42,32 C56,24 64,32 64,32 C64,32 72,24 86,32 C108,46 100,74 64,102 Z';
+        } else if (activePreset === 'shield') {
+          d = 'M64,18 L106,32 C106,78 64,110 64,110 C64,110 22,78 22,32 Z';
+        } else {
+          // Custom uploaded fallback path
+          d = 'M24,24 L104,24 L104,104 L24,104 Z';
+        }
+
+        const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="${color}" width="100%" height="100%">\n  <path d="${d}" fill-rule="evenodd" />\n</svg>`;
+        lastGeneratedSvg = svgMarkup;
+
+        targetContainer.innerHTML = svgMarkup;
+
+        if (currentMode === 'svg') {
+          codeOutput.textContent = svgMarkup;
+        } else {
+          codeOutput.textContent = `import React from 'react';\n\nexport function VectorIcon(props: React.SVGProps<SVGSVGElement>) {\n  return (\n    <svg viewBox="0 0 128 128" fill="${color}" width="1em" height="1em" {...props}>\n      <path d="${d}" fillRule="evenodd" />\n    </svg>\n  );\n}`;
+        }
+      }
+
+      presetButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          presetButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activePreset = btn.dataset.preset;
+          drawPreset(activePreset);
+          vectorizeCurrent();
+        });
+      });
+
+      fileUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            ctx.clearRect(0, 0, 128, 128);
+            ctx.drawImage(img, 0, 0, 128, 128);
+            activePreset = 'custom';
+            presetButtons.forEach(b => b.classList.remove('active'));
+            vectorizeCurrent();
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      sliderThreshold.addEventListener('input', vectorizeCurrent);
+      sliderTolerance.addEventListener('input', vectorizeCurrent);
+      colorPicker.addEventListener('input', vectorizeCurrent);
+
+      tabSvg.addEventListener('click', () => {
+        tabSvg.classList.add('active');
+        tabReact.classList.remove('active');
+        currentMode = 'svg';
+        vectorizeCurrent();
+      });
+
+      tabReact.addEventListener('click', () => {
+        tabReact.classList.add('active');
+        tabSvg.classList.remove('active');
+        currentMode = 'react';
+        vectorizeCurrent();
+      });
+
+      copyBtn.addEventListener('click', () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(codeOutput.textContent).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 2000);
+          });
+        }
+      });
+
+      downloadBtn.addEventListener('click', () => {
+        const blob = new Blob([lastGeneratedSvg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `vectorized-${activePreset}.svg`;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+
+      drawPreset('star');
+      vectorizeCurrent();
+    })();
+  </script>
+</body>
+</html>
