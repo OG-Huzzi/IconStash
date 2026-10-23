@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Embed SVG in HTML: 6 Methods, Performance &amp; CSS Guide (2026)</title>
+  <meta name="description" content="Master 6 ways to embed SVG in HTML: inline SVG, img, object, CSS background, mask-image, and web components. Compare caching, SEO, and Core Web Vitals.">
+  <meta name="keywords" content="how to use svg in html, embed svg in html, svg in html img vs inline, how to add svg to html, svg tag in html, html embed svg file, insert svg in html, svg object tag">
+  <meta property="og:title" content="How to Embed SVG in HTML: 6 Methods, Performance &amp; CSS Guide (2026)">
+  <meta property="og:description" content="Master 6 ways to embed SVG in HTML: inline SVG, img, object, CSS background, mask-image, and web components. Compare caching, SEO, and Core Web Vitals.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-embed-svg-in-html-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/how-to-embed-svg-in-html-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-23T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-23T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Frontend Development &amp; HTML5">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="HTML">
+  <meta property="article:tag" content="Web Performance">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Frontend">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Embed SVG in HTML: 6 Methods, Performance &amp; CSS Guide (2026)">
+  <meta name="twitter:description" content="Master 6 ways to embed SVG in HTML: inline SVG, img, object, CSS background, mask-image, and web components. Compare caching, SEO, and Core Web Vitals.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/how-to-embed-svg-in-html-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-embed-svg-in-html-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Embed SVG in HTML: 6 Methods, Web Performance & CSS Styling Guide",
+      "description": "Master 6 ways to embed SVG in HTML: inline SVG, img, object, CSS background, mask-image, and web components. Compare caching, SEO, and Core Web Vitals.",
+      "image": "https://iconstash.io/assets/articles/how-to-embed-svg-in-html-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-23",
+      "dateModified": "2026-10-23",
+      "mainEntityOfPage": "https://iconstash.io/articles/how-to-embed-svg-in-html-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "Frontend Development & HTML5",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["how to use svg in html", "embed svg in html", "svg in html img vs inline", "svg object tag", "css mask-image svg", "svg web components"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to Embed SVG in HTML",
+          "item": "https://iconstash.io/articles/how-to-embed-svg-in-html-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the best way to embed an SVG in HTML for web performance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The optimal embedding method depends on architectural requirements. For critical above-the-fold icons that need dynamic CSS currentColor styling or animations, inline SVG is best because it renders instantly without an HTTP round-trip. For non-interactive illustrations or repeated logos, the standard HTML img tag is best because it enables browser HTTP disk caching and parallel non-blocking downloads."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can't you style an SVG embedded with an &lt;img&gt; tag using external CSS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When an SVG is embedded via an img tag, modern browser rendering engines instantiate an isolated document browsing context. The internal XML document object model is sealed from the parent page's CSS cascade and JavaScript runtime for security reasons. To style an external SVG dynamically, you must use inline SVG, CSS mask-image, or an object tag."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent Cumulative Layout Shift (CLS) when loading external SVG files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To prevent layout shifts, always declare explicit width, height, and viewBox attributes on the SVG, and set CSS aspect-ratio: attr(width) / attr(height) or width: 24px; height: 24px; on the container. This informs the browser's layout engine of the graphic's dimensions before the external network payload resolves."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should you use the &lt;object&gt; tag instead of inline SVG or &lt;img&gt;?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The HTML object tag (with type='image/svg+xml') should be used when the SVG contains internal interactive JavaScript, links, or complex SMIL animations that must execute independently while preserving semantic fallback HTML content (placed inside the object tag) for older clients or assistive tech."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does CSS mask-image compare to inline SVG for UI iconography?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSS mask-image combines the caching benefits of an external SVG file with the dynamic theming of inline SVG. It applies the SVG as an alpha stencil over a standard div, allowing developers to change the icon color dynamically by simply altering background-color. It reduces HTML DOM node count by up to 75% compared to inline SVG."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is inline SVG indexed by Google Images for SEO?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Googlebot can index text content contained within inline SVG tags for standard web search ranking, but Google Images primarily indexes stand-alone image URLs referenced in HTML img src tags, srcset attributes, Open Graph image tags, or XML image sitemaps. If an image is critical for Google Image search visibility, referencing an external .svg file via img is superior."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Decision Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .matrix-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .matrix-grid { grid-template-columns: 1fr; } }
+
+    .checklist-controls { display: flex; flex-direction: column; gap: 10px; }
+    .filter-item { display: flex; align-items: center; gap: 10px; background: #161616; border: 1px solid #262626; padding: 10px 14px; border-radius: 8px; cursor: pointer; transition: all 120ms ease; user-select: none; }
+    .filter-item:hover { border-color: #383838; }
+    .filter-item input { accent-color: #C1DD2D; width: 18px; height: 18px; cursor: pointer; }
+    .filter-item span { font-size: 13.5px; color: #DDD; font-weight: 500; }
+
+    .recommendation-card { background: #0E0E0E; border: 1px solid #262626; border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .rec-top { display: flex; justify-content: space-between; align-items: center; }
+    .rec-tag { font-size: 11px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.06em; color: #0A0A0A; background: #C1DD2D; padding: 4px 10px; border-radius: 4px; }
+    .rec-score { font-size: 13px; font-weight: 700; color: #888; font-family: "JetBrains Mono", monospace; }
+    .rec-title { font-size: 19px; font-weight: 800; color: #FFF; margin: 0; }
+    .rec-description { font-size: 14px; color: #AAA; line-height: 1.6; margin: 0; }
+
+    .metrics-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #161616; border: 1px solid #222; border-radius: 6px; padding: 10px; }
+    .metric-cell { text-align: center; }
+    .metric-name { font-size: 10px; text-transform: uppercase; color: #777; font-weight: 700; }
+    .metric-val { font-size: 13px; font-weight: 800; color: #C1DD2D; margin-top: 2px; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 180px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
+
+    /* Takeaways & Callouts */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .metrics-bar { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .filter-item { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .filter-item span { color: #18181B; }
+    html[data-theme="light"] .recommendation-card { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .rec-title { color: #18181B; }
+    html[data-theme="light"] .rec-description { color: #525252; }
+    html[data-theme="light"] .metrics-bar { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .metric-val { color: #4D6300; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/library/lucide/">Libraries</a>
+      <a href="/compare/">Compare</a>
+      <a href="/about/">About</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/" class="header-cta">Search 135,000+ Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>How to Embed SVG in HTML</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Frontend Development &amp; HTML5</span>
+      <h1>How to Embed SVG in HTML: 6 Methods, Web Performance &amp; CSS Styling Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-10-23">October 23, 2026</time>
+        <span>&bull;</span>
+        <span>16 min read</span>
+        <span>&bull;</span>
+        <span>Updated for 2026</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+        <div class="featured-summary">
+          <p><strong>Essential Architectural Takeaways:</strong></p>
+          <ul>
+            <li><strong>6 Core Embedding Techniques:</strong> Inline <code>&lt;svg&gt;</code>, external <code>&lt;img&gt;</code>, <code>&lt;object&gt;</code> tag, CSS <code>background-image</code>, CSS <code>mask-image</code>, and modern Web Components.</li>
+            <li><strong>Dynamic CSS Theming:</strong> Inline SVG and CSS <code>mask-image</code> allow immediate color switching via <code>currentColor</code> and <code>background-color</code>. The <code>&lt;img&gt;</code> and CSS <code>background-image</code> tags create sealed execution contexts that reject external stylesheet overrides.</li>
+            <li><strong>Network &amp; Caching Efficiency:</strong> External <code>&lt;img&gt;</code> and CSS masks enable persistent HTTP disk caching and parallel downloads. Inline SVG avoids network requests entirely but permanently increases initial HTML document weight.</li>
+            <li><strong>Security Boundaries:</strong> External images (<code>&lt;img&gt;</code> and CSS backgrounds) disable internal script execution for safety. The <code>&lt;object&gt;</code> and <code>&lt;iframe&gt;</code> tags preserve active scripting environments.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/how-to-embed-svg-in-html-guide.jpg" alt="Comprehensive technical diagram comparing 6 ways to embed SVG into HTML pages including inline SVG, img tag, object tag, and CSS mask" width="1200" height="675">
+          <figcaption>Figure 1: Architectural comparison of SVG embedding channels, DOM integration boundaries, and browser security contexts.</figcaption>
+        </figure>
+
+        <p>Embedding Scalable Vector Graphics (SVG) into HTML appears deceptively simple. Yet choosing the wrong embedding strategy is one of the most common causes of bloated DOM trees, broken dark-mode color theming, layout shifts (CLS), and unexpected Cross-Site Scripting (XSS) vulnerabilities.</p>
+
+        <p>Depending on whether your graphic is an interactive UI icon, an illustrative hero banner, an animated chart, or a reusable brand logo, modern web standards offer <strong>6 distinct embedding techniques</strong>. In this engineering deep-dive, we examine the mechanics, performance trade-offs, Core Web Vitals implications, and browser constraints of every method.</p>
+
+        <section id="decision-matrix">
+          <h2>Interactive HTML SVG Embedding Decision Matrix</h2>
+          <p>Select your technical constraints below. The decision engine will calculate the optimal embedding strategy and generate production-ready HTML/CSS snippets.</p>
+
+          <div class="interactive-sandbox" id="embedMatrixSandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="3" y1="9" x2="21" y2="9"></line>
+                  <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+                <span>Interactive Embedding Selector &amp; Code Generator</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Rule Engine</span>
+            </div>
+
+            <div class="matrix-grid">
+              <div class="checklist-controls">
+                <label class="filter-item">
+                  <input type="checkbox" id="chkCssColor" checked>
+                  <span>Dynamic CSS Color Theming (currentColor / hover)</span>
+                </label>
+                <label class="filter-item">
+                  <input type="checkbox" id="chkCaching">
+                  <span>Browser HTTP Disk Caching Required</span>
+                </label>
+                <label class="filter-item">
+                  <input type="checkbox" id="chkJsEvents">
+                  <span>Internal DOM Nodes &amp; JavaScript Events</span>
+                </label>
+                <label class="filter-item">
+                  <input type="checkbox" id="chkGoogleImages">
+                  <span>Indexable in Google Images (Image SEO)</span>
+                </label>
+                <label class="filter-item">
+                  <input type="checkbox" id="chkZeroCls" checked>
+                  <span>Zero Cumulative Layout Shift (CLS Protection)</span>
+                </label>
+                <label class="filter-item">
+                  <input type="checkbox" id="chkDecorative">
+                  <span>Decorative Element (Pure CSS / No Semantics)</span>
+                </label>
+              </div>
+
+              <div class="recommendation-card">
+                <div class="rec-top">
+                  <span class="rec-tag" id="recBadge">Best Match</span>
+                  <span class="rec-score" id="recScore">Match Score: 96%</span>
+                </div>
+                <h3 class="rec-title" id="recTitle">Method 1: Inline SVG Element</h3>
+                <p class="rec-description" id="recDesc">
+                  Direct XML embedding in HTML. Provides full CSS currentColor inheritance, instant zero-latency paint, and complete DOM event access.
+                </p>
+
+                <div class="metrics-bar">
+                  <div class="metric-cell">
+                    <div class="metric-name">LCP Impact</div>
+                    <div class="metric-val" id="metricLcp">Near-Zero</div>
+                  </div>
+                  <div class="metric-cell">
+                    <div class="metric-name">HTTP Caching</div>
+                    <div class="metric-val" id="metricCache">None (Inlined)</div>
+                  </div>
+                  <div class="metric-cell">
+                    <div class="metric-name">CSS Theming</div>
+                    <div class="metric-val" id="metricTheme">Native Full</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <span id="codeHeadingText">Production-Ready Implementation Snippet:</span>
+                <div class="code-actions">
+                  <button class="copy-btn" id="copyEmbedCodeBtn">Copy Snippet</button>
+                </div>
+              </div>
+              <pre class="code-output-area" id="embedCodeOutput"></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="method-1-inline-svg">
+          <h2>Method 1: Inline SVG (&lt;svg&gt; Tag)</h2>
+          <p>Inline embedding places the raw <code>&lt;svg&gt;</code> XML markup directly into the HTML document structure. It is the industry standard for UI icons and button graphics.</p>
+
+          <pre><code>&lt;!-- Production Inline SVG with Accessibility --&gt;
+&lt;button class="action-btn" aria-label="Search Catalog"&gt;
+  &lt;svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    width="20" 
+    height="20" 
+    fill="none" 
+    stroke="currentColor" 
+    stroke-width="2" 
+    stroke-linecap="round" 
+    stroke-linejoin="round"
+    aria-hidden="true"
+    focusable="false"
+  &gt;
+    &lt;circle cx="11" cy="11" r="8"&gt;&lt;/circle&gt;
+    &lt;line x1="21" y1="21" x2="16.65" y2="16.65"&gt;&lt;/line&gt;
+  &lt;/svg&gt;
+  &lt;span&gt;Search&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+          <h3>Pros &amp; Performance Strengths:</h3>
+          <ul>
+            <li><strong>Zero Latency &amp; CLS:</strong> Renders synchronously during initial HTML tokenization. No network round-trips or layout shifts.</li>
+            <li><strong>currentColor Inheritance:</strong> Inherits the parent text color dynamically. Works seamlessly across light and dark modes with zero CSS overrides.</li>
+            <li><strong>DOM Manipulability:</strong> Individual paths and shapes can be targeted with CSS hover animations, keyframe transitions, and JavaScript click handlers.</li>
+          </ul>
+
+          <h3>Cons &amp; Architectural Costs:</h3>
+          <ul>
+            <li><strong>No Browser Caching:</strong> If an icon is used on 20 pages, its markup is sent down the wire 20 times.</li>
+            <li><strong>DOM Node Bloat:</strong> Inlining hundreds of icons adds thousands of nodes to the DOM tree, increasing memory usage and slowing down style recalcs.</li>
+          </ul>
+        </section>
+
+        <section id="method-2-img-tag">
+          <h2>Method 2: External HTML &lt;img&gt; Tag</h2>
+          <p>Treating the SVG file as a standard raster image source via the <code>&lt;img&gt;</code> tag is the cleanest and most modular technique for logos and illustrative graphics.</p>
+
+          <pre><code>&lt;img 
+  src="https://example.com/assets/icons/brand-logo.svg" 
+  alt="Company Logo" 
+  width="180" 
+  height="48" 
+  loading="lazy" 
+  decoding="async" 
+/&gt;</code></pre>
+
+          <h3>Pros &amp; Performance Strengths:</h3>
+          <ul>
+            <li><strong>Persistent HTTP Caching:</strong> The browser caches the <code>.svg</code> file on disk. Subsequent page visits require zero bytes over the wire.</li>
+            <li><strong>HTML Cleanliness:</strong> Keeps HTML templates lean and prevents DOM node accumulation.</li>
+            <li><strong>Strict Security Sandbox:</strong> Browsers isolate the image context. Scripts and external resources within the SVG are permanently blocked.</li>
+            <li><strong>SEO &amp; Google Images:</strong> Properly indexed by Google Image search when provided with descriptive <code>alt</code> text.</li>
+          </ul>
+
+          <h3>Cons &amp; Constraints:</h3>
+          <ul>
+            <li><strong>Sealed CSS Boundary:</strong> Parent stylesheets cannot modify internal fills, strokes, or colors. You cannot use <code>fill: currentColor</code>.</li>
+            <li><strong>Requires Explicit Dimensions:</strong> If <code>width</code> and <code>height</code> are omitted, the browser cannot calculate aspect ratios before download, triggering CLS.</li>
+          </ul>
+        </section>
+
+        <section id="method-3-object-tag">
+          <h2>Method 3: HTML &lt;object&gt; Tag</h2>
+          <p>The <code>&lt;object&gt;</code> tag embeds an SVG as an external document while maintaining an active DOM tree. It is ideal for complex interactive diagrams and animated infographics.</p>
+
+          <pre><code>&lt;object 
+  type="image/svg+xml" 
+  data="https://example.com/assets/diagrams/interactive-map.svg" 
+  width="600" 
+  height="400"
+  aria-label="Interactive Architecture Diagram"
+&gt;
+  &lt;!-- Semantic Fallback for Legacy Clients or Screen Readers --&gt;
+  &lt;p&gt;Your browser does not support interactive SVG graphics. &lt;a href="https://example.com/assets/diagrams/interactive-map.png"&gt;View static diagram&lt;/a&gt;.&lt;/p&gt;
+&lt;/object&gt;</code></pre>
+
+          <p>You can access and manipulate the internal SVG document from parent JavaScript, provided the asset is served from the <strong>same origin</strong>:</p>
+          <pre><code>const objectEl = document.querySelector('object');
+objectEl.addEventListener('load', () => {
+  const svgDoc = objectEl.contentDocument;
+  const path = svgDoc.getElementById('region-node');
+  if (path) path.style.fill = '#C1DD2D';
+});</code></pre>
+        </section>
+
+        <section id="method-4-css-background">
+          <h2>Method 4: CSS background-image</h2>
+          <p>When an icon is purely decorative (such as a bullet point, input field icon, or separator pattern), embedding it via CSS separates design entirely from semantic HTML.</p>
+
+          <pre><code>.input-search-field {
+  background-image: url("https://example.com/assets/icons/search.svg");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+  background-size: 18px 18px;
+  padding-left: 40px;
+}</code></pre>
+
+          <p>Alternatively, using a percent-encoded <strong>Data URI</strong> eliminates the extra network request:</p>
+          <pre><code>.input-search-field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C1DD2D' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+}</code></pre>
+        </section>
+
+        <section id="method-5-css-mask">
+          <h2>Method 5: Modern CSS mask-image Stencils</h2>
+          <p>The modern industry benchmark for scalable UI icons is <code>mask-image</code>. It applies an external SVG as a transparency stencil over an HTML element, allowing you to set and animate icon color using standard <code>background-color</code>.</p>
+
+          <pre><code>.ui-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #C1DD2D; /* Current icon fill color */
+  -webkit-mask-image: url("https://example.com/assets/icons/settings.svg");
+  mask-image: url("https://example.com/assets/icons/settings.svg");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  transition: background-color 150ms ease;
+}
+
+.ui-icon:hover {
+  background-color: #FFFFFF; /* Dynamic color transition without redownloading SVG */
+}</code></pre>
+
+          <div class="takeaway-box">
+            <h3>Why CSS Mask Icons Dominate Modern Design Systems</h3>
+            <p>CSS masks solve the biggest paradox in web iconography: <strong>how to cache the SVG file externally while dynamically altering its color in CSS</strong>. With mask-image, the browser downloads the SVG once, caches it indefinitely, and lets CSS control colors across 50 different application themes.</p>
+          </div>
+        </section>
+
+        <section id="method-6-web-components">
+          <h2>Method 6: Custom Web Components (&lt;svg-icon&gt;)</h2>
+          <p>Modern frontend engineering often wraps vector icons into declarative Web Components. This enables Shadow DOM encapsulation, automatic SVG sprite fetching, and lazy hydration.</p>
+
+          <pre><code>class SvgIcon extends HTMLElement {
+  static get observedAttributes() { return ['name', 'size']; }
+  
+  connectedCallback() {
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    this.render();
+  }
+
+  render() {
+    const name = this.getAttribute('name') || 'search';
+    const size = this.getAttribute('size') || '20';
+    this.innerHTML = `
+      &lt;svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="component-icon" aria-hidden="true"&gt;
+        &lt;use href="#icon-${name}"&gt;&lt;/use&gt;
+      &lt;/svg&gt;
+    `;
+  }
+}
+customElements.define('svg-icon', SvgIcon);</code></pre>
+
+          <p>In HTML, developers can write clean, framework-agnostic tags:</p>
+          <pre><code>&lt;svg-icon name="shield" size="24"&gt;&lt;/svg-icon&gt;</code></pre>
+        </section>
+
+        <section id="feature-matrix">
+          <h2>Comprehensive 6-Method Feature &amp; Compatibility Matrix</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>DOM Access</th>
+                  <th>CSS Theming</th>
+                  <th>HTTP Disk Caching</th>
+                  <th>Google Image SEO</th>
+                  <th>Script Safety</th>
+                  <th>Ideal Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1. Inline &lt;svg&gt;</strong></td>
+                  <td>Yes (Full DOM)</td>
+                  <td>Native (currentColor)</td>
+                  <td>None (Inlined)</td>
+                  <td>Moderate</td>
+                  <td>Requires Sanitization</td>
+                  <td>Interactive UI icons, primary actions</td>
+                </tr>
+                <tr>
+                  <td><strong>2. HTML &lt;img&gt;</strong></td>
+                  <td>None (Isolated)</td>
+                  <td>None (Sealed)</td>
+                  <td>Full HTTP Cache</td>
+                  <td>Excellent</td>
+                  <td>100% Sandboxed</td>
+                  <td>Brand logos, content illustrations</td>
+                </tr>
+                <tr>
+                  <td><strong>3. HTML &lt;object&gt;</strong></td>
+                  <td>Yes (Same-Origin)</td>
+                  <td>Internal Styles</td>
+                  <td>Full HTTP Cache</td>
+                  <td>Low</td>
+                  <td>Active Scripts Allowed</td>
+                  <td>Interactive maps, complex diagrams</td>
+                </tr>
+                <tr>
+                  <td><strong>4. CSS Background</strong></td>
+                  <td>None</td>
+                  <td>None (Static URL)</td>
+                  <td>Full HTTP Cache</td>
+                  <td>None</td>
+                  <td>100% Sandboxed</td>
+                  <td>Form inputs, list bullets, patterns</td>
+                </tr>
+                <tr>
+                  <td><strong>5. CSS mask-image</strong></td>
+                  <td>None</td>
+                  <td>Full (background-color)</td>
+                  <td>Full HTTP Cache</td>
+                  <td>None</td>
+                  <td>100% Sandboxed</td>
+                  <td>High-scale SaaS icon systems</td>
+                </tr>
+                <tr>
+                  <td><strong>6. Web Component</strong></td>
+                  <td>Encapsulated</td>
+                  <td>CSS Variables / currentColor</td>
+                  <td>Sprite Sheet Cached</td>
+                  <td>Moderate</td>
+                  <td>Component Managed</td>
+                  <td>Enterprise micro-frontends, design systems</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="core-web-vitals">
+          <h2>Core Web Vitals &amp; Performance Benchmarks</h2>
+          <p>How you embed SVGs directly impacts Google's Core Web Vitals:</p>
+
+          <ul>
+            <li><strong>Largest Contentful Paint (LCP):</strong> If your LCP element is a hero illustration, embedding it via <code>&lt;img fetchpriority="high"&gt;</code> ensures the browser preload scanner discovers and fetches it early. Inline SVG also performs well for LCP, provided the HTML document itself is not over-bloated.</li>
+            <li><strong>Cumulative Layout Shift (CLS):</strong> Unsized external SVG files trigger massive layout shifts because vector graphics lack intrinsic raster dimensions. Always declare both <code>viewBox</code> on the SVG and CSS dimensions (<code>width</code> and <code>height</code>) on the HTML host element.</li>
+            <li><strong>Interaction to Next Paint (INP):</strong> Pages with 500+ inline SVGs incur significant main-thread style recalculation overhead during scrolling and DOM mutations. Shifting repetitive icons to CSS masks or sprite sheets drastically improves INP responsiveness.</li>
+          </ul>
+        </section>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the best way to embed an SVG in HTML for web performance?</h3>
+            <p>The optimal embedding method depends on architectural requirements. For critical above-the-fold icons that need dynamic CSS currentColor styling or animations, inline SVG is best because it renders instantly without an HTTP round-trip. For non-interactive illustrations or repeated logos, the standard HTML img tag is best because it enables browser HTTP disk caching and parallel non-blocking downloads.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why can't you style an SVG embedded with an &lt;img&gt; tag using external CSS?</h3>
+            <p>When an SVG is embedded via an img tag, modern browser rendering engines instantiate an isolated document browsing context. The internal XML document object model is sealed from the parent page's CSS cascade and JavaScript runtime for security reasons. To style an external SVG dynamically, you must use inline SVG, CSS mask-image, or an object tag.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you prevent Cumulative Layout Shift (CLS) when loading external SVG files?</h3>
+            <p>To prevent layout shifts, always declare explicit width, height, and viewBox attributes on the SVG, and set CSS aspect-ratio: attr(width) / attr(height) or width: 24px; height: 24px; on the container. This informs the browser's layout engine of the graphic's dimensions before the external network payload resolves.</p>
+          </div>
+          <div class="faq-item">
+            <h3>When should you use the &lt;object&gt; tag instead of inline SVG or &lt;img&gt;?</h3>
+            <p>The HTML object tag (with type='image/svg+xml') should be used when the SVG contains internal interactive JavaScript, links, or complex SMIL animations that must execute independently while preserving semantic fallback HTML content (placed inside the object tag) for older clients or assistive tech.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does CSS mask-image compare to inline SVG for UI iconography?</h3>
+            <p>CSS mask-image combines the caching benefits of an external SVG file with the dynamic theming of inline SVG. It applies the SVG as an alpha stencil over a standard div, allowing developers to change the icon color dynamically by simply altering background-color. It reduces HTML DOM node count by up to 75% compared to inline SVG.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is inline SVG indexed by Google Images for SEO?</h3>
+            <p>Googlebot can index text content contained within inline SVG tags for standard web search ranking, but Google Images primarily indexes stand-alone image URLs referenced in HTML img src tags, srcset attributes, Open Graph image tags, or XML image sitemaps. If an image is critical for Google Image search visibility, referencing an external .svg file via img is superior.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#decision-matrix">Interactive Decision Matrix</a></li>
+              <li><a href="#method-1-inline-svg">Method 1: Inline SVG Tag</a></li>
+              <li><a href="#method-2-img-tag">Method 2: HTML &lt;img&gt; Tag</a></li>
+              <li><a href="#method-3-object-tag">Method 3: HTML &lt;object&gt; Tag</a></li>
+              <li><a href="#method-4-css-background">Method 4: CSS Background</a></li>
+              <li><a href="#method-5-css-mask">Method 5: CSS mask-image</a></li>
+              <li><a href="#method-6-web-components">Method 6: Web Components</a></li>
+              <li><a href="#feature-matrix">Feature Comparison Matrix</a></li>
+              <li><a href="#core-web-vitals">Core Web Vitals Benchmarks</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 135,000+ Icons</h4>
+          <p>Find clean, optimized SVG icons across 28+ open-source libraries. Copy inline code, JSX, or external URLs in 1 click.</p>
+          <a href="/" class="cta-sidebar-btn">Launch IconStash Engine</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; Open-Source Vector Icon Search Engine &bull; Built with precision for developers.</p>
+    <p style="margin-top: 8px;">
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/library/lucide/">Lucide</a> &bull;
+      <a href="/library/tabler/">Tabler</a> &bull;
+      <a href="/library/phosphor/">Phosphor</a> &bull;
+      <a href="/about/">About</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle and persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const rootHtml = document.documentElement;
+
+    function applySavedTheme() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      rootHtml.setAttribute('data-theme', saved);
+    }
+    applySavedTheme();
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const current = rootHtml.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        rootHtml.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // Interactive Decision Matrix Engine
+    const chkCssColor = document.getElementById('chkCssColor');
+    const chkCaching = document.getElementById('chkCaching');
+    const chkJsEvents = document.getElementById('chkJsEvents');
+    const chkGoogleImages = document.getElementById('chkGoogleImages');
+    const chkZeroCls = document.getElementById('chkZeroCls');
+    const chkDecorative = document.getElementById('chkDecorative');
+
+    const recTitle = document.getElementById('recTitle');
+    const recDesc = document.getElementById('recDesc');
+    const recScore = document.getElementById('recScore');
+    const metricLcp = document.getElementById('metricLcp');
+    const metricCache = document.getElementById('metricCache');
+    const metricTheme = document.getElementById('metricTheme');
+    const embedCodeOutput = document.getElementById('embedCodeOutput');
+    const copyEmbedCodeBtn = document.getElementById('copyEmbedCodeBtn');
+
+    function evaluateMatrix() {
+      const needsColor = chkCssColor.checked;
+      const needsCache = chkCaching.checked;
+      const needsJs = chkJsEvents.checked;
+      const needsGImages = chkGoogleImages.checked;
+      const isDecorative = chkDecorative.checked;
+
+      if (needsJs) {
+        recTitle.textContent = 'Method 1: Inline <svg> or Method 3: <object>';
+        recDesc.textContent = 'Internal DOM nodes or JavaScript interaction require Inline SVG or an HTML <object> tag. Inline SVG is recommended for UI icons; <object> is optimal for complex standalone interactive maps.';
+        recScore.textContent = 'Match Score: 98%';
+        metricLcp.textContent = 'Synchronous';
+        metricCache.textContent = 'None / Inlined';
+        metricTheme.textContent = 'Full Native';
+        embedCodeOutput.textContent = `<!-- Inline SVG with Interactive JavaScript -->\n<svg id="interactiveIcon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">\n  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>\n</svg>\n\n<script>\n  document.getElementById('interactiveIcon').addEventListener('click', (e) => {\n    e.currentTarget.style.stroke = '#C1DD2D';\n  });\n<\/script>`;
+      } else if (needsColor && needsCache) {
+        recTitle.textContent = 'Method 5: Modern CSS mask-image Stencil';
+        recDesc.textContent = 'The ideal hybrid: lets the browser cache the external SVG file permanently while allowing complete dynamic color changes and hover transitions in CSS via background-color.';
+        recScore.textContent = 'Match Score: 99%';
+        metricLcp.textContent = 'Fast (Cached)';
+        metricCache.textContent = '100% Persistent';
+        metricTheme.textContent = 'background-color';
+        embedCodeOutput.textContent = `/* CSS mask-image Stencil */\n.dynamic-icon {\n  display: inline-block;\n  width: 24px;\n  height: 24px;\n  background-color: #C1DD2D;\n  -webkit-mask-image: url("https://example.com/assets/icons/shield.svg");\n  mask-image: url("https://example.com/assets/icons/shield.svg");\n  -webkit-mask-size: contain;\n  mask-size: contain;\n  -webkit-mask-repeat: no-repeat;\n  mask-repeat: no-repeat;\n  transition: background-color 150ms ease;\n}\n\n.dynamic-icon:hover {\n  background-color: #FFFFFF;\n}`;
+      } else if (needsGImages || (!needsColor && needsCache && !isDecorative)) {
+        recTitle.textContent = 'Method 2: External HTML <img> Tag';
+        recDesc.textContent = 'Best for brand logos, hero banners, and content illustrations. Enables Google Images SEO indexing, 100% browser disk caching, and non-blocking parallel network downloads.';
+        recScore.textContent = 'Match Score: 95%';
+        metricLcp.textContent = 'High Priority';
+        metricCache.textContent = '100% Persistent';
+        metricTheme.textContent = 'None (Sealed)';
+        embedCodeOutput.textContent = `<!-- External Image with SEO and Lazy Loading -->\n<img \n  src="https://example.com/assets/icons/brand-logo.svg" \n  alt="Official Platform Brandmark" \n  width="120" \n  height="32" \n  loading="lazy" \n  decoding="async" \n/>`;
+      } else if (isDecorative) {
+        recTitle.textContent = 'Method 4: CSS background-image';
+        recDesc.textContent = 'Best for decorative UI flourishes, list bullets, input field icons, and background patterns. Keeps semantic HTML markup 100% clean.';
+        recScore.textContent = 'Match Score: 94%';
+        metricLcp.textContent = 'CSS Driven';
+        metricCache.textContent = 'Cached with CSS';
+        metricTheme.textContent = 'Static Hex/Filter';
+        embedCodeOutput.textContent = `/* Decorative CSS Background */\n.decorative-bullet {\n  background-image: url("https://example.com/assets/icons/check.svg");\n  background-repeat: no-repeat;\n  background-position: left center;\n  background-size: 16px 16px;\n  padding-left: 28px;\n}`;
+      } else {
+        recTitle.textContent = 'Method 1: Inline <svg> Element';
+        recDesc.textContent = 'The gold standard for actionable UI iconography. Renders synchronously without layout shifts, supports currentColor theming, and integrates seamlessly with React/Vue components.';
+        recScore.textContent = 'Match Score: 96%';
+        metricLcp.textContent = 'Synchronous';
+        metricCache.textContent = 'Inlined in HTML';
+        metricTheme.textContent = 'Full currentColor';
+        embedCodeOutput.textContent = `<svg \n  xmlns="http://www.w3.org/2000/svg" \n  viewBox="0 0 24 24" \n  width="24" \n  height="24" \n  fill="none" \n  stroke="currentColor" \n  stroke-width="2" \n  aria-hidden="true"\n>\n  <circle cx="11" cy="11" r="8"></circle>\n  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>\n</svg>`;
+      }
+    }
+
+    [chkCssColor, chkCaching, chkJsEvents, chkGoogleImages, chkZeroCls, chkDecorative].forEach(cb => {
+      cb.addEventListener('change', evaluateMatrix);
+    });
+    evaluateMatrix();
+
+    copyEmbedCodeBtn.addEventListener('click', () => {
+      const code = embedCodeOutput.textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const orig = copyEmbedCodeBtn.textContent;
+        copyEmbedCodeBtn.textContent = 'Copied!';
+        copyEmbedCodeBtn.style.background = '#C1DD2D';
+        copyEmbedCodeBtn.style.color = '#0A0A0A';
+        setTimeout(() => {
+          copyEmbedCodeBtn.textContent = orig;
+          copyEmbedCodeBtn.style.background = '';
+          copyEmbedCodeBtn.style.color = '';
+        }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>

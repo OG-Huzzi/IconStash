@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG to Base64 &amp; Data URI Guide: CSS, HTML, Performance &amp; Converter (2026)</title>
+  <meta name="description" content="Convert SVG to Base64 and Data URIs for CSS and HTML. Learn the 33% payload penalty, UTF-8 percent-encoding, gzip compression, and use the live converter.">
+  <meta name="keywords" content="svg to base64, convert svg to base64, svg data uri, svg base64 encoder, svg to css background-image base64, svg url encoder vs base64, base64 svg html, data uri converter">
+  <meta property="og:title" content="SVG to Base64 &amp; Data URI Guide: CSS, HTML, Performance &amp; Converter (2026)">
+  <meta property="og:description" content="Convert SVG to Base64 and Data URIs for CSS and HTML. Learn the 33% payload penalty, UTF-8 percent-encoding, gzip compression, and use the live converter.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-to-base64-and-data-uri-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-to-base64-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-23T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-23T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Web Performance &amp; Tooling">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Base64">
+  <meta property="article:tag" content="Performance">
+  <meta property="article:tag" content="Frontend">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG to Base64 &amp; Data URI Guide: CSS, HTML, Performance &amp; Converter (2026)">
+  <meta name="twitter:description" content="Convert SVG to Base64 and Data URIs for CSS and HTML. Learn the 33% payload penalty, UTF-8 percent-encoding, gzip compression, and use the live converter.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-to-base64-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-to-base64-and-data-uri-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "SVG to Base64 and Data URI Guide: Web Performance, CSS Backgrounds & Live Converter",
+      "description": "Convert SVG to Base64 and Data URIs for CSS and HTML. Learn the 33% payload penalty, UTF-8 percent-encoding, gzip compression, and use the live converter.",
+      "image": "https://iconstash.io/assets/articles/svg-to-base64-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-23",
+      "dateModified": "2026-10-23",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-to-base64-and-data-uri-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "articleSection": "Web Performance & Tooling",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["svg to base64", "svg data uri", "svg base64 encoder", "svg url encoder vs base64", "svg css background base64", "data uri performance"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG to Base64 & Data URI Guide",
+          "item": "https://iconstash.io/articles/svg-to-base64-and-data-uri-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is Base64 encoded SVG larger than raw SVG markup?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Base64 encodes every 3 bytes (24 bits) of binary or text data into 4 ASCII characters (6 bits each). This mathematical 4/3 ratio creates a mandatory 33.3% file size inflation in raw character count before HTTP compression. When using UTF-8 percent-encoding instead of Base64, only special characters like hashes, percent signs, and quotes are escaped, yielding a significantly smaller payload."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should you use UTF-8 URL encoding instead of Base64 for SVG Data URIs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "UTF-8 percent-encoding (data:image/svg+xml,%3Csvg...) should almost always be preferred over Base64 for web CSS and HTML because it produces 25% to 35% smaller raw strings, compresses exceptionally well under Brotli and Gzip, and keeps the XML code human-readable for debugging. Base64 is only strictly necessary when embedding in XML environments that reject angle brackets or older legacy email clients."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you fix broken CSS background-image SVGs containing hex colors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In CSS url() data URIs, the hash character (#) used in hex color codes (like #C1DD2D) is parsed by browsers as a URL fragment identifier, which truncates the SVG data and breaks rendering. You must URL-encode the hash symbol as %23 (e.g. fill='%23C1DD2D') to ensure cross-browser rendering."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does inlining SVG via Base64 or Data URIs improve Core Web Vitals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a double-edged sword. Inlining a small icon (under 2KB) as a Data URI eliminates a round-trip HTTP request, preventing Cumulative Layout Shift (CLS) and speeding up First Contentful Paint. However, inlining dozens of large SVGs inflates the main CSS or HTML bundle, creating render-blocking payload weight that degrades Largest Contentful Paint (LCP) and delays Time to Interactive."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can SVGs embedded in CSS background Data URIs execute malicious JavaScript (XSS)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When an SVG is loaded via a CSS background-image Data URI or an HTML img tag, modern browsers execute it in an isolated image context where script execution (script tags, onclick handlers, and onload events) and external resource fetching are completely disabled. However, if untrusted SVG Data URIs are placed in object, iframe, or direct anchor tags, scripts can execute, requiring sanitization."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Gzip and Brotli compression affect Base64 versus URL-encoded SVGs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While HTTP compression (Gzip/Brotli) reduces the transfer size of both formats, URL-encoded SVGs still compress to a smaller wire size than Base64. This occurs because the repeated XML tag patterns in plain or URL-encoded SVGs allow LZ77 dictionary compressors to find longer repetitive matches compared to the pseudo-random character distribution of Base64 strings."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #CCC; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover { border-color: #C1DD2D; color: #FFF; }
+    .preset-chip.active { background: rgba(193,221,45,0.15); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .svg-textarea { width: 100%; height: 110px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; color: #D4D4D4; font-family: "JetBrains Mono", monospace; font-size: 12.5px; padding: 12px; resize: vertical; outline: none; }
+    .svg-textarea:focus { border-color: #C1DD2D; }
+
+    .toggle-group { display: flex; gap: 8px; background: #181818; padding: 4px; border-radius: 8px; border: 1px solid #333; }
+    .toggle-btn { flex: 1; background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; padding: 8px 10px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .toggle-btn.active { background: #C1DD2D; color: #0A0A0A; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage { width: 100%; height: 200px; border: 1px solid #262626; border-radius: 10px; background: radial-gradient(circle at center, #1E1E1E 0%, #0E0E0E 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .preview-stage img { max-width: 96px; max-height: 96px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5)); }
+    .preview-caption { font-size: 12px; color: #666; margin-top: 10px; font-family: "JetBrains Mono", monospace; }
+
+    /* Stat Box */
+    .payload-stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 15px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 140px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
+
+    /* Formula Cards */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    /* Takeaways & Callouts */
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .payload-stats-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .svg-textarea { background: #FAFAFA; border-color: #D4D4D8; color: #18181B; }
+    html[data-theme="light"] .preview-stage { background: radial-gradient(circle at center, #E5E7EB 0%, #F3F4F6 100%); border-color: #D4D4D8; }
+    html[data-theme="light"] .toggle-group { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .toggle-btn { color: #525252; }
+    html[data-theme="light"] .toggle-btn.active { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .payload-stats-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/library/lucide/">Libraries</a>
+      <a href="/compare/">Compare</a>
+      <a href="/about/">About</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/" class="header-cta">Search 135,000+ Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span>SVG to Base64 &amp; Data URI Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Web Performance &amp; Tooling</span>
+      <h1>SVG to Base64 and Data URI Guide: Web Performance, CSS Backgrounds &amp; Live Converter</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-10-23">October 23, 2026</time>
+        <span>&bull;</span>
+        <span>14 min read</span>
+        <span>&bull;</span>
+        <span>Updated for 2026</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary &amp; Key Architectural Rules:</strong></p>
+          <ul>
+            <li><strong>The 33% Payload Penalty:</strong> Base64 encodes 3 binary bytes into 4 ASCII characters, resulting in a guaranteed 33.3% payload size increase before compression.</li>
+            <li><strong>UTF-8 Percent-Encoding Outperforms Base64:</strong> For CSS <code>background-image</code> and HTML <code>&lt;img&gt;</code>, percent-encoded UTF-8 strings (<code>data:image/svg+xml,%3Csvg...</code>) are 25%&ndash;35% lighter than Base64 and compress better under Brotli/Gzip.</li>
+            <li><strong>The CSS Hex Hash Trap:</strong> When using raw or UTF-8 Data URIs in CSS, raw <code>#</code> symbols in color codes (e.g. <code>#C1DD2D</code>) break rendering because CSS treats hashes as URL fragments. Always escape them as <code>%23</code>.</li>
+            <li><strong>Core Web Vitals Impact:</strong> Embedding critical UI icons as Data URIs eliminates HTTP roundtrips, reducing Cumulative Layout Shift (CLS), but overusing Data URIs in CSS bundles inflates render-blocking stylesheets, delaying Largest Contentful Paint (LCP).</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-to-base64-guide.jpg" alt="Technical diagram showing raw vector SVG code transforming into Base64 encoding stream and Data URI output for CSS and HTML embedding" width="1200" height="675">
+          <figcaption>Figure 1: Architectural conversion flow from raw XML vector paths to Base64 and UTF-8 percent-encoded Data URIs.</figcaption>
+        </figure>
+
+        <p>In modern frontend architecture, developers frequently need to embed vector icons directly into stylesheets, HTML templates, or JavaScript bundles without triggering additional HTTP round-trips. Converting an SVG into a <strong>Data URI</strong> or <strong>Base64 string</strong> enables instant rendering, simplifies deployment, and eliminates layout flickering.</p>
+
+        <p>However, many engineering teams blindly wrap SVGs in <code>data:image/svg+xml;base64,...</code> without realizing that Base64 introduces a significant file size penalty, hurts Gzip compression ratios, and complicates visual debugging. In this definitive guide, we analyze the mathematics of Base64 encoding, compare it to modern UTF-8 URL encoding, explore CSS and React integration patterns, evaluate browser security implications, and provide a client-side interactive converter.</p>
+
+        <section id="interactive-tool">
+          <h2>Interactive SVG to Base64 &amp; Data URI Converter Studio</h2>
+          <p>Test real-time encoding below. Select an icon preset or paste your own raw SVG code. Compare payload sizes, toggle between <strong>Base64</strong> and <strong>UTF-8 Percent-Encoding</strong>, and copy production-ready CSS, HTML, or raw strings.</p>
+
+          <div class="interactive-sandbox" id="base64Sandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <span>Live SVG Data URI &amp; Base64 Generator</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Client Engine</span>
+            </div>
+
+            <div class="preset-chips" id="presetChips">
+              <button class="preset-chip active" data-preset="search">Search Icon</button>
+              <button class="preset-chip" data-preset="star">Star Icon</button>
+              <button class="preset-chip" data-preset="shield">Security Shield</button>
+              <button class="preset-chip" data-preset="check">Checkmark Circle</button>
+              <button class="preset-chip" data-preset="gear">Settings Gear</button>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label for="svgInputArea">
+                    <span>Input SVG Markup</span>
+                    <span class="stat-num" id="rawCharCount">184 chars</span>
+                  </label>
+                  <textarea id="svgInputArea" class="svg-textarea" spellcheck="false"></textarea>
+                </div>
+
+                <div class="control-row">
+                  <label>
+                    <span>Encoding Format</span>
+                    <span class="stat-num" id="activeModeLabel">UTF-8 URL-Encoded</span>
+                  </label>
+                  <div class="toggle-group" id="encodingToggle">
+                    <button class="toggle-btn active" data-mode="utf8">UTF-8 URL-Encode (Recommended)</button>
+                    <button class="toggle-btn" data-mode="base64">Base64 Encoded</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>
+                    <span>Target Integration Output</span>
+                  </label>
+                  <div class="code-tabs" id="outputTabs">
+                    <button class="code-tab-btn active" data-target="css-bg">CSS Background</button>
+                    <button class="code-tab-btn" data-target="html-img">HTML &lt;img&gt;</button>
+                    <button class="code-tab-btn" data-target="data-uri">Raw Data URI</button>
+                    <button class="code-tab-btn" data-target="raw-base64">Raw Base64</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="preview-stage">
+                  <img id="livePreviewImg" src="" alt="Live Vector Preview">
+                  <div class="preview-caption" id="livePreviewCaption">Rendered via Data URI</div>
+                </div>
+
+                <div class="payload-stats-box">
+                  <div class="stat-item">
+                    <div class="stat-label">Raw SVG</div>
+                    <div class="stat-val" id="statRawBytes">184 B</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Encoded String</div>
+                    <div class="stat-val highlight" id="statEncodedBytes">228 B</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Size Delta</div>
+                    <div class="stat-val" id="statDelta">+23.9%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <span id="outputTypeHeading">Generated CSS background-image snippet:</span>
+                <div class="code-actions">
+                  <button class="copy-btn" id="copyCodeBtn">Copy Code</button>
+                  <button class="copy-btn" id="downloadSvgBtn" style="background: rgba(255,255,255,0.08); color: #FFF; border-color: #444;">Download SVG</button>
+                </div>
+              </div>
+              <pre class="code-output-area" id="codeOutputDisplay"></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="anatomy-data-uri">
+          <h2>Anatomy of an SVG Data URI: Base64 vs. UTF-8</h2>
+          <p>A Data URI allows you to inline an external asset directly into an attribute or CSS property using the <code>data:</code> scheme defined in RFC 2397. For Scalable Vector Graphics, there are two distinct variations:</p>
+
+          <h3>1. Base64 Encoded Data URI</h3>
+          <p>Base64 treats the SVG XML string as a sequence of raw bytes, encoding each group of 6 bits into an ASCII character selected from an index of 64 characters (<code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>+</code>, <code>/</code>, and padding <code>=</code>):</p>
+          <pre><code>background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjQzFERDIiIHN0cm9rZS13aWR0aD0iMiI+PHBhdGggZD0iTTIxIDE2VjhhMiAyIDAgMCAwLTEtMS43M2wtNy00YTIgMiAwIDAgMC0yIDBsLTcgNGEyIDIgMCAwIDAtMSAxLjczdjhhMiAyIDAgMCAwIDEgMS43M2w3IDRhMiAyIDAgMCAwIDIgMGw3LTRBMiAyIDAgMCAwIDIxIDE2eiIvPjwvc3ZnPg==");</code></pre>
+
+          <h3>2. Percent-Encoded (URL-Encoded) UTF-8 Data URI</h3>
+          <p>Because SVG is text-based XML, browsers do not require binary Base64. You can pass raw UTF-8 text directly to the browser parser, provided you percent-encode reserved characters such as <code>#</code>, <code>%</code>, and quotes:</p>
+          <pre><code>background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C1DD2D' stroke-width='2'%3E%3Cpath d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/%3E%3C/svg%3E");</code></pre>
+
+          <div class="formula-card">
+            <div class="formula-title">Mathematical Encoding Formula</div>
+            <div class="formula-body">Base64 Length = ceil(Input Bytes / 3) * 4</div>
+            <div class="formula-desc">Every 3 bytes of SVG markup generate 4 characters of Base64 text. This creates a baseline 33.3% size expansion before accounting for XML namespace headers.</div>
+          </div>
+        </section>
+
+        <section id="the-payload-penalty">
+          <h2>The 33% Payload Penalty &amp; Compression Reality</h2>
+          <p>A common misconception among frontend developers is: <em>"Gzip compresses Base64 so well that the 33% inflation doesn't matter."</em> In production web architecture, this assumption is measurably incorrect.</p>
+
+          <p>HTTP compression algorithms (such as DEFLATE/Gzip and Brotli) rely on two fundamental techniques:</p>
+          <ol>
+            <li><strong>LZ77 Sliding Window:</strong> Replaces repeated byte sequences with backwards distance-length pointers.</li>
+            <li><strong>Huffman Coding:</strong> Assigns shorter bit sequences to frequently occurring characters.</li>
+          </ol>
+
+          <p>In standard SVG code, XML tags like <code>&lt;path d="..." fill="currentColor"&gt;</code> contain highly repetitive ASCII patterns. Gzip identifies these strings easily and achieves compression ratios between <strong>65% and 80%</strong>.</p>
+
+          <p>When you convert an SVG into Base64, the character distribution is randomized across the 64-character alphabet. This breaks the repetitive byte sequences, causing LZ77 to find significantly fewer matches. As a result, while Base64 does compress, the resulting transfer size over the wire remains <strong>15% to 25% larger</strong> than Gzipped raw or URL-encoded SVG.</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Format / Method</th>
+                  <th>Raw Uncompressed Size</th>
+                  <th>Gzip Wire Size</th>
+                  <th>Brotli Wire Size</th>
+                  <th>Developer Readability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>External .svg File</strong></td>
+                  <td>340 Bytes</td>
+                  <td>185 Bytes</td>
+                  <td>155 Bytes</td>
+                  <td>Full (Readable XML)</td>
+                </tr>
+                <tr>
+                  <td><strong>UTF-8 Percent-Encoded Data URI</strong></td>
+                  <td>412 Bytes</td>
+                  <td>210 Bytes</td>
+                  <td>175 Bytes</td>
+                  <td>High (Inspectable in DevTools)</td>
+                </tr>
+                <tr>
+                  <td><strong>Base64 Encoded Data URI</strong></td>
+                  <td>456 Bytes</td>
+                  <td>265 Bytes</td>
+                  <td>225 Bytes</td>
+                  <td>Zero (Opaque Hash String)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="css-implementation">
+          <h2>CSS Implementation: Backgrounds, Masks &amp; Hex Escapes</h2>
+          <p>Embedding vector graphics directly in CSS is ideal for micro-decorations, custom select dropdown arrows, accordion toggles, and form validation badges. Here are the core patterns:</p>
+
+          <h3>1. CSS background-image with URL-Encoded SVG</h3>
+          <p>When writing CSS, enclose the Data URI in double quotes (<code>"..."</code>) and use single quotes (<code>'...'</code>) inside the SVG attributes to avoid escaping quotes:</p>
+          <pre><code>.select-dropdown {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23C1DD2D'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px 16px;
+  padding-right: 40px;
+}</code></pre>
+
+          <div class="warning-box">
+            <h4>Critical Bug: The CSS Hash Identifier Trap</h4>
+            <p>If you write <code>fill='#C1DD2D'</code> inside an unencoded Data URI, Firefox, Safari, and Chrome will fail to render the image. Browsers interpret the <code>#</code> character as an anchor fragment identifier, cutting off everything that follows. <strong>Always replace <code>#</code> with <code>%23</code></strong>.</p>
+          </div>
+
+          <h3>2. CSS mask-image for Dynamic Theming</h3>
+          <p>A major drawback of Data URIs in <code>background-image</code> is that the icon color is hardcoded in the string. You cannot use <code>currentColor</code> or hover color changes easily. The solution is <code>mask-image</code>:</p>
+          <pre><code>.themed-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #C1DD2D; /* Default icon color */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: background-color 150ms ease;
+}
+
+.themed-icon:hover {
+  background-color: #FFFFFF; /* Smooth hover transition without swapping Data URIs */
+}</code></pre>
+        </section>
+
+        <section id="html-and-frameworks">
+          <h2>HTML, React &amp; Build Tool Integration</h2>
+          <p>Beyond CSS stylesheets, Data URIs can be used directly in HTML markup and framework components:</p>
+
+          <h3>1. HTML &lt;img&gt; Tag Embedding</h3>
+          <p>Data URIs work inside standard image elements. Because the image data is self-contained, no network request is sent to the server:</p>
+          <pre><code>&lt;img 
+  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTUgMTNsNCA0TDE5IDciIHN0cm9rZT0iI0MxREQyRCIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9zdmc+" 
+  alt="Verified Checkmark" 
+  width="24" 
+  height="24" 
+  loading="eager"
+/&gt;</code></pre>
+
+          <h3>2. Vite &amp; Webpack URL Inlining</h3>
+          <p>Modern bundlers like Vite and Webpack allow you to automatically convert imported SVG files into Base64 Data URIs if they are below a specific threshold (e.g. 4KB):</p>
+          <pre><code>// vite.config.js
+export default {
+  build: {
+    assetsInlineLimit: 4096 // Files below 4KB inlined as Base64 Data URIs
+  }
+};</code></pre>
+        </section>
+
+        <section id="security-xss">
+          <h2>Security &amp; XSS Considerations</h2>
+          <p>Because SVG is an XML dialect, it supports embedded executable script tags (<code>&lt;script&gt;</code>) and inline event listeners (e.g. <code>onload</code>, <code>onerror</code>). When handling user-generated or third-party SVGs, you must understand browser execution contexts:</p>
+
+          <ul>
+            <li><strong>CSS Background &amp; &lt;img&gt; Context:</strong> When an SVG Data URI is rendered via <code>background-image</code> or an <code>&lt;img&gt;</code> tag, modern browsers place the graphic in a strictly sandboxed image context. Script execution is completely disabled, cookies cannot be read, and external network requests are blocked. This context is safe from XSS.</li>
+            <li><strong>&lt;object&gt;, &lt;iframe&gt;, and &lt;embed&gt; Context:</strong> If an SVG Data URI containing a script is injected into an <code>&lt;object data="data:image/svg+xml;..."&gt;</code> or an <code>&lt;iframe&gt;</code>, the browser treats it as a nested active document. Scripts can execute in the origin's security context!</li>
+            <li><strong>Content Security Policy (CSP):</strong> If your site enforces a strict CSP like <code>img-src 'self'</code>, browsers will block Data URIs unless you explicitly permit them via <code>img-src 'self' data:;</code>.</li>
+          </ul>
+        </section>
+
+        <section id="core-web-vitals">
+          <h2>Core Web Vitals &amp; Performance Trade-Offs</h2>
+          <p>Data URIs are not a silver bullet. While they eliminate HTTP requests, they shift the burden to parse and render time:</p>
+
+          <div class="takeaway-box">
+            <h3>When to Use Data URIs vs. External Files</h3>
+            <p><strong>Use Data URIs when:</strong></p>
+            <ul>
+              <li>The vector graphic is small (&lt; 2KB) and critical to the initial viewport (e.g. header logo, search icon, hamburger menu).</li>
+              <li>You need zero-layout-shift (CLS) rendering before external resources finish downloading.</li>
+              <li>You are building an isolated standalone component or email newsletter template.</li>
+            </ul>
+            <p><strong>Avoid Data URIs when:</strong></p>
+            <ul>
+              <li>You have dozens of icons across secondary pages (inlining them bloats your main CSS bundle, increasing LCP).</li>
+              <li>The graphics are large or complex (&gt; 5KB).</li>
+              <li>You want browser HTTP disk caching across multi-page navigation.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>Why is Base64 encoded SVG larger than raw SVG markup?</h3>
+            <p>Base64 encodes every 3 bytes (24 bits) of data into 4 ASCII characters (6 bits each). This mathematical 4/3 ratio creates a mandatory 33.3% file size inflation in raw character count before HTTP compression. When using UTF-8 percent-encoding instead of Base64, only special characters like hashes, percent signs, and quotes are escaped, yielding a significantly smaller payload.</p>
+          </div>
+          <div class="faq-item">
+            <h3>When should you use UTF-8 URL encoding instead of Base64 for SVG Data URIs?</h3>
+            <p>UTF-8 percent-encoding (<code>data:image/svg+xml,%3Csvg...</code>) should almost always be preferred over Base64 for web CSS and HTML because it produces 25% to 35% smaller raw strings, compresses exceptionally well under Brotli and Gzip, and keeps the XML code human-readable for debugging. Base64 is only strictly necessary when embedding in XML environments that reject angle brackets or older legacy email clients.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you fix broken CSS background-image SVGs containing hex colors?</h3>
+            <p>In CSS url() data URIs, the hash character (#) used in hex color codes (like #C1DD2D) is parsed by browsers as a URL fragment identifier, which truncates the SVG data and breaks rendering. You must URL-encode the hash symbol as %23 (e.g. fill='%23C1DD2D') to ensure cross-browser rendering.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Does inlining SVG via Base64 or Data URIs improve Core Web Vitals?</h3>
+            <p>It is a double-edged sword. Inlining a small icon (under 2KB) as a Data URI eliminates a round-trip HTTP request, preventing Cumulative Layout Shift (CLS) and speeding up First Contentful Paint. However, inlining dozens of large SVGs inflates the main CSS or HTML bundle, creating render-blocking payload weight that degrades Largest Contentful Paint (LCP) and delays Time to Interactive.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can SVGs embedded in CSS background Data URIs execute malicious JavaScript (XSS)?</h3>
+            <p>When an SVG is loaded via a CSS background-image Data URI or an HTML img tag, modern browsers place the graphic in a strictly sandboxed image context where script execution (script tags, onclick handlers, and onload events) and external resource fetching are completely disabled. However, if untrusted SVG Data URIs are placed in object, iframe, or direct anchor tags, scripts can execute, requiring sanitization.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does Gzip and Brotli compression affect Base64 versus URL-encoded SVGs?</h3>
+            <p>While HTTP compression (Gzip/Brotli) reduces the transfer size of both formats, URL-encoded SVGs still compress to a smaller wire size than Base64. This occurs because the repeated XML tag patterns in plain or URL-encoded SVGs allow LZ77 dictionary compressors to find longer repetitive matches compared to the pseudo-random character distribution of Base64 strings.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#interactive-tool">Interactive Converter Studio</a></li>
+              <li><a href="#anatomy-data-uri">Anatomy of an SVG Data URI</a></li>
+              <li><a href="#the-payload-penalty">The 33% Payload Penalty</a></li>
+              <li><a href="#css-implementation">CSS Backgrounds &amp; Masks</a></li>
+              <li><a href="#html-and-frameworks">HTML &amp; Frameworks</a></li>
+              <li><a href="#security-xss">Security &amp; XSS</a></li>
+              <li><a href="#core-web-vitals">Core Web Vitals Trade-Offs</a></li>
+              <li><a href="#faq">Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 135,000+ Icons</h4>
+          <p>Instantly copy production-ready SVG code, React JSX, Base64, and Data URIs across 28+ open-source icon sets.</p>
+          <a href="/" class="cta-sidebar-btn">Launch IconStash Search</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; Open-Source Vector Icon Search Engine &bull; Built with precision for developers.</p>
+    <p style="margin-top: 8px;">
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/library/lucide/">Lucide</a> &bull;
+      <a href="/library/tabler/">Tabler</a> &bull;
+      <a href="/library/phosphor/">Phosphor</a> &bull;
+      <a href="/about/">About</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle and persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const rootHtml = document.documentElement;
+
+    function applySavedTheme() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      rootHtml.setAttribute('data-theme', saved);
+    }
+    applySavedTheme();
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const current = rootHtml.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        rootHtml.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // Interactive Base64 Studio Logic
+    const PRESETS = {
+      search: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`,
+      star: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#C1DD2D" stroke="#C1DD2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
+      shield: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
+      check: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`,
+      gear: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`
+    };
+
+    let currentMode = 'utf8';
+    let currentTarget = 'css-bg';
+
+    const svgInput = document.getElementById('svgInputArea');
+    const rawCharCount = document.getElementById('rawCharCount');
+    const activeModeLabel = document.getElementById('activeModeLabel');
+    const livePreviewImg = document.getElementById('livePreviewImg');
+    const statRawBytes = document.getElementById('statRawBytes');
+    const statEncodedBytes = document.getElementById('statEncodedBytes');
+    const statDelta = document.getElementById('statDelta');
+    const codeOutputDisplay = document.getElementById('codeOutputDisplay');
+    const outputTypeHeading = document.getElementById('outputTypeHeading');
+    const copyCodeBtn = document.getElementById('copyCodeBtn');
+    const downloadSvgBtn = document.getElementById('downloadSvgBtn');
+
+    function encodeSvgUtf8(svgStr) {
+      return svgStr
+        .replace(/"/g, "'")
+        .replace(/%/g, '%25')
+        .replace(/#/g, '%23')
+        .replace(/{/g, '%7B')
+        .replace(/}/g, '%7D')
+        .replace(/</g, '%3C')
+        .replace(/>/g, '%3E')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function encodeSvgBase64(svgStr) {
+      try {
+        return btoa(unescape(encodeURIComponent(svgStr)));
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function updateStudio() {
+      const raw = svgInput.value.trim();
+      const rawLen = new Blob([raw]).size;
+      rawCharCount.textContent = `${raw.length} chars`;
+      statRawBytes.textContent = `${rawLen} B`;
+
+      const utf8Data = encodeSvgUtf8(raw);
+      const base64Data = encodeSvgBase64(raw);
+
+      let dataUri = '';
+      if (currentMode === 'utf8') {
+        dataUri = `data:image/svg+xml,${utf8Data}`;
+        activeModeLabel.textContent = 'UTF-8 URL-Encoded';
+      } else {
+        dataUri = `data:image/svg+xml;base64,${base64Data}`;
+        activeModeLabel.textContent = 'Base64 Encoded';
+      }
+
+      const encLen = new Blob([dataUri]).size;
+      statEncodedBytes.textContent = `${encLen} B`;
+
+      const deltaPercent = rawLen > 0 ? (((encLen - rawLen) / rawLen) * 100).toFixed(1) : 0;
+      statDelta.textContent = deltaPercent >= 0 ? `+${deltaPercent}%` : `${deltaPercent}%`;
+      statDelta.style.color = currentMode === 'base64' ? '#F87171' : '#C1DD2D';
+
+      livePreviewImg.src = dataUri;
+
+      let generated = '';
+      if (currentTarget === 'css-bg') {
+        outputTypeHeading.textContent = 'Generated CSS background-image snippet:';
+        generated = `.icon-element {\n  width: 24px;\n  height: 24px;\n  background-image: url("${dataUri}");\n  background-repeat: no-repeat;\n  background-size: contain;\n  display: inline-block;\n}`;
+      } else if (currentTarget === 'html-img') {
+        outputTypeHeading.textContent = 'Generated HTML <img> tag snippet:';
+        generated = `<img src="${dataUri}" alt="Vector Icon" width="24" height="24" loading="eager" />`;
+      } else if (currentTarget === 'data-uri') {
+        outputTypeHeading.textContent = 'Raw Data URI string:';
+        generated = dataUri;
+      } else if (currentTarget === 'raw-base64') {
+        outputTypeHeading.textContent = 'Raw Base64 string (no schema prefix):';
+        generated = base64Data;
+      }
+
+      codeOutputDisplay.textContent = generated;
+    }
+
+    // Set initial preset
+    svgInput.value = PRESETS.search;
+    updateStudio();
+
+    // Event listeners
+    svgInput.addEventListener('input', updateStudio);
+
+    document.querySelectorAll('.preset-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const key = btn.getAttribute('data-preset');
+        if (PRESETS[key]) {
+          svgInput.value = PRESETS[key];
+          updateStudio();
+        }
+      });
+    });
+
+    document.querySelectorAll('#encodingToggle .toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#encodingToggle .toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.getAttribute('data-mode');
+        updateStudio();
+      });
+    });
+
+    document.querySelectorAll('#outputTabs .code-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#outputTabs .code-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTarget = btn.getAttribute('data-target');
+        updateStudio();
+      });
+    });
+
+    copyCodeBtn.addEventListener('click', () => {
+      const text = codeOutputDisplay.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = copyCodeBtn.textContent;
+        copyCodeBtn.textContent = 'Copied!';
+        copyCodeBtn.style.background = '#C1DD2D';
+        copyCodeBtn.style.color = '#0A0A0A';
+        setTimeout(() => {
+          copyCodeBtn.textContent = orig;
+          copyCodeBtn.style.background = '';
+          copyCodeBtn.style.color = '';
+        }, 1800);
+      });
+    });
+
+    downloadSvgBtn.addEventListener('click', () => {
+      const blob = new Blob([svgInput.value], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'vector-icon.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

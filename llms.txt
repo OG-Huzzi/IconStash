@@ -14,7 +14,7 @@ IconStash (https://iconstash.io) is a 100% client-side web app built by Great So
 - Rendering: 100% client-side (works offline after first load)
 - Export formats: SVG, PNG (16–512px), React JSX, Vue, CSS, HTML, SVG sprite
 - Data snapshot: 2026-05-05
-- Last updated: 2026-10-22
+- Last updated: 2026-10-23
 
 ## Largest Libraries
 - Fluent UI Icons — 20,170 (MIT, Microsoft)
@@ -173,6 +173,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [The Ultimate SVG Developer Cheat Sheet 2026: Syntax, Shapes, Paths & CSS](https://iconstash.io/articles/svg-developer-cheatsheet-2026/)
 - [Convert PNG to SVG in JavaScript: Complete Vectorization and Tracing Guide (2026)](https://iconstash.io/articles/convert-png-to-svg-javascript-guide/)
 - [How to Use SVG Transforms: Matrix, Rotate, Scale, Skew & transform-box Guide (2026)](https://iconstash.io/articles/how-to-use-svg-transforms-guide/)
+- [SVG to Base64 & Data URI Guide: CSS, HTML, Performance & Converter (2026)](https://iconstash.io/articles/svg-to-base64-and-data-uri-guide/)
+- [How to Embed SVG in HTML: 6 Methods, Performance & CSS Guide (2026)](https://iconstash.io/articles/how-to-embed-svg-in-html-guide/)
+- [SVG vs PNG: Complete 2026 Web Performance & Image Format Guide](https://iconstash.io/articles/svg-vs-png-complete-guide/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives
@@ -213,4 +216,4 @@ Q: How do I compare the same icon across libraries? A: Open any concept page suc
 
 Q: Can I browse icons by library, category, or style? A: Yes — https://iconstash.io/library/, https://iconstash.io/category/, and https://iconstash.io/style/ each index the full catalogue.
 
-Last updated: 2026-10-22
+Last updated: 2026-10-23
