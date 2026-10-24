@@ -72,6 +72,8 @@
         "@type": "WebSite",
         "@id": "https://iconstash.io/#website"
       },
+      "inLanguage": "en-US",
+      "wordCount": 5120,
       "articleSection": "Web Performance & Image Formats",
       "proficiencyLevel": "Beginner to Advanced",
       "keywords": ["svg vs png", "svg vs png file size", "svg vs png quality", "vector vs raster", "web performance images", "gpu ram decoded image"]
@@ -366,6 +368,18 @@
     html[data-theme="light"] .zoom-btn.active { background: #4D6300; color: #FFF; border-color: #4D6300; }
     html[data-theme="light"] .asset-btn { border-color: #E4E4E7; color: #525252; }
     html[data-theme="light"] .asset-btn.active { border-color: #4D6300; color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .format-label.svg-label { color: #4D6300; }
+    html[data-theme="light"] .format-label.png-label { color: #0284C7; }
+    html[data-theme="light"] .metric-big-val.svg-val { color: #4D6300; }
+    html[data-theme="light"] .metric-big-val.png-val { color: #0284C7; }
+    html[data-theme="light"] .quality-badge.sharp { background: #ECFDF5; color: #047857; }
+    html[data-theme="light"] #stageSvg { stroke: #4D6300; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
@@ -829,6 +843,9 @@ html[data-theme="dark"] .nav-item {
         const next = current === 'dark' ? 'light' : 'dark';
         rootHtml.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
+        if (typeof renderSimulator === 'function') {
+          renderSimulator();
+        }
       });
     }
 
@@ -850,7 +867,7 @@ html[data-theme="dark"] .nav-item {
         svgBytes: '412 B',
         png1x: '1.8 KB',
         png3x: '9.4 KB',
-        draw: (ctx) => {
+        draw: (ctx, color) => {
           ctx.beginPath();
           ctx.moveTo(48, 88);
           ctx.bezierCurveTo(48, 88, 80, 72, 80, 48);
@@ -860,7 +877,7 @@ html[data-theme="dark"] .nav-item {
           ctx.lineTo(16, 48);
           ctx.bezierCurveTo(16, 72, 48, 88, 48, 88);
           ctx.closePath();
-          ctx.strokeStyle = '#38BDF8';
+          ctx.strokeStyle = color;
           ctx.lineWidth = 4;
           ctx.stroke();
         }
@@ -870,7 +887,7 @@ html[data-theme="dark"] .nav-item {
         svgBytes: '448 B',
         png1x: '2.1 KB',
         png3x: '11.2 KB',
-        draw: (ctx) => {
+        draw: (ctx, color) => {
           ctx.beginPath();
           ctx.moveTo(48, 8);
           ctx.lineTo(60, 33);
@@ -883,22 +900,22 @@ html[data-theme="dark"] .nav-item {
           ctx.lineTo(8, 37);
           ctx.lineTo(36, 33);
           ctx.closePath();
-          ctx.strokeStyle = '#38BDF8';
+          ctx.strokeStyle = color;
           ctx.lineWidth = 4;
           ctx.stroke();
         }
       },
       curve: {
-        path: 'M3 12c4-8 8-8 12 0s8 8 12 0',
+        path: 'M2 12c4-7 7-7 10 0s6 7 10 0',
         svgBytes: '320 B',
         png1x: '1.4 KB',
         png3x: '6.8 KB',
-        draw: (ctx) => {
+        draw: (ctx, color) => {
           ctx.beginPath();
-          ctx.moveTo(12, 48);
-          ctx.bezierCurveTo(28, 16, 44, 16, 60, 48);
-          ctx.bezierCurveTo(76, 80, 92, 80, 96, 48);
-          ctx.strokeStyle = '#38BDF8';
+          ctx.moveTo(8, 48);
+          ctx.bezierCurveTo(24, 20, 36, 20, 48, 48);
+          ctx.bezierCurveTo(60, 76, 72, 76, 88, 48);
+          ctx.strokeStyle = color;
           ctx.lineWidth = 4;
           ctx.stroke();
         }
@@ -907,18 +924,21 @@ html[data-theme="dark"] .nav-item {
 
     function renderSimulator() {
       const asset = ASSET_DATA[currentAsset];
+      const isLight = rootHtml.getAttribute('data-theme') === 'light';
 
-      // Update SVG path
+      // Update SVG path and theme-adaptive stroke
       stageSvg.innerHTML = `<path d="${asset.path}"></path>`;
       stageSvg.style.transform = `scale(${currentZoom})`;
+      stageSvg.setAttribute('stroke', isLight ? '#4D6300' : '#C1DD2D');
 
       // Render low-res bitmap to canvas and scale up with pixelation
       const ctx = stagePngCanvas.getContext('2d');
       ctx.imageSmoothingEnabled = false;
       ctx.clearRect(0, 0, 96, 96);
 
-      // Render at fixed 96x96
-      asset.draw(ctx);
+      // Render at fixed 96x96 with adaptive high-contrast color
+      const canvasColor = isLight ? '#0284C7' : '#38BDF8';
+      asset.draw(ctx, canvasColor);
       stagePngCanvas.style.transform = `scale(${currentZoom})`;
 
       // Update Quality Badge

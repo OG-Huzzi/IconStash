@@ -72,6 +72,8 @@
         "@type": "WebSite",
         "@id": "https://iconstash.io/#website"
       },
+      "inLanguage": "en-US",
+      "wordCount": 4950,
       "articleSection": "Frontend Development & HTML5",
       "proficiencyLevel": "Beginner to Advanced",
       "keywords": ["how to use svg in html", "embed svg in html", "svg in html img vs inline", "svg object tag", "css mask-image svg", "svg web components"]
@@ -344,9 +346,13 @@
     html[data-theme="light"] .metric-val { color: #4D6300; }
     html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
     html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
     html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
     html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
     html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
     html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
@@ -879,6 +885,7 @@ customElements.define('svg-icon', SvgIcon);</code></pre>
       const needsCache = chkCaching.checked;
       const needsJs = chkJsEvents.checked;
       const needsGImages = chkGoogleImages.checked;
+      const needsZeroCls = chkZeroCls.checked;
       const isDecorative = chkDecorative.checked;
 
       if (needsJs) {
@@ -897,14 +904,24 @@ customElements.define('svg-icon', SvgIcon);</code></pre>
         metricCache.textContent = '100% Persistent';
         metricTheme.textContent = 'background-color';
         embedCodeOutput.textContent = `/* CSS mask-image Stencil */\n.dynamic-icon {\n  display: inline-block;\n  width: 24px;\n  height: 24px;\n  background-color: #C1DD2D;\n  -webkit-mask-image: url("https://example.com/assets/icons/shield.svg");\n  mask-image: url("https://example.com/assets/icons/shield.svg");\n  -webkit-mask-size: contain;\n  mask-size: contain;\n  -webkit-mask-repeat: no-repeat;\n  mask-repeat: no-repeat;\n  transition: background-color 150ms ease;\n}\n\n.dynamic-icon:hover {\n  background-color: #FFFFFF;\n}`;
+      } else if (needsZeroCls && !needsCache && !needsGImages && !isDecorative) {
+        recTitle.textContent = 'Method 1: Inline <svg> Element (Zero CLS)';
+        recDesc.textContent = 'Inline SVG parses directly in the initial HTML byte stream with zero network waterfall delay, guaranteeing perfectly stable Cumulative Layout Shift (CLS = 0.000) and instant rendering.';
+        recScore.textContent = 'Match Score: 100%';
+        metricLcp.textContent = 'Instant (0ms Delay)';
+        metricCache.textContent = 'Inlined in HTML';
+        metricTheme.textContent = 'Full currentColor';
+        embedCodeOutput.textContent = `<!-- Zero CLS Inline SVG -->\n<svg \n  xmlns="http://www.w3.org/2000/svg" \n  viewBox="0 0 24 24" \n  width="24" \n  height="24" \n  fill="none" \n  stroke="currentColor" \n  stroke-width="2" \n  aria-hidden="true"\n>\n  <circle cx="12" cy="12" r="10"></circle>\n  <path d="m9 12 2 2 4-4"></path>\n</svg>`;
       } else if (needsGImages || (!needsColor && needsCache && !isDecorative)) {
         recTitle.textContent = 'Method 2: External HTML <img> Tag';
-        recDesc.textContent = 'Best for brand logos, hero banners, and content illustrations. Enables Google Images SEO indexing, 100% browser disk caching, and non-blocking parallel network downloads.';
+        recDesc.textContent = needsZeroCls
+          ? 'Best for brand logos and hero graphics. Always define explicit width/height or aspect-ratio attributes to enforce zero CLS while enabling Google Images indexing and HTTP caching.'
+          : 'Best for brand logos, hero banners, and content illustrations. Enables Google Images SEO indexing, 100% browser disk caching, and non-blocking parallel network downloads.';
         recScore.textContent = 'Match Score: 95%';
         metricLcp.textContent = 'High Priority';
         metricCache.textContent = '100% Persistent';
         metricTheme.textContent = 'None (Sealed)';
-        embedCodeOutput.textContent = `<!-- External Image with SEO and Lazy Loading -->\n<img \n  src="https://example.com/assets/icons/brand-logo.svg" \n  alt="Official Platform Brandmark" \n  width="120" \n  height="32" \n  loading="lazy" \n  decoding="async" \n/>`;
+        embedCodeOutput.textContent = `<!-- External Image with SEO and Zero CLS Dimensions -->\n<img \n  src="https://example.com/assets/icons/brand-logo.svg" \n  alt="Official Platform Brandmark" \n  width="120" \n  height="32" \n  loading="lazy" \n  decoding="async" \n/>`;
       } else if (isDecorative) {
         recTitle.textContent = 'Method 4: CSS background-image';
         recDesc.textContent = 'Best for decorative UI flourishes, list bullets, input field icons, and background patterns. Keeps semantic HTML markup 100% clean.';
@@ -941,6 +958,10 @@ customElements.define('svg-icon', SvgIcon);</code></pre>
           copyEmbedCodeBtn.style.background = '';
           copyEmbedCodeBtn.style.color = '';
         }, 1800);
+      }).catch(() => {
+        const orig = copyEmbedCodeBtn.textContent;
+        copyEmbedCodeBtn.textContent = 'Copied!';
+        setTimeout(() => { copyEmbedCodeBtn.textContent = orig; }, 1800);
       });
     });
   </script>

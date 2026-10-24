@@ -107,6 +107,8 @@ for (const item of deliverables) {
       assert(mainSchema && mainSchema.author && mainSchema.author.name === 'Jouni Flemming', 'Schema author is Jouni Flemming');
       assert(mainSchema && mainSchema.author && mainSchema.author.worksFor && mainSchema.author.worksFor.name === 'Great Software Company', 'Author worksFor is Great Software Company');
       assert(mainSchema && mainSchema.publisher && mainSchema.publisher.parentOrganization && mainSchema.publisher.parentOrganization.name === 'Great Software Company', 'Parent organization is Great Software Company');
+      assert(mainSchema && mainSchema.inLanguage === 'en-US', 'Schema has inLanguage "en-US"');
+      assert(mainSchema && typeof mainSchema.wordCount === 'number' && mainSchema.wordCount >= 4000, `Schema wordCount (${mainSchema ? mainSchema.wordCount : 0}) >= 4000`);
 
       // Verify no GitHub link in author schema
       assert(!JSON.stringify(mainSchema.author).includes('github.com'), 'No GitHub social link in author schema');
@@ -139,6 +141,8 @@ for (const item of deliverables) {
   assert(content.includes('html[data-theme="light"] .cta-sidebar-box h4'), 'Light theme cta-sidebar-box h4 contrast rule present');
   assert(content.includes('html[data-theme="light"] .cta-sidebar-box p'), 'Light theme cta-sidebar-box p contrast rule present');
   assert(content.includes('html[data-theme="light"] .article-hero .tag'), 'Light theme article-hero tag contrast rule present');
+  assert(content.includes('html[data-theme="light"] .sandbox-badge'), 'Light theme sandbox-badge contrast rule present');
+  assert(content.includes('html[data-theme="light"] .takeaway-box h3'), 'Light theme takeaway-box h3 contrast rule present');
 
   // 10. Theme toggle and persistence verification
   assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
