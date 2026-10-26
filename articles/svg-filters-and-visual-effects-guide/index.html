@@ -267,9 +267,9 @@
     .code-output-area { padding: 16px; max-height: 140px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
 
     /* Formula Cards & Callouts */
-    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
-    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
 
     .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
@@ -373,6 +373,24 @@
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
     html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .article-meta { color: #525252; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FECACA; border-left-color: #DC2626; }
+    html[data-theme="light"] .warning-box h4 { color: #991B1B; }
+    html[data-theme="light"] .warning-box p { color: #1F2937; }
+    html[data-theme="light"] .sidebar-title { color: #525252; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .formula-title { color: #525252; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .breadcrumb { color: #525252; }
+    html[data-theme="light"] .breadcrumb a { color: #525252; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb .sep { color: #71717A; }
+    html[data-theme="light"] .site-footer { color: #525252; }
+    html[data-theme="light"] .site-footer a { color: #525252; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .theme-toggle-btn { color: #525252; border-color: #D4D4D8; }
+    html[data-theme="light"] .theme-toggle-btn:hover { color: #18181B; border-color: #A1A1AA; }
   </style>
 </head>
 <body>
@@ -863,6 +881,9 @@
         const next = current === 'dark' ? 'light' : 'dark';
         rootHtml.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
+        if (typeof updateFilterStudio === 'function') {
+          updateFilterStudio();
+        }
       });
     }
 
@@ -887,21 +908,30 @@
     const filterCodeDisplay = document.getElementById('filterCodeDisplay');
     const copyFilterCodeBtn = document.getElementById('copyFilterCodeBtn');
 
-    const SUBJECT_MARKUP = {
-      blobs: `<circle cx="210" cy="125" r="48" fill="#C1DD2D"/>
-              <circle cx="290" cy="125" r="48" fill="#C1DD2D"/>
-              <circle cx="250" cy="85" r="32" fill="#D2ED3E"/>
-              <circle cx="250" cy="165" r="32" fill="#D2ED3E"/>`,
-      shield: `<path d="M250 35 L330 75 V145 C330 195 250 225 250 225 C250 225 170 195 170 145 V75 Z" fill="#C1DD2D" stroke="#FFF" stroke-width="3"/>
-               <polygon points="250,90 262,118 292,120 268,140 276,170 250,154 224,170 232,140 208,120 238,118" fill="#0A0A0A"/>`,
-      text: `<text x="250" y="145" font-family="'Inter', sans-serif" font-size="72" font-weight="900" fill="#C1DD2D" text-anchor="middle" letter-spacing="4">
-               SHADER
-             </text>`
-    };
+    function getSubjectMarkup(isLight) {
+      const c1 = isLight ? '#4D6300' : '#C1DD2D';
+      const c2 = isLight ? '#6B8700' : '#D2ED3E';
+      const textFill = isLight ? '#18181B' : '#C1DD2D';
+      const shieldStroke = isLight ? '#18181B' : '#FFF';
+      const starFill = isLight ? '#FFF' : '#0A0A0A';
+      return {
+        blobs: `<circle cx="210" cy="125" r="48" fill="${c1}"/>
+                <circle cx="290" cy="125" r="48" fill="${c1}"/>
+                <circle cx="250" cy="85" r="32" fill="${c2}"/>
+                <circle cx="250" cy="165" r="32" fill="${c2}"/>`,
+        shield: `<path d="M250 35 L330 75 V145 C330 195 250 225 250 225 C250 225 170 195 170 145 V75 Z" fill="${c1}" stroke="${shieldStroke}" stroke-width="3"/>
+                 <polygon points="250,90 262,118 292,120 268,140 276,170 250,154 224,170 232,140 208,120 238,118" fill="${starFill}"/>`,
+        text: `<text x="250" y="145" font-family="'Inter', sans-serif" font-size="72" font-weight="900" fill="${textFill}" text-anchor="middle" letter-spacing="4">
+                 SHADER
+               </text>`
+      };
+    }
 
     function updateFilterStudio() {
-      // 1. Update subject content
-      filterStageContent.innerHTML = SUBJECT_MARKUP[curSubject];
+      const isLight = rootHtml.getAttribute('data-theme') === 'light';
+
+      // 1. Update subject content with theme-adaptive colors
+      filterStageContent.innerHTML = getSubjectMarkup(isLight)[curSubject];
 
       // 2. Build filter primitives based on preset & sliders
       let primitivesXml = '';
@@ -1016,17 +1046,35 @@
     });
 
     copyFilterCodeBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(filterCodeDisplay.textContent).then(() => {
+      const code = filterCodeDisplay.textContent;
+      const doSuccess = () => {
         const orig = copyFilterCodeBtn.textContent;
+        const isLight = rootHtml.getAttribute('data-theme') === 'light';
         copyFilterCodeBtn.textContent = 'Copied!';
-        copyFilterCodeBtn.style.background = '#C1DD2D';
-        copyFilterCodeBtn.style.color = '#0A0A0A';
+        copyFilterCodeBtn.style.background = isLight ? '#4D6300' : '#C1DD2D';
+        copyFilterCodeBtn.style.color = isLight ? '#FFFFFF' : '#0A0A0A';
         setTimeout(() => {
           copyFilterCodeBtn.textContent = orig;
           copyFilterCodeBtn.style.background = '';
           copyFilterCodeBtn.style.color = '';
         }, 1800);
-      });
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(doSuccess).catch(() => {
+          const ta = document.createElement('textarea');
+          ta.value = code;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (_) {}
+          document.body.removeChild(ta);
+          doSuccess();
+        });
+      } else {
+        doSuccess();
+      }
     });
   </script>
 </body>

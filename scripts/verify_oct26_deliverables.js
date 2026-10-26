@@ -143,6 +143,13 @@ for (const item of deliverables) {
   assert(content.includes('html[data-theme="light"] .article-hero .tag'), 'Light theme article-hero tag contrast rule present');
   assert(content.includes('html[data-theme="light"] .sandbox-badge'), 'Light theme sandbox-badge contrast rule present');
   assert(content.includes('html[data-theme="light"] .takeaway-box h3'), 'Light theme takeaway-box h3 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .warning-box h4'), 'Light theme warning-box h4 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .toc-nav a'), 'Light theme toc-nav a contrast rule present');
+  assert(content.includes('html[data-theme="light"] .sidebar-title'), 'Light theme sidebar-title contrast rule present');
+  assert(content.includes('html[data-theme="light"] .formula-title'), 'Light theme formula-title contrast rule present');
+  assert(content.includes('html[data-theme="light"] .stat-label'), 'Light theme stat-label contrast rule present');
+  assert(content.includes('html[data-theme="light"] .breadcrumb a'), 'Light theme breadcrumb a contrast rule present');
+  assert(content.includes('html[data-theme="light"] .site-footer a'), 'Light theme site-footer a contrast rule present');
 
   // 10. Theme toggle and persistence verification
   assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
@@ -150,9 +157,10 @@ for (const item of deliverables) {
   assert(content.includes('.site-header nav a:not(.header-cta) { display: none; }'), 'Mobile nav preserves #themeToggle button visibility');
   assert(!content.includes('.site-header nav { display: none; }'), 'Mobile nav does not coarsely hide entire nav element');
 
-  // 11. Table responsiveness check
+  // 11. Table & Formula responsiveness check
   assert(content.includes('min-width: 640px;'), 'Data tables enforce min-width: 640px for mobile horizontal scrolling');
   assert(content.includes('<div class="table-container">') && content.includes('<table>'), 'Deliverable contains responsive data table wrapped in table-container');
+  assert(content.includes('.formula-card {') && content.includes('overflow-x: auto;'), 'Formula card enforces overflow-x: auto for mobile screens');
 
   // 12. Interactive Developer Sandbox & Tools verification
   if (item.slug === 'how-to-use-svg-preserveaspectratio-guide') {
@@ -161,18 +169,29 @@ for (const item of deliverables) {
     assert(content.includes('id="stageSvg"'), 'Interactive stage SVG present');
     assert(content.includes('id="aspectPresets"'), 'Interactive aspect presets present');
     assert(content.includes('id="copyAspectCodeBtn"'), 'Interactive copy button present');
+    assert(content.includes('updateAspectStudio()'), 'updateAspectStudio function called');
+    assert(content.includes('getGraphics'), 'Theme-aware getGraphics helper present');
+    assert(content.includes('startsWith(\'xMin\')') || content.includes('startsWith("xMin")'), 'Accurate 2D CSS object-position alignment logic implemented');
+    assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   } else if (item.slug === 'how-to-use-svg-text-and-textpath-guide') {
     assert(content.includes('id="curvedTextSandbox"'), 'Interactive curved text sandbox present');
     assert(content.includes('id="curvedTextInput"'), 'Interactive text input present');
     assert(content.includes('id="offsetSlider"'), 'Interactive offset slider present');
     assert(content.includes('id="studioTextPath"'), 'Interactive studio textPath element present');
     assert(content.includes('id="copyTextCodeBtn"'), 'Interactive copy button present');
+    assert(content.includes('updateCurvedTextStudio()'), 'updateCurvedTextStudio function called');
+    assert(content.includes('replace(/&/g, \'&amp;\')') || content.includes('replace(/&/g, "&amp;")'), 'Safe XML character entity escaping in code generator');
+    assert(content.includes('alignment-baseline') && content.includes('alignmentBaseline'), 'WebKit dual alignment-baseline fallback attributes included');
+    assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   } else if (item.slug === 'svg-filters-and-visual-effects-guide') {
     assert(content.includes('id="filterStudioSandbox"'), 'Interactive filter studio sandbox present');
     assert(content.includes('id="liveShaderFilter"'), 'Interactive live shader filter present');
     assert(content.includes('id="filterStageContent"'), 'Interactive filter stage content present');
     assert(content.includes('id="blurSlider"'), 'Interactive blur slider present');
     assert(content.includes('id="copyFilterCodeBtn"'), 'Interactive copy button present');
+    assert(content.includes('updateFilterStudio()'), 'updateFilterStudio function called');
+    assert(content.includes('getSubjectMarkup'), 'Theme-aware getSubjectMarkup helper present');
+    assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   }
 
   // 13. No raw unrendered LaTeX math formulas

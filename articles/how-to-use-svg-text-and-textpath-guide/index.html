@@ -274,9 +274,9 @@
     .code-output-area { padding: 16px; max-height: 140px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
 
     /* Formula Cards & Callouts */
-    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
-    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
 
     .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
@@ -384,6 +384,26 @@
     html[data-theme="light"] .faq-item h3 { color: #18181B; }
     html[data-theme="light"] .faq-item p { color: #525252; }
     html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .article-meta { color: #525252; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FECACA; border-left-color: #DC2626; }
+    html[data-theme="light"] .warning-box h4 { color: #991B1B; }
+    html[data-theme="light"] .warning-box p { color: #1F2937; }
+    html[data-theme="light"] .sidebar-title { color: #525252; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .formula-title { color: #525252; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .breadcrumb { color: #525252; }
+    html[data-theme="light"] .breadcrumb a { color: #525252; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb .sep { color: #71717A; }
+    html[data-theme="light"] .site-footer { color: #525252; }
+    html[data-theme="light"] .site-footer a { color: #525252; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .theme-toggle-btn { color: #525252; border-color: #D4D4D8; }
+    html[data-theme="light"] .theme-toggle-btn:hover { color: #18181B; border-color: #A1A1AA; }
+    html[data-theme="light"] #studioTextElement { fill: #4D6300; }
+    html[data-theme="light"] #visibleGuidePath { stroke: rgba(77, 99, 0, 0.4); }
   </style>
 </head>
 <body>
@@ -866,6 +886,9 @@
         const next = current === 'dark' ? 'light' : 'dark';
         rootHtml.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
+        if (typeof updateCurvedTextStudio === 'function') {
+          updateCurvedTextStudio();
+        }
       });
     }
 
@@ -912,22 +935,29 @@
     const copyTextCodeBtn = document.getElementById('copyTextCodeBtn');
 
     function updateCurvedTextStudio() {
+      const isLight = rootHtml.getAttribute('data-theme') === 'light';
       const textVal = curvedTextInput.value || 'ICONSTASH VECTOR STUDIO';
       const pathData = CURVE_PATHS[curPathKey];
+      const themeColor = isLight ? '#4D6300' : '#C1DD2D';
+      const guideColor = isLight ? 'rgba(77, 99, 0, 0.4)' : 'rgba(193, 221, 45, 0.3)';
 
       // Update Path D
       activeStudioPath.setAttribute('d', pathData.d);
       visibleGuidePath.setAttribute('d', pathData.d);
+      visibleGuidePath.setAttribute('stroke', guideColor);
 
-      // Update textPath attributes
+      // Update textPath attributes with WebKit dual baseline fallback
       studioTextPath.setAttribute('startOffset', `${curOffset}%`);
       studioTextPath.setAttribute('text-anchor', curAnchor);
       studioTextPath.setAttribute('dominant-baseline', curBaseline);
+      studioTextPath.setAttribute('alignment-baseline', curBaseline);
       studioTextPath.textContent = textVal;
 
       // Update parent text element
       studioTextElement.setAttribute('font-size', curFontSize);
       studioTextElement.setAttribute('dominant-baseline', curBaseline);
+      studioTextElement.setAttribute('alignment-baseline', curBaseline);
+      studioTextElement.setAttribute('fill', themeColor);
 
       // Update labels & stats
       offsetValueLabel.textContent = `${curOffset}%`;
@@ -936,12 +966,16 @@
       statActiveBaseline.textContent = curBaseline;
       statAnchorOffset.textContent = `${curOffset}% (${curAnchor})`;
 
-      // Generate Code
+      // Safe character escaping for generated code
+      const safeText = textVal.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const safeJsxText = textVal.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+      // Generate Code with bulletproof WebKit dual baseline attributes
       let code = '';
       if (curTextTab === 'svg-markup') {
-        code = `<svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">\n  <defs>\n    <path id="curveGuide" d="${pathData.d}" fill="none" />\n  </defs>\n\n  <!-- Optional decorative guide path -->\n  <path d="${pathData.d}" fill="none" stroke="rgba(193,221,45,0.25)" stroke-width="1.5" stroke-dasharray="4 4" />\n\n  <text font-family="'Inter', system-ui, sans-serif"\n        font-size="${curFontSize}"\n        font-weight="700"\n        fill="#C1DD2D"\n        dominant-baseline="${curBaseline}">\n    <textPath href="#curveGuide"\n              startOffset="${curOffset}%"\n              text-anchor="${curAnchor}"\n              dominant-baseline="${curBaseline}">\n      ${textVal}\n    </textPath>\n  </text>\n</svg>`;
+        code = `<svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">\n  <defs>\n    <path id="curveGuide" d="${pathData.d}" fill="none" />\n  </defs>\n\n  <!-- Optional decorative guide path -->\n  <path d="${pathData.d}" fill="none" stroke="rgba(193,221,45,0.25)" stroke-width="1.5" stroke-dasharray="4 4" />\n\n  <text font-family="'Inter', system-ui, sans-serif"\n        font-size="${curFontSize}"\n        font-weight="700"\n        fill="#C1DD2D"\n        dominant-baseline="${curBaseline}"\n        alignment-baseline="${curBaseline}">\n    <textPath href="#curveGuide"\n              startOffset="${curOffset}%"\n              text-anchor="${curAnchor}"\n              dominant-baseline="${curBaseline}"\n              alignment-baseline="${curBaseline}">\n      ${safeText}\n    </textPath>\n  </text>\n</svg>`;
       } else if (curTextTab === 'react-comp') {
-        code = `import React from 'react';\n\ninterface CurvedTextProps {\n  text?: string;\n  color?: string;\n  fontSize?: number;\n}\n\nexport const CurvedVectorBadge: React.FC<CurvedTextProps> = ({\n  text = '${textVal}',\n  color = '#C1DD2D',\n  fontSize = ${curFontSize}\n}) => (\n  <svg viewBox="0 0 500 250" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">\n    <defs>\n      <path id="badgePath" d="${pathData.d}" fill="none" />\n    </defs>\n    <text\n      fontFamily="'Inter', system-ui, sans-serif"\n      fontSize={fontSize}\n      fontWeight={700}\n      fill={color}\n      dominantBaseline="${curBaseline}"\n    >\n      <textPath\n        href="#badgePath"\n        startOffset="${curOffset}%"\n        textAnchor="${curAnchor}"\n        dominantBaseline="${curBaseline}"\n      >\n        {text}\n      </textPath>\n    </text>\n  </svg>\n);`;
+        code = `import React from 'react';\n\ninterface CurvedTextProps {\n  text?: string;\n  color?: string;\n  fontSize?: number;\n}\n\nexport const CurvedVectorBadge: React.FC<CurvedTextProps> = ({\n  text = '${safeJsxText}',\n  color = '#C1DD2D',\n  fontSize = ${curFontSize}\n}) => (\n  <svg viewBox="0 0 500 250" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">\n    <defs>\n      <path id="badgePath" d="${pathData.d}" fill="none" />\n    </defs>\n    <text\n      fontFamily="'Inter', system-ui, sans-serif"\n      fontSize={fontSize}\n      fontWeight={700}\n      fill={color}\n      dominantBaseline="${curBaseline}"\n      alignmentBaseline="${curBaseline}"\n    >\n      <textPath\n        href="#badgePath"\n        startOffset="${curOffset}%"\n        textAnchor="${curAnchor}"\n        dominantBaseline="${curBaseline}"\n        alignmentBaseline="${curBaseline}"\n      >\n        {text}\n      </textPath>\n    </text>\n  </svg>\n);`;
       }
       textCodeDisplay.textContent = code;
     }
@@ -999,17 +1033,35 @@
     });
 
     copyTextCodeBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(textCodeDisplay.textContent).then(() => {
+      const code = textCodeDisplay.textContent;
+      const doSuccess = () => {
         const orig = copyTextCodeBtn.textContent;
+        const isLight = rootHtml.getAttribute('data-theme') === 'light';
         copyTextCodeBtn.textContent = 'Copied!';
-        copyTextCodeBtn.style.background = '#C1DD2D';
-        copyTextCodeBtn.style.color = '#0A0A0A';
+        copyTextCodeBtn.style.background = isLight ? '#4D6300' : '#C1DD2D';
+        copyTextCodeBtn.style.color = isLight ? '#FFFFFF' : '#0A0A0A';
         setTimeout(() => {
           copyTextCodeBtn.textContent = orig;
           copyTextCodeBtn.style.background = '';
           copyTextCodeBtn.style.color = '';
         }, 1800);
-      });
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(doSuccess).catch(() => {
+          const ta = document.createElement('textarea');
+          ta.value = code;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (_) {}
+          document.body.removeChild(ta);
+          doSuccess();
+        });
+      } else {
+        doSuccess();
+      }
     });
   </script>
 </body>
