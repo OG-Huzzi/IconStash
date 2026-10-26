@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use SVG preserveAspectRatio: Align, Meet, Slice &amp; ViewBox Guide (2026)</title>
+  <meta name="description" content="Master SVG preserveAspectRatio: learn meet vs slice, none, 9 alignments, viewBox scaling math, and test with the live interactive visual simulator.">
+  <meta name="keywords" content="preserveAspectRatio, svg preserveaspectratio, preserveaspectratio meet slice, preserveaspectratio xmidymid meet, svg preserveaspectratio none, how to scale svg preserveaspectratio, svg aspect ratio responsive, svg viewbox preserveaspectratio">
+  <meta property="og:title" content="How to Use SVG preserveAspectRatio: Align, Meet, Slice &amp; ViewBox Guide (2026)">
+  <meta property="og:description" content="Master SVG preserveAspectRatio: learn meet vs slice, none, 9 alignments, viewBox scaling math, and test with the live interactive visual simulator.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-use-svg-preserveaspectratio-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/how-to-use-svg-preserveaspectratio-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-26T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-26T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="SVG Geometry &amp; Responsive Design">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Web Performance">
+  <meta property="article:tag" content="Responsive Design">
+  <meta property="article:tag" content="Frontend Development">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use SVG preserveAspectRatio: Align, Meet, Slice &amp; ViewBox Guide (2026)">
+  <meta name="twitter:description" content="Master SVG preserveAspectRatio: learn meet vs slice, none, 9 alignments, viewBox scaling math, and test with the live interactive visual simulator.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/how-to-use-svg-preserveaspectratio-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-use-svg-preserveaspectratio-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Use SVG preserveAspectRatio: Align, Meet, Slice & ViewBox Guide (2026)",
+      "description": "Master SVG preserveAspectRatio: learn meet vs slice, none, 9 alignments, viewBox scaling math, and test with the live interactive visual simulator.",
+      "image": "https://iconstash.io/assets/articles/how-to-use-svg-preserveaspectratio-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-26",
+      "dateModified": "2026-10-26",
+      "mainEntityOfPage": "https://iconstash.io/articles/how-to-use-svg-preserveaspectratio-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "inLanguage": "en-US",
+      "wordCount": 5120,
+      "articleSection": "SVG Geometry & Responsive Design",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["preserveAspectRatio", "svg preserveaspectratio", "preserveaspectratio meet slice", "preserveaspectratio none", "svg scaling viewbox"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG preserveAspectRatio Guide",
+          "item": "https://iconstash.io/articles/how-to-use-svg-preserveaspectratio-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the default value of preserveAspectRatio in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The default value of preserveAspectRatio is 'xMidYMid meet'. This instruction tells the browser to scale the internal viewBox uniformly so that the entire graphic fits inside the outer viewport without clipping (similar to CSS object-fit: contain), while centering the graphic both horizontally along the X-axis and vertically along the Y-axis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does preserveAspectRatio have no effect on an SVG element?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The preserveAspectRatio attribute only functions when the viewBox attribute is explicitly declared on the SVG element. Without a viewBox, the SVG does not possess an internal coordinate system to map against the viewport boundaries, causing the browser to ignore preserveAspectRatio entirely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between meet and slice in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "'meet' scales the viewBox uniformly until its largest dimension meets the viewport boundary, guaranteeing that the entire graphic remains visible (creating letterboxing or pillarboxing empty space). In contrast, 'slice' scales the viewBox uniformly until its smallest dimension covers the entire viewport, completely eliminating empty margins while clipping any graphic overflow that extends beyond the viewport frame (identical to CSS object-fit: cover)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should you use preserveAspectRatio=\"none\"?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "preserveAspectRatio=\"none\" disables uniform aspect ratio preservation completely. The internal graphic stretches or compresses independently along the horizontal and vertical axes to occupy 100% of the viewport width and height. This is essential for responsive wave section dividers, background grid textures, decorative border curves, and progress bar fills where non-proportional distortion is intentional."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does preserveAspectRatio differ from the CSS object-fit property?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSS object-fit operates on replaced elements like img, video, or canvas from the outside in CSS layout. In contrast, preserveAspectRatio is an internal SVG XML attribute that governs how the SVG's internal vector coordinate space (viewBox) maps onto the SVG container element itself. When using inline SVG markup, object-fit is not applicable, making preserveAspectRatio the sole mechanism for aspect ratio and alignment control."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you align an SVG to the top-left or bottom-right corner?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To pin an SVG to the top-left corner, set preserveAspectRatio=\"xMinYMin meet\". To pin an SVG to the bottom-right corner, specify preserveAspectRatio=\"xMaxYMax meet\". The alignment keyword consists of an X-component (xMin, xMid, xMax) and a Y-component (YMin, YMid, YMax) defining the anchor point within the viewport."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #CCC; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover { border-color: #C1DD2D; color: #FFF; }
+    .preset-chip.active { background: rgba(193,221,45,0.15); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .align-matrix-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 340px; }
+    .align-matrix-btn { background: #181818; border: 1px solid #333; color: #AAA; font-size: 11px; font-family: "JetBrains Mono", monospace; padding: 8px 4px; border-radius: 4px; cursor: pointer; text-align: center; transition: all 120ms ease; }
+    .align-matrix-btn:hover { border-color: #C1DD2D; color: #FFF; }
+    .align-matrix-btn.active { background: rgba(193,221,45,0.18); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .toggle-group { display: flex; gap: 8px; background: #181818; padding: 4px; border-radius: 8px; border: 1px solid #333; }
+    .toggle-btn { flex: 1; background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; padding: 8px 10px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .toggle-btn.active { background: #C1DD2D; color: #0A0A0A; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 260px; border: 1px dashed #444; border-radius: 10px; background: #0E0E0E; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: all 200ms ease; }
+    .stage-viewport-box { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(circle at center, #1E2310 0%, #0E1007 100%); border: 2px solid #C1DD2D; border-radius: 8px; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+    .viewport-meta-overlay { position: absolute; bottom: 8px; right: 10px; font-size: 11px; font-family: "JetBrains Mono", monospace; color: #888; background: rgba(0,0,0,0.75); padding: 2px 8px; border-radius: 4px; pointer-events: none; }
+
+    .aspect-stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 14px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 140px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
+
+    /* Formula Cards & Callouts */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .aspect-stats-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .stage-viewport-box { background: radial-gradient(circle at center, #F0FDF4 0%, #DCFCE7 100%); border-color: #4D6300; }
+    html[data-theme="light"] .toggle-group { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .toggle-btn { color: #525252; }
+    html[data-theme="light"] .toggle-btn.active { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .aspect-stats-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .preset-chip { background: #FFF; border-color: #D4D4D8; color: #525252; }
+    html[data-theme="light"] .preset-chip:hover { border-color: #4D6300; color: #171717; }
+    html[data-theme="light"] .preset-chip.active { background: #ECFDF5; border-color: #4D6300; color: #4D6300; }
+    html[data-theme="light"] .align-matrix-btn { background: #FFF; border-color: #D4D4D8; color: #525252; }
+    html[data-theme="light"] .align-matrix-btn:hover { border-color: #4D6300; color: #171717; }
+    html[data-theme="light"] .align-matrix-btn.active { background: #ECFDF5; border-color: #4D6300; color: #4D6300; font-weight: 700; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/library/lucide/">Libraries</a>
+      <a href="/compare/">Compare</a>
+      <a href="/about/">About</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/" class="header-cta">Search 135,000+ Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">&gt;</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">&gt;</span>
+      <span>SVG preserveAspectRatio Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">SVG Geometry &amp; Responsive Layout</span>
+      <h1>How to Use SVG preserveAspectRatio: Align, Meet, Slice &amp; ViewBox Guide (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published October 26, 2026</span>
+        <span>26 min read</span>
+        <span>5,120 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary &amp; Core Takeaways:</strong> Every frontend developer has encountered the frustration of an SVG that refuses to shrink, crops unexpectedly, or floats in a sea of unwanted white space. The culprit is almost always a misunderstanding of how the internal <code>viewBox</code> coordinate system projects onto the outer DOM viewport.</p>
+          <ul>
+            <li><strong>The Default Behavior:</strong> SVGs ship with <code>preserveAspectRatio="xMidYMid meet"</code> by default, forcing uniform containment and center alignment.</li>
+            <li><strong>Meet vs Slice:</strong> <code>meet</code> functions identically to CSS <code>object-fit: contain</code> (no cropping, letterboxing possible), while <code>slice</code> mirrors <code>object-fit: cover</code> (full coverage, edge clipping).</li>
+            <li><strong>The Non-Uniform Escape Hatch:</strong> Setting <code>preserveAspectRatio="none"</code> unlocks freeform responsive stretching, critical for wave dividers, UI ribbons, and dynamic chart fills.</li>
+            <li><strong>The 9-Point Anchor Grid:</strong> Combining <code>xMin</code>, <code>xMid</code>, <code>xMax</code> with <code>YMin</code>, <code>YMid</code>, <code>YMax</code> gives you pixel-perfect directional pinning without manual CSS positioning.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/how-to-use-svg-preserveaspectratio-guide.jpg" alt="SVG preserveAspectRatio Coordinate Mapping and Viewport Scaling Architecture" width="1200" height="675" loading="eager" />
+          <figcaption>Figure 1: Architectural diagram showing how SVG viewBox coordinate spaces project into arbitrary viewport aspect ratios using meet, slice, and directional alignment.</figcaption>
+        </figure>
+
+        <section id="the-dual-coordinate-system">
+          <h2>1. The Dual Coordinate System: Viewport vs. ViewBox Decoupled</h2>
+          <p>To master <code>preserveAspectRatio</code>, you must discard the assumption that an SVG behaves like a raster bitmap (such as a PNG or JPEG). An SVG does not have a native pixel grid. Instead, an SVG document consists of two completely independent coordinate spaces that the browser's graphics engine must reconcile at render time:</p>
+          <ol>
+            <li><strong>The Viewport (The Window):</strong> This is the outer rectangular display box established by the HTML layout, defined either by the SVG element's <code>width</code> and <code>height</code> attributes or by CSS properties (e.g., <code>width: 100%; height: 320px;</code>). It exists in CSS pixels relative to the parent DOM tree.</li>
+            <li><strong>The ViewBox (The World):</strong> This is the internal virtual canvas where your vector paths, shapes, and curves are authored, defined by the four numbers of the <code>viewBox="min-x min-y width height"</code> attribute (e.g., <code>viewBox="0 0 100 100"</code>). It represents an abstract mathematical coordinate space.</li>
+          </ol>
+          <p>When the aspect ratio of the outer Viewport (for instance, an ultrawide banner measuring 800px × 200px, or 4:1) differs from the aspect ratio of your inner ViewBox (for example, a square icon authored at 100 × 100, or 1:1), a geometric conflict occurs. The browser cannot simply place the vector graphic inside the box without an explicit instruction explaining how to handle the aspect ratio discrepancy.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Mathematical Aspect Ratio Mismatch Condition</div>
+            <div class="formula-body">Aspect_Viewport = Width_Viewport / Height_Viewport ≠ Aspect_ViewBox = Width_ViewBox / Height_ViewBox</div>
+            <div class="formula-desc">Whenever Aspect_Viewport does not equal Aspect_ViewBox, the browser consults preserveAspectRatio to determine uniform scale factor s = min(sx, sy) [meet] or s = max(sx, sy) [slice], followed by coordinate translation (tx, ty).</div>
+          </div>
+          <p>Without <code>preserveAspectRatio</code>, browsers would face an impossible dilemma: should they stretch the circle into an oval, crop the top and bottom edges, or leave giant empty margins? The <code>preserveAspectRatio</code> attribute is the formal XML specification that resolves this dilemma with mathematical determinism.</p>
+        </section>
+
+        <section id="syntax-and-grammar">
+          <h2>2. Anatomy of the preserveAspectRatio Attribute: Syntax &amp; Grammar</h2>
+          <p>The <code>preserveAspectRatio</code> attribute accepts a declarative micro-syntax composed of one or two keywords separated by a single whitespace character:</p>
+          <pre><code>&lt;svg viewBox="0 0 100 100" preserveAspectRatio="&lt;align&gt; [&lt;meetOrSlice&gt;]"&gt;
+  &lt;!-- Vector Graphic Shapes --&gt;
+&lt;/svg&gt;</code></pre>
+          <p>The grammar is structured into two distinct operational directives:</p>
+          <ul>
+            <li><strong>The Alignment Parameter (<code>&lt;align&gt;</code>):</strong> Specifies how the scaled viewBox canvas is positioned within the outer viewport when there is excess space or overflow along either axis. It accepts either the special keyword <code>none</code> or one of nine composite coordinate strings formed by pairing an X-axis alignment (<code>xMin</code>, <code>xMid</code>, <code>xMax</code>) with a Y-axis alignment (<code>YMin</code>, <code>YMid</code>, <code>YMax</code>).</li>
+            <li><strong>The Scaling Mode (<code>&lt;meetOrSlice&gt;</code>):</strong> An optional second keyword that dictates whether the viewBox is scaled to fit completely within the viewport (<code>meet</code>) or scaled to cover the entire viewport while clipping overflow (<code>slice</code>). If omitted, the browser defaults to <code>meet</code>.</li>
+          </ul>
+
+          <div class="warning-box">
+            <h4>Critical Prerequisite: The Missing ViewBox Pitfall</h4>
+            <p>If your <code>&lt;svg&gt;</code> root tag does not include an explicit <code>viewBox</code> attribute, the <code>preserveAspectRatio</code> attribute is entirely ignored by Chromium, WebKit, and Gecko rendering engines. For <code>preserveAspectRatio</code> to take effect, the browser must have an established internal coordinate reference.</p>
+          </div>
+        </section>
+
+        <section id="the-nine-alignment-combinations">
+          <h2>3. The Nine Alignment Matrix Combinations: Directional Pinning</h2>
+          <p>When uniform scaling is enforced (using either <code>meet</code> or <code>slice</code>), the scaled graphic will rarely match both the width and height of the viewport simultaneously. One dimension will fit snugly, while the other dimension will either have leftover empty margins (under <code>meet</code>) or overflow the viewport boundaries (under <code>slice</code>).</p>
+          <p>The nine alignment values establish a 3×3 anchor matrix that determines exactly where the graphic settles inside the container:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Alignment Keyword</th>
+                  <th>Horizontal Axis (X)</th>
+                  <th>Vertical Axis (Y)</th>
+                  <th>Visual Anchor Point</th>
+                  <th>Ideal Production Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>xMinYMin</code></td>
+                  <td>Left Edge (Min X)</td>
+                  <td>Top Edge (Min Y)</td>
+                  <td>Top-Left Corner</td>
+                  <td>Brand logos in headers, breadcrumb icons, technical schematics</td>
+                </tr>
+                <tr>
+                  <td><code>xMidYMin</code></td>
+                  <td>Horizontal Center</td>
+                  <td>Top Edge (Min Y)</td>
+                  <td>Top-Center</td>
+                  <td>Dropdown carets, downward notification banners, hero badges</td>
+                </tr>
+                <tr>
+                  <td><code>xMaxYMin</code></td>
+                  <td>Right Edge (Max X)</td>
+                  <td>Top Edge (Min Y)</td>
+                  <td>Top-Right Corner</td>
+                  <td>Close modal buttons (×), corner status ribbons, header actions</td>
+                </tr>
+                <tr>
+                  <td><code>xMinYMid</code></td>
+                  <td>Left Edge (Min X)</td>
+                  <td>Vertical Center</td>
+                  <td>Middle-Left</td>
+                  <td>Left-aligned sidebar icons, input field prefix adornments</td>
+                </tr>
+                <tr>
+                  <td><code>xMidYMid</code> (Default)</td>
+                  <td>Horizontal Center</td>
+                  <td>Vertical Center</td>
+                  <td>Dead Center</td>
+                  <td>Standard standalone UI icons, avatars, modal graphics, spinners</td>
+                </tr>
+                <tr>
+                  <td><code>xMaxYMid</code></td>
+                  <td>Right Edge (Max X)</td>
+                  <td>Vertical Center</td>
+                  <td>Middle-Right</td>
+                  <td>Accordion disclosure arrows, right-hand pagination chevrons</td>
+                </tr>
+                <tr>
+                  <td><code>xMinYMax</code></td>
+                  <td>Left Edge (Min X)</td>
+                  <td>Bottom Edge (Max Y)</td>
+                  <td>Bottom-Left Corner</td>
+                  <td>Footer corner branding, bottom navigation drawer accents</td>
+                </tr>
+                <tr>
+                  <td><code>xMidYMax</code></td>
+                  <td>Horizontal Center</td>
+                  <td>Bottom Edge (Max Y)</td>
+                  <td>Bottom-Center</td>
+                  <td>Wave dividers rising from footer, upward scroll indicators</td>
+                </tr>
+                <tr>
+                  <td><code>xMaxYMax</code></td>
+                  <td>Right Edge (Max X)</td>
+                  <td>Bottom Edge (Max Y)</td>
+                  <td>Bottom-Right Corner</td>
+                  <td>Floating action buttons (FAB), chat widgets, resize drag handles</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Notice the camelCase capitalization rule: the X component uses a lowercase 'x' followed by capitalized 'Min', 'Mid', or 'Max', while the Y component uses a capitalized 'Y' followed by capitalized 'Min', 'Mid', or 'Max' (e.g., <code>xMidYMid</code>). A casing mistake such as <code>xmidymid</code> or <code>XMidYMid</code> causes the browser's XML parser to fail validation and fall back to the default <code>xMidYMid meet</code>.</p>
+        </section>
+
+        <section id="meet-vs-slice-vs-none">
+          <h2>4. Scaling Modes: meet vs. slice vs. none (The Mathematical Engine)</h2>
+          <p>The scaling parameter determines how the browser calculates the scaling factor applied to transform the internal coordinates into viewport screen space. Let <code>Vw</code> and <code>Vh</code> represent the viewport width and height, and let <code>Bw</code> and <code>Bh</code> represent the viewBox width and height. The browser calculates two preliminary scale factors:</p>
+          <pre><code>sx = Vw / Bw  (horizontal scale factor)
+sy = Vh / Bh  (vertical scale factor)</code></pre>
+
+          <h3>Mode A: preserveAspectRatio="&lt;align&gt; meet" (Uniform Containment)</h3>
+          <p>Under <code>meet</code>, the browser chooses the smaller of the two scale factors to guarantee that the entire graphic remains visible inside the viewport frame:</p>
+          <div class="formula-card">
+            <div class="formula-title">Meet Scale Calculation</div>
+            <div class="formula-body">scale = min(sx, sy) = min(Vw / Bw, Vh / Bh)</div>
+            <div class="formula-desc">The graphic scales proportionally until its larger dimension meets the boundary. The remaining dimension receives letterboxing (empty vertical space) or pillarboxing (empty horizontal space), distributed according to the &lt;align&gt; parameter.</div>
+          </div>
+          <p>This mode is mathematically identical to the CSS property <code>object-fit: contain</code>. It is the safest choice for vector iconography, technical illustrations, and data charts where clipping any portion of the graphic would distort user understanding.</p>
+
+          <h3>Mode B: preserveAspectRatio="&lt;align&gt; slice" (Uniform Cover &amp; Crop)</h3>
+          <p>Under <code>slice</code>, the browser selects the larger of the two scale factors, ensuring that the graphic completely blankets the viewport without leaving any empty margins:</p>
+          <div class="formula-card">
+            <div class="formula-title">Slice Scale Calculation</div>
+            <div class="formula-body">scale = max(sx, sy) = max(Vw / Bw, Vh / Bh)</div>
+            <div class="formula-desc">The graphic scales proportionally until both dimensions completely cover the viewport. The excess vector area that spills outside the viewport frame is clipped (sliced away), with the visible crop window determined by the &lt;align&gt; parameter.</div>
+          </div>
+          <p>This mode is mathematically equivalent to CSS <code>object-fit: cover</code>. It is heavily utilized for decorative background vectors, full-bleed hero banners, and abstract patterned wallpapers where edge clipping is acceptable in exchange for edge-to-edge coverage.</p>
+
+          <h3>Mode C: preserveAspectRatio="none" (Non-Uniform Stretch)</h3>
+          <p>When you specify <code>preserveAspectRatio="none"</code>, you explicitly instruct the browser to abandon proportional aspect ratio constraints:</p>
+          <div class="formula-card">
+            <div class="formula-title">Non-Uniform Scale Calculation</div>
+            <div class="formula-body">x' = x × (Vw / Bw),   y' = y × (Vh / Bh)</div>
+            <div class="formula-desc">Horizontal and vertical coordinates scale independently. The vector stretches or squashes to fill 100% of the viewport width and height simultaneously.</div>
+          </div>
+          <p>While stretching an icon of a person or a cogwheel looks distorted, <code>preserveAspectRatio="none"</code> is the secret weapon for responsive web components like fluid wave section dividers, organic background curves, and dynamic data-driven progress meters.</p>
+        </section>
+
+        <!-- Interactive Developer Studio -->
+        <section id="interactive-simulator">
+          <h2>5. Interactive Developer Studio: Live preserveAspectRatio Simulator</h2>
+          <p>Use the live interactive studio below to experiment with container aspect ratios, alignment matrix coordinates, and scaling modes in real time. Observe how the bounding box calculations change and copy the production-ready markup directly into your project.</p>
+
+          <div class="interactive-sandbox" id="aspectRatioSandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+                <span>preserveAspectRatio Visual Studio &amp; Matrix Inspector</span>
+              </div>
+              <span class="sandbox-badge">Interactive Tool</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label>1. Container Aspect Ratio: <span class="stat-num" id="currentAspectLabel">16:9 (Widescreen)</span></label>
+                  <div class="preset-chips" id="aspectPresets">
+                    <button type="button" class="preset-chip active" data-w="100%" data-h="180px" data-label="16:9 (Widescreen)">16:9</button>
+                    <button type="button" class="preset-chip" data-w="220px" data-h="220px" data-label="1:1 (Square)">1:1</button>
+                    <button type="button" class="preset-chip" data-w="100%" data-h="120px" data-label="3:1 (Header Banner)">3:1 Banner</button>
+                    <button type="button" class="preset-chip" data-w="180px" data-h="240px" data-label="3:4 (Portrait)">3:4 Portrait</button>
+                    <button type="button" class="preset-chip" data-w="100%" data-h="80px" data-label="5:1 (Ultra-Wide Wave)">5:1 Wave</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>2. Scaling Mode (meetOrSlice): <span class="stat-num" id="currentModeLabel">meet</span></label>
+                  <div class="toggle-group" id="modeToggle">
+                    <button type="button" class="toggle-btn active" data-mode="meet">meet (contain)</button>
+                    <button type="button" class="toggle-btn" data-mode="slice">slice (cover)</button>
+                    <button type="button" class="toggle-btn" data-mode="none">none (stretch)</button>
+                  </div>
+                </div>
+
+                <div class="control-row" id="alignSection">
+                  <label>3. Alignment Matrix (&lt;align&gt;): <span class="stat-num" id="currentAlignLabel">xMidYMid</span></label>
+                  <div class="align-matrix-grid" id="matrixGrid">
+                    <button type="button" class="align-matrix-btn" data-align="xMinYMin">xMinYMin</button>
+                    <button type="button" class="align-matrix-btn" data-align="xMidYMin">xMidYMin</button>
+                    <button type="button" class="align-matrix-btn" data-align="xMaxYMin">xMaxYMin</button>
+                    <button type="button" class="align-matrix-btn" data-align="xMinYMid">xMinYMid</button>
+                    <button type="button" class="align-matrix-btn active" data-align="xMidYMid">xMidYMid</button>
+                    <button type="button" class="align-matrix-btn" data-align="xMaxYMid">xMaxYMid</button>
+                    <button type="button" class="align-matrix-btn" data-align="xMinYMax">xMinYMax</button>
+                    <button type="button" class="align-matrix-btn" data-align="xMidYMax">xMidYMax</button>
+                    <button type="button" class="align-matrix-btn" data-align="xMaxYMax">xMaxYMax</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>4. Test Vector Graphic:</label>
+                  <div class="preset-chips" id="graphicSelector">
+                    <button type="button" class="preset-chip active" data-graphic="shield">Shield &amp; Star</button>
+                    <button type="button" class="preset-chip" data-graphic="compass">Navigation Compass</button>
+                    <button type="button" class="preset-chip" data-graphic="wave">Wave Divider</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="preview-stage-container">
+                  <div class="stage-viewport-box" id="stageViewport">
+                    <svg class="stage-svg-element" id="stageSvg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                      <!-- Rendered dynamically -->
+                    </svg>
+                    <div class="viewport-meta-overlay" id="viewportMeta">Viewport: 480 × 180</div>
+                  </div>
+                </div>
+
+                <div class="aspect-stats-box">
+                  <div class="stat-item">
+                    <div class="stat-label">Calculated Scale (s)</div>
+                    <div class="stat-val highlight" id="statScale">1.80×</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Clipping State</div>
+                    <div class="stat-val" id="statClipping">Zero Clipping</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">CSS Equivalent</div>
+                    <div class="stat-val" id="statCssEquiv">object-fit: contain</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs" id="codeFormatTabs">
+                  <button type="button" class="code-tab-btn active" data-format="inline-svg">Inline SVG</button>
+                  <button type="button" class="code-tab-btn" data-format="react-jsx">React TSX Component</button>
+                  <button type="button" class="code-tab-btn" data-format="css-rule">CSS Object-Fit Rule</button>
+                </div>
+                <div class="code-actions">
+                  <button type="button" class="copy-btn" id="copyAspectCodeBtn">Copy Snippet</button>
+                </div>
+              </div>
+              <pre class="code-output-area" id="aspectCodeDisplay">// Live SVG Code</pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="css-vs-presentation-attributes">
+          <h2>6. CSS vs. Presentation Attributes: preserveAspectRatio vs. object-fit</h2>
+          <p>Developers frequently ask: <em>"Can I replace preserveAspectRatio with modern CSS object-fit?"</em> The answer depends entirely on how the SVG is embedded into your HTML document:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Embedding Method</th>
+                  <th>Does preserveAspectRatio Work?</th>
+                  <th>Does CSS object-fit Work?</th>
+                  <th>Recommended Approach &amp; Explanation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Inline &lt;svg&gt;</strong></td>
+                  <td>Yes (Mandatory)</td>
+                  <td>No (Ignored)</td>
+                  <td>Use <code>preserveAspectRatio</code>. CSS <code>object-fit</code> only applies to replaced elements; an inline SVG is a full DOM subtree, not a replaced element.</td>
+                </tr>
+                <tr>
+                  <td><strong>HTML &lt;img src="icon.svg"&gt;</strong></td>
+                  <td>Yes (Inside file)</td>
+                  <td>Yes (In CSS)</td>
+                  <td>Use CSS <code>object-fit: contain / cover</code> on the &lt;img&gt; tag for layout, but ensure the source SVG has a clean <code>viewBox</code>.</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS background-image</strong></td>
+                  <td>Yes (Inside SVG)</td>
+                  <td>No (Use background-size)</td>
+                  <td>Use <code>background-size: contain / cover</code> and <code>background-position</code> in CSS, which overrides internal SVG alignment.</td>
+                </tr>
+                <tr>
+                  <td><strong>HTML &lt;object&gt; or &lt;iframe&gt;</strong></td>
+                  <td>Yes (Inside file)</td>
+                  <td>Yes (On container)</td>
+                  <td>Use <code>preserveAspectRatio</code> inside the embedded document to dictate how internal vectors scale to the frame.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>When working with modern component frameworks (such as React, Vue, Svelte, or Astro), UI icons are almost universally rendered as inline SVG elements. In this architecture, CSS <code>object-fit</code> has zero effect on the SVG's internal path scaling. You must rely on <code>preserveAspectRatio</code> and <code>viewBox</code> to control your component layout.</p>
+        </section>
+
+        <section id="advanced-architectural-patterns">
+          <h2>7. Advanced Architectural Patterns: Real-World SaaS Solutions</h2>
+
+          <h3>Pattern 1: The Responsive Full-Width Wave Section Divider</h3>
+          <p>One of the most frequent responsive web design patterns is a decorative wave or angled diagonal divider separating marketing page sections. If you leave <code>preserveAspectRatio</code> at its default <code>xMidYMid meet</code>, the wave will shrink into a tiny centered graphic on mobile devices, exposing massive gaps on either side.</p>
+          <p>The solution is to decouple the horizontal and vertical scaling using <code>preserveAspectRatio="none"</code>:</p>
+          <pre><code>&lt;!-- Full-Width Responsive Wave Divider --&gt;
+&lt;div class="wave-container" style="width: 100%; height: 80px; overflow: hidden;"&gt;
+  &lt;svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="width: 100%; height: 100%; display: block;"&gt;
+    &lt;path d="M0,0 C300,90 600,10 900,80 C1050,115 1150,40 1200,60 L1200,120 L0,120 Z" fill="#C1DD2D" /&gt;
+  &lt;/svg&gt;
+&lt;/div&gt;</code></pre>
+          <p>By specifying <code>preserveAspectRatio="none"</code>, the wave stretches horizontally to fill 100% of the viewport width across phones, tablets, and 4K displays while maintaining a fixed height of exactly 80px.</p>
+
+          <h3>Pattern 2: The Top-Pinned Responsive Header Watermark</h3>
+          <p>When designing SaaS hero sections, you may want an intricate geometric grid or brand watermark that spans the right-hand corner of the screen without getting pushed off-screen as the browser window narrows:</p>
+          <pre><code>&lt;!-- Top-Right Corner Pinned Watermark --&gt;
+&lt;svg viewBox="0 0 400 400" preserveAspectRatio="xMaxYMin meet" class="hero-watermark"&gt;
+  &lt;circle cx="200" cy="200" r="180" stroke="#C1DD2D" stroke-width="2" fill="none" opacity="0.15" /&gt;
+  &lt;path d="M20,20 L380,380 M20,380 L380,20" stroke="#C1DD2D" stroke-width="1" opacity="0.1" /&gt;
+&lt;/svg&gt;</code></pre>
+          <p>Using <code>xMaxYMin meet</code> guarantees that no matter how wide or narrow the user's screen becomes, the watermark remains pinned to the upper right corner without vertical or horizontal drift.</p>
+
+          <h3>Pattern 3: Full-Bleed Video or Image Masking with slice</h3>
+          <p>When applying an SVG shape as a clipping path or responsive mask over dynamic user content, you often need the vector mask to behave like a background cover image, eliminating letterbox padding:</p>
+          <pre><code>&lt;!-- Edge-to-Edge Vector Mask --&gt;
+&lt;svg viewBox="0 0 500 500" preserveAspectRatio="xMidYMid slice" class="fullscreen-mask"&gt;
+  &lt;clipPath id="squircleClip"&gt;
+    &lt;path d="M 50,0 C 10,0 0,10 0,50 L 0,450 C 0,490 10,500 50,500 L 450,500 C 490,500 500,490 500,450 L 500,50 C 500,10 490,0 450,0 Z" /&gt;
+  &lt;/clipPath&gt;
+&lt;/svg&gt;</code></pre>
+        </section>
+
+        <section id="cross-browser-nuances">
+          <h2>8. Cross-Browser Quirks, WebKit Bugs &amp; Performance Edge Cases</h2>
+          <p>While the SVG 1.1 Second Edition and SVG 2 specifications clearly define <code>preserveAspectRatio</code>, subtle discrepancies still exist across modern rendering engines:</p>
+          <ul>
+            <li><strong>Safari &amp; WebKit Subpixel Rounding:</strong> In WebKit browsers (Safari on iOS and macOS), using <code>preserveAspectRatio="xMidYMid slice"</code> on elements with fractional CSS pixel dimensions (e.g., 341.33px) can trigger a 1-pixel transparent seam along the clipped edge. Resolve this by appending <code>transform: translateZ(0);</code> or enforcing integer CSS dimensions on the parent wrapper.</li>
+            <li><strong>Firefox (Gecko) SVG Height Collapse in Flex Containers:</strong> When an inline SVG with <code>preserveAspectRatio="xMidYMid meet"</code> is placed directly inside a CSS flexbox container (<code>display: flex</code>) without an explicit CSS height or <code>flex-shrink: 0</code>, Firefox may collapse the SVG's computed height to 0px or 150px (the default replaced element fallback). Always assign <code>width: 100%; height: auto;</code> or explicit pixel dimensions to prevent flex collapse.</li>
+            <li><strong>Chromium GPU Layer Promotion:</strong> SVGs with <code>slice</code> that trigger continuous CSS transforms or animations may cause Chromium to promote massive offscreen clip buffers to GPU VRAM. If animating, test memory consumption in Chrome DevTools Performance Monitor to verify that offscreen sliced regions do not cause frame drops.</li>
+          </ul>
+
+          <div class="takeaway-box">
+            <h3>Best Practice Checklist for Production SVGs</h3>
+            <ol>
+              <li>Always declare an explicit <code>viewBox</code> on every SVG (e.g., <code>viewBox="0 0 24 24"</code> for UI icons).</li>
+              <li>Omit <code>preserveAspectRatio</code> on standard square icons, as the default <code>xMidYMid meet</code> is already optimal.</li>
+              <li>Explicitly declare <code>preserveAspectRatio="none"</code> on decorative dividers, wave transitions, and responsive chart lines.</li>
+              <li>Use <code>xMinYMin meet</code> for header logos to prevent awkward center-floating on widescreen displays.</li>
+              <li>Pair <code>xMidYMid slice</code> with <code>overflow: hidden</code> on the container to prevent accidental horizontal scrollbars.</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="frequently-asked-questions">
+          <h2>9. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the default value of preserveAspectRatio in SVG?</h3>
+            <p>The default value is <code>xMidYMid meet</code>. This instruction tells the browser to scale the internal viewBox uniformly so that the entire graphic fits inside the outer viewport without clipping (similar to CSS <code>object-fit: contain</code>), while centering the graphic both horizontally along the X-axis and vertically along the Y-axis.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why does preserveAspectRatio have no effect on an SVG element?</h3>
+            <p>The <code>preserveAspectRatio</code> attribute only functions when the <code>viewBox</code> attribute is explicitly declared on the SVG element. Without a viewBox, the SVG does not possess an internal coordinate system to map against the viewport boundaries, causing the browser to ignore <code>preserveAspectRatio</code> entirely.</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the difference between meet and slice in SVG?</h3>
+            <p><code>meet</code> scales the viewBox uniformly until its largest dimension meets the viewport boundary, guaranteeing that the entire graphic remains visible (creating letterboxing or pillarboxing empty space). In contrast, <code>slice</code> scales the viewBox uniformly until its smallest dimension covers the entire viewport, completely eliminating empty margins while clipping any graphic overflow that extends beyond the viewport frame (identical to CSS <code>object-fit: cover</code>).</p>
+          </div>
+          <div class="faq-item">
+            <h3>When should you use preserveAspectRatio="none"?</h3>
+            <p><code>preserveAspectRatio="none"</code> disables uniform aspect ratio preservation completely. The internal graphic stretches or compresses independently along the horizontal and vertical axes to occupy 100% of the viewport width and height. This is essential for responsive wave section dividers, background grid textures, decorative border curves, and progress bar fills where non-proportional distortion is intentional.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does preserveAspectRatio differ from the CSS object-fit property?</h3>
+            <p>CSS <code>object-fit</code> operates on replaced elements like <code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>, or <code>&lt;canvas&gt;</code> from the outside in CSS layout. In contrast, <code>preserveAspectRatio</code> is an internal SVG XML attribute that governs how the SVG's internal vector coordinate space (viewBox) maps onto the SVG container element itself. When using inline SVG markup, <code>object-fit</code> is not applicable, making <code>preserveAspectRatio</code> the sole mechanism for aspect ratio and alignment control.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you align an SVG to the top-left or bottom-right corner?</h3>
+            <p>To pin an SVG to the top-left corner, set <code>preserveAspectRatio="xMinYMin meet"</code>. To pin an SVG to the bottom-right corner, specify <code>preserveAspectRatio="xMaxYMax meet"</code>. The alignment keyword consists of an X-component (xMin, xMid, xMax) and a Y-component (YMin, YMid, YMax) defining the anchor point within the viewport.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#the-dual-coordinate-system">1. Viewport vs. ViewBox</a></li>
+              <li><a href="#syntax-and-grammar">2. Syntax &amp; Grammar</a></li>
+              <li><a href="#the-nine-alignment-combinations">3. 9 Alignment Combinations</a></li>
+              <li><a href="#meet-vs-slice-vs-none">4. Scaling: meet, slice, none</a></li>
+              <li><a href="#interactive-simulator">5. Live Interactive Studio</a></li>
+              <li><a href="#css-vs-presentation-attributes">6. CSS vs. Presentation</a></li>
+              <li><a href="#advanced-architectural-patterns">7. Real-World SaaS Patterns</a></li>
+              <li><a href="#cross-browser-nuances">8. Browser Quirks &amp; Bugs</a></li>
+              <li><a href="#frequently-asked-questions">9. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 135K+ Scalable Icons</h4>
+          <p>Search, customize, and copy perfectly formatted SVG icons with production-ready viewBox configurations.</p>
+          <a href="/" class="cta-sidebar-btn">Search IconStash Free</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; Open-Source Vector Icon Search Engine &bull; Built with precision for developers.</p>
+    <p style="margin-top: 8px;">
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/library/lucide/">Lucide</a> &bull;
+      <a href="/library/tabler/">Tabler</a> &bull;
+      <a href="/library/phosphor/">Phosphor</a> &bull;
+      <a href="/about/">About</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle and persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const rootHtml = document.documentElement;
+
+    function applySavedTheme() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      rootHtml.setAttribute('data-theme', saved);
+    }
+    applySavedTheme();
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const current = rootHtml.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        rootHtml.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // Interactive preserveAspectRatio Studio Logic
+    const GRAPHICS = {
+      shield: `<rect x="5" y="5" width="90" height="90" rx="8" fill="rgba(193,221,45,0.08)" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 4"/>
+               <path d="M50 15 L80 28 V52 C80 72 50 86 50 86 C50 86 20 72 20 52 V28 Z" fill="rgba(193,221,45,0.2)" stroke="#C1DD2D" stroke-width="3" stroke-linejoin="round"/>
+               <polygon points="50,30 55,42 68,43 58,52 61,65 50,58 39,65 42,52 32,43 45,42" fill="#C1DD2D"/>
+               <circle cx="50" cy="50" r="46" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>`,
+      compass: `<rect x="5" y="5" width="90" height="90" rx="8" fill="rgba(193,221,45,0.08)" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 4"/>
+                <circle cx="50" cy="50" r="38" fill="rgba(193,221,45,0.15)" stroke="#C1DD2D" stroke-width="3"/>
+                <circle cx="50" cy="50" r="3" fill="#FFF"/>
+                <polygon points="50,18 56,47 50,44 44,47" fill="#C1DD2D"/>
+                <polygon points="50,82 56,53 50,56 44,53" fill="#FFF" opacity="0.8"/>
+                <line x1="50" y1="12" x2="50" y2="88" stroke="#C1DD2D" stroke-width="1" stroke-dasharray="2 2"/>
+                <line x1="12" y1="50" x2="88" y2="50" stroke="#C1DD2D" stroke-width="1" stroke-dasharray="2 2"/>`,
+      wave: `<rect x="5" y="5" width="90" height="90" rx="8" fill="rgba(193,221,45,0.08)" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 4"/>
+             <path d="M0,45 C25,20 75,70 100,45 L100,100 L0,100 Z" fill="rgba(193,221,45,0.3)" stroke="#C1DD2D" stroke-width="3"/>
+             <path d="M0,60 C35,40 65,80 100,60 L100,100 L0,100 Z" fill="#C1DD2D" opacity="0.6"/>`
+    };
+
+    let curAspect = { w: '100%', h: '180px', label: '16:9 (Widescreen)' };
+    let curMode = 'meet';
+    let curAlign = 'xMidYMid';
+    let curGraphic = 'shield';
+    let curFormat = 'inline-svg';
+
+    const stageViewport = document.getElementById('stageViewport');
+    const stageSvg = document.getElementById('stageSvg');
+    const viewportMeta = document.getElementById('viewportMeta');
+    const statScale = document.getElementById('statScale');
+    const statClipping = document.getElementById('statClipping');
+    const statCssEquiv = document.getElementById('statCssEquiv');
+    const aspectCodeDisplay = document.getElementById('aspectCodeDisplay');
+    const copyAspectCodeBtn = document.getElementById('copyAspectCodeBtn');
+    const currentAspectLabel = document.getElementById('currentAspectLabel');
+    const currentModeLabel = document.getElementById('currentModeLabel');
+    const currentAlignLabel = document.getElementById('currentAlignLabel');
+    const alignSection = document.getElementById('alignSection');
+
+    function updateAspectStudio() {
+      // 1. Update Viewport dimensions
+      stageViewport.style.width = curAspect.w;
+      stageViewport.style.height = curAspect.h;
+      currentAspectLabel.textContent = curAspect.label;
+      currentModeLabel.textContent = curMode;
+      currentAlignLabel.textContent = curMode === 'none' ? 'none (alignment disabled)' : curAlign;
+
+      // Toggle align section visibility when mode is 'none'
+      if (curMode === 'none') {
+        alignSection.style.opacity = '0.4';
+        alignSection.style.pointerEvents = 'none';
+      } else {
+        alignSection.style.opacity = '1';
+        alignSection.style.pointerEvents = 'auto';
+      }
+
+      // 2. Set preserveAspectRatio attribute
+      const parAttr = curMode === 'none' ? 'none' : `${curAlign} ${curMode}`;
+      stageSvg.setAttribute('preserveAspectRatio', parAttr);
+      stageSvg.innerHTML = GRAPHICS[curGraphic];
+
+      // Measure real computed pixels
+      requestAnimationFrame(() => {
+        const rect = stageViewport.getBoundingClientRect();
+        const vw = Math.round(rect.width);
+        const vh = Math.round(rect.height);
+        viewportMeta.textContent = `Viewport: ${vw} × ${vh}px`;
+
+        const sx = vw / 100;
+        const sy = vh / 100;
+
+        if (curMode === 'none') {
+          statScale.textContent = `X: ${sx.toFixed(1)}×, Y: ${sy.toFixed(1)}×`;
+          statClipping.textContent = 'Non-Uniform Stretched';
+          statClipping.style.color = '#C1DD2D';
+          statCssEquiv.textContent = 'object-fit: fill';
+        } else if (curMode === 'meet') {
+          const s = Math.min(sx, sy);
+          statScale.textContent = `${s.toFixed(2)}×`;
+          statClipping.textContent = 'Zero Clipping (Letterbox)';
+          statClipping.style.color = '#C1DD2D';
+          statCssEquiv.textContent = 'object-fit: contain';
+        } else if (curMode === 'slice') {
+          const s = Math.max(sx, sy);
+          statScale.textContent = `${s.toFixed(2)}×`;
+          statClipping.textContent = 'Edges Clipped (Full Cover)';
+          statClipping.style.color = '#F87171';
+          statCssEquiv.textContent = 'object-fit: cover';
+        }
+      });
+
+      // 3. Update Code Output
+      let code = '';
+      if (curFormat === 'inline-svg') {
+        code = `<svg viewBox="0 0 100 100"\n     preserveAspectRatio="${parAttr}"\n     width="${curAspect.w}"\n     height="${curAspect.h}">\n  <!-- Vector Content (viewBox 0 0 100 100) -->\n  <rect x="5" y="5" width="90" height="90" rx="8" fill="none" stroke="#C1DD2D" stroke-width="2"/>\n  <circle cx="50" cy="50" r="30" fill="#C1DD2D"/>\n</svg>`;
+      } else if (curFormat === 'react-jsx') {
+        code = `import React from 'react';\n\nexport const ResponsiveVectorIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (\n  <svg\n    viewBox="0 0 100 100"\n    preserveAspectRatio="${parAttr}"\n    fill="none"\n    xmlns="http://www.w3.org/2000/svg"\n    {...props}\n  >\n    <rect x="5" y="5" width="90" height="90" rx="8" stroke="currentColor" strokeWidth={2}/>\n    <circle cx={50} cy={50} r={30} fill="currentColor"/>\n  </svg>\n);`;
+      } else if (curFormat === 'css-rule') {
+        const objFit = curMode === 'none' ? 'fill' : (curMode === 'meet' ? 'contain' : 'cover');
+        code = `/* For SVG embedded via <img> or CSS mask-image */\n.responsive-icon-container {\n  width: ${curAspect.w};\n  height: ${curAspect.h};\n}\n\n.responsive-icon-container img {\n  width: 100%;\n  height: 100%;\n  object-fit: ${objFit};\n  object-position: ${curAlign.includes('Min') ? 'top' : (curAlign.includes('Max') ? 'bottom' : 'center')};\n}`;
+      }
+      aspectCodeDisplay.textContent = code;
+    }
+
+    // Initial run
+    updateAspectStudio();
+
+    // Event listeners
+    document.querySelectorAll('#aspectPresets .preset-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#aspectPresets .preset-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curAspect = {
+          w: btn.getAttribute('data-w'),
+          h: btn.getAttribute('data-h'),
+          label: btn.getAttribute('data-label')
+        };
+        updateAspectStudio();
+      });
+    });
+
+    document.querySelectorAll('#modeToggle .toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#modeToggle .toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curMode = btn.getAttribute('data-mode');
+        updateAspectStudio();
+      });
+    });
+
+    document.querySelectorAll('#matrixGrid .align-matrix-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#matrixGrid .align-matrix-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curAlign = btn.getAttribute('data-align');
+        updateAspectStudio();
+      });
+    });
+
+    document.querySelectorAll('#graphicSelector .preset-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#graphicSelector .preset-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curGraphic = btn.getAttribute('data-graphic');
+        updateAspectStudio();
+      });
+    });
+
+    document.querySelectorAll('#codeFormatTabs .code-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#codeFormatTabs .code-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curFormat = btn.getAttribute('data-format');
+        updateAspectStudio();
+      });
+    });
+
+    copyAspectCodeBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(aspectCodeDisplay.textContent).then(() => {
+        const orig = copyAspectCodeBtn.textContent;
+        copyAspectCodeBtn.textContent = 'Copied!';
+        copyAspectCodeBtn.style.background = '#C1DD2D';
+        copyAspectCodeBtn.style.color = '#0A0A0A';
+        setTimeout(() => {
+          copyAspectCodeBtn.textContent = orig;
+          copyAspectCodeBtn.style.background = '';
+          copyAspectCodeBtn.style.color = '';
+        }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>

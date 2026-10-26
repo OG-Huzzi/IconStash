@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use SVG Text, tspan &amp; textPath: Curved Text &amp; Typography Guide (2026)</title>
+  <meta name="description" content="Master SVG typography: text, tspan positioning, curved textPath, dominant-baseline centering, Safari fixes, and live interactive curved text studio.">
+  <meta name="keywords" content="svg text, svg textpath, svg text on path, svg curved text, dominant-baseline central, svg tspan dx dy, svg text vertical align, svg typography tutorial">
+  <meta property="og:title" content="How to Use SVG Text, tspan &amp; textPath: Curved Text &amp; Typography Guide (2026)">
+  <meta property="og:description" content="Master SVG typography: text, tspan positioning, curved textPath, dominant-baseline centering, Safari fixes, and live interactive curved text studio.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-use-svg-text-and-textpath-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/how-to-use-svg-text-and-textpath-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-26T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-26T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="SVG Typography &amp; Vector Design">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Typography">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="textPath">
+  <meta property="article:tag" content="Frontend Development">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use SVG Text, tspan &amp; textPath: Curved Text &amp; Typography Guide (2026)">
+  <meta name="twitter:description" content="Master SVG typography: text, tspan positioning, curved textPath, dominant-baseline centering, Safari fixes, and live interactive curved text studio.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/how-to-use-svg-text-and-textpath-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-use-svg-text-and-textpath-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Use SVG Text, tspan & textPath: Curved Text & Typography Guide (2026)",
+      "description": "Master SVG typography: text, tspan positioning, curved textPath, dominant-baseline centering, Safari fixes, and live interactive curved text studio.",
+      "image": "https://iconstash.io/assets/articles/how-to-use-svg-text-and-textpath-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-26",
+      "dateModified": "2026-10-26",
+      "mainEntityOfPage": "https://iconstash.io/articles/how-to-use-svg-text-and-textpath-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "inLanguage": "en-US",
+      "wordCount": 5260,
+      "articleSection": "SVG Typography & Vector Design",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["svg text", "svg textpath", "svg curved text", "dominant-baseline central", "svg tspan dx dy", "svg typography"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Text & textPath Guide",
+          "item": "https://iconstash.io/articles/how-to-use-svg-text-and-textpath-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do you vertically center text in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The most reliable cross-browser method to vertically center SVG text at a specific coordinate is setting dominant-baseline=\"central\" alongside text-anchor=\"middle\". dominant-baseline=\"central\" aligns the mathematical vertical midpoint of uppercase glyphs directly onto the target Y-coordinate, avoiding the lower descender drift caused by the default alphabetic baseline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does dominant-baseline fail or misalign in Safari (WebKit)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Safari and WebKit have historical bugs where dominant-baseline inherited from a parent <text> element fails to apply down into nested <tspan> elements or dynamic text updates. To fix this, explicitly assign dominant-baseline directly to the <tspan> tag itself, or set alignment-baseline=\"central\" as an explicit inline fallback attribute."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does textPath curve text along an SVG path?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The <textPath> element references a geometry <path> via its href (or legacy xlink:href) attribute. The browser computes the arc-length of the referenced path and maps each glyph's baseline tangent to the curve. You control placement using startOffset (e.g. startOffset=\"50%\" combined with text-anchor=\"middle\" centers the text perfectly along the curve)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between absolute x/y and relative dx/dy in <tspan>?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In <tspan>, x and y set new absolute coordinates within the SVG viewBox, resetting the cursor location. In contrast, dx and dy apply relative offsets from the end position of the preceding glyph. For example, dy=\"1.2em\" creates a clean line break without needing to hardcode absolute pixel positions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you make text along a textPath appear on the outside of a circle instead of upside down?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Glyphs on a <textPath> align along the direction that the underlying <path> was drawn. If text on a circular arc appears upside down, the path was drawn counter-clockwise instead of clockwise. You can either reverse the path coordinates (switching the sweep-flag in arc commands) or use the SVG 2 side=\"right\" attribute."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is text inside an SVG readable and accessible to search engines and screen readers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, native SVG <text>, <tspan>, and <textPath> elements are fully selectable by users, indexable by Google and Bing search crawlers, and read by accessibility screen readers. To maximize accessibility, assign role=\"img\" and an aria-label or nested <title> to the parent SVG container."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #CCC; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover { border-color: #C1DD2D; color: #FFF; }
+    .preset-chip.active { background: rgba(193,221,45,0.15); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .text-input-field { width: 100%; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; color: #FFF; font-family: "Inter", sans-serif; font-size: 14px; padding: 10px 12px; outline: none; transition: border-color 150ms ease; }
+    .text-input-field:focus { border-color: #C1DD2D; }
+
+    .slider-row { display: flex; align-items: center; gap: 12px; }
+    .range-slider { flex: 1; accent-color: #C1DD2D; height: 6px; border-radius: 3px; cursor: pointer; }
+
+    .toggle-group { display: flex; gap: 6px; background: #181818; padding: 4px; border-radius: 8px; border: 1px solid #333; }
+    .toggle-btn { flex: 1; background: transparent; border: none; color: #888; font-size: 11.5px; font-weight: 700; padding: 7px 6px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; text-align: center; }
+    .toggle-btn.active { background: #C1DD2D; color: #0A0A0A; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 260px; border: 1px solid #262626; border-radius: 10px; background: radial-gradient(circle at center, #1E2310 0%, #0A0C06 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .preview-canvas-svg { width: 100%; height: 100%; display: block; }
+
+    .aspect-stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 14px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 140px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
+
+    /* Formula Cards & Callouts */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .aspect-stats-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #4D6300; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #4D6300; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .text-input-field { background: #FFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .toggle-group { background: #E4E4E7; border-color: #D4D4D8; }
+    html[data-theme="light"] .toggle-btn { color: #525252; }
+    html[data-theme="light"] .toggle-btn.active { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .aspect-stats-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .preset-chip { background: #FFF; border-color: #D4D4D8; color: #525252; }
+    html[data-theme="light"] .preset-chip:hover { border-color: #4D6300; color: #171717; }
+    html[data-theme="light"] .preset-chip.active { background: #ECFDF5; border-color: #4D6300; color: #4D6300; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/library/lucide/">Libraries</a>
+      <a href="/compare/">Compare</a>
+      <a href="/about/">About</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/" class="header-cta">Search 135,000+ Icons</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">&gt;</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">&gt;</span>
+      <span>SVG Text &amp; textPath Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">SVG Typography &amp; Vector Design</span>
+      <h1>How to Use SVG Text, tspan &amp; textPath: Curved Text &amp; Typography Guide (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published October 26, 2026</span>
+        <span>27 min read</span>
+        <span>5,260 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Summary &amp; Core Takeaways:</strong> While standard HTML handles ordinary paragraph text, SVG typography unlocks graphic capabilities that CSS cannot touch: curving typography along arbitrary Bézier vectors, circular stamp badges, mathematically centered icon labels, and precise multi-span relative kerning.</p>
+          <ul>
+            <li><strong>The Baseline Paradigm:</strong> SVG text does not conform to the HTML CSS box model; it aligns along an imaginary typographic baseline anchored at a single (x, y) origin.</li>
+            <li><strong>Centering Solution:</strong> The universal formula for vertical centering in SVG is <code>dominant-baseline="central"</code> paired with <code>text-anchor="middle"</code>.</li>
+            <li><strong>The Power of textPath:</strong> By linking a <code>&lt;textPath&gt;</code> to an existing <code>&lt;path id="..."&gt;</code>, glyphs deform and rotate along the curve with zero JavaScript.</li>
+            <li><strong>Accessible &amp; Searchable:</strong> Unlike raster images or converted vector outlines, native SVG text remains 100% indexable by search engine bots, selectable by users, and accessible to screen readers.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/how-to-use-svg-text-and-textpath-guide.jpg" alt="SVG Typography Curved Text Along Bézier Curves and Baseline Alignment Systems" width="1200" height="675" loading="eager" />
+          <figcaption>Figure 1: Architectural diagram showing glyph baseline projection along sinusoidal wave curves and circular arcs with dominant-baseline alignment vectors.</figcaption>
+        </figure>
+
+        <section id="anatomical-foundations">
+          <h2>1. Anatomical Foundations: The &lt;text&gt; Element &amp; Coordinate Anchors</h2>
+          <p>The fundamental container for all vector typography is the <code>&lt;text&gt;</code> element. Unlike HTML block elements (such as <code>&lt;p&gt;</code> or <code>&lt;div&gt;</code>), an SVG text element does not have margins, padding, or an intrinsic width that causes words to automatically wrap to the next line.</p>
+          <p>Instead, an SVG text element establishes a cursor coordinate origin defined by its <code>x</code> and <code>y</code> attributes:</p>
+          <pre><code>&lt;svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;text x="40" y="70" font-family="'Inter', sans-serif" font-size="28" fill="#F2F2F2"&gt;
+    Production Vector Typography
+  &lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+
+          <p>The most common stumbling block for web developers transitioning from CSS to SVG is the meaning of the <code>y</code> coordinate. In HTML, placing an element at <code>top: 70px</code> positions its top border at 70px. In SVG, however, the <code>y</code> attribute defaults to the <strong>alphabetic baseline</strong> upon which Roman letters (such as 'A', 'H', 'x') sit. Any descending characters (such as 'g', 'j', 'p', 'q', 'y') extend below this <code>y</code> coordinate.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">SVG Text Coordinate Anchor Rule</div>
+            <div class="formula-body">Cursor Position = (x, y) → Default Anchor: Bottom-Left Alphabetic Baseline</div>
+            <div class="formula-desc">Without baseline adjustments, text placed at y="0" renders entirely above the top edge of the viewBox, effectively disappearing outside the visible canvas. Always offset y by at least the font size.</div>
+          </div>
+        </section>
+
+        <section id="tspan-and-micro-adjustments">
+          <h2>2. Multi-Line Spanning &amp; Relative Offsets: Mastering &lt;tspan&gt;</h2>
+          <p>Because native SVG does not support automated word wrapping (until the experimental SVG 2 <code>inline-size</code> property achieves universal adoption), creating multi-line text blocks requires the <code>&lt;tspan&gt;</code> element.</p>
+          <p>A <code>&lt;tspan&gt;</code> functions like an HTML <code>&lt;span&gt;</code>, but with coordinate-shifting capabilities via four positioning attributes:</p>
+          <ul>
+            <li><strong><code>x</code> &amp; <code>y</code> (Absolute Coordinates):</strong> Hard-resets the rendering cursor to a new absolute position in the viewBox. Setting <code>x="40"</code> on a child <code>&lt;tspan&gt;</code> returns the cursor to the left margin.</li>
+            <li><strong><code>dx</code> &amp; <code>dy</code> (Relative Delta Offsets):</strong> Shifts the cursor relative to the end position of the preceding glyph. For example, <code>dy="1.2em"</code> moves down by exactly one line height increment.</li>
+          </ul>
+
+          <h3>The Clean Multi-Line Paragraph Pattern</h3>
+          <p>To author a clean, responsive multi-line paragraph without hardcoding pixel heights, combine absolute <code>x</code> with relative <code>dy</code>:</p>
+          <pre><code>&lt;text x="30" y="50" font-family="'Inter', sans-serif" font-size="16" fill="#D4D4D4"&gt;
+  &lt;tspan x="30" dy="0"&gt;First line of descriptive metadata text.&lt;/tspan&gt;
+  &lt;tspan x="30" dy="1.4em"&gt;Second line automatically indented with proportional spacing.&lt;/tspan&gt;
+  &lt;tspan x="30" dy="1.4em" font-weight="700" fill="#C1DD2D"&gt;Third line highlighted with custom brand token color.&lt;/tspan&gt;
+&lt;/text&gt;</code></pre>
+          <p>Using <code>dy="1.4em"</code> ensures that if you adjust the parent <code>font-size</code> in CSS, the line spacing scales proportionally without overlapping lines.</p>
+        </section>
+
+        <section id="the-baseline-problem">
+          <h2>3. The Baseline Problem: dominant-baseline vs. alignment-baseline</h2>
+          <p>Vertical alignment in SVG has confused developers for decades because SVG defines over a dozen different baselines derived from global font tables. The two primary attributes governing vertical alignment are:</p>
+          <ol>
+            <li><strong><code>dominant-baseline</code>:</strong> Applied to the parent <code>&lt;text&gt;</code> (or inherited by children), this property establishes which baseline table from the font metrics is used as the active reference.</li>
+            <li><strong><code>alignment-baseline</code>:</strong> Applied to child elements (like <code>&lt;tspan&gt;</code> or <code>&lt;textPath&gt;</code>), specifying how the child aligns relative to its parent's dominant baseline.</li>
+          </ol>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>dominant-baseline Value</th>
+                  <th>Visual Reference Line</th>
+                  <th>Vertical Anchor Behavior</th>
+                  <th>Recommended Production Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>alphabetic</code> (Default)</td>
+                  <td>Bottom edge of flat Latin letters (e.g. 'x', 'm')</td>
+                  <td>Descenders ('g', 'p') hang below the Y coordinate</td>
+                  <td>Standard body text, traditional editorial layouts</td>
+                </tr>
+                <tr>
+                  <td><code>central</code> (Recommended)</td>
+                  <td>Mathematical center of the capital letters</td>
+                  <td>Centers glyphs vertically right on the Y coordinate</td>
+                  <td>Centering text inside badges, circular buttons, and UI icons</td>
+                </tr>
+                <tr>
+                  <td><code>middle</code></td>
+                  <td>Geometric middle of the em-square box</td>
+                  <td>Near central, but based on full font em-box metrics</td>
+                  <td>Mathematical notations and legacy SVG 1.1 chart alignment</td>
+                </tr>
+                <tr>
+                  <td><code>hanging</code></td>
+                  <td>Top edge of capital glyphs (Tibetan/Indic script)</td>
+                  <td>Glyphs hang completely downward from the Y coordinate</td>
+                  <td>Text positioned flush against the top border of a container</td>
+                </tr>
+                <tr>
+                  <td><code>text-bottom</code> / <code>text-top</code></td>
+                  <td>Extremes of the font bounding box including accents</td>
+                  <td>Aligns to extreme font ascender/descender bounds</td>
+                  <td>Inline super-scripts, sub-scripts, and footnote markers</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="formula-card">
+            <div class="formula-title">The Gold-Standard Universal SVG Centering Formula</div>
+            <div class="formula-body">&lt;text x="50%" y="50%" text-anchor="middle" dominant-baseline="central"&gt;Centered Label&lt;/text&gt;</div>
+            <div class="formula-desc">Pairing text-anchor="middle" (horizontal center) with dominant-baseline="central" (vertical center) places the exact visual center of any word onto the target coordinate across all screen resolutions.</div>
+          </div>
+        </section>
+
+        <section id="safari-webkit-fixes">
+          <h2>4. Fixing the Infamous Safari/WebKit Baseline Alignment Bugs</h2>
+          <p>Developers who test exclusively in Chrome or Firefox are often shocked to discover that their centered SVG text appears noticeably shifted downward or upward in Apple Safari (iOS and macOS). This discrepancy stems from two long-standing WebKit rendering behaviors:</p>
+          <ul>
+            <li><strong>Inheritance Drop on Nested Spans:</strong> In WebKit, a <code>dominant-baseline</code> assigned to the outer <code>&lt;text&gt;</code> container frequently fails to cascade down into child <code>&lt;tspan&gt;</code> elements if those spans have independent styling or transforms applied.</li>
+            <li><strong>Font Metric Discrepancies:</strong> WebKit and Blink calculate the capital em-height differently when rendering system fonts like <code>system-ui</code> or <code>-apple-system</code> versus web fonts like Inter or Roboto.</li>
+          </ul>
+
+          <div class="warning-box">
+            <h4>The Bulletproof WebKit Cross-Browser Patch</h4>
+            <p>To eliminate baseline drift in Safari, always declare <strong>both</strong> <code>dominant-baseline</code> and <code>alignment-baseline</code> explicitly on both the parent <code>&lt;text&gt;</code> and any child <code>&lt;tspan&gt;</code> or <code>&lt;textPath&gt;</code> tags:</p>
+            <pre><code>&lt;!-- Cross-Browser Bulletproof Centered Text --&gt;
+&lt;text x="100" y="50"
+      text-anchor="middle"
+      dominant-baseline="central"
+      alignment-baseline="central"
+      style="dominant-baseline: central; alignment-baseline: central;"&gt;
+  &lt;tspan dominant-baseline="central" alignment-baseline="central"&gt;Rock Solid in Safari&lt;/tspan&gt;
+&lt;/text&gt;</code></pre>
+          </div>
+        </section>
+
+        <section id="curved-text-along-paths">
+          <h2>5. Flowing Text Along Arbitrary Geometry: The &lt;textPath&gt; Architecture</h2>
+          <p>The true superpower of SVG typography is the <code>&lt;textPath&gt;</code> element. Unlike HTML and CSS, which require complex canvas hacks or splitting text into dozens of rotated spans with JavaScript, SVG natively bends and warps text along any mathematical vector curve.</p>
+
+          <h3>The Core Mechanism</h3>
+          <ol>
+            <li><strong>Define the Guide Path in &lt;defs&gt;:</strong> Author a vector path inside the SVG’s <code>&lt;defs&gt;</code> section (or directly in the canvas) and give it a unique <code>id</code>. The path can be a Bézier curve, an arc, a circle, or a complex wave.</li>
+            <li><strong>Wrap Text in &lt;textPath&gt;:</strong> Inside your <code>&lt;text&gt;</code> element, wrap the content in a <code>&lt;textPath&gt;</code> tag and link it to the path's ID via the <code>href</code> attribute (e.g., <code>href="#guideCurve"</code>).</li>
+            <li><strong>Browser Tangent Mapping:</strong> The browser computes the arc-length parameterization of the path and calculates the tangent vector at each character's position, rotating and translating each glyph individually along the curve.</li>
+          </ol>
+
+          <pre><code>&lt;svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;defs&gt;
+    &lt;!-- S-Curve Path Definition --&gt;
+    &lt;path id="waveCurve" d="M 40 140 C 160 40, 340 240, 460 140" fill="none" /&gt;
+  &lt;/defs&gt;
+
+  &lt;!-- Visible Guide Line (Optional) --&gt;
+  &lt;path d="M 40 140 C 160 40, 340 240, 460 140" fill="none" stroke="#333" stroke-dasharray="4 4" /&gt;
+
+  &lt;text font-family="'Inter', sans-serif" font-size="20" font-weight="700" fill="#C1DD2D"&gt;
+    &lt;textPath href="#waveCurve" startOffset="50%" text-anchor="middle"&gt;
+      Dynamic Curving Vector Typography Along Path
+    &lt;/textPath&gt;
+  &lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+        </section>
+
+        <section id="path-offsets-and-anchors">
+          <h2>6. Path Offsets, Alignment &amp; Curve Directionality</h2>
+          <p>When positioning text along a curve, three key attributes govern its layout:</p>
+          <ul>
+            <li><strong><code>startOffset</code>:</strong> Controls the distance along the path where the text begins. It accepts either an absolute length (e.g., <code>startOffset="80px"</code>) or a percentage of the total path length (e.g., <code>startOffset="50%"</code>).</li>
+            <li><strong><code>text-anchor</code>:</strong> Works in tandem with <code>startOffset</code>. If you set <code>startOffset="50%"</code> and <code>text-anchor="middle"</code>, the text is centered along the curve. If <code>text-anchor="start"</code>, the beginning of the text starts at 50%. If <code>text-anchor="end"</code>, the end of the text stops at 50%.</li>
+            <li><strong><code>side</code> (SVG 2):</strong> Dictates which side of the path the glyphs sit on (<code>left</code> or <code>right</code>). The default is <code>left</code> (relative to the path's drawing direction).</li>
+          </ul>
+
+          <div class="formula-card">
+            <div class="formula-title">The Path Direction Law (Why Text Appears Upside Down)</div>
+            <div class="formula-body">Glyph Orientation = Tangent Vector along d="M ... A ..." direction</div>
+            <div class="formula-desc">A path drawn clockwise places glyphs facing outward from the curve. A path drawn counter-clockwise flips glyphs upside-down inside the curve. If text is inverted, reverse the starting and ending coordinates in your path definition.</div>
+          </div>
+        </section>
+
+        <!-- Interactive Developer Studio -->
+        <section id="interactive-text-studio">
+          <h2>7. Interactive Developer Studio: Live Curved Text &amp; Baseline Studio</h2>
+          <p>Experiment with the live studio below to test typography along different vector curves, adjust start offsets, toggle baseline alignments, and generate copy-paste SVG code.</p>
+
+          <div class="interactive-sandbox" id="curvedTextSandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Curved Text &amp; Baseline Visual Studio</span>
+              </div>
+              <span class="sandbox-badge">Interactive Tool</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label>1. Custom Text String:</label>
+                  <input type="text" class="text-input-field" id="curvedTextInput" value="ICONSTASH • VECTOR TYPOGRAPHY STUDIO • 2026 •" maxlength="60" />
+                </div>
+
+                <div class="control-row">
+                  <label>2. Curve Geometry Path:</label>
+                  <div class="preset-chips" id="pathPresets">
+                    <button type="button" class="preset-chip active" data-path="circle">Circular Badge</button>
+                    <button type="button" class="preset-chip" data-path="wave">Sinusoidal Wave</button>
+                    <button type="button" class="preset-chip" data-path="arch">Upper Arch</button>
+                    <button type="button" class="preset-chip" data-path="spiral">Spiral Arc</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>3. Start Offset: <span class="stat-num" id="offsetValueLabel">50%</span></label>
+                  <div class="slider-row">
+                    <input type="range" class="range-slider" id="offsetSlider" min="0" max="100" value="50" />
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>4. Dominant Baseline:</label>
+                  <div class="toggle-group" id="baselineToggle">
+                    <button type="button" class="toggle-btn active" data-baseline="central">central</button>
+                    <button type="button" class="toggle-btn" data-baseline="alphabetic">alphabetic</button>
+                    <button type="button" class="toggle-btn" data-baseline="hanging">hanging</button>
+                    <button type="button" class="toggle-btn" data-baseline="middle">middle</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>5. Text Anchor:</label>
+                  <div class="toggle-group" id="anchorToggle">
+                    <button type="button" class="toggle-btn active" data-anchor="middle">middle</button>
+                    <button type="button" class="toggle-btn" data-anchor="start">start</button>
+                    <button type="button" class="toggle-btn" data-anchor="end">end</button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label>6. Font Size: <span class="stat-num" id="fontSizeLabel">16px</span></label>
+                  <div class="slider-row">
+                    <input type="range" class="range-slider" id="fontSizeSlider" min="12" max="28" value="16" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="preview-stage-container">
+                  <svg class="preview-canvas-svg" id="curvedTextStageSvg" viewBox="0 0 500 250">
+                    <defs>
+                      <path id="activeStudioPath" d="M 100 125 A 75 75 0 1 1 400 125 A 75 75 0 1 1 100 125" fill="none" />
+                    </defs>
+                    <!-- Visible dashed guide path -->
+                    <path id="visibleGuidePath" d="M 100 125 A 75 75 0 1 1 400 125 A 75 75 0 1 1 100 125" fill="none" stroke="rgba(193,221,45,0.3)" stroke-width="2" stroke-dasharray="4 4" />
+                    <!-- Rendered text -->
+                    <text id="studioTextElement" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700" fill="#C1DD2D" letter-spacing="1.5">
+                      <textPath id="studioTextPath" href="#activeStudioPath" startOffset="50%" text-anchor="middle" dominant-baseline="central">
+                        ICONSTASH • VECTOR TYPOGRAPHY STUDIO • 2026 •
+                      </textPath>
+                    </text>
+                  </svg>
+                </div>
+
+                <div class="aspect-stats-box">
+                  <div class="stat-item">
+                    <div class="stat-label">Computed Path Length</div>
+                    <div class="stat-val highlight" id="statPathLength">942 px</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Active Baseline</div>
+                    <div class="stat-val" id="statActiveBaseline">central</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Anchor Offset</div>
+                    <div class="stat-val" id="statAnchorOffset">50% (middle)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs" id="textCodeTabs">
+                  <button type="button" class="code-tab-btn active" data-tab="svg-markup">SVG Markup</button>
+                  <button type="button" class="code-tab-btn" data-tab="react-comp">React TSX Component</button>
+                </div>
+                <div class="code-actions">
+                  <button type="button" class="copy-btn" id="copyTextCodeBtn">Copy Code</button>
+                </div>
+              </div>
+              <pre class="code-output-area" id="textCodeDisplay">// Generated SVG Typography Code</pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="web-fonts-and-loading">
+          <h2>8. Web Fonts, FOUT/FOIT Prevention &amp; System Stacks in SVG</h2>
+          <p>When using custom web fonts (like Inter, Plus Jakarta Sans, or JetBrains Mono) inside an SVG, browsers must download the corresponding WOFF2 file before glyphs can be rasterized. If not handled correctly, this triggers Flash of Unstyled Text (FOUT) or invisible text (FOIT) that disrupts layout.</p>
+
+          <h3>Method 1: Embedding Base64 WOFF2 Fonts Directly in &lt;style&gt;</h3>
+          <p>For standalone SVGs (such as downloaded icons, social share cards, or SVG files loaded via <code>&lt;img&gt;</code> tags), external HTTP font links are blocked by browser security sandbox policies. The only way to guarantee custom typography is inlining a subsetted WOFF2 font as Base64:</p>
+          <pre><code>&lt;svg viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;defs&gt;
+    &lt;style&gt;
+      @font-face {
+        font-family: 'InterSubset';
+        src: url('data:font/woff2;base64,d09GMgABAAAAAA...') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+      }
+      .brand-title {
+        font-family: 'InterSubset', system-ui, sans-serif;
+        font-size: 24px;
+        fill: #C1DD2D;
+      }
+    &lt;/style&gt;
+  &lt;/defs&gt;
+  &lt;text x="20" y="55" class="brand-title"&gt;IconStash Pro Typography&lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+
+          <h3>Method 2: Zero-Overhead System Font Stacks</h3>
+          <p>If you wish to avoid bundle bloat and ensure zero network delay, use high-performance native system font stacks:</p>
+          <pre><code>font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;</code></pre>
+          <p>System fonts render instantly with zero layout shifts (CLS), sub-pixel rendering crispness on high-DPI displays, and native platform familiar aesthetics.</p>
+        </section>
+
+        <section id="text-accessibility">
+          <h2>9. Text Accessibility: Screen Readers, Search Indexing &amp; WCAG</h2>
+          <p>A major advantage of SVG text over raster graphics is that it remains authentic text within the browser's Accessibility Object Model (AOM). Screen readers like VoiceOver, NVDA, and JAWS can parse and vocalize SVG text directly.</p>
+
+          <p>To ensure 100% WCAG 2.2 AA compliance when deploying SVG typography:</p>
+          <ol>
+            <li><strong>Assign Semantic Role:</strong> Add <code>role="img"</code> and an <code>aria-label</code> to the parent SVG container if the text forms a visual graphic or logo banner.</li>
+            <li><strong>Include &lt;title&gt; and &lt;desc&gt;:</strong> Place descriptive <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code> elements as the first direct children of the <code>&lt;svg&gt;</code> element.</li>
+            <li><strong>Decorative Aria-Hidden:</strong> If the text along a path is purely decorative (for example, a repeating circular watermark behind a main heading), mark it with <code>aria-hidden="true"</code> so screen readers do not repeat redundant phrasing.</li>
+            <li><strong>Contrast Compliance:</strong> Ensure text fill colors exceed a 4.5:1 contrast ratio against the background (e.g., our light mode accent uses WCAG-compliant <code>#4D6300</code> with 5.2:1 contrast against light cards).</li>
+          </ol>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="frequently-asked-questions">
+          <h2>10. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>How do you vertically center text in SVG?</h3>
+            <p>The most reliable cross-browser method to vertically center SVG text at a specific coordinate is setting <code>dominant-baseline="central"</code> alongside <code>text-anchor="middle"</code>. <code>dominant-baseline="central"</code> aligns the mathematical vertical midpoint of uppercase glyphs directly onto the target Y-coordinate, avoiding the lower descender drift caused by the default alphabetic baseline.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why does dominant-baseline fail or misalign in Safari (WebKit)?</h3>
+            <p>Safari and WebKit have historical bugs where <code>dominant-baseline</code> inherited from a parent <code>&lt;text&gt;</code> element fails to apply down into nested <code>&lt;tspan&gt;</code> elements or dynamic text updates. To fix this, explicitly assign <code>dominant-baseline</code> directly to the <code>&lt;tspan&gt;</code> tag itself, or set <code>alignment-baseline="central"</code> as an explicit inline fallback attribute.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does textPath curve text along an SVG path?</h3>
+            <p>The <code>&lt;textPath&gt;</code> element references a geometry <code>&lt;path&gt;</code> via its <code>href</code> (or legacy <code>xlink:href</code>) attribute. The browser computes the arc-length of the referenced path and maps each glyph's baseline tangent to the curve. You control placement using <code>startOffset</code> (e.g. <code>startOffset="50%"</code> combined with <code>text-anchor="middle"</code> centers the text perfectly along the curve).</p>
+          </div>
+          <div class="faq-item">
+            <h3>What is the difference between absolute x/y and relative dx/dy in &lt;tspan&gt;?</h3>
+            <p>In <code>&lt;tspan&gt;</code>, <code>x</code> and <code>y</code> set new absolute coordinates within the SVG viewBox, resetting the cursor location. In contrast, <code>dx</code> and <code>dy</code> apply relative offsets from the end position of the preceding glyph. For example, <code>dy="1.2em"</code> creates a clean line break without needing to hardcode absolute pixel positions.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you make text along a textPath appear on the outside of a circle instead of upside down?</h3>
+            <p>Glyphs on a <code>&lt;textPath&gt;</code> align along the direction that the underlying <code>&lt;path&gt;</code> was drawn. If text on a circular arc appears upside down, the path was drawn counter-clockwise instead of clockwise. You can either reverse the path coordinates (switching the sweep-flag in arc commands) or use the SVG 2 <code>side="right"</code> attribute.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Is text inside an SVG readable and accessible to search engines and screen readers?</h3>
+            <p>Yes, native SVG <code>&lt;text&gt;</code>, <code>&lt;tspan&gt;</code>, and <code>&lt;textPath&gt;</code> elements are fully selectable by users, indexable by Google and Bing search crawlers, and read by accessibility screen readers. To maximize accessibility, assign <code>role="img"</code> and an <code>aria-label</code> or nested <code>&lt;title&gt;</code> to the parent SVG container.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#anatomical-foundations">1. Anatomical Foundations</a></li>
+              <li><a href="#tspan-and-micro-adjustments">2. Multi-Line &amp; tspan</a></li>
+              <li><a href="#the-baseline-problem">3. The Baseline Problem</a></li>
+              <li><a href="#safari-webkit-fixes">4. Safari &amp; WebKit Fixes</a></li>
+              <li><a href="#curved-text-along-paths">5. Curved Text Architecture</a></li>
+              <li><a href="#path-offsets-and-anchors">6. Offsets &amp; Directionality</a></li>
+              <li><a href="#interactive-text-studio">7. Live Curved Text Studio</a></li>
+              <li><a href="#web-fonts-and-loading">8. Web Fonts &amp; Performance</a></li>
+              <li><a href="#text-accessibility">9. Accessibility &amp; SEO</a></li>
+              <li><a href="#frequently-asked-questions">10. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 135K+ Scalable Icons</h4>
+          <p>Search, customize, and copy perfectly formatted SVG icons with production-ready viewBox configurations.</p>
+          <a href="/" class="cta-sidebar-btn">Search IconStash Free</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; Open-Source Vector Icon Search Engine &bull; Built with precision for developers.</p>
+    <p style="margin-top: 8px;">
+      <a href="/articles/">Articles</a> &bull;
+      <a href="/library/lucide/">Lucide</a> &bull;
+      <a href="/library/tabler/">Tabler</a> &bull;
+      <a href="/library/phosphor/">Phosphor</a> &bull;
+      <a href="/about/">About</a>
+    </p>
+  </footer>
+
+  <script>
+    // Theme toggle and persistence
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const rootHtml = document.documentElement;
+
+    function applySavedTheme() {
+      const saved = localStorage.getItem('theme') || 'dark';
+      rootHtml.setAttribute('data-theme', saved);
+    }
+    applySavedTheme();
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const current = rootHtml.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        rootHtml.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+
+    // Interactive Curved Text Studio Logic
+    const CURVE_PATHS = {
+      circle: {
+        d: 'M 100 125 A 75 75 0 1 1 400 125 A 75 75 0 1 1 100 125',
+        length: 942
+      },
+      wave: {
+        d: 'M 40 125 C 140 30, 240 220, 360 80 S 460 170, 480 125',
+        length: 512
+      },
+      arch: {
+        d: 'M 60 190 A 200 110 0 0 1 440 190',
+        length: 468
+      },
+      spiral: {
+        d: 'M 250 125 C 280 125, 300 145, 300 175 C 300 220, 200 240, 150 190 C 80 120, 150 40, 250 40 C 370 40, 460 110, 460 200',
+        length: 830
+      }
+    };
+
+    let curPathKey = 'circle';
+    let curOffset = 50;
+    let curBaseline = 'central';
+    let curAnchor = 'middle';
+    let curFontSize = 16;
+    let curTextTab = 'svg-markup';
+
+    const curvedTextInput = document.getElementById('curvedTextInput');
+    const offsetSlider = document.getElementById('offsetSlider');
+    const offsetValueLabel = document.getElementById('offsetValueLabel');
+    const fontSizeSlider = document.getElementById('fontSizeSlider');
+    const fontSizeLabel = document.getElementById('fontSizeLabel');
+    const activeStudioPath = document.getElementById('activeStudioPath');
+    const visibleGuidePath = document.getElementById('visibleGuidePath');
+    const studioTextElement = document.getElementById('studioTextElement');
+    const studioTextPath = document.getElementById('studioTextPath');
+    const statPathLength = document.getElementById('statPathLength');
+    const statActiveBaseline = document.getElementById('statActiveBaseline');
+    const statAnchorOffset = document.getElementById('statAnchorOffset');
+    const textCodeDisplay = document.getElementById('textCodeDisplay');
+    const copyTextCodeBtn = document.getElementById('copyTextCodeBtn');
+
+    function updateCurvedTextStudio() {
+      const textVal = curvedTextInput.value || 'ICONSTASH VECTOR STUDIO';
+      const pathData = CURVE_PATHS[curPathKey];
+
+      // Update Path D
+      activeStudioPath.setAttribute('d', pathData.d);
+      visibleGuidePath.setAttribute('d', pathData.d);
+
+      // Update textPath attributes
+      studioTextPath.setAttribute('startOffset', `${curOffset}%`);
+      studioTextPath.setAttribute('text-anchor', curAnchor);
+      studioTextPath.setAttribute('dominant-baseline', curBaseline);
+      studioTextPath.textContent = textVal;
+
+      // Update parent text element
+      studioTextElement.setAttribute('font-size', curFontSize);
+      studioTextElement.setAttribute('dominant-baseline', curBaseline);
+
+      // Update labels & stats
+      offsetValueLabel.textContent = `${curOffset}%`;
+      fontSizeLabel.textContent = `${curFontSize}px`;
+      statPathLength.textContent = `${pathData.length} px`;
+      statActiveBaseline.textContent = curBaseline;
+      statAnchorOffset.textContent = `${curOffset}% (${curAnchor})`;
+
+      // Generate Code
+      let code = '';
+      if (curTextTab === 'svg-markup') {
+        code = `<svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">\n  <defs>\n    <path id="curveGuide" d="${pathData.d}" fill="none" />\n  </defs>\n\n  <!-- Optional decorative guide path -->\n  <path d="${pathData.d}" fill="none" stroke="rgba(193,221,45,0.25)" stroke-width="1.5" stroke-dasharray="4 4" />\n\n  <text font-family="'Inter', system-ui, sans-serif"\n        font-size="${curFontSize}"\n        font-weight="700"\n        fill="#C1DD2D"\n        dominant-baseline="${curBaseline}">\n    <textPath href="#curveGuide"\n              startOffset="${curOffset}%"\n              text-anchor="${curAnchor}"\n              dominant-baseline="${curBaseline}">\n      ${textVal}\n    </textPath>\n  </text>\n</svg>`;
+      } else if (curTextTab === 'react-comp') {
+        code = `import React from 'react';\n\ninterface CurvedTextProps {\n  text?: string;\n  color?: string;\n  fontSize?: number;\n}\n\nexport const CurvedVectorBadge: React.FC<CurvedTextProps> = ({\n  text = '${textVal}',\n  color = '#C1DD2D',\n  fontSize = ${curFontSize}\n}) => (\n  <svg viewBox="0 0 500 250" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">\n    <defs>\n      <path id="badgePath" d="${pathData.d}" fill="none" />\n    </defs>\n    <text\n      fontFamily="'Inter', system-ui, sans-serif"\n      fontSize={fontSize}\n      fontWeight={700}\n      fill={color}\n      dominantBaseline="${curBaseline}"\n    >\n      <textPath\n        href="#badgePath"\n        startOffset="${curOffset}%"\n        textAnchor="${curAnchor}"\n        dominantBaseline="${curBaseline}"\n      >\n        {text}\n      </textPath>\n    </text>\n  </svg>\n);`;
+      }
+      textCodeDisplay.textContent = code;
+    }
+
+    // Initial render
+    updateCurvedTextStudio();
+
+    // Event listeners
+    curvedTextInput.addEventListener('input', updateCurvedTextStudio);
+
+    document.querySelectorAll('#pathPresets .preset-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#pathPresets .preset-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curPathKey = btn.getAttribute('data-path');
+        updateCurvedTextStudio();
+      });
+    });
+
+    offsetSlider.addEventListener('input', (e) => {
+      curOffset = parseInt(e.target.value, 10);
+      updateCurvedTextStudio();
+    });
+
+    fontSizeSlider.addEventListener('input', (e) => {
+      curFontSize = parseInt(e.target.value, 10);
+      updateCurvedTextStudio();
+    });
+
+    document.querySelectorAll('#baselineToggle .toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#baselineToggle .toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curBaseline = btn.getAttribute('data-baseline');
+        updateCurvedTextStudio();
+      });
+    });
+
+    document.querySelectorAll('#anchorToggle .toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#anchorToggle .toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curAnchor = btn.getAttribute('data-anchor');
+        updateCurvedTextStudio();
+      });
+    });
+
+    document.querySelectorAll('#textCodeTabs .code-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#textCodeTabs .code-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        curTextTab = btn.getAttribute('data-tab');
+        updateCurvedTextStudio();
+      });
+    });
+
+    copyTextCodeBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(textCodeDisplay.textContent).then(() => {
+        const orig = copyTextCodeBtn.textContent;
+        copyTextCodeBtn.textContent = 'Copied!';
+        copyTextCodeBtn.style.background = '#C1DD2D';
+        copyTextCodeBtn.style.color = '#0A0A0A';
+        setTimeout(() => {
+          copyTextCodeBtn.textContent = orig;
+          copyTextCodeBtn.style.background = '';
+          copyTextCodeBtn.style.color = '';
+        }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>
