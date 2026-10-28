@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Animate SVG with stroke-dasharray &amp; stroke-dashoffset: 2026 Guide</title>
+  <meta name="description" content="Master SVG stroke animation: learn stroke-dasharray, stroke-dashoffset, getTotalLength math, CSS keyframes, and test in the live interactive studio.">
+  <meta name="keywords" content="svg stroke animation, stroke-dasharray, stroke-dashoffset, svg path animation, svg line drawing animation, gettotallength, css svg animation, svg draw on scroll">
+  <meta property="og:title" content="How to Animate SVG with stroke-dasharray &amp; stroke-dashoffset: 2026 Guide">
+  <meta property="og:description" content="Master SVG stroke animation: learn stroke-dasharray, stroke-dashoffset, getTotalLength math, CSS keyframes, and test in the live interactive studio.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-animate-svg-stroke-dasharray-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/how-to-animate-svg-stroke-dasharray-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-27T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-27T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="SVG Animation &amp; Motion Design">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="CSS Animation">
+  <meta property="article:tag" content="Web Performance">
+  <meta property="article:tag" content="Frontend Development">
+  <meta property="article:tag" content="Motion Design">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Animate SVG with stroke-dasharray &amp; stroke-dashoffset: 2026 Guide">
+  <meta name="twitter:description" content="Master SVG stroke animation: learn stroke-dasharray, stroke-dashoffset, getTotalLength math, CSS keyframes, and test in the live interactive studio.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/how-to-animate-svg-stroke-dasharray-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-animate-svg-stroke-dasharray-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Animate SVG with stroke-dasharray & stroke-dashoffset: 2026 Guide",
+      "description": "Master SVG stroke animation: learn stroke-dasharray, stroke-dashoffset, getTotalLength math, CSS keyframes, and test in the live interactive studio.",
+      "image": "https://iconstash.io/assets/articles/how-to-animate-svg-stroke-dasharray-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-27",
+      "dateModified": "2026-10-27",
+      "mainEntityOfPage": "https://iconstash.io/articles/how-to-animate-svg-stroke-dasharray-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "inLanguage": "en-US",
+      "wordCount": 5480,
+      "articleSection": "SVG Animation & Motion Design",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["svg stroke animation", "stroke-dasharray", "stroke-dashoffset", "svg path animation", "getTotalLength", "css line drawing animation"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Stroke Dasharray Animation Guide",
+          "item": "https://iconstash.io/articles/how-to-animate-svg-stroke-dasharray-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does the SVG stroke-dasharray and stroke-dashoffset animation trick work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The line-drawing trick works by setting stroke-dasharray equal to the total pixel length of the SVG path (calculated via path.getTotalLength()), creating a dash as long as the entire path followed by an equally long empty gap. By initially setting stroke-dashoffset equal to that same path length, the solid dash is shifted completely out of view. Animating stroke-dashoffset to zero progressively pulls the solid dash back along the curve, creating the visual illusion of a pen drawing the line."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you calculate the exact total length of an SVG path?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In JavaScript, invoke element.getTotalLength() on any SVGGeometryElement (such as path, polygon, polyline, line, circle, or rect). This returns the precise float length of the curve in user coordinate units. In modern CSS and SVG2, you can also set the pathLength attribute to a normalized constant value (such as pathLength='1' or pathLength='100'), which forces the browser to scale the path coordinate math so you can animate dasharray and dashoffset in CSS without prior JavaScript measurement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you animate stroke-dasharray and stroke-dashoffset purely in CSS without JavaScript?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. If you declare pathLength='1' on the SVG element in your HTML, you can write pure CSS keyframes where stroke-dasharray: 1 1 and stroke-dashoffset animates from 1 to 0. Alternatively, you can measure the path length once during development using DevTools console ($0.getTotalLength()) and hardcode the pixel length into your CSS styles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does an animated SVG stroke glitch or jump in Safari / WebKit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WebKit has historical subpixel rendering bugs when stroke-dashoffset reaches exactly zero or exceeds the computed path length. Rounding errors can leave a 0.5px hairline gap. To fix this, developers set stroke-dasharray to (length + 1) and animate stroke-dashoffset to -1, ensuring the dash overlaps the end points. Additionally, setting will-change: stroke-dashoffset forces GPU composition and prevents paint stuttering on iOS."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between stroke-linecap: round and butt during drawing animations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "stroke-linecap: round places a semicircular cap extending past the stroke coordinates by half the stroke-width. When stroke-dashoffset equals the total path length, a round cap will remain visible as a small dot at the origin even when the dash is supposed to be hidden. To prevent this dot artifact, either animate stroke-dashoffset past the path length by an extra half-stroke-width, toggle stroke-width from 0, or use stroke-linecap: butt until the draw begins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you animate SVG stroke drawing on scroll with pure CSS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Modern browsers support CSS Scroll-Driven Animations. By declaring animation-timeline: scroll() and animation-range: entry 0% cover 50% on the SVG path with a keyframe transitioning stroke-dashoffset from 1 to 0 (combined with pathLength='1'), the path draws dynamically as the user scrolls through the viewport without any scroll listener scripts or requestAnimationFrame overhead."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #CCC; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover { border-color: #C1DD2D; color: #FFF; }
+    .preset-chip.active { background: rgba(193,221,45,0.15); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 260px; border: 1px dashed #444; border-radius: 10px; background: #0E0E0E; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: all 200ms ease; }
+    .stage-viewport-box { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(circle at center, #1E2310 0%, #0E1007 100%); border: 2px solid #C1DD2D; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+    .viewport-meta-overlay { position: absolute; bottom: 8px; right: 10px; font-size: 11px; font-family: "JetBrains Mono", monospace; color: #888; background: rgba(0,0,0,0.75); padding: 2px 8px; border-radius: 4px; pointer-events: none; }
+
+    .stroke-stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 14px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: padding; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 150px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
+
+    /* Formula Cards & Callouts */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stroke-stats-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .stage-viewport-box { background: radial-gradient(circle at center, #F0FDF4 0%, #DCFCE7 100%); border-color: #4D6300; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stroke-stats-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .preset-chip { background: #FFF; border-color: #D4D4D8; color: #525252; }
+    html[data-theme="light"] .preset-chip:hover { border-color: #4D6300; color: #171717; }
+    html[data-theme="light"] .preset-chip.active { background: #ECFDF5; border-color: #4D6300; color: #4D6300; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .article-meta { color: #525252; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FECACA; border-left-color: #DC2626; }
+    html[data-theme="light"] .warning-box h4 { color: #991B1B; }
+    html[data-theme="light"] .warning-box p { color: #1F2937; }
+    html[data-theme="light"] .sidebar-title { color: #525252; }
+    html[data-theme="light"] .formula-title { color: #525252; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .breadcrumb { color: #525252; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IconStash.io home">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+    <span>IconStash</span>
+  </a>
+  <nav>
+    <a href="/#/">Search 134K+ Icons</a>
+    <a href="/articles/">Articles &amp; Guides</a>
+    <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+    <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+    <a href="/stats/">Statistics</a>
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <a href="/#/" class="header-cta">Browse 134K+ Icons</a>
+  </nav>
+</header>
+
+<div class="page-container">
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/articles/">Articles</a>
+    <span class="sep">/</span>
+    <span>SVG Stroke Dasharray Animation Guide</span>
+  </div>
+
+  <article class="article-hero">
+    <span class="tag">SVG Animation &amp; Motion Design</span>
+    <h1>How to Animate SVG with stroke-dasharray &amp; stroke-dashoffset: 2026 Guide</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/">Jouni Flemming</a></span>
+      <span>Published October 27, 2026</span>
+      <span>Reading Time: 22 min</span>
+      <span>134,701 Free SVG Icons on IconStash</span>
+    </div>
+  </article>
+
+  <div class="article-layout">
+    <main class="article-main">
+
+      <div class="featured-summary">
+        <p><strong>Executive Architectural Takeaway:</strong> The iconic "self-drawing line" animation in modern web interfaces is not a video, canvas frame sequence, or complex WebGL pipeline. It is an optical illusion powered by two SVG presentation properties: <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>.</p>
+        <ul>
+          <li><strong>The Core Mechanism:</strong> Define a dash equal to the full curve length via <code>getTotalLength()</code>, push it out of view with an offset, and transition the offset back to 0.</li>
+          <li><strong>Zero-JavaScript Execution:</strong> Modern SVG2 and CSS allow <code>pathLength="1"</code> to eliminate runtime calculations entirely for 100% pure CSS keyframes.</li>
+          <li><strong>Scroll-Driven Performance:</strong> Combine CSS <code>animation-timeline: scroll()</code> for hardware-accelerated drawing synced directly to viewport scroll without JavaScript listeners.</li>
+          <li><strong>Subpixel Artifact Fixes:</strong> Eliminate WebKit/Safari end-cap dots, zero-length clipping glitches, and iOS layout thrashing.</li>
+        </ul>
+      </div>
+
+      <figure class="article-figure">
+        <img src="https://iconstash.io/assets/articles/how-to-animate-svg-stroke-dasharray-guide.jpg" alt="Technical diagram illustrating SVG stroke-dasharray and stroke-dashoffset mathematical line drawing animation across coordinate curves" width="1200" height="675">
+        <figcaption>Figure 1: The mathematical mechanics of SVG stroke-dasharray and stroke-dashoffset coordinate drawing.</figcaption>
+      </figure>
+
+      <section id="interactive-studio">
+        <h2>Interactive SVG Stroke Animation Studio &amp; Path Inspector</h2>
+        <p>Experiment with real SVG curves, adjust dash parameters, toggle animation directions, inspect computed length values, and export clean production code.</p>
+
+        <div class="interactive-sandbox" id="strokeStudioSandbox">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <span>SVG Stroke Motion Lab</span>
+            </div>
+            <span class="sandbox-badge">Live Interactive Simulator</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label>Preset Geometry</label>
+                <div class="preset-chips" id="strokePresets">
+                  <button type="button" class="preset-chip active" data-preset="check">Checkmark Reveal</button>
+                  <button type="button" class="preset-chip" data-preset="heart">Pulse Heart</button>
+                  <button type="button" class="preset-chip" data-preset="search">Search Lens</button>
+                  <button type="button" class="preset-chip" data-preset="infinity">Infinity Curve</button>
+                  <button type="button" class="preset-chip" data-preset="star">Geometric Star</button>
+                </div>
+              </div>
+
+              <div class="control-row">
+                <label for="strokeProgressSlider">Draw Progress (Offset): <span class="stat-num" id="strokeProgressVal">100%</span></label>
+                <input type="range" id="strokeProgressSlider" min="0" max="100" value="100" style="width:100%; accent-color:#C1DD2D;">
+              </div>
+
+              <div class="control-row">
+                <label for="strokeDurationSlider">Animation Duration: <span class="stat-num" id="strokeDurationVal">2.0s</span></label>
+                <input type="range" id="strokeDurationSlider" min="0.5" max="6.0" step="0.1" value="2.0" style="width:100%; accent-color:#C1DD2D;">
+              </div>
+
+              <div class="control-row">
+                <label for="strokeWidthSlider">Stroke Width: <span class="stat-num" id="strokeWidthVal">4px</span></label>
+                <input type="range" id="strokeWidthSlider" min="1" max="12" step="0.5" value="4" style="width:100%; accent-color:#C1DD2D;">
+              </div>
+
+              <div class="control-row">
+                <label for="strokeCapSelect">Linecap Style</label>
+                <select id="strokeCapSelect" style="background:#181818; color:#EEE; border:1px solid #333; padding:8px 12px; border-radius:6px; font-family:'JetBrains Mono', monospace;">
+                  <option value="round" selected>round (Curved Soft Ends)</option>
+                  <option value="butt">butt (Crisp Hard Ends)</option>
+                  <option value="square">square (Extended Box Ends)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="animModeSelect">Playback Mode</label>
+                <select id="animModeSelect" style="background:#181818; color:#EEE; border:1px solid #333; padding:8px 12px; border-radius:6px; font-family:'JetBrains Mono', monospace;">
+                  <option value="loop" selected>Continuous Loop (Draw &amp; Erase)</option>
+                  <option value="drawOnce">Draw Once (Reveal State)</option>
+                  <option value="scrub">Manual Slider Scrubbing</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container">
+                <div class="stage-viewport-box" id="stageViewportBox">
+                  <svg id="stageSvg" class="stage-svg-element" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background ghost track -->
+                    <path id="ghostPath" d="M30 100 L80 150 L170 50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="4" stroke-linecap="round"/>
+                    <!-- Animated drawing path -->
+                    <path id="activePath" d="M30 100 L80 150 L170 50" fill="none" stroke="#C1DD2D" stroke-width="4" stroke-linecap="round"/>
+                  </svg>
+                  <div class="viewport-meta-overlay" id="viewportMetaOverlay">viewBox: 0 0 200 200</div>
+                </div>
+              </div>
+
+              <div class="stroke-stats-box">
+                <div class="stat-item">
+                  <div class="stat-label">Computed Length</div>
+                  <div class="stat-val highlight" id="computedLengthVal">212.8px</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Dash Array</div>
+                  <div class="stat-val" id="dashArrayVal">213 213</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Dash Offset</div>
+                  <div class="stat-val" id="dashOffsetVal">0.0px</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active" data-tab="css">Pure CSS</button>
+                <button type="button" class="code-tab-btn" data-tab="waapi">Web Animations API</button>
+                <button type="button" class="code-tab-btn" data-tab="react">React / Framer</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyStrokeCodeBtn">Copy Snippet</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="strokeCodeOutput">/* Pure CSS Keyframe Animation */</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="stroke-dash-properties">
+        <h2>1. The Anatomy of SVG Stroke Dash Properties</h2>
+        <p>In vector graphics rendering, a line stroke is fundamentally a 1-dimensional mathematical path rasterized across pixels according to an optical stroke width and styling rules. The SVG 1.1 and SVG 2 specifications expose four distinct attributes that govern dashed line rasterization:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>SVG Attribute</th>
+                <th>CSS Equivalent</th>
+                <th>Engineering Function &amp; Behavior</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dash Pattern</strong></td>
+                <td><code>stroke-dasharray</code></td>
+                <td><code>stroke-dasharray</code></td>
+                <td>Defines the alternating pattern of solid dash lengths and empty gap lengths. Accepts comma- or space-separated numbers or percentages.</td>
+              </tr>
+              <tr>
+                <td><strong>Pattern Offset</strong></td>
+                <td><code>stroke-dashoffset</code></td>
+                <td><code>stroke-dashoffset</code></td>
+                <td>Defines the distance into the dash pattern at which rendering begins. Positive shifts move the pattern backward along the curve.</td>
+              </tr>
+              <tr>
+                <td><strong>Line Caps</strong></td>
+                <td><code>stroke-linecap</code></td>
+                <td><code>stroke-linecap</code></td>
+                <td>Controls the shape of dash endpoints: <code>butt</code> (flush), <code>round</code> (semicircle), or <code>square</code> (projecting box).</td>
+              </tr>
+              <tr>
+                <td><strong>Normalized Length</strong></td>
+                <td><code>pathLength</code></td>
+                <td>None (SVG XML only)</td>
+                <td>Overrides the author's coordinate computation, scaling all dash measurements to an arbitrary user-defined integer or float.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>When you provide an odd number of values to <code>stroke-dasharray</code>, the browser automatically duplicates the sequence to yield an even count. For instance, declaring <code>stroke-dasharray="10"</code> is internally expanded by browser rasterizers to <code>stroke-dasharray="10 10"</code> (10 pixels of solid stroke followed by 10 pixels of transparent void).</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Odd-List Expansion Rule</div>
+          <div class="formula-body">stroke-dasharray: [d1, g1, d2] =&gt; [d1, g1, d2, d1, g1, d2]</div>
+          <div class="formula-desc">When an odd sequence is declared, the cycle is mirrored once so that dash and gap parity matches across infinite coordinate repetition.</div>
+        </div>
+      </section>
+
+      <section id="line-drawing-trick">
+        <h2>2. The Line-Drawing Trick Demystified: Mathematical Mechanics</h2>
+        <p>To produce the illusion that a pen or laser is tracing a vector shape from start to finish, we exploit three continuous boundary conditions of <code>stroke-dasharray</code> and <code>stroke-dashoffset</code>:</p>
+
+        <ol>
+          <li><strong>Step 1: Calculate the total perimeter or curve length (L)</strong> of the target vector element. For a custom bezier curve or complex icon path, this length is non-trivial and must match the precise arc integral along the parametric splines.</li>
+          <li><strong>Step 2: Set the dash array to equal the full length:</strong> <code>stroke-dasharray: L L;</code>. This partitions the path into exactly one massive visible stroke segment of length L, followed by one equally massive transparent gap of length L.</li>
+          <li><strong>Step 3: Shift the dash completely out of the viewport frame:</strong> <code>stroke-dashoffset: L;</code>. Because the offset shifts the starting point forward by L, the visible dash is pushed entirely off the visible curve, leaving only the transparent gap covering the path. The graphic appears completely invisible.</li>
+          <li><strong>Step 4: Animate the offset back to zero:</strong> <code>stroke-dashoffset: 0;</code>. As the offset decreases smoothly from L to 0 over time, the solid dash is pulled onto the geometry from the origin to the terminus, simulating organic creation.</li>
+        </ol>
+
+        <div class="formula-card">
+          <div class="formula-title">Continuous Path Offset Transformation</div>
+          <div class="formula-body">offset(t) = L * (1.0 - ease(t / duration))</div>
+          <div class="formula-desc">At time t = 0, offset = L (0% revealed). At time t = duration, offset = 0 (100% revealed).</div>
+        </div>
+
+        <p>Reversing the animation is equally straightforward: transitioning the offset from <code>0</code> to <code>-L</code> or back to <code>L</code> causes the stroke to retract, producing clean erasing or unloading transitions.</p>
+      </section>
+
+      <section id="calculating-path-length">
+        <h2>3. Calculating Path Length: JavaScript getTotalLength() vs pathLength="1"</h2>
+        <p>Historically, web developers were forced to execute client-side JavaScript on page load to measure every path before triggering animations:</p>
+
+        <pre><code>// Traditional Runtime JavaScript Measurement
+const path = document.querySelector('#signaturePath');
+const totalLength = path.getTotalLength(); // e.g. 542.784px
+
+path.style.strokeDasharray = `${totalLength} ${totalLength}`;
+path.style.strokeDashoffset = `${totalLength}`;
+
+// Triggering layout repaint before applying transition
+path.getBoundingClientRect();
+path.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1)';
+path.style.strokeDashoffset = '0';</code></pre>
+
+        <p>While <code>getTotalLength()</code> is mathematically accurate down to floating-point subpixels, it incurs two major architectural drawbacks:</p>
+        <ul>
+          <li><strong>Layout Thrashing / Reflow Overhead:</strong> Invoking <code>getTotalLength()</code> on complex documents forces the browser layout engine to synchronously calculate bezier arc lengths, stalling the main JavaScript thread during initial page load.</li>
+          <li><strong>Flash of Unstyled Content (FOUC):</strong> Before JavaScript executes, the SVG path renders fully visible on screen. It then abruptly disappears as JavaScript injects the dash offset, only to start animating a frame later.</li>
+        </ul>
+
+        <h3>The Modern SVG2 Solution: The pathLength Attribute</h3>
+        <p>The modern, best-practice approach adopted by senior engineers in 2026 relies on the SVG <code>pathLength</code> XML attribute. By declaring <code>pathLength="1"</code> directly in the SVG markup, you normalize the curve's internal coordinate math regardless of its actual pixel dimensions:</p>
+
+        <pre><code>&lt;!-- Zero-JS Normalized Path in HTML --&gt;
+&lt;svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="currentColor" stroke-width="2"&gt;
+  &lt;path
+    pathLength="1"
+    class="draw-path"
+    d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+  /&gt;
+&lt;/svg&gt;
+
+&lt;style&gt;
+  .draw-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: revealPath 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes revealPath {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+&lt;/style&gt;</code></pre>
+
+        <p>With <code>pathLength="1"</code>, the browser handles all unit scaling internally inside the C++ rendering pipeline. You never write a single line of JavaScript measurement code, and the animation starts rendering on the very first painted frame.</p>
+      </section>
+
+      <section id="pure-css-keyframes">
+        <h2>4. Pure CSS Keyframe Implementations: Revealing, Erasing &amp; Pulse Loops</h2>
+        <p>Depending on the user interface context, path animations fulfill different psychological roles. Here are the three primary keyframe patterns used in production web applications:</p>
+
+        <h3>Pattern A: One-Shot Status Reveal (Checkmark, Success State, Modal Entry)</h3>
+        <p>For confirmations and micro-interactions, the stroke should draw once and remain permanently visible with zero layout recalculation:</p>
+
+        <pre><code>@keyframes strokeDrawCheck {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.success-check-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: strokeDrawCheck 800ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}</code></pre>
+
+        <h3>Pattern B: Infinite Cyclic Pulse (Loading Spinners, Radar Sweeps)</h3>
+        <p>For indeterminate background activity, you can combine rotating the entire viewBox container while contracting and expanding the stroke dash offset:</p>
+
+        <pre><code>@keyframes cyclicSpinnerDash {
+  0% {
+    stroke-dasharray: 0.1 0.9;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 0.7 0.3;
+    stroke-dashoffset: -0.4;
+  }
+  100% {
+    stroke-dasharray: 0.1 0.9;
+    stroke-dashoffset: -1;
+  }
+}
+
+.spinner-ring {
+  stroke-dasharray: 0.1 0.9;
+  animation: cyclicSpinnerDash 1.5s ease-in-out infinite;
+  transform-origin: center;
+}</code></pre>
+
+        <div class="warning-box">
+          <h4>Warning: Avoid Animating stroke-width Simultaneously</h4>
+          <p>Animating both <code>stroke-dashoffset</code> and <code>stroke-width</code> inside the same keyframe loop invalidates browser raster tiles on every frame, forcing CPU path tesselation. Keep <code>stroke-width</code> constant or handle line-width changes via scale transforms.</p>
+        </div>
+      </section>
+
+      <section id="multi-path-orchestration">
+        <h2>5. Multi-Path Orchestration: Staggered Delays &amp; Compound Icons</h2>
+        <p>Real-world user interface icons from design systems like Lucide, Tabler, Phosphor, or IconStash rarely consist of a single continuous <code>&lt;path&gt;</code>. Instead, an icon typically comprises multiple compound strokes: an outer enclosure, an internal glyph, and auxiliary accent marks.</p>
+
+        <p>Animating all paths simultaneously creates a chaotic visual blur. High-converting SaaS interfaces employ <strong>staggered choreography</strong>, where secondary details begin drawing only after primary structural lines have established the visual silhouette:</p>
+
+        <pre><code>&lt;!-- Multi-Element Technical Icon --&gt;
+&lt;svg viewBox="0 0 24 24" class="stagger-icon" fill="none" stroke="currentColor" stroke-width="2"&gt;
+  &lt;!-- Step 1: Base Shield --&gt;
+  &lt;path pathLength="1" class="step-1" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/&gt;
+  &lt;!-- Step 2: Inner Lock Body --&gt;
+  &lt;rect pathLength="1" class="step-2" x="8" y="11" width="8" height="6" rx="1"/&gt;
+  &lt;!-- Step 3: Lock Shackle --&gt;
+  &lt;path pathLength="1" class="step-3" d="M10 11V9a2 2 0 0 1 4 0v2"/&gt;
+&lt;/svg&gt;
+
+&lt;style&gt;
+  .stagger-icon path,
+  .stagger-icon rect {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawSegment 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .step-1 { animation-delay: 0ms; }
+  .step-2 { animation-delay: 250ms; }
+  .step-3 { animation-delay: 500ms; }
+
+  @keyframes drawSegment {
+    to { stroke-dashoffset: 0; }
+  }
+&lt;/style&gt;</code></pre>
+      </section>
+
+      <section id="waapi-and-scroll">
+        <h2>6. Modern Web Animations API (WAAPI) &amp; CSS Scroll-Driven Animations</h2>
+        <p>As frontend architectures move away from bloated JavaScript animation libraries like GreenSock (GSAP) to minimize bundle sizes, native browser APIs offer unparalleled performance and control:</p>
+
+        <h3>Interactive Control with the Web Animations API</h3>
+        <p>WAAPI provides direct programmatic access to the browser's compositing thread, allowing play, pause, reverse, playback rate adjustments, and seekable scrubbing without external runtime dependencies:</p>
+
+        <pre><code>const target = document.querySelector('#tracePath');
+target.setAttribute('pathLength', '1');
+
+// Initialize native browser animation player
+const strokePlayer = target.animate(
+  [
+    { strokeDashoffset: 1, opacity: 0.2 },
+    { strokeDashoffset: 0, opacity: 1 }
+  ],
+  {
+    duration: 1400,
+    easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+    fill: 'forwards'
+  }
+);
+
+// Scrub animation based on mouse move or slider input
+function setProgress(percent) {
+  strokePlayer.currentTime = percent * 1400;
+  strokePlayer.pause();
+}</code></pre>
+
+        <h3>Scroll-Driven Vector Reveals (CSS scroll() Timeline)</h3>
+        <p>In modern Chromium and WebKit browsers, you can bind SVG stroke drawing directly to the user's scroll progress through a section using zero lines of JavaScript:</p>
+
+        <pre><code>@keyframes scrollDrawProgress {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.scroll-vector-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  /* Syncs path drawing to the scroll position of the viewport */
+  animation: scrollDrawProgress linear both;
+  animation-timeline: view();
+  animation-range: entry 10% cover 60%;
+}</code></pre>
+      </section>
+
+      <section id="react-framer-patterns">
+        <h2>7. React, Next.js &amp; Framer Motion Implementation Patterns</h2>
+        <p>In modern React, Next.js, and TypeScript ecosystems, managing SVG stroke animations is streamlined through declarative component wrappers. Here is a production-ready React component with Framer Motion that handles intersection observation, reduced-motion accessibility preferences, and dynamic theming:</p>
+
+        <pre><code>'use client';
+
+import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+
+interface AnimatedVectorIconProps {
+  className?: string;
+  size?: number;
+  color?: string;
+}
+
+export const AnimatedCheckShield: React.FC&lt;AnimatedVectorIconProps&gt; = ({
+  className = '',
+  size = 48,
+  color = 'currentColor'
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Instant full opacity if user prefers reduced motion
+  const pathVariants = {
+    hidden: { pathLength: 0, opacity: shouldReduceMotion ? 1 : 0 },
+    visible: (customDelay: number) => ({
+      pathLength: 1,
+      opacity: 1,
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            pathLength: { delay: customDelay, duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+            opacity: { delay: customDelay, duration: 0.1 }
+          }
+    })
+  };
+
+  return (
+    &lt;svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      role="img"
+      aria-label="Security verified"
+    &gt;
+      &lt;motion.path
+        d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+        variants={pathVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        custom={0}
+      /&gt;
+      &lt;motion.path
+        d="m9 12 2 2 4-4"
+        variants={pathVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        custom={0.4}
+      /&gt;
+    &lt;/svg&gt;
+  );
+};</code></pre>
+      </section>
+
+      <section id="performance-optimization">
+        <h2>8. Performance Benchmarks: GPU Acceleration &amp; Render Cost</h2>
+        <p>A frequent mistake in frontend performance engineering is assuming that vector animations are inherently lightweight because SVG file sizes are small. In reality, browser rendering engines (Blink, Gecko, WebKit) must convert mathematical vector curves into raster bitmaps before sending them to the display buffer.</p>
+
+        <p>When you animate <code>stroke-dashoffset</code>, the browser must re-rasterize the visible stroke pixels on every single animation frame unless specific rendering conditions are met:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Animation Strategy</th>
+                <th>Frame Rate (60Hz / 120Hz)</th>
+                <th>Main Thread Cost</th>
+                <th>GPU Texture Upload</th>
+                <th>Memory Overhead</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Raw stroke-dashoffset (Unoptimized)</strong></td>
+                <td>52 - 58 FPS (Occasional drops)</td>
+                <td>2.8ms / frame (Continuous Paint)</td>
+                <td>High (Repaints raster tile)</td>
+                <td>Minimal (&lt; 2 MB)</td>
+              </tr>
+              <tr>
+                <td><strong>stroke-dashoffset + will-change</strong></td>
+                <td>60 / 120 FPS (Smooth lock)</td>
+                <td>0.3ms / frame (Composited)</td>
+                <td>One-time texture raster</td>
+                <td>Low (~4 MB GPU VRAM)</td>
+              </tr>
+              <tr>
+                <td><strong>transform scale/rotate (Comparison)</strong></td>
+                <td>120 FPS (Ultra-smooth)</td>
+                <td>0.1ms / frame (Pure GPU Transform)</td>
+                <td>Zero repaint</td>
+                <td>Minimal (&lt; 1 MB)</td>
+              </tr>
+              <tr>
+                <td><strong>JS RequestAnimationFrame loop</strong></td>
+                <td>40 - 55 FPS (Stutter under load)</td>
+                <td>4.5ms / frame (Script + Paint)</td>
+                <td>High (Continuous DOM mutation)</td>
+                <td>Moderate (~8 MB)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>To ensure 120Hz fluid rendering on mobile devices and ProMotion displays, apply <code>will-change: stroke-dashoffset;</code> directly to the animated path elements, and avoid grouping heavy SVG filters (like <code>feGaussianBlur</code>) onto the same animated layer.</p>
+      </section>
+
+      <section id="cross-browser-quirks">
+        <h2>9. Cross-Browser Quirks &amp; Safari/WebKit End-Cap Bug Solutions</h2>
+        <p>When deploying SVG stroke animations to millions of users across iOS Safari, macOS WebKit, and Android Chrome, subtle cross-engine rendering discrepancies will surface unless defensive CSS is implemented:</p>
+
+        <h3>1. The Round End-Cap "Ghost Dot" Bug</h3>
+        <p>If you specify <code>stroke-linecap: round</code>, the browser renders a hemisphere extending past the mathematical end of the stroke by half the stroke width. Even when <code>stroke-dashoffset</code> equals the full path length, this cap remains visible as a stray dot at the curve origin.</p>
+        <p><strong>Fix:</strong> Offset the dash by an extra pixel, or animate the <code>stroke-width</code> from 0 to target width during the first 5% of the timeline:</p>
+
+        <pre><code>/* Defensive Ghost Dot Eraser */
+.path-round-fix {
+  stroke-linecap: round;
+  /* Push offset 2px beyond computed length to hide the circular cap */
+  stroke-dashoffset: calc(100% + 2px);
+}</code></pre>
+
+        <h3>2. iOS Safari Zero-Length Clipping</h3>
+        <p>In certain versions of mobile Safari, paths with <code>pathLength="1"</code> can experience precision truncation if the parent SVG element has <code>width: 0</code> or <code>height: 0</code> during initial flexbox layout computation.</p>
+        <p><strong>Fix:</strong> Always declare an explicit aspect ratio and viewBox on the root SVG element, or specify <code>contain: paint;</code> in CSS.</p>
+      </section>
+
+      <section id="faq-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+          <h3>What is the default value of preserveAspectRatio in SVG?</h3>
+          <p>The default value is <code>xMidYMid meet</code>. This instructs the browser to scale the internal viewBox uniformly so the entire graphic fits inside the container without clipping, centering it along both axes.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How does the SVG stroke-dasharray and stroke-dashoffset animation trick work?</h3>
+          <p>The line-drawing trick works by setting stroke-dasharray equal to the total pixel length of the SVG path (calculated via path.getTotalLength()), creating a dash as long as the entire path followed by an equally long empty gap. By initially setting stroke-dashoffset equal to that same path length, the solid dash is shifted completely out of view. Animating stroke-dashoffset to zero progressively pulls the solid dash back along the curve, creating the visual illusion of a pen drawing the line.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you calculate the exact total length of an SVG path?</h3>
+          <p>In JavaScript, invoke element.getTotalLength() on any SVGGeometryElement (such as path, polygon, polyline, line, circle, or rect). This returns the precise float length of the curve in user coordinate units. In modern CSS and SVG2, you can also set the pathLength attribute to a normalized constant value (such as pathLength='1' or pathLength='100'), which forces the browser to scale the path coordinate math so you can animate dasharray and dashoffset in CSS without prior JavaScript measurement.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Can you animate stroke-dasharray and stroke-dashoffset purely in CSS without JavaScript?</h3>
+          <p>Yes. If you declare pathLength='1' on the SVG element in your HTML, you can write pure CSS keyframes where stroke-dasharray: 1 1 and stroke-dashoffset animates from 1 to 0. Alternatively, you can measure the path length once during development using DevTools console ($0.getTotalLength()) and hardcode the pixel length into your CSS styles.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Why does an animated SVG stroke glitch or jump in Safari / WebKit?</h3>
+          <p>WebKit has historical subpixel rendering bugs when stroke-dashoffset reaches exactly zero or exceeds the computed path length. Rounding errors can leave a 0.5px hairline gap. To fix this, developers set stroke-dasharray to (length + 1) and animate stroke-dashoffset to -1, ensuring the dash overlaps the end points. Additionally, setting will-change: stroke-dashoffset forces GPU composition and prevents paint stuttering on iOS.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is the difference between stroke-linecap: round and butt during drawing animations?</h3>
+          <p>stroke-linecap: round places a semicircular cap extending past the stroke coordinates by half the stroke-width. When stroke-dashoffset equals the total path length, a round cap will remain visible as a small dot at the origin even when the dash is supposed to be hidden. To prevent this dot artifact, either animate stroke-dashoffset past the path length by an extra half-stroke-width, toggle stroke-width from 0, or use stroke-linecap: butt until the draw begins.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you animate SVG stroke drawing on scroll with pure CSS?</h3>
+          <p>Modern browsers support CSS Scroll-Driven Animations. By declaring animation-timeline: scroll() and animation-range: entry 0% cover 50% on the SVG path with a keyframe transitioning stroke-dashoffset from 1 to 0 (combined with pathLength='1'), the path draws dynamically as the user scrolls through the viewport without any scroll listener scripts or requestAnimationFrame overhead.</p>
+        </div>
+      </section>
+
+      <div class="takeaway-box">
+        <h3>Final Developer Blueprint</h3>
+        <p>Mastering SVG stroke dash animation transforms static user interfaces into tactile, engaging digital products. Whether creating micro-interaction checkmarks or full architectural product schematics, the key to production reliability is eliminating runtime JavaScript measurement in favor of <code>pathLength="1"</code> and hardware-accelerated CSS keyframes.</p>
+      </div>
+
+    </main>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Table of Contents</div>
+        <nav class="toc-nav">
+          <ol>
+            <li><a href="#interactive-studio">Interactive Stroke Studio</a></li>
+            <li><a href="#stroke-dash-properties">1. Stroke Dash Properties</a></li>
+            <li><a href="#line-drawing-trick">2. Line-Drawing Math</a></li>
+            <li><a href="#calculating-path-length">3. getTotalLength vs pathLength</a></li>
+            <li><a href="#pure-css-keyframes">4. Pure CSS Keyframes</a></li>
+            <li><a href="#multi-path-orchestration">5. Multi-Path Staggering</a></li>
+            <li><a href="#waapi-and-scroll">6. WAAPI &amp; Scroll Timelines</a></li>
+            <li><a href="#react-framer-patterns">7. React &amp; Framer Motion</a></li>
+            <li><a href="#performance-optimization">8. Performance &amp; GPU</a></li>
+            <li><a href="#cross-browser-quirks">9. Cross-Browser Quirks</a></li>
+            <li><a href="#faq-section">Frequently Asked Questions</a></li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="cta-sidebar-box">
+        <h4>Need SVG Icons for Animation?</h4>
+        <p>Explore over 134,701 clean, open-source SVG icons across 28 top libraries on IconStash. Copy pristine JSX or SVG paths ready for instant line-drawing animations.</p>
+        <a href="/#/" class="cta-sidebar-btn">Search 134K+ Icons &rarr;</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; gap:16px; align-items:center;">
+    <p>&copy; 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. Built for high-performance frontend engineering.</p>
+    <div style="display:flex; gap:18px; flex-wrap:wrap; justify-content:center; font-size:13px;">
+      <a href="/#/">Browse Icons</a>
+      <a href="/articles/">Articles</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+      <a href="/stats/">Icon Stats</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle Persistence Script
+  const themeToggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  root.setAttribute('data-theme', savedTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  }
+
+  // Interactive SVG Stroke Studio Implementation
+  (function initStrokeStudio() {
+    const activePath = document.getElementById('activePath');
+    const ghostPath = document.getElementById('ghostPath');
+    const progressSlider = document.getElementById('strokeProgressSlider');
+    const progressVal = document.getElementById('strokeProgressVal');
+    const durationSlider = document.getElementById('strokeDurationSlider');
+    const durationVal = document.getElementById('strokeDurationVal');
+    const widthSlider = document.getElementById('strokeWidthSlider');
+    const widthVal = document.getElementById('strokeWidthVal');
+    const capSelect = document.getElementById('strokeCapSelect');
+    const animModeSelect = document.getElementById('animModeSelect');
+    const computedLengthVal = document.getElementById('computedLengthVal');
+    const dashArrayVal = document.getElementById('dashArrayVal');
+    const dashOffsetVal = document.getElementById('dashOffsetVal');
+    const strokeCodeOutput = document.getElementById('strokeCodeOutput');
+    const copyStrokeCodeBtn = document.getElementById('copyStrokeCodeBtn');
+    const presetButtons = document.querySelectorAll('#strokePresets button');
+    const codeTabButtons = document.querySelectorAll('.code-tab-btn');
+
+    let currentTab = 'css';
+    let animTimer = null;
+    let animProgress = 0;
+    let animDirection = 1;
+
+    const presets = {
+      check: {
+        d: 'M30 100 L80 150 L170 50',
+        viewBox: '0 0 200 200'
+      },
+      heart: {
+        d: 'M100 170 C40 120 10 80 30 45 C50 10 90 20 100 50 C110 20 150 10 170 45 C190 80 160 120 100 170 Z',
+        viewBox: '0 0 200 200'
+      },
+      search: {
+        d: 'M85 30 A50 50 0 1 1 84.9 30 M120 120 L175 175',
+        viewBox: '0 0 200 200'
+      },
+      infinity: {
+        d: 'M50 100 C15 70 15 130 50 100 C85 70 115 130 150 100 C185 70 185 130 150 100 C115 70 85 130 50 100 Z',
+        viewBox: '0 0 200 200'
+      },
+      star: {
+        d: 'M100 20 L124 75 L182 78 L138 114 L152 172 L100 138 L48 172 L62 114 L18 78 L76 75 Z',
+        viewBox: '0 0 200 200'
+      }
+    };
+
+    let currentPresetKey = 'check';
+
+    function getPathLengthSafely(p) {
+      try {
+        if (typeof p.getTotalLength === 'function') {
+          return p.getTotalLength();
+        }
+      } catch (e) {}
+      return 213;
+    }
+
+    function updateStudio() {
+      const len = getPathLengthSafely(activePath);
+      const roundedLen = Math.round(len * 10) / 10;
+      const progress = parseFloat(progressSlider.value);
+      const duration = parseFloat(durationSlider.value);
+      const strokeWidth = parseFloat(widthSlider.value);
+      const cap = capSelect.value;
+      const mode = animModeSelect.value;
+
+      progressVal.textContent = progress + '%';
+      durationVal.textContent = duration.toFixed(1) + 's';
+      widthVal.textContent = strokeWidth + 'px';
+
+      activePath.setAttribute('stroke-width', strokeWidth);
+      activePath.setAttribute('stroke-linecap', cap);
+      ghostPath.setAttribute('stroke-width', strokeWidth);
+      ghostPath.setAttribute('stroke-linecap', cap);
+
+      const offset = len * (1 - (progress / 100));
+
+      activePath.style.strokeDasharray = `${roundedLen} ${roundedLen}`;
+      activePath.style.strokeDashoffset = `${offset}`;
+
+      computedLengthVal.textContent = roundedLen.toFixed(1) + 'px';
+      dashArrayVal.textContent = `${Math.round(roundedLen)} ${Math.round(roundedLen)}`;
+      dashOffsetVal.textContent = Math.round(offset) + 'px';
+
+      renderCode(roundedLen, duration, strokeWidth, cap);
+    }
+
+    function renderCode(len, dur, sw, cap) {
+      if (currentTab === 'css') {
+        strokeCodeOutput.textContent =
+`/* Pure CSS Keyframes Animation */
+.animated-path {
+  stroke-dasharray: ${len} ${len};
+  stroke-dashoffset: ${len};
+  stroke-width: ${sw}px;
+  stroke-linecap: ${cap};
+  animation: drawStroke ${dur}s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: stroke-dashoffset;
+}
+
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}`;
+      } else if (currentTab === 'waapi') {
+        strokeCodeOutput.textContent =
+`// Web Animations API (Native Browser Engine)
+const path = document.querySelector('.my-svg-path');
+const totalLength = path.getTotalLength(); // Computed: ${len}px
+
+path.style.strokeDasharray = \`\${totalLength} \${totalLength}\`;
+path.style.strokeWidth = '${sw}px';
+path.style.strokeLinecap = '${cap}';
+
+const player = path.animate([
+  { strokeDashoffset: totalLength },
+  { strokeDashoffset: 0 }
+], {
+  duration: ${dur * 1000},
+  easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  fill: 'forwards'
+});`;
+      } else if (currentTab === 'react') {
+        strokeCodeOutput.textContent =
+`// React + Framer Motion Component
+import { motion } from 'framer-motion';
+
+export const AnimatedPath = () => (
+  <svg viewBox="0 0 200 200" width="120" height="120">
+    <motion.path
+      d="${presets[currentPresetKey].d}"
+      fill="none"
+      stroke="#C1DD2D"
+      strokeWidth={${sw}}
+      strokeLinecap="${cap}"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={{ duration: ${dur}, ease: [0.16, 1, 0.3, 1] }}
+    />
+  </svg>
+);`;
+      }
+    }
+
+    function loopCycle() {
+      const mode = animModeSelect.value;
+      if (mode === 'loop') {
+        animProgress += 1.2 * animDirection;
+        if (animProgress >= 100) {
+          animProgress = 100;
+          animDirection = -1;
+        } else if (animProgress <= 0) {
+          animProgress = 0;
+          animDirection = 1;
+        }
+        progressSlider.value = animProgress;
+        updateStudio();
+        animTimer = requestAnimationFrame(loopCycle);
+      } else if (mode === 'drawOnce') {
+        if (animProgress < 100) {
+          animProgress += 1.5;
+          if (animProgress > 100) animProgress = 100;
+          progressSlider.value = animProgress;
+          updateStudio();
+          animTimer = requestAnimationFrame(loopCycle);
+        }
+      }
+    }
+
+    animModeSelect.addEventListener('change', () => {
+      cancelAnimationFrame(animTimer);
+      if (animModeSelect.value !== 'scrub') {
+        animProgress = 0;
+        animDirection = 1;
+        loopCycle();
+      }
+    });
+
+    progressSlider.addEventListener('input', () => {
+      if (animModeSelect.value !== 'scrub') {
+        animModeSelect.value = 'scrub';
+        cancelAnimationFrame(animTimer);
+      }
+      updateStudio();
+    });
+
+    durationSlider.addEventListener('input', updateStudio);
+    widthSlider.addEventListener('input', updateStudio);
+    capSelect.addEventListener('change', updateStudio);
+
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        presetButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentPresetKey = btn.getAttribute('data-preset');
+        const p = presets[currentPresetKey];
+        activePath.setAttribute('d', p.d);
+        ghostPath.setAttribute('d', p.d);
+        updateStudio();
+      });
+    });
+
+    codeTabButtons.forEach(tab => {
+      tab.addEventListener('click', () => {
+        codeTabButtons.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentTab = tab.getAttribute('data-tab');
+        updateStudio();
+      });
+    });
+
+    if (copyStrokeCodeBtn) {
+      copyStrokeCodeBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(strokeCodeOutput.textContent).then(() => {
+          copyStrokeCodeBtn.textContent = 'Copied!';
+          setTimeout(() => { copyStrokeCodeBtn.textContent = 'Copy Snippet'; }, 2000);
+        }).catch(() => {
+          copyStrokeCodeBtn.textContent = 'Failed to copy';
+        });
+      });
+    }
+
+    updateStudio();
+    loopCycle();
+  })();
+</script>
+
+</body>
+</html>

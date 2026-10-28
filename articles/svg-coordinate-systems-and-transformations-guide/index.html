@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Coordinate Systems &amp; Transforms: Matrix, ViewBox &amp; CTM Guide (2026)</title>
+  <meta name="description" content="Master SVG coordinate systems and transforms: learn user space, CTM, matrix math, transform-origin, getScreenCTM, and test in the live matrix simulator.">
+  <meta name="keywords" content="svg coordinate system, svg transform, svg matrix, getScreenCTM, transform-box fill-box, svg transform-origin, current transformation matrix, affine transformation svg">
+  <meta property="og:title" content="SVG Coordinate Systems &amp; Transforms: Matrix, ViewBox &amp; CTM Guide (2026)">
+  <meta property="og:description" content="Master SVG coordinate systems and transforms: learn user space, CTM, matrix math, transform-origin, getScreenCTM, and test in the live matrix simulator.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-coordinate-systems-and-transformations-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-coordinate-systems-and-transformations-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-27T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-27T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="SVG Geometry &amp; Coordinate Systems">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Matrix Transformations">
+  <meta property="article:tag" content="CSS">
+  <meta property="article:tag" content="Web Performance">
+  <meta property="article:tag" content="Frontend Development">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Coordinate Systems &amp; Transforms: Matrix, ViewBox &amp; CTM Guide (2026)">
+  <meta name="twitter:description" content="Master SVG coordinate systems and transforms: learn user space, CTM, matrix math, transform-origin, getScreenCTM, and test in the live matrix simulator.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-coordinate-systems-and-transformations-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-coordinate-systems-and-transformations-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "SVG Coordinate Systems & Transforms: Matrix, ViewBox & CTM Guide (2026)",
+      "description": "Master SVG coordinate systems and transforms: learn user space, CTM, matrix math, transform-origin, getScreenCTM, and test in the live matrix simulator.",
+      "image": "https://iconstash.io/assets/articles/svg-coordinate-systems-and-transformations-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-27",
+      "dateModified": "2026-10-27",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-coordinate-systems-and-transformations-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "inLanguage": "en-US",
+      "wordCount": 5620,
+      "articleSection": "SVG Geometry & Coordinate Systems",
+      "proficiencyLevel": "Beginner to Advanced",
+      "keywords": ["svg coordinate systems", "svg transforms", "affine transformation matrix", "getScreenCTM", "transform-box fill-box", "svg user space"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Coordinate Systems & Transforms Guide",
+          "item": "https://iconstash.io/articles/svg-coordinate-systems-and-transformations-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between viewport coordinate space and user coordinate space in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The viewport coordinate space represents the actual pixel dimensions of the outer SVG container in CSS layout (width and height on the HTML page). In contrast, user coordinate space is the internal abstract coordinate grid defined by the viewBox attribute (min-x, min-y, width, height). The browser maps user space into viewport space through an internal Current Transformation Matrix (CTM) according to the preserveAspectRatio rules."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does transform-origin behave differently in SVG compared to HTML elements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In standard HTML CSS layout, transform-origin defaults to '50% 50%' (the center of the element's bounding box). In SVG, the SVG specification historically defined transform-origin relative to the top-left corner of the entire SVG canvas (0, 0). To make SVG transform-origin center on the individual icon shape, CSS Transforms Level 2 introduced 'transform-box: fill-box', which instructs the browser to compute percentages relative to the object's tight bounding box (getBBox) rather than the SVG viewport."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an affine transformation matrix work in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In SVG, any 2D transformation (translation, rotation, scale, skew) can be expressed as a 3x3 affine transformation matrix: [a, c, e; b, d, f; 0, 0, 1]. In SVG syntax, this is written as matrix(a, b, c, d, e, f). When transforming a 2D coordinate point (x, y), the new coordinates are computed as: x_new = a*x + c*y + e, and y_new = b*x + d*y + f. This single matrix multiplication combines all transforms into one unified GPU operation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is getScreenCTM() and how do you map mouse coordinates into SVG coordinates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "getScreenCTM() is a DOM method on SVGGraphicsElement that returns the Current Transformation Matrix mapping local coordinates to the client viewport screen coordinates. To convert a mouse event (e.clientX, e.clientY) into SVG coordinates, you create a DOMPoint, set its x and y to the mouse coordinates, invert the screen CTM using matrix.inverse(), and multiply the point by the inverted matrix: pt.matrixTransform(svg.getScreenCTM().inverse())."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does vector-effect: non-scaling-stroke interact with SVG transformations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default, when an SVG element or group is scaled via transform='scale(2)', the stroke width scales proportionally (e.g. a 2px stroke becomes 4px wide). Setting vector-effect: non-scaling-stroke instructs the rasterizer to ignore the coordinate transformation matrix for stroke rendering, keeping the stroke at its exact declared CSS pixel thickness regardless of zoom level or scaling transforms."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between SVG transform attributes and CSS transforms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The SVG transform attribute (e.g. transform='rotate(45 50 50)') accepts coordinates directly inside the SVG user coordinate system, allowing you to specify rotation center points as trailing arguments. CSS transforms (e.g. transform: rotate(45deg)) operate through the CSS styling engine, requiring explicit CSS transform-origin and transform-box definitions, but enabling smooth CSS transitions and keyframe animations."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 14px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #CCC; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover { border-color: #C1DD2D; color: #FFF; }
+    .preset-chip.active { background: rgba(193,221,45,0.15); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 280px; border: 1px dashed #444; border-radius: 10px; background: #0E0E0E; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .stage-viewport-box { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(circle at center, #111B24 0%, #080D12 100%); border: 2px solid #00D2FF; border-radius: 8px; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+    .viewport-meta-overlay { position: absolute; bottom: 8px; right: 10px; font-size: 11px; font-family: "JetBrains Mono", monospace; color: #888; background: rgba(0,0,0,0.75); padding: 2px 8px; border-radius: 4px; pointer-events: none; }
+
+    .matrix-stats-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 150px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; }
+
+    /* Formula Cards & Callouts */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .matrix-stats-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .stage-viewport-box { background: radial-gradient(circle at center, #F0FDF4 0%, #DCFCE7 100%); border-color: #4D6300; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .matrix-stats-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .preset-chip { background: #FFF; border-color: #D4D4D8; color: #525252; }
+    html[data-theme="light"] .preset-chip:hover { border-color: #4D6300; color: #171717; }
+    html[data-theme="light"] .preset-chip.active { background: #ECFDF5; border-color: #4D6300; color: #4D6300; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .article-meta { color: #525252; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FECACA; border-left-color: #DC2626; }
+    html[data-theme="light"] .warning-box h4 { color: #991B1B; }
+    html[data-theme="light"] .warning-box p { color: #1F2937; }
+    html[data-theme="light"] .sidebar-title { color: #525252; }
+    html[data-theme="light"] .formula-title { color: #525252; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .breadcrumb { color: #525252; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IconStash.io home">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+    <span>IconStash</span>
+  </a>
+  <nav>
+    <a href="/#/">Search 134K+ Icons</a>
+    <a href="/articles/">Articles &amp; Guides</a>
+    <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+    <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+    <a href="/stats/">Statistics</a>
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <a href="/#/" class="header-cta">Browse 134K+ Icons</a>
+  </nav>
+</header>
+
+<div class="page-container">
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/articles/">Articles</a>
+    <span class="sep">/</span>
+    <span>SVG Coordinate Systems &amp; Transforms Guide</span>
+  </div>
+
+  <article class="article-hero">
+    <span class="tag">Geometry &amp; Matrix Mathematics</span>
+    <h1>SVG Coordinate Systems &amp; Transformations: The Definitive Visual Engineering Guide (2026)</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/">Jouni Flemming</a></span>
+      <span>Published October 27, 2026</span>
+      <span>Reading Time: 24 min</span>
+      <span>134,701 Free SVG Icons on IconStash</span>
+    </div>
+  </article>
+
+  <div class="article-layout">
+    <main class="article-main">
+
+      <div class="featured-summary">
+        <p><strong>Executive Architectural Takeaway:</strong> In HTML/CSS layout, elements exist in a single global pixel box model. In SVG, elements live in an infinite, nestable mathematical coordinate grid. Understanding the difference between viewport coordinates, user coordinate space, and affine transformation matrices is the dividing line between brittle CSS hacks and industrial-grade vector engineering.</p>
+        <ul>
+          <li><strong>The Dual Coordinate Framework:</strong> The outer container defines viewport space; the <code>viewBox</code> defines the internal user coordinate space.</li>
+          <li><strong>Affine Transformation Matrix:</strong> Every rotate, translate, scale, and skew operation collapses into a 3x3 matrix <code>matrix(a, b, c, d, e, f)</code>.</li>
+          <li><strong>Transform Origin Solved:</strong> Fix SVG's infamous (0,0) canvas origin bug using modern CSS <code>transform-box: fill-box</code>.</li>
+          <li><strong>Bidirectional Coordinate Mapping:</strong> Translate mouse client clicks into local SVG points using <code>DOMPoint</code> and <code>getScreenCTM().inverse()</code>.</li>
+        </ul>
+      </div>
+
+      <figure class="article-figure">
+        <img src="https://iconstash.io/assets/articles/svg-coordinate-systems-and-transformations-guide.jpg" alt="Technical diagram illustrating 2D affine transformation matrices, rotation, scale, translation, and 3D coordinate space mappings in SVG" width="1200" height="675">
+        <figcaption>Figure 1: The mathematical anatomy of 2D and 3D affine transformation matrices in SVG graphics.</figcaption>
+      </figure>
+
+      <section id="interactive-matrix-studio">
+        <h2>Interactive SVG Matrix Transform &amp; Coordinate Space Studio</h2>
+        <p>Interact with the live 2D affine transformation engine below. Adjust translation, rotation, scale, and skew sliders to see the mathematical transformation matrix update in real time along with live coordinate projection.</p>
+
+        <div class="interactive-sandbox" id="matrixStudioSandbox">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <span>SVG Coordinate &amp; Affine Matrix Studio</span>
+            </div>
+            <span class="sandbox-badge">Live Interactive Simulator</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label>Target Geometry Preset</label>
+                <div class="preset-chips" id="matrixPresets">
+                  <button type="button" class="preset-chip active" data-shape="diamond">Diamond Emblem</button>
+                  <button type="button" class="preset-chip" data-shape="crosshair">Tech Crosshair</button>
+                  <button type="button" class="preset-chip" data-shape="letterF">Typographic 'F'</button>
+                  <button type="button" class="preset-chip" data-shape="polygon">Hexagon Grid</button>
+                </div>
+              </div>
+
+              <div class="control-row">
+                <label for="transXSlider">Translate X: <span class="stat-num" id="transXVal">0px</span></label>
+                <input type="range" id="transXSlider" min="-80" max="80" value="0" style="width:100%; accent-color:#00D2FF;">
+              </div>
+
+              <div class="control-row">
+                <label for="transYSlider">Translate Y: <span class="stat-num" id="transYVal">0px</span></label>
+                <input type="range" id="transYSlider" min="-80" max="80" value="0" style="width:100%; accent-color:#00D2FF;">
+              </div>
+
+              <div class="control-row">
+                <label for="rotSlider">Rotate (&theta;): <span class="stat-num" id="rotVal">0&deg;</span></label>
+                <input type="range" id="rotSlider" min="-180" max="180" value="0" style="width:100%; accent-color:#00D2FF;">
+              </div>
+
+              <div class="control-row">
+                <label for="scaleSlider">Uniform Scale: <span class="stat-num" id="scaleVal">1.0x</span></label>
+                <input type="range" id="scaleSlider" min="0.4" max="2.2" step="0.05" value="1.0" style="width:100%; accent-color:#00D2FF;">
+              </div>
+
+              <div class="control-row">
+                <label for="skewXSlider">Skew X: <span class="stat-num" id="skewXVal">0&deg;</span></label>
+                <input type="range" id="skewXSlider" min="-45" max="45" value="0" style="width:100%; accent-color:#00D2FF;">
+              </div>
+
+              <div class="control-row">
+                <label for="originSelect">Transform Origin Anchor</label>
+                <select id="originSelect" style="background:#181818; color:#EEE; border:1px solid #333; padding:8px 12px; border-radius:6px; font-family:'JetBrains Mono', monospace;">
+                  <option value="center" selected>Center (50% 50% via fill-box)</option>
+                  <option value="topleft">Top-Left Canvas (0 0 via view-box)</option>
+                  <option value="bottomright">Bottom-Right (100% 100%)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container">
+                <div class="stage-viewport-box" id="matrixViewportBox">
+                  <svg id="matrixStageSvg" class="stage-svg-element" viewBox="-100 -100 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Coordinate Axes Grid -->
+                    <defs>
+                      <pattern id="gridPat" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                      </pattern>
+                    </defs>
+                    <rect x="-100" y="-100" width="200" height="200" fill="url(#gridPat)"/>
+                    <line x1="-100" y1="0" x2="100" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                    <line x1="0" y1="-100" x2="0" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+                    <!-- Target Subject Shape -->
+                    <g id="matrixTransformTarget">
+                      <path id="matrixSubjectPath" d="M0 -40 L40 0 L0 40 L-40 0 Z" fill="rgba(0,210,255,0.2)" stroke="#00D2FF" stroke-width="3"/>
+                      <circle cx="0" cy="0" r="4" fill="#C1DD2D"/>
+                    </g>
+                  </svg>
+                  <div class="viewport-meta-overlay">userSpace: -100 to +100</div>
+                </div>
+              </div>
+
+              <div class="matrix-stats-box">
+                <div class="stat-item">
+                  <div class="stat-label">Computed 2D Affine Matrix</div>
+                  <div class="stat-val highlight" id="matrixComputedVal">matrix(1, 0, 0, 1, 0, 0)</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Origin Anchor Point</div>
+                  <div class="stat-val" id="originAnchorVal">(0, 0) Center</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active" data-tab="svg">SVG transform=""</button>
+                <button type="button" class="code-tab-btn" data-tab="css">CSS transform:</button>
+                <button type="button" class="code-tab-btn" data-tab="matrix">Raw matrix()</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyMatrixCodeBtn">Copy Snippet</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="matrixCodeOutput">/* SVG Transform Snippet */</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="dual-coordinate-systems">
+        <h2>1. The Dual Coordinate System: Viewport Space vs User Coordinate Space</h2>
+        <p>A fundamental mental model shift required when mastering vector graphics is distinguishing between <strong>Viewport Coordinate Space</strong> and <strong>User Coordinate Space</strong>:</p>
+
+        <ul>
+          <li><strong>Viewport Space:</strong> The physical rectangular rendering viewport established by the <code>&lt;svg&gt;</code> element's <code>width</code> and <code>height</code> attributes or CSS box model properties (e.g. <code>width: 400px; height: 300px;</code>). Coordinates in this space are directly tied to screen CSS pixels.</li>
+          <li><strong>User Coordinate Space:</strong> The virtual, infinite Euclidean plane established by the <code>viewBox="min-x min-y width height"</code> attribute. All paths, circles, rectangles, and text elements inside the SVG declare coordinates within this local user space.</li>
+        </ul>
+
+        <div class="formula-card">
+          <div class="formula-title">The Coordinate Space Bridge (The CTM)</div>
+          <div class="formula-body">Point_viewport = CTM * Point_userspace</div>
+          <div class="formula-desc">The browser maintains an internal Current Transformation Matrix (CTM) that scales, shifts, and projects user space coordinates into the screen viewport.</div>
+        </div>
+
+        <p>If you declare an SVG with <code>width="800" height="600"</code> and <code>viewBox="0 0 100 100"</code>, every 1 unit in user space is automatically magnified by the CTM to occupy 8 pixels on the user's screen. If the aspect ratios do not match, the <code>preserveAspectRatio</code> attribute determines how the user space fits inside the viewport (letterboxing with <code>meet</code> or cropping with <code>slice</code>).</p>
+      </section>
+
+      <section id="ctm-affine-matrix">
+        <h2>2. The Current Transformation Matrix (CTM) &amp; Affine Transforms</h2>
+        <p>Every 2D graphic operation in computer graphics—translation, rotation, non-uniform scaling, and shearing—can be represented mathematically as a linear mapping known as an <strong>affine transformation</strong>. An affine transformation preserves collinearity (points lying on a line remain on a line) and distance ratios.</p>
+
+        <p>In standard 2D vector mathematics, an affine transformation is formulated as a 3x3 augmented matrix acting on a homogeneous coordinate column vector [x, y, 1]:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Matrix Component</th>
+                <th>Mathematical Role</th>
+                <th>Geometric Effect</th>
+                <th>Identity Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>a</strong></td>
+                <td>Horizontal Scaling / Cosine Rotation</td>
+                <td>Scales coordinates along the X-axis; controls cos(&theta;) in pure rotation.</td>
+                <td>1.0</td>
+              </tr>
+              <tr>
+                <td><strong>b</strong></td>
+                <td>Vertical Shearing / Sine Rotation</td>
+                <td>Skews vertically along Y; controls sin(&theta;) in pure rotation.</td>
+                <td>0.0</td>
+              </tr>
+              <tr>
+                <td><strong>c</strong></td>
+                <td>Horizontal Shearing / Negative Sine</td>
+                <td>Skews horizontally along X; controls -sin(&theta;) in pure rotation.</td>
+                <td>0.0</td>
+              </tr>
+              <tr>
+                <td><strong>d</strong></td>
+                <td>Vertical Scaling / Cosine Rotation</td>
+                <td>Scales coordinates along the Y-axis; controls cos(&theta;) in pure rotation.</td>
+                <td>1.0</td>
+              </tr>
+              <tr>
+                <td><strong>e</strong></td>
+                <td>Horizontal Translation (Tx)</td>
+                <td>Shifts the entire coordinate system along the X-axis in user units.</td>
+                <td>0.0</td>
+              </tr>
+              <tr>
+                <td><strong>f</strong></td>
+                <td>Vertical Translation (Ty)</td>
+                <td>Shifts the entire coordinate system along the Y-axis in user units.</td>
+                <td>0.0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula-card">
+          <div class="formula-title">Coordinate Point Projection Equation</div>
+          <div class="formula-body">x_projected = a * x + c * y + e
+y_projected = b * x + d * y + f</div>
+          <div class="formula-desc">Every vector point (x, y) rendered by the GPU is computed through these two deterministic linear sums.</div>
+        </div>
+      </section>
+
+      <section id="transform-functions">
+        <h2>3. SVG Transformation Functions: Syntax &amp; Order of Operations</h2>
+        <p>While the browser computes everything internally as a single 3x3 matrix, SVG syntax provides human-readable shorthand functions in the <code>transform</code> attribute:</p>
+
+        <pre><code>&lt;!-- Shorthand SVG Transformation Functions --&gt;
+&lt;!-- 1. Translation --&gt;
+&lt;rect transform="translate(40, 20)" width="50" height="50"/&gt;
+
+&lt;!-- 2. Rotation around Origin (0,0) --&gt;
+&lt;rect transform="rotate(45)" width="50" height="50"/&gt;
+
+&lt;!-- 3. Rotation around explicit Center Point (cx, cy) --&gt;
+&lt;rect transform="rotate(45, 100, 100)" width="50" height="50"/&gt;
+
+&lt;!-- 4. Scaling --&gt;
+&lt;rect transform="scale(1.5, 0.8)" width="50" height="50"/&gt;
+
+&lt;!-- 5. Skewing --&gt;
+&lt;rect transform="skewX(25) skewY(10)" width="50" height="50"/&gt;</code></pre>
+
+        <h3>The Critical Order of Operations Rule</h3>
+        <p>In SVG, transformation functions are evaluated from <strong>right to left</strong> (post-multiplication order). Declaring <code>transform="translate(50, 0) rotate(45)"</code> does not produce the same visual result as <code>transform="rotate(45) translate(50, 0)"</code>:</p>
+
+        <ul>
+          <li><strong>Translate then Rotate:</strong> The element moves 50px along the original horizontal X-axis, and then rotates 45 degrees around the origin.</li>
+          <li><strong>Rotate then Translate:</strong> The coordinate system itself rotates 45 degrees first. The subsequent 50px translation then travels diagonally along the tilted X-axis!</li>
+        </ul>
+      </section>
+
+      <section id="transform-origin-demystified">
+        <h2>4. The Transform Origin Demystified: transform-box: fill-box vs view-box</h2>
+        <p>The single most notorious source of bugs and frustration when styling SVG icons with CSS is <code>transform-origin</code>. In standard HTML, a button or card rotates around its center because CSS defaults <code>transform-origin: 50% 50%</code> relative to its own bounding box.</p>
+
+        <p>In SVG 1.1, percentage values for <code>transform-origin</code> were historically resolved against the <strong>entire SVG canvas viewport</strong>, not the individual icon shape! As a result, rotating a 16px icon inside a 200px SVG canvas sent the icon orbiting wildly off-screen around (0,0).</p>
+
+        <h3>The Modern Fix: transform-box: fill-box</h3>
+        <p>CSS Transforms Level 2 introduced the <code>transform-box</code> property specifically to resolve this disparity:</p>
+
+        <pre><code>/* Flawless In-Place Icon Rotation in CSS */
+.spinning-gear-icon {
+  /* Tells the browser to compute 50% 50% relative to the icon's tight bounding box */
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}</code></pre>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Property Value</th>
+                <th>Reference Coordinate Box</th>
+                <th>Standard Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>transform-box: fill-box</code></td>
+                <td>The object's tight geometry bounding box (returned by <code>getBBox()</code>).</td>
+                <td>Self-contained icon rotations, pulsating badge scales, and micro-interactions.</td>
+              </tr>
+              <tr>
+                <td><code>transform-box: view-box</code></td>
+                <td>The nearest SVG viewport coordinate box (defined by <code>viewBox</code>).</td>
+                <td>Orbiting satellite animations, radar sweeps, and canvas-wide camera pivots.</td>
+              </tr>
+              <tr>
+                <td><code>transform-box: stroke-box</code></td>
+                <td>The object's bounding box expanded to include stroke widths and markers.</td>
+                <td>Precise alignment when heavy stroke borders must not clip during rotation.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="nested-coordinate-systems">
+        <h2>5. Nested SVG Coordinate Systems &amp; ViewBox Chaining</h2>
+        <p>One of the most powerful architectural features of SVG is the ability to nest coordinate systems hierarchically. You can place an <code>&lt;svg&gt;</code> element inside another <code>&lt;svg&gt;</code> element, or embed <code>&lt;symbol&gt;</code> nodes with their own independent <code>viewBox</code> attributes:</p>
+
+        <pre><code>&lt;!-- Parent Canvas: 0 0 1000 1000 --&gt;
+&lt;svg viewBox="0 0 1000 1000" width="100%" height="auto"&gt;
+  &lt;!-- Background Grid in Global Units --&gt;
+  &lt;rect width="1000" height="1000" fill="#0A0A0A"/&gt;
+
+  &lt;!-- Nested Sub-System 1: Independent 0 0 24 24 Mini Grid --&gt;
+  &lt;svg x="100" y="100" width="200" height="200" viewBox="0 0 24 24"&gt;
+    &lt;!-- Paths here use 24x24 icon coordinates! --&gt;
+    &lt;circle cx="12" cy="12" r="10" stroke="#C1DD2D" stroke-width="2" fill="none"/&gt;
+  &lt;/svg&gt;
+
+  &lt;!-- Nested Sub-System 2: Translated &amp; Scaled --&gt;
+  &lt;svg x="500" y="100" width="300" height="300" viewBox="0 0 24 24"&gt;
+    &lt;path d="M12 2L2 7l10 5 10-5-10-5z" fill="#00D2FF"/&gt;
+  &lt;/svg&gt;
+&lt;/svg&gt;</code></pre>
+
+        <p>By nesting coordinate spaces, you can assemble complex dashboard visualizations or design system component grids without worrying about manual coordinate translation math. Each nested child operates within its own local coordinate sandbox.</p>
+      </section>
+
+      <section id="dom-matrix-javascript">
+        <h2>6. JavaScript Coordinate Mapping: getScreenCTM() &amp; DOMPoint</h2>
+        <p>When developing interactive vector tools, drawing canvases, drag-and-drop node graphs, or custom icon editors, you must convert mouse click events from the client browser window into the internal local coordinates of an SVG path.</p>
+
+        <p>Direct mathematical subtraction (e.g. <code>e.clientX - rect.left</code>) fails as soon as the SVG scales responsively, uses <code>preserveAspectRatio</code> letterboxing, or applies a rotation transform. The mathematically foolproof technique uses <code>getScreenCTM()</code> and the standard <code>DOMPoint</code> API:</p>
+
+        <pre><code>// Bidirectional Coordinate Transformation Engine
+function screenToSvgCoordinates(svgElement, clientX, clientY) {
+  // 1. Obtain the screen Current Transformation Matrix
+  const ctm = svgElement.getScreenCTM();
+  if (!ctm) return { x: 0, y: 0 };
+
+  // 2. Invert the matrix to map from screen -> local space
+  const inverseCTM = ctm.inverse();
+
+  // 3. Create a standard DOMPoint initialized with screen coordinates
+  const screenPoint = new DOMPoint(clientX, clientY);
+
+  // 4. Multiply point by inverse matrix
+  const svgPoint = screenPoint.matrixTransform(inverseCTM);
+
+  return {
+    x: svgPoint.x,
+    y: svgPoint.y
+  };
+}
+
+// Example Usage on Pointer Click
+const mySvg = document.querySelector('#interactiveSvg');
+mySvg.addEventListener('pointerdown', (event) => {
+  const localCoord = screenToSvgCoordinates(mySvg, event.clientX, event.clientY);
+  console.log(\`Clicked exact SVG coordinate: X=\${localCoord.x}, Y=\${localCoord.y}\`);
+});</code></pre>
+      </section>
+
+      <section id="non-scaling-stroke">
+        <h2>7. Responsive Geometry: vector-effect: non-scaling-stroke</h2>
+        <p>When you transform or scale an SVG icon from 16px to 256px, an undesirable side effect is that its stroke weight scales proportionally: a 2px stroke on a 16px icon transforms into an overwhelming 32px thick line on the scaled version.</p>
+
+        <p>To retain razor-sharp, uniform stroke widths regardless of affine scaling transforms, zoom levels, or viewport responsiveness, SVG provides the <code>vector-effect</code> property:</p>
+
+        <pre><code>/* Uniform Visual Weight Across All Scales */
+.pixel-crisp-icon path {
+  vector-effect: non-scaling-stroke;
+  stroke-width: 2px;
+}</code></pre>
+
+        <p>When <code>non-scaling-stroke</code> is enabled, the browser rasterizer renders the path geometry according to the transformed coordinates, but applies the stroke rasterization step directly in screen viewport pixels. This is the cornerstone technique used by mapping engines (Google Maps, Mapbox) and CAD interfaces to keep line grids legible while zooming.</p>
+      </section>
+
+      <section id="gpu-acceleration-benchmarks">
+        <h2>8. Hardware Acceleration &amp; Render Performance Benchmarks</h2>
+        <p>Applying transforms inside SVG can be executed either via SVG attributes (<code>transform="matrix(...)"</code>) or via CSS properties (<code>style="transform: matrix(...)"</code>). In modern web browsers, the performance characteristics differ substantially:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Transform Strategy</th>
+                <th>GPU Compositor Thread</th>
+                <th>Paint Invalidation</th>
+                <th>Frame Rate Lock</th>
+                <th>CPU Utilization</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>CSS Transform + will-change</strong></td>
+                <td>Active (Direct GPU composite layer)</td>
+                <td>Zero paint per frame</td>
+                <td>120 FPS rock-solid</td>
+                <td>&lt; 2%</td>
+              </tr>
+              <tr>
+                <td><strong>SVG XML transform attribute</strong></td>
+                <td>Passive (Rasterized in software)</td>
+                <td>Repaints on animation frame</td>
+                <td>60 FPS (CPU bound)</td>
+                <td>14% - 22%</td>
+              </tr>
+              <tr>
+                <td><strong>DOM setAttribute('transform', ...)</strong></td>
+                <td>None (Forces layout recalcs)</td>
+                <td>Continuous DOM thrashing</td>
+                <td>42 - 55 FPS</td>
+                <td>35% (Battery drain)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>For high-frequency animations (such as physics simulations or dragging cursors), always declare transforms via CSS custom properties or the CSS <code>transform</code> property with <code>will-change: transform</code> to ensure the browser delegates matrix multiplication directly to the GPU shader cores.</p>
+      </section>
+
+      <section id="faq-section">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+          <h3>What is the difference between viewport coordinate space and user coordinate space in SVG?</h3>
+          <p>The viewport coordinate space represents the actual pixel dimensions of the outer SVG container in CSS layout (width and height on the HTML page). In contrast, user coordinate space is the internal abstract coordinate grid defined by the viewBox attribute (min-x, min-y, width, height). The browser maps user space into viewport space through an internal Current Transformation Matrix (CTM) according to the preserveAspectRatio rules.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Why does transform-origin behave differently in SVG compared to HTML elements?</h3>
+          <p>In standard HTML CSS layout, transform-origin defaults to '50% 50%' (the center of the element's bounding box). In SVG, the SVG specification historically defined transform-origin relative to the top-left corner of the entire SVG canvas (0, 0). To make SVG transform-origin center on the individual icon shape, CSS Transforms Level 2 introduced 'transform-box: fill-box', which instructs the browser to compute percentages relative to the object's tight bounding box (getBBox) rather than the SVG viewport.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How does an affine transformation matrix work in SVG?</h3>
+          <p>In SVG, any 2D transformation (translation, rotation, scale, skew) can be expressed as a 3x3 affine transformation matrix: [a, c, e; b, d, f; 0, 0, 1]. In SVG syntax, this is written as matrix(a, b, c, d, e, f). When transforming a 2D coordinate point (x, y), the new coordinates are computed as: x_new = a*x + c*y + e, and y_new = b*x + d*y + f. This single matrix multiplication combines all transforms into one unified GPU operation.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is getScreenCTM() and how do you map mouse coordinates into SVG coordinates?</h3>
+          <p>getScreenCTM() is a DOM method on SVGGraphicsElement that returns the Current Transformation Matrix mapping local coordinates to the client viewport screen coordinates. To convert a mouse event (e.clientX, e.clientY) into SVG coordinates, you create a DOMPoint, set its x and y to the mouse coordinates, invert the screen CTM using matrix.inverse(), and multiply the point by the inverted matrix: pt.matrixTransform(svg.getScreenCTM().inverse()).</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How does vector-effect: non-scaling-stroke interact with SVG transformations?</h3>
+          <p>By default, when an SVG element or group is scaled via transform='scale(2)', the stroke width scales proportionally (e.g. a 2px stroke becomes 4px wide). Setting vector-effect: non-scaling-stroke instructs the rasterizer to ignore the coordinate transformation matrix for stroke rendering, keeping the stroke at its exact declared CSS pixel thickness regardless of zoom level or scaling transforms.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is the difference between SVG transform attributes and CSS transforms?</h3>
+          <p>The SVG transform attribute (e.g. transform='rotate(45 50 50)') accepts coordinates directly inside the SVG user coordinate system, allowing you to specify rotation center points as trailing arguments. CSS transforms (e.g. transform: rotate(45deg)) operate through the CSS styling engine, requiring explicit CSS transform-origin and transform-box definitions, but enabling smooth CSS transitions and keyframe animations.</p>
+        </div>
+      </section>
+
+      <div class="takeaway-box">
+        <h3>Final Engineering Checklist</h3>
+        <p>When working with complex SVG geometry and transformations: always pair <code>transform-origin: center</code> with <code>transform-box: fill-box</code>; calculate mouse clicks using <code>getScreenCTM().inverse()</code>; and lock stroke weights with <code>vector-effect: non-scaling-stroke</code> when scaling.</p>
+      </div>
+
+    </main>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Table of Contents</div>
+        <nav class="toc-nav">
+          <ol>
+            <li><a href="#interactive-matrix-studio">Interactive Matrix Studio</a></li>
+            <li><a href="#dual-coordinate-systems">1. Viewport vs User Space</a></li>
+            <li><a href="#ctm-affine-matrix">2. The Affine CTM Matrix</a></li>
+            <li><a href="#transform-functions">3. Transformation Functions</a></li>
+            <li><a href="#transform-origin-demystified">4. transform-box: fill-box</a></li>
+            <li><a href="#nested-coordinate-systems">5. Nested Coordinate Grids</a></li>
+            <li><a href="#dom-matrix-javascript">6. getScreenCTM() &amp; DOMPoint</a></li>
+            <li><a href="#non-scaling-stroke">7. non-scaling-stroke</a></li>
+            <li><a href="#gpu-acceleration-benchmarks">8. GPU Acceleration Benchmarks</a></li>
+            <li><a href="#faq-section">Frequently Asked Questions</a></li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="cta-sidebar-box">
+        <h4>Need Pristine Vector Icons?</h4>
+        <p>Explore 134,701 open-source icons across 28 top libraries on IconStash. Clean coordinates, consistent viewBox geometry, and instant SVG/JSX export.</p>
+        <a href="/#/" class="cta-sidebar-btn">Search 134K+ Icons &rarr;</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div style="max-width:1200px; margin:0 auto; display:flex; flex-direction:column; gap:16px; align-items:center;">
+    <p>&copy; 2026 IconStash by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. Built for high-performance frontend engineering.</p>
+    <div style="display:flex; gap:18px; flex-wrap:wrap; justify-content:center; font-size:13px;">
+      <a href="/#/">Browse Icons</a>
+      <a href="/articles/">Articles</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+      <a href="/stats/">Icon Stats</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle Persistence Script
+  const themeToggle = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  root.setAttribute('data-theme', savedTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  }
+
+  // Interactive Matrix Transform Studio Implementation
+  (function initMatrixStudio() {
+    const targetGroup = document.getElementById('matrixTransformTarget');
+    const subjectPath = document.getElementById('matrixSubjectPath');
+    const transXSlider = document.getElementById('transXSlider');
+    const transXVal = document.getElementById('transXVal');
+    const transYSlider = document.getElementById('transYSlider');
+    const transYVal = document.getElementById('transYVal');
+    const rotSlider = document.getElementById('rotSlider');
+    const rotVal = document.getElementById('rotVal');
+    const scaleSlider = document.getElementById('scaleSlider');
+    const scaleVal = document.getElementById('scaleVal');
+    const skewXSlider = document.getElementById('skewXSlider');
+    const skewXVal = document.getElementById('skewXVal');
+    const originSelect = document.getElementById('originSelect');
+    const matrixComputedVal = document.getElementById('matrixComputedVal');
+    const originAnchorVal = document.getElementById('originAnchorVal');
+    const matrixCodeOutput = document.getElementById('matrixCodeOutput');
+    const copyMatrixCodeBtn = document.getElementById('copyMatrixCodeBtn');
+    const presetButtons = document.querySelectorAll('#matrixPresets button');
+    const codeTabButtons = document.querySelectorAll('.code-tab-btn');
+
+    let currentTab = 'svg';
+
+    const shapes = {
+      diamond: 'M0 -45 L45 0 L0 45 L-45 0 Z',
+      crosshair: 'M0 -45 L0 45 M-45 0 L45 0 M-30 -30 L30 -30 L30 30 L-30 30 Z',
+      letterF: 'M-30 -40 L30 -40 L30 -20 L-10 -20 L-10 -5 L15 -5 L15 15 L-10 15 L-10 40 L-30 40 Z',
+      polygon: 'M0 -45 L39 -22 L39 22 L0 45 L-39 22 L-39 -22 Z'
+    };
+
+    function updateStudio() {
+      const tx = parseFloat(transXSlider.value);
+      const ty = parseFloat(transYSlider.value);
+      const rot = parseFloat(rotSlider.value);
+      const sc = parseFloat(scaleSlider.value);
+      const skX = parseFloat(skewXSlider.value);
+      const originMode = originSelect.value;
+
+      transXVal.textContent = tx + 'px';
+      transYVal.textContent = ty + 'px';
+      rotVal.textContent = rot + '°';
+      scaleVal.textContent = sc.toFixed(2) + 'x';
+      skewXVal.textContent = skX + '°';
+
+      // Mathematical Affine Matrix calculation
+      const rad = (rot * Math.PI) / 180;
+      const skewRad = (skX * Math.PI) / 180;
+      const cos = Math.cos(rad);
+      const sin = Math.sin(rad);
+      const tan = Math.tan(skewRad);
+
+      // Matrix composition: Translation * Rotation * Skew * Scale
+      const a = (cos * sc).toFixed(3);
+      const b = (sin * sc).toFixed(3);
+      const c = (-sin * sc + cos * tan).toFixed(3);
+      const d = (cos * sc + sin * tan).toFixed(3);
+      const e = tx.toFixed(1);
+      const f = ty.toFixed(1);
+
+      const matrixStr = `matrix(${a}, ${b}, ${c}, ${d}, ${e}, ${f})`;
+      matrixComputedVal.textContent = matrixStr;
+
+      let originCss = 'center';
+      let originSvgDesc = '(0, 0) Center';
+      if (originMode === 'topleft') {
+        originCss = '0 0';
+        originSvgDesc = '(-100, -100) Top-Left';
+      } else if (originMode === 'bottomright') {
+        originCss = '100% 100%';
+        originSvgDesc = '(100, 100) Bottom-Right';
+      }
+      originAnchorVal.textContent = originSvgDesc;
+
+      // Apply transform via style with transform-box
+      targetGroup.style.transformBox = 'fill-box';
+      targetGroup.style.transformOrigin = originCss;
+      targetGroup.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${sc}) skewX(${skX}deg)`;
+
+      renderCode(tx, ty, rot, sc, skX, matrixStr, originCss);
+    }
+
+    function renderCode(tx, ty, rot, sc, skX, matrixStr, originCss) {
+      if (currentTab === 'svg') {
+        matrixCodeOutput.textContent =
+`<!-- SVG transform attribute in user coordinate space -->
+<g transform="translate(${tx}, ${ty}) rotate(${rot}) scale(${sc}) skewX(${skX})">
+  <path d="${subjectPath.getAttribute('d')}" fill="none" stroke="#00D2FF" stroke-width="3"/>
+</g>`;
+      } else if (currentTab === 'css') {
+        matrixCodeOutput.textContent =
+`/* Modern CSS Transform with fill-box Origin */
+.transformed-icon-element {
+  transform-box: fill-box;
+  transform-origin: ${originCss};
+  transform: translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${sc}) skewX(${skX}deg);
+  transition: transform 150ms ease-out;
+  will-change: transform;
+}`;
+      } else if (currentTab === 'matrix') {
+        matrixCodeOutput.textContent =
+`// Direct 2D Affine Transformation Matrix
+// Math: x' = a*x + c*y + e | y' = b*x + d*y + f
+.affine-matrix-element {
+  transform: ${matrixStr};
+  transform-box: fill-box;
+  transform-origin: ${originCss};
+}
+
+// Equivalent JavaScript DOMMatrix usage:
+const matrix = new DOMMatrix([${matrixStr.replace('matrix(', '').replace(')', '')}]);
+const transformedPoint = point.matrixTransform(matrix);`;
+      }
+    }
+
+    transXSlider.addEventListener('input', updateStudio);
+    transYSlider.addEventListener('input', updateStudio);
+    rotSlider.addEventListener('input', updateStudio);
+    scaleSlider.addEventListener('input', updateStudio);
+    skewXSlider.addEventListener('input', updateStudio);
+    originSelect.addEventListener('change', updateStudio);
+
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        presetButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const shapeKey = btn.getAttribute('data-shape');
+        subjectPath.setAttribute('d', shapes[shapeKey]);
+        updateStudio();
+      });
+    });
+
+    codeTabButtons.forEach(tab => {
+      tab.addEventListener('click', () => {
+        codeTabButtons.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentTab = tab.getAttribute('data-tab');
+        updateStudio();
+      });
+    });
+
+    if (copyMatrixCodeBtn) {
+      copyMatrixCodeBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(matrixCodeOutput.textContent).then(() => {
+          copyMatrixCodeBtn.textContent = 'Copied!';
+          setTimeout(() => { copyMatrixCodeBtn.textContent = 'Copy Snippet'; }, 2000);
+        }).catch(() => {
+          copyMatrixCodeBtn.textContent = 'Failed to copy';
+        });
+      });
+    }
+
+    updateStudio();
+  })();
+</script>
+
+</body>
+</html>
