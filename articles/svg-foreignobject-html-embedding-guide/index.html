@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG foreignObject Guide: Embedding HTML, CSS &amp; Rich Text in SVG (2026)</title>
+  <meta name="description" content="Master SVG foreignObject: embed HTML5, CSS Flexbox, Grid, Tailwind, auto-wrapping text, resolve Safari bugs, handle canvas export, and live studio.">
+  <meta name="keywords" content="svg foreignobject, how to use foreignobject in svg, html inside svg, foreignobject wrap text, svg foreignobject css, foreignobject safari bug, foreignobject canvas export">
+  <meta property="og:title" content="SVG foreignObject Guide: Embedding HTML, CSS &amp; Rich Text in SVG (2026)">
+  <meta property="og:description" content="Master SVG foreignObject: embed HTML5, CSS Flexbox, Grid, Tailwind, auto-wrapping text, resolve Safari bugs, handle canvas export, and live studio.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-foreignobject-html-embedding-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-foreignobject-html-embedding-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-10-29T00:00:00Z">
+  <meta property="article:modified_time" content="2026-10-29T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="SVG Architecture &amp; Rich HTML">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="HTML5">
+  <meta property="article:tag" content="CSS Architecture">
+  <meta property="article:tag" content="Frontend Development">
+  <meta property="article:tag" content="Web Standards">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG foreignObject Guide: Embedding HTML, CSS &amp; Rich Text in SVG (2026)">
+  <meta name="twitter:description" content="Master SVG foreignObject: embed HTML5, CSS Flexbox, Grid, Tailwind, auto-wrapping text, resolve Safari bugs, handle canvas export, and live studio.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-foreignobject-html-embedding-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-foreignobject-html-embedding-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "SVG foreignObject Guide: Embedding HTML, CSS & Rich Text in SVG (2026)",
+      "description": "Master SVG foreignObject: embed HTML5, CSS Flexbox, Grid, Tailwind, auto-wrapping text, resolve Safari bugs, handle canvas export, and live studio.",
+      "image": "https://iconstash.io/assets/articles/svg-foreignobject-html-embedding-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-10-29",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-foreignobject-html-embedding-guide/",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://iconstash.io/#website"
+      },
+      "inLanguage": "en-US",
+      "wordCount": 5890,
+      "articleSection": "SVG Architecture & Rich HTML",
+      "proficiencyLevel": "Intermediate to Advanced",
+      "keywords": ["svg foreignobject", "how to use foreignobject in svg", "html inside svg", "foreignobject wrap text", "svg foreignobject css", "foreignobject safari bug", "foreignobject canvas export"]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG foreignObject HTML Embedding Guide",
+          "item": "https://iconstash.io/articles/svg-foreignobject-html-embedding-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the primary purpose of the SVG <foreignObject> element?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The <foreignObject> element allows developers to embed external XML namespaces—most commonly HTML5 and CSS3—directly within an SVG graphical document. This solves the long-standing limitation of SVG native text (which cannot automatically wrap across multiple lines without manual coordinate math) by enabling modern CSS Flexbox, CSS Grid, form inputs, dynamic text wrapping, and custom web components inside vector canvas boundaries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the xmlns='http://www.w3.org/1999/xhtml' namespace required inside <foreignObject>?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In standalone SVG files parsed by XML parsers (or when SVG is loaded via <object> or <iframe>), the browser does not recognize standard HTML tags like <div> or <p> unless they are explicitly declared within the XHTML namespace using xmlns='http://www.w3.org/1999/xhtml'. While modern HTML5 parsers tolerate omission in inline SVG, omitting the namespace causes standalone vector files and rasterization engines to fail to render child HTML content."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does <foreignObject> collapse or disappear in Safari / WebKit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Safari and WebKit have historical rendering bugs where <foreignObject> collapses to 0x0 pixels if width and height are declared only in CSS stylesheets rather than explicit SVG presentation attributes. Furthermore, Safari can drop GPU repaints when parent <g> elements apply CSS transform transitions. To resolve this, always specify explicit width and height attributes directly on the <foreignObject> tag and add transform: translateZ(0) to promote the embedded HTML to a distinct compositing layer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does rendering an SVG with <foreignObject> taint an HTML5 Canvas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For security reasons, browser sandboxes strictly enforce the Same-Origin Policy during Canvas 2D rasterization. Because HTML inside <foreignObject> can contain external styles, local storage scripts, or cross-origin assets, browser engines (Blink, Gecko, WebKit) permanently flag the canvas as 'tainted' whenever an SVG containing <foreignObject> is drawn via ctx.drawImage(). Calling canvas.toDataURL() or canvas.getImageData() subsequently throws a SecurityError to prevent visual data exfiltration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you use Tailwind CSS and modern web components inside an SVG foreignObject?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. When an SVG is embedded inline within an HTML document, HTML elements inside <foreignObject> inherit the host page's global CSS stylesheets, CSS custom properties, and Tailwind utility classes (such as flex, rounded-xl, bg-slate-900, text-white). However, in standalone SVG files, all styles must be bundled inside an internal <style> block."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best alternative to <foreignObject> when exporting diagrams to PNG or PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When generating downloadable PNG images or print PDFs where Canvas taint restrictions or headless browser foreignObject support is problematic, developers can either: (1) use libraries like html2canvas or modern-screenshot that reconstruct DOM nodes directly into canvas bitmaps, (2) pre-wrap text into native SVG <text> elements with computed <tspan dy='...'> line breaks, or (3) render the SVG on a server-side Node.js worker using headless Chrome (Puppeteer) or Sharp."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    /* Tables */
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    /* Interactive Studio */
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .preset-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .preset-chip { background: #1A1A1A; border: 1px solid #333; color: #CCC; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 120ms ease; }
+    .preset-chip:hover { border-color: #C1DD2D; color: #FFF; }
+    .preset-chip.active { background: rgba(193,221,45,0.15); border-color: #C1DD2D; color: #C1DD2D; font-weight: 700; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 320px; border: 1px dashed #444; border-radius: 10px; background: #0E0E0E; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .stage-viewport-box { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(circle at center, #191E0D 0%, #0C0F05 100%); border: 2px solid #C1DD2D; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+    .viewport-meta-overlay { position: absolute; bottom: 8px; right: 10px; font-size: 11px; font-family: "JetBrains Mono", monospace; color: #888; background: rgba(0,0,0,0.8); padding: 3px 8px; border-radius: 4px; pointer-events: none; border: 1px solid #222; }
+
+    .stroke-stats-box { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13.5px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 180px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    /* Formula Cards & Callouts */
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    /* Sticky Sidebar */
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stroke-stats-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .stage-viewport-box { background: radial-gradient(circle at center, #F0FDF4 0%, #DCFCE7 100%); border-color: #4D6300; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stroke-stats-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .preset-chip { background: #FFF; border-color: #D4D4D8; color: #525252; }
+    html[data-theme="light"] .preset-chip:hover { border-color: #4D6300; color: #171717; }
+    html[data-theme="light"] .preset-chip.active { background: #ECFDF5; border-color: #4D6300; color: #4D6300; }
+    html[data-theme="light"] .code-tab-btn.active { color: #4D6300; background: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-item h3 { color: #18181B; }
+    html[data-theme="light"] .faq-item p { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .article-meta { color: #525252; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FECACA; border-left-color: #DC2626; }
+    html[data-theme="light"] .warning-box h4 { color: #991B1B; }
+    html[data-theme="light"] .warning-box p { color: #1F2937; }
+    html[data-theme="light"] .sidebar-title { color: #525252; }
+    html[data-theme="light"] .formula-title { color: #525252; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .breadcrumb { color: #525252; }
+
+    /* Custom foreignObject styling */
+    .fo-embedded-card { width: 100%; height: 100%; background: rgba(20, 20, 20, 0.95); border: 1px solid #333; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px; font-family: 'Inter', sans-serif; box-sizing: border-box; overflow: hidden; }
+    .fo-card-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #262626; padding-bottom: 6px; }
+    .fo-card-title { font-size: 13px; font-weight: 700; color: #FFF; margin: 0; }
+    .fo-badge { font-size: 10px; font-weight: 700; background: rgba(193,221,45,0.15); color: #C1DD2D; padding: 2px 6px; border-radius: 4px; }
+    .fo-card-body { font-size: 11.5px; color: #CCC; line-height: 1.4; margin: 0; }
+    .fo-input-row { display: flex; gap: 6px; margin-top: auto; }
+    .fo-input { background: #0A0A0A; border: 1px solid #333; color: #FFF; font-size: 11px; padding: 4px 8px; border-radius: 4px; flex: 1; outline: none; }
+    .fo-btn { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 11px; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo" aria-label="IconStash.io home">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+    <span>IconStash</span>
+  </a>
+  <nav>
+    <a href="/#/">Search 134K+ Icons</a>
+    <a href="/articles/">Articles &amp; Guides</a>
+    <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+    <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+    <a href="/stats/">Statistics</a>
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <a href="/#/" class="header-cta">Browse 134K+ Icons</a>
+  </nav>
+</header>
+
+<div class="page-container">
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/articles/">Articles</a>
+    <span class="sep">/</span>
+    <span>SVG foreignObject HTML Embedding Guide</span>
+  </div>
+
+  <article class="article-hero">
+    <span class="tag">SVG Architecture &amp; Rich HTML</span>
+    <h1>SVG foreignObject Guide: Embedding HTML, CSS &amp; Rich Text in SVG (2026)</h1>
+    <div class="article-meta">
+      <span>By <a href="/about/">Jouni Flemming</a></span>
+      <span>Published October 29, 2026</span>
+      <span>Reading Time: 28 min</span>
+      <span>134,701 Free SVG Icons on IconStash</span>
+    </div>
+  </article>
+
+  <div class="article-layout">
+    <main class="article-main">
+
+      <div class="featured-summary">
+        <p><strong>Executive Architectural Takeaway:</strong> The SVG <code>&lt;foreignObject&gt;</code> element is the bridge between the mathematical vector world of 2D paths and the rich presentation universe of HTML5 and CSS3. It allows developers to embed arbitrary HTML markup—including CSS Flexbox, Grid, form inputs, dynamic text wrapping, and Tailwind CSS—directly inside an SVG coordinate system.</p>
+        <ul>
+          <li><strong>The Text-Wrapping Solution:</strong> Eliminate fragile manual <code>&lt;tspan dy="..."&gt;</code> line-breaking calculations by hosting true HTML paragraphs with natural word wrap inside vector diagrams.</li>
+          <li><strong>XML Namespace Discipline:</strong> Understand why <code>xmlns="http://www.w3.org/1999/xhtml"</code> is non-negotiable for standalone vector files, image rasterizers, and cross-browser XML parsers.</li>
+          <li><strong>Safari &amp; WebKit Battle-Tested Fixes:</strong> Solve zero-dimension collapse, disappearing elements on transform animations, and clipping overflow glitches.</li>
+          <li><strong>The Canvas Security Sandbox Barrier:</strong> Understand why <code>ctx.drawImage(svgWithForeignObject)</code> taints HTML5 Canvas contexts, and deploy production-ready workarounds.</li>
+        </ul>
+      </div>
+
+      <figure class="article-figure">
+        <img src="https://iconstash.io/assets/articles/svg-foreignobject-html-embedding-guide.jpg" alt="Technical diagram illustrating SVG foreignObject HTML embedding, CSS Flexbox and Grid layouts, XML namespaces, and browser rendering engines" width="1200" height="675">
+        <figcaption>Figure 1: Embedding modern HTML5, CSS Grid, and form components within vector SVG coordinate systems via &lt;foreignObject&gt;.</figcaption>
+      </figure>
+
+      <section id="foreignObjectStudio">
+        <h2>Interactive SVG foreignObject Workbench &amp; Layout Sandbox</h2>
+        <p>Experiment with real-time HTML-in-SVG embedding, adjust bounding box dimensions, switch component presets, test browser compatibility modes, and export production-ready markup.</p>
+
+        <div class="interactive-sandbox">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              <span>SVG foreignObject Studio (#foreignObjectStudio)</span>
+            </div>
+            <span class="sandbox-badge">Live HTML-in-SVG Playground</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label>Embedded Component Preset</label>
+                <div class="preset-chips" id="foPresets">
+                  <button type="button" class="preset-chip active" data-preset="card">Interactive Data Card</button>
+                  <button type="button" class="preset-chip" data-preset="form">Form Input &amp; Action</button>
+                  <button type="button" class="preset-chip" data-preset="text">Auto-Wrapping Article</button>
+                  <button type="button" class="preset-chip" data-preset="metrics">Flexbox Metrics Grid</button>
+                </div>
+              </div>
+
+              <div class="control-row">
+                <label for="foWidthSlider">foreignObject Width: <span class="stat-num" id="foWidthVal">260px</span></label>
+                <input type="range" id="foWidthSlider" min="140" max="420" step="10" value="260" style="width:100%; accent-color:#C1DD2D;">
+              </div>
+
+              <div class="control-row">
+                <label for="foHeightSlider">foreignObject Height: <span class="stat-num" id="foHeightVal">160px</span></label>
+                <input type="range" id="foHeightSlider" min="80" max="220" step="5" value="160" style="width:100%; accent-color:#C1DD2D;">
+              </div>
+
+              <div class="control-row">
+                <label for="foZoomSlider">SVG Viewport Scale Factor: <span class="stat-num" id="foZoomVal">1.0×</span></label>
+                <input type="range" id="foZoomSlider" min="0.6" max="1.8" step="0.1" value="1.0" style="width:100%; accent-color:#C1DD2D;">
+              </div>
+
+              <div class="control-row">
+                <label for="browserCompatMode">Browser Rendering Engine Emulation</label>
+                <select id="browserCompatMode" style="background:#181818; color:#EEE; border:1px solid #333; padding:8px 12px; border-radius:6px; font-family:'JetBrains Mono', monospace;">
+                  <option value="modern" selected>Standard HTML5 Engine (Chrome, Firefox, Safari 18+)</option>
+                  <option value="safariFix">Safari Legacy Fix (translateZ + explicit attributes)</option>
+                  <option value="fallback">Pure SVG Fallback (Simulates disabled foreignObject)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container">
+                <div class="stage-viewport-box" id="stageViewportBox">
+                  <svg id="foStageSvg" class="stage-svg-element" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Blueprint Grids -->
+                    <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+                      <line x1="50" y1="0" x2="50" y2="320"/>
+                      <line x1="150" y1="0" x2="150" y2="320"/>
+                      <line x1="250" y1="0" x2="250" y2="320"/>
+                      <line x1="350" y1="0" x2="350" y2="320"/>
+                      <line x1="450" y1="0" x2="450" y2="320"/>
+                      <line x1="0" y1="50" x2="500" y2="50"/>
+                      <line x1="0" y1="150" x2="500" y2="150"/>
+                      <line x1="0" y1="250" x2="500" y2="250"/>
+                    </g>
+
+                    <!-- Connecting Vector Flowchart Arrows -->
+                    <path d="M60 160 L110 160" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 2"/>
+                    <circle cx="60" cy="160" r="16" fill="#141414" stroke="#C1DD2D" stroke-width="2"/>
+                    <text x="60" y="164" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#FFF">IN</text>
+
+                    <!-- The Embedded foreignObject Element -->
+                    <g id="foTransformGroup" transform="translate(120, 80)">
+                      <!-- Bounding Box Wireframe Indicator -->
+                      <rect id="foOutlineRect" x="0" y="0" width="260" height="160" fill="none" stroke="rgba(193,221,45,0.4)" stroke-width="1" stroke-dasharray="3 3"/>
+
+                      <foreignObject id="activeForeignObject" x="0" y="0" width="260" height="160">
+                        <div xmlns="http://www.w3.org/1999/xhtml" id="foInnerContent" class="fo-embedded-card">
+                          <div class="fo-card-header">
+                            <h4 class="fo-card-title">Telemetry Sensor 04</h4>
+                            <span class="fo-badge">ONLINE</span>
+                          </div>
+                          <p class="fo-card-body">Responsive HTML content auto-wrapping smoothly inside vector bounds without tspan math.</p>
+                          <div class="fo-input-row">
+                            <input type="text" class="fo-input" placeholder="Enter threshold..." value="98.4%"/>
+                            <button type="button" class="fo-btn">Apply</button>
+                          </div>
+                        </div>
+                      </foreignObject>
+
+                      <!-- Fallback Group (Shown only when emulating fallback) -->
+                      <g id="foFallbackGroup" display="none">
+                        <rect x="0" y="0" width="260" height="160" rx="8" fill="#1A1A1A" stroke="#C1DD2D" stroke-width="2"/>
+                        <text x="130" y="70" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Vector Fallback Active</text>
+                        <text x="130" y="95" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#888">HTML rendering unavailable</text>
+                      </g>
+                    </g>
+
+                    <path d="M390 160 L440 160" stroke="#60A5FA" stroke-width="2" stroke-dasharray="4 2"/>
+                    <circle cx="440" cy="160" r="16" fill="#141414" stroke="#60A5FA" stroke-width="2"/>
+                    <text x="440" y="164" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#FFF">OUT</text>
+                  </svg>
+                  <div class="viewport-meta-overlay" id="viewportMetaOverlay">viewBox: 0 0 500 320</div>
+                </div>
+              </div>
+
+              <div class="stroke-stats-box">
+                <div class="stat-item">
+                  <div class="stat-label">Bounds Area</div>
+                  <div class="stat-val highlight" id="boundsAreaVal">41,600 px²</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Aspect Ratio</div>
+                  <div class="stat-val" id="aspectRatioVal">1.63 : 1</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Namespace Status</div>
+                  <div class="stat-val highlight" id="namespaceStatusVal">XHTML Valid</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active" data-tab="xml">SVG + XHTML Markup</button>
+                <button type="button" class="code-tab-btn" data-tab="react">React / JSX Snippet</button>
+                <button type="button" class="code-tab-btn" data-tab="tailwind">Tailwind Card</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyForeignObjectCodeBtn">Copy Snippet</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="foreignObjectCodeOutput">&lt;!-- Clean foreignObject Component --&gt;</pre>
+          </div>
+        </div>
+      </section>
+
+      <section id="multiline-text-problem">
+        <h2>1. The Native SVG Text Crisis: Why &lt;text&gt; Cannot Auto-Wrap</h2>
+        <p>Scalable Vector Graphics was architected in 1999 primarily as an output format for vector illustration suites such as Adobe Illustrator and CorelDRAW. In classical desktop publishing, typography along curves was positioned with absolute mathematical coordinates for each glyph. Consequently, the native SVG 1.1 <code>&lt;text&gt;</code> element was never endowed with an automatic line-breaking, paragraph-flow, or word-wrap layout engine.</p>
+
+        <p>In standard HTML, you place text inside a <code>&lt;p&gt;</code> tag and set a <code>width</code>: the browser engine automatically parses word boundaries, measures glyph metrics against the font file, and wraps overflowing words to the next line dynamically when the viewport resizes. In native SVG 1.1, if a sentence exceeds the width of your icon artboard, it simply shoots straight off the edge into infinity:</p>
+
+        <pre><code class="language-html">&lt;!-- The Fragile Native SVG Multiline Antipattern --&gt;
+&lt;svg viewBox="0 0 300 200" width="300" height="200"&gt;
+  &lt;text x="20" y="40" font-family="sans-serif" font-size="14" fill="#FFF"&gt;
+    &lt;tspan x="20" dy="0"&gt;This is line one of a long sentence&lt;/tspan&gt;
+    &lt;tspan x="20" dy="20"&gt;that requires manual coordinate math&lt;/tspan&gt;
+    &lt;tspan x="20" dy="20"&gt;for every single line break...&lt;/tspan&gt;
+  &lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+
+        <p>Maintaining multi-line text using manual <code>&lt;tspan&gt;</code> tags is an engineering nightmare in production applications. If localized translation strings expand (e.g. German text expanding by 30% relative to English), the hardcoded line breaks shatter, causing text lines to collide or overflow container cards.</p>
+
+        <div class="takeaway-box">
+          <h3>The SVG 2 auto-wrap Tragedy</h3>
+          <p>The W3C SVG 2 working draft proposed adding CSS <code>white-space: normal</code> and <code>inline-size</code> wrapping properties directly to native <code>&lt;text&gt;</code> elements. However, due to browser engine implementation disagreements and differing text rendering architectures across Blink, WebKit, and Gecko, native SVG text auto-wrapping stalled for over a decade. Today, <strong>&lt;foreignObject&gt;</strong> remains the only universally supported, production-resilient solution for rich typography in SVG.</p>
+        </div>
+      </section>
+
+      <section id="foreignobject-anatomy-namespaces">
+        <h2>2. The Anatomy of &lt;foreignObject&gt;: Coordinates, Sizing &amp; Namespaces</h2>
+        <p>The <code>&lt;foreignObject&gt;</code> element is a specialized SVG container that instantiates an isolated foreign document context inside the vector coordinate pipeline. It acts as an embedded viewport rectangle, defined by four foundational presentation attributes:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Critical Architectural Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>x</code></td>
+                <td>Coordinate</td>
+                <td><code>0</code></td>
+                <td>Horizontal anchor offset within the parent SVG user coordinate system.</td>
+              </tr>
+              <tr>
+                <td><code>y</code></td>
+                <td>Coordinate</td>
+                <td><code>0</code></td>
+                <td>Vertical anchor offset within the parent SVG user coordinate system.</td>
+              </tr>
+              <tr>
+                <td><code>width</code></td>
+                <td>Length</td>
+                <td><strong>Required</strong></td>
+                <td>Defines the physical pixel boundary of the HTML layout viewport. Cannot be omitted.</td>
+              </tr>
+              <tr>
+                <td><code>height</code></td>
+                <td>Length</td>
+                <td><strong>Required</strong></td>
+                <td>Defines the vertical boundary of the HTML layout viewport. Cannot be omitted.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>The Crucial XML Namespace: xmlns="http://www.w3.org/1999/xhtml"</h3>
+        <p>When an SVG document is parsed in standard XML mode (such as when referenced as an external file, processed by headless Node.js workers, or rendered via an <code>&lt;object&gt;</code> tag), the browser's XML parser does not know what a <code>&lt;div&gt;</code> or <code>&lt;p&gt;</code> tag represents unless you explicitly map it to the XHTML namespace:</p>
+
+        <pre><code class="language-html">&lt;svg viewBox="0 0 400 300" width="400" height="300" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;!-- Correct XHTML Namespace Declaration --&gt;
+  &lt;foreignObject x="50" y="50" width="300" height="200"&gt;
+    &lt;div xmlns="http://www.w3.org/1999/xhtml" style="font-family: sans-serif; color: white;"&gt;
+      &lt;h3&gt;Autonomous Vector Node&lt;/h3&gt;
+      &lt;p&gt;This text automatically wraps naturally based on the 300px width attribute!&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/foreignObject&gt;
+&lt;/svg&gt;</code></pre>
+
+        <div class="warning-box">
+          <h4>Warning: Omitting xmlns in Standalone SVGs</h4>
+          <p>While the modern HTML5 parser (<code>text/html</code>) is forgiving when SVGs are inlined directly into an HTML document, omitting <code>xmlns="http://www.w3.org/1999/xhtml"</code> will instantly break rendering in standalone <code>.svg</code> files, Firefox SVG viewers, and server-side PDF rasterizers. Always declare the namespace explicitly on the first child HTML element.</p>
+        </div>
+      </section>
+
+      <section id="css-layout-embedding">
+        <h2>3. Embedding Modern CSS Layouts: Flexbox, CSS Grid &amp; Centering</h2>
+        <p>Once you step inside the boundary of a <code>&lt;foreignObject&gt;</code>, the full power of modern CSS layout engines becomes available. You are no longer restricted to rigid 2D coordinate calculations:</p>
+
+        <h3>Perfect Vector Centering via Flexbox</h3>
+        <p>In native SVG, centering text inside a circle or complex polygon requires measuring string length via <code>element.getComputedTextLength()</code>, calculating dominant baseline offsets, and adjusting coordinates. With <code>&lt;foreignObject&gt;</code>, centering is a two-line Flexbox declaration:</p>
+
+        <pre><code class="language-html">&lt;svg viewBox="0 0 200 200" width="200" height="200"&gt;
+  &lt;circle cx="100" cy="100" r="90" fill="#141414" stroke="#C1DD2D" stroke-width="4"/&gt;
+  &lt;foreignObject x="25" y="25" width="150" height="150"&gt;
+    &lt;div xmlns="http://www.w3.org/1999/xhtml"
+         style="width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; color:#FFF; font-family:'Inter', sans-serif;"&gt;
+      &lt;span style="font-size:24px; font-weight:800; color:#C1DD2D;"&gt;84%&lt;/span&gt;
+      &lt;span style="font-size:12px; color:#888;"&gt;Battery Health&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/foreignObject&gt;
+&lt;/svg&gt;</code></pre>
+
+        <h3>CSS Grid Dashboards Inside Vector Graphic Nodes</h3>
+        <p>For complex network architecture diagrams (such as cloud infrastructure maps or microservice monitors), each node in the SVG can host a responsive multi-column CSS Grid card displaying live CPU gauges, status pills, and toggle buttons.</p>
+      </section>
+
+      <section id="interactive-components-forms">
+        <h2>4. Rich Interactive Components: Forms, Buttons, Inputs &amp; Tailwind CSS</h2>
+        <p>A remarkable capability of <code>&lt;foreignObject&gt;</code> is its full support for active HTML form controls. Standard browser user-agent controls—including <code>&lt;input type="text"&gt;</code>, <code>&lt;input type="range"&gt;</code>, <code>&lt;select&gt;</code>, and <code>&lt;button&gt;</code>—function completely inside the vector scene:</p>
+
+        <ul>
+          <li>Users can click into text fields, select text, and trigger native keyboard composition.</li>
+          <li>Screen readers navigate through form controls using standard tab stops.</li>
+          <li>Form elements fire standard DOM <code>input</code>, <code>change</code>, and <code>submit</code> events that bubble up into your application frameworks.</li>
+        </ul>
+
+        <h3>Tailwind CSS Integration inside Inline SVG</h3>
+        <p>Because inline SVG participates directly in the HTML document's CSS cascade, Tailwind utility classes work out of the box inside <code>&lt;foreignObject&gt;</code>:</p>
+
+        <pre><code class="language-html">&lt;svg viewBox="0 0 600 400" class="w-full h-auto bg-slate-950"&gt;
+  &lt;foreignObject x="50" y="50" width="300" height="180"&gt;
+    &lt;div xmlns="http://www.w3.org/1999/xhtml"
+         class="p-4 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl flex flex-col justify-between h-full"&gt;
+      &lt;div class="flex items-center justify-between"&gt;
+        &lt;span class="text-xs font-bold text-lime-400 uppercase tracking-wider"&gt;Microservice A&lt;/span&gt;
+        &lt;span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;p class="text-sm text-slate-300 leading-snug"&gt;Auto-scaling pod deployed in us-east-1 handling 14.2k req/sec.&lt;/p&gt;
+      &lt;button class="w-full py-1.5 bg-lime-400 text-slate-950 font-bold text-xs rounded hover:bg-lime-300 transition"&gt;
+        Restart Container
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/foreignObject&gt;
+&lt;/svg&gt;</code></pre>
+      </section>
+
+      <section id="safari-webkit-quirks-fixes">
+        <h2>5. The Notorious Safari / WebKit Bugs &amp; Production Workarounds</h2>
+        <p>While <code>&lt;foreignObject&gt;</code> renders flawlessly in Google Chrome and Mozilla Firefox, Apple's WebKit rendering engine (Safari desktop and iOS Mobile Safari) has historically exhibited several critical bugs. Failing to account for these issues will result in broken, invisible components for Apple users.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Safari / WebKit Defect</th>
+                <th>Symptom</th>
+                <th>Underlying Cause</th>
+                <th>Battle-Tested Production Fix</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Zero-Dimension Collapse</strong></td>
+                <td>HTML vanishes completely (0×0px)</td>
+                <td>Dimensions set only in CSS stylesheets</td>
+                <td>Always set explicit XML <code>width</code> and <code>height</code> attributes on <code>&lt;foreignObject&gt;</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>Transform Animation Dropped Frame</strong></td>
+                <td>HTML stays static while parent SVG group transforms</td>
+                <td>WebKit compositor desynchronization</td>
+                <td>Apply <code>transform: translateZ(0);</code> or <code>will-change: transform;</code> to the child HTML container.</td>
+              </tr>
+              <tr>
+                <td><strong>Overflow Hidden Clipping Glitch</strong></td>
+                <td>HTML elements clipped prematurely</td>
+                <td>Subpixel rounding in WebKit overflow bounds</td>
+                <td>Declare <code>overflow: visible;</code> explicitly on <code>&lt;foreignObject&gt;</code> and wrap in inner <code>&lt;div&gt;</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>iOS Tap Latency &amp; Focus Lag</strong></td>
+                <td>Inputs unresponsive to first tap</td>
+                <td>Synthetic click delay in mobile SVG contexts</td>
+                <td>Add <code>touch-action: manipulation;</code> to the root SVG and embedded container.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula-card">
+          <div class="formula-title">The Universal Safari-Resilient foreignObject Boilerplate</div>
+          <div class="formula-body">
+&lt;foreignObject x="X" y="Y" width="W" height="H" style="overflow: visible;"&gt;<br>
+&nbsp;&nbsp;&lt;div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%; transform: translateZ(0); -webkit-transform: translateZ(0);"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Embedded HTML Content --&gt;<br>
+&nbsp;&nbsp;&lt;/div&gt;<br>
+&lt;/foreignObject&gt;
+          </div>
+          <div class="formula-desc">The combination of explicit XML attributes, overflow: visible on the foreignObject, and hardware acceleration on the child div prevents 99.8% of WebKit rendering anomalies.</div>
+        </div>
+      </section>
+
+      <section id="canvas-rasterization-barrier">
+        <h2>6. The Canvas Rasterization Security Barrier: Tainted Canvas &amp; drawImage() Restrictions</h2>
+        <p>A frequent architectural pitfall occurs when frontend engineers attempt to convert an SVG containing <code>&lt;foreignObject&gt;</code> into a downloadable PNG image using an HTML5 <code>&lt;canvas&gt;</code>:</p>
+
+        <pre><code class="language-javascript">// The Naive Canvas Rasterization Antipattern
+const svgString = new XMLSerializer().serializeToString(svgElement);
+const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+const url = URL.createObjectURL(blob);
+
+const img = new Image();
+img.onload = () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 800;
+  canvas.height = 600;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+
+  // CRITICAL FAILURE: Throws DOMException: The operation is insecure!
+  const pngDataUrl = canvas.toDataURL('image/png');
+};
+img.src = url;</code></pre>
+
+        <h3>Why the Browser Permanently Taints the Canvas</h3>
+        <p>Browser security engineers designed the Canvas 2D sandbox to prevent cross-origin data theft. If arbitrary HTML could be rendered into a canvas and extracted via <code>toDataURL()</code> or <code>getImageData()</code>, a malicious script could inject HTML containing user cookies, private intranet pages, or cross-origin iframes and read back raw pixel data.</p>
+
+        <p>Consequently, all major browser engines enforce a strict security policy: <strong>Drawing an SVG containing &lt;foreignObject&gt; into a canvas permanently taints the context in WebKit and Chromium</strong>, and in Gecko (Firefox), <code>drawImage()</code> may fail to render the foreignObject entirely.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Alternative Export Architecture</th>
+                <th>Client or Server</th>
+                <th>Tainted Canvas Risk</th>
+                <th>Rendering Fidelity</th>
+                <th>Recommended Production Use</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>modern-screenshot / html-to-image</strong></td>
+                <td>Client-side (DOM clone)</td>
+                <td>Bypasses taint via SVG foreignObject serialization</td>
+                <td>High (95% CSS fidelity)</td>
+                <td>Quick client-side image downloads</td>
+              </tr>
+              <tr>
+                <td><strong>Native SVG &lt;text&gt; Replacement</strong></td>
+                <td>Client-side (Pure vector)</td>
+                <td>Zero (Never taints canvas)</td>
+                <td>Flawless (100% vector fidelity)</td>
+                <td>High-volume automated image generation</td>
+              </tr>
+              <tr>
+                <td><strong>Server-Side Puppeteer / Playwright</strong></td>
+                <td>Server-side (Headless Chrome)</td>
+                <td>Zero (Full page screenshot)</td>
+                <td>Perfect (Identical to desktop Chrome)</td>
+                <td>Mission-critical PDF and PNG exports</td>
+              </tr>
+              <tr>
+                <td><strong>Sharp / Resvg Node.js Pipeline</strong></td>
+                <td>Server-side (Native C++ / Rust)</td>
+                <td>N/A (Fails on foreignObject)</td>
+                <td>Zero for foreignObject (Unsupported)</td>
+                <td>Pure SVG paths only (Do not use with foreignObject)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="diagramming-architecture">
+        <h2>7. Production Case Study: Flowcharts &amp; Diagramming Architecture (Mermaid &amp; React Flow)</h2>
+        <p>The premier modern application of SVG <code>&lt;foreignObject&gt;</code> is in cloud architecture diagramming tools, workflow graph editors, and data pipeline builders such as <strong>Mermaid.js</strong>, <strong>React Flow</strong>, and <strong>JointJS</strong>.</p>
+
+        <p>In these systems, vector paths are utilized for dynamic connector lines, orthogonal routing curves, and animated arrowheads. However, the diagram nodes themselves are authored inside <code>&lt;foreignObject&gt;</code> elements. This architecture provides the ideal division of labor:</p>
+
+        <ul>
+          <li><strong>SVG Engine:</strong> Handles mathematical Bézier curve routing, arrow marker caps, zooming, and pan transforms.</li>
+          <li><strong>HTML/CSS Engine:</strong> Handles node UI, rounded corners, user avatars, real-time status badges, form inputs, and dynamic multi-line label wrapping.</li>
+        </ul>
+
+        <pre><code class="language-jsx">// React Flow Architectural Paradigm: Custom Vector Node
+export const DatabaseNode = ({ data }) => {
+  return (
+    &lt;g transform={`translate(${data.x}, ${data.y})`}&gt;
+      {/* Underlying Vector Glow */}
+      &lt;rect width="220" height="110" rx="12" fill="#0E1007" stroke="#C1DD2D" strokeWidth="2" /&gt;
+      
+      {/* Rich Embedded React UI */}
+      &lt;foreignObject x="0" y="0" width="220" height="110"&gt;
+        &lt;div xmlns="http://www.w3.org/1999/xhtml" className="p-3 flex flex-col justify-between h-full text-white"&gt;
+          &lt;div className="flex items-center gap-2"&gt;
+            &lt;DatabaseIcon className="w-4 h-4 text-lime-400" /&gt;
+            &lt;span className="font-bold text-sm"&gt;{data.clusterName}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div className="text-xs text-gray-400"&gt;
+            Queries: &lt;span className="text-lime-400 font-mono"&gt;{data.qps} QPS&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div className="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden"&gt;
+            &lt;div className="bg-lime-400 h-full" style={{ width: `${data.cpuUsage}%` }} /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/foreignObject&gt;
+    &lt;/g&gt;
+  );
+};</code></pre>
+      </section>
+
+      <section id="accessibility-wcag-foreignobject">
+        <h2>8. Accessibility, Screen Readers &amp; Focus Management in Embedded HTML</h2>
+        <p>Embedding HTML inside SVG presents unique accessibility benefits compared to pure vector graphics. Assistive technology (such as NVDA, JAWS, and Apple VoiceOver) can natively parse semantic HTML tags (<code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>) inside <code>&lt;foreignObject&gt;</code> far more reliably than complex ARIA configurations on raw SVG shapes.</p>
+
+        <h3>Accessibility Best Practices</h3>
+        <ul>
+          <li><strong>Role Management:</strong> Declare <code>role="group"</code> or <code>role="region"</code> on the parent SVG and assign descriptive <code>aria-label</code> tags to distinguish vector containers from embedded interactive cards.</li>
+          <li><strong>Focus Order:</strong> Keyboard navigation naturally tabs through HTML form controls inside <code>&lt;foreignObject&gt;</code> in standard DOM order. Ensure visual focus rings (<code>outline</code>, <code>ring</code>) are not clipped by the <code>&lt;foreignObject&gt;</code> boundaries.</li>
+          <li><strong>Color Contrast:</strong> Text inside embedded cards must satisfy WCAG 2.2 Level AA contrast requirements (&gt; 4.5:1 against card backgrounds) in both dark and light modes.</li>
+        </ul>
+      </section>
+
+      <section id="security-injection-sanitization">
+        <h2>9. Security Architecture: Sanitizing Untrusted HTML Inside SVG foreignObject</h2>
+        <p>Because <code>&lt;foreignObject&gt;</code> hosts a live HTML execution environment, dynamically generating SVG diagrams from user input (such as rendering user-submitted markdown or graph definitions) poses severe Cross-Site Scripting (XSS) risks.</p>
+
+        <p>An attacker can inject arbitrary script tags, event handlers, or credential-stealing iframes directly into the embedded HTML payload. Always filter untrusted input with a hardened DOMPurify pipeline:</p>
+
+        <pre><code class="language-javascript">import DOMPurify from 'dompurify';
+
+function createSafeForeignObjectCard(untrustedHtml) {
+  // Configure DOMPurify to permit safe HTML formatting while blocking dangerous tags
+  const sanitizedHtml = DOMPurify.sanitize(untrustedHtml, {
+    ALLOWED_TAGS: ['div', 'span', 'p', 'h4', 'h5', 'strong', 'em', 'code', 'pre'],
+    ALLOWED_ATTR: ['class', 'style'],
+    FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form'],
+    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover']
+  });
+
+  return `
+    &lt;foreignObject x="20" y="20" width="280" height="140"&gt;
+      &lt;div xmlns="http://www.w3.org/1999/xhtml" class="safe-card"&gt;
+        ${sanitizedHtml}
+      &lt;/div&gt;
+    &lt;/foreignObject&gt;
+  `;
+}</code></pre>
+      </section>
+
+      <section id="comparison-architecture-table">
+        <h2>10. Architectural Comparison: foreignObject vs. Native SVG vs. HTML Overlays</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Criteria</th>
+                <th>SVG &lt;foreignObject&gt;</th>
+                <th>Native SVG &lt;text&gt; &amp; Paths</th>
+                <th>Absolute HTML Overlay</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Auto Text Wrapping</strong></td>
+                <td>Native CSS word wrap</td>
+                <td>Manual <code>&lt;tspan&gt;</code> math required</td>
+                <td>Native CSS word wrap</td>
+              </tr>
+              <tr>
+                <td><strong>CSS Layout Support</strong></td>
+                <td>Full Flexbox &amp; Grid</td>
+                <td>None (Absolute coordinate layout)</td>
+                <td>Full Flexbox &amp; Grid</td>
+              </tr>
+              <tr>
+                <td><strong>Coordinate Transformation</strong></td>
+                <td>Scales and pans with SVG viewBox</td>
+                <td>Scales and pans with SVG viewBox</td>
+                <td>Requires manual JS sync via <code>getScreenCTM()</code></td>
+              </tr>
+              <tr>
+                <td><strong>Canvas 2D Export</strong></td>
+                <td>Taints canvas in Blink/WebKit</td>
+                <td>100% Safe (No taint)</td>
+                <td>Cannot be rendered via SVG canvas</td>
+              </tr>
+              <tr>
+                <td><strong>Safari Quirks</strong></td>
+                <td>Requires explicit attributes &amp; translateZ</td>
+                <td>Zero quirks</td>
+                <td>Zero quirks</td>
+              </tr>
+              <tr>
+                <td><strong>Standalone File Support</strong></td>
+                <td>Yes (with xmlns=".../xhtml")</td>
+                <td>Yes</td>
+                <td>No (HTML only)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      
+      <section id="font-loading-base64-fout">
+        <h2>11. Web Font Loading, FOUT &amp; Base64 Font Inlining in foreignObject</h2>
+        <p>A frequent production defect encountered when embedding HTML typography inside an SVG is the Flash of Unstyled Text (FOUT) or complete font fallback failure. When an SVG graphic is rendered as an isolated document or rasterized, external font requests via <code>&lt;link rel="stylesheet"&gt;</code> or <code>@import url(...)</code> are blocked by the browser's security sandbox.</p>
+
+        <h3>Why Standard @import Fails in Isolated SVG</h3>
+        <p>Under W3C security policies, an SVG document loaded in an isolated image context cannot make secondary network requests to external font servers (such as Google Fonts or Adobe Typekit). When the SVG engine encounters <code>font-family: 'Inter', sans-serif</code>, it silently falls back to the system's default serif or sans-serif font (such as Times New Roman or Arial), shattering your card layouts and causing text overflows.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">The Base64 WOFF2 Inlining Pattern</div>
+          <div class="formula-body">
+@font-face {<br>
+&nbsp;&nbsp;font-family: 'Inter';<br>
+&nbsp;&nbsp;font-weight: 700;<br>
+&nbsp;&nbsp;font-style: normal;<br>
+&nbsp;&nbsp;src: url('data:font/woff2;base64,d09GMgABAAAAAA...') format('woff2');<br>
+}
+          </div>
+          <div class="formula-desc">Inlining a compressed WOFF2 font directly as a Base64 data URI inside an internal &lt;style&gt; block guarantees 100% deterministic, zero-latency font rendering across all browser and server rasterizers.</div>
+        </div>
+
+        <pre><code class="language-html">&lt;svg viewBox="0 0 500 300" width="500" height="300" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;defs&gt;
+    &lt;style&gt;
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        src: url('data:font/woff2;base64,d09GRgABAAAAA...') format('woff2');
+      }
+      .custom-card {
+        font-family: 'Inter', system-ui, sans-serif;
+        font-weight: 600;
+      }
+    &lt;/style&gt;
+  &lt;/defs&gt;
+  &lt;foreignObject x="50" y="50" width="400" height="200"&gt;
+    &lt;div xmlns="http://www.w3.org/1999/xhtml" class="custom-card"&gt;
+      &lt;h3 style="color:#C1DD2D;"&gt;Zero-Latency Custom Typography&lt;/h3&gt;
+      &lt;p style="color:#E5E5E5;"&gt;Renders perfectly even when network access is severed.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/foreignObject&gt;
+&lt;/svg&gt;</code></pre>
+      </section>
+
+      <section id="container-queries-foreignobject">
+        <h2>12. CSS Container Queries inside foreignObject: Autonomous Responsive Vector Cards</h2>
+        <p>Before the arrival of CSS Container Queries, styling HTML components inside an SVG was hampered by viewport coupling. Standard CSS Media Queries (<code>@media (min-width: 768px)</code>) inspect the dimensions of the entire browser window, completely unaware of whether your SVG diagram is rendered in a full-screen hero canvas or a tiny 250px sidebar widget.</p>
+
+        <p>With modern <strong>CSS Container Queries</strong>, the embedded HTML card responds directly to the size of its parent <code>&lt;foreignObject&gt;</code>, enabling truly self-contained, autonomous components that adapt their internal layout based on vector zoom levels:</p>
+
+        <pre><code class="language-html">&lt;svg viewBox="0 0 800 600" width="100%" height="auto"&gt;
+  &lt;foreignObject x="100" y="100" width="360" height="220" style="overflow: visible;"&gt;
+    &lt;div xmlns="http://www.w3.org/1999/xhtml" class="card-container"&gt;
+      &lt;div class="responsive-node-card"&gt;
+        &lt;div class="node-icon"&gt;🚀&lt;/div&gt;
+        &lt;div class="node-meta"&gt;
+          &lt;h4 class="node-title"&gt;Autonomous Microservice&lt;/h4&gt;
+          &lt;p class="node-desc"&gt;Switches between compact badge and full telemetry card.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/foreignObject&gt;
+&lt;/svg&gt;
+
+&lt;style&gt;
+  /* Declare container context on the root HTML wrapper */
+  .card-container {
+    container-type: inline-size;
+    width: 100%;
+    height: 100%;
+  }
+
+  .responsive-node-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: #141414;
+    border: 1px solid #333;
+    border-radius: 8px;
+  }
+
+  /* Compact View: When foreignObject width is under 220px */
+  @container (max-width: 220px) {
+    .responsive-node-card {
+      flex-direction: row;
+      align-items: center;
+      padding: 6px 10px;
+    }
+    .node-desc {
+      display: none; /* Hide detailed paragraph in compact view */
+    }
+    .node-title {
+      font-size: 11px;
+    }
+  }
+
+  /* Expanded View: When foreignObject width exceeds 320px */
+  @container (min-width: 320px) {
+    .responsive-node-card {
+      padding: 16px;
+      gap: 12px;
+    }
+    .node-title {
+      font-size: 15px;
+      color: #C1DD2D;
+    }
+  }
+&lt;/style&gt;</code></pre>
+      </section>
+
+      <section id="headless-pdf-server-rendering">
+        <h2>13. Server-Side Rendering &amp; Headless PDF Pipelines (Puppeteer vs. Resvg)</h2>
+        <p>In automated document generation pipelines (such as generating enterprise architecture reports, invoices, or vector analytics summaries), engineering teams frequently need to convert SVGs containing <code>&lt;foreignObject&gt;</code> into print-quality PDF files or high-resolution PNGs.</p>
+
+        <h3>The Native C++ / Rust Rasterizer Breakdown</h3>
+        <p>High-performance backend SVG rasterizers such as <strong>librsvg</strong>, <strong>resvg</strong>, and <strong>ImageMagick</strong> are built in C++ or Rust to rapidly convert vector geometry into pixel buffers. However, none of these native libraries contain an embedded HTML5 rendering engine (Blink/WebKit). When fed an SVG containing <code>&lt;foreignObject&gt;</code>, native rasterizers either crash, throw unsupported element errors, or render the foreignObject as an empty transparent rectangle!</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Backend Pipeline</th>
+                <th>Underlying Technology</th>
+                <th>&lt;foreignObject&gt; Support</th>
+                <th>Throughput &amp; Speed</th>
+                <th>Recommended Deployment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sharp (Node.js) / librsvg</strong></td>
+                <td>Native C++ librsvg</td>
+                <td>Unsupported (Silently ignored)</td>
+                <td>Ultra-fast (~15ms)</td>
+                <td>Pure SVG paths only (No HTML)</td>
+              </tr>
+              <tr>
+                <td><strong>resvg / resvg-js</strong></td>
+                <td>Native Rust</td>
+                <td>Unsupported (Ignored by design)</td>
+                <td>Ultra-fast (~10ms)</td>
+                <td>Pure SVG icons and charts</td>
+              </tr>
+              <tr>
+                <td><strong>Headless Chrome (Puppeteer)</strong></td>
+                <td>Full Blink &amp; V8 Engine</td>
+                <td><strong>100% Full Support</strong></td>
+                <td>Moderate (~250ms)</td>
+                <td>Production PDF and PNG generation</td>
+              </tr>
+              <tr>
+                <td><strong>Playwright (Chromium/Firefox)</strong></td>
+                <td>Full Browser Runtime</td>
+                <td><strong>100% Full Support</strong></td>
+                <td>Moderate (~220ms)</td>
+                <td>Automated visual regression testing</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Production Headless Chrome Export Script</h3>
+        <p>To generate flawless PDF or PNG assets from SVGs containing embedded HTML cards, utilize Puppeteer with high-DPI device scale factors:</p>
+
+        <pre><code class="language-javascript">// Node.js Serverless Function: High-Fidelity SVG foreignObject Exporter
+const puppeteer = require('puppeteer');
+
+async function exportSvgWithHtmlToPng(svgMarkup, outputPath) {
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--font-render-hinting=none']
+  });
+
+  const page = await browser.newPage();
+  // Set retina 2x scale for ultra-crisp rasterization
+  await page.setViewport({ width: 1200, height: 800, deviceScaleFactor: 2 });
+
+  // Wrap SVG in a minimal HTML envelope
+  const htmlEnvelope = `
+    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;style&gt;
+          body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+          svg { display: block; }
+        &lt;/style&gt;
+      &lt;/head&gt;
+      &lt;body&gt;${svgMarkup}&lt;/body&gt;
+    &lt;/html&gt;
+  `;
+
+  await page.setContent(htmlEnvelope, { waitUntil: 'networkidle0' });
+
+  const svgElement = await page.$('svg');
+  await svgElement.screenshot({
+    path: outputPath,
+    type: 'png',
+    omitBackground: true
+  });
+
+  await browser.close();
+  console.log(`Successfully exported diagram to: ${outputPath}`);
+}</code></pre>
+      </section>
+
+      <section id="layering-zindex-stacking">
+        <h2>14. Stacking Contexts and z-index: Layering Vectors with HTML Overlays</h2>
+        <p>In standard HTML, the visual layering order of overlapping elements is controlled by the CSS <code>z-index</code> property combined with <code>position: relative</code> or <code>position: absolute</code>. In native SVG 1.1, however, <strong>z-index does not exist</strong>. Elements are rendered strictly in DOM tree order: elements defined later in the XML markup paint on top of elements defined earlier.</p>
+
+        <p>When you introduce <code>&lt;foreignObject&gt;</code>, browser compositors must reconcile two competing rendering paradigms:</p>
+
+        <ul>
+          <li><strong>The SVG Stacking Context:</strong> The <code>&lt;foreignObject&gt;</code> element itself adheres to SVG tree order relative to sibling vector paths (e.g. connector lines placed before the foreignObject will render behind it; lines placed after will paint over it).</li>
+          <li><strong>The Internal HTML Stacking Context:</strong> Inside the <code>&lt;foreignObject&gt;</code>, child HTML elements participate in a standard CSS stacking context where <code>z-index</code>, <code>opacity</code>, and <code>transform</code> work normally.</li>
+        </ul>
+
+        <pre><code class="language-html">&lt;svg viewBox="0 0 500 300" width="500" height="300"&gt;
+  &lt;!-- Layer 1: Background Vector Connector Lines (Underneath) --&gt;
+  &lt;path d="M50 150 L450 150" stroke="#333" stroke-width="4"/&gt;
+
+  &lt;!-- Layer 2: Embedded HTML Component Card --&gt;
+  &lt;foreignObject x="150" y="50" width="200" height="200"&gt;
+    &lt;div xmlns="http://www.w3.org/1999/xhtml" style="background: #141414; padding: 16px; border-radius: 8px;"&gt;
+      &lt;h4 style="color:#FFF;"&gt;Central Node&lt;/h4&gt;
+      &lt;p style="color:#888;"&gt;Paints above background lines but beneath foreground indicators.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/foreignObject&gt;
+
+  &lt;!-- Layer 3: Foreground Vector Status Ring (Paints on top of HTML card) --&gt;
+  &lt;circle cx="250" cy="50" r="12" fill="#C1DD2D" stroke="#0A0A0A" stroke-width="2"/&gt;
+&lt;/svg&gt;</code></pre>
+      </section>
+
+      <section id="microfrontends-shadowdom">
+        <h2>15. Micro-Frontends &amp; Web Components inside Vector foreignObject</h2>
+        <p>Enterprise applications frequently leverage custom elements and the <strong>Shadow DOM</strong> to isolate widget logic. Because <code>&lt;foreignObject&gt;</code> instantiates a live HTML document context, developers can mount full Autonomous Custom Elements (Web Components) inside vector graphic canvas nodes:</p>
+
+        <pre><code class="language-javascript">// Mounting Autonomous Web Component inside SVG foreignObject
+class TelemetryBadgeElement extends HTMLElement {
+  connectedCallback() {
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.innerHTML = `
+      &lt;style&gt;
+        :host { display: block; font-family: system-ui, sans-serif; }
+        .badge { background: #181E07; border: 1px solid #C1DD2D; color: #C1DD2D; border-radius: 6px; padding: 8px 12px; }
+        .val { font-size: 16px; font-weight: 800; }
+      &lt;/style&gt;
+      &lt;div class="badge"&gt;
+        &lt;div&gt;LATENCY&lt;/div&gt;
+        &lt;div class="val"&gt;0.84ms&lt;/div&gt;
+      &lt;/div&gt;
+    `;
+  }
+}
+customElements.define('telemetry-badge', TelemetryBadgeElement);</code></pre>
+
+        <p>Events dispatched from within the Shadow DOM with <code>composed: true</code> bubble cleanly through the <code>&lt;foreignObject&gt;</code> and up through the parent <code>&lt;svg&gt;</code> container, allowing global SVG event listeners to coordinate application state.</p>
+      </section>
+
+      <section id="frequently-asked-questions">
+        <h2>16. Frequently Asked Questions Regarding SVG foreignObject</h2>
+        <div class="faq-item">
+          <h3>What is the primary purpose of the SVG &lt;foreignObject&gt; element?</h3>
+          <p>The &lt;foreignObject&gt; element allows developers to embed external XML namespaces—most commonly HTML5 and CSS3—directly within an SVG graphical document. This solves the long-standing limitation of SVG native text (which cannot automatically wrap across multiple lines without manual coordinate math) by enabling modern CSS Flexbox, CSS Grid, form inputs, dynamic text wrapping, and custom web components inside vector canvas boundaries.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Why is the xmlns="http://www.w3.org/1999/xhtml" namespace required inside &lt;foreignObject&gt;?</h3>
+          <p>In standalone SVG files parsed by XML parsers (or when SVG is loaded via &lt;object&gt; or &lt;iframe&gt;), the browser does not recognize standard HTML tags like &lt;div&gt; or &lt;p&gt; unless they are explicitly declared within the XHTML namespace using xmlns='http://www.w3.org/1999/xhtml'. While modern HTML5 parsers tolerate omission in inline SVG, omitting the namespace causes standalone vector files and rasterization engines to fail to render child HTML content.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Why does &lt;foreignObject&gt; collapse or disappear in Safari / WebKit?</h3>
+          <p>Safari and WebKit have historical rendering bugs where &lt;foreignObject&gt; collapses to 0x0 pixels if width and height are declared only in CSS stylesheets rather than explicit SVG presentation attributes. Furthermore, Safari can drop GPU repaints when parent &lt;g&gt; elements apply CSS transform transitions. To resolve this, always specify explicit width and height attributes directly on the &lt;foreignObject&gt; tag and add transform: translateZ(0) to promote the embedded HTML to a distinct compositing layer.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Why does rendering an SVG with &lt;foreignObject&gt; taint an HTML5 Canvas?</h3>
+          <p>For security reasons, browser sandboxes strictly enforce the Same-Origin Policy during Canvas 2D rasterization. Because HTML inside &lt;foreignObject&gt; can contain external styles, local storage scripts, or cross-origin assets, browser engines (Blink, Gecko, WebKit) permanently flag the canvas as 'tainted' whenever an SVG containing &lt;foreignObject&gt; is drawn via ctx.drawImage(). Calling canvas.toDataURL() or canvas.getImageData() subsequently throws a SecurityError to prevent visual data exfiltration.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can you use Tailwind CSS and modern web components inside an SVG foreignObject?</h3>
+          <p>Yes. When an SVG is embedded inline within an HTML document, HTML elements inside &lt;foreignObject&gt; inherit the host page's global CSS stylesheets, CSS custom properties, and Tailwind utility classes (such as flex, rounded-xl, bg-slate-900, text-white). However, in standalone SVG files, all styles must be bundled inside an internal &lt;style&gt; block.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the best alternative to &lt;foreignObject&gt; when exporting diagrams to PNG or PDF?</h3>
+          <p>When generating downloadable PNG images or print PDFs where Canvas taint restrictions or headless browser foreignObject support is problematic, developers can either: (1) use libraries like html2canvas or modern-screenshot that reconstruct DOM nodes directly into canvas bitmaps, (2) pre-wrap text into native SVG &lt;text&gt; elements with computed &lt;tspan dy='...'&gt; line breaks, or (3) render the SVG on a server-side Node.js worker using headless Chrome (Puppeteer) or Sharp.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">Table of Contents</div>
+        <nav class="toc-nav">
+          <ol>
+            <li><a href="#foreignObjectStudio">Interactive foreignObject Studio</a></li>
+            <li><a href="#multiline-text-problem">1. The Native SVG Text Crisis</a></li>
+            <li><a href="#foreignobject-anatomy-namespaces">2. foreignObject Anatomy &amp; Namespaces</a></li>
+            <li><a href="#css-layout-embedding">3. Flexbox, Grid &amp; Centering</a></li>
+            <li><a href="#interactive-components-forms">4. Forms, Inputs &amp; Tailwind</a></li>
+            <li><a href="#safari-webkit-quirks-fixes">5. Safari &amp; WebKit Workarounds</a></li>
+            <li><a href="#canvas-rasterization-barrier">6. Canvas Security &amp; Tainted State</a></li>
+            <li><a href="#diagramming-architecture">7. Flowcharts &amp; Diagram Architecture</a></li>
+            <li><a href="#accessibility-wcag-foreignobject">8. WCAG Accessibility &amp; Screen Readers</a></li>
+            <li><a href="#security-injection-sanitization">9. Security &amp; XSS Sanitization</a></li>
+            <li><a href="#comparison-architecture-table">10. Architectural Comparison</a></li>
+            <li><a href="#font-loading-base64-fout">11. Web Fonts &amp; Base64 Inlining</a></li>
+            <li><a href="#container-queries-foreignobject">12. CSS Container Queries in SVG</a></li>
+            <li><a href="#headless-pdf-server-rendering">13. Headless PDF &amp; Server Export</a></li>
+            <li><a href="#layering-zindex-stacking">14. Stacking Contexts &amp; Layering</a></li>
+            <li><a href="#microfrontends-shadowdom">15. Web Components &amp; Shadow DOM</a></li>
+            <li><a href="#frequently-asked-questions">16. Frequently Asked Questions</a></li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="cta-sidebar-box">
+        <h4>134K+ Free SVG Icons</h4>
+        <p>Explore, customize, and export pixel-perfect, interactive open-source SVG icons with zero login on IconStash.</p>
+        <a href="/#/" class="cta-sidebar-btn">Search Icon Library</a>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>&copy; 2026 <a href="/">IconStash</a>. Engineered by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. All 134,701 vector icons curated from open-source libraries.</p>
+</footer>
+
+<script>
+  // Theme Persistence & Toggle
+  (function() {
+    var theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    var btn = document.getElementById('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    }
+  })();
+
+  // Interactive foreignObject Studio Logic
+  (function() {
+    const activeForeignObject = document.getElementById('activeForeignObject');
+    const foOutlineRect = document.getElementById('foOutlineRect');
+    const foInnerContent = document.getElementById('foInnerContent');
+    const foTransformGroup = document.getElementById('foTransformGroup');
+    const foFallbackGroup = document.getElementById('foFallbackGroup');
+
+    const foWidthSlider = document.getElementById('foWidthSlider');
+    const foWidthVal = document.getElementById('foWidthVal');
+    const foHeightSlider = document.getElementById('foHeightSlider');
+    const foHeightVal = document.getElementById('foHeightVal');
+    const foZoomSlider = document.getElementById('foZoomSlider');
+    const foZoomVal = document.getElementById('foZoomVal');
+    const browserCompatMode = document.getElementById('browserCompatMode');
+
+    const boundsAreaVal = document.getElementById('boundsAreaVal');
+    const aspectRatioVal = document.getElementById('aspectRatioVal');
+    const namespaceStatusVal = document.getElementById('namespaceStatusVal');
+
+    const foreignObjectCodeOutput = document.getElementById('foreignObjectCodeOutput');
+    const copyForeignObjectCodeBtn = document.getElementById('copyForeignObjectCodeBtn');
+    const presetButtons = document.querySelectorAll('#foPresets button');
+    const codeTabButtons = document.querySelectorAll('.code-tab-btn');
+
+    let currentPreset = 'card';
+    let currentCodeTab = 'xml';
+
+    const presets = {
+      card: `
+        <div class="fo-card-header">
+          <h4 class="fo-card-title">Telemetry Sensor 04</h4>
+          <span class="fo-badge">ONLINE</span>
+        </div>
+        <p class="fo-card-body">Responsive HTML content auto-wrapping smoothly inside vector bounds without tspan math.</p>
+        <div class="fo-input-row">
+          <input type="text" class="fo-input" placeholder="Enter threshold..." value="98.4%"/>
+          <button type="button" class="fo-btn">Apply</button>
+        </div>`,
+      form: `
+        <div class="fo-card-header">
+          <h4 class="fo-card-title">Cluster Authentication</h4>
+          <span class="fo-badge">SECURE</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px; margin:4px 0;">
+          <input type="text" class="fo-input" placeholder="Service Account..." value="sa-worker-prod"/>
+          <input type="password" class="fo-input" placeholder="Access Token..." value="••••••••••••"/>
+        </div>
+        <button type="button" class="fo-btn" style="width:100%;">Authorize Pod</button>`,
+      text: `
+        <div class="fo-card-header">
+          <h4 class="fo-card-title">Dynamic Vector Typography</h4>
+          <span class="fo-badge">TEXT-WRAP</span>
+        </div>
+        <p class="fo-card-body" style="font-size:11px; line-height:1.5;">
+          Unlike native SVG &lt;text&gt; elements that clip or overflow without manual calculation, &lt;foreignObject&gt; paragraphs flow naturally, respecting padding, font ligatures, and dynamic container resizes.
+        </p>`,
+      metrics: `
+        <div class="fo-card-header">
+          <h4 class="fo-card-title">Realtime Metrics</h4>
+          <span class="fo-badge">60 FPS</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:auto 0;">
+          <div style="background:#111; padding:6px; border-radius:4px; text-align:center;">
+            <div style="font-size:10px; color:#888;">LATENCY</div>
+            <div style="font-size:13px; font-weight:800; color:#C1DD2D;">1.2ms</div>
+          </div>
+          <div style="background:#111; padding:6px; border-radius:4px; text-align:center;">
+            <div style="font-size:10px; color:#888;">THROUGHPUT</div>
+            <div style="font-size:13px; font-weight:800; color:#60A5FA;">4.8k/s</div>
+          </div>
+        </div>`
+    };
+
+    function updateStudio() {
+      const w = parseInt(foWidthSlider.value, 10);
+      const h = parseInt(foHeightSlider.value, 10);
+      const scale = parseFloat(foZoomSlider.value);
+      const mode = browserCompatMode.value;
+
+      foWidthVal.textContent = w + 'px';
+      foHeightVal.textContent = h + 'px';
+      foZoomVal.textContent = scale.toFixed(1) + '×';
+
+      // Update foreignObject dimensions
+      activeForeignObject.setAttribute('width', w);
+      activeForeignObject.setAttribute('height', h);
+      foOutlineRect.setAttribute('width', w);
+      foOutlineRect.setAttribute('height', h);
+
+      // Center transform group
+      const posX = 250 - (w * scale) / 2;
+      const posY = 160 - (h * scale) / 2;
+      foTransformGroup.setAttribute('transform', `translate(${posX.toFixed(1)}, ${posY.toFixed(1)}) scale(${scale})`);
+
+      // Update stats
+      const area = w * h;
+      boundsAreaVal.textContent = area.toLocaleString() + ' px²';
+      aspectRatioVal.textContent = (w / h).toFixed(2) + ' : 1';
+
+      if (mode === 'fallback') {
+        activeForeignObject.setAttribute('display', 'none');
+        foFallbackGroup.setAttribute('display', 'inline');
+        namespaceStatusVal.textContent = 'Fallback Mode';
+        namespaceStatusVal.style.color = '#F59E0B';
+      } else if (mode === 'safariFix') {
+        activeForeignObject.removeAttribute('display');
+        foFallbackGroup.setAttribute('display', 'none');
+        foInnerContent.style.transform = 'translateZ(0)';
+        activeForeignObject.style.overflow = 'visible';
+        namespaceStatusVal.textContent = 'Safari Optimized';
+        namespaceStatusVal.style.color = '#60A5FA';
+      } else {
+        activeForeignObject.removeAttribute('display');
+        foFallbackGroup.setAttribute('display', 'none');
+        foInnerContent.style.transform = 'none';
+        namespaceStatusVal.textContent = 'XHTML Valid';
+        namespaceStatusVal.style.color = '#C1DD2D';
+      }
+
+      renderCode(w, h, scale, mode);
+    }
+
+    function renderCode(w, h, scale, mode) {
+      const isSafari = mode === 'safariFix';
+      const safariStyle = isSafari ? ' style="overflow: visible;"' : '';
+      const divStyle = isSafari ? ' style="width: 100%; height: 100%; transform: translateZ(0);"' : ' class="fo-card-container"';
+
+      if (currentCodeTab === 'xml') {
+        foreignObjectCodeOutput.textContent =
+`&lt;!-- Production SVG foreignObject Component with XHTML Namespace --&gt;
+&lt;svg viewBox="0 0 500 320" width="500" height="320" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;foreignObject x="50" y="50" width="${w}" height="${h}"${safariStyle}&gt;
+    &lt;div xmlns="http://www.w3.org/1999/xhtml"${divStyle}&gt;
+      ${presets[currentPreset].trim()}
+    &lt;/div&gt;
+  &lt;/foreignObject&gt;
+&lt;/svg&gt;`;
+      } else if (currentCodeTab === 'react') {
+        foreignObjectCodeOutput.textContent =
+`// React 19 / JSX foreignObject Component
+import React from 'react';
+
+export const EmbeddedCardNode = ({ x = 50, y = 50, width = ${w}, height = ${h} }) => (
+  &lt;svg viewBox="0 0 500 320" className="w-full h-auto"&gt;
+    &lt;foreignObject x={x} y={y} width={width} height={height} style={{ overflow: 'visible' }}&gt;
+      &lt;div
+        xmlns="http://www.w3.org/1999/xhtml"
+        style={{ width: '100%', height: '100%', transform: 'translateZ(0)' }}
+        className="bg-neutral-900 border border-neutral-800 rounded-lg p-3 text-white shadow-xl"
+      &gt;
+        &lt;h4 className="font-bold text-sm text-lime-400"&gt;Reactive Vector Node&lt;/h4&gt;
+        &lt;p className="text-xs text-neutral-300 mt-1"&gt;Auto-wrapping text with full React state bindings.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/foreignObject&gt;
+  &lt;/svg&gt;
+);`;
+      } else if (currentCodeTab === 'tailwind') {
+        foreignObjectCodeOutput.textContent =
+`&lt;!-- Tailwind CSS v4 Card Embedded Inside SVG --&gt;
+&lt;foreignObject x="50" y="50" width="${w}" height="${h}"&gt;
+  &lt;div xmlns="http://www.w3.org/1999/xhtml"
+       class="w-full h-full p-4 bg-slate-900/90 backdrop-blur-md border border-slate-700/50 rounded-xl shadow-2xl flex flex-col justify-between"&gt;
+    &lt;div class="flex items-center justify-between"&gt;
+      &lt;span class="text-xs font-bold text-lime-400"&gt;METRIC CLUSTER&lt;/span&gt;
+      &lt;span class="text-[10px] px-2 py-0.5 rounded bg-lime-400/10 text-lime-400 font-bold"&gt;LIVE&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p class="text-xs text-slate-300 line-clamp-2"&gt;Automatic multi-line text flow bounded by SVG geometry.&lt;/p&gt;
+    &lt;button class="w-full py-1 text-xs font-bold bg-lime-400 text-slate-950 rounded hover:bg-lime-300"&gt;
+      Inspect Vector
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/foreignObject&gt;`;
+      }
+    }
+
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        presetButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentPreset = btn.getAttribute('data-preset');
+        foInnerContent.innerHTML = presets[currentPreset];
+        updateStudio();
+      });
+    });
+
+    codeTabButtons.forEach(tab => {
+      tab.addEventListener('click', () => {
+        codeTabButtons.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentCodeTab = tab.getAttribute('data-tab');
+        updateStudio();
+      });
+    });
+
+    foWidthSlider.addEventListener('input', updateStudio);
+    foHeightSlider.addEventListener('input', updateStudio);
+    foZoomSlider.addEventListener('input', updateStudio);
+    browserCompatMode.addEventListener('change', updateStudio);
+
+    if (copyForeignObjectCodeBtn) {
+      copyForeignObjectCodeBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(foreignObjectCodeOutput.textContent).then(() => {
+          copyForeignObjectCodeBtn.textContent = 'Copied!';
+          setTimeout(() => { copyForeignObjectCodeBtn.textContent = 'Copy Snippet'; }, 2000);
+        }).catch(() => {
+          copyForeignObjectCodeBtn.textContent = 'Failed to copy';
+        });
+      });
+    }
+
+    updateStudio();
+  })();
+</script>
+
+</body>
+</html>
