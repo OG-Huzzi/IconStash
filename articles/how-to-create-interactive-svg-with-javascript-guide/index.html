@@ -1449,6 +1449,22 @@ function renderSafeInteractiveSvg(container, rawSvgString) {
       demoClickTarget.style.pointerEvents = pe;
       demoStar.style.pointerEvents = pe;
 
+      // Apply shape filter
+      const shape = shapeSelect ? shapeSelect.value : 'allShapes';
+      if (shape === 'badge') {
+        demoDraggable.style.display = 'none';
+        demoClickTarget.style.display = '';
+        demoStar.style.display = 'none';
+      } else if (shape === 'mapNode') {
+        demoDraggable.style.display = '';
+        demoClickTarget.style.display = 'none';
+        demoStar.style.display = '';
+      } else {
+        demoDraggable.style.display = '';
+        demoClickTarget.style.display = '';
+        demoStar.style.display = '';
+      }
+
       renderCodeSnippet();
     }
 
@@ -1626,6 +1642,35 @@ export const InteractiveSvgComponent = () => {
       logEvent('click', '&lt;g #demoClickTarget&gt;', `${coords.x.toFixed(0)}, ${coords.y.toFixed(0)}`);
     });
 
+    // Keyboard accessibility for click target (Enter & Space)
+    demoClickTarget.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ' || e.keyCode === 13 || e.keyCode === 32) {
+        e.preventDefault();
+        clickCount++;
+        clickCountLabel.textContent = `Clicks: ${clickCount}`;
+        const shape = document.getElementById('clickShape');
+        shape.setAttribute('stroke', clickCount % 2 === 1 ? '#C1DD2D' : '#333');
+        logEvent('keydown', '&lt;g #demoClickTarget&gt;', e.key === ' ' ? 'Space' : e.key);
+      }
+    });
+
+    // Keyboard accessibility for draggable node (Arrow keys)
+    demoDraggable.addEventListener('keydown', (e) => {
+      let moved = false;
+      const step = e.shiftKey ? 20 : 5;
+      if (e.key === 'ArrowLeft') { dragPos.x -= step; moved = true; }
+      else if (e.key === 'ArrowRight') { dragPos.x += step; moved = true; }
+      else if (e.key === 'ArrowUp') { dragPos.y -= step; moved = true; }
+      else if (e.key === 'ArrowDown') { dragPos.y += step; moved = true; }
+      if (moved) {
+        e.preventDefault();
+        demoDraggable.setAttribute('transform', `translate(${dragPos.x.toFixed(1)}, ${dragPos.y.toFixed(1)})`);
+        svgCoordsVal.textContent = `X: ${dragPos.x.toFixed(1)}, Y: ${dragPos.y.toFixed(1)}`;
+        logEvent('keydown (arrow)', '&lt;g #demoDraggable&gt;', `${dragPos.x.toFixed(0)}, ${dragPos.y.toFixed(0)}`);
+        renderCodeSnippet();
+      }
+    });
+
     // Star hover
     demoStar.addEventListener('pointerenter', (e) => {
       const shape = document.getElementById('starShape');
@@ -1667,6 +1712,13 @@ export const InteractiveSvgComponent = () => {
       logEvent('change', `pointer-events: ${pointerEventsSelect.value}`, 'CSS Property');
       updateStudio();
     });
+
+    if (shapeSelect) {
+      shapeSelect.addEventListener('change', () => {
+        logEvent('shapechange', `Geometry: ${shapeSelect.value}`, 'SVG Studio');
+        updateStudio();
+      });
+    }
 
     if (copyInteractiveCodeBtn) {
       copyInteractiveCodeBtn.addEventListener('click', () => {

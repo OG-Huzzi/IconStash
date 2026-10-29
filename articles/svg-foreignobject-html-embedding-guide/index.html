@@ -1467,51 +1467,67 @@ customElements.define('telemetry-badge', TelemetryBadgeElement);</code></pre>
 
       if (currentCodeTab === 'xml') {
         foreignObjectCodeOutput.textContent =
-`&lt;!-- Production SVG foreignObject Component with XHTML Namespace --&gt;
-&lt;svg viewBox="0 0 500 320" width="500" height="320" xmlns="http://www.w3.org/2000/svg"&gt;
-  &lt;foreignObject x="50" y="50" width="${w}" height="${h}"${safariStyle}&gt;
-    &lt;div xmlns="http://www.w3.org/1999/xhtml"${divStyle}&gt;
+`<!-- Production SVG foreignObject Component with XHTML Namespace -->
+<svg viewBox="0 0 500 320" width="500" height="320" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject x="50" y="50" width="${w}" height="${h}"${safariStyle}>
+    <div xmlns="http://www.w3.org/1999/xhtml"${divStyle}>
       ${presets[currentPreset].trim()}
-    &lt;/div&gt;
-  &lt;/foreignObject&gt;
-&lt;/svg&gt;`;
+    </div>
+  </foreignObject>
+</svg>`;
       } else if (currentCodeTab === 'react') {
         foreignObjectCodeOutput.textContent =
 `// React 19 / JSX foreignObject Component
 import React from 'react';
 
 export const EmbeddedCardNode = ({ x = 50, y = 50, width = ${w}, height = ${h} }) => (
-  &lt;svg viewBox="0 0 500 320" className="w-full h-auto"&gt;
-    &lt;foreignObject x={x} y={y} width={width} height={height} style={{ overflow: 'visible' }}&gt;
-      &lt;div
+  <svg viewBox="0 0 500 320" className="w-full h-auto">
+    <foreignObject x={x} y={y} width={width} height={height} style={{ overflow: 'visible' }}>
+      <div
         xmlns="http://www.w3.org/1999/xhtml"
         style={{ width: '100%', height: '100%', transform: 'translateZ(0)' }}
         className="bg-neutral-900 border border-neutral-800 rounded-lg p-3 text-white shadow-xl"
-      &gt;
-        &lt;h4 className="font-bold text-sm text-lime-400"&gt;Reactive Vector Node&lt;/h4&gt;
-        &lt;p className="text-xs text-neutral-300 mt-1"&gt;Auto-wrapping text with full React state bindings.&lt;/p&gt;
-      &lt;/div&gt;
-    &lt;/foreignObject&gt;
-  &lt;/svg&gt;
+      >
+        <h4 className="font-bold text-sm text-lime-400">Reactive Vector Node</h4>
+        <p className="text-xs text-neutral-300 mt-1">Auto-wrapping text with full React state bindings.</p>
+      </div>
+    </foreignObject>
+  </svg>
 );`;
       } else if (currentCodeTab === 'tailwind') {
         foreignObjectCodeOutput.textContent =
-`&lt;!-- Tailwind CSS v4 Card Embedded Inside SVG --&gt;
-&lt;foreignObject x="50" y="50" width="${w}" height="${h}"&gt;
-  &lt;div xmlns="http://www.w3.org/1999/xhtml"
-       class="w-full h-full p-4 bg-slate-900/90 backdrop-blur-md border border-slate-700/50 rounded-xl shadow-2xl flex flex-col justify-between"&gt;
-    &lt;div class="flex items-center justify-between"&gt;
-      &lt;span class="text-xs font-bold text-lime-400"&gt;METRIC CLUSTER&lt;/span&gt;
-      &lt;span class="text-[10px] px-2 py-0.5 rounded bg-lime-400/10 text-lime-400 font-bold"&gt;LIVE&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;p class="text-xs text-slate-300 line-clamp-2"&gt;Automatic multi-line text flow bounded by SVG geometry.&lt;/p&gt;
-    &lt;button class="w-full py-1 text-xs font-bold bg-lime-400 text-slate-950 rounded hover:bg-lime-300"&gt;
+`<!-- Tailwind CSS v4 Card Embedded Inside SVG -->
+<foreignObject x="50" y="50" width="${w}" height="${h}">
+  <div xmlns="http://www.w3.org/1999/xhtml"
+       class="w-full h-full p-4 bg-slate-900/90 backdrop-blur-md border border-slate-700/50 rounded-xl shadow-2xl flex flex-col justify-between">
+    <div class="flex items-center justify-between">
+      <span class="text-xs font-bold text-lime-400">METRIC CLUSTER</span>
+      <span class="text-[10px] px-2 py-0.5 rounded bg-lime-400/10 text-lime-400 font-bold">LIVE</span>
+    </div>
+    <p class="text-xs text-slate-300 line-clamp-2">Automatic multi-line text flow bounded by SVG geometry.</p>
+    <button class="w-full py-1 text-xs font-bold bg-lime-400 text-slate-950 rounded hover:bg-lime-300">
       Inspect Vector
-    &lt;/button&gt;
-  &lt;/div&gt;
-&lt;/foreignObject&gt;`;
+    </button>
+  </div>
+</foreignObject>`;
       }
     }
+
+    // Interactive button click feedback inside foreignObject
+    foInnerContent.addEventListener('click', (e) => {
+      const btn = e.target.closest('.fo-btn');
+      if (btn) {
+        const origText = btn.textContent;
+        btn.textContent = 'Active!';
+        btn.style.background = '#C1DD2D';
+        btn.style.color = '#000';
+        setTimeout(() => {
+          btn.textContent = origText;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 1200);
+      }
+    });
 
     presetButtons.forEach(btn => {
       btn.addEventListener('click', () => {

@@ -171,6 +171,9 @@ for (const item of deliverables) {
     assert(content.includes('id="pointerEventsSelect"'), 'Interactive pointerEventsSelect present');
     assert(content.includes('id="eventLogArea"'), 'Interactive eventLogArea present');
     assert(content.includes('id="copyInteractiveCodeBtn"'), 'Interactive copy button present');
+    assert(content.includes('shapeSelect.addEventListener(\'change\''), 'shapeSelect geometry selector is active with change listener');
+    assert(content.includes('demoClickTarget.addEventListener(\'keydown\''), 'demoClickTarget handles accessible keyboard keydown events');
+    assert(content.includes('demoDraggable.addEventListener(\'keydown\''), 'demoDraggable handles keyboard arrow navigation');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   } else if (item.slug === 'svg-stroke-properties-and-non-scaling-stroke-guide') {
@@ -181,6 +184,8 @@ for (const item of deliverables) {
     assert(content.includes('id="miterLimitSlider"'), 'Interactive miterLimitSlider present');
     assert(content.includes('id="vectorEffectToggle"'), 'Interactive vectorEffectToggle present');
     assert(content.includes('id="copyStrokeCodeBtn"'), 'Interactive copy button present');
+    assert(!content.includes('`&lt;!-- Optimized'), 'strokeCodeOutput does not leak raw HTML entities into textContent');
+    assert(content.includes('<!-- Optimized Inline SVG Geometry Attributes -->'), 'strokeCodeOutput generates valid SVG markup');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   } else if (item.slug === 'svg-foreignobject-html-embedding-guide') {
@@ -191,6 +196,9 @@ for (const item of deliverables) {
     assert(content.includes('id="foZoomSlider"'), 'Interactive foZoomSlider present');
     assert(content.includes('id="browserCompatMode"'), 'Interactive browserCompatMode present');
     assert(content.includes('id="copyForeignObjectCodeBtn"'), 'Interactive copy button present');
+    assert(!content.includes('`&lt;!-- Production SVG foreignObject'), 'foreignObjectCodeOutput does not leak raw HTML entities into textContent');
+    assert(content.includes('<!-- Production SVG foreignObject Component with XHTML Namespace -->'), 'foreignObjectCodeOutput generates valid SVG markup');
+    assert(content.includes('foInnerContent.addEventListener(\'click\''), 'foInnerContent has interactive button click feedback');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   }

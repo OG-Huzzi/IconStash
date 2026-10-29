@@ -1370,24 +1370,24 @@ module.exports = {
 }`;
       } else if (currentCodeTab === 'svg') {
         strokeCodeOutput.textContent =
-`&lt;!-- Optimized Inline SVG Geometry Attributes --&gt;
-&lt;svg viewBox="0 0 24 24" width="24" height="24" fill="none"&gt;
-  &lt;path d="M5 12 L12 19 L19 5"
+`<!-- Optimized Inline SVG Geometry Attributes -->
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+  <path d="M5 12 L12 19 L19 5"
         stroke="#C1DD2D"
         stroke-width="${width}"
         stroke-linecap="${cap}"
         stroke-linejoin="${join}"
         stroke-miterlimit="${miter}"
-        vector-effect="${ve}"/&gt;
-&lt;/svg&gt;`;
+        vector-effect="${ve}"/>
+</svg>`;
       } else if (currentCodeTab === 'tailwind') {
         strokeCodeOutput.textContent =
-`&lt;!-- Tailwind CSS v4 Vector Stroke Utility Composition --&gt;
-&lt;svg viewBox="0 0 24 24" class="w-6 h-6 stroke-[#C1DD2D] fill-none"&gt;
-  &lt;path d="M5 12 L12 19 L19 5"
+`<!-- Tailwind CSS v4 Vector Stroke Utility Composition -->
+<svg viewBox="0 0 24 24" class="w-6 h-6 stroke-[#C1DD2D] fill-none">
+  <path d="M5 12 L12 19 L19 5"
         className="stroke-[${width}px] stroke-${cap} stroke-${join}"
-        style={{ vectorEffect: '${ve}' }} /&gt;
-&lt;/svg&gt;`;
+        style={{ vectorEffect: '${ve}' }} />
+</svg>`;
       }
     }
 
