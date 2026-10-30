@@ -1221,46 +1221,164 @@ const fullHtml = `<!DOCTYPE html>
         ctx.rotate((rotDeg * Math.PI) / 180);
 
         const pathData = shapes[shapeKey] || shapes.iconstash;
-        const path2dObj = new Path2D(pathData);
 
-        // Draw shadow
-        ctx.shadowColor = 'rgba(0,0,0,0.4)';
-        ctx.shadowBlur = 12;
-        ctx.shadowOffsetY = 4;
+        function finishBenchmark(duration) {
+          const totalPixels = physicalSize * physicalSize;
+          const vramBytes = totalPixels * 4; // RGBA 4 bytes per pixel
+          const vramMb = (vramBytes / (1024 * 1024)).toFixed(2);
 
-        if (shapeKey === 'sparkline') {
-          ctx.strokeStyle = color;
-          ctx.lineWidth = 3;
-          ctx.lineCap = 'round';
-          ctx.lineJoin = 'round';
-          ctx.scale(8, 8);
-          ctx.translate(-17, -12);
-          ctx.stroke(path2dObj);
-        } else {
-          ctx.fillStyle = color;
-          ctx.scale(10, 10);
-          ctx.translate(-12, -12);
-          ctx.fill(path2dObj);
+          rasterTimeVal.textContent = duration.toFixed(2) + ' ms';
+          backingPixelsVal.textContent = totalPixels.toLocaleString() + ' px';
+          memorySizeVal.textContent = vramMb + ' MB';
+          frameBudgetVal.textContent = Math.max(0, (1 - duration / 16.66) * 100).toFixed(1) + '% Idle';
         }
 
-        ctx.restore();
+        function drawVectorDirect(t0) {
+          ctx.save();
+          ctx.clearRect(0, 0, physicalSize, physicalSize);
+          ctx.scale(dpr, dpr);
+          ctx.translate(cssSize / 2, cssSize / 2);
+          ctx.rotate((rotDeg * Math.PI) / 180);
 
-        const t1 = performance.now();
-        const duration = Math.max(0.04, t1 - t0);
+          const path2dObj = new Path2D(pathData);
+          ctx.shadowColor = 'rgba(0,0,0,0.4)';
+          ctx.shadowBlur = 12;
+          ctx.shadowOffsetY = 4;
 
-        const totalPixels = physicalSize * physicalSize;
-        const vramBytes = totalPixels * 4; // RGBA 4 bytes per pixel
-        const vramMb = (vramBytes / (1024 * 1024)).toFixed(2);
+          if (shapeKey === 'sparkline') {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.scale(8, 8);
+            ctx.translate(-17, -12);
+            ctx.stroke(path2dObj);
+          } else {
+            ctx.fillStyle = color;
+            ctx.scale(10, 10);
+            ctx.translate(-12, -12);
+            ctx.fill(path2dObj);
+          }
+          ctx.restore();
 
-        rasterTimeVal.textContent = duration.toFixed(2) + ' ms';
-        backingPixelsVal.textContent = totalPixels.toLocaleString() + ' px';
-        memorySizeVal.textContent = vramMb + ' MB';
-        frameBudgetVal.textContent = ((1 - duration / 16.66) * 100).toFixed(1) + '% Idle';
+          const t1 = performance.now();
+          finishBenchmark(Math.max(0.04, t1 - t0));
+        }
+
+        function drawVectorBlob(t0) {
+          const svgBody = shapeKey === 'sparkline'
+            ? \`<path d="\${pathData}" fill="none" stroke="\${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>\`
+            : \`<path d="\${pathData}" fill="\${color}"/>\`;
+          const svgStr = \`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="240" height="240">\${svgBody}</svg>\`;
+          const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const img = new Image();
+          img.onload = () => {
+            ctx.save();
+            ctx.clearRect(0, 0, physicalSize, physicalSize);
+            ctx.scale(dpr, dpr);
+            ctx.translate(cssSize / 2, cssSize / 2);
+            ctx.rotate((rotDeg * Math.PI) / 180);
+            ctx.shadowColor = 'rgba(0,0,0,0.4)';
+            ctx.shadowBlur = 12;
+            ctx.shadowOffsetY = 4;
+            ctx.drawImage(img, -120, -120, 240, 240);
+            ctx.restore();
+            URL.revokeObjectURL(url);
+            const t1 = performance.now();
+            finishBenchmark(Math.max(0.12, t1 - t0));
+          };
+          img.onerror = () => drawVectorDirect(t0);
+          img.src = url;
+        }
+
+        function drawVectorBitmap(t0) {
+          const svgBody = shapeKey === 'sparkline'
+            ? \`<path d="\${pathData}" fill="none" stroke="\${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>\`
+            : \`<path d="\${pathData}" fill="\${color}"/>\`;
+          const svgStr = \`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="240" height="240">\${svgBody}</svg>\`;
+          const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+          if (typeof createImageBitmap === 'function') {
+            createImageBitmap(blob).then(bitmap => {
+              ctx.save();
+              ctx.clearRect(0, 0, physicalSize, physicalSize);
+              ctx.scale(dpr, dpr);
+              ctx.translate(cssSize / 2, cssSize / 2);
+              ctx.rotate((rotDeg * Math.PI) / 180);
+              ctx.shadowColor = 'rgba(0,0,0,0.4)';
+              ctx.shadowBlur = 12;
+              ctx.shadowOffsetY = 4;
+              ctx.drawImage(bitmap, -120, -120, 240, 240);
+              ctx.restore();
+              const t1 = performance.now();
+              finishBenchmark(Math.max(0.08, t1 - t0));
+            }).catch(() => drawVectorDirect(t0));
+          } else {
+            drawVectorDirect(t0);
+          }
+        }
+
+        const t0 = performance.now();
+        if (method === 'blob') {
+          drawVectorBlob(t0);
+        } else if (method === 'bitmap') {
+          drawVectorBitmap(t0);
+        } else {
+          drawVectorDirect(t0);
+        }
 
         // Code generation update
         if (currentTab === 'canvas') {
-          canvasCodeOutput.textContent =
-'// Razor-Sharp High-DPI Canvas 2D Vector Rendering\\n' +
+          if (method === 'blob') {
+            canvasCodeOutput.textContent =
+'// Method 1: Vector Rasterization via Blob URL & Image\\n' +
+'const canvas = document.getElementById("myCanvas");\\n' +
+'const dpr = ' + dpr + ';\\n' +
+'canvas.width = 300 * dpr;\\n' +
+'canvas.height = 300 * dpr;\\n' +
+'canvas.style.width = "300px";\\n' +
+'canvas.style.height = "300px";\\n\\n' +
+'const ctx = canvas.getContext("2d");\\n' +
+'ctx.scale(dpr, dpr);\\n\\n' +
+'const svgData = "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 24 24\\" width=\\"240\\" height=\\"240\\">\\n" +\n' +
+'  "  <path d=\\"' + pathData + '\\" " + (shapeKey === \'sparkline\' ? \'fill="none" stroke="\' + color + \'" stroke-width="2.5"\' : \'fill="\' + color + \'"\') + "/>\\n" +\n' +
+'  "</svg>";\\n\\n' +
+'const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });\\n' +
+'const blobUrl = URL.createObjectURL(blob);\\n' +
+'const img = new Image();\\n' +
+'img.onload = () => {\\n' +
+'  ctx.save();\\n' +
+'  ctx.translate(150, 150);\\n' +
+'  ctx.rotate(' + rotDeg + ' * Math.PI / 180);\\n' +
+'  ctx.drawImage(img, -120, -120, 240, 240);\\n' +
+'  ctx.restore();\\n' +
+'  URL.revokeObjectURL(blobUrl);\\n' +
+'};\\n' +
+'img.src = blobUrl;';
+          } else if (method === 'bitmap') {
+            canvasCodeOutput.textContent =
+'// Method 3: Async GPU Texture Decoding via createImageBitmap\\n' +
+'const canvas = document.getElementById("myCanvas");\\n' +
+'const dpr = ' + dpr + ';\\n' +
+'canvas.width = 300 * dpr;\\n' +
+'canvas.height = 300 * dpr;\\n' +
+'canvas.style.width = "300px";\\n' +
+'canvas.style.height = "300px";\\n\\n' +
+'const ctx = canvas.getContext("2d");\\n' +
+'ctx.scale(dpr, dpr);\\n\\n' +
+'const svgData = "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 24 24\\" width=\\"240\\" height=\\"240\\">\\n" +\n' +
+'  "  <path d=\\"' + pathData + '\\" " + (shapeKey === \'sparkline\' ? \'fill="none" stroke="\' + color + \'" stroke-width="2.5"\' : \'fill="\' + color + \'"\') + "/>\\n" +\n' +
+'  "</svg>";\\n\\n' +
+'const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });\\n' +
+'const bitmap = await createImageBitmap(blob, { resizeWidth: 240 * dpr, resizeHeight: 240 * dpr });\\n\\n' +
+'ctx.save();\\n' +
+'ctx.translate(150, 150);\\n' +
+'ctx.rotate(' + rotDeg + ' * Math.PI / 180);\\n' +
+'ctx.drawImage(bitmap, -120, -120, 240, 240);\\n' +
+'ctx.restore();';
+          } else {
+            canvasCodeOutput.textContent =
+'// Method 2: Synchronous GPU Vector Rasterization via Path2D\\n' +
 'const canvas = document.getElementById("myCanvas");\\n' +
 'const dpr = ' + dpr + '; // High-DPI scaling factor\\n' +
 'canvas.width = 300 * dpr;\\n' +
@@ -1269,16 +1387,15 @@ const fullHtml = `<!DOCTYPE html>
 'canvas.style.height = "300px";\\n\\n' +
 'const ctx = canvas.getContext("2d");\\n' +
 'ctx.scale(dpr, dpr);\\n\\n' +
-'// Synchronous GPU vector rasterization\\n' +
 'const vectorPath = new Path2D("' + pathData + '");\\n' +
 'ctx.save();\\n' +
 'ctx.translate(150, 150);\\n' +
 'ctx.rotate(' + rotDeg + ' * Math.PI / 180);\\n' +
-'ctx.fillStyle = "' + color + '";\\n' +
-'ctx.scale(10, 10);\\n' +
-'ctx.translate(-12, -12);\\n' +
-'ctx.fill(vectorPath);\\n' +
+(shapeKey === 'sparkline'
+  ? 'ctx.strokeStyle = "' + color + '";\\nctx.lineWidth = 3;\\nctx.lineCap = "round";\\nctx.lineJoin = "round";\\nctx.scale(8, 8);\\nctx.translate(-17, -12);\\nctx.stroke(vectorPath);\\n'
+  : 'ctx.fillStyle = "' + color + '";\\nctx.scale(10, 10);\\nctx.translate(-12, -12);\\nctx.fill(vectorPath);\\n') +
 'ctx.restore();';
+          }
         } else if (currentTab === 'worker') {
           canvasCodeOutput.textContent =
 '// OffscreenCanvas in Dedicated Web Worker\\n' +
@@ -1323,14 +1440,36 @@ const fullHtml = `<!DOCTYPE html>
         });
       });
 
+      function copySnippet(text, btn) {
+        const doSuccess = () => {
+          btn.textContent = 'Copied!';
+          setTimeout(() => { btn.textContent = 'Copy Snippet'; }, 2000);
+        };
+        const doFallback = () => {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            doSuccess();
+          } catch (_) {
+            btn.textContent = 'Failed to copy';
+          }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(doSuccess).catch(doFallback);
+        } else {
+          doFallback();
+        }
+      }
+
       if (copyCanvasCodeBtn) {
         copyCanvasCodeBtn.addEventListener('click', () => {
-          navigator.clipboard.writeText(canvasCodeOutput.textContent).then(() => {
-            copyCanvasCodeBtn.textContent = 'Copied!';
-            setTimeout(() => { copyCanvasCodeBtn.textContent = 'Copy Snippet'; }, 2000);
-          }).catch(() => {
-            copyCanvasCodeBtn.textContent = 'Failed to copy';
-          });
+          copySnippet(canvasCodeOutput.textContent, copyCanvasCodeBtn);
         });
       }
 

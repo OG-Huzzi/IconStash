@@ -1184,6 +1184,12 @@ const fullHtml = `<!DOCTYPE html>
         ribbon: 'polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%)',
         badge: 'polygon(0% 0%, 70% 0%, 70% 25%, 100% 25%, 100% 100%, 0% 100%)'
       };
+      const pathPresets = {
+        hexagon: "path('M 120 10 L 230 70 L 230 170 L 120 230 L 10 170 L 10 70 Z')",
+        chevron: "path('M 170 10 L 230 120 L 170 230 L 10 230 L 70 120 L 10 10 Z')",
+        ribbon: "path('M 10 10 L 230 10 L 230 230 L 120 180 L 10 230 Z')",
+        badge: "path('M 10 10 L 170 10 L 170 70 L 230 70 L 230 230 L 10 230 Z')"
+      };
 
       function updateStudio() {
         const mode = clipModeSelect.value;
@@ -1224,7 +1230,7 @@ const fullHtml = `<!DOCTYPE html>
           clipMetaOverlay.textContent = 'clip-path: ' + clipValue;
         } else if (mode === 'path') {
           clipModeDisplay.textContent = 'CSS path()';
-          clipValue = "path('M 120 10 L 230 70 L 230 170 L 120 230 L 10 170 L 10 70 Z')";
+          clipValue = pathPresets[presetKey] || pathPresets.hexagon;
           previewClippedCard.style.clipPath = clipValue;
           previewClippedCard.style.mask = 'none';
           previewClippedCard.style.webkitMask = 'none';
@@ -1277,7 +1283,24 @@ const fullHtml = `<!DOCTYPE html>
 '</div>';
           }
         } else if (currentTab === 'svg') {
-          clipCodeOutput.textContent =
+          if (mode === 'mask') {
+            clipCodeOutput.textContent =
+'<!-- Reusable Responsive SVG mask (objectBoundingBox) -->\\n' +
+'<svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true">\\n' +
+'  <defs>\\n' +
+'    <mask id="customMask" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">\\n' +
+'      <radialGradient id="maskGrad" cx="0.5" cy="0.5" r="0.5">\\n' +
+'        <stop offset="' + Math.round(scale * 0.5) + '%" stop-color="#ffffff"/>\\n' +
+'        <stop offset="' + scale + '%" stop-color="#000000"/>\\n' +
+'      </radialGradient>\\n' +
+'      <rect width="1" height="1" fill="url(#maskGrad)"/>\\n' +
+'    </mask>\\n' +
+'  </defs>\\n' +
+'</svg>\\n\\n' +
+'<!-- Apply to DOM elements: -->\\n' +
+'<div style="mask: url(#customMask); -webkit-mask: url(#customMask);"></div>';
+          } else {
+            clipCodeOutput.textContent =
 '<!-- Reusable Responsive SVG clipPath (objectBoundingBox) -->\\n' +
 '<svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true">\\n' +
 '  <defs>\\n' +
@@ -1288,6 +1311,7 @@ const fullHtml = `<!DOCTYPE html>
 '</svg>\\n\\n' +
 '<!-- Apply to DOM elements: -->\\n' +
 '<div style="clip-path: url(#customClip);"></div>';
+          }
         }
       }
 
@@ -1305,14 +1329,36 @@ const fullHtml = `<!DOCTYPE html>
         });
       });
 
+      function copySnippet(text, btn) {
+        const doSuccess = () => {
+          btn.textContent = 'Copied!';
+          setTimeout(() => { btn.textContent = 'Copy Snippet'; }, 2000);
+        };
+        const doFallback = () => {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            doSuccess();
+          } catch (_) {
+            btn.textContent = 'Failed to copy';
+          }
+          document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(doSuccess).catch(doFallback);
+        } else {
+          doFallback();
+        }
+      }
+
       if (copyClipCodeBtn) {
         copyClipCodeBtn.addEventListener('click', () => {
-          navigator.clipboard.writeText(clipCodeOutput.textContent).then(() => {
-            copyClipCodeBtn.textContent = 'Copied!';
-            setTimeout(() => { copyClipCodeBtn.textContent = 'Copy Snippet'; }, 2000);
-          }).catch(() => {
-            copyClipCodeBtn.textContent = 'Failed to copy';
-          });
+          copySnippet(clipCodeOutput.textContent, copyClipCodeBtn);
         });
       }
 

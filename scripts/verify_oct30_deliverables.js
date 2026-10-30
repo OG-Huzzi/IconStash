@@ -169,6 +169,11 @@ for (const item of deliverables) {
     assert(content.includes('id="paramTSlider"'), 'Interactive paramTSlider present');
     assert(content.includes('id="stageSvg"'), 'Interactive stageSvg present');
     assert(content.includes('id="copyBezierCodeBtn"'), 'Interactive copy button present');
+    assert(content.includes('class="stage-handle"'), 'SVG stage handles have stage-handle class');
+    assert(content.includes('tabindex="0"') && content.includes('role="slider"'), 'SVG stage handles have accessible keyboard attributes');
+    assert(content.includes('.addEventListener(\'pointerdown\''), 'SVG handles have pointer drag listeners');
+    assert(!content.includes('readoutAngle.textContent = `${angleDeg}&deg;`'), 'readoutAngle does not leak raw HTML entity &deg; into textContent');
+    assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   } else if (item.slug === 'how-to-render-svg-on-canvas-guide') {
@@ -177,6 +182,12 @@ for (const item of deliverables) {
     assert(content.includes('id="dprScaleSelect"'), 'Interactive dprScaleSelect present');
     assert(content.includes('id="previewCanvas"'), 'Interactive previewCanvas present');
     assert(content.includes('id="copyCanvasCodeBtn"'), 'Interactive copy button present');
+    assert(content.includes('drawVectorBlob'), 'Canvas studio includes authentic Blob rasterization pipeline');
+    assert(content.includes('drawVectorBitmap'), 'Canvas studio includes authentic createImageBitmap rasterization pipeline');
+    assert(content.includes('Method 1: Vector Rasterization via Blob URL & Image'), 'Code generator outputs Blob URL rasterization snippet');
+    assert(content.includes('Method 3: Async GPU Texture Decoding via createImageBitmap'), 'Code generator outputs async ImageBitmap snippet');
+    assert(content.includes('ctx.stroke(vectorPath)'), 'Canvas code generator handles line stroke paths like sparklines without filling');
+    assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   } else if (item.slug === 'css-clip-path-and-svg-masking-guide') {
@@ -186,6 +197,9 @@ for (const item of deliverables) {
     assert(content.includes('id="clipScaleSlider"'), 'Interactive clipScaleSlider present');
     assert(content.includes('id="previewClippedCard"'), 'Interactive previewClippedCard present');
     assert(content.includes('id="copyClipCodeBtn"'), 'Interactive copy button present');
+    assert(content.includes('pathPresets'), 'Clip-path studio defines vector path presets');
+    assert(content.includes('Reusable Responsive SVG mask (objectBoundingBox)'), 'SVG tab generates authentic SVG mask element when in mask mode');
+    assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
   }
