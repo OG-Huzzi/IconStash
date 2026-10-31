@@ -333,13 +333,14 @@
       <svg class="logo-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
       <span>IconStash</span>
     </a>
-  <nav>
+  <nav aria-label="Primary">
     <a href="/">Browse Icons</a>
     <a href="/articles/">Articles</a>
     <a href="/" class="header-cta">Open App →</a>
   </nav>
 </header>
 
+<main class="page-container">
 <!-- ── Hero ── -->
 <section class="article-hero">
   <div class="badge">📦 2026 Edition • Fully Updated</div>
@@ -354,7 +355,7 @@
 
 <!-- ── TOC ── -->
 <div class="toc-wrapper">
-  <nav class="toc">
+  <nav class="toc" aria-label="Table of contents">
     <h2>Table of Contents</h2>
     <ol>
       <li><a href="#why-icons-matter">Why Your Icon Choice Matters More Than You Think</a></li>
@@ -904,6 +905,8 @@ export function Icon({ name, size = 20, color, strokeWidth = 2 }: IconProps) {
   <p>134,701 icons from 28 libraries. One search bar. Zero signups. Instant SVG &amp; PNG downloads.</p>
   <a href="/" class="big-cta">Open IconStash — It's Free →</a>
 </section>
+
+</main>
 
 <!-- ── Footer ── -->
 <footer class="article-footer">

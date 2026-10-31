@@ -26,11 +26,12 @@ const DATA_DIR = path.join(ROOT, "data");
 const ICONS_DIR = path.join(ROOT, "icons");
 const SITE_URL = "https://iconstash.io";
 /* Bump this whenever style.css gains rules that new pages depend on. Every page
-   loads style.css?v=<this>, so returning visitors will serve the cached old
-   file and render the new pages unstyled unless the string changes. The 137k
-   icon pages deliberately stay on ?v=20260715-sidebarfix because they use none
-   of the hub or comparison CSS and keeping them pinned preserves their cache. */
-const CSS_VERSION = "20260830-comparisons";
+   loads style.css?v=<this>. Historically this string was NOT bumped when
+   style.css changed, and because .htaccess served CSS as immutable for a year,
+   ~138k pages kept a stale stylesheet. .htaccess now uses a short fresh window
+   with stale-while-revalidate so a missed bump self-heals, but still bump this
+   on any style change. */
+const CSS_VERSION = "20261030-fixes";
 
 /* ────────────────────────────────────────────────────────────────────────────
    1. Load data

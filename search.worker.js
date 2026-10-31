@@ -1,4 +1,4 @@
-﻿// search.worker.js - Web Worker that indexes icons and performs searches off the main thread using Fuse.js.
+// search.worker.js - Web Worker that indexes icons and performs searches off the main thread using Fuse.js.
 // Resolves browser freezing issues during multi-key fuzzy search on 134k+ icons.
 
 try {
@@ -122,11 +122,7 @@ self.onmessage = function (e) {
 
     // Apply sorting
     const sort = (filters && filters.sort) || "relevance";
-    if (sort === "popular") {
-      results.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-    } else if (sort === "newest") {
-      results.sort((a, b) => String(b.dateAdded || "").localeCompare(String(a.dateAdded || "")));
-    } else if (sort === "az") {
+    if (sort === "az") {
       results.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sort === "za") {
       results.sort((a, b) => b.name.localeCompare(a.name));

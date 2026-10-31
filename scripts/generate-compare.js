@@ -196,11 +196,14 @@ function buildVerdict(a, b) {
     lines.push(`Both ship ${f.va.n} variant${f.va.n === 1 ? "" : "s"} per concept, so neither has an edge on flexibility.`);
   }
 
-  if (licenseRank(f.betterLicense) > licenseRank(f.worseLicense)) {
+  if (a.license === b.license) {
+    lines.push(`Both are ${a.license}, so licensing is not a deciding factor here.`);
+  } else if (licenseRank(f.betterLicense) > licenseRank(f.worseLicense)) {
     lines.push(`On licensing, <strong>${escapeHtml(f.betterLicense.fullName)}</strong> is the safer default `
       + `(${f.betterLicense.license} versus ${f.worseLicense.license}).`);
   } else {
-    lines.push(`Both are ${a.license}, so licensing is not a deciding factor here.`);
+    lines.push(`They differ on licensing — ${a.license} for ${escapeHtml(a.fullName)} and ${b.license} for `
+      + `${escapeHtml(b.fullName)} — so check the terms before mixing them.`);
   }
 
   return lines;

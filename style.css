@@ -33,7 +33,8 @@
   --grad-void: linear-gradient(135deg, #C1DD2D 0%, #FF6B6B 100%);
   --text-primary: #F2F2F2;
   --text-secondary: #888888;
-  --text-muted: #666666;
+  /* Was #666666 (3.45:1 on #0A0A0A — below the 4.5:1 AA floor). #8A8A8A = 5.7:1. */
+  --text-muted: #8A8A8A;
   --text-subtle: #333333;
   --icon-color: #888888;
   --icon-strong: #F2F2F2;
@@ -76,14 +77,21 @@
   --glass-border-bright: #CCCCCC;
   --text-primary: #111111;
   --text-secondary: #555555;
-  --text-muted: #888888;
+  /* Was #888888 (3.37:1 on #F9F9F9). #6B6B6B = 5.06:1. */
+  --text-muted: #6B6B6B;
   --text-subtle: #CCCCCC;
   --icon-color: #555555;
   --icon-strong: #111111;
   --control-blue: #9EB822;
+  /* --neon-blue was never overridden for light mode, so every accent that uses
+     it (outlined buttons, docs links, trend cards) rendered #C1DD2D on #F9F9F9
+     at 1.46:1 — effectively invisible. #4A6B00 = 5.87:1. */
+  --neon-blue: #4A6B00;
+  --accent-blue: #4A6B00;
   --btn-primary-bg: #9EB822;
   --btn-primary-hover: #89A01C;
-  --btn-primary-text: #FFFFFF;
+  /* Was #FFFFFF on #9EB822 = 2.25:1. Dark ink gives 8.8:1. */
+  --btn-primary-text: #0A0A0A;
   --btn-primary-glow: 0 2px 8px rgba(0, 0, 0, 0.1);
   --neon-home-header: #9EB822;
   --neon-home-glow: none;
@@ -462,8 +470,11 @@ h3 { font-size: 13px; letter-spacing: 0; }
   font-weight: 700;
 }
 [data-theme="light"] .outlined-neon-btn {
-  border-color: var(--btn-primary-bg);
-  color: var(--btn-primary-bg);
+  /* Was --btn-primary-bg (#9EB822) for both border and text, which is ~2.1:1 on
+     #F9F9F9. Use the dark accent instead: 5.87:1 and still reads as the same
+     green family. Hover already flips to the filled button. */
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
 }
 .outlined-neon-btn:hover { background: var(--btn-primary-bg); color: var(--btn-primary-text); border-color: transparent; box-shadow: var(--btn-primary-glow); }
 
@@ -3421,3 +3432,58 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
   .header-right .nav-link { display: none; }
   .nav-menu-btn { display: inline-flex; }
 }
+
+/* ===== Accessibility fixes ===== */
+
+/* Visually-hidden text that stays available to screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Visible keyboard focus. Earlier rules set `outline: 0` on several controls
+   (search inputs, sliders, the virtual grid), which left keyboard users with no
+   focus indicator at all. This restores a 3:1+ indicator on every control and
+   only applies to :focus-visible, so mouse users see no change. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--control-blue) !important;
+  outline-offset: 2px;
+}
+.neon-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--control-blue);
+}
+.neon-slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--control-blue);
+}
+
+/* The library checkboxes were `display: none`, which removed all 28 of them
+   from the tab order and the accessibility tree — keyboard users could not
+   filter by library at all. Hide them visually instead of removing them. */
+.lib-check {
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.lib-row:focus-within {
+  outline: 2px solid var(--control-blue);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+

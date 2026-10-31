@@ -60,32 +60,6 @@
       { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
       { "@type": "ListItem", "position": 3, "name": "IconStash vs SVGRepo" }
     ]
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is IconStash better than SVGRepo?",
-        "acceptedAnswer": { "@type": "Answer", "text": "For production UI work, yes. IconStash offers curated icon sets with consistent design language, verified MIT/Apache 2.0 licenses, and developer-focused exports (JSX, sprites, PNG). SVGRepo has more total SVGs (500K+) but mixes quality levels, has inconsistent licensing, and lacks code-ready exports." }
-      },
-      {
-        "@type": "Question",
-        "name": "Are SVGRepo icons free for commercial use?",
-        "acceptedAnswer": { "@type": "Answer", "text": "It depends on the individual icon. SVGRepo aggregates vectors under various licenses — some are CC0, some are CC BY (requiring attribution), and some have unclear provenance. You must check each icon's license individually. IconStash only indexes libraries with verified MIT or Apache 2.0 licenses — every icon is safe for commercial use." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does SVGRepo have a search API or developer tools?",
-        "acceptedAnswer": { "@type": "Answer", "text": "No. SVGRepo is a browse-and-download website only. There's no API, no npm integration, no JSX export, and no build tool support. IconStash provides one-click JSX copy, npm install commands, batch ZIP export, and CSS sprite generation." }
-      },
-      {
-        "@type": "Question",
-        "name": "Which site has faster search?",
-        "acceptedAnswer": { "@type": "Answer", "text": "IconStash is significantly faster. It pre-renders icon grids as static HTML (instant first paint) and uses virtual scrolling for 100K+ results. SVGRepo uses traditional server-rendered pagination, which requires a page reload or API call for each batch of results." }
-      }
-    ]
   }]
   </script>
   <style>

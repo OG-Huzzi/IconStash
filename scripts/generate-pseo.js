@@ -762,7 +762,7 @@ function renderPseoShell({ title, description, url, canonicalUrl, schema, active
   <meta name="twitter:image:alt" content="${escapeHtml(title)}">
   <meta name="theme-color" content="#0A0A0A">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260602-brandlogo">
-  <link rel="stylesheet" href="/style.css?v=20260830-conceptpages">
+  <link rel="stylesheet" href="/style.css?v=20261030-fixes">
   <script type="application/ld+json">${JSON.stringify(schema).replace(/</g, "\\u003c")}</script>
 </head>
 <body class="pseo-page">
@@ -2238,7 +2238,7 @@ function writeHtmlSitemap(keywords) {
   <meta name="twitter:image" content="${SITE_URL}/og-default.png">
   <meta name="twitter:image:alt" content="IconStash HTML Sitemap Directory">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260602-brandlogo">
-  <link rel="stylesheet" href="/style.css?v=20260830-conceptpages">
+  <link rel="stylesheet" href="/style.css?v=20261030-fixes">
   <style>
     .sitemap-wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 80px; }
     .sitemap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 24px; }
@@ -2294,7 +2294,7 @@ function writeHtmlSitemap(keywords) {
   <meta name="twitter:image" content="${SITE_URL}/og-default.png">
   <meta name="twitter:image:alt" content="IconStash Free Icons Directory">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260602-brandlogo">
-  <link rel="stylesheet" href="/style.css?v=20260830-conceptpages">
+  <link rel="stylesheet" href="/style.css?v=20261030-fixes">
   <style>
     .sitemap-wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 80px; }
     .icon-link-list { columns: 3 240px; column-gap: 24px; list-style: none; padding: 0; margin: 24px 0; }

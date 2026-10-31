@@ -1,4 +1,4 @@
-﻿// search.js - Wraps the search.worker.js Web Worker to delegate fuzzy searching off the main thread.
+// search.js - Wraps the search.worker.js Web Worker to delegate fuzzy searching off the main thread.
 // Exposes a Promise-based searchIcons API and maintains backwards-compatible helpers.
 // Implements try-catch fallback to run synchronously on the main thread if worker creation is blocked.
 // Optimizations: Instantiates Web Worker using a relative path to avoid import.meta parse errors in classic scripts.
@@ -76,11 +76,7 @@
       result = textFallback(result, filters.query);
     }
     const sort = filters.sort || "relevance";
-    if (sort === "popular") {
-      result.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
-    } else if (sort === "newest") {
-      result.sort((a, b) => String(b.dateAdded || "").localeCompare(String(a.dateAdded || "")));
-    } else if (sort === "az") {
+    if (sort === "az") {
       result.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sort === "za") {
       result.sort((a, b) => b.name.localeCompare(a.name));

@@ -61,37 +61,6 @@
       { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
       { "@type": "ListItem", "position": 3, "name": "How to Build a Scalable Icon System" }
     ]
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is an icon system?",
-        "acceptedAnswer": { "@type": "Answer", "text": "An icon system is a structured collection of icons governed by consistent design rules (grid, stroke, corner radius), organized with semantic naming, distributed through typed components, and maintained with versioning and contribution guidelines. It's the icon layer of a design system." }
-      },
-      {
-        "@type": "Question",
-        "name": "Should I build my own icon library or use an existing one?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Start with an established library like Lucide or Phosphor as your base. Only create custom icons for domain-specific concepts your base library doesn't cover. This gives you 1,000+ production-ready icons immediately while keeping your custom set small and maintainable." }
-      },
-      {
-        "@type": "Question",
-        "name": "What grid size should I use for icons?",
-        "acceptedAnswer": { "@type": "Answer", "text": "24×24px is the industry standard for UI icons in 2026. It provides enough detail for complex concepts while remaining crisp at 16px display size. Use a 20×20 grid for dense data tables and a 32×32 or 48×48 grid for feature illustrations and empty states." }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I keep icons consistent across a large team?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Enforce consistency through: (1) a written style guide with grid templates, (2) automated CI checks that validate stroke width, viewBox, and path complexity, (3) a Figma component library as the single source of truth, and (4) code review requirements for new icon PRs." }
-      },
-      {
-        "@type": "Question",
-        "name": "What's the best way to distribute icons to developers?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Publish icons as a versioned npm package with framework-specific entry points (React, Vue, Svelte). Each icon should be a named export for tree-shaking. Include TypeScript types, size variants, and accessibility props out of the box." }
-      }
-    ]
   }]
   </script>
   <style>

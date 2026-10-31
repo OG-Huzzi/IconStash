@@ -61,37 +61,6 @@
       { "@type": "ListItem", "position": 2, "name": "Articles", "item": "https://iconstash.io/articles/" },
       { "@type": "ListItem", "position": 3, "name": "Lucide vs Feather Icons 2026" }
     ]
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is Lucide better than Feather Icons?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Lucide is the actively maintained community fork of Feather with 7x more icons (1,979 vs 286), weekly releases, first-party React/Vue/Svelte components, and full TypeScript support. Feather has not received a meaningful update since 2022." }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I migrate from Feather to Lucide easily?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Lucide maintains backward compatibility with all 286 original Feather icon names. In most cases, you can replace feather-icons with lucide and update your import statements. The SVG paths are nearly identical for shared icons, so visual regressions are minimal." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is Feather Icons still maintained?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Feather Icons is effectively unmaintained. The last significant commit was in 2022, open issues number in the hundreds, and the maintainer has not responded to community requests. Lucide was created specifically because Feather development stalled." }
-      },
-      {
-        "@type": "Question",
-        "name": "Which is smaller: Lucide or Feather bundle size?",
-        "acceptedAnswer": { "@type": "Answer", "text": "With tree-shaking enabled (the default in modern bundlers), both libraries only ship the icons you import. Per-icon, Lucide and Feather SVGs are nearly identical in size (~200-400 bytes each). Lucide's advantage is that you'll never need a second library to fill gaps." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Lucide support React Server Components?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. lucide-react ships as pure SVG path data with zero client-side dependencies. Icons render correctly in React Server Components and work with Next.js App Router without 'use client' directives." }
-      }
-    ]
   }]
   </script>
   <style>

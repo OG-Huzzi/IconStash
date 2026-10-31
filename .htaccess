@@ -25,7 +25,20 @@ DirectoryIndex index.php index.html
   RewriteRule ^listicles/(.*)$ /Listicles/$1 [L,R=301,NC]
   RewriteCond %{REQUEST_URI} !^/Glossary/
   RewriteRule ^glossary/(.*)$ /Glossary/$1 [L,R=301,NC]
+
+  # Never expose auto-generated directory listings. A directory with no index
+  # file (e.g. /sitemaps/) otherwise returns a 200 "Index of /..." page that
+  # leaks file names and mtimes to crawlers. Done with mod_rewrite rather than
+  # `Options -Indexes` on purpose: Options requires `AllowOverride Options`,
+  # which this host may not grant, and a disallowed directive would 500 every
+  # page. mod_rewrite is already proven to work here. Placed last so the
+  # canonical redirects above always win.
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html !-f
+  RewriteCond %{REQUEST_FILENAME}/index.php !-f
+  RewriteRule . - [R=404,L]
 </IfModule>
+
 
 <IfModule mod_mime.c>
   AddType application/json .json
@@ -60,11 +73,20 @@ AddDefaultCharset UTF-8
     Header append Vary Accept-Encoding
   </FilesMatch>
 
-  <FilesMatch "^(?!sw\.js$).*\.(js|css|svg|jpg|jpeg|png|webp|ico|woff2?)$">
-    # Versioned via ?v= query (?v=20260830-*). Long immutable cache is safe:
-    # bumping the version string changes the URL, so stale CSS/JS can never
-    # be served to returning visitors. No UI change, faster repeat views.
-    Header set Cache-Control "public, max-age=31536000, immutable"
+  # JS and CSS change on any deploy. They are versioned with ?v=, but that
+  # discipline had slipped (137,868 pages were pinned to a 2026-08-30 stylesheet
+  # that had since changed twice), and the previous "immutable, 1 year" rule
+  # turned every missed bump into a year of stale UI. A short fresh window plus
+  # stale-while-revalidate keeps repeat views instant while letting a missed
+  # bump self-heal within a day instead of a year.
+  <FilesMatch "^(?!sw\.js$).*\.(js|css)$">
+    Header set Cache-Control "public, max-age=3600, stale-while-revalidate=86400"
+  </FilesMatch>
+
+  # Images and fonts are effectively static; a month is plenty and they are not
+  # what caused the staleness above.
+  <FilesMatch "\.(svg|jpg|jpeg|png|webp|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
 
   <FilesMatch "\.json$">
@@ -83,11 +105,11 @@ AddDefaultCharset UTF-8
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 1 hour"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 hour"
   ExpiresByType application/json "access plus 1 hour"
-  ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType image/png "access plus 1 year"
-  ExpiresByType image/jpeg "access plus 1 year"
-  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 30 days"
 </IfModule>

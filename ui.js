@@ -29,6 +29,19 @@
     }, duration);
   }
 
+  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const reduceMotionQuery = typeof matchMedia === "function" ? matchMedia("(prefers-reduced-motion: reduce)") : null;
+  let lastFocusedElement = null;
+  let activeModal = null;
+
+  function prefersReducedMotion() {
+    return Boolean(reduceMotionQuery && reduceMotionQuery.matches);
+  }
+
+  function focusableIn(node) {
+    return Array.from(node.querySelectorAll(FOCUSABLE)).filter((el) => el.getClientRects().length > 0);
+  }
+
   function openModal(id) {
     const modal = qs(`#${id}`);
     const backdrop = qs("#modal-backdrop");
@@ -36,18 +49,70 @@
     qsa(".modal").forEach((entry) => entry.classList.add("hidden"));
     backdrop.classList.remove("hidden");
     modal.classList.remove("hidden");
+
+    // Give the dialog an accessible name from its own heading.
+    const heading = modal.querySelector("h2");
+    if (heading) {
+      if (!heading.id) heading.id = `${id}-title`;
+      modal.setAttribute("aria-labelledby", heading.id);
+    }
+
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    activeModal = modal;
+
+    // Remove the rest of the page from the tab order and the a11y tree.
+    const shell = qs(".app-shell");
+    if (shell) shell.inert = true;
+
+    if (!modal.hasAttribute("tabindex")) modal.setAttribute("tabindex", "-1");
+    const first = focusableIn(modal)[0];
+    (first || modal).focus({ preventScroll: true });
+
     window.dispatchEvent(new CustomEvent("iconstash:modal-opened", { detail: { id } }));
   }
 
   function closeModals() {
+    const hadModal = Boolean(activeModal);
     qsa(".modal").forEach((entry) => entry.classList.add("hidden"));
     qs("#modal-backdrop")?.classList.add("hidden");
     qs("#compare-toggle")?.classList.remove("active");
+
+    const shell = qs(".app-shell");
+    if (shell) shell.inert = false;
+    activeModal = null;
+
+    if (hadModal && lastFocusedElement && document.contains(lastFocusedElement)) {
+      lastFocusedElement.focus({ preventScroll: true });
+    }
+    lastFocusedElement = null;
+
     window.dispatchEvent(new CustomEvent("iconstash:modal-closed"));
+  }
+
+  // Keep Tab inside the open dialog.
+  function setupModalFocusTrap() {
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Tab" || !activeModal) return;
+      const items = focusableIn(activeModal);
+      if (!items.length) {
+        event.preventDefault();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === activeModal)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }, true);
   }
 
   function particleBurst(target) {
     if (!target) return;
+    if (prefersReducedMotion()) return;
     const rect = target.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
@@ -79,8 +144,14 @@
 
   function animateNumber(element, target, duration = 700) {
     if (!element) return;
-    const start = Number(String(element.textContent || "0").replace(/,/g, "")) || 0;
     const end = Number(target) || 0;
+    // A JS rAF count-up is not covered by the CSS reduced-motion block, so bail
+    // out to the final value instead of animating.
+    if (prefersReducedMotion()) {
+      element.textContent = end.toLocaleString("en-US");
+      return;
+    }
+    const start = Number(String(element.textContent || "0").replace(/,/g, "")) || 0;
     const started = performance.now();
     element.classList.remove("number-pop");
     void element.offsetWidth;
@@ -147,6 +218,7 @@
 
   function init() {
     setupModalClosers();
+    setupModalFocusTrap();
     setupStatsObserver();
     setupNetworkGate();
   }

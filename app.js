@@ -59,6 +59,11 @@
   const DB_NAME = "IconStashDB";
   const DB_VERSION = 1;
   const STORE_NAME = "libraries";
+  // A cached library used to be served forever, so an upstream library update
+  // never reached returning visitors. Entries now expire; the timestamp lives
+  // under a separate key so refreshing it never re-serialises the icon array.
+  const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+  const CACHE_STAMP_PREFIX = "cached-at:";
 
   let dbPromise = null;
   function openDatabase() {
@@ -80,20 +85,45 @@
     return dbPromise;
   }
 
+  function idbGet(store, key) {
+    return new Promise((resolve) => {
+      const request = store.get(key);
+      request.onsuccess = () => resolve(request.result ?? null);
+      request.onerror = () => resolve(null);
+    });
+  }
+
   async function getCachedLibrary(slug) {
     try {
       const db = await openDatabase();
-      return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, "readonly");
-        const store = transaction.objectStore(STORE_NAME);
-        const request = store.get(slug);
-        request.onsuccess = (event) => resolve(event.target.result || null);
-        request.onerror = (event) => reject(event.target.error);
-      });
+      const transaction = db.transaction(STORE_NAME, "readonly");
+      const store = transaction.objectStore(STORE_NAME);
+      const [icons, stamp] = await Promise.all([
+        idbGet(store, slug),
+        idbGet(store, CACHE_STAMP_PREFIX + slug)
+      ]);
+
+      if (!Array.isArray(icons) || !icons.length) return null;
+
+      const savedAt = Number(stamp) || 0;
+      if (savedAt && Date.now() - savedAt > CACHE_TTL_MS) return null;
+
+      // Entries written before this change have no timestamp. Start their clock
+      // now so they expire eventually instead of living forever.
+      if (!savedAt) stampLibrary(slug);
+
+      return icons;
     } catch (err) {
       console.warn("IndexedDB read error:", err);
       return null;
     }
+  }
+
+  function stampLibrary(slug) {
+    openDatabase().then((db) => {
+      const transaction = db.transaction(STORE_NAME, "readwrite");
+      transaction.objectStore(STORE_NAME).put(Date.now(), CACHE_STAMP_PREFIX + slug);
+    }).catch(() => {});
   }
 
   async function cacheLibrary(slug, icons) {
@@ -102,9 +132,10 @@
       return new Promise((resolve, reject) => {
         const transaction = db.transaction(STORE_NAME, "readwrite");
         const store = transaction.objectStore(STORE_NAME);
-        const request = store.put(icons, slug);
-        request.onsuccess = () => resolve();
-        request.onerror = (event) => reject(event.target.error);
+        store.put(icons, slug);
+        store.put(Date.now(), CACHE_STAMP_PREFIX + slug);
+        transaction.oncomplete = () => resolve();
+        transaction.onerror = (event) => reject(event.target.error);
       });
     } catch (err) {
       console.warn("IndexedDB write error:", err);
@@ -683,7 +714,7 @@
     state.filteredIcons.sort((a, b) => {
       const libDelta = (order.get(a.librarySlug) ?? 9999) - (order.get(b.librarySlug) ?? 9999);
       if (libDelta) return libDelta;
-      return (b.popularity || 0) - (a.popularity || 0) || a.name.localeCompare(b.name);
+      return a.name.localeCompare(b.name);
     });
   }
 
@@ -729,7 +760,7 @@
         <p>${Number(lib.count || 0).toLocaleString("en-US")} icons - ${escapeHtml(lib.description || "")}</p>
       </article>
     `).join("");
-    const trending = Array.from(state.icons.values()).sort((a, b) => (b.popularity || 0) - (a.popularity || 0)).slice(0, 24);
+    const trending = Array.from(state.icons.values()).sort((a, b) => a.name.localeCompare(b.name)).slice(0, 24);
     if (trending.length) {
       els.trendingIcons.innerHTML = trending.map((icon) => `
         <button class="trend-card" data-icon-id="${icon.id}">
@@ -1174,8 +1205,7 @@
       viewBox,
       width: Number(width) || 24,
       height: Number(height) || 24,
-      strokeWidth: Number(svg.getAttribute("stroke-width")) || 2,
-      popularity: 5000
+      strokeWidth: Number(svg.getAttribute("stroke-width")) || 2
     }, lib, 0);
   }
 
@@ -1603,7 +1633,8 @@
       tags: icon.tags || tagsFor(icon.name, category, subCategory, lib),
       category,
       subCategory,
-      svgContent: icon.svgContent || "",
+      // No indexed library ships a `svgContent` field — every set uses
+      // `svgPath` — so only keep the field that actually carries markup.
       svgPath: icon.svgPath || icon.svgContent || "",
       viewBox: icon.viewBox || `0 0 ${icon.width || 24} ${icon.height || 24}`,
       width: icon.width || 24,
@@ -1614,8 +1645,10 @@
       docsUrl: icon.docsUrl || `${lib.docsUrl || ""}${encodeURIComponent(icon.name || "")}`,
       npmPackage: icon.npmPackage || lib.npmPackage,
       jsxImport: icon.jsxImport || `import { ${pascal(icon.name)} } from '${lib.npmPackage || lib.slug}'`,
-      popularity: icon.popularity || Math.max(100, 10000 - ((index * 17) % 9900)),
-      dateAdded: icon.dateAdded || dateFor(index)
+      // No real per-icon popularity or release date exists in the upstream data,
+      // so we do not invent one. Sorting falls back to name/library order.
+      popularity: Number(icon.popularity) || 0,
+      dateAdded: icon.dateAdded || ""
     };
   }
 
@@ -3395,6 +3428,13 @@
       els.gridContainer.scrollTo({ top: Math.max(0, targetTop - state.rowHeight), behavior: "smooth" });
     }
     updateVirtualScroll(true);
+    // Move real DOM focus, not just the highlight ring, so the card is announced
+    // by screen readers and Tab continues from the right place.
+    const icon = state.filteredIcons[state.focusedIndex];
+    if (icon) {
+      const card = els.iconGrid.querySelector(`[data-id="${CSS.escape(icon.id)}"]`);
+      if (card) card.focus({ preventScroll: true });
+    }
   }
 
   function focusedIcon() {
@@ -4192,7 +4232,19 @@
     setupCollectionEvents();
     setupKeyboard();
     els.themeToggle.addEventListener("click", toggleTheme);
-    els.sidebarToggle.addEventListener("click", () => document.body.classList.toggle("sidebar-open"));
+    els.sidebarToggle.addEventListener("click", () => {
+      const open = document.body.classList.toggle("sidebar-open");
+      els.sidebarToggle.setAttribute("aria-expanded", String(open));
+      const label = open ? "Close filters" : "Open filters";
+      els.sidebarToggle.setAttribute("aria-label", label);
+      els.sidebarToggle.title = label;
+      if (open) {
+        const firstControl = els.sidebar?.querySelector("input, a, button");
+        if (firstControl) firstControl.focus({ preventScroll: true });
+      } else {
+        els.sidebarToggle.focus({ preventScroll: true });
+      }
+    });
     els.sidebarCollapse.addEventListener("click", () => {
       const collapsed = document.body.classList.toggle("sidebar-collapsed");
       els.sidebarCollapse.setAttribute("aria-expanded", String(!collapsed));
@@ -4701,6 +4753,16 @@
         }
       } else if (event.key === "?" && !editing) {
         ui().openModal("shortcuts-modal");
+      } else if ((event.key === "Enter" || event.key === " ") && !editing) {
+        // Cards are focusable <article> elements, so they need explicit
+        // activation. Skip when focus is already on a nested control
+        // (e.g. the favourite button), which the browser handles itself.
+        const card = target && target.closest ? target.closest(".icon-card") : null;
+        const onControl = target && target.closest ? target.closest("button, a, input, select, textarea") : null;
+        if (card && !onControl) {
+          event.preventDefault();
+          card.click();
+        }
       } else if (event.key.startsWith("Arrow") && !editing) {
         if (event.key === "ArrowRight") focusRelative(1);
         if (event.key === "ArrowLeft") focusRelative(-1);
@@ -4861,12 +4923,6 @@
     const parts = String(name || "").split(/[-_\s]+/).filter(Boolean);
     const extra = parts.flatMap((part) => synonyms[part] || []);
     return Array.from(new Set([...parts, ...extra, category.toLowerCase(), subCategory.toLowerCase(), lib.slug]));
-  }
-
-  function dateFor(index) {
-    const date = new Date(Date.UTC(2024, 0, 15));
-    date.setUTCDate(date.getUTCDate() + (index % 420));
-    return date.toISOString().slice(0, 10);
   }
 
   async function init() {

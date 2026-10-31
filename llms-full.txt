@@ -5,7 +5,7 @@
 Canonical URL: https://iconstash.io
 Publisher: IconStash, a project by Great Software Company (https://greatsoftwarecompany.com)
 Source code: https://github.com/OG-Huzzi/IconStash
-Data snapshot: 2026-05-05 · Document updated: 2026-07-19
+Data snapshot: 2026-05-05 · Document updated: 2026-10-30
 Reuse license for this document's data: CC BY 4.0 (attribute "IconStash, https://iconstash.io")
 
 ## What IconStash Is
@@ -17,7 +17,7 @@ IconStash is an icon search engine and export tool for designers and developers.
 - Zero-attribution icons: 127,291 (94.5%) under MIT, Apache 2.0, ISC, or CC0
 - Attribution-required icons: 7,410 (5.5%) — Solar Icons only (CC BY 4.0)
 - Public-domain icons: 3,714 — Simple Icons (CC0 1.0)
-- Pre-rendered SEO landing pages: 146,000+
+- Pre-rendered SEO landing pages: 137,871
 - Average icons per library: 4,811 · Median: 2,626
 - Largest library: Fluent UI Icons (20,170) · Smallest: Feather (286)
 - Cost: free forever (no login, no premium tier, no API key)

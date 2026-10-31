@@ -117,8 +117,9 @@ function renderLibraryHeader(lib, count) {
   return '<div class="library-break" data-library-break="' + esc(lib.slug) + '"><span class="lib-badge">' + libIconSvg(lib.slug) + '</span><div><h2>' + esc(lib.name) + '</h2><p>' + Number(count || lib.count || 0).toLocaleString("en-US") + ' icons</p></div></div>';
 }
 function renderCard(icon, index) {
-  const delay = Math.min(400, index * 15);
-  return '<article class="icon-card prerender-card" data-id="' + esc(icon.id) + '" data-library="' + esc(icon.librarySlug) + '" tabindex="0" style="animation-delay:' + delay + 'ms"><button class="card-favorite-btn" data-favorite-id="' + esc(icon.id) + '" aria-label="Add to collection" title="Add to collection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button><div class="icon-wrap" style="width:24px;height:24px">' + renderSvg(icon) + '</div></article>';
+  // No `animation-delay` here: no rule animates .icon-card or .prerender-card,
+  // so the inline delay was dead weight (it accounted for ~10 KB of the page).
+  return '<article class="icon-card prerender-card" data-id="' + esc(icon.id) + '" data-library="' + esc(icon.librarySlug) + '" tabindex="0"><button class="card-favorite-btn" data-favorite-id="' + esc(icon.id) + '" aria-label="Add to collection" title="Add to collection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button><div class="icon-wrap" style="width:24px;height:24px">' + renderSvg(icon) + '</div></article>';
 }
 function replaceElement(html, id, content) {
   const startRx = new RegExp('<([a-zA-Z][\\w:-]*)([^>]*)\\bid="' + id + '"([^>]*)>');
@@ -176,7 +177,9 @@ function main() {
   const total = manifest.totalCount;
   const categories = CATEGORY_META.map(([name, sub, body, color], index) => '<article class="category-card" data-home-category="' + esc(name) + '" style="background:linear-gradient(135deg, ' + color + '18, transparent 60%), var(--glass-2);animation-delay:' + (index * 35) + 'ms"><svg viewBox="0 0 24 24" style="color:' + color + '"><path d="' + esc(body) + '"></path></svg><h3>' + esc(name) + '</h3><p>' + esc(sub) + '</p></article>').join('');
   const featured = libraries.slice(0, 8).map((lib, index) => '<article class="lib-card" data-home-library="' + esc(lib.slug) + '" style="animation-delay:' + (index * 35) + 'ms"><span class="lib-card-mark">' + libIconSvg(lib.slug) + '</span><h3>' + esc(lib.name) + '</h3><p>' + Number(lib.count || 0).toLocaleString("en-US") + ' icons - ' + esc(lib.description || '') + '</p></article>').join('');
-  const trending = allTrending.sort((a, b) => (b.popularity || 0) - (a.popularity || 0)).slice(0, 24);
+  // No real per-icon popularity exists upstream, so pick a stable, honest order
+  // instead of the old synthetic score (which was just an index artefact).
+  const trending = allTrending.slice().sort((a, b) => String(a.name).localeCompare(String(b.name))).slice(0, 24);
   const trendingHtml = trending.map((icon) => '<button class="trend-card" data-icon-id="' + esc(icon.id) + '">' + renderSvg(icon) + '<span>' + esc(icon.name) + '</span></button>').join('');
   const marquee = trending.slice(0, 20);
   const marqueeLeft = marquee.concat(marquee).map((icon) => '<span class="mq-icon">' + renderSvg(icon) + '</span>').join('');
@@ -202,7 +205,10 @@ function main() {
   html = replaceElement(html, "marquee-2", marqueeRight);
   html = replaceElement(html, "lib-list-container", sidebarLibrariesHtml);
   html = replaceElement(html, "icon-grid", firstChunk);
-  html = replaceTemplate(html, "prerender-all-initial", firstChunk);
+  // The old build also wrote firstChunk into <template id="prerender-all-initial">.
+  // That duplicated ~167 KB of markup (1,322 elements) on every page load just to
+  // avoid one prefetched chunk request, so the template is no longer emitted.
+  html = html.replace(/\s*<template id="prerender-all-initial">[\s\S]*?<\/template>/g, '');
   
   // Remove existing inlined prerender-data script block if present to ensure idempotent rebuilds
   html = html.replace(/\s*<script id="prerender-data">[\s\S]*?<\/script>/g, '');
