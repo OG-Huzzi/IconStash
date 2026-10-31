@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://iconstash.io/Listicles/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://iconstash.io/Glossary/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://iconstash.io/articles/best-open-source-icon-libraries-2026/</loc><lastmod>2026-07-20</lastmod></url>
   <url><loc>https://iconstash.io/articles/dark-mode-svg-icons-theming/</loc><lastmod>2026-07-20</lastmod></url>
   <url><loc>https://iconstash.io/articles/designing-accessible-svg-icons/</loc><lastmod>2026-07-20</lastmod></url>
@@ -122,8 +124,7 @@
   <url><loc>https://iconstash.io/articles/svg-developer-cheatsheet-2026/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://iconstash.io/articles/convert-png-to-svg-javascript-guide/</loc><lastmod>2026-10-22</lastmod></url>
   <url><loc>https://iconstash.io/articles/how-to-use-svg-transforms-guide/</loc><lastmod>2026-10-22</lastmod></url>
-  <url><loc>https://iconstash.io/alternatives/font-awesome/</loc><lastmod>2026-10-22</lastmod></url>
-  <url><loc>https://iconstash.io/articles/svg-to-base64-and-data-uri-guide/</loc><lastmod>2026-10-23</lastmod></url>
+    <url><loc>https://iconstash.io/articles/svg-to-base64-and-data-uri-guide/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://iconstash.io/articles/how-to-embed-svg-in-html-guide/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://iconstash.io/articles/svg-vs-png-complete-guide/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://iconstash.io/articles/how-to-use-svg-preserveaspectratio-guide/</loc><lastmod>2026-10-26</lastmod></url>
