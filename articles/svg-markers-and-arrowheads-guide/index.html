@@ -69,7 +69,7 @@
       "dateModified": "2026-11-02",
       "mainEntityOfPage": "https://iconstash.io/articles/svg-markers-and-arrowheads-guide/",
       "inLanguage": "en-US",
-      "wordCount": 4126,
+      "wordCount": 4415,
       "articleSection": "Vector Geometry & Data Visualization",
       "keywords": [
         "svg marker",
@@ -187,6 +187,7 @@
     .breadcrumb a { color: #888; }
     .breadcrumb a:hover { color: #C1DD2D; }
     .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
 
     .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
     .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
@@ -332,6 +333,8 @@
     html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
     html[data-theme="light"] .breadcrumb a { color: #4D6300; }
     html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
     html[data-theme="light"] .toc-nav a { color: #3F3F46; }
     html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
     html[data-theme="light"] .site-footer a { color: #4D6300; }
@@ -395,13 +398,13 @@
     </nav>
   </header>
 
-  <div class="page-container">
+  <main class="page-container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
       <span class="sep">/</span>
       <a href="/articles/">Articles</a>
       <span class="sep">/</span>
-      <span style="color:#FFF;">SVG Markers &amp; Arrowheads Guide</span>
+      <span class="current" aria-current="page">SVG Markers &amp; Arrowheads Guide</span>
     </nav>
 
     <header class="article-hero">
@@ -417,7 +420,7 @@
     </header>
 
     <div class="article-layout">
-      <main class="article-main">
+      <article class="article-main">
 
         <div class="featured-summary">
           <p><strong>Executive Architecture Summary:</strong> The SVG <code>&lt;marker&gt;</code> element is the foundational primitive for attaching arrowheads, directional pointers, measurement ticks, and connector badges to vector lines, polylines, and bezier paths. Operating as an off-screen graphical definition stored inside <code>&lt;defs&gt;</code>, markers automate dynamic vector orientation along path tangents while isolating geometric coordinate spaces.</p>
@@ -772,6 +775,56 @@ export const DiagramEdge: React.FC&lt;DiagramEdgeProps&gt; = ({
         markerWidth="4" markerHeight="12" orient="auto"&gt;
   &lt;line x1="1" y1="0" x2="1" y2="12" stroke="#888" stroke-width="2" /&gt;
 &lt;/marker&gt;</code></pre>
+
+          <h3>Mathematical Tangent Calculus: Deriving Exact Arrowhead Angles on Curves</h3>
+          <p>Understanding how browser engines determine the rotation angle for <code>orient="auto"</code> requires inspecting the differential calculus of parametric path geometry. When a path terminates at point P<sub>n</sub>, the marker orientation angle &theta; corresponds to the four-quadrant arctangent of the incoming tangent velocity vector:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Path Tangent Angle Formula</div>
+            <div class="formula-body">&theta; = atan2(dy, dx) &times; (180 / &pi;)</div>
+            <div class="formula-desc">Where (dx, dy) represents the instantaneous derivative vector evaluated at the path endpoint vertex.</div>
+          </div>
+
+          <p>For a cubic B&eacute;zier curve defined parametrically by four control points P<sub>0</sub>, P<sub>1</sub>, P<sub>2</sub>, P<sub>3</sub> over t &isin; [0, 1], the derivative B'(t) is given by:</p>
+          <div class="formula-card">
+            <div class="formula-title">Cubic B&eacute;zier First Derivative</div>
+            <div class="formula-body">B'(t) = 3(1 - t)<sup>2</sup>(P<sub>1</sub> - P<sub>0</sub>) + 6(1 - t)t(P<sub>2</sub> - P<sub>1</sub>) + 3t<sup>2</sup>(P<sub>3</sub> - P<sub>2</sub>)</div>
+            <div class="formula-desc">At the start vertex (t = 0), the tangent vector simplifies to B'(0) = 3(P<sub>1</sub> - P<sub>0</sub>). At the terminal vertex (t = 1), the tangent vector simplifies to B'(1) = 3(P<sub>3</sub> - P<sub>2</sub>).</div>
+          </div>
+
+          <p>Crucially, if the final control point coincides with the endpoint (P<sub>2</sub> = P<sub>3</sub>), the derivative evaluates to (0, 0), creating an indeterminate mathematical singularity. In this scenario, compliant SVG 2 engines scan backward along the polynomial trajectory to locate the nearest non-zero derivative vector, preventing the arrowhead from collapsing to zero degrees or vanishing entirely.</p>
+
+          <h3>Node Standoff Calculus: Clipping Arrowheads Flush Against Diagram Boundaries</h3>
+          <p>In production diagramming libraries like React Flow, D3, or Cytoscape, drawing an arrow directly from node center A(x<sub>A</sub>, y<sub>A</sub>) to node center B(x<sub>B</sub>, y<sub>B</sub>) causes the arrowhead tip to penetrate into the target node. To ensure the arrow lands flush against the outer perimeter of a target circular or rectangular node, developers must apply a standoff offset calculation:</p>
+
+          <pre><code>interface Point {
+  x: number;
+  y: number;
+}
+
+// Calculate adjusted endpoint so arrowhead tip touches node boundary
+export function calculateStandoffEndpoint(
+  source: Point,
+  target: Point,
+  nodeRadius: number,
+  standoffGap: number = 2
+): Point {
+  const dx = target.x - source.x;
+  const dy = target.y - source.y;
+  const distance = Math.hypot(dx, dy);
+
+  if (distance === 0) return { ...target };
+
+  // Total offset from target center (node boundary radius + optional gap)
+  const totalOffset = nodeRadius + standoffGap;
+  const ratio = Math.max(0, (distance - totalOffset) / distance);
+
+  return {
+    x: source.x + dx * ratio,
+    y: source.y + dy * ratio
+  };
+}</code></pre>
+          <p>By computing this offset before generating the SVG <code>&lt;path&gt;</code> string, the marker tip meets the target node perimeter with pixel-perfect precision across dynamic zoom and pan transformations.</p>
         </section>
 
         <!-- Interactive Studio Sandbox -->
@@ -1061,7 +1114,7 @@ export const DiagramEdge: React.FC&lt;DiagramEdgeProps&gt; = ({
           </div>
         </section>
 
-      </main>
+      </article>
 
       <!-- Sidebar -->
       <aside class="article-sidebar">
@@ -1091,7 +1144,7 @@ export const DiagramEdge: React.FC&lt;DiagramEdgeProps&gt; = ({
         </div>
       </aside>
     </div>
-  </div>
+  </main>
 
   <footer class="site-footer">
     <p>&copy; 2026 IconStash. All rights reserved. High-performance vector geometry and frontend engineering resources. <a href="/privacy/">Privacy Policy</a> &bull; <a href="/terms/">Terms of Service</a> &bull; <a href="/about/">About</a></p>
@@ -1201,7 +1254,11 @@ export const DiagramEdge: React.FC&lt;DiagramEdgeProps&gt; = ({
         const markerAttrs = 'id="arrowhead"\\n      viewBox="0 0 10 10"\\n      refX="' + refX + '"\\n      refY="' + refY + '"\\n      markerWidth="' + size + '"\\n      markerHeight="' + size + '"\\n      orient="' + orient + '"\\n      overflow="visible"';
         const pathMarkerAttrs = pos === 'end' ? 'marker-end="url(#arrowhead)"' : (pos === 'both' ? 'marker-start="url(#arrowhead)"\\n    marker-end="url(#arrowhead)"' : 'marker-start="url(#arrowhead)"\\n    marker-mid="url(#arrowhead)"\\n    marker-end="url(#arrowhead)"');
 
-        const code = '<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">\\n  <defs>\\n    <!-- Reusable Arrowhead Marker Definition -->\\n    <marker\\n      ' + markerAttrs + '>\\n      <path d="' + d + '" fill="' + color + '" />\\n    </marker>\\n  </defs>\\n\\n  <!-- Connector Path with Dynamic Tangent Alignment -->\\n  <path\\n    d="M 50 150 Q 200 40 350 150"\\n    fill="none"\\n    stroke="' + color + '"\\n    stroke-width="3"\\n    ' + pathMarkerAttrs + ' />\\n</svg>';
+        const shapeXml = style === 'chevron'
+          ? '<path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />'
+          : '<path d="' + d + '" fill="' + color + '" />';
+
+        const code = '<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">\\n  <defs>\\n    <!-- Reusable Arrowhead Marker Definition -->\\n    <marker\\n      ' + markerAttrs + '>\\n      ' + shapeXml + '\\n    </marker>\\n  </defs>\\n\\n  <!-- Connector Path with Dynamic Tangent Alignment -->\\n  <path\\n    d="M 50 150 Q 200 40 350 150"\\n    fill="none"\\n    stroke="' + color + '"\\n    stroke-width="3"\\n    ' + pathMarkerAttrs + ' />\\n</svg>';
 
         codeOutputBox.textContent = code.replace(/\\n/g, '\n');
       }

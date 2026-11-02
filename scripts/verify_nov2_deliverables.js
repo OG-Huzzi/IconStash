@@ -149,9 +149,14 @@ for (const item of deliverables) {
   assert(content.includes('html[data-theme="light"] .formula-title'), 'Light theme formula-title contrast rule present');
   assert(content.includes('html[data-theme="light"] .stat-label'), 'Light theme stat-label contrast rule present');
   assert(content.includes('html[data-theme="light"] .breadcrumb a') || content.includes('html[data-theme="light"] .breadcrumb'), 'Light theme breadcrumb contrast rule present');
+  assert(content.includes('html[data-theme="light"] .breadcrumb .current'), 'Light theme breadcrumb .current contrast rule present');
+  assert(!content.includes('style="color:#FFF;"') && !content.includes('style="color:#fff;"'), 'Breadcrumbs do not hardcode inline white color (WCAG contrast safe)');
+  assert(content.includes('class="current" aria-current="page"'), 'Breadcrumbs use accessible aria-current="page" on current item');
   assert(content.includes('html[data-theme="light"] .site-footer a'), 'Light theme site-footer a contrast rule present');
 
-  // 10. Theme toggle and persistence verification
+  // 10. Semantic Landmarks & Theme toggle verification
+  assert(content.includes('<main class="page-container">'), 'Page container uses semantic <main class="page-container">');
+  assert(content.includes('<article class="article-main">'), 'Article content uses semantic <article class="article-main">');
   assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
   assert(content.includes("localStorage.getItem('theme')"), 'Theme persistence script present');
   assert(content.includes('.site-header nav a:not(.header-cta) { display: none; }'), 'Mobile nav preserves #themeToggle button visibility');
@@ -170,6 +175,8 @@ for (const item of deliverables) {
     assert(content.includes('id="speedSlider"'), 'Interactive speedSlider present');
     assert(content.includes('id="stageSvg"'), 'Interactive stageSvg present');
     assert(content.includes('id="copyAnimCodeBtn"'), 'Interactive copyAnimCodeBtn present');
+    assert(content.includes('pauseAnimations') && content.includes('unpauseAnimations'), 'Animation studio supports native SMIL playback controls');
+    assert(content.includes('polygon points="0,-55 45,-28 45,28 0,55 -45,28 -45,-28"'), 'Animation studio polygon is centered at origin for symmetric scaling');
     assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
@@ -180,6 +187,7 @@ for (const item of deliverables) {
     assert(content.includes('id="markerSizeSlider"'), 'Interactive markerSizeSlider present');
     assert(content.includes('id="stageMarkerSvg"'), 'Interactive stageMarkerSvg present');
     assert(content.includes('id="copyMarkerCodeBtn"'), 'Interactive copyMarkerCodeBtn present');
+    assert(content.includes("style === 'chevron'"), 'Marker studio code generator handles open line chevron stroke styling');
     assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
     assert(content.includes('updateStudio()'), 'updateStudio function called');
     assert(content.includes('.catch('), 'Clipboard API has fallback catch handler');
@@ -238,7 +246,15 @@ for (const item of deliverables) {
   // 17. Body word count >= 4000
   const cleanBody = content.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
   const words = cleanBody.split(/\s+/).filter(w => w.length > 0);
-  assert(words.length >= 4000, `Article body word count (${words.length}) >= 4000 words`);
+  assert(words.length >= 4000, `Article total word count (${words.length}) >= 4000 words`);
+
+  const articleMatch = content.match(/<article[^>]*class="[^"]*article-main[^"]*"[\s\S]*?<\/article>/i);
+  assert(!!articleMatch, `Article content container <article class="article-main"> present in ${item.slug}`);
+  if (articleMatch) {
+    const articleClean = articleMatch[0].replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
+    const articleWords = articleClean.split(/\s+/).filter(w => w.length > 0);
+    assert(articleWords.length >= 4000, `Article content body word count (${articleWords.length}) >= 4000 words`);
+  }
 }
 
 // Site Integration Verification: articles/index.html
