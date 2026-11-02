@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Markers &amp; Arrowheads: Start, Mid, and End Markers Architecture Guide (2026) | IconStash</title>
+  <meta name="description" content="Master SVG markers and arrowheads: marker-start, marker-mid, marker-end, orient auto-start-reverse, refX/refY alignment, and interactive arrowhead studio.">
+  <meta name="keywords" content="svg marker element, svg arrowheads, svg marker-end, svg marker-start, svg marker orient auto, marker-mid connector, refx refy alignment, svg diagram arrows, markerunits strokewidth">
+  <meta property="og:title" content="SVG Markers &amp; Arrowheads: Start, Mid, and End Markers Architecture Guide (2026)">
+  <meta property="og:description" content="Master SVG markers and arrowheads: marker-start, marker-mid, marker-end, orient auto-start-reverse, refX/refY alignment, and interactive arrowhead studio.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-markers-and-arrowheads-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-markers-and-arrowheads-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-02T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-02T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Geometry &amp; Data Visualization">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Markers">
+  <meta property="article:tag" content="Arrowheads">
+  <meta property="article:tag" content="Data Visualization">
+  <meta property="article:tag" content="Diagram Engineering">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Markers &amp; Arrowheads: Start, Mid, and End Markers Architecture Guide (2026)">
+  <meta name="twitter:description" content="Master SVG markers and arrowheads: marker-start, marker-mid, marker-end, orient auto-start-reverse, refX/refY alignment, and interactive arrowhead studio.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-markers-and-arrowheads-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-markers-and-arrowheads-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "SVG Markers & Arrowheads: Start, Mid, and End Markers Architecture Guide (2026)",
+      "description": "Master SVG markers and arrowheads: marker-start, marker-mid, marker-end, orient auto-start-reverse, refX/refY alignment, and interactive arrowhead studio.",
+      "image": "https://iconstash.io/assets/articles/svg-markers-and-arrowheads-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-02",
+      "dateModified": "2026-11-02",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-markers-and-arrowheads-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4126,
+      "articleSection": "Vector Geometry & Data Visualization",
+      "keywords": [
+        "svg marker",
+        "svg arrowhead",
+        "marker-end",
+        "marker-start",
+        "marker-mid",
+        "orient auto-start-reverse",
+        "refX refY alignment",
+        "svg diagram connectors"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Markers & Arrowheads Guide",
+          "item": "https://iconstash.io/articles/svg-markers-and-arrowheads-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the primary difference between orient='auto' and orient='auto-start-reverse' in SVG 2?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The orient='auto' attribute rotates the marker to match the direction of the path tangent at each vertex. For marker-end, this points forward in the direction of the line. However, if the same marker is reused for marker-start, orient='auto' points outward in the forward direction rather than backward along the incoming line. In SVG 2, orient='auto-start-reverse' automatically rotates the marker 180 degrees when rendered at marker-start, allowing developers to share a single arrowhead definition for bidirectional connectors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does markerUnits affect arrowhead scaling when the path stroke-width changes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default, markerUnits='strokeWidth', meaning the marker dimensions (markerWidth and markerHeight) scale proportionally with the stroke-width of the referencing path. If the stroke width doubles, the arrowhead doubles in physical size. Setting markerUnits='userSpaceOnUse' unlinks arrowhead scaling from stroke thickness, rendering the marker at fixed coordinate units regardless of whether the path stroke is 1px or 10px."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do refX and refY prevent arrowheads from overlapping connected diagram nodes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The refX and refY coordinates establish the internal anchor point within the marker's viewBox that aligns precisely with the path vertex coordinate. For an arrowhead of width 10, setting refX='10' aligns the tip of the arrow with the vertex. Setting refX to an offset value such as refX='15' or adjusting the endpoint prevents the marker geometry from overlapping surrounding diagram nodes or circular flowchart boundaries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can SVG markers dynamically inherit the stroke color of their referencing path?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In modern browsers conforming to SVG 2, setting fill='context-stroke' or stroke='context-stroke' inside the marker definition instructs the marker to inherit the computed stroke color of whichever path references it. In older rendering environments where context-stroke is unsupported, CSS custom properties (var(--connector-color)) or currentColor provide reliable fallbacks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does marker-mid fail to render on basic SVG line and circle elements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The marker-mid property only attaches markers to interior vertices between line segments. An SVG line has only a start point and an end point with zero interior vertices. Similarly, circle, rect, and ellipse elements lack segmented interior vertices. To utilize marker-mid, the geometry must be declared using path, polyline, or polygon elements with intermediate coordinate vertices."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you resolve Safari WebKit clipping bugs where arrowheads are cut off at the edge?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WebKit Safari historically clipped markers that extended beyond the marker element's internal viewBox. To prevent clipping, set overflow='visible' directly on the marker element, ensure markerWidth and markerHeight adequately encompass the full bounding geometry including stroke miter joins, and configure refX/refY to center the shape within the marker viewport."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 320px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 200px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span style="color:#FFF;">SVG Markers &amp; Arrowheads Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Geometry &amp; Visualization</span>
+      <h1>SVG Markers &amp; Arrowheads: Start, Mid, and End Markers Architecture Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published November 2, 2026</span>
+        <span>4,260 Words</span>
+        <span>17 min read</span>
+        <span>Diagram Engineering &amp; Flowcharts</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <main class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architecture Summary:</strong> The SVG <code>&lt;marker&gt;</code> element is the foundational primitive for attaching arrowheads, directional pointers, measurement ticks, and connector badges to vector lines, polylines, and bezier paths. Operating as an off-screen graphical definition stored inside <code>&lt;defs&gt;</code>, markers automate dynamic vector orientation along path tangents while isolating geometric coordinate spaces.</p>
+          <ul>
+            <li><strong>Marker Placement Trilogy:</strong> The CSS and presentation attributes <code>marker-start</code>, <code>marker-mid</code>, and <code>marker-end</code> dictate where markers appear along vertices. While <code>marker-mid</code> requires segmented paths with interior coordinate nodes, <code>marker-start</code> and <code>marker-end</code> govern terminal path caps.</li>
+            <li><strong>Tangent Orientation Dynamics:</strong> The evolution from SVG 1.1's <code>orient="auto"</code> to SVG 2's <code>orient="auto-start-reverse"</code> eliminates redundant marker definitions by automatically flipping start arrowheads 180 degrees to face backward along the incoming path tangent.</li>
+            <li><strong>Coordinate Anchoring Precision:</strong> Mastering <code>refX</code>, <code>refY</code>, <code>markerWidth</code>, and <code>markerUnits</code> ensures that arrowheads terminate exactly against connected flowchart nodes rather than penetrating internal geometry or causing visual gaps.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="https://iconstash.io/assets/articles/svg-markers-and-arrowheads-guide.jpg" alt="SVG Markers and Arrowheads Architecture Blueprint showing refX and refY coordinate geometry" width="1200" height="675">
+          <figcaption>Figure 1: Mathematical coordinate anatomy of the SVG marker element, showing refX/refY alignment, orient="auto", and stroke inheritance.</figcaption>
+        </figure>
+
+        <section id="marker-architecture">
+          <h2>1. Core Marker Architecture: How the &lt;marker&gt; Element Works in SVG 2</h2>
+          <p>In modern web applications, interactive diagrams, workflow builders, engineering schematics, and data visualization tools (such as D3.js, Mermaid, Excalidraw, and React Flow) depend heavily on dynamic connectors. Manually drawing arrowheads by calculating trigonometry in JavaScript and appending polygon elements to the DOM creates severe architectural overhead: every time a connected node moves or a bezier curve recalculates, JavaScript must recompute rotational angles and reposition vertices.</p>
+          <p>The SVG specification solves this via the native <code>&lt;marker&gt;</code> element. A marker represents a reusable graphic template—analogous to a miniature, self-contained SVG canvas—defined inside the document's <code>&lt;defs&gt;</code> element. Instead of being rendered directly at its declaration location, the marker is referenced by identifier across paths, lines, and polylines via the CSS properties <code>marker-start</code>, <code>marker-mid</code>, and <code>marker-end</code>.</p>
+          <p>When the browser rendering engine parses an element referencing a marker, it calculates the mathematical tangent vector at each target vertex. The engine constructs a local affine transformation matrix, translates the marker's coordinate system to the vertex anchor defined by <code>refX</code> and <code>refY</code>, rotates the marker by the computed tangent angle, and composites the vector graphic directly onto the render layer. This entire pipeline executes in compiled native browser C++ (Skia in Blink, WebRender in Gecko), delivering instantaneous 120 FPS repositioning during drag-and-drop operations with zero JavaScript overhead.</p>
+          <p>The core syntax of an SVG marker definition establishes its own local coordinate system, dimensions, and orientation mode:</p>
+
+          <pre><code>&lt;svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;defs&gt;
+    &lt;!-- Define reusable arrowhead marker --&gt;
+    &lt;marker
+      id="arrowhead-end"
+      viewBox="0 0 10 10"
+      refX="8"
+      refY="5"
+      markerWidth="6"
+      markerHeight="6"
+      orient="auto-start-reverse"&gt;
+      &lt;path d="M 0 0 L 10 5 L 0 10 z" fill="#C1DD2D" /&gt;
+    &lt;/marker&gt;
+  &lt;/defs&gt;
+
+  &lt;!-- Path referencing the marker --&gt;
+  &lt;path
+    d="M 50 150 C 200 50, 400 250, 550 150"
+    fill="none"
+    stroke="#C1DD2D"
+    stroke-width="3"
+    marker-end="url(#arrowhead-end)" /&gt;
+&lt;/svg&gt;</code></pre>
+
+          <p>In the snippet above, the <code>viewBox="0 0 10 10"</code> defines the internal bounding coordinate space of the marker, while <code>refX="8"</code> and <code>refY="5"</code> align the point (8, 5) directly over the path's terminal vertex (550, 150). The browser automatically calculates the tangent slope of the cubic Bézier curve at its endpoint and rotates the arrowhead to match the curve's exit trajectory.</p>
+        </section>
+
+        <section id="marker-attributes">
+          <h2>2. Marker Geometry &amp; Sizing: markerWidth, markerHeight, and markerUnits</h2>
+          <p>Configuring the physical scale of an SVG marker requires understanding the interplay between three critical attributes: <code>markerWidth</code>, <code>markerHeight</code>, and <code>markerUnits</code>. Developers frequently experience confusing rendering bugs where arrowheads appear microscopic or disproportionately massive due to misunderstandings of these sizing mechanics.</p>
+
+          <h3>The markerUnits Dual-Mode System</h3>
+          <p>The <code>markerUnits</code> attribute determines whether the dimensions declared in <code>markerWidth</code> and <code>markerHeight</code> represent multiples of the referencing path's stroke thickness or absolute coordinate units in the SVG viewport:</p>
+
+          <ul>
+            <li><code>markerUnits="strokeWidth"</code> (The Default): The dimensions of the marker viewport scale proportionally with the <code>stroke-width</code> of the path referencing it. For example, if <code>markerWidth="8"</code> and <code>markerHeight="8"</code>, and the path has <code>stroke-width="2"</code>, the physical rendered width of the marker viewport is 16 user units (8 times 2). If the path stroke increases to <code>stroke-width="5"</code>, the marker automatically expands to 40 user units.</li>
+            <li><code>markerUnits="userSpaceOnUse"</code>: The marker dimensions represent absolute coordinate units within the parent SVG viewport coordinate system. Regardless of whether the path stroke is 0.5px or 20px, an arrowhead configured with <code>markerWidth="24"</code> and <code>markerUnits="userSpaceOnUse"</code> remains exactly 24 user units wide.</li>
+          </ul>
+
+          <div class="formula-card">
+            <div class="formula-title">Marker Viewport Scaling Calculation</div>
+            <div class="formula-body">EffectiveMarkerSize = DeclaredMarkerSize * (markerUnits === 'strokeWidth' ? strokeWidth : 1)</div>
+            <div class="formula-desc">When markerUnits is strokeWidth, the browser multiplies the declared markerWidth and markerHeight by the referencing path's stroke-width before applying the internal viewBox aspect ratio transformation.</div>
+          </div>
+
+          <h3>Aspect Ratio Fitting via preserveAspectRatio</h3>
+          <p>Like the root <code>&lt;svg&gt;</code> and <code>&lt;symbol&gt;</code> elements, the <code>&lt;marker&gt;</code> element supports the <code>preserveAspectRatio</code> attribute. By default, markers enforce <code>preserveAspectRatio="xMidYMid meet"</code>, which fits the internal marker graphic within the viewport defined by <code>markerWidth</code> and <code>markerHeight</code> while preserving uniform aspect scaling.</p>
+          <p>If your arrowhead graphic appears distorted or letterboxed within its viewport, ensure that the aspect ratio of <code>markerWidth</code> to <code>markerHeight</code> exactly matches the aspect ratio of your internal <code>viewBox</code>. For a square viewBox (e.g. <code>viewBox="0 0 10 10"</code>), declare equal values for <code>markerWidth</code> and <code>markerHeight</code> (e.g. <code>markerWidth="6" markerHeight="6"</code>).</p>
+        </section>
+
+        <section id="refx-refy-alignment">
+          <h2>3. Precision Alignment: Demystifying refX and refY Coordinate Anchors</h2>
+          <p>The attributes <code>refX</code> and <code>refY</code> are the most mathematically critical properties of any marker. They define the internal anchor point (or origin coordinate) within the marker's local viewBox that will be pinned directly to the path's vertex.</p>
+
+          <h3>The Mechanical Meaning of refX and refY</h3>
+          <p>Think of <code>refX</code> and <code>refY</code> as the registration pin on a physical drafting stamp. When an arrowhead is placed at the end of a line, does the vertex represent the tip of the arrow, the base of the arrow, or the geometric center of gravity? By default, <code>refX="0"</code> and <code>refY="0"</code>, which places the top-left corner of the marker bounding box directly on the path vertex—a configuration that almost always produces misaligned, off-center arrowheads.</p>
+          <p>For a standard right-pointing triangular arrowhead drawn within a <code>viewBox="0 0 10 10"</code> where the sharp tip terminates at coordinate (10, 5), setting <code>refX="10"</code> and <code>refY="5"</code> pins the tip of the arrow exactly to the vertex coordinate:</p>
+
+          <pre><code>&lt;!-- Sharp Tip Anchored Exactly to Vertex --&gt;
+&lt;marker id="sharpTip" viewBox="0 0 10 10" refX="10" refY="5"
+        markerWidth="8" markerHeight="8" orient="auto"&gt;
+  &lt;path d="M 0 1 L 10 5 L 0 9 z" fill="#C1DD2D" /&gt;
+&lt;/marker&gt;</code></pre>
+
+          <h3>Preventing Node Overlap in Network Diagrams</h3>
+          <p>In software architecture diagrams and workflow editors, connector lines connect geometric nodes (such as rectangles representing microservices or circles representing state machines). If an arrow path terminates at the center of a node, a default arrowhead will plunge directly inside the node geometry, obscuring text labels or border styling.</p>
+          <p>Frontend engineers frequently solve this by offsetting the path termination point. However, in SVG 2, you can also leverage <code>refX</code> offsets. In SVG 2, <code>refX</code> accepts keywords including <code>left</code>, <code>center</code>, and <code>right</code>, as well as percentage lengths. By adjusting <code>refX</code> beyond the tip (for instance, setting <code>refX="12"</code> on a 10-unit arrow), you introduce an automatic standoff buffer between the path vertex and the visual marker.</p>
+
+          <h3>The Mathematical Transformation Matrix Pipeline</h3>
+          <p>Under the hood, browser rendering engines position an SVG marker by concatenating four fundamental 2D affine transformation matrices. Understanding this matrix sequence demystifies how <code>refX</code>, <code>refY</code>, and <code>orient</code> interact:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Marker Affine Transformation Concatenation</div>
+            <div class="formula-body">M_total = Translate(Vx, Vy) * Rotate(theta) * Scale(Sx, Sy) * Translate(-refX, -refY)</div>
+            <div class="formula-desc">The browser first translates the coordinate system back by (-refX, -refY) to align the anchor at local origin (0, 0), scales by the viewport dimension ratio, rotates by the path tangent angle theta, and finally translates to the target path vertex (Vx, Vy).</div>
+          </div>
+
+          <p>Notice the order of matrix multiplication: <code>Translate(-refX, -refY)</code> occurs <em>before</em> rotation and scaling. This mathematical ordering is why modifying <code>refX</code> shifts the marker along the longitudinal axis of the line regardless of what angle the path is pointing! Setting <code>refX="10"</code> pulls a 10-unit arrow backward along the line's incoming tangent vector, while increasing <code>refX</code> to 15 pushes the visual geometry backward by an additional 5 units, establishing a clean visual gap before the node boundary.</p>
+        </section>
+
+        <section id="orient-auto-reverse">
+          <h2>4. Path Tangent Orientation: orient="auto" vs orient="auto-start-reverse"</h2>
+          <p>The orientation of an SVG marker along a path is governed by the <code>orient</code> attribute. Understanding the mathematical evolution of this property between SVG 1.1 and SVG 2 is essential for modern frontend architecture.</p>
+
+          <h3>The Limitations of orient="auto"</h3>
+          <p>In SVG 1.1, the <code>orient</code> attribute accepted two options: a fixed angular degree (e.g. <code>orient="45deg"</code> or <code>orient="90"</code>) or the keyword <code>orient="auto"</code>. When set to <code>auto</code>, the browser calculates the tangent vector of the path at the attachment vertex and rotates the marker's positive X-axis to point forward along the tangent.</p>
+          <p>While this works flawlessly for <code>marker-end</code>, applying the same marker to <code>marker-start</code> causes a severe design bug: the arrow at the start of the line also points forward along the line's exit trajectory—meaning it points inward toward the middle of the line rather than backward toward the origin node!</p>
+          <p>Historically, developers were forced to define two redundant markers in <code>&lt;defs&gt;</code> for every connector style: an <code>arrow-end</code> marker pointing right, and an <code>arrow-start</code> marker manually rotated 180 degrees via negative path coordinates. This doubled markup size, bloated DOM memory, and increased asset maintenance costs.</p>
+
+          <h3>The Modern Solution: orient="auto-start-reverse"</h3>
+          <p>SVG 2 introduced <code>orient="auto-start-reverse"</code>, which is now universally supported across all modern browser engines (Chromium, Firefox, and Safari). This intelligent directive functions as follows:</p>
+          <ol>
+            <li>When the marker is rendered at <code>marker-end</code> or <code>marker-mid</code>, it rotates automatically to match the forward tangent direction, identical to <code>orient="auto"</code>.</li>
+            <li>When the marker is rendered at <code>marker-start</code>, the browser automatically applies an additional 180-degree rotation around the <code>refX, refY</code> anchor point.</li>
+          </ol>
+
+          <pre><code>&lt;defs&gt;
+  &lt;!-- Single Universal Reversible Arrowhead --&gt;
+  &lt;marker
+    id="bidirectionalArrow"
+    viewBox="0 0 10 10"
+    refX="8"
+    refY="5"
+    markerWidth="6"
+    markerHeight="6"
+    orient="auto-start-reverse"&gt;
+    &lt;path d="M 0 1 L 9 5 L 0 9 L 2 5 z" fill="#38BDF8" /&gt;
+  &lt;/marker&gt;
+&lt;/defs&gt;
+
+&lt;!-- Bidirectional Connector using the EXACT SAME Marker ID --&gt;
+&lt;path
+  d="M 60 120 L 340 120"
+  stroke="#38BDF8"
+  stroke-width="2.5"
+  marker-start="url(#bidirectionalArrow)"
+  marker-end="url(#bidirectionalArrow)" /&gt;</code></pre>
+
+          <p>With <code>orient="auto-start-reverse"</code>, a single <code>&lt;marker&gt;</code> definition powers both endpoints of a bidirectional connector, perfectly facing outward away from the path center at both terminations.</p>
+        </section>
+
+        <section id="marker-positions">
+          <h2>5. Marker Positions: marker-start, marker-mid, and marker-end Mechanics</h2>
+          <p>The placement of markers along path geometry is controlled through three specific presentation attributes, which can also be declared in CSS stylesheets:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Property Name</th>
+                  <th>Applicable Geometries</th>
+                  <th>Attachment Location</th>
+                  <th>Supported Vertex Types</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>marker-start</strong></td>
+                  <td>path, line, polyline, polygon</td>
+                  <td>First coordinate vertex</td>
+                  <td>M (MoveTo) origin point</td>
+                </tr>
+                <tr>
+                  <td><strong>marker-mid</strong></td>
+                  <td>path, polyline, polygon</td>
+                  <td>All intermediate internal vertices</td>
+                  <td>L, C, S, Q, T, A connecting joints</td>
+                </tr>
+                <tr>
+                  <td><strong>marker-end</strong></td>
+                  <td>path, line, polyline, polygon</td>
+                  <td>Final terminal vertex</td>
+                  <td>End of open path or Z closure</td>
+                </tr>
+                <tr>
+                  <td><strong>marker</strong> (Shorthand)</td>
+                  <td>path, line, polyline, polygon</td>
+                  <td>Applies to start, mid, and end simultaneously</td>
+                  <td>All vertices along geometry</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>The marker-mid Interior Vertex Rule</h3>
+          <p>A frequent developer pitfall occurs when attempting to apply <code>marker-mid</code> to an SVG <code>&lt;line x1="10" y1="10" x2="100" y2="100" /&gt;</code> element. An SVG line consists of exactly two coordinates: a start point and an end point. Because there are zero intermediate vertices, <code>marker-mid</code> will never render on a <code>&lt;line&gt;</code>.</p>
+          <p>To place markers along a segmented trajectory, developers must declare the geometry using a <code>&lt;polyline&gt;</code> (e.g. <code>points="20,50 100,50 180,50"</code>) or a <code>&lt;path&gt;</code> containing intermediate command segments (such as <code>d="M 20 50 L 100 50 L 180 50"</code>). The interior coordinate (100, 50) acts as the vertex host for <code>marker-mid</code>.</p>
+
+          <h3>Tangent Calculation at Sharp Corner Vertices</h3>
+          <p>When an interior vertex connects two line segments at an acute or obtuse angle, how does the browser calculate the tangent angle for <code>marker-mid</code>? The SVG specification mandates that the marker tangent at an intermediate vertex is computed as the bisector angle between the incoming tangent vector and the outgoing tangent vector. This ensures that directional arrows or corner indicators smoothly bisect the turn rather than abruptly aligning with only one of the adjacent segments.</p>
+        </section>
+
+        <section id="stroke-color-inheritance">
+          <h2>6. Color Inheritance: context-stroke, context-fill, and currentColor</h2>
+          <p>In enterprise design systems and component libraries, iconography and connectors must adapt seamlessly across varied brand palettes, active states, and dark/light color themes. Historically, SVG markers required hardcoded hex colors within their internal shapes (e.g. <code>&lt;path fill="#C1DD2D" /&gt;</code>), forcing developers to generate duplicate marker definitions for every unique color variation in an interface.</p>
+
+          <h3>The SVG 2 Context Value Revolution</h3>
+          <p>To eliminate color duplication, SVG 2 introduced context fill and context stroke keywords: <code>context-fill</code> and <code>context-stroke</code>. When applied inside a marker definition, these keywords instruct the child shapes to dynamically inherit the computed fill or stroke color of whichever path references the marker:</p>
+
+          <pre><code>&lt;defs&gt;
+  &lt;!-- Dynamic Polymorphic Arrowhead --&gt;
+  &lt;marker
+    id="dynamicArrow"
+    viewBox="0 0 10 10"
+    refX="8"
+    refY="5"
+    markerWidth="6"
+    markerHeight="6"
+    orient="auto-start-reverse"&gt;
+    &lt;!-- Inherit stroke color from the host path --&gt;
+    &lt;path d="M 0 1 L 9 5 L 0 9 z" fill="context-stroke" /&gt;
+  &lt;/marker&gt;
+&lt;/defs&gt;
+
+&lt;!-- Green Connector: Arrowhead automatically renders in #10B981 --&gt;
+&lt;path d="M 20 50 L 180 50" stroke="#10B981" stroke-width="2" marker-end="url(#dynamicArrow)" /&gt;
+
+&lt;!-- Coral Connector: Arrowhead automatically renders in #F43F5E --&gt;
+&lt;path d="M 20 100 L 180 100" stroke="#F43F5E" stroke-width="2" marker-end="url(#dynamicArrow)" /&gt;</code></pre>
+
+          <h3>CSS Custom Properties as Universal Fallback</h3>
+          <p>While <code>context-stroke</code> enjoys robust support in modern Chromium and Gecko engines, legacy environments and certain WebKit builds occasionally struggle with context values when markers reside in external SVG documents. To guarantee 100% universal compatibility across all browser engines, frontend developers use CSS Custom Properties (CSS variables):</p>
+
+          <pre><code>/* Marker definition using CSS Custom Properties */
+&lt;marker id="themeableArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"&gt;
+  &lt;path d="M 0 1 L 9 5 L 0 9 z" fill="var(--marker-color, currentColor)" /&gt;
+&lt;/marker&gt;
+
+/* Host component applying scoped CSS variables */
+.workflow-connector-primary {
+  --marker-color: #C1DD2D;
+  stroke: #C1DD2D;
+  marker-end: url(#themeableArrow);
+}
+
+.workflow-connector-danger {
+  --marker-color: #EF4444;
+  stroke: #EF4444;
+  marker-end: url(#themeableArrow);
+}</code></pre>
+
+          <p>Because CSS custom properties penetrate SVG shadow boundaries and definition references, scoped variables provide instant, type-safe recoloring across entire diagram canvases.</p>
+        </section>
+
+        <section id="diagram-flowcharts">
+          <h2>7. Building Dynamic Diagram Connectors &amp; Graph Visualizations</h2>
+          <p>Modern web applications increasingly incorporate interactive canvas graphs, node-based editors, and architecture map visualizers. When architecting vector connectors in frameworks like React, Vue, or D3.js, several production engineering techniques ensure professional visual fidelity.</p>
+
+          <h3>Orthogonal &amp; Smooth Bézier Connector Math</h3>
+          <p>Diagram connectors typically follow two geometric patterns: smooth cubic Bézier curves (splines) or stepped orthogonal paths (manhattan routing). For horizontal node-to-node connectors, a smooth Bézier path is calculated using the start coordinate <code>(x1, y1)</code> and end coordinate <code>(x2, y2)</code> with horizontal control point offsets:</p>
+
+          <pre><code>function generateBezierConnector(x1, y1, x2, y2) {
+  const dx = Math.abs(x2 - x1) * 0.5;
+  // Control point 1 extends horizontally from source node
+  const cx1 = x1 + dx;
+  const cy1 = y1;
+  // Control point 2 enters horizontally into target node
+  const cx2 = x2 - dx;
+  const cy2 = y2;
+
+  return `M ${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`;
+}</code></pre>
+
+          <p>Because control point 2 aligns horizontally on the same Y-axis as the target node (<code>cy2 = y2</code>), the tangent angle of the curve as it reaches <code>(x2, y2)</code> is strictly horizontal (0 degrees). This guarantees that an arrowhead marker referencing this endpoint points perfectly straight into the target node, eliminating awkward diagonal tilting.</p>
+
+          <h3>Stepped Manhattan Routing with Rounded Fillet Corners</h3>
+          <p>In enterprise architecture diagrams, orthogonal connectors (right-angle bends) provide clarity when connecting crowded node hierarchies. However, sharp 90-degree corners can look harsh. Frontend engineers use quadratic Bézier curves (<code>Q</code> commands) to round the corners of orthogonal paths:</p>
+
+          <pre><code>function generateOrthogonalConnector(x1, y1, x2, y2, radius = 8) {
+  const midX = (x1 + x2) / 2;
+  const dirY = y2 &gt; y1 ? 1 : -1;
+
+  return [
+    `M ${x1} ${y1}`,
+    `L ${midX - radius} ${y1}`,
+    `Q ${midX} ${y1} ${midX} ${y1 + radius * dirY}`,
+    `L ${midX} ${y2 - radius * dirY}`,
+    `Q ${midX} ${y2} ${midX + radius} ${y2}`,
+    `L ${x2} ${y2}`
+  ].join(' ');
+}</code></pre>
+
+          <p>Because the final segment approaches <code>(x2, y2)</code> horizontally, the marker orientation angle remains strictly 0 degrees, guaranteeing clean alignment against vertical node walls.</p>
+
+          <h3>Production-Ready React &amp; TypeScript Diagram Edge Component</h3>
+          <p>The following production pattern demonstrates how modern frontend teams encapsulate SVG markers within a reusable React component library with dynamic theming and standoff clipping:</p>
+
+          <pre><code>import React from 'react';
+
+interface Point {
+  x: number;
+  y: number;
+}
+
+interface DiagramEdgeProps {
+  id: string;
+  source: Point;
+  target: Point;
+  color?: string;
+  strokeWidth?: number;
+  bidirectional?: boolean;
+}
+
+export const DiagramEdge: React.FC&lt;DiagramEdgeProps&gt; = ({
+  id,
+  source,
+  target,
+  color = '#C1DD2D',
+  strokeWidth = 2.5,
+  bidirectional = false
+}) =&gt; {
+  const markerId = `edge-arrow-${id}`;
+  const dx = Math.abs(target.x - source.x) * 0.5;
+  const pathD = `M ${source.x} ${source.y} C ${source.x + dx} ${source.y}, ${target.x - dx} ${target.y}, ${target.x} ${target.y}`;
+
+  return (
+    &lt;g className="diagram-connector-group"&gt;
+      &lt;defs&gt;
+        &lt;marker
+          id={markerId}
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="7"
+          markerHeight="7"
+          orient="auto-start-reverse"&gt;
+          &lt;path d="M 0 1 L 9 5 L 0 9 L 2 5 z" fill={color} /&gt;
+        &lt;/marker&gt;
+      &lt;/defs&gt;
+
+      &lt;path
+        d={pathD}
+        fill="none"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        markerStart={bidirectional ? `url(#${markerId})` : undefined}
+        markerEnd={`url(#${markerId})`}
+        style={{ transition: 'stroke 150ms ease' }}
+      /&gt;
+    &lt;/g&gt;
+  );
+};</code></pre>
+
+          <h3>Measurement Ticks &amp; Engineering Dimensions</h3>
+          <p>Markers are not limited to arrowheads. In architectural blueprints and technical data charts, markers serve as measurement tick marks, circular terminal anchors, and dimension caps:</p>
+
+          <pre><code>&lt;!-- Engineering Dimension T-Bar Marker --&gt;
+&lt;marker id="dimensionTick" viewBox="0 0 2 12" refX="1" refY="6"
+        markerWidth="4" markerHeight="12" orient="auto"&gt;
+  &lt;line x1="1" y1="0" x2="1" y2="12" stroke="#888" stroke-width="2" /&gt;
+&lt;/marker&gt;</code></pre>
+        </section>
+
+        <!-- Interactive Studio Sandbox -->
+        <section id="interactive-studio">
+          <h2>8. Interactive Arrowhead &amp; Marker Studio: Live Visual Workbench</h2>
+          <p>Explore the full geometric power of SVG markers using our live interactive workbench. Select arrowhead geometries, test marker placement combinations, toggle orientation modes, fine-tune <code>refX</code>/<code>refY</code> coordinate offsets, and inspect the real-time generated SVG code ready for production deployment.</p>
+
+          <div class="interactive-sandbox" id="markerStudio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/><path d="M12 9v12"/></svg>
+                <span>Interactive SVG Marker &amp; Arrowhead Studio</span>
+              </div>
+              <span class="sandbox-badge">Live Geometry Workbench</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <!-- Controls Column -->
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label for="arrowStyleSelect">Arrowhead Marker Geometry</label>
+                  <select id="arrowStyleSelect" class="control-select">
+                    <option value="stealth">Stealth Fighter (Recessed Barb Tip)</option>
+                    <option value="triangle">Classic Triangle (Filled Sharp Cap)</option>
+                    <option value="chevron">Open Line Chevron (Stroke Only)</option>
+                    <option value="circle">Circular Dot Anchor (Node Cap)</option>
+                    <option value="diamond">Rhombus Diamond (Flowchart Decision)</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label for="markerPosSelect">Marker Attachment Positions</label>
+                  <select id="markerPosSelect" class="control-select">
+                    <option value="end">marker-end Only (Standard Directional)</option>
+                    <option value="both">marker-start &amp; marker-end (Bidirectional)</option>
+                    <option value="all">marker-start, marker-mid &amp; marker-end (Full)</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label for="orientModeSelect">Tangent Orientation Mode</label>
+                  <select id="orientModeSelect" class="control-select">
+                    <option value="auto-start-reverse">orient="auto-start-reverse" (SVG 2 Modern)</option>
+                    <option value="auto">orient="auto" (Standard Forward Tangent)</option>
+                    <option value="45deg">Fixed Angle (45deg Static)</option>
+                    <option value="0deg">Fixed Angle (0deg Horizontal)</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label for="refXSlider">refX Offset (Anchor X): <span id="refXVal" class="stat-num">8px</span></label>
+                  <input type="range" id="refXSlider" min="0" max="16" step="1" value="8" class="control-input" style="padding:0;">
+                </div>
+
+                <div class="control-row">
+                  <label for="refYSlider">refY Offset (Anchor Y): <span id="refYVal" class="stat-num">5px</span></label>
+                  <input type="range" id="refYSlider" min="0" max="10" step="1" value="5" class="control-input" style="padding:0;">
+                </div>
+
+                <div class="control-row">
+                  <label for="markerSizeSlider">Marker Size (Viewport): <span id="markerSizeVal" class="stat-num">7</span></label>
+                  <input type="range" id="markerSizeSlider" min="3" max="14" step="1" value="7" class="control-input" style="padding:0;">
+                </div>
+
+                <div class="control-row">
+                  <label for="strokeColorInput">Connector Stroke Color</label>
+                  <select id="strokeColorInput" class="control-select">
+                    <option value="#C1DD2D">Brand Cyber Lime (#C1DD2D)</option>
+                    <option value="#38BDF8">Electric Sky Blue (#38BDF8)</option>
+                    <option value="#F43F5E">Crimson Warning (#F43F5E)</option>
+                    <option value="#A855F7">Purple Orchid (#A855F7)</option>
+                  </select>
+                </div>
+
+                <!-- Live Geometry Stats -->
+                <div class="stats-readout-box">
+                  <div class="stat-item">
+                    <div class="stat-label">Marker ViewBox</div>
+                    <div class="stat-val highlight" id="telemetryViewBox">0 0 10 10</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">refX / refY Coordinates</div>
+                    <div class="stat-val highlight" id="telemetryRefPoint">(8, 5)</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Effective Units</div>
+                    <div class="stat-val" id="telemetryUnits">strokeWidth (Scalable)</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Browser Engine</div>
+                    <div class="stat-val" id="telemetryEngine">SVG 2 Native HW</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stage & Visual Output Column -->
+              <div class="stage-wrapper">
+                <div class="preview-stage-container">
+                  <svg id="stageMarkerSvg" class="stage-svg-element" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <pattern id="markerGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1A1A1A" stroke-width="0.7" />
+                      </pattern>
+
+                      <!-- Dynamic Studio Marker Definition -->
+                      <marker
+                        id="studioMarker"
+                        viewBox="0 0 10 10"
+                        refX="8"
+                        refY="5"
+                        markerWidth="7"
+                        markerHeight="7"
+                        orient="auto-start-reverse">
+                        <path id="studioMarkerShape" d="M 0 1 L 9 5 L 0 9 L 2 5 z" fill="#C1DD2D" />
+                      </marker>
+                    </defs>
+
+                    <rect width="320" height="220" fill="url(#markerGrid)" />
+
+                    <!-- Source Diagram Node -->
+                    <rect x="25" y="45" width="60" height="40" rx="6" fill="#181818" stroke="#333" stroke-width="1.5" />
+                    <text x="55" y="69" fill="#FFF" font-size="11" font-family="'JetBrains Mono', monospace" text-anchor="middle">NODE A</text>
+
+                    <!-- Intermediate Intermediate Node -->
+                    <circle cx="160" cy="165" r="18" fill="#181818" stroke="#333" stroke-width="1.5" />
+                    <text x="160" y="169" fill="#888" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="middle">MID</text>
+
+                    <!-- Destination Diagram Node -->
+                    <rect x="235" y="45" width="60" height="40" rx="6" fill="#181818" stroke="#333" stroke-width="1.5" />
+                    <text x="265" y="69" fill="#FFF" font-size="11" font-family="'JetBrains Mono', monospace" text-anchor="middle">NODE B</text>
+
+                    <!-- Interactive Connector Path -->
+                    <path
+                      id="stageConnectorPath"
+                      d="M 85 65 Q 160 165 235 65"
+                      fill="none"
+                      stroke="#C1DD2D"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      marker-end="url(#studioMarker)" />
+                  </svg>
+                </div>
+
+                <!-- Code Output Box -->
+                <div class="generated-code-box">
+                  <div class="code-box-head">
+                    <div class="code-tabs">
+                      <button type="button" class="code-tab-btn active" id="tabMarkerCode">Production SVG Code</button>
+                    </div>
+                    <div class="code-actions">
+                      <button type="button" class="copy-btn" id="copyMarkerCodeBtn">Copy Snippet</button>
+                    </div>
+                  </div>
+                  <pre class="code-output-area" id="markerCodeOutputBox">// Initializing marker geometry studio...</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="browser-bugs-workarounds">
+          <h2>9. WebKit Safari Quirks, Scaling Bugs, and Cross-Browser Workarounds</h2>
+          <p>While SVG markers represent a mature web standard, subtle rendering discrepancies exist across browser rendering engines. Understanding these edge cases is vital for shipping enterprise-grade graphics.</p>
+
+          <h3>The WebKit Marker Clipping Trap</h3>
+          <p>In Apple WebKit (Safari on macOS and iOS), markers whose visual geometry extends slightly beyond the declared <code>viewBox</code> or <code>markerWidth</code> boundary can experience sharp, abrupt clipping. This occurs because WebKit sets a hard scissor rectangle around the marker coordinate space.</p>
+          <p><strong>The Fix:</strong> Explicitly add <code>overflow="visible"</code> directly to the <code>&lt;marker&gt;</code> element, and avoid thick stroke miters that extend past the coordinate bounding box:</p>
+
+          <pre><code>&lt;!-- Anti-Clipping WebKit Hardened Marker --&gt;
+&lt;marker
+  id="safariSafeArrow"
+  viewBox="0 0 10 10"
+  refX="9"
+  refY="5"
+  markerWidth="8"
+  markerHeight="8"
+  overflow="visible"&gt;
+  &lt;path d="M 0 1 L 9 5 L 0 9 z" fill="#C1DD2D" stroke-linejoin="round" /&gt;
+&lt;/marker&gt;</code></pre>
+
+          <h3>Marker Sizing with CSS non-scaling-stroke</h3>
+          <p>When an SVG path employs the CSS property <code>vector-effect: non-scaling-stroke</code> to keep borders razor-sharp during viewport zoom operations, SVG 1.1 browser engines historically scaled markers based on the unzoomed stroke width. In modern SVG 2 engines, markers attached to a non-scaling-stroke path correctly preserve their intended visual size relative to the screen pixels.</p>
+
+          <h3>Cross-Document Marker References &amp; CORS Restrictions</h3>
+          <p>Large web applications often store reusable vector assets in centralized sprite files (such as <code>/assets/diagram-symbols.svg</code>). While SVG <code>&lt;use href="/sprite.svg#icon"&gt;</code> supports external fragment identifiers across all modern browsers, external marker references via <code>marker-end="url(/sprite.svg#arrowhead)"</code> face strict browser security limitations.</p>
+          <p>Both Chromium and WebKit strictly block external file URL references within CSS marker properties for security isolation. When a path declares <code>marker-end="url(external.svg#arrow)"</code>, the browser drops the marker silently without console errors. <strong>The architectural rule:</strong> All <code>&lt;marker&gt;</code> elements must be declared locally within the same inline SVG document or injected via root SVG definitions on the page.</p>
+
+          <h3>Hardware Layer Promotion &amp; GPU Compositing</h3>
+          <p>When animating diagram paths using JavaScript drag gestures or CSS transitions, re-rendering markers on every tick can cause paint invalidations. To ensure 120 FPS performance during interactive dragging, promote the entire SVG canvas or the connector group to its own compositing layer using CSS <code>will-change: transform</code>. This caches the marker vector geometry in GPU texture memory, preventing repetitive rasterization cycles during continuous pointer moves.</p>
+        </section>
+
+        <section id="compatibility-matrix">
+          <h2>10. Comprehensive Browser Compatibility &amp; Feature Matrix</h2>
+          <p>The following technical table provides verified operational support across desktop and mobile browsers in 2026.</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Marker Specification Feature</th>
+                  <th>Chrome / Edge (Blink)</th>
+                  <th>Firefox (Gecko)</th>
+                  <th>Safari (WebKit)</th>
+                  <th>Mobile Browsers (iOS/Android)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Core &lt;marker&gt; (marker-start/end)</strong></td>
+                  <td>Universal (Chrome 1+)</td>
+                  <td>Universal (Firefox 1.5+)</td>
+                  <td>Universal (Safari 3+)</td>
+                  <td>Universal (100% Support)</td>
+                </tr>
+                <tr>
+                  <td><strong>marker-mid Interior Vertices</strong></td>
+                  <td>Universal</td>
+                  <td>Universal</td>
+                  <td>Universal</td>
+                  <td>Universal</td>
+                </tr>
+                <tr>
+                  <td><strong>orient="auto-start-reverse"</strong></td>
+                  <td>Universal (Chrome 68+)</td>
+                  <td>Universal (Firefox 56+)</td>
+                  <td>Universal (Safari 12.1+)</td>
+                  <td>Universal (Modern Mobile)</td>
+                </tr>
+                <tr>
+                  <td><strong>context-stroke / context-fill</strong></td>
+                  <td>Universal (Chrome 105+)</td>
+                  <td>Universal (Firefox 90+)</td>
+                  <td>Universal (Safari 16.4+)</td>
+                  <td>Universal (Modern Mobile)</td>
+                </tr>
+                <tr>
+                  <td><strong>markerUnits="userSpaceOnUse"</strong></td>
+                  <td>Universal</td>
+                  <td>Universal</td>
+                  <td>Universal</td>
+                  <td>Universal</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS Styling via marker-end</strong></td>
+                  <td>Universal (Chrome 49+)</td>
+                  <td>Universal (Firefox 45+)</td>
+                  <td>Universal (Safari 10+)</td>
+                  <td>Universal</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS Custom Property Theming</strong></td>
+                  <td>Universal (Chrome 49+)</td>
+                  <td>Universal (Firefox 31+)</td>
+                  <td>Universal (Safari 9.1+)</td>
+                  <td>Universal</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="faq-section">
+          <h2>11. Frequently Asked Questions (FAQ)</h2>
+          <div class="faq-item">
+            <h3>What is the primary difference between orient="auto" and orient="auto-start-reverse" in SVG 2?</h3>
+            <p>The orient="auto" attribute rotates the marker to match the direction of the path tangent at each vertex. For marker-end, this points forward in the direction of the line. However, if the same marker is reused for marker-start, orient="auto" points outward in the forward direction rather than backward along the incoming line. In SVG 2, orient="auto-start-reverse" automatically rotates the marker 180 degrees when rendered at marker-start, allowing developers to share a single arrowhead definition for bidirectional connectors.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does markerUnits affect arrowhead scaling when the path stroke-width changes?</h3>
+            <p>By default, markerUnits="strokeWidth", meaning the marker dimensions (markerWidth and markerHeight) scale proportionally with the stroke-width of the referencing path. If the stroke width doubles, the arrowhead doubles in physical size. Setting markerUnits="userSpaceOnUse" unlinks arrowhead scaling from stroke thickness, rendering the marker at fixed coordinate units regardless of whether the path stroke is 1px or 10px.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do refX and refY prevent arrowheads from overlapping connected diagram nodes?</h3>
+            <p>The refX and refY coordinates establish the internal anchor point within the marker's viewBox that aligns precisely with the path vertex coordinate. For an arrowhead of width 10, setting refX="10" aligns the tip of the arrow with the vertex. Setting refX to an offset value such as refX="15" or adjusting the endpoint prevents the marker geometry from overlapping surrounding diagram nodes or circular flowchart boundaries.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can SVG markers dynamically inherit the stroke color of their referencing path?</h3>
+            <p>In modern browsers conforming to SVG 2, setting fill="context-stroke" or stroke="context-stroke" inside the marker definition instructs the marker to inherit the computed stroke color of whichever path references it. In older rendering environments where context-stroke is unsupported, CSS custom properties (var(--connector-color)) or currentColor provide reliable fallbacks.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why does marker-mid fail to render on basic SVG line and circle elements?</h3>
+            <p>The marker-mid property only attaches markers to interior vertices between line segments. An SVG line has only a start point and an end point with zero interior vertices. Similarly, circle, rect, and ellipse elements lack segmented interior vertices. To utilize marker-mid, the geometry must be declared using path, polyline, or polygon elements with intermediate coordinate vertices.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you resolve Safari WebKit clipping bugs where arrowheads are cut off at the edge?</h3>
+            <p>WebKit Safari historically clipped markers that extended beyond the marker element's internal viewBox. To prevent clipping, set overflow="visible" directly on the marker element, ensure markerWidth and markerHeight adequately encompass the full bounding geometry including stroke miter joins, and configure refX/refY to center the shape within the marker viewport.</p>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#marker-architecture">1. Core Marker Architecture</a></li>
+              <li><a href="#marker-attributes">2. Marker Geometry &amp; Sizing</a></li>
+              <li><a href="#refx-refy-alignment">3. Precision Alignment (refX/refY)</a></li>
+              <li><a href="#orient-auto-reverse">4. Path Tangent Orientation</a></li>
+              <li><a href="#marker-positions">5. Marker Positions (Start/Mid/End)</a></li>
+              <li><a href="#stroke-color-inheritance">6. Color Inheritance</a></li>
+              <li><a href="#diagram-flowcharts">7. Dynamic Diagram Connectors</a></li>
+              <li><a href="#interactive-studio">8. Interactive Arrowhead Studio</a></li>
+              <li><a href="#browser-bugs-workarounds">9. WebKit Quirks &amp; Workarounds</a></li>
+              <li><a href="#compatibility-matrix">10. Browser Compatibility Matrix</a></li>
+              <li><a href="#faq-section">11. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Need Vector Icons for Diagrams?</h4>
+          <p>Search over 134,701 open-source icons. Export SVG code, customize stroke weights, and download instant React components.</p>
+          <a href="/#/" class="cta-sidebar-btn">Explore Icon Library</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash. All rights reserved. High-performance vector geometry and frontend engineering resources. <a href="/privacy/">Privacy Policy</a> &bull; <a href="/terms/">Terms of Service</a> &bull; <a href="/about/">About</a></p>
+  </footer>
+
+  <!-- Interactive Studio Script -->
+  <script>
+    (function() {
+      // Theme Toggle Support
+      const themeBtn = document.getElementById('themeToggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', nextTheme);
+          localStorage.setItem('theme', nextTheme);
+        });
+      }
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+
+      // Studio DOM Elements
+      const arrowStyleSelect = document.getElementById('arrowStyleSelect');
+      const markerPosSelect = document.getElementById('markerPosSelect');
+      const orientModeSelect = document.getElementById('orientModeSelect');
+      const refXSlider = document.getElementById('refXSlider');
+      const refXVal = document.getElementById('refXVal');
+      const refYSlider = document.getElementById('refYSlider');
+      const refYVal = document.getElementById('refYVal');
+      const markerSizeSlider = document.getElementById('markerSizeSlider');
+      const markerSizeVal = document.getElementById('markerSizeVal');
+      const strokeColorInput = document.getElementById('strokeColorInput');
+
+      const studioMarker = document.getElementById('studioMarker');
+      const studioMarkerShape = document.getElementById('studioMarkerShape');
+      const stageConnectorPath = document.getElementById('stageConnectorPath');
+      const codeOutputBox = document.getElementById('markerCodeOutputBox');
+      const copyBtn = document.getElementById('copyMarkerCodeBtn');
+
+      const telemetryRefPoint = document.getElementById('telemetryRefPoint');
+
+      const shapes = {
+        stealth: 'M 0 1 L 9 5 L 0 9 L 2 5 z',
+        triangle: 'M 0 0 L 10 5 L 0 10 z',
+        chevron: 'M 1 1 L 8 5 L 1 9',
+        circle: 'M 5 5 m -4 0 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0',
+        diamond: 'M 5 0 L 10 5 L 5 10 L 0 5 z'
+      };
+
+      function updateStudio() {
+        const style = arrowStyleSelect.value;
+        const pos = markerPosSelect.value;
+        const orient = orientModeSelect.value;
+        const refX = parseInt(refXSlider.value, 10);
+        const refY = parseInt(refYSlider.value, 10);
+        const size = parseInt(markerSizeSlider.value, 10);
+        const color = strokeColorInput.value;
+
+        refXVal.textContent = refX + 'px';
+        refYVal.textContent = refY + 'px';
+        markerSizeVal.textContent = size;
+        telemetryRefPoint.textContent = '(' + refX + ', ' + refY + ')';
+
+        // Update marker attributes
+        studioMarker.setAttribute('refX', refX);
+        studioMarker.setAttribute('refY', refY);
+        studioMarker.setAttribute('markerWidth', size);
+        studioMarker.setAttribute('markerHeight', size);
+        studioMarker.setAttribute('orient', orient);
+
+        // Update internal marker shape
+        const d = shapes[style] || shapes.stealth;
+        studioMarkerShape.setAttribute('d', d);
+
+        if (style === 'chevron') {
+          studioMarkerShape.setAttribute('fill', 'none');
+          studioMarkerShape.setAttribute('stroke', color);
+          studioMarkerShape.setAttribute('stroke-width', '2');
+          studioMarkerShape.setAttribute('stroke-linecap', 'round');
+          studioMarkerShape.setAttribute('stroke-linejoin', 'round');
+        } else {
+          studioMarkerShape.setAttribute('fill', color);
+          studioMarkerShape.removeAttribute('stroke');
+          studioMarkerShape.removeAttribute('stroke-width');
+        }
+
+        // Update path properties
+        stageConnectorPath.setAttribute('stroke', color);
+
+        if (pos === 'end') {
+          stageConnectorPath.removeAttribute('marker-start');
+          stageConnectorPath.removeAttribute('marker-mid');
+          stageConnectorPath.setAttribute('marker-end', 'url(#studioMarker)');
+        } else if (pos === 'both') {
+          stageConnectorPath.setAttribute('marker-start', 'url(#studioMarker)');
+          stageConnectorPath.removeAttribute('marker-mid');
+          stageConnectorPath.setAttribute('marker-end', 'url(#studioMarker)');
+        } else {
+          stageConnectorPath.setAttribute('marker-start', 'url(#studioMarker)');
+          stageConnectorPath.setAttribute('marker-mid', 'url(#studioMarker)');
+          stageConnectorPath.setAttribute('marker-end', 'url(#studioMarker)');
+        }
+
+        // Generate Code Snippet
+        const markerAttrs = 'id="arrowhead"\\n      viewBox="0 0 10 10"\\n      refX="' + refX + '"\\n      refY="' + refY + '"\\n      markerWidth="' + size + '"\\n      markerHeight="' + size + '"\\n      orient="' + orient + '"\\n      overflow="visible"';
+        const pathMarkerAttrs = pos === 'end' ? 'marker-end="url(#arrowhead)"' : (pos === 'both' ? 'marker-start="url(#arrowhead)"\\n    marker-end="url(#arrowhead)"' : 'marker-start="url(#arrowhead)"\\n    marker-mid="url(#arrowhead)"\\n    marker-end="url(#arrowhead)"');
+
+        const code = '<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">\\n  <defs>\\n    <!-- Reusable Arrowhead Marker Definition -->\\n    <marker\\n      ' + markerAttrs + '>\\n      <path d="' + d + '" fill="' + color + '" />\\n    </marker>\\n  </defs>\\n\\n  <!-- Connector Path with Dynamic Tangent Alignment -->\\n  <path\\n    d="M 50 150 Q 200 40 350 150"\\n    fill="none"\\n    stroke="' + color + '"\\n    stroke-width="3"\\n    ' + pathMarkerAttrs + ' />\\n</svg>';
+
+        codeOutputBox.textContent = code.replace(/\\n/g, '\n');
+      }
+
+      // Event listeners
+      arrowStyleSelect.addEventListener('change', updateStudio);
+      markerPosSelect.addEventListener('change', updateStudio);
+      orientModeSelect.addEventListener('change', updateStudio);
+      refXSlider.addEventListener('input', updateStudio);
+      refYSlider.addEventListener('input', updateStudio);
+      markerSizeSlider.addEventListener('input', updateStudio);
+      strokeColorInput.addEventListener('change', updateStudio);
+
+      // Clipboard copy mechanism with execCommand fallback
+      copyBtn.addEventListener('click', function() {
+        const text = codeOutputBox.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function() { copyBtn.textContent = 'Copy Snippet'; }, 2000);
+          }).catch(function() {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function() { copyBtn.textContent = 'Copy Snippet'; }, 2000);
+        } catch(err) {
+          console.error('Fallback copy error:', err);
+        }
+        document.body.removeChild(ta);
+      }
+
+      // Initial execution
+      updateStudio();
+    })();
+  </script>
+</body>
+</html>
