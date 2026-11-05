@@ -133,18 +133,46 @@ for (const item of deliverables) {
     }
   }
 
-  // 9. Semantic Landmarks & Theme toggle verification
+  // 9. Light theme contrast verification (WCAG 2.2 AA compliant)
+  assert(content.includes('html[data-theme="light"] pre code'), 'Light theme pre code contrast rule present');
+  assert(content.includes('html[data-theme="light"] pre'), 'Light theme pre block rule present');
+  assert(content.includes('html[data-theme="light"] .article-meta a'), 'Light theme article-meta a contrast rule present');
+  assert(content.includes('html[data-theme="light"] a { color: #4D6300; }'), 'Light theme a color rule uses WCAG AA compliant #4D6300 (> 4.5:1)');
+  assert(content.includes('html[data-theme="light"] .cta-sidebar-box h4'), 'Light theme cta-sidebar-box h4 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .cta-sidebar-box p'), 'Light theme cta-sidebar-box p contrast rule present');
+  assert(content.includes('html[data-theme="light"] .article-hero .tag'), 'Light theme article-hero tag contrast rule present');
+  assert(content.includes('html[data-theme="light"] .sandbox-badge'), 'Light theme sandbox-badge contrast rule present');
+  assert(content.includes('html[data-theme="light"] .takeaway-box h3'), 'Light theme takeaway-box h3 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .warning-box h4'), 'Light theme warning-box h4 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .toc-nav a'), 'Light theme toc-nav a contrast rule present');
+  assert(content.includes('html[data-theme="light"] .sidebar-title'), 'Light theme sidebar-title contrast rule present');
+  assert(content.includes('html[data-theme="light"] .formula-title'), 'Light theme formula-title contrast rule present');
+  assert(content.includes('html[data-theme="light"] .stat-label'), 'Light theme stat-label contrast rule present');
+  assert(content.includes('html[data-theme="light"] .breadcrumb a') || content.includes('html[data-theme="light"] .breadcrumb'), 'Light theme breadcrumb contrast rule present');
+  assert(content.includes('html[data-theme="light"] .breadcrumb .current'), 'Light theme breadcrumb .current contrast rule present');
+  assert(!content.includes('style="color:#FFF;"') && !content.includes('style="color:#fff;"'), 'Breadcrumbs do not hardcode inline white color (WCAG contrast safe)');
+  assert(content.includes('class="current" aria-current="page"'), 'Breadcrumbs use accessible aria-current="page" on current item');
+  assert(content.includes('html[data-theme="light"] .site-footer a'), 'Light theme site-footer a contrast rule present');
+
+  // 10. Semantic Landmarks & Theme toggle verification
   assert(content.includes('<main class="page-container">'), 'Page container uses semantic <main class="page-container">');
   assert(content.includes('<article class="article-main">'), 'Article content uses semantic <article class="article-main">');
   assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
   assert(content.includes("localStorage.getItem('theme')"), 'Theme persistence script present');
+  assert(content.includes('.site-header nav a:not(.header-cta) { display: none; }'), 'Mobile nav preserves #themeToggle button visibility');
+  assert(!content.includes('.site-header nav { display: none; }'), 'Mobile nav does not coarsely hide entire nav element');
 
-  // 10. Table & Formula responsiveness check
+  // 11. Table & Formula responsiveness check
   assert(content.includes('min-width: 640px;'), 'Data tables enforce min-width: 640px for mobile horizontal scrolling');
   assert(content.includes('<div class="table-container">') && content.includes('<table>'), 'Deliverable contains responsive data table wrapped in table-container');
-  assert(content.includes('.formula-card {'), 'Formula card styling present');
+  assert(content.includes('.formula-card {') && content.includes('overflow-x: auto;'), 'Formula card enforces overflow-x: auto for mobile screens');
 
-  // 11. Interactive Developer Studio verification
+  // 12. Architectural Figure 2 Diagram check (Requirement 3: Architectural flow diagrams)
+  assert(content.includes('Figure 2:'), 'Architectural Figure 2 caption present');
+  assert(content.includes('<figure class="article-figure">'), 'Architectural figure container present');
+  assert(content.includes('viewBox="0 0 960 320"'), 'High-resolution vector flow diagram (960x320) present in Figure 2');
+
+  // 13. Interactive Developer Studio verification
   if (item.slug === 'svg-pan-and-zoom-guide') {
     assert(content.includes('id="panZoomStudio"'), 'Interactive studio #panZoomStudio present');
     assert(content.includes('id="zoomInBtn"'), 'Interactive zoomInBtn present');
@@ -152,32 +180,39 @@ for (const item of deliverables) {
     assert(content.includes('id="resetViewportBtn"'), 'Interactive resetViewportBtn present');
     assert(content.includes('id="panReadout"'), 'Interactive panReadout present');
     assert(content.includes('screenToSVG'), 'screenToSVG coordinate helper present');
-    assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
+    assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
   } else if (item.slug === 'svg-skeleton-loaders-and-shimmer-effects-guide') {
     assert(content.includes('id="skeletonStudio"'), 'Interactive studio #skeletonStudio present');
     assert(content.includes('id="presetSelect"'), 'Interactive presetSelect present');
     assert(content.includes('id="speedSlider"'), 'Interactive speedSlider present');
     assert(content.includes('id="stageSkeletonSvg"'), 'Interactive stageSkeletonSvg present');
     assert(content.includes('id="copySkeletonCodeBtn"'), 'Interactive copySkeletonCodeBtn present');
-    assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
+    assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
   } else if (item.slug === 'svg-charts-and-data-visualization-from-scratch-guide') {
     assert(content.includes('id="chartStudio"'), 'Interactive studio #chartStudio present');
     assert(content.includes('id="chartTypeSelect"'), 'Interactive chartTypeSelect present');
     assert(content.includes('id="curveTension"'), 'Interactive curveTension present');
     assert(content.includes('id="stageChartContainer"'), 'Interactive stageChartContainer present');
     assert(content.includes('id="copyChartCodeBtn"'), 'Interactive copyChartCodeBtn present');
-    assert(content.includes('document.execCommand(\'copy\')'), 'Clipboard copy has robust document.execCommand fallback');
+    assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
   }
 
-  // 12. No raw unrendered LaTeX math formulas
+  // 14. Code generator output sanity check: no double-escaped literal '\n' in generated output strings
+  const scriptMatch = content.match(/<script>([\s\S]*?)<\/script>[\s\S]*?<\/body>/i);
+  if (scriptMatch) {
+    const scriptCode = scriptMatch[1];
+    assert(!scriptCode.includes("+'\\n'") && !scriptCode.includes("+'\\\\n'"), 'Interactive code generator avoids double-escaped literal newline strings');
+  }
+
+  // 15. No raw unrendered LaTeX math formulas
   const latexMatches = [...content.matchAll(/(\$[^$\n]+\$)/g)].map(m => m[1]).filter(m => !m.includes('{') && !m.includes('"'));
   assert(latexMatches.length === 0, `No unrendered raw LaTeX math delimiters ($...$) found in ${item.slug} (found: ${JSON.stringify(latexMatches)})`);
   assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx') && !content.includes('\\epsilon'), `No unrendered LaTeX math keywords found in ${item.slug}`);
 
-  // 13. Viewport responsiveness tag
+  // 16. Viewport responsiveness tag
   assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
 
-  // 14. Internal Link Integrity (excluding code tutorial snippets)
+  // 17. Internal Link Integrity (excluding code tutorial snippets)
   const contentForLinks = content.replace(/<pre[\s\S]*?<\/pre>/gi, '').replace(/<code[\s\S]*?<\/code>/gi, '');
   const hrefMatches = contentForLinks.match(/href="(\/[^"]*)"/g) || [];
   const srcMatches = contentForLinks.match(/src="(\/[^"]*)"/g) || [];
@@ -195,7 +230,7 @@ for (const item of deliverables) {
   }
   assert(allLinksValid && internalLinks.length > 0, `All internal links in ${item.slug} resolve to valid files on disk`);
 
-  // 15. Table of Contents Anchor Integrity Verification
+  // 18. Table of Contents Anchor Integrity Verification
   const tocNavMatch = content.match(/<nav class="toc-nav"[\s\S]*?<\/nav>/);
   if (tocNavMatch) {
     const anchorMatches = [...tocNavMatch[0].matchAll(/href="#([^"]+)"/g)].map(m => m[1]);
@@ -209,7 +244,7 @@ for (const item of deliverables) {
     assert(allAnchorsFound && anchorMatches.length >= 5, `All Table of Contents anchors (${anchorMatches.length} links) resolve to valid id attributes`);
   }
 
-  // 16. Body word count >= 4000
+  // 19. Body word count >= 4000
   const cleanBody = content.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
   const words = cleanBody.split(/\s+/).filter(w => w.length > 0);
   assert(words.length >= 4000, `Article total word count (${words.length}) >= 4000 words`);

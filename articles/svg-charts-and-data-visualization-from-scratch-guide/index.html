@@ -163,763 +163,274 @@
   ]
   </script>
   <style>
-    :root {
-      --bg-primary: #0A0A0A;
-      --bg-secondary: #121212;
-      --bg-tertiary: #1A1A1A;
-      --text-primary: #EDEDED;
-      --text-secondary: #A0A0A0;
-      --text-muted: #666666;
-      --accent: #C1DD2D;
-      --accent-glow: rgba(193, 221, 45, 0.15);
-      --accent-hover: #D4F038;
-      --border-color: #262626;
-      --border-light: #333333;
-      --code-bg: #141414;
-      --link-color: #C1DD2D;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-
-    html[data-theme="light"] {
-      --bg-primary: #FAFAFA;
-      --bg-secondary: #FFFFFF;
-      --bg-tertiary: #F0F0F0;
-      --text-primary: #171717;
-      --text-secondary: #525252;
-      --text-muted: #737373;
-      --accent: #4D6300;
-      --accent-glow: rgba(77, 99, 0, 0.12);
-      --accent-hover: #3D4F00;
-      --border-color: #E5E5E5;
-      --border-light: #D4D4D4;
-      --code-bg: #F5F5F5;
-      --link-color: #4D6300;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      line-height: 1.7;
-      font-size: 16px;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    a {
-      color: var(--link-color);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      color: var(--accent-hover);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10, 10, 10, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    html[data-theme="light"] .site-header {
-      background: rgba(250, 250, 250, 0.85);
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 19px;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-    }
-
-    .brand-logo svg {
-      width: 26px;
-      height: 26px;
-      fill: var(--accent);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .theme-toggle-btn {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      padding: 7px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13.5px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .theme-toggle-btn:hover {
-      background: var(--border-color);
-      border-color: var(--accent);
-    }
-
-    .page-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
-    }
-
-    .breadcrumbs {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
-    .breadcrumbs a {
-      color: var(--text-secondary);
-      text-decoration: none;
-    }
-
-    .breadcrumbs a:hover {
-      color: var(--accent);
-    }
-
-    .breadcrumbs span.separator {
-      color: var(--border-light);
-    }
-
-    .article-header {
-      margin-bottom: 36px;
-    }
-
-    .article-category {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      background: var(--accent-glow);
-      padding: 4px 10px;
-      border-radius: 6px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(193, 221, 45, 0.3);
-    }
-
-    html[data-theme="light"] .article-category {
-      border-color: rgba(77, 99, 0, 0.25);
-    }
-
-    .article-title {
-      font-size: clamp(30px, 4.5vw, 46px);
-      font-weight: 900;
-      line-height: 1.18;
-      letter-spacing: -0.03em;
-      margin-bottom: 18px;
-      color: var(--text-primary);
-    }
-
-    .article-meta {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .article-meta span.dot {
-      color: var(--border-light);
-    }
-
-    .hero-image-wrapper {
-      margin: 28px 0 44px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-      background: var(--bg-secondary);
-      aspect-ratio: 16 / 9;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    .hero-image-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .article-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 48px;
-      align-items: start;
-    }
-
-    @media (max-width: 960px) {
-      .article-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .article-main {
-      font-size: 16.5px;
-      line-height: 1.8;
-      color: var(--text-primary);
-    }
-
-    .article-main h2 {
-      font-size: clamp(22px, 3vw, 29px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin: 48px 0 18px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-primary);
-    }
-
-    .article-main h3 {
-      font-size: clamp(18px, 2.2vw, 22px);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin: 32px 0 14px;
-      color: var(--text-primary);
-    }
-
-    .article-main p {
-      margin-bottom: 20px;
-      color: var(--text-secondary);
-    }
-
-    .article-main strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .article-main ul, .article-main ol {
-      margin: 0 0 24px 24px;
-      color: var(--text-secondary);
-    }
-
-    .article-main li {
-      margin-bottom: 8px;
-    }
-
-    pre {
-      background: var(--code-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 18px 20px;
-      overflow-x: auto;
-      margin: 24px 0;
-      font-family: var(--font-mono);
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: var(--text-primary);
-    }
-
-    code {
-      font-family: var(--font-mono);
-      font-size: 13.5px;
-      background: var(--code-bg);
-      padding: 2px 6px;
-      border-radius: 4px;
-      border: 1px solid var(--border-color);
-      color: var(--accent);
-    }
-
-    pre code {
-      background: none;
-      padding: 0;
-      border: none;
-      color: inherit;
-    }
-
-    .formula-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-light);
-      border-left: 4px solid var(--accent);
-      border-radius: 8px;
-      padding: 20px 24px;
-      margin: 28px 0;
-    }
-
-    .formula-title {
-      font-weight: 700;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .formula-body {
-      font-family: var(--font-mono);
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .formula-desc {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .takeaway-box {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 22px 24px;
-      margin: 32px 0;
-    }
-
-    .takeaway-box h3 {
-      margin-top: 0;
-      font-size: 17px;
-      color: var(--text-primary);
-    }
-
-    .takeaway-box p {
-      margin-bottom: 0;
-      font-size: 15px;
-    }
-
-    .table-container {
-      width: 100%;
-      overflow-x: auto;
-      margin: 28px 0;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-      background: var(--bg-secondary);
-    }
-
-    table {
-      width: 100%;
-      min-width: 640px;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 14.5px;
-    }
-
-    th {
-      background: var(--bg-tertiary);
-      color: var(--text-primary);
-      font-weight: 700;
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    td {
-      padding: 13px 18px;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-secondary);
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    /* INTERACTIVE STUDIO STYLES */
-    .interactive-sandbox {
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-color);
-      border-radius: 14px;
-      overflow: hidden;
-      margin: 40px 0;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-    }
-
-    .sandbox-header {
-      background: var(--bg-tertiary);
-      border-bottom: 1px solid var(--border-color);
-      padding: 16px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .sandbox-title {
-      font-weight: 800;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-primary);
-    }
-
-    .sandbox-badge {
-      font-size: 11.5px;
-      font-weight: 700;
-      background: var(--accent);
-      color: #000;
-      padding: 3px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .sandbox-grid {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      min-height: 440px;
-    }
-
-    @media (max-width: 860px) {
-      .sandbox-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .sandbox-controls {
-      background: var(--bg-secondary);
-      border-right: 1px solid var(--border-color);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    @media (max-width: 860px) {
-      .sandbox-controls {
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-      }
-    }
-
-    .control-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .control-row label {
-      font-size: 12.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-secondary);
-    }
-
-    .control-select, .control-slider {
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      color: var(--text-primary);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-      outline: none;
-      width: 100%;
-    }
-
-    .control-select:focus {
-      border-color: var(--accent);
-    }
-
-    .sandbox-stage {
-      background: #0B0E07;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      min-height: 340px;
-    }
-
-    html[data-theme="light"] .sandbox-stage {
-      background: #F4F6EE;
-    }
-
-    .chart-svg-display {
-      width: 100%;
-      max-width: 540px;
-      height: auto;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
-    }
-
-    .sandbox-code-panel {
-      border-top: 1px solid var(--border-color);
-      background: var(--code-bg);
-      padding: 16px 20px;
-    }
-
-    .code-panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .code-tabs {
-      display: flex;
-      gap: 8px;
-    }
-
-    .code-tab-btn {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .code-tab-btn.active, .code-tab-btn:hover {
-      background: var(--bg-tertiary);
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .copy-code-btn {
-      background: var(--accent);
-      color: #000;
-      font-weight: 700;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .copy-code-btn:hover {
-      background: var(--accent-hover);
-    }
-
-    .code-display-box {
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: #D4D4D4;
-      max-height: 220px;
-      overflow-y: auto;
-      background: #000000;
-      padding: 12px 14px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-    }
-
-    /* FAQ STYLES */
-    .faq-item {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 20px 22px;
-      margin-bottom: 16px;
-    }
-
-    .faq-item h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 17.5px;
-      color: var(--text-primary);
-    }
-
-    .faq-item p {
-      margin-bottom: 0;
-      font-size: 15px;
-      color: var(--text-secondary);
-    }
-
-    /* SIDEBAR */
-    .article-sidebar {
-      position: sticky;
-      top: 80px;
-    }
-
-    .sidebar-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 22px;
-      margin-bottom: 24px;
-    }
-
-    .sidebar-title {
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
-    .toc-nav ol {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .toc-nav li {
-      margin-bottom: 10px;
-      font-size: 13.5px;
-    }
-
-    .toc-nav a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      display: block;
-      transition: color 0.2s ease;
-    }
-
-    .toc-nav a:hover {
-      color: var(--accent);
-    }
-
-    .cta-sidebar-box {
-      background: linear-gradient(135deg, rgba(193, 221, 45, 0.08) 0%, rgba(193, 221, 45, 0.02) 100%);
-      border: 1px solid rgba(193, 221, 45, 0.25);
-      border-radius: 10px;
-      padding: 22px;
-      text-align: center;
-    }
-
-    .cta-sidebar-box h4 {
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 8px;
-      color: var(--text-primary);
-    }
-
-    .cta-sidebar-box p {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-
-    .cta-sidebar-btn {
-      display: inline-block;
-      background: var(--accent);
-      color: #000;
-      font-weight: 700;
-      font-size: 13px;
-      padding: 9px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.2s ease;
-    }
-
-    .cta-sidebar-btn:hover {
-      background: var(--accent-hover);
-      color: #000;
-    }
-
-    /* FOOTER */
-    .site-footer {
-      border-top: 1px solid var(--border-color);
-      background: var(--bg-secondary);
-      padding: 48px 24px 32px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13.5px;
-    }
-
-    .site-footer a {
-      color: var(--text-secondary);
-      text-decoration: none;
-    }
-
-    .site-footer a:hover {
-      color: var(--accent);
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+    .control-slider { width: 100%; accent-color: #C1DD2D; cursor: pointer; }
+
+    .sandbox-stage { display: flex; flex-direction: column; gap: 14px; }
+    .chart-svg-display { width: 100%; max-width: 500px; height: auto; display: block; border-radius: 8px; }
+
+    .sandbox-code-panel { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-panel-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .copy-code-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-code-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-display-box { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .donut-total-text { fill: #FFFFFF; font-family: 'Inter', sans-serif; }
+    .donut-track { stroke: #1A1A1A; }
+    .chart-grid-line { stroke: #222222; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .control-slider { accent-color: #4D6300; }
+    html[data-theme="light"] .sandbox-code-panel { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-panel-header { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-display-box { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-code-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-code-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .donut-total-text { fill: #171717; }
+    html[data-theme="light"] .donut-track { stroke: #E5E7EB; }
+    html[data-theme="light"] .chart-grid-line { stroke: #E5E7EB; }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="header-inner">
-      <a href="/" class="brand-logo" aria-label="IconStash Home">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        <span>IconStash</span>
-      </a>
-      <div class="nav-actions">
-        <a href="/articles/" style="color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600;">Articles</a>
-        <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle visual theme">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          <span id="themeToggleText">Theme</span>
-        </button>
-      </div>
-    </div>
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
   </header>
 
   <main class="page-container">
-    <nav class="breadcrumbs" aria-label="Breadcrumb navigation">
-      <a href="/">IconStash</a>
-      <span class="separator">/</span>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
       <a href="/articles/">Articles</a>
-      <span class="separator">/</span>
-      <span>SVG Charts &amp; Data Visualization Guide</span>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">SVG Charts &amp; Data Visualization Guide</span>
     </nav>
 
-    <header class="article-header">
-      <span class="article-category">Engineering &amp; Data Visualization</span>
-      <h1 class="article-title">SVG Charts &amp; Data Visualization from Scratch: The Zero-Dependency Guide (2026)</h1>
+    <header class="article-hero">
+      <span class="tag">Engineering &amp; Data Visualization</span>
+      <h1>SVG Charts &amp; Data Visualization from Scratch: The Zero-Dependency Guide (2026)</h1>
       <div class="article-meta">
-        <span>By <a href="/about/" style="color: inherit; font-weight: 600;">Jouni Flemming</a></span>
-        <span class="dot">&bull;</span>
-        <span>Published 2026-11-05</span>
-        <span class="dot">&bull;</span>
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published November 5, 2026</span>
+        <span>4,450 Words</span>
         <span>22 min read</span>
-        <span class="dot">&bull;</span>
-        <span>4,450 words</span>
-        <span class="dot">&bull;</span>
         <span>100% Zero-Dependency</span>
       </div>
     </header>
 
-    <div class="hero-image-wrapper">
-      <img src="/assets/articles/svg-charts-and-data-visualization-from-scratch-guide.jpg" alt="SVG Charts and Data Visualization from Scratch Hero Diagram" width="1200" height="675" loading="eager" fetchpriority="high">
-    </div>
-
     <div class="article-layout">
       <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architecture Summary:</strong> Rendering production data visualization directly from raw mathematical coordinates eliminates over 400 KB of bloated JavaScript charting dependencies, guarantees 0ms server streaming hydration in Next.js/Nuxt, and provides pixel-perfect design system adaptability.</p>
+          <ul>
+            <li><strong>Cartesian Inversion Math:</strong> SVG coordinate space places (0,0) at the top-left, requiring vertical normalization via <code>y = padding + (1 - normalizedY) * plotHeight</code>.</li>
+            <li><strong>Smooth Cubic Splines:</strong> Computing Catmull-Rom tangents between adjacent data vertices produces fluid cubic B&eacute;zier curves (<code>M... C...</code>) without oscillation.</li>
+            <li><strong>Zero-Dependency Donut Math:</strong> Multi-segment rings leverage circle circumference (<code>C = 2&pi;r</code>) with calculated <code>stroke-dasharray</code> and negative <code>stroke-dashoffset</code> cumulative stacking.</li>
+            <li><strong>Subpixel Tooltip Tracking:</strong> Inverting the Current Transformation Matrix (<code>CTM&sup1;</code>) accurately translates screen pointer events into local vector coordinates across responsive viewports.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="https://iconstash.io/assets/articles/svg-charts-and-data-visualization-from-scratch-guide.jpg" alt="SVG Charts and Data Visualization from Scratch Hero Diagram" width="1200" height="675" loading="eager" fetchpriority="high">
+          <figcaption>Figure 1: Architectural Foundation of Zero-Dependency SVG Data Visualization and Coordinate Transformations</figcaption>
+        </figure>
 
         <section id="why-zero-dependency">
           <h2>1. Why Zero-Dependency SVG Charts Dominate Modern Frontend Engineering</h2>
@@ -949,6 +460,54 @@
             </div>
             <div class="formula-desc">Where plotWidth = viewBoxWidth - paddingLeft - paddingRight, and plotHeight = viewBoxHeight - paddingTop - paddingBottom. The term (1 - normalizedY) performs the vital vertical coordinate inversion.</div>
           </div>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="100%" height="auto" role="img" aria-labelledby="chartPipelineTitle chartPipelineDesc" style="background:#111; border-radius:10px; border:1px solid #262626; display:block;">
+              <title id="chartPipelineTitle">Three-Tier Architecture of Zero-Dependency SVG Data Visualization</title>
+              <desc id="chartPipelineDesc">Diagram illustrating data space normalization through Cartesian coordinate inversion, spline geometry path generation, and subpixel pointer matrix transformation.</desc>
+              <defs>
+                <marker id="chartFlowArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#C1DD2D" />
+                </marker>
+              </defs>
+              <g transform="translate(40, 40)">
+                <rect width="240" height="240" rx="8" fill="#161616" stroke="#2E2E2E" stroke-width="1.5" />
+                <rect width="240" height="36" rx="8" fill="#1F1F1F" />
+                <text x="120" y="24" fill="#C1DD2D" font-size="13" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">1. DOMAIN INVERSION</text>
+                <text x="120" y="80" fill="#FFF" font-size="13" font-weight="600" text-anchor="middle" font-family="'Inter', sans-serif">Linear Scale Normalization</text>
+                <rect x="25" y="100" width="190" height="40" rx="6" fill="#1F1F1F" stroke="#333" />
+                <text x="120" y="125" fill="#C1DD2D" font-size="11" font-family="'JetBrains Mono', monospace" text-anchor="middle">y = top + (1 - nY) &times; H</text>
+                <text x="120" y="165" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Data Space &rarr; Pixel Space</text>
+                <text x="120" y="185" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Inverts Cartesian Y-axis</text>
+                <text x="120" y="225" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Zero Runtime Dependencies</text>
+              </g>
+              <line x1="290" y1="160" x2="350" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#chartFlowArr)" />
+              <g transform="translate(360, 40)">
+                <rect width="240" height="240" rx="8" fill="#161616" stroke="#2E2E2E" stroke-width="1.5" />
+                <rect width="240" height="36" rx="8" fill="#1F1F1F" />
+                <text x="120" y="24" fill="#C1DD2D" font-size="13" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">2. SPLINE PATH ENGINE</text>
+                <text x="120" y="80" fill="#FFF" font-size="13" font-weight="600" text-anchor="middle" font-family="'Inter', sans-serif">Cubic Bézier Interpolation</text>
+                <rect x="25" y="100" width="190" height="40" rx="6" fill="#1F1F1F" stroke="#333" />
+                <text x="120" y="125" fill="#38BDF8" font-size="11" font-family="'JetBrains Mono', monospace" text-anchor="middle">CP = P1 + (P2-P0)&times;(k/3)</text>
+                <text x="120" y="165" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Catmull-Rom Tangents</text>
+                <text x="120" y="185" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Donut stroke-dasharray</text>
+                <text x="120" y="225" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Declarative XML Output</text>
+              </g>
+              <line x1="610" y1="160" x2="670" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#chartFlowArr)" />
+              <g transform="translate(680, 40)">
+                <rect width="240" height="240" rx="8" fill="#161616" stroke="#2E2E2E" stroke-width="1.5" />
+                <rect width="240" height="36" rx="8" fill="#1F1F1F" />
+                <text x="120" y="24" fill="#C1DD2D" font-size="13" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">3. HARDWARE &amp; POINTER</text>
+                <text x="120" y="80" fill="#FFF" font-size="13" font-weight="600" text-anchor="middle" font-family="'Inter', sans-serif">Subpixel Tracking &amp; ViewBox</text>
+                <rect x="25" y="100" width="190" height="40" rx="6" fill="#1F1F1F" stroke="#333" />
+                <text x="120" y="125" fill="#34D399" font-size="11" font-family="'JetBrains Mono', monospace" text-anchor="middle">matrixTransform(CTM⁻¹)</text>
+                <text x="120" y="165" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">O(log N) Binary Bisector</text>
+                <text x="120" y="185" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">GPU Dashoffset Transitions</text>
+                <text x="120" y="225" fill="#34D399" font-size="11" font-weight="600" text-anchor="middle" font-family="'Inter', sans-serif">&#10003; 0ms SSR / 120 FPS</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Three-Tier Architectural Pipeline of Zero-Dependency SVG Data Visualization: Domain Inversion, Spline Geometry Generation, and Subpixel Pointer Tracking</figcaption>
+          </figure>
 
           <h3>Pure JavaScript Linear Scale Implementation</h3>
           <p>Instead of importing <code>d3-scale</code> (which pulls dozens of dependencies), you can implement a robust, production-grade linear scaling helper in under 20 lines of clean JavaScript:</p>
@@ -1947,7 +1506,7 @@ export class TelemetryChartComponent {
         for (let g = 0; g <= 4; g++) {
           const gy = padding.top + (g / 4) * plotH;
           const gVal = Math.round(maxVal - (g / 4) * maxVal);
-          gridLines += `<line x1="${padding.left}" y1="${gy}" x2="${width - padding.right}" y2="${gy}" stroke="#222" stroke-dasharray="3 3" />`;
+          gridLines += `<line x1="${padding.left}" y1="${gy}" x2="${width - padding.right}" y2="${gy}" class="chart-grid-line" stroke-dasharray="3 3" />`;
           gridLines += `<text x="${padding.left - 8}" y="${gy + 4}" fill="#666" font-size="10" text-anchor="end">${gVal}</text>`;
         }
 
@@ -2042,13 +1601,13 @@ export class TelemetryChartComponent {
 
         stageChartContainer.innerHTML = `
           <svg viewBox="0 0 ${width} ${height}" class="chart-svg-display" role="img" aria-label="Multi-Segment Donut Preview">
-            <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="#1A1A1A" stroke-width="${strokeWidth}" />
+            <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" class="donut-track" stroke-width="${strokeWidth}" />
             <g transform="rotate(-90 ${cx} ${cy})">
               <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${palette.primary}" stroke-width="${strokeWidth}" stroke-dasharray="${d1.toFixed(1)} ${(circumference - d1).toFixed(1)}" stroke-dashoffset="${off1}" />
               <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${palette.secondary}" stroke-width="${strokeWidth}" stroke-dasharray="${d2.toFixed(1)} ${(circumference - d2).toFixed(1)}" stroke-dashoffset="${off2.toFixed(1)}" />
               <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="${palette.tertiary}" stroke-width="${strokeWidth}" stroke-dasharray="${d3.toFixed(1)} ${(circumference - d3).toFixed(1)}" stroke-dashoffset="${off3.toFixed(1)}" />
             </g>
-            <text x="${cx}" y="${cy - 2}" text-anchor="middle" fill="#FFFFFF" font-size="22" font-weight="900">${total}</text>
+            <text x="${cx}" y="${cy - 2}" text-anchor="middle" class="donut-total-text" font-size="22" font-weight="900">${total}</text>
             <text x="${cx}" y="${cy + 18}" text-anchor="middle" fill="#888888" font-size="11" font-weight="700">TOTAL UNITS</text>
           </svg>
         `;
@@ -2060,72 +1619,60 @@ export class TelemetryChartComponent {
 
         if (activeTab === 'svg') {
           if (type === 'line') {
-            chartCodeOutput.innerHTML = '<code>&lt;!-- Zero-Dependency Smooth Line Chart --&gt;\\n' +
-'&lt;svg viewBox="0 0 500 260" width="100%" height="auto" role="img" aria-label="Line Chart"&gt;\\n' +
-'  &lt;defs&gt;\\n' +
-'    &lt;linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"&gt;\\n' +
-'      &lt;stop offset="0%" stop-color="' + palette.primary + '" stop-opacity="0.4" /&gt;\\n' +
-'      &lt;stop offset="100%" stop-color="' + palette.primary + '" stop-opacity="0" /&gt;\\n' +
-'    &lt;/linearGradient&gt;\\n' +
-'  &lt;/defs&gt;\\n' +
-'  &lt;path d="M 45,180 C 110,120 180,90 250,70 ..." fill="url(#areaGrad)" /&gt;\\n' +
-'  &lt;path d="M 45,180 C 110,120 180,90 250,70 ..." fill="none" stroke="' + palette.primary + '" stroke-width="3" stroke-linecap="round" /&gt;\\n' +
+            chartCodeOutput.innerHTML = '<code>&lt;!-- Zero-Dependency Smooth Line Chart --&gt;\n' +
+'&lt;svg viewBox="0 0 500 260" width="100%" height="auto" role="img" aria-label="Line Chart"&gt;\n' +
+'  &lt;defs&gt;\n' +
+'    &lt;linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"&gt;\n' +
+'      &lt;stop offset="0%" stop-color="' + palette.primary + '" stop-opacity="0.4" /&gt;\n' +
+'      &lt;stop offset="100%" stop-color="' + palette.primary + '" stop-opacity="0" /&gt;\n' +
+'    &lt;/linearGradient&gt;\n' +
+'  &lt;/defs&gt;\n' +
+'  &lt;path d="M 45,180 C 110,120 180,90 250,70 ..." fill="url(#areaGrad)" /&gt;\n' +
+'  &lt;path d="M 45,180 C 110,120 180,90 250,70 ..." fill="none" stroke="' + palette.primary + '" stroke-width="3" stroke-linecap="round" /&gt;\n' +
 '&lt;/svg&gt;</code>';
           } else if (type === 'bar') {
-            chartCodeOutput.innerHTML = '<code>&lt;!-- Zero-Dependency Rounded Bar Chart --&gt;\\n' +
-'&lt;svg viewBox="0 0 500 260" width="100%" height="auto" role="img" aria-label="Bar Chart"&gt;\\n' +
-'  &lt;line x1="45" y1="220" x2="475" y2="220" stroke="#333" stroke-width="1.5" /&gt;\\n' +
-'  &lt;rect x="55" y="90" width="35" height="130" rx="5" fill="' + palette.primary + '" /&gt;\\n' +
-'  &lt;rect x="110" y="50" width="35" height="170" rx="5" fill="' + palette.primary + '" /&gt;\\n' +
+            chartCodeOutput.innerHTML = '<code>&lt;!-- Zero-Dependency Rounded Bar Chart --&gt;\n' +
+'&lt;svg viewBox="0 0 500 260" width="100%" height="auto" role="img" aria-label="Bar Chart"&gt;\n' +
+'  &lt;line x1="45" y1="220" x2="475" y2="220" stroke="#333" stroke-width="1.5" /&gt;\n' +
+'  &lt;rect x="55" y="90" width="35" height="130" rx="5" fill="' + palette.primary + '" /&gt;\n' +
+'  &lt;rect x="110" y="50" width="35" height="170" rx="5" fill="' + palette.primary + '" /&gt;\n' +
 '&lt;/svg&gt;</code>';
           } else {
-            chartCodeOutput.innerHTML = '<code>&lt;!-- Zero-Dependency Donut Gauge with Stroke Dasharray --&gt;\\n' +
-'&lt;svg viewBox="0 0 160 160" width="100%" height="auto" role="img" aria-label="Donut Chart"&gt;\\n' +
-'  &lt;circle cx="80" cy="80" r="50" fill="none" stroke="#222" stroke-width="16" /&gt;\\n' +
-'  &lt;g transform="rotate(-90 80 80)"&gt;\\n' +
-'    &lt;circle cx="80" cy="80" r="50" fill="none" stroke="' + palette.primary + '" stroke-width="16"\\n' +
-'            stroke-dasharray="188.5 125.6" stroke-dashoffset="0" /&gt;\\n' +
-'  &lt;/g&gt;\\n' +
-'  &lt;text x="80" y="85" text-anchor="middle" fill="#FFF" font-size="18" font-weight="800"&gt;60%&lt;/text&gt;\\n' +
+            chartCodeOutput.innerHTML = '<code>&lt;!-- Zero-Dependency Donut Gauge with Stroke Dasharray --&gt;\n' +
+'&lt;svg viewBox="0 0 160 160" width="100%" height="auto" role="img" aria-label="Donut Chart"&gt;\n' +
+'  &lt;circle cx="80" cy="80" r="50" fill="none" stroke="#222" stroke-width="16" /&gt;\n' +
+'  &lt;g transform="rotate(-90 80 80)"&gt;\n' +
+'    &lt;circle cx="80" cy="80" r="50" fill="none" stroke="' + palette.primary + '" stroke-width="16"\n' +
+'            stroke-dasharray="188.5 125.6" stroke-dashoffset="0" /&gt;\n' +
+'  &lt;/g&gt;\n' +
+'  &lt;text x="80" y="85" text-anchor="middle" fill="#FFF" font-size="18" font-weight="800"&gt;60%&lt;/text&gt;\n' +
 '&lt;/svg&gt;</code>';
           }
         } else if (activeTab === 'react') {
-          chartCodeOutput.innerHTML = '<code>// React 19 / Next.js Server Component (RSC)\\n' +
-'export function TelemetryChart({ data = [24, 45, 62, 78, 92] }) {\\n' +
-'  const max = Math.max(...data, 100);\\n' +
-'  return (\\n' +
-'    &lt;svg viewBox="0 0 500 240" className="w-full h-auto block" role="img"&gt;\\n' +
-'      {data.map((val, idx) =&gt; {\\n' +
-'        const h = (val / max) * 160;\\n' +
-'        return (\\n' +
-'          &lt;rect key={idx} x={40 + idx * 70} y={200 - h} width={45} height={h} rx={6} fill="' + palette.primary + '" /&gt;\\n' +
-'        );\\n' +
-'      })}\\n' +
-'    &lt;/svg&gt;\\n' +
-'  );\\n' +
+          chartCodeOutput.innerHTML = '<code>// React 19 / Next.js Server Component (RSC)\n' +
+'export function TelemetryChart({ data = [24, 45, 62, 78, 92] }) {\n' +
+'  const max = Math.max(...data, 100);\n' +
+'  return (\n' +
+'    &lt;svg viewBox="0 0 500 240" className="w-full h-auto block" role="img"&gt;\n' +
+'      {data.map((val, idx) =&gt; {\n' +
+'        const h = (val / max) * 160;\n' +
+'        return (\n' +
+'          &lt;rect key={idx} x={40 + idx * 70} y={200 - h} width={45} height={h} rx={6} fill="' + palette.primary + '" /&gt;\n' +
+'        );\n' +
+'      })}\n' +
+'    &lt;/svg&gt;\n' +
+'  );\n' +
 '}</code>';
         } else {
-          chartCodeOutput.innerHTML = '<code>&lt;!-- Tailwind CSS v4 Responsive Chart Container --&gt;\\n' +
-'&lt;div class="w-full max-w-2xl rounded-2xl p-6 bg-neutral-900 border border-neutral-800 shadow-2xl"&gt;\\n' +
-'  &lt;h3 class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-4"&gt;Zero-Dependency Metrics&lt;/h3&gt;\\n' +
-'  &lt;svg viewBox="0 0 500 260" class="w-full h-auto block text-[' + palette.primary + ']"&gt;\\n' +
-'    &lt;!-- Native SVG elements inherit Tailwind colors via currentColor or hex --&gt;\\n' +
-'  &lt;/svg&gt;\\n' +
+          chartCodeOutput.innerHTML = '<code>&lt;!-- Tailwind CSS v4 Responsive Chart Container --&gt;\n' +
+'&lt;div class="w-full max-w-2xl rounded-2xl p-6 bg-neutral-900 border border-neutral-800 shadow-2xl"&gt;\n' +
+'  &lt;h3 class="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-4"&gt;Zero-Dependency Metrics&lt;/h3&gt;\n' +
+'  &lt;svg viewBox="0 0 500 260" class="w-full h-auto block text-[' + palette.primary + ']"&gt;\n' +
+'    &lt;!-- Native SVG elements inherit Tailwind colors via currentColor or hex --&gt;\n' +
+'  &lt;/svg&gt;\n' +
 '&lt;/div&gt;</code>';
         }
       }
-
-      // Event Listeners
-      chartTypeSelect.addEventListener('change', updateChart);
-      curveTension.addEventListener('input', updateChart);
-      colorThemeSelect.addEventListener('change', updateChart);
-      pointCountSelect.addEventListener('change', updateChart);
-
-      randomizeDataBtn.addEventListener('click', function() {
-        const count = parseInt(pointCountSelect.value, 10);
-        dataset = generateData(count);
-        updateChart();
-      });
 
       tabSvgBtn.addEventListener('click', function() {
         activeTab = 'svg';

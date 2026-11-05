@@ -520,6 +520,58 @@
 &lt;/svg&gt;</code></pre>
 
           <p>This separation of concerns delivers unprecedented advantages: modifying the skeleton layout simply requires adjusting <code>x</code>, <code>y</code>, <code>width</code>, or <code>rx</code> coordinates inside the <code>&lt;clipPath&gt;</code>. The underlying gradient animation engine remains completely untouched.</p>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="100%" height="auto" role="img" aria-labelledby="skeletonDiagTitle skeletonDiagDesc" style="background:#111; border-radius:10px; border:1px solid #262626; display:block;">
+              <title id="skeletonDiagTitle">Three-Tier Architecture of Zero-Runtime SVG Skeleton Shimmer Screens</title>
+              <desc id="skeletonDiagDesc">Architectural compositing diagram showing the three decoupled layers: Base Layout Wireframe Geometry, ClipPath Mask, and Hardware-Animated Gradient Paint Server producing zero CLS output.</desc>
+              <defs>
+                <linearGradient id="diagGradFlow" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.1" />
+                  <stop offset="100%" stop-color="#C1DD2D" stop-opacity="0.3" />
+                </linearGradient>
+                <marker id="diagArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 1 L 9 5 L 0 9 z" fill="#C1DD2D" />
+                </marker>
+              </defs>
+              <g transform="translate(40, 40)">
+                <rect width="240" height="240" rx="8" fill="#161616" stroke="#2E2E2E" stroke-width="1.5" />
+                <rect width="240" height="36" rx="8" fill="#1F1F1F" />
+                <text x="120" y="24" fill="#C1DD2D" font-size="13" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">TIER 1: WIREFRAME</text>
+                <circle cx="50" cy="75" r="20" fill="#2A2A2A" />
+                <rect x="85" y="65" width="115" height="10" rx="3" fill="#2A2A2A" />
+                <rect x="85" y="82" width="70" height="8" rx="2" fill="#222" />
+                <rect x="30" y="115" width="180" height="10" rx="3" fill="#2A2A2A" />
+                <rect x="30" y="135" width="160" height="10" rx="3" fill="#2A2A2A" />
+                <rect x="30" y="155" width="110" height="10" rx="3" fill="#2A2A2A" />
+                <rect x="30" y="190" width="80" height="24" rx="4" fill="#242424" />
+                <text x="120" y="228" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Pure Semantic Geometry</text>
+              </g>
+              <line x1="290" y1="160" x2="350" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#diagArr)" />
+              <g transform="translate(360, 40)">
+                <rect width="240" height="240" rx="8" fill="#161616" stroke="#2E2E2E" stroke-width="1.5" />
+                <rect width="240" height="36" rx="8" fill="#1F1F1F" />
+                <text x="120" y="24" fill="#C1DD2D" font-size="13" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">TIER 2: CLIPPATH MASK</text>
+                <rect x="25" y="55" width="190" height="120" rx="6" fill="#111" stroke="#444" stroke-dasharray="4 3" />
+                <text x="120" y="95" fill="#FFF" font-size="12" font-weight="600" text-anchor="middle" font-family="'JetBrains Mono', monospace">&lt;clipPath id="uid"&gt;</text>
+                <text x="120" y="118" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Aggregates shapes into</text>
+                <text x="120" y="135" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">single 1-bit alpha stencil</text>
+                <text x="120" y="228" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">Zero DOM Overdraw</text>
+              </g>
+              <line x1="610" y1="160" x2="670" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#diagArr)" />
+              <g transform="translate(680, 40)">
+                <rect width="240" height="240" rx="8" fill="#161616" stroke="#2E2E2E" stroke-width="1.5" />
+                <rect width="240" height="36" rx="8" fill="#1F1F1F" />
+                <text x="120" y="24" fill="#C1DD2D" font-size="13" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">TIER 3: SHIMMER WAVE</text>
+                <rect x="25" y="55" width="190" height="120" rx="6" fill="url(#diagGradFlow)" stroke="#C1DD2D" stroke-width="1" />
+                <text x="120" y="95" fill="#C1DD2D" font-size="12" font-weight="700" text-anchor="middle" font-family="'JetBrains Mono', monospace">&lt;linearGradient&gt;</text>
+                <text x="120" y="118" fill="#EEE" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">CSS transform: translateX()</text>
+                <text x="120" y="135" fill="#888" font-size="11" text-anchor="middle" font-family="'Inter', sans-serif">GPU Hardware Shader</text>
+                <text x="120" y="228" fill="#34D399" font-size="11" font-weight="600" text-anchor="middle" font-family="'Inter', sans-serif">&#10003; 0ms CLS / 120 FPS</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Three-Tier Compositing Model of Zero-Runtime SVG Shimmer Skeletons</figcaption>
+          </figure>
           <h3>Reverse Engineering Production Design Systems: Linear, Vercel, and GitHub Skeleton Patterns</h3>
           <p>World-class engineering teams at Linear, Vercel, and GitHub have abandoned generic spinners in favor of micro-calibrated skeleton placeholders. Examining their design tokens reveals distinct architectural philosophies:</p>
           <ul>
@@ -1255,73 +1307,73 @@ const uid = Math.random().toString(36).substring(2, 9);
         const vb = presets[pKey].viewBox;
 
         if (activeTab === 'svg') {
-          skeletonCodeOutput.innerHTML = '<code>&lt;!-- Pure SVG Skeleton with Zero Runtime JS --&gt;\\n' +
-'&lt;svg viewBox="' + vb + '" width="100%" height="auto" role="status" aria-busy="true" aria-label="Loading..."&gt;\\n' +
-'  &lt;style&gt;\\n' +
-'    @keyframes shimmerAnim {\\n' +
-'      0% { transform: translateX(-100%); }\\n' +
-'      100% { transform: translateX(100%); }\\n' +
-'    }\\n' +
-'    .shimmer-wave {\\n' +
-'      animation: shimmerAnim ' + dur + 's infinite linear;\\n' +
-'      will-change: transform;\\n' +
-'    }\\n' +
-'  &lt;/style&gt;\\n' +
-'  &lt;defs&gt;\\n' +
-'    &lt;clipPath id="skeletonClip"&gt;\\n' +
-'      ' + clipInner + '\\n' +
-'    &lt;/clipPath&gt;\\n' +
-'    &lt;linearGradient id="shimmerGradient" x1="-100%" y1="0%" x2="200%" y2="0%"&gt;\\n' +
-'      &lt;stop offset="0%" stop-color="' + theme.base + '" /&gt;\\n' +
-'      &lt;stop offset="50%" stop-color="' + theme.highlight + '" /&gt;\\n' +
-'      &lt;stop offset="100%" stop-color="' + theme.base + '" /&gt;\\n' +
-'    &lt;/linearGradient&gt;\\n' +
-'  &lt;/defs&gt;\\n' +
-'  &lt;rect class="shimmer-wave" x="0" y="0" width="100%" height="100%" fill="url(#shimmerGradient)" clip-path="url(#skeletonClip)" /&gt;\\n' +
+          skeletonCodeOutput.innerHTML = '<code>&lt;!-- Pure SVG Skeleton with Zero Runtime JS --&gt;\n' +
+'&lt;svg viewBox="' + vb + '" width="100%" height="auto" role="status" aria-busy="true" aria-label="Loading..."&gt;\n' +
+'  &lt;style&gt;\n' +
+'    @keyframes shimmerAnim {\n' +
+'      0% { transform: translateX(-100%); }\n' +
+'      100% { transform: translateX(100%); }\n' +
+'    }\n' +
+'    .shimmer-wave {\n' +
+'      animation: shimmerAnim ' + dur + 's infinite linear;\n' +
+'      will-change: transform;\n' +
+'    }\n' +
+'  &lt;/style&gt;\n' +
+'  &lt;defs&gt;\n' +
+'    &lt;clipPath id="skeletonClip"&gt;\n' +
+'      ' + clipInner + '\n' +
+'    &lt;/clipPath&gt;\n' +
+'    &lt;linearGradient id="shimmerGradient" x1="-100%" y1="0%" x2="200%" y2="0%"&gt;\n' +
+'      &lt;stop offset="0%" stop-color="' + theme.base + '" /&gt;\n' +
+'      &lt;stop offset="50%" stop-color="' + theme.highlight + '" /&gt;\n' +
+'      &lt;stop offset="100%" stop-color="' + theme.base + '" /&gt;\n' +
+'    &lt;/linearGradient&gt;\n' +
+'  &lt;/defs&gt;\n' +
+'  &lt;rect class="shimmer-wave" x="0" y="0" width="100%" height="100%" fill="url(#shimmerGradient)" clip-path="url(#skeletonClip)" /&gt;\n' +
 '&lt;/svg&gt;</code>';
         } else if (activeTab === 'react') {
-          skeletonCodeOutput.innerHTML = '<code>// React 19 / Next.js Server Component (RSC)\\n' +
-'import React, { useId } from \\'react\\';\\n\\n' +
-'export function SkeletonPlaceholder({ className = "" }) {\\n' +
-'  const id = useId();\\n' +
-'  const clipId = `clip-${id}`;\\n' +
-'  const gradId = `grad-${id}`;\\n\\n' +
-'  return (\\n' +
-'    &lt;svg viewBox="' + vb + '" width="100%" height="auto" role="status" aria-busy="true" className={`block w-full ${className}`}&gt;\\n' +
-'      &lt;defs&gt;\\n' +
-'        &lt;clipPath id={clipId}&gt;\\n' +
-'          ' + clipInner + '\\n' +
-'        &lt;/clipPath&gt;\\n' +
-'        &lt;linearGradient id={gradId} x1="-100%" y1="0%" x2="200%" y2="0%"&gt;\\n' +
-'          &lt;stop offset="0%" stopColor="' + theme.base + '" /&gt;\\n' +
-'          &lt;stop offset="50%" stopColor="' + theme.highlight + '" /&gt;\\n' +
-'          &lt;stop offset="100%" stopColor="' + theme.base + '" /&gt;\\n' +
-'          &lt;animate attributeName="x1" values="-100%; 100%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\\n' +
-'          &lt;animate attributeName="x2" values="0%; 200%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\\n' +
-'        &lt;/linearGradient&gt;\\n' +
-'      &lt;/defs&gt;\\n' +
-'      &lt;rect x="0" y="0" width="100%" height="100%" fill={`url(#${gradId})`} clipPath={`url(#${clipId})`} /&gt;\\n' +
-'    &lt;/svg&gt;\\n' +
-'  );\\n' +
+          skeletonCodeOutput.innerHTML = '<code>// React 19 / Next.js Server Component (RSC)\n' +
+'import React, { useId } from \'react\';\n\n' +
+'export function SkeletonPlaceholder({ className = "" }) {\n' +
+'  const id = useId();\n' +
+'  const clipId = `clip-${id}`;\n' +
+'  const gradId = `grad-${id}`;\n\n' +
+'  return (\n' +
+'    &lt;svg viewBox="' + vb + '" width="100%" height="auto" role="status" aria-busy="true" className={`block w-full ${className}`}&gt;\n' +
+'      &lt;defs&gt;\n' +
+'        &lt;clipPath id={clipId}&gt;\n' +
+'          ' + clipInner + '\n' +
+'        &lt;/clipPath&gt;\n' +
+'        &lt;linearGradient id={gradId} x1="-100%" y1="0%" x2="200%" y2="0%"&gt;\n' +
+'          &lt;stop offset="0%" stopColor="' + theme.base + '" /&gt;\n' +
+'          &lt;stop offset="50%" stopColor="' + theme.highlight + '" /&gt;\n' +
+'          &lt;stop offset="100%" stopColor="' + theme.base + '" /&gt;\n' +
+'          &lt;animate attributeName="x1" values="-100%; 100%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\n' +
+'          &lt;animate attributeName="x2" values="0%; 200%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\n' +
+'        &lt;/linearGradient&gt;\n' +
+'      &lt;/defs&gt;\n' +
+'      &lt;rect x="0" y="0" width="100%" height="100%" fill={`url(#${gradId})`} clipPath={`url(#${clipId})`} /&gt;\n' +
+'    &lt;/svg&gt;\n' +
+'  );\n' +
 '}</code>';
         } else {
-          skeletonCodeOutput.innerHTML = '<code>&lt;!-- Tailwind CSS v4 Compatible SVG Skeleton Container --&gt;\\n' +
-'&lt;div class="w-full max-w-md rounded-xl p-4 bg-neutral-900 border border-neutral-800"&gt;\\n' +
-'  &lt;svg viewBox="' + vb + '" class="w-full h-auto block" role="status" aria-busy="true"&gt;\\n' +
-'    &lt;defs&gt;\\n' +
-'      &lt;clipPath id="twClip"&gt;\\n' +
-'        ' + clipInner + '\\n' +
-'      &lt;/clipPath&gt;\\n' +
-'      &lt;linearGradient id="twGrad" x1="-100%" y1="0%" x2="200%" y2="0%"&gt;\\n' +
-'        &lt;stop offset="0%" stop-color="' + theme.base + '" /&gt;\\n' +
-'        &lt;stop offset="50%" stop-color="' + theme.highlight + '" /&gt;\\n' +
-'        &lt;stop offset="100%" stop-color="' + theme.base + '" /&gt;\\n' +
-'        &lt;animate attributeName="x1" values="-100%; 100%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\\n' +
-'        &lt;animate attributeName="x2" values="0%; 200%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\\n' +
-'      &lt;/linearGradient&gt;\\n' +
-'    &lt;/defs&gt;\\n' +
-'    &lt;rect x="0" y="0" width="100%" height="100%" fill="url(#twGrad)" clip-path="url(#twClip)" /&gt;\\n' +
-'  &lt;/svg&gt;\\n' +
+          skeletonCodeOutput.innerHTML = '<code>&lt;!-- Tailwind CSS v4 Compatible SVG Skeleton Container --&gt;\n' +
+'&lt;div class="w-full max-w-md rounded-xl p-4 bg-neutral-900 border border-neutral-800"&gt;\n' +
+'  &lt;svg viewBox="' + vb + '" class="w-full h-auto block" role="status" aria-busy="true"&gt;\n' +
+'    &lt;defs&gt;\n' +
+'      &lt;clipPath id="twClip"&gt;\n' +
+'        ' + clipInner + '\n' +
+'      &lt;/clipPath&gt;\n' +
+'      &lt;linearGradient id="twGrad" x1="-100%" y1="0%" x2="200%" y2="0%"&gt;\n' +
+'        &lt;stop offset="0%" stop-color="' + theme.base + '" /&gt;\n' +
+'        &lt;stop offset="50%" stop-color="' + theme.highlight + '" /&gt;\n' +
+'        &lt;stop offset="100%" stop-color="' + theme.base + '" /&gt;\n' +
+'        &lt;animate attributeName="x1" values="-100%; 100%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\n' +
+'        &lt;animate attributeName="x2" values="0%; 200%" dur="' + dur + 's" repeatCount="indefinite" /&gt;\n' +
+'      &lt;/linearGradient&gt;\n' +
+'    &lt;/defs&gt;\n' +
+'    &lt;rect x="0" y="0" width="100%" height="100%" fill="url(#twGrad)" clip-path="url(#twClip)" /&gt;\n' +
+'  &lt;/svg&gt;\n' +
 '&lt;/div&gt;</code>';
         }
       }
