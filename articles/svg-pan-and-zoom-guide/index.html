@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Pan and Zoom: Complete Interactive Viewport &amp; Infinite Canvas Guide (2026) | IconStash</title>
+  <meta name="description" content="Master SVG pan and zoom: matrix transforms, touch pinch gestures, screenToSVG coordinate mapping, viewport bounds, and live interactive canvas studio.">
+  <meta name="keywords" content="svg pan and zoom, svg pan zoom javascript, svg zoom mouse wheel, svg pinch zoom touch mobile, svg viewport matrix transformation, svg screenToSVG coordinate matrix, d3 zoom alternative svg, interactive svg infinite canvas">
+  <meta property="og:title" content="SVG Pan and Zoom: Complete Interactive Viewport &amp; Infinite Canvas Guide (2026)">
+  <meta property="og:description" content="Master SVG pan and zoom: matrix transforms, touch pinch gestures, screenToSVG coordinate mapping, viewport bounds, and live interactive canvas studio.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-pan-and-zoom-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-pan-and-zoom-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-05T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-05T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Graphics &amp; Interactive UI">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Pan and Zoom">
+  <meta property="article:tag" content="Coordinate Systems">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="Canvas &amp; Viewports">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Pan and Zoom: Complete Interactive Viewport &amp; Infinite Canvas Guide (2026)">
+  <meta name="twitter:description" content="Master SVG pan and zoom: matrix transforms, touch pinch gestures, screenToSVG coordinate mapping, viewport bounds, and live interactive canvas studio.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-pan-and-zoom-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-pan-and-zoom-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "SVG Pan and Zoom: Complete Interactive Viewport & Infinite Canvas Guide (2026)",
+      "description": "Master SVG pan and zoom: matrix transforms, touch pinch gestures, screenToSVG coordinate mapping, viewport bounds, and live interactive canvas studio.",
+      "image": "https://iconstash.io/assets/articles/svg-pan-and-zoom-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-05",
+      "dateModified": "2026-11-05",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-pan-and-zoom-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4520,
+      "articleSection": "Vector Graphics & Interactive UI",
+      "keywords": [
+        "svg pan and zoom",
+        "svg pan zoom javascript",
+        "svg zoom mouse wheel",
+        "svg touch pinch zoom",
+        "screenToSVG coordinate mapping",
+        "svg viewport matrix transformation",
+        "infinite canvas svg",
+        "d3 zoom alternative"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Pan and Zoom Guide",
+          "item": "https://iconstash.io/articles/svg-pan-and-zoom-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between viewBox manipulation and CSS transform matrix for SVG pan and zoom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ViewBox manipulation updates the minX, minY, width, and height attributes of the root svg element, altering the coordinate system mapping for all child elements natively without altering DOM nodes. Transform matrix manipulation applies an affine transform matrix (scale and translate) to an inner root g element. Matrix transformation generally yields smoother 120 FPS animations because modern browsers offload CSS transform matrices to the GPU compositor thread, whereas frequent viewBox attribute mutations can trigger layout re-evaluations in complex document trees."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you calculate zoom centered on the mouse cursor instead of the top-left corner?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To zoom into the mouse cursor point (pX, pY), you must convert the screen coordinates of the cursor into SVG user coordinates using getScreenCTM().inverse(). When zooming by factor k, the new pan offset must shift by (pX - newPX) or mathematically: newMinX = pX - (pX - oldMinX) / zoomFactor. For matrix transforms, translate the origin to the cursor, apply the scale factor, and translate back: matrix = matrix.translate(pX, pY).scale(scaleFactor).translate(-pX, -pY)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does mobile touch pinch-to-zoom work in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Touch pinch-to-zoom tracks two simultaneous touch points. The distance between the touch points calculates the pinch scaling factor relative to the touchstart baseline distance. The midpoint between both fingers represents the focal pivot point around which both pan translation and zoom scaling occur simultaneously in real time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do stroke widths become huge or tiny when zooming into an SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default, SVG stroke widths scale proportionally with the coordinate matrix. When you zoom in by 5x, a 2px stroke renders as 10px on screen. To maintain a constant visual pixel stroke width regardless of zoom level, apply the CSS property 'vector-effect: non-scaling-stroke;' to all paths, circles, and rect elements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does screenToSVG coordinate conversion handle high-DPI (Retina) displays?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Native SVG DOM methods like svg.getScreenCTM() automatically account for window.devicePixelRatio, CSS transforms on parent containers, page scroll offsets, and viewport margins. By creating an SVGPoint via svg.createSVGPoint() and multiplying it by getScreenCTM().inverse(), you obtain pixel-perfect SVG user coordinates regardless of display scaling or device pixel ratios."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you implement smooth inertia momentum scrolling with SVG pan and zoom?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. By calculating pointer velocity (distance traveled divided by elapsed time between pointermove events), you can initiate a requestAnimationFrame physics decay loop upon pointerup. The velocity decays each frame by a friction multiplier (typically 0.92 to 0.95) until the displacement falls below a subpixel threshold, creating an iOS-like fluid panning experience."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 340px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: grab; user-select: none; }
+    .preview-stage-container:active { cursor: grabbing; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">SVG Pan and Zoom Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Engineering Deep-Dive</span>
+      <h1>SVG Pan and Zoom: Complete Interactive Viewport &amp; Infinite Canvas Guide (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published November 5, 2026</span>
+        <span>4,520 Words</span>
+        <span>19 min read</span>
+        <span>Hardware Compositing &amp; Matrix Transforms</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architecture Summary:</strong> Implementing fluid, 120 FPS pan and zoom inside Scalable Vector Graphics (SVG) powers modern design canvas tools (Figma, Miro), interactive floorplans, CAD diagrammers, node graphs, and mapping applications. While legacy web tutorials rely on bloated 500 KB libraries or buggy coordinate math, modern web standards allow zero-dependency, hardware-accelerated vector viewports.</p>
+          <ul>
+            <li><strong>The Two Paradigms:</strong> ViewBox manipulation (updating <code>minX minY width height</code>) alters the native vector viewport without touching child DOM nodes. Affine transform matrix manipulation (applying <code>matrix(a,b,c,d,e,f)</code> to a viewport group <code>&lt;g&gt;</code>) achieves hardware-composited 120 FPS performance on Chromium and WebKit.</li>
+            <li><strong>Focal Zoom-to-Point Math:</strong> Zooming toward the cursor requires translating the viewport so the user coordinate under the cursor remains stationary: <code>newMinX = pX - (pX - oldMinX) / scaleFactor</code>.</li>
+            <li><strong>Multi-Touch Pinch Mechanics:</strong> Calculating distance ratios and midpoint coordinates between two simultaneous touch contacts enables seamless mobile gestures without layout thrashing.</li>
+            <li><strong>Stroke Scaling Control:</strong> Enforcing <code>vector-effect: non-scaling-stroke;</code> guarantees that visual wireframe lines and icon strokes remain razor-sharp and consistent regardless of zoom magnitude.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="https://iconstash.io/assets/articles/svg-pan-and-zoom-guide.jpg" alt="SVG Pan and Zoom Coordinate Matrix and Interactive Viewport Architecture Diagram" width="1200" height="675">
+          <figcaption>Figure 1: Architectural diagram of SVG infinite canvas coordinate spaces, transform matrices, and focal pivot mapping.</figcaption>
+        </figure>
+
+        <section id="coordinate-foundations">
+          <h2>1. The Geometry of Vector Viewports: Screen Space vs. SVG User Space</h2>
+          <p>The foundational challenge of interactive vector viewports lies in translating between two contradictory coordinate universes: <strong>Screen Pixel Space</strong> and <strong>SVG User Coordinate Space</strong>. Screen space is dictated by client browser window pixels (originating at <code>clientX: 0, clientY: 0</code> at the top-left corner of the browser viewport). In contrast, SVG user space is defined by an arbitrary, resolution-independent mathematical Cartesian grid where units can represent millimeters, CAD mils, geographic meters, or abstract vector points.</p>
+          <p>When a user rolls the mouse wheel or touches a glass trackpad, the browser dispatches an event containing screen coordinates. If you naively apply those numbers to SVG geometry without taking into account page scroll, CSS padding, container scale transforms, and device pixel ratios, the vector artwork will visibly jump, drift, or pivot wildly off-screen. To bridge this divide, the SVG DOM specification provides the Current Transformation Matrix (CTM) through the interface method <code>getScreenCTM()</code>.</p>
+          <p>The method <code>svg.getScreenCTM()</code> computes a 2D affine transformation matrix that represents the exact mathematical mapping from the SVG internal coordinate space to the client screen display. By computing the mathematical inverse of this matrix via <code>ctm.inverse()</code>, web applications can map any arbitrary mouse or touch event into precise SVG user space with micro-millimeter fidelity.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Mathematical Formula: Screen Coordinate to SVG User Space Mapping</div>
+            <div class="formula-body">Point_SVG = (Screen_Matrix)^(-1) &times; Point_Client</div>
+            <div class="formula-desc">Where Screen_Matrix is obtained from svgElement.getScreenCTM() and multiplied by DOMPoint(clientX, clientY) via matrixTransform().</div>
+          </div>
+
+          <p>In modern web browsers, this coordinate translation is executed utilizing the standard <code>DOMPoint</code> and <code>DOMMatrix</code> APIs. The code snippet below illustrates the production-grade, zero-dependency pattern for converting client pointer events into local vector coordinates:</p>
+
+          <pre><code class="language-javascript">// Zero-dependency helper function to convert screen client coordinates to SVG user coordinates
+function screenToSVG(svgElement, clientX, clientY) {
+  const ctm = svgElement.getScreenCTM();
+  if (!ctm) {
+    return { x: 0, y: 0 };
+  }
+  // Use DOMPoint if supported, or create an SVGPoint fallback
+  if (window.DOMPoint) {
+    const point = new DOMPoint(clientX, clientY);
+    const transformed = point.matrixTransform(ctm.inverse());
+    return { x: transformed.x, y: transformed.y };
+  } else {
+    const pt = svgElement.createSVGPoint();
+    pt.x = clientX;
+    pt.y = clientY;
+    const transformed = pt.matrixTransform(ctm.inverse());
+    return { x: transformed.x, y: transformed.y };
+  }
+}</code></pre>
+
+          <p>This single function forms the cornerstone of every pan, zoom, drag-and-drop, and marquee-selection operation on an infinite vector canvas. Because it delegates the matrix inversion to the browser's C++ rendering engine, it handles CSS scale transforms, responsive container flexbox centering, and high-DPI Retina scaling automatically.</p>
+        </section>
+
+        <section id="viewbox-vs-matrix">
+          <h2>2. The Two Architectural Approaches: ViewBox Manipulation vs. Transform Matrix</h2>
+          <p>When architecting an SVG pan-and-zoom engine, developers face a critical technical fork in the road: <strong>ViewBox Manipulation</strong> versus <strong>Affine Transform Matrix</strong>. While both approaches achieve visual scaling and translation, their rendering pipeline footprints, performance trade-offs, and behavioral nuances are radically distinct.</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architectural Feature</th>
+                  <th>ViewBox Manipulation (minX, minY, w, h)</th>
+                  <th>Transform Matrix (matrix(a,b,c,d,e,f))</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Target Element</strong></td>
+                  <td>Root <code>&lt;svg viewBox="..."&gt;</code> attribute</td>
+                  <td>Inner container group <code>&lt;g transform="..."&gt;</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Compositor Acceleration</strong></td>
+                  <td>Moderate &mdash; triggers attribute mutation and SVG layout pass</td>
+                  <td>Maximum &mdash; offloaded directly to GPU compositor thread</td>
+                </tr>
+                <tr>
+                  <td><strong>Non-Scaling Stroke Behavior</strong></td>
+                  <td>Maintains uniform pixel stroke-width automatically</td>
+                  <td>Requires <code>vector-effect: non-scaling-stroke;</code> on elements</td>
+                </tr>
+                <tr>
+                  <td><strong>DOM Overhead</strong></td>
+                  <td>Zero wrapper elements required</td>
+                  <td>Requires wrapping canvas elements in a master <code>&lt;g&gt;</code> tag</td>
+                </tr>
+                <tr>
+                  <td><strong>Minimap Synchronization</strong></td>
+                  <td>Trivially calculated: viewBox matches camera lens</td>
+                  <td>Requires matrix inversion to compute visible bounding box</td>
+                </tr>
+                <tr>
+                  <td><strong>120 FPS Frame Stability</strong></td>
+                  <td>May encounter micro-stutter on 10,000+ complex nodes</td>
+                  <td>Buttery smooth 120 FPS across Chrome, Safari, and Firefox</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS Transform-Box Dependency</strong></td>
+                  <td>None (native XML attribute)</td>
+                  <td>Requires setting <code>transform-box: view-box;</code> or inline matrix</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Approach A: ViewBox Manipulation Engine</h3>
+          <p>Under the viewBox method, the SVG root element's <code>viewBox</code> attribute is modified directly during every animation tick. The viewBox string consists of four floating-point numbers: <code>minX minY width height</code>. Panning updates <code>minX</code> and <code>minY</code>, shifting the optical camera across the coordinate plane. Zooming increases or decreases <code>width</code> and <code>height</code>: smaller dimensions zoom in, while larger dimensions zoom out.</p>
+
+          <pre><code class="language-javascript">// Updating the viewport using native viewBox string manipulation
+function setViewBox(svg, minX, minY, width, height) {
+  svg.setAttribute('viewBox', minX.toFixed(2) + ' ' + minY.toFixed(2) + ' ' + width.toFixed(2) + ' ' + height.toFixed(2));
+}</code></pre>
+
+          <p>The primary advantage of viewBox manipulation is its conceptual purity: child elements remain completely untouched, and external tools (such as minimap overlays or coordinate readouts) can inspect the current camera bounds simply by parsing the viewBox string. However, because mutating XML attributes causes the browser layout engine to re-verify SVG bounding boxes, extremely dense diagrams (over 20,000 nodes) can suffer from frame drops during rapid dragging.</p>
+
+          <h3>Approach B: Affine Transform Matrix Engine</h3>
+          <p>The transform matrix approach preserves the root SVG viewBox at a fixed dimension (for instance, <code>0 0 1000 1000</code>) and wraps all visual children in a top-level grouping element: <code>&lt;g id="viewport" transform="matrix(scaleX, skewY, skewX, scaleY, translateX, translateY)"&gt;</code>.</p>
+          <p>Because CSS and SVG transform matrices operate directly on GPU vertex buffers, modern browser engines (Google Blink, Apple WebKit, and Mozilla Gecko) can composite matrix transitions on the GPU thread without re-rasterizing un-changed vector paths. This makes matrix transformation the undisputed standard for professional web-based graphics suites, CAD viewers, and node graph editors.</p>
+        </section>
+
+        <section id="focal-zoom-math">
+          <h2>3. The Zoom-to-Point Pivot Equation: Why Center-Zooming Fails</h2>
+          <p>A classic bug in rudimentary pan-and-zoom scripts is <em>center-zooming</em>: whenever the user spins the mouse wheel, the entire diagram zooms inward toward the visual center of the screen, regardless of where the cursor is placed. This destroys user spatial orientation because the specific icon or circuit node the user is examining flies away from their mouse cursor.</p>
+          <p>True focal zooming (often called <em>zoom-to-cursor</em> or <em>zoom-at-point</em>) guarantees that the specific SVG coordinate lying directly beneath the mouse pointer remains pinned to that exact screen pixel before, during, and after the zoom operation. To achieve this mathematical invariance, the camera's translation offset must adjust simultaneously with the scale factor.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Mathematical Derivation: Focal Zoom Invariance Formula</div>
+            <div class="formula-body">newMinX = P_x - (P_x - oldMinX) &times; (newWidth / oldWidth)</div>
+            <div class="formula-desc">Where P_x is the SVG user X coordinate under the pointer, oldMinX is the current viewport camera origin, and the ratio (newWidth / oldWidth) represents the inverse zoom delta factor.</div>
+          </div>
+
+          <p>Let us walk through the step-by-step mathematical proof: Suppose the mouse cursor is located at screen point <code>(clientX, clientY)</code>, which maps to SVG point <code>P = (pX, pY)</code>. If we zoom in by a scale factor <code>s = 1.2</code> (making the viewport 20% smaller), the new width is <code>newWidth = oldWidth / s</code>. If the cursor position within the normalized viewport is given by ratio <code>rX = (pX - oldMinX) / oldWidth</code>, then after zooming, the point <code>pX</code> must satisfy the identical ratio: <code>(pX - newMinX) / newWidth = rX</code>.</p>
+          <p>Equating both sides and solving for <code>newMinX</code> yields the canonical equation:</p>
+          <pre><code class="language-text">newMinX = pX - rX &times; newWidth
+         = pX - ((pX - oldMinX) / oldWidth) &times; (oldWidth / s)
+         = pX - (pX - oldMinX) / s</code></pre>
+          <p>This elegant formula ensures that no matter how rapidly or erratically the user spins their mouse wheel, the point under the cursor never drifts by a single subpixel.</p>
+        </section>
+
+        <section id="pointer-interactions">
+          <h2>4. Desktop Pointer Interactions: Wheel Zooming, Panning Deltas &amp; Friction Decay</h2>
+          <p>Translating user hardware inputs into silky, responsive motion requires handling three distinct pointer events: wheel delta normalization, drag translation, and inertial momentum decay.</p>
+
+          <h3>Normalizing the Mouse Wheel Delta</h3>
+          <p>A notorious cross-platform hazard in browser engineering is that the standard <code>wheel</code> event reports wildly inconsistent values across operating systems and hardware mice. An Apple Magic Mouse or MacBook trackpad emits micro-pixel deltas (e.g., <code>deltaY = 1.5</code>), while a physical notch-wheel mouse on Windows or Linux emits line steps (e.g., <code>deltaY = 100</code> with <code>deltaMode = 1</code>).</p>
+          <p>If an engineer naively multiplies <code>zoomFactor *= 1 + event.deltaY * 0.001</code>, notch-wheel users will experience violent 20x zoom jumps, while trackpad users will barely notice any movement. The industry-standard normalization calculates an exponential zoom step clamped between safety bounds:</p>
+
+          <pre><code class="language-javascript">// Cross-platform mouse wheel delta normalization
+function calculateZoomFactor(event, currentZoom) {
+  event.preventDefault();
+  
+  // Standardize deltaMode: 0 = pixels, 1 = lines, 2 = pages
+  let delta = event.deltaY;
+  if (event.deltaMode === 1) delta *= 16; // Convert line mode to pixels
+  if (event.deltaMode === 2) delta *= 800; // Convert page mode to pixels
+  
+  // Exponential zoom damping curve
+  const zoomSensitivity = 0.0015;
+  const zoomMultiplier = Math.exp(-delta * zoomSensitivity);
+  
+  // Clamp zoom levels to prevent floating point degeneration
+  const minZoom = 0.1;
+  const maxZoom = 25.0;
+  const nextZoom = Math.max(minZoom, Math.min(maxZoom, currentZoom * zoomMultiplier));
+  
+  return nextZoom / currentZoom; // Return relative scale factor
+}</code></pre>
+
+          <h3>Pointer Dragging with Pointer Events API</h3>
+          <p>In 2026, legacy <code>mousedown</code>, <code>mousemove</code>, and <code>mouseup</code> handlers should never be used for canvas panning. The modern W3C <strong>Pointer Events API</strong> unifies mouse, stylus pen, and touch inputs under a single interface with explicit pointer capture capabilities.</p>
+          <p>By invoking <code>event.target.setPointerCapture(event.pointerId)</code> inside the <code>pointerdown</code> handler, the SVG element continues receiving pointer movement events even if the user drags their cursor outside the browser window boundary or across embedded iframes. This eliminates the frustrating bug where panning suddenly stalls if the user jerks their cursor past the canvas margin.</p>
+        </section>
+
+        <section id="mobile-pinch-zoom">
+          <h2>5. Mobile Multi-Touch Architecture: Dual-Finger Pinch Gestures &amp; Midpoint Pivoting</h2>
+          <p>On mobile devices and touchscreens, users expect native pinch-to-zoom ergonomics. Implementing pinch gestures requires tracking multiple simultaneous contact points, calculating dynamic hypotenuse distances, and extracting Euclidean midpoints.</p>
+          <p>When two fingers contact the screen, we record both touch identifiers in an active pointer cache. Each touch movement updates the Euclidean distance between the two points: <code>dist = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY)</code>. The zoom factor is simply the ratio between the current distance and the distance recorded on the previous frame:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Mathematical Formula: Two-Finger Pinch Distance Ratio</div>
+            <div class="formula-body">Zoom_Factor = &radic;((X_2 - X_1)&sup2; + (Y_2 - Y_1)&sup2;) / Initial_Distance</div>
+            <div class="formula-desc">Simultaneously, the midpoint ((X_1 + X_2) / 2, (Y_1 + Y_2) / 2) serves as the focal pivot point for pan translation.</div>
+          </div>
+
+          <p>The beauty of this formulation is that panning and zooming merge into a single seamless gesture. If the user pinches while sliding their hands across the glass, the midpoint translates the canvas while the distance delta scales the viewport &mdash; exactly mirroring native mobile map applications.</p>
+        </section>
+
+        <!-- INTERACTIVE STUDIO -->
+        <section id="interactive-studio">
+          <h2>6. Interactive Developer Studio: Live Infinite Canvas &amp; Code Generator</h2>
+          <p>Test, inspect, and benchmark pan-and-zoom mechanics in the live interactive studio below. Drag across the canvas to pan, spin your mouse wheel to zoom into any point, or adjust the sliders to inspect the live matrix transformations in real time.</p>
+
+          <div class="interactive-sandbox" id="panZoomStudio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <span>Interactive SVG Infinite Canvas Studio</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Matrix Engine</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label for="engineModeSelect">Viewport Engine Paradigm</label>
+                  <select id="engineModeSelect" class="control-select">
+                    <option value="matrix" selected>GPU Transform Matrix (matrix(a,b,c,d,e,f))</option>
+                    <option value="viewbox">Native ViewBox (minX minY width height)</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label for="zoomSlider">Zoom Scale Factor: <span class="stat-num" id="zoomValDisplay">1.00&times;</span></label>
+                  <input type="range" id="zoomSlider" class="control-input" min="0.2" max="5.0" step="0.05" value="1.0">
+                </div>
+
+                <div class="control-row">
+                  <label for="strokeModeSelect">Stroke Width Rendering</label>
+                  <select id="strokeModeSelect" class="control-select">
+                    <option value="non-scaling" selected>non-scaling-stroke (Constant 2px)</option>
+                    <option value="scaling">Proportional Scaling (Grows with Zoom)</option>
+                  </select>
+                </div>
+
+                <div class="btn-row">
+                  <button type="button" class="action-btn primary" id="resetViewportBtn">Reset Viewport</button>
+                  <button type="button" class="action-btn" id="zoomInBtn">Zoom In (+25%)</button>
+                  <button type="button" class="action-btn" id="zoomOutBtn">Zoom Out (-25%)</button>
+                  <button type="button" class="action-btn" id="fitContentBtn">Fit to Content</button>
+                </div>
+
+                <div class="stats-readout-box">
+                  <div class="stat-item">
+                    <div class="stat-label">Pan Offset (X, Y)</div>
+                    <div class="stat-val" id="panReadout">0.0, 0.0</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Zoom Scale</div>
+                    <div class="stat-val highlight" id="zoomReadout">1.00&times;</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Cursor SVG Coordinates</div>
+                    <div class="stat-val" id="cursorReadout">500.0, 250.0</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Compositor FPS</div>
+                    <div class="stat-val highlight" id="fpsReadout">120 FPS</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="preview-stage-container" id="stageContainer" title="Click and drag to pan. Use mouse wheel to zoom.">
+                  <svg id="canvasSvg" class="stage-svg-element" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                      <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#222" stroke-width="1"/>
+                        <circle cx="0" cy="0" r="1.5" fill="#444"/>
+                      </pattern>
+                    </defs>
+
+                    <!-- Background Grid -->
+                    <rect x="-2000" y="-2000" width="5000" height="5000" fill="url(#gridPattern)" />
+
+                    <!-- Transformed Canvas Group -->
+                    <g id="viewportGroup">
+                      <!-- Central Node -->
+                      <rect x="420" y="200" width="160" height="100" rx="12" fill="#161A08" stroke="#C1DD2D" stroke-width="2" class="canvas-node" />
+                      <text x="500" y="245" fill="#C1DD2D" font-size="14" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">CORE VIEWPORT</text>
+                      <text x="500" y="270" fill="#888" font-size="12" text-anchor="middle" font-family="JetBrains Mono, monospace">Scale: 1.00&times;</text>
+
+                      <!-- Node Left -->
+                      <rect x="160" y="215" width="140" height="70" rx="8" fill="#141414" stroke="#333" stroke-width="2" class="canvas-node" />
+                      <text x="230" y="255" fill="#DDD" font-size="13" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">INPUT SYSTEM</text>
+
+                      <!-- Node Right -->
+                      <rect x="700" y="215" width="140" height="70" rx="8" fill="#141414" stroke="#333" stroke-width="2" class="canvas-node" />
+                      <text x="770" y="255" fill="#DDD" font-size="13" font-weight="600" text-anchor="middle" font-family="Inter, sans-serif">GPU COMPOSITOR</text>
+
+                      <!-- Connector Lines -->
+                      <path d="M 300 250 L 420 250" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="4,4" class="canvas-wire" />
+                      <path d="M 580 250 L 700 250" fill="none" stroke="#444" stroke-width="2" stroke-dasharray="4,4" class="canvas-wire" />
+
+                      <!-- Decorative Satellite Badges -->
+                      <circle cx="500" cy="110" r="30" fill="#111" stroke="#38BDF8" stroke-width="2" class="canvas-node" />
+                      <text x="500" y="115" fill="#38BDF8" font-size="11" font-weight="700" text-anchor="middle" font-family="JetBrains Mono, monospace">CTM</text>
+                      <path d="M 500 140 L 500 200" fill="none" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="2,2" />
+
+                      <circle cx="500" cy="390" r="30" fill="#111" stroke="#A855F7" stroke-width="2" class="canvas-node" />
+                      <text x="500" y="395" fill="#A855F7" font-size="11" font-weight="700" text-anchor="middle" font-family="JetBrains Mono, monospace">MATRIX</text>
+                      <path d="M 500 300 L 500 360" fill="none" stroke="#A855F7" stroke-width="1.5" stroke-dasharray="2,2" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- CODE GENERATOR -->
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs">
+                  <button type="button" class="code-tab-btn active" id="tabJsBtn">Vanilla JavaScript</button>
+                  <button type="button" class="code-tab-btn" id="tabTsBtn">TypeScript / React Hook</button>
+                </div>
+                <div class="code-actions">
+                  <button type="button" class="copy-btn" id="copyCodeBtn">Copy Implementation Code</button>
+                </div>
+              </div>
+              <pre class="code-output-area" id="codeOutputArea"><code>// Initializing code generator...</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="boundary-clamping">
+          <h2>7. Viewport Boundaries, Clamping &amp; Collision Resistance</h2>
+          <p>In real-world applications, you rarely want users to be able to drag the artwork infinitely into the void, losing sight of the content entirely. A robust pan-and-zoom engine enforces <strong>spatial boundary constraints</strong> that restrict camera travel.</p>
+          <p>Clamping is enforced by defining an allowable bounding rectangle in SVG user space: <code>[minX_bound, minY_bound, maxX_bound, maxY_bound]</code>. Before committing any translation offset, the engine computes the visible extent of the camera and clamps the pan position so at least a guaranteed percentage (e.g., 20%) of the artwork remains on screen.</p>
+
+          <pre><code class="language-javascript">// Bounding box clamping algorithm for SVG pan and zoom
+function clampPan(x, y, scale, viewportW, viewportH, contentBounds) {
+  const visibleW = viewportW / scale;
+  const visibleH = viewportH / scale;
+  
+  // Enforce 15% minimum content visibility padding
+  const padX = visibleW * 0.15;
+  const padY = visibleH * 0.15;
+  
+  const minAllowedX = contentBounds.minX - visibleW + padX;
+  const maxAllowedX = contentBounds.maxX - padX;
+  const minAllowedY = contentBounds.minY - visibleH + padY;
+  const maxAllowedY = contentBounds.maxY - padY;
+  
+  return {
+    x: Math.max(minAllowedX, Math.min(maxAllowedX, x)),
+    y: Math.max(minAllowedY, Math.min(maxAllowedY, y))
+  };
+}</code></pre>
+
+          <p>When implementing rubber-band physics (similar to iOS scroll bounces), you allow the translation to travel past the strict clamping bounds by applying a logarithmic dampening curve: <code>overdragDelta = delta &times; 0.35</code>. Upon pointer release, an ease-out spring animation returns the viewport smoothly back to the clamped boundary threshold.</p>
+        </section>
+
+        <section id="inertia-physics">
+          <h2>8. Physics-Based Inertia Momentum &amp; Kinetic Velocity Deceleration</h2>
+          <p>A static pan implementation that abruptly freezes the instant the user lifts their finger or mouse button feels jarring and mechanical. Modern fluid touch and pointer interfaces incorporate <strong>kinetic inertia</strong>, where the canvas continues gliding along its release trajectory with realistic friction decay.</p>
+          <p>To implement kinetic inertia, the pan engine tracks pointer velocity over a rolling sliding window of the last 3 to 5 pointer movements. We compute instantaneous velocity as the displacement vector divided by elapsed milliseconds: <code>vx = &Delta;x / &Delta;t</code> and <code>vy = &Delta;y / &Delta;t</code>.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Mathematical Formula: Kinetic Friction Deceleration Loop</div>
+            <div class="formula-body">V(t + &Delta;t) = V(t) &times; (&mu;)^(&Delta;t / 16.67)</div>
+            <div class="formula-desc">Where &mu; is the kinetic friction coefficient (typically 0.94 for smooth glide) and 16.67ms normalizes for varying 60Hz, 120Hz, and 144Hz display refresh rates.</div>
+          </div>
+
+          <p>The code below demonstrates a robust, frame-rate independent inertia decay loop using <code>requestAnimationFrame</code>:</p>
+
+          <pre><code class="language-javascript">// Kinetic inertia decay physics engine for SVG panning
+class InertiaEngine {
+  constructor(onUpdate) {
+    this.onUpdate = onUpdate;
+    this.vx = 0;
+    this.vy = 0;
+    this.friction = 0.94;
+    this.minVelocity = 0.05;
+    this.rafId = null;
+    this.lastTime = 0;
+  }
+
+  start(initialVx, initialVy) {
+    this.stop();
+    this.vx = initialVx;
+    this.vy = initialVy;
+    this.lastTime = performance.now();
+    this.tick = this.tick.bind(this);
+    this.rafId = requestAnimationFrame(this.tick);
+  }
+
+  tick(now) {
+    const dt = Math.min(32, now - this.lastTime); // Cap delta time at 32ms
+    this.lastTime = now;
+    
+    // Scale friction according to actual elapsed time
+    const decay = Math.pow(this.friction, dt / 16.67);
+    this.vx *= decay;
+    this.vy *= decay;
+    
+    if (Math.hypot(this.vx, this.vy) < this.minVelocity) {
+      this.stop();
+      return;
+    }
+    
+    this.onUpdate(this.vx * dt, this.vy * dt);
+    this.rafId = requestAnimationFrame(this.tick);
+  }
+
+  stop() {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+  }
+}</code></pre>
+          <p>By checking <code>Math.hypot(vx, vy) &lt; 0.05</code>, the loop gracefully terminates before performing unnoticeable sub-pixel translations, preventing unnecessary CPU wakeups when the canvas has come to rest.</p>
+        </section>
+
+        <section id="performance-optimization">
+          <h2>9. Scaling to 100,000+ Nodes: Performance Optimization &amp; Spatial Virtualization</h2>
+          <p>While SVG scales gracefully for typical diagrams (hundreds or thousands of elements), rendering massive datasets (such as genomic charts, IC chip designs, or high-density network graphs with over 50,000 nodes) will choke the browser's Document Object Model if every node is retained in the active render tree.</p>
+          <p>To scale an SVG infinite canvas to 100,000+ elements, industry leaders employ four architectural optimizations:</p>
+          <ul>
+            <li><strong>Spatial Indexing (R-Trees &amp; QuadTrees):</strong> All vector entities are registered in an in-memory R-Tree (such as <code>flatbush</code> or <code>rbush</code>). During every pan or zoom tick, the engine queries the current visible camera rectangle and toggles <code>display: none;</code> on nodes lying outside the viewport frustum. Elements hidden with <code>display: none</code> are completely bypassed during browser paint passes.</li>
+            <li><strong>Geometric Level of Detail (LoD):</strong> When zoomed out below a threshold scale (e.g., <code>scale &lt; 0.3</code>), detailed circuit paths and small text labels are swapped for simplified bounding boxes or single vector points.</li>
+            <li><strong>Will-Change GPU Hinting:</strong> Applying <code>will-change: transform;</code> to the root viewport group <code>&lt;g&gt;</code> instructs the browser compositor to isolate the canvas onto its own GPU layer, avoiding costly re-paints of surrounding web application chrome.</li>
+            <li><strong>Non-Scaling Stroke Management:</strong> Always set <code>vector-effect: non-scaling-stroke;</code> via CSS rather than recalculating individual <code>stroke-width</code> values in JavaScript loops on every zoom event.</li>
+          </ul>
+
+          <p>Spatial culling is mathematically straightforward: compute the inverted bounding box of the camera viewport in SVG coordinates. Any entity whose axis-aligned bounding box (AABB) fails to intersect <code>[camX, camY, camX + camWidth, camY + camHeight]</code> is detached or hidden. This drops the active rendered DOM node count from 100,000 to only 200 visible elements, preserving constant 120 FPS rendering speeds.</p>
+        </section>
+
+        <section id="minimap-sync">
+          <h2>10. Minimaps, Spatial Indexing &amp; Coordinate Synchronization</h2>
+          <p>Professional design environments provide a miniature radar view (minimap) in the bottom-right corner that displays the total canvas bounds and a semi-transparent rectangle depicting the current camera viewport. Keeping the minimap lens in sync with the primary canvas requires linear affine mapping:</p>
+
+          <pre><code class="language-javascript">// Synchronizing a minimap lens with the primary SVG camera
+function updateMinimapLens(primaryCamera, minimapSvg, minimapLensRect, canvasBounds) {
+  const minimapW = minimapSvg.clientWidth;
+  const minimapH = minimapSvg.clientHeight;
+  
+  // Calculate relative scale between overall content and minimap dimensions
+  const scaleRatioX = minimapW / (canvasBounds.width);
+  const scaleRatioY = minimapH / (canvasBounds.height);
+  
+  // Map current primary camera viewBox to minimap pixels
+  const lensX = (primaryCamera.minX - canvasBounds.minX) * scaleRatioX;
+  const lensY = (primaryCamera.minY - canvasBounds.minY) * scaleRatioY;
+  const lensW = primaryCamera.width * scaleRatioX;
+  const lensH = primaryCamera.height * scaleRatioY;
+  
+  minimapLensRect.setAttribute('x', lensX.toFixed(1));
+  minimapLensRect.setAttribute('y', lensY.toFixed(1));
+  minimapLensRect.setAttribute('width', Math.max(12, lensW).toFixed(1));
+  minimapLensRect.setAttribute('height', Math.max(12, lensH).toFixed(1));
+}</code></pre>
+          <p>Additionally, dragging the minimap lens should update the primary canvas bidirectionally. By attaching pointer listeners to the minimap lens, clicking or dragging within the radar view translates the primary camera instantly to the selected coordinate cluster.</p>
+        </section>
+
+        <section id="framework-integrations">
+          <h2>11. Framework Implementations: React Hook, Vue Composable &amp; Svelte Action</h2>
+          <p>To integrate pan-and-zoom into modern frontend frameworks, encapsulate the event listeners and math within clean, idiomatic abstractions. Below is the production-ready React / Next.js hook:</p>
+
+          <pre><code class="language-typescript">// useSvgPanZoom.ts - Production React / Next.js Hook
+import { useRef, useEffect, useState, useCallback } from 'react';
+
+interface TransformState {
+  scale: number;
+  translateX: number;
+  translateY: number;
+}
+
+export function useSvgPanZoom(minScale = 0.1, maxScale = 10.0) {
+  const svgRef = useRef&lt;SVGSVGElement | null&gt;(null);
+  const [transform, setTransform] = useState&lt;TransformState&gt;({
+    scale: 1,
+    translateX: 0,
+    translateY: 0
+  });
+
+  const isDragging = useRef(false);
+  const dragStart = useRef({ x: 0, y: 0 });
+
+  const handlePointerDown = useCallback((e: React.PointerEvent&lt;SVGSVGElement&gt;) => {
+    isDragging.current = true;
+    dragStart.current = { x: e.clientX - transform.translateX, y: e.clientY - transform.translateY };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }, [transform.translateX, transform.translateY]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent&lt;SVGSVGElement&gt;) => {
+    if (!isDragging.current) return;
+    setTransform(prev => ({
+      ...prev,
+      translateX: e.clientX - dragStart.current.x,
+      translateY: e.clientY - dragStart.current.y
+    }));
+  }, []);
+
+  const handlePointerUp = useCallback((e: React.PointerEvent&lt;SVGSVGElement&gt;) => {
+    isDragging.current = false;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+  }, []);
+
+  const handleWheel = useCallback((e: React.WheelEvent&lt;SVGSVGElement&gt;) => {
+    e.preventDefault();
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    const rect = svg.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const delta = -e.deltaY * 0.0015;
+    const newScale = Math.max(minScale, Math.min(maxScale, transform.scale * Math.exp(delta)));
+    const scaleRatio = newScale / transform.scale;
+
+    // Focal zoom adjustment
+    setTransform(prev => ({
+      scale: newScale,
+      translateX: mouseX - (mouseX - prev.translateX) * scaleRatio,
+      translateY: mouseY - (mouseY - prev.translateY) * scaleRatio
+    }));
+  }, [transform.scale, minScale, maxScale]);
+
+  return {
+    svgRef,
+    transform,
+    bind: {
+      onPointerDown: handlePointerDown,
+      onPointerMove: handlePointerMove,
+      onPointerUp: handlePointerUp,
+      onWheel: handleWheel
+    }
+  };
+}</code></pre>
+          <p>In Vue 3, this architectural logic maps seamlessly into a Composition API composable returning reactive <code>ref(transform)</code> states and pointer event directives:</p>
+
+          <pre><code class="language-typescript">// useSvgPanZoom.vue.ts - Production Vue 3 Composable
+import { ref, onUnmounted } from 'vue';
+
+export function useSvgPanZoom(minScale = 0.1, maxScale = 10.0) {
+  const scale = ref(1.0);
+  const panX = ref(0);
+  const panY = ref(0);
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+
+  function onPointerDown(e: PointerEvent) {
+    isDragging = true;
+    startX = e.clientX - panX.value;
+    startY = e.clientY - panY.value;
+    (e.currentTarget as Element)?.setPointerCapture(e.pointerId);
+  }
+
+  function onPointerMove(e: PointerEvent) {
+    if (!isDragging) return;
+    panX.value = e.clientX - startX;
+    panY.value = e.clientY - startY;
+  }
+
+  function onPointerUp(e: PointerEvent) {
+    isDragging = false;
+    try { (e.currentTarget as Element)?.releasePointerCapture(e.pointerId); } catch(_) {}
+  }
+
+  function onWheel(e: WheelEvent, svgEl: SVGSVGElement) {
+    e.preventDefault();
+    const rect = svgEl.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const factor = Math.exp(-e.deltaY * 0.0015);
+    const newScale = Math.max(minScale, Math.min(maxScale, scale.value * factor));
+    const ratio = newScale / scale.value;
+    
+    panX.value = mouseX - (mouseX - panX.value) * ratio;
+    panY.value = mouseY - (mouseY - panY.value) * ratio;
+    scale.value = newScale;
+  }
+
+  return { scale, panX, panY, onPointerDown, onPointerMove, onPointerUp, onWheel };
+}</code></pre>
+
+          <p>In Svelte 5, an idiomatic <code>action:panzoom</code> attaches hardware-accelerated pointer event listeners directly to the DOM node lifecycle, ensuring effortless garbage collection when vector components unmount:</p>
+
+          <pre><code class="language-typescript">// panzoom.svelte.ts - Svelte 5 Custom Action
+export function panzoom(node: SVGSVGElement, options = { min: 0.1, max: 10.0 }) {
+  let scale = 1.0;
+  let panX = 0;
+  let panY = 0;
+  let isDragging = false;
+  let startX = 0, startY = 0;
+
+  const targetGroup = node.querySelector('g.viewport-layer') as SVGGElement;
+
+  function update() {
+    if (targetGroup) {
+      targetGroup.setAttribute('transform', \`matrix(\${scale}, 0, 0, \${scale}, \${panX}, \${panY})\`);
+    }
+    node.dispatchEvent(new CustomEvent('viewportchange', { detail: { scale, panX, panY } }));
+  }
+
+  function handleDown(e: PointerEvent) {
+    isDragging = true;
+    startX = e.clientX - panX;
+    startY = e.clientY - panY;
+    node.setPointerCapture(e.pointerId);
+  }
+
+  function handleMove(e: PointerEvent) {
+    if (!isDragging) return;
+    panX = e.clientX - startX;
+    panY = e.clientY - startY;
+    update();
+  }
+
+  function handleUp(e: PointerEvent) {
+    isDragging = false;
+    try { node.releasePointerCapture(e.pointerId); } catch(_) {}
+  }
+
+  function handleWheel(e: WheelEvent) {
+    e.preventDefault();
+    const rect = node.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const factor = Math.exp(-e.deltaY * 0.0015);
+    const nextScale = Math.max(options.min, Math.min(options.max, scale * factor));
+    const ratio = nextScale / scale;
+    panX = mouseX - (mouseX - panX) * ratio;
+    panY = mouseY - (mouseY - panY) * ratio;
+    scale = nextScale;
+    update();
+  }
+
+  node.addEventListener('pointerdown', handleDown);
+  node.addEventListener('pointermove', handleMove);
+  node.addEventListener('pointerup', handleUp);
+  node.addEventListener('wheel', handleWheel, { passive: false });
+
+  return {
+    destroy() {
+      node.removeEventListener('pointerdown', handleDown);
+      node.removeEventListener('pointermove', handleMove);
+      node.removeEventListener('pointerup', handleUp);
+      node.removeEventListener('wheel', handleWheel);
+    }
+  };
+}</code></pre>
+        </section>
+
+        <section id="decision-matrix">
+          <h2>12. Architectural Decision Matrix &amp; Performance Benchmarks</h2>
+          <p>When selecting the foundational technology for an interactive vector product, examine how pure SVG stacks against HTML5 Canvas and WebGL across primary performance criteria:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Criterion</th>
+                  <th>Pure SVG (Pan &amp; Zoom)</th>
+                  <th>HTML5 Canvas (2D Context)</th>
+                  <th>WebGL / WebGPU (Three.js/Pixi)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Crispness at 100x Zoom</strong></td>
+                  <td>Infinite mathematical vector sharpness</td>
+                  <td>Requires manual high-DPI canvas re-drawing</td>
+                  <td>Infinite via signed distance fields (SDF)</td>
+                </tr>
+                <tr>
+                  <td><strong>DOM Event Binding</strong></td>
+                  <td>Native: direct <code>onClick</code> on individual paths</td>
+                  <td>Manual raycasting and hit-testing math required</td>
+                  <td>Manual 3D raycasting and bounding spheres</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS Styling &amp; Dark Mode</strong></td>
+                  <td>Native CSS classes and CSS Custom Properties</td>
+                  <td>Manual script re-rendering required</td>
+                  <td>Custom shader uniforms and gl_FragColor</td>
+                </tr>
+                <tr>
+                  <td><strong>Accessibility &amp; SEO</strong></td>
+                  <td>Native ARIA roles and searchable text nodes</td>
+                  <td>Opaque bitmap (invisible to screen readers)</td>
+                  <td>Opaque canvas buffer</td>
+                </tr>
+                <tr>
+                  <td><strong>Sweet Spot Node Density</strong></td>
+                  <td>1 to 20,000 interactive nodes</td>
+                  <td>5,000 to 100,000 static nodes</td>
+                  <td>100,000 to 1,000,000+ GPU particles</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="takeaway-box">
+            <h3>Key Takeaway: The Hybrid Vector Architecture</h3>
+            <p>For applications managing extreme complexity (such as Figma or AutoCAD on the web), the ideal modern architecture is <strong>Hybrid</strong>: render dense background grids and static background geometries onto an accelerated HTML5 Canvas or WebGL viewport, while rendering active selections, editable control handles, text nodes, and interactive icons as crisp, accessible SVG overlays.</p>
+          </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq-section">
+          <h2>13. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <h3>What is the difference between viewBox manipulation and CSS transform matrix for SVG pan and zoom?</h3>
+            <p>ViewBox manipulation updates the minX, minY, width, and height attributes of the root svg element, altering the coordinate system mapping for all child elements natively without altering DOM nodes. Transform matrix manipulation applies an affine transform matrix (scale and translate) to an inner root g element. Matrix transformation generally yields smoother 120 FPS animations because modern browsers offload CSS transform matrices to the GPU compositor thread, whereas frequent viewBox attribute mutations can trigger layout re-evaluations in complex document trees.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How do you calculate zoom centered on the mouse cursor instead of the top-left corner?</h3>
+            <p>To zoom into the mouse cursor point (pX, pY), you must convert the screen coordinates of the cursor into SVG user coordinates using getScreenCTM().inverse(). When zooming by factor k, the new pan offset must shift by (pX - newPX) or mathematically: newMinX = pX - (pX - oldMinX) / zoomFactor. For matrix transforms, translate the origin to the cursor, apply the scale factor, and translate back: matrix = matrix.translate(pX, pY).scale(scaleFactor).translate(-pX, -pY).</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does mobile touch pinch-to-zoom work in SVG?</h3>
+            <p>Touch pinch-to-zoom tracks two simultaneous touch points. The distance between the touch points calculates the pinch scaling factor relative to the touchstart baseline distance. The midpoint between both fingers represents the focal pivot point around which both pan translation and zoom scaling occur simultaneously in real time.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Why do stroke widths become huge or tiny when zooming into an SVG?</h3>
+            <p>By default, SVG stroke widths scale proportionally with the coordinate matrix. When you zoom in by 5x, a 2px stroke renders as 10px on screen. To maintain a constant visual pixel stroke width regardless of zoom level, apply the CSS property 'vector-effect: non-scaling-stroke;' to all paths, circles, and rect elements.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How does screenToSVG coordinate conversion handle high-DPI (Retina) displays?</h3>
+            <p>Native SVG DOM methods like svg.getScreenCTM() automatically account for window.devicePixelRatio, CSS transforms on parent containers, page scroll offsets, and viewport margins. By creating an SVGPoint via svg.createSVGPoint() and multiplying it by getScreenCTM().inverse(), you obtain pixel-perfect SVG user coordinates regardless of display scaling or device pixel ratios.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can you implement smooth inertia momentum scrolling with SVG pan and zoom?</h3>
+            <p>Yes. By calculating pointer velocity (distance traveled divided by elapsed time between pointermove events), you can initiate a requestAnimationFrame physics decay loop upon pointerup. The velocity decays each frame by a friction multiplier (typically 0.92 to 0.95) until the displacement falls below a subpixel threshold, creating an iOS-like fluid panning experience.</p>
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#coordinate-foundations">1. Screen Space vs. SVG Space</a></li>
+              <li><a href="#viewbox-vs-matrix">2. ViewBox vs. Transform Matrix</a></li>
+              <li><a href="#focal-zoom-math">3. Zoom-to-Point Pivot Equation</a></li>
+              <li><a href="#pointer-interactions">4. Desktop Pointer Handling</a></li>
+              <li><a href="#mobile-pinch-zoom">5. Mobile Touch Pinch Gestures</a></li>
+              <li><a href="#interactive-studio">6. Interactive Developer Studio</a></li>
+              <li><a href="#boundary-clamping">7. Viewport Boundaries &amp; Clamping</a></li>
+              <li><a href="#inertia-physics">8. Physics-Based Inertia Momentum</a></li>
+              <li><a href="#performance-optimization">9. Scaling to 100,000+ Nodes</a></li>
+              <li><a href="#minimap-sync">10. Minimap Synchronization</a></li>
+              <li><a href="#framework-integrations">11. Framework Implementations</a></li>
+              <li><a href="#decision-matrix">12. Architecture Decision Matrix</a></li>
+              <li><a href="#faq-section">13. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 134K+ SVG Icons</h4>
+          <p>Find clean, open-source icons optimized for infinite canvases and web design systems.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash Free</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; text-align: left; margin-bottom: 32px;">
+      <div style="flex: 1; min-width: 240px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; margin-bottom: 12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+          <span>IconStash</span>
+        </div>
+        <p style="font-size: 13.5px; line-height: 1.6; color: #888;">The high-performance vector search engine indexing 134,701 open-source icons across 28 curated libraries. Zero attribution required for 94.5% of assets.</p>
+      </div>
+      <div style="min-width: 160px;">
+        <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #AAA; margin-bottom: 12px;">Navigation</div>
+        <ul style="list-style: none; margin: 0; padding: 0; font-size: 13.5px; line-height: 2;">
+          <li><a href="/#/">Search 134K+ Icons</a></li>
+          <li><a href="/articles/">Technical Guides</a></li>
+          <li><a href="/Listicles/best-free-icon-sets-2026/">Top Icon Libraries</a></li>
+          <li><a href="/Glossary/icon-svg-terminology/">Vector Glossary</a></li>
+          <li><a href="/stats/">Open Data &amp; Stats</a></li>
+        </ul>
+      </div>
+      <div style="min-width: 160px;">
+        <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #AAA; margin-bottom: 12px;">Legal &amp; Trust</div>
+        <ul style="list-style: none; margin: 0; padding: 0; font-size: 13.5px; line-height: 2;">
+          <li><a href="/about/">About IconStash</a></li>
+          <li><a href="/privacy/">Privacy Policy</a></li>
+          <li><a href="/terms/">Terms of Service</a></li>
+          <li><a href="/contact/">Contact &amp; Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <p>&copy; 2026 IconStash &bull; Built by <a href="/about/">Jouni Flemming</a> at <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener">Great Software Company</a>. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Theme Persistence and Toggle
+    (function() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      }
+    })();
+
+    // Interactive Pan and Zoom Engine Studio
+    (function() {
+      const stageContainer = document.getElementById('stageContainer');
+      const canvasSvg = document.getElementById('canvasSvg');
+      const viewportGroup = document.getElementById('viewportGroup');
+      const engineModeSelect = document.getElementById('engineModeSelect');
+      const zoomSlider = document.getElementById('zoomSlider');
+      const zoomValDisplay = document.getElementById('zoomValDisplay');
+      const strokeModeSelect = document.getElementById('strokeModeSelect');
+      const resetViewportBtn = document.getElementById('resetViewportBtn');
+      const zoomInBtn = document.getElementById('zoomInBtn');
+      const zoomOutBtn = document.getElementById('zoomOutBtn');
+      const fitContentBtn = document.getElementById('fitContentBtn');
+
+      const panReadout = document.getElementById('panReadout');
+      const zoomReadout = document.getElementById('zoomReadout');
+      const cursorReadout = document.getElementById('cursorReadout');
+      const codeOutputArea = document.getElementById('codeOutputArea');
+      const copyCodeBtn = document.getElementById('copyCodeBtn');
+      const tabJsBtn = document.getElementById('tabJsBtn');
+      const tabTsBtn = document.getElementById('tabTsBtn');
+
+      let currentScale = 1.0;
+      let panX = 0;
+      let panY = 0;
+      let isDragging = false;
+      let startPointerX = 0;
+      let startPointerY = 0;
+      let activeTab = 'js';
+
+      function updateStudio() {
+        zoomValDisplay.textContent = currentScale.toFixed(2) + 'x';
+        zoomReadout.textContent = currentScale.toFixed(2) + 'x';
+        panReadout.textContent = panX.toFixed(1) + ', ' + panY.toFixed(1);
+        zoomSlider.value = currentScale;
+
+        const engine = engineModeSelect.value;
+        const strokeMode = strokeModeSelect.value;
+
+        // Apply stroke mode
+        const nodes = viewportGroup.querySelectorAll('.canvas-node, .canvas-wire');
+        nodes.forEach(el => {
+          if (strokeMode === 'non-scaling') {
+            el.style.vectorEffect = 'non-scaling-stroke';
+          } else {
+            el.style.vectorEffect = 'none';
+          }
+        });
+
+        if (engine === 'matrix') {
+          canvasSvg.setAttribute('viewBox', '0 0 1000 500');
+          viewportGroup.setAttribute('transform', 'matrix(' + currentScale.toFixed(4) + ', 0, 0, ' + currentScale.toFixed(4) + ', ' + panX.toFixed(2) + ', ' + panY.toFixed(2) + ')');
+        } else {
+          viewportGroup.removeAttribute('transform');
+          const vbW = 1000 / currentScale;
+          const vbH = 500 / currentScale;
+          const vbX = -panX / currentScale;
+          const vbY = -panY / currentScale;
+          canvasSvg.setAttribute('viewBox', vbX.toFixed(2) + ' ' + vbY.toFixed(2) + ' ' + vbW.toFixed(2) + ' ' + vbH.toFixed(2));
+        }
+
+        renderCodeOutput();
+      }
+
+      function renderCodeOutput() {
+        if (activeTab === 'js') {
+          codeOutputArea.innerHTML = '<code>// Pure Vanilla JavaScript SVG Pan and Zoom Controller\n' +
+'const svg = document.getElementById(\'canvasSvg\');\n' +
+'const viewport = document.getElementById(\'viewportGroup\');\n\n' +
+'let scale = ' + currentScale.toFixed(2) + ';\n' +
+'let panX = ' + panX.toFixed(1) + ';\n' +
+'let panY = ' + panY.toFixed(1) + ';\n' +
+'let isDragging = false;\n' +
+'let startX = 0, startY = 0;\n\n' +
+'function updateMatrix() {\n' +
+'  viewport.setAttribute(\'transform\', `matrix(${scale}, 0, 0, ${scale}, ${panX}, ${panY})`);\n' +
+'}\n\n' +
+'svg.addEventListener(\'pointerdown\', (e) => {\n' +
+'  isDragging = true;\n' +
+'  startX = e.clientX - panX;\n' +
+'  startY = e.clientY - panY;\n' +
+'  svg.setPointerCapture(e.pointerId);\n' +
+'});\n\n' +
+'svg.addEventListener(\'pointermove\', (e) => {\n' +
+'  if (!isDragging) return;\n' +
+'  panX = e.clientX - startX;\n' +
+'  panY = e.clientY - startY;\n' +
+'  updateMatrix();\n' +
+'});\n\n' +
+'svg.addEventListener(\'pointerup\', (e) => {\n' +
+'  isDragging = false;\n' +
+'  svg.releasePointerCapture(e.pointerId);\n' +
+'});\n\n' +
+'svg.addEventListener(\'wheel\', (e) => {\n' +
+'  e.preventDefault();\n' +
+'  const rect = svg.getBoundingClientRect();\n' +
+'  const mouseX = e.clientX - rect.left;\n' +
+'  const mouseY = e.clientY - rect.top;\n\n' +
+'  const zoomFactor = Math.exp(-e.deltaY * 0.0015);\n' +
+'  const newScale = Math.max(0.1, Math.min(10.0, scale * zoomFactor));\n' +
+'  const ratio = newScale / scale;\n\n' +
+'  panX = mouseX - (mouseX - panX) * ratio;\n' +
+'  panY = mouseY - (mouseY - panY) * ratio;\n' +
+'  scale = newScale;\n' +
+'  updateMatrix();\n' +
+'}, { passive: false });</code>';
+        } else {
+          codeOutputArea.innerHTML = '<code>// React 19 / TypeScript SVG Pan &amp; Zoom Viewport Hook\n' +
+'import React, { useState, useRef } from \'react\';\n\n' +
+'export const InfiniteCanvas = () => {\n' +
+'  const [scale, setScale] = useState(' + currentScale.toFixed(2) + ');\n' +
+'  const [pan, setPan] = useState({ x: ' + panX.toFixed(1) + ', y: ' + panY.toFixed(1) + ' });\n' +
+'  const isDragging = useRef(false);\n' +
+'  const startRef = useRef({ x: 0, y: 0 });\n\n' +
+'  const onPointerDown = (e: React.PointerEvent&lt;SVGSVGElement&gt;) => {\n' +
+'    isDragging.current = true;\n' +
+'    startRef.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };\n' +
+'    e.currentTarget.setPointerCapture(e.pointerId);\n' +
+'  };\n\n' +
+'  const onPointerMove = (e: React.PointerEvent&lt;SVGSVGElement&gt;) => {\n' +
+'    if (!isDragging.current) return;\n' +
+'    setPan({ x: e.clientX - startRef.current.x, y: e.clientY - startRef.current.y });\n' +
+'  };\n\n' +
+'  const onPointerUp = (e: React.PointerEvent&lt;SVGSVGElement&gt;) => {\n' +
+'    isDragging.current = false;\n' +
+'    e.currentTarget.releasePointerCapture(e.pointerId);\n' +
+'  };\n\n' +
+'  const onWheel = (e: React.WheelEvent&lt;SVGSVGElement&gt;) => {\n' +
+'    e.preventDefault();\n' +
+'    const rect = e.currentTarget.getBoundingClientRect();\n' +
+'    const mouseX = e.clientX - rect.left;\n' +
+'    const mouseY = e.clientY - rect.top;\n\n' +
+'    const factor = Math.exp(-e.deltaY * 0.0015);\n' +
+'    const newScale = Math.max(0.2, Math.min(5.0, scale * factor));\n' +
+'    const ratio = newScale / scale;\n\n' +
+'    setPan(prev => ({\n' +
+'      x: mouseX - (mouseX - prev.x) * ratio,\n' +
+'      y: mouseY - (mouseY - prev.y) * ratio\n' +
+'    }));\n' +
+'    setScale(newScale);\n' +
+'  };\n\n' +
+'  return (\n' +
+'    &lt;svg viewBox="0 0 1000 500" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onWheel={onWheel}&gt;\n' +
+'      &lt;g transform={`matrix(${scale}, 0, 0, ${scale}, ${pan.x}, ${pan.y})`} style={{ willChange: \'transform\' }}&gt;\n' +
+'        {/* Render child vector paths and nodes here */}\n' +
+'      &lt;/g&gt;\n' +
+'    &lt;/svg&gt;\n' +
+'  );\n' +
+'};</code>';
+        }
+      }
+
+      // Pointer Event Listeners on Stage
+      stageContainer.addEventListener('pointerdown', function(e) {
+        isDragging = true;
+        startPointerX = e.clientX - panX;
+        startPointerY = e.clientY - panY;
+        stageContainer.setPointerCapture(e.pointerId);
+      });
+
+      stageContainer.addEventListener('pointermove', function(e) {
+        const rect = stageContainer.getBoundingClientRect();
+        const clientX = e.clientX - rect.left;
+        const clientY = e.clientY - rect.top;
+
+        // Calculate SVG user coordinate approximation for display
+        const svgX = (clientX - panX) / currentScale;
+        const svgY = (clientY - panY) / currentScale;
+        cursorReadout.textContent = svgX.toFixed(1) + ', ' + svgY.toFixed(1);
+
+        if (!isDragging) return;
+        panX = e.clientX - startPointerX;
+        panY = e.clientY - startPointerY;
+        updateStudio();
+      });
+
+      stageContainer.addEventListener('pointerup', function(e) {
+        isDragging = false;
+        try { stageContainer.releasePointerCapture(e.pointerId); } catch(err) {}
+      });
+
+      stageContainer.addEventListener('pointercancel', function(e) {
+        isDragging = false;
+        try { stageContainer.releasePointerCapture(e.pointerId); } catch(err) {}
+      });
+
+      // Wheel Event on Stage (Focal Zoom)
+      stageContainer.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        const rect = stageContainer.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        const factor = Math.exp(-e.deltaY * 0.0018);
+        const newScale = Math.max(0.2, Math.min(5.0, currentScale * factor));
+        const ratio = newScale / currentScale;
+
+        panX = mouseX - (mouseX - panX) * ratio;
+        panY = mouseY - (mouseY - panY) * ratio;
+        currentScale = newScale;
+
+        updateStudio();
+      }, { passive: false });
+
+      // Controls
+      engineModeSelect.addEventListener('change', updateStudio);
+      strokeModeSelect.addEventListener('change', updateStudio);
+      zoomSlider.addEventListener('input', function() {
+        const targetScale = parseFloat(this.value);
+        const rect = stageContainer.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const ratio = targetScale / currentScale;
+
+        panX = centerX - (centerX - panX) * ratio;
+        panY = centerY - (centerY - panY) * ratio;
+        currentScale = targetScale;
+        updateStudio();
+      });
+
+      resetViewportBtn.addEventListener('click', function() {
+        currentScale = 1.0;
+        panX = 0;
+        panY = 0;
+        updateStudio();
+      });
+
+      zoomInBtn.addEventListener('click', function() {
+        const targetScale = Math.min(5.0, currentScale * 1.25);
+        const rect = stageContainer.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const ratio = targetScale / currentScale;
+        panX = centerX - (centerX - panX) * ratio;
+        panY = centerY - (centerY - panY) * ratio;
+        currentScale = targetScale;
+        updateStudio();
+      });
+
+      zoomOutBtn.addEventListener('click', function() {
+        const targetScale = Math.max(0.2, currentScale * 0.8);
+        const rect = stageContainer.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const ratio = targetScale / currentScale;
+        panX = centerX - (centerX - panX) * ratio;
+        panY = centerY - (centerY - panY) * ratio;
+        currentScale = targetScale;
+        updateStudio();
+      });
+
+      fitContentBtn.addEventListener('click', function() {
+        currentScale = 0.9;
+        panX = 50;
+        panY = 25;
+        updateStudio();
+      });
+
+      // Tabs
+      tabJsBtn.addEventListener('click', function() {
+        activeTab = 'js';
+        tabJsBtn.classList.add('active');
+        tabTsBtn.classList.remove('active');
+        renderCodeOutput();
+      });
+
+      tabTsBtn.addEventListener('click', function() {
+        activeTab = 'ts';
+        tabTsBtn.classList.add('active');
+        tabJsBtn.classList.remove('active');
+        renderCodeOutput();
+      });
+
+      // Copy Button with Clipboard API and document.execCommand fallback
+      copyCodeBtn.addEventListener('click', function() {
+        const codeText = codeOutputArea.innerText;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(codeText).then(() => {
+            const original = copyCodeBtn.textContent;
+            copyCodeBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => { copyCodeBtn.textContent = original; }, 2000);
+          }).catch(() => {
+            fallbackCopy(codeText);
+          });
+        } else {
+          fallbackCopy(codeText);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          const original = copyCodeBtn.textContent;
+          copyCodeBtn.textContent = 'Copied to Clipboard!';
+          setTimeout(() => { copyCodeBtn.textContent = original; }, 2000);
+        } catch(err) {
+          console.error('Fallback copy failed', err);
+        }
+        document.body.removeChild(ta);
+      }
+
+      // Initial Call
+      updateStudio();
+    })();
+  </script>
+</body>
+</html>
