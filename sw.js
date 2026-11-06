@@ -13,7 +13,7 @@
 // Library JSON is deliberately NOT cached here: app.js already stores it in
 // IndexedDB, and caching it twice duplicated up to ~280 MB per origin.
 
-const VERSION = "20261030-fixes";
+const VERSION = "20261106-textures";
 const SHELL_CACHE = `iconstash-shell-${VERSION}`;
 const CHUNK_CACHE = `iconstash-prerender-chunks-${VERSION}`;
 

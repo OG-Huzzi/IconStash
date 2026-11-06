@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const VOID_NS = "http://www.w3.org/2000/svg";
   let zipLibraryPromise = null;
 
@@ -48,32 +48,140 @@
     return Math.min(max, Math.max(min, n));
   }
 
-  function hexToRgbaMix(hexColor, baseColor, opacity) {
-    const parse = (h) => {
-      const v = String(h).replace("#", "");
-      const full = v.length === 3 ? v.split("").map((ch) => ch + ch).join("") : v;
-      return [parseInt(full.slice(0, 2), 16), parseInt(full.slice(2, 4), 16), parseInt(full.slice(4, 6), 16)];
-    };
-    const [r1, g1, b1] = parse(hexColor);
-    const [r2, g2, b2] = parse(baseColor);
-    const mix = (a, b) => Math.round(a * opacity + b * (1 - opacity));
-    return `rgb(${mix(r1, r2)},${mix(g1, g2)},${mix(b1, b2)})`;
+  // A texture is either a real material (supplies its own colour, so the
+  // chosen icon colour / gradient is ignored) or a surface finish applied on
+  // top of the chosen colour.
+  const MATERIAL_TEXTURES = new Set(["wood", "metal"]);
+
+  function textureUsesMaterial(texture) {
+    return MATERIAL_TEXTURES.has(texture);
   }
 
-  function buildGradientDefs(gradient) {
+  // Polished silver: sharp, high-contrast specular reflection bands in cool
+  // neutral greys. Wood: concentric growth rings of a cut trunk — pale
+  // earlywood followed by a thin dark latewood line, unevenly spaced, with a
+  // dark bark rim at the outer edge.
+  const MATERIAL_GRADIENTS = {
+    wood: {
+      type: "radial",
+      cx: "50%", cy: "50%", r: "78%", fx: "43%", fy: "39%",
+      stops: [
+        ["#E0BB8C", 0], ["#D2A572", 4], ["#8A5930", 9],
+        ["#D3A778", 10], ["#DAB27F", 16], ["#7E5029", 21],
+        ["#CB9C68", 22], ["#D9B482", 29], ["#8D5C31", 34],
+        ["#C79A66", 35], ["#D7AC76", 42], ["#7A4C27", 47],
+        ["#C39562", 48], ["#D2A56E", 56], ["#85552C", 61],
+        ["#BE915D", 62], ["#CFA06A", 70], ["#744824", 76],
+        ["#B98B57", 77], ["#C79A66", 84], ["#6B4020", 90],
+        ["#A87848", 91], ["#7A4C26", 96], ["#4E2F16", 100]
+      ]
+    },
+    metal: {
+      type: "linear",
+      x1: 0, y1: 0, x2: 1, y2: 1,
+      stops: [
+        ["#3E4650", 0], ["#9AA6B3", 6], ["#FFFFFF", 12], ["#DDE6EF", 17],
+        ["#8C97A4", 24], ["#3C444E", 33], ["#79838F", 42], ["#FFFFFF", 50],
+        ["#C9D3DD", 55], ["#5A636E", 63], ["#A8B3BF", 72], ["#FFFFFF", 80],
+        ["#C2CCD6", 86], ["#5A636E", 93], ["#98A3B0", 100]
+      ]
+    }
+  };
+
+  const VALID_TEXTURES = new Set(["paper", "concrete", "wood", "metal"]);
+
+  // Each recipe builds a self-contained SVG filter chain. `last` is the result
+  // name of the preceding effect; every overlay is clipped to the icon shape
+  // with feComposite operator="in" so nothing spills outside the strokes.
+  function buildTexturePrims(texture, opacity, last) {
+    const op = clampNumber(opacity ?? 30, 0, 100) / 100;
+    const prims = [];
+    const tintLayer = (input, r, g, b, alpha, name) => {
+      prims.push(`<feColorMatrix in="${input}" type="matrix" values="0 0 0 0 ${r} 0 0 0 0 ${g} 0 0 0 0 ${b} 0 0 0 ${alpha.toFixed(3)} 0" result="${name}"/>`);
+      return name;
+    };
+    const overlay = (layers, name) => {
+      prims.push(`<feMerge result="${name}n">${layers.map((n) => `<feMergeNode in="${n}"/>`).join("")}</feMerge>`);
+      prims.push(`<feComposite in="${name}n" in2="${last}" operator="in" result="${name}c"/>`);
+      prims.push(`<feMerge result="${name}m"><feMergeNode in="${last}"/><feMergeNode in="${name}c"/></feMerge>`);
+      last = `${name}m`;
+    };
+    // Bump-lit relief multiplies the chosen colour instead of replacing it, so
+    // the surface texture is visible while the user's colour stays in charge.
+    const relief = (noise, surfaceScale, azimuth, elevation, slope, intercept, name) => {
+      prims.push(`<feDiffuseLighting in="${noise}" surfaceScale="${surfaceScale}" diffuseConstant="1" lighting-color="#FFFFFF" result="${name}l"><feDistantLight azimuth="${azimuth}" elevation="${elevation}"/></feDiffuseLighting>`);
+      prims.push(`<feComponentTransfer in="${name}l" result="${name}lr"><feFuncR type="linear" slope="${slope}" intercept="${intercept}"/><feFuncG type="linear" slope="${slope}" intercept="${intercept}"/><feFuncB type="linear" slope="${slope}" intercept="${intercept}"/></feComponentTransfer>`);
+      prims.push(`<feComposite in="${name}lr" in2="${last}" operator="in" result="${name}lc"/>`);
+      prims.push(`<feBlend in="${last}" in2="${name}lc" mode="multiply" result="${name}lm"/>`);
+      last = `${name}lm`;
+    };
+
+    if (texture === "metal") {
+      // Fine horizontal brushed streaks across the silver bands.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.006 0.85" numOctaves="2" seed="11" stitchTiles="stitch" result="ist"/>`);
+      overlay([tintLayer("ist", 1, 1, 1, op * 0.22, "istw")], "ists");
+      // A bevelled specular highlight clipped to the shape is what makes the
+      // bands read as polished metal instead of flat grey stripes.
+      prims.push(`<feGaussianBlur in="SourceAlpha" stdDeviation="0.6" result="ismb"/>`);
+      prims.push(`<feSpecularLighting in="ismb" surfaceScale="1.6" specularConstant="0.6" specularExponent="26" lighting-color="#FFFFFF" result="isms"><feDistantLight azimuth="225" elevation="58"/></feSpecularLighting>`);
+      prims.push(`<feComposite in="isms" in2="SourceAlpha" operator="in" result="ismsc"/>`);
+      prims.push(`<feComposite in="${last}" in2="ismsc" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="isml"/>`);
+      last = "isml";
+    } else if (texture === "wood") {
+      // Growth rings in a real trunk are never perfect circles. A gentle
+      // displacement warps the painted bands into irregular, organic rings.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="19" result="iswdn"/>`);
+      prims.push(`<feDisplacementMap in="${last}" in2="iswdn" scale="1.3" xChannelSelector="R" yChannelSelector="G" result="iswd"/>`);
+      last = "iswd";
+      // Longitudinal pores / grain laid over the concentric growth rings.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.62 0.014" numOctaves="3" seed="4" stitchTiles="stitch" result="ist"/>`);
+      const grain = tintLayer("ist", 0.16, 0.08, 0.03, op * 0.50, "istg");
+      // Low-frequency mottling breaks up the perfect symmetry of the rings.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="9" stitchTiles="stitch" result="isw"/>`);
+      const mottle = tintLayer("isw", 0.22, 0.11, 0.04, op * 0.18, "iswg");
+      overlay([grain, mottle], "istx");
+    } else if (texture === "paper") {
+      // Frequencies are tuned for a 24-unit viewBox: a period of a few units
+      // is visible on the strokes, a period of 80+ units is a flat wash.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.16" numOctaves="3" seed="5" stitchTiles="stitch" result="istb"/>`);
+      const blotch = tintLayer("istb", 0.10, 0.09, 0.08, op * 0.32, "istbc");
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.9 0.55" numOctaves="2" seed="12" stitchTiles="stitch" result="istf"/>`);
+      const fibre = tintLayer("istf", 1, 1, 1, op * 0.30, "istfc");
+      const speck = tintLayer("istf", 0.15, 0.13, 0.11, op * 0.18, "istfk");
+      overlay([blotch, fibre, speck], "istp");
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="31" stitchTiles="stitch" result="ispb"/>`);
+      relief("ispb", 1.4, 55, 62, 0.28, 0.72, "ispr");
+    } else if (texture === "concrete") {
+      // Four scales of aggregate, from broad cement mottling to fine sand.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="4" seed="3" stitchTiles="stitch" result="istc"/>`);
+      const cement = tintLayer("istc", 0.12, 0.12, 0.13, op * 0.48, "istcc");
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" seed="17" stitchTiles="stitch" result="ists"/>`);
+      const aggregate = tintLayer("ists", 0.88, 0.89, 0.90, op * 0.40, "istsc");
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.32" numOctaves="2" seed="23" stitchTiles="stitch" result="istp"/>`);
+      const pits = tintLayer("istp", 0.05, 0.05, 0.06, op * 0.26, "istpc");
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="1.2" numOctaves="2" seed="8" stitchTiles="stitch" result="istsd"/>`);
+      const sand = tintLayer("istsd", 0.55, 0.56, 0.58, op * 0.22, "istsdc");
+      overlay([cement, aggregate, pits, sand], "istccx");
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.18" numOctaves="4" seed="41" stitchTiles="stitch" result="iscb"/>`);
+      relief("iscb", 2.6, 70, 48, 0.45, 0.55, "iscr");
+    }
+    return { prims, last };
+  }
+
+  function buildGradientDefs(gradient, id) {
     const stops = (gradient.stops || [])
       .map((stop) => `<stop offset="${clampNumber(stop.p, 0, 100)}%" stop-color="${escapeHtml(stop.c)}"/>`)
       .join("");
     let el;
     if (gradient.projection === "radial") {
-      el = `<radialGradient id="is-grad" cx="${clampNumber(gradient.cx ?? 50, 0, 100)}%" cy="${clampNumber(gradient.cy ?? 50, 0, 100)}%" r="${clampNumber(gradient.r ?? 75, 5, 150)}%">${stops}</radialGradient>`;
+      el = `<radialGradient id="${id}" cx="${clampNumber(gradient.cx ?? 50, 0, 100)}%" cy="${clampNumber(gradient.cy ?? 50, 0, 100)}%" r="${clampNumber(gradient.r ?? 75, 5, 150)}%">${stops}</radialGradient>`;
     } else {
       const rad = ((Number(gradient.angle ?? 90) - 90) * Math.PI) / 180;
       const x1 = ((0.5 - Math.cos(rad) / 2) * 100).toFixed(1);
       const y1 = ((0.5 - Math.sin(rad) / 2) * 100).toFixed(1);
       const x2 = ((0.5 + Math.cos(rad) / 2) * 100).toFixed(1);
       const y2 = ((0.5 + Math.sin(rad) / 2) * 100).toFixed(1);
-      el = `<linearGradient id="is-grad" x1="${x1}%" y1="${y1}%" x2="${x2}%" y2="${y2}%">${stops}</linearGradient>`;
+      el = `<linearGradient id="${id}" x1="${x1}%" y1="${y1}%" x2="${x2}%" y2="${y2}%">${stops}</linearGradient>`;
     }
     return el;
   }
@@ -85,31 +193,7 @@
     sharp: { cap: "butt", join: "miter", widthScale: 1 }
   };
 
-  const TEXTURE_PRESETS = {
-    paper: { freq: "0.9 0.9", octaves: 2 },
-    fabric: { freq: "0.18 0.18", octaves: 5 },
-    concrete: { freq: "0.08 0.08", octaves: 3 },
-    wood: { freq: "0.32 0.015", octaves: 4, tint: "wood" },
-    metal: { freq: "0.55 0.008", octaves: 2, tint: "metal" }
-  };
-
-  const MATERIAL_GRADIENTS = {
-    wood: { x1: 0, y1: 0, x2: 0, y2: 1, stops: [["#A97B4B", 0], ["#7A4E28", 30], ["#8B5E34", 55], ["#5F3D1E", 100]] },
-    metal: { x1: 0, y1: 0, x2: 1, y2: 0, stops: [["#FDFEFE", 0], ["#C3CCD6", 28], ["#EDF1F5", 50], ["#8E99A6", 72], ["#D7DEE6", 100]] }
-  };
-
-  function textureTintMatrix(tint, op) {
-    const alpha = `${(0.2126 * op).toFixed(3)} ${(0.7152 * op).toFixed(3)} ${(0.0722 * op).toFixed(3)} 0 0`;
-    if (tint === "wood") {
-      return `values="0.42 0.42 0.42 0 0.05 0.24 0.24 0.24 0 0.02 0.10 0.10 0.10 0 0 ${alpha}"`;
-    }
-    if (tint === "metal") {
-      return `values="0.90 0.90 0.90 0 0 0.93 0.93 0.93 0 0 1 1 1 0 0 ${alpha}"`;
-    }
-    return `values="0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 ${alpha}"`;
-  }
-
-  function buildEffectFilter(effects) {
+  function buildEffectFilter(effects, id) {
     const prims = [];
     let last = "SourceGraphic";
     if (effects.blur > 0) {
@@ -129,18 +213,16 @@
       prims.push(`<feMerge result="isnm"><feMergeNode in="${last}"/><feMergeNode in="isnc"/></feMerge>`);
       last = "isnm";
     }
-    if (effects.texture && effects.texture !== "none" && TEXTURE_PRESETS[effects.texture]) {
-      const tex = TEXTURE_PRESETS[effects.texture];
-      const op = clampNumber(effects.textureOpacity ?? 30, 0, 100) / 100;
-      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="${tex.freq}" numOctaves="${tex.octaves}" stitchTiles="stitch" result="ist"/>`);
-      prims.push(`<feColorMatrix in="ist" type="matrix" ${textureTintMatrix(tex.tint, op)} result="istg"/>`);
-      prims.push(`<feComposite in="istg" in2="${last}" operator="in" result="istc"/>`);
-      prims.push(`<feMerge result="istm"><feMergeNode in="${last}"/><feMergeNode in="istc"/></feMerge>`);
-      last = "istm";
+    if (effects.texture && VALID_TEXTURES.has(effects.texture)) {
+      const built = buildTexturePrims(effects.texture, effects.textureOpacity, last);
+      prims.push(...built.prims);
+      last = built.last;
     }
     if (!prims.length) return "";
-    return `<filter id="is-fx" x="-45%" y="-45%" width="190%" height="190%">${prims.join("")}</filter>`;
+    return `<filter id="${id}" x="-45%" y="-45%" width="190%" height="190%">${prims.join("")}</filter>`;
   }
+
+  let renderCounter = 0;
 
   function buildMotionCss(motion) {
     const shapes = ":is(path,circle,rect,line,polyline,polygon,ellipse)";
@@ -166,21 +248,30 @@
 
   function renderSVG(icon, options = {}) {
     if (!icon) return "";
+    // SVG ids are document-global. Several icons can be rendered on one page,
+    // so every def/filter gets a unique id — otherwise two different textures
+    // both resolve to the first `is-mat` gradient in DOM order.
+    const uid = `is${(++renderCounter).toString(36)}`;
+    const gradId = `${uid}-grad`;
+    const matId = `${uid}-mat`;
+    const fxId = `${uid}-fx`;
     const viewBox = icon.viewBox || `0 0 ${icon.width || 24} ${icon.height || 24}`;
     const size = options.size || "100%";
     const strokeWidth = options.strokeWidth ?? icon.strokeWidth ?? 2;
-    const color = options.color || "currentColor";
+    const effects = options.effects;
+    // Wood and metal are real materials: they supply their own colour, so the
+    // chosen icon colour and gradient must not tint them.
+    const usesMaterial = textureUsesMaterial(effects?.texture);
+    const color = usesMaterial ? "#8A8A8A" : (options.color || "currentColor");
     const fillStyles = new Set(["fill", "solid", "bold"]);
     const fill = options.fill || (fillStyles.has(icon.style) ? "currentColor" : "none");
     const roundPreset = options.effects && ROUNDNESS_PRESETS[options.effects.roundness] ? ROUNDNESS_PRESETS[options.effects.roundness] : null;
-    const material = options.effects && options.effects.texture && MATERIAL_GRADIENTS[options.effects.texture] ? MATERIAL_GRADIENTS[options.effects.texture] : null;
-    const gradient = options.gradient;
-    const effects = options.effects;
-    const texOpacity = clampNumber(effects?.textureOpacity ?? 100, 0, 100) / 100;
-    const paintAttr = material ? "url(#is-mat)" : (gradient && gradient.on && Array.isArray(gradient.stops) && gradient.stops.length >= 2 ? "url(#is-grad)" : null);
+    const material = usesMaterial ? MATERIAL_GRADIENTS[effects.texture] : null;
+    const gradient = usesMaterial ? null : options.gradient;
+    const paintAttr = material ? `url(#${matId})` : (gradient && gradient.on && Array.isArray(gradient.stops) && gradient.stops.length >= 2 ? `url(#${gradId})` : null);
     const hasCustomStroke = Object.prototype.hasOwnProperty.call(options, "strokeWidth");
     const stroke = options.stroke || (fill === "none" || hasCustomStroke ? (paintAttr || "currentColor") : "none");
-    const fillPaint = material ? "url(#is-mat)" : (paintAttr && fill === "currentColor" ? paintAttr : (fillStyles.has(icon.style) && !paintAttr ? "currentColor" : fill));
+    const fillPaint = material ? `url(#${matId})` : (paintAttr && fill === "currentColor" ? paintAttr : (fillStyles.has(icon.style) && !paintAttr ? "currentColor" : fill));
     const linecap = roundPreset ? roundPreset.cap : "round";
     const linejoin = roundPreset ? roundPreset.join : "round";
     const effectiveStrokeWidth = roundPreset ? (strokeWidth * roundPreset.widthScale) : strokeWidth;
@@ -212,18 +303,21 @@
 
 
     if (material) {
-      const matStops = material.stops.map(([c, p]) => {
-        if (texOpacity >= 1) return [c, p];
-        const blended = hexToRgbaMix(c, color === "currentColor" ? "#F2F2F2" : color, texOpacity);
-        return [blended, p];
-      });
-      defsMarkup += `<linearGradient id="is-mat" x1="${material.x1}" y1="${material.y1}" x2="${material.x2}" y2="${material.y2}">${matStops.map((s) => `<stop offset="${s[1]}%" stop-color="${s[0]}"/>`).join("")}</linearGradient>`;
-      body = body.replace(/fill="currentColor"/g, 'fill="url(#is-mat)"');
-      body = body.replace(/stroke="currentColor"/g, 'stroke="url(#is-mat)"');
+      // Material colours are used pure — never blended with the chosen colour.
+      const stopMarkup = material.stops
+        .map(([c, p]) => `<stop offset="${clampNumber(p, 0, 100)}%" stop-color="${escapeHtml(c)}"/>`)
+        .join("");
+      if (material.type === "radial") {
+        defsMarkup += `<radialGradient id="${matId}" cx="${material.cx}" cy="${material.cy}" r="${material.r}" fx="${material.fx}" fy="${material.fy}">${stopMarkup}</radialGradient>`;
+      } else {
+        defsMarkup += `<linearGradient id="${matId}" x1="${material.x1}" y1="${material.y1}" x2="${material.x2}" y2="${material.y2}">${stopMarkup}</linearGradient>`;
+      }
+      body = body.replace(/fill="currentColor"/g, `fill="url(#${matId})"`);
+      body = body.replace(/stroke="currentColor"/g, `stroke="url(#${matId})"`);
     } else if (gradient && gradient.on && Array.isArray(gradient.stops) && gradient.stops.length >= 2) {
-      defsMarkup += buildGradientDefs(gradient);
-      body = body.replace(/fill="currentColor"/g, 'fill="url(#is-grad)"');
-      body = body.replace(/stroke="currentColor"/g, 'stroke="url(#is-grad)"');
+      defsMarkup += buildGradientDefs(gradient, gradId);
+      body = body.replace(/fill="currentColor"/g, `fill="url(#${gradId})"`);
+      body = body.replace(/stroke="currentColor"/g, `stroke="url(#${gradId})"`);
     }
 
     const effectsLocal = effects;
@@ -258,10 +352,10 @@
         transforms.push(`translate(${cx} ${cy}) scale(${effects.flipH ? -1 : 1} ${effects.flipV ? -1 : 1}) translate(${-cx} ${-cy})`);
       }
       if (transforms.length) outerAttrs += ` transform="${transforms.join(" ")}"`;
-      const filterMarkup = buildEffectFilter(effects);
+      const filterMarkup = buildEffectFilter(effects, fxId);
       if (filterMarkup) {
         defsMarkup += filterMarkup;
-        outerAttrs += ` filter="url(#is-fx)"`;
+        outerAttrs += ` filter="url(#${fxId})"`;
       }
     }
 
@@ -474,6 +568,7 @@
     escapeHtml,
     slugFilePart,
     normalizeSvgBody,
+    textureUsesMaterial,
     renderSVG,
     formatCode,
     copyText,

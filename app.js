@@ -2922,13 +2922,50 @@
       ["gradient", "effects", "motion"].forEach((key) => {
         if (saved[key] && typeof saved[key] === "object") state.custom[key] = { ...defaults[key], ...saved[key] };
       });
+      if (!["none", "paper", "concrete", "wood", "metal"].includes(state.custom.effects.texture)) {
+        // The old "fabric" texture was removed; migrate saved state.
+        state.custom.effects.texture = "none";
+      }
       if (!Array.isArray(state.custom.gradient.stops) || state.custom.gradient.stops.length < 2) {
         state.custom.gradient.stops = defaults.gradient.stops;
       }
     } catch (error) { /* corrupted saved state */ }
   }
 
+  // Wood and metal are real materials that supply their own colour. While one
+  // is active, every colour control is switched off so it cannot tint them.
+  function syncTextureColorState() {
+    const locked = iconTools().textureUsesMaterial(state.custom.effects.texture);
+    const note = $("texture-note");
+    if (note) note.hidden = !locked;
+
+    ["dp-color-input", "cust-color-hex", "cust-color-btn", "cust-color-wheel"].forEach((id) => {
+      const el = $(id);
+      if (!el) return;
+      el.disabled = locked;
+      el.setAttribute("aria-disabled", String(locked));
+    });
+
+    const qaColor = $("qa-color-btn");
+    if (qaColor) {
+      qaColor.classList.toggle("is-disabled", locked);
+      qaColor.setAttribute("aria-disabled", String(locked));
+    }
+    ui().qsa("#fill-mode-row .format-btn").forEach((btn) => {
+      btn.disabled = locked;
+      btn.setAttribute("aria-disabled", String(locked));
+    });
+    const gradControls = $("gradient-controls");
+    if (gradControls) {
+      gradControls.classList.toggle("is-disabled", locked);
+      gradControls.querySelectorAll("input, button").forEach((el) => { el.disabled = locked; });
+    }
+    const custField = $("customize-content")?.querySelector(".customize-field");
+    if (custField) custField.classList.toggle("is-disabled", locked);
+  }
+
   function afterCustomChange() {
+    syncTextureColorState();
     if (state.custom.effects.shadowOn && state.custom.effects.shadowOpacity > 0 && state.detail.bg === "dark") {
       setPreviewBackground("light");
     }
@@ -3013,6 +3050,7 @@
     setCustomControl("anim-dur", c.motion.duration, (v) => `${Number(v).toFixed(1)}s`);
     $("anim-loop").classList.toggle("active", c.motion.loop);
     ui().qsa("[data-ease]").forEach((node) => node.classList.toggle("active", node.dataset.ease === c.motion.easing));
+    syncTextureColorState();
   }
 
   function resetCustomization() {
@@ -3197,7 +3235,11 @@
     if (svg) {
       svg.style.width = `${state.detail.size}px`;
       svg.style.height = `${state.detail.size}px`;
-      svg.style.color = state.detail.color;
+      // Wood / metal render with their own material colour; never re-apply
+      // the chosen colour on top of the rendered SVG.
+      if (!iconTools().textureUsesMaterial(state.custom.effects.texture)) {
+        svg.style.color = state.detail.color;
+      }
       svg.setAttribute("stroke-width", String(state.detail.strokeWidth));
     }
   }

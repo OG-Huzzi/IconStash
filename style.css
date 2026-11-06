@@ -3498,3 +3498,32 @@ summary:focus-visible,
   border-radius: 8px;
 }
 
+/* ===== Texture colour lock (wood / metal) =====
+   Wood and metal supply their own material colour, so the colour picker,
+   gradient editor and fill-mode chips are switched off while one is active. */
+.texture-note {
+  margin: 6px 0 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.texture-note[hidden] { display: none; }
+.format-btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.qa-color-btn.is-disabled,
+.customize-field.is-disabled,
+#gradient-controls.is-disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+.qa-color-btn.is-disabled,
+.customize-field.is-disabled input,
+.customize-field.is-disabled button,
+#gradient-controls.is-disabled input,
+#gradient-controls.is-disabled button {
+  pointer-events: none;
+}
+
