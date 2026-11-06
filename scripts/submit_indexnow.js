@@ -5,9 +5,9 @@ const payload = JSON.stringify({
   key: 'e11c5bc79c6d4824bb883b2723c0fa6a',
   keyLocation: 'https://iconstash.io/e11c5bc79c6d4824bb883b2723c0fa6a.txt',
   urlList: [
-    'https://iconstash.io/articles/svg-animation-smil-vs-css-vs-web-animations-api-guide/',
-    'https://iconstash.io/articles/svg-markers-and-arrowheads-guide/',
-    'https://iconstash.io/articles/svg-symbols-and-use-element-architecture-guide/'
+    'https://iconstash.io/articles/svg-pan-and-zoom-guide/',
+    'https://iconstash.io/articles/svg-skeleton-loaders-and-shimmer-effects-guide/',
+    'https://iconstash.io/articles/svg-charts-and-data-visualization-from-scratch-guide/'
   ]
 });
 
@@ -17,7 +17,7 @@ const endpoints = [
   'https://yandex.com/indexnow'
 ];
 
-console.log('Submitting URLs to IndexNow endpoints...\n');
+console.log('Submitting URLs to IndexNow endpoints (Bing, Yandex, IndexNow)...\n');
 
 endpoints.forEach(endpoint => {
   const url = new URL(endpoint);
