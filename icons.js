@@ -88,7 +88,7 @@
     }
   };
 
-  const VALID_TEXTURES = new Set(["paper", "concrete", "wood", "metal"]);
+  const VALID_TEXTURES = new Set(["paper", "concrete", "marble", "wood", "metal"]);
 
   // Each recipe builds a self-contained SVG filter chain. `last` is the result
   // name of the preceding effect; every overlay is clipped to the icon shape
@@ -164,6 +164,25 @@
       overlay([cement, aggregate, pits, sand], "istccx");
       prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.18" numOctaves="4" seed="41" stitchTiles="stitch" result="iscb"/>`);
       relief("iscb", 2.6, 70, 48, 0.45, 0.55, "iscr");
+    } else if (texture === "marble") {
+      // Polished veined stone. Veins come from thresholding a stretched
+      // fractal-noise field: only values near its midpoint survive the
+      // feComponentTransfer table, producing thin, branching mineral lines.
+      // Colour stays enabled — the chosen colour becomes the stone base.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.014 0.045" numOctaves="6" seed="7" stitchTiles="stitch" result="ismn"/>`);
+      prims.push(`<feColorMatrix in="ismn" type="matrix" values="0 0 0 0 0.06 0 0 0 0 0.07 0 0 0 0 0.10 1 0 0 0 0" result="ismna"/>`);
+      prims.push(`<feComponentTransfer in="ismna" result="ismvd"><feFuncA type="table" tableValues="0 0 0 0 0.22 1 0.22 0 0 0 0 0 0"/></feComponentTransfer>`);
+      prims.push(`<feComposite in="ismvd" in2="${last}" operator="in" result="ismvdc"/>`);
+      // A second, lighter vein network at a different seed gives the pale
+      // calcite threads that branch through real marble.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.024 0.07" numOctaves="5" seed="23" stitchTiles="stitch" result="ismln"/>`);
+      prims.push(`<feColorMatrix in="ismln" type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 0 0" result="ismlna"/>`);
+      prims.push(`<feComponentTransfer in="ismlna" result="ismlv"><feFuncA type="table" tableValues="0 0 0 0 0 0 0.3 0 0 0 0 0 0"/></feComponentTransfer>`);
+      prims.push(`<feComposite in="ismlv" in2="${last}" operator="in" result="ismlvc"/>`);
+      // Faint dark clouding gives the stone depth without hiding its veins.
+      prims.push(`<feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="41" stitchTiles="stitch" result="ismc"/>`);
+      const shade = tintLayer("ismc", 0.08, 0.09, 0.12, op * 0.14, "ismcs");
+      overlay(["ismvdc", "ismlvc", shade], "ismvx");
     }
     return { prims, last };
   }

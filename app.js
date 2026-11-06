@@ -2922,8 +2922,8 @@
       ["gradient", "effects", "motion"].forEach((key) => {
         if (saved[key] && typeof saved[key] === "object") state.custom[key] = { ...defaults[key], ...saved[key] };
       });
-      if (!["none", "paper", "concrete", "wood", "metal"].includes(state.custom.effects.texture)) {
-        // The old "fabric" texture was removed; migrate saved state.
+      if (!["none", "paper", "concrete", "marble", "wood", "metal"].includes(state.custom.effects.texture)) {
+        // Unknown textures (e.g. the old "fabric") migrate to none.
         state.custom.effects.texture = "none";
       }
       if (!Array.isArray(state.custom.gradient.stops) || state.custom.gradient.stops.length < 2) {
