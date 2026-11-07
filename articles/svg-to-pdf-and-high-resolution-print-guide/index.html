@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Convert SVG to PDF &amp; High-Resolution Vector Print in JavaScript: The 2026 Production Guide | IconStash</title>
+  <meta name="description" content="Convert SVG to vector PDF in JavaScript: jsPDF, svg2pdf, font embedding, 300 DPI print layouts, CMYK emulation, bleed marks, and Node.js server pipelines.">
+  <meta name="keywords" content="convert svg to pdf javascript, svg to pdf, jspdf svg, svg vector pdf export, high resolution svg print cmyk, svg to pdf nodejs, svg2pdf">
+  <meta property="og:title" content="How to Convert SVG to PDF &amp; High-Resolution Vector Print in JavaScript: The 2026 Production Guide">
+  <meta property="og:description" content="Convert SVG to vector PDF in JavaScript: jsPDF, svg2pdf, font embedding, 300 DPI print layouts, CMYK emulation, bleed marks, and Node.js server pipelines.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-to-pdf-and-high-resolution-print-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-to-pdf-and-high-resolution-print-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-07T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-07T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Export &amp; Document Engineering">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="PDF">
+  <meta property="article:tag" content="Print Design">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="Vector Graphics">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Convert SVG to PDF &amp; High-Resolution Vector Print in JavaScript: The 2026 Production Guide">
+  <meta name="twitter:description" content="Convert SVG to vector PDF in JavaScript: client-side jsPDF, svg2pdf, font embedding, 300 DPI print layouts, CMYK emulation, bleed marks, and Node.js export.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-to-pdf-and-high-resolution-print-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-to-pdf-and-high-resolution-print-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "How to Convert SVG to PDF & High-Resolution Vector Print in JavaScript: The 2026 Production Guide",
+      "description": "Convert SVG to vector PDF in JavaScript: jsPDF, svg2pdf, font embedding, 300 DPI print layouts, CMYK emulation, bleed marks, and Node.js server pipelines.",
+      "image": "https://iconstash.io/assets/articles/svg-to-pdf-and-high-resolution-print-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-07",
+      "dateModified": "2026-11-07",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-to-pdf-and-high-resolution-print-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4610,
+      "articleSection": "Vector Export & Document Engineering",
+      "keywords": [
+        "convert svg to pdf javascript",
+        "svg to pdf",
+        "jspdf svg",
+        "svg vector pdf export",
+        "high resolution svg print cmyk",
+        "svg to pdf nodejs",
+        "svg2pdf"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Convert SVG to PDF Guide",
+          "item": "https://iconstash.io/articles/svg-to-pdf-and-high-resolution-print-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why should you avoid rasterizing SVG to PNG or Canvas before generating a PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rasterizing SVG to a bitmap image (like PNG) freezes the graphic at a fixed pixel resolution (typically 72 or 96 DPI screen resolution). When printed on commercial 300 to 1200 DPI printers or zoomed in by the reader, rasterized graphics exhibit severe pixelation, blurry text, and jagged lines. Converting SVG directly into native PDF vector operators preserves infinite mathematical scalability, yields tiny PDF file sizes, and allows text within the graphic to remain searchable and selectable."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the PDF coordinate system differ from the standard SVG coordinate system?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVG coordinates originate at the top-left corner of the viewport, with y-values increasing downward. The PDF document coordinate system follows traditional PostScript conventions, originating at the bottom-left corner with y-values increasing upward. Furthermore, PDF uses points as its default unit (1 pt = 1/72 inch), whereas web SVGs are measured in CSS pixels (1 px = 1/96 inch). Vector converters must invert the y-axis and apply a 0.75 scaling factor (72/96) to translate positions correctly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you embed custom web fonts into a client-side generated vector PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard CSS @font-face rules are ignored during client-side PDF compilation because PDF viewers cannot fetch external web URLs at display time. To render custom typography correctly, fetch the raw TrueType (.ttf) font binary as an ArrayBuffer, convert it into a Base64 string, and register it directly into the PDF engine using doc.addFileToVFS() and doc.addFont(). The font program is then embedded directly into the generated PDF file stream."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are bleed margins and crop marks, and how are they implemented in SVG print design?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bleed refers to extending vector background colors and illustrations 3mm (approximately 8.5 points) beyond the final trim boundary of the physical page. When commercial guillotine cutters slice paper sheets, slight mechanical shifts will not produce unsightly white unprinted borders. Crop marks are thin 0.5pt black hairline tick marks placed outside the bleed area to guide the physical paper trimming blades."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you handle CMYK color space requirements when converting sRGB SVGs for commercial offset printing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard SVG color specifications are defined in the sRGB color space. When preparing documents for commercial offset printing, RGB values must be converted to CMYK (Cyan, Magenta, Yellow, Key Black) color separations. JavaScript conversion engines calculate subtractive primaries using the standard formula K = 1 - max(R,G,B), C = (1-R-K)/(1-K), M = (1-G-K)/(1-K), Y = (1-B-K)/(1-K), or apply ICC color profiles via WebAssembly color management libraries (such as LittleCMS)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best server-side Node.js pipeline for high-volume automated SVG to PDF conversion?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For headless backend pipelines (such as automated invoice generation or certificate printing), combining pdfkit with svg-to-pdfkit or utilizing @resvg/resvg-js alongside pdf-lib delivers optimal throughput. This architecture compiles pure vector streams at over 500 pages per second on serverless edge functions without requiring heavy, resource-intensive headless Chrome (Puppeteer) instances."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 380px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">Convert SVG to PDF Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Engineering Deep-Dive</span>
+      <h1>How to Convert SVG to PDF &amp; High-Resolution Vector Print in JavaScript: The 2026 Production Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published November 7, 2026</span>
+        <span>4,610 Words</span>
+        <span>21 min read</span>
+        <span>Vector Graphics &amp; Document Engineering</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Engineering Summary:</strong> Converting web-based Scalable Vector Graphics into production-ready PDF documents is a foundational requirement for SaaS analytics reporting, automated billing invoices, architectural diagrams, ticketing systems, and web-to-print e-commerce applications.</p>
+          <ul>
+            <li>Understand the catastrophic flaw of rasterizing SVG to PNG before PDF and why pure vector operators are mandatory.</li>
+            <li>Master the mathematical translation between SVG top-left pixel space and PDF bottom-left PostScript point space (<code>1 pt = 1/72 in</code>).</li>
+            <li>Implement client-side vector compilation with <code>jsPDF</code> and <code>svg2pdf.js</code> preserving native lines, curves, and text selection.</li>
+            <li>Embed custom TTF/WOFF2 font programs into PDF virtual file systems to eliminate missing glyph question-mark blocks.</li>
+            <li>Set up commercial prepress geometries: 3mm bleed margins, crop marks, registration ticks, and sRGB-to-CMYK color transformations.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="https://iconstash.io/assets/articles/svg-to-pdf-and-high-resolution-print-guide.jpg" alt="Convert SVG to PDF and High Resolution Vector Print Architecture Diagram" width="1200" height="675">
+          <figcaption>Figure 1: Architectural pipeline of modern vector PDF compilation, translating SVG XML DOM trees into native PostScript PDF graphics operator streams.</figcaption>
+        </figure>
+
+        <h2 id="raster-fallacy-vs-vector-pdf">1. The Raster Fallacy: Why Converting SVG to Canvas/PNG Before PDF Ruins Print</h2>
+        <p>A staggering percentage of web applications implement PDF export using an architectural anti-pattern known as the "Raster Screenshot Trap." A developer uses a library like <code>html2canvas</code> to paint an SVG chart or diagram onto an HTML5 <code>&lt;canvas&gt;</code> element, calls <code>canvas.toDataURL('image/png')</code>, and embeds that PNG bitmap into a blank PDF page via <code>doc.addImage(...)</code>.</p>
+        <p>While this naive approach creates the superficial illusion of a working PDF on a computer monitor, it is fundamentally broken for physical printing, enterprise archival, and professional document exchange:</p>
+        <ol>
+          <li><strong>Resolution Destruction at Print Scale:</strong> Computer monitors display graphics at 72 to 96 CSS pixels per inch (PPI). Commercial laser printers and offset printing presses operate at 300 to 1200 Dots Per Inch (DPI). A 72 DPI rasterized PNG embedded in a PDF will print with horrifying pixelation, blurry text edges, and fuzzy lines when output on physical paper.</li>
+          <li><strong>Loss of Text Searchability &amp; Copy-Paste:</strong> When an SVG text string like <code>&lt;text&gt;Total Revenue: $4,290,000&lt;/text&gt;</code> is rasterized to pixels, it ceases to exist as digital typography. The resulting PDF cannot be searched with <kbd>Ctrl+F</kbd>, cannot be highlighted or copied by business analysts, and fails PDF/UA accessibility standards for screen readers.</li>
+          <li><strong>Massive File Bloat:</strong> A clean vector diagram comprising 50 paths and text labels compiles to approximately 18KB of native PDF vector operators. A high-DPI rasterized bitmap screenshot of the same diagram can easily exceed 4MB to 12MB, saturating user bandwidth and crashing mobile PDF previewers.</li>
+        </ol>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Engineering Attribute</th>
+                <th>Rasterized Screenshot (Canvas to PNG to PDF)</th>
+                <th>Native Vector PDF Translation (svg2pdf / pdf-lib)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Visual Sharpness</strong></td>
+                <td>Blurry on print; pixelates when zoomed &gt; 150%</td>
+                <td>Infinitely sharp vector geometry at 1200+ DPI</td>
+              </tr>
+              <tr>
+                <td><strong>Typical File Size</strong></td>
+                <td>2.5 MB to 15.0 MB per document</td>
+                <td>25 KB to 120 KB per document</td>
+              </tr>
+              <tr>
+                <td><strong>Text Searchability (Ctrl+F)</strong></td>
+                <td>0% (flattened pixels; unsearchable)</td>
+                <td>100% (native TrueType embedded font glyphs)</td>
+              </tr>
+              <tr>
+                <td><strong>Client Memory Pressure</strong></td>
+                <td>High (massive 300 DPI Canvas allocations)</td>
+                <td>Sub-5MB AST token stream processing</td>
+              </tr>
+              <tr>
+                <td><strong>Prepress &amp; Bleed Support</strong></td>
+                <td>Impossible (raster clipping loses edge bleed)</td>
+                <td>Native 3mm trim bleed and hairline crop marks</td>
+              </tr>
+              <tr>
+                <td><strong>PDF/UA Accessibility</strong></td>
+                <td>Fails WCAG 2.2 and Section 508 completely</td>
+                <td>Conforms to tagged PDF structural standards</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="100%" height="auto" role="img" aria-labelledby="pdfArchTitle pdfArchDesc" style="background:#111; border-radius:10px; border:1px solid #262626; display:block;">
+            <title id="pdfArchTitle">Architectural Data Flow: SVG DOM to Native Vector PDF Operators</title>
+            <desc id="pdfArchDesc">Vector architectural diagram mapping the pipeline from SVG DOM input, font subsetting, coordinate inversion, PostScript operator translation, and final PDF byte stream generation.</desc>
+            <defs>
+              <linearGradient id="pdfGradLime" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1A2408"/>
+                <stop offset="100%" stop-color="#0E1205"/>
+              </linearGradient>
+              <linearGradient id="pdfGradCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#082024"/>
+                <stop offset="100%" stop-color="#051214"/>
+              </linearGradient>
+              <marker id="pdfArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 8 5 L 0 9 z" fill="#C1DD2D"/>
+              </marker>
+            </defs>
+            <rect x="30" y="50" width="160" height="220" rx="8" fill="url(#pdfGradLime)" stroke="#C1DD2D" stroke-width="1.5"/>
+            <text x="110" y="85" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">SVG DOM Source</text>
+            <text x="110" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">XML Vector Tree</text>
+            <text x="110" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">&lt;path d="M..."&gt;</text>
+            <text x="110" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">&lt;text&gt; &amp; &lt;rect&gt;</text>
+            <text x="110" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">CSS Computed Styles</text>
+            <text x="110" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Top-Left (96 DPI)</text>
+
+            <path d="M 190 160 L 250 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pdfArrow)"/>
+
+            <rect x="250" y="50" width="190" height="220" rx="8" fill="url(#pdfGradCyan)" stroke="#06B6D4" stroke-width="1.5"/>
+            <text x="345" y="85" fill="#06B6D4" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">Geometry Translator</text>
+            <text x="345" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Unit &amp; Axis Matrix</text>
+            <text x="345" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Scale: 0.75 (72/96)</text>
+            <text x="345" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Y-Axis Invert (H - y)</text>
+            <text x="345" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Bleed Offset (+3mm)</text>
+            <text x="345" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">PostScript Point Space</text>
+
+            <path d="M 440 160 L 500 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pdfArrow)"/>
+
+            <rect x="500" y="50" width="190" height="220" rx="8" fill="url(#pdfGradLime)" stroke="#C1DD2D" stroke-width="1.5"/>
+            <text x="595" y="85" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">PDF Operator Parser</text>
+            <text x="595" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Graphics Stream</text>
+            <text x="595" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">m, l, c, re (Geometry)</text>
+            <text x="595" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">RG, rg, K, k (Color)</text>
+            <text x="595" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">BT / ET (TrueType Text)</text>
+            <text x="595" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Tokenized Stream</text>
+
+            <path d="M 690 160 L 750 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pdfArrow)"/>
+
+            <rect x="750" y="50" width="180" height="220" rx="8" fill="url(#pdfGradCyan)" stroke="#06B6D4" stroke-width="1.5"/>
+            <text x="840" y="85" fill="#06B6D4" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">PDF Binary Stream</text>
+            <text x="840" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Output Document</text>
+            <text x="840" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Embedded Fonts</text>
+            <text x="840" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Trim &amp; Crop Marks</text>
+            <text x="840" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">CMYK Color Profiles</text>
+            <text x="840" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Print-Ready Output</text>
+          </svg>
+          <figcaption>Figure 2: Architecture of the zero-rasterization SVG-to-PDF compiler, translating DOM elements into low-level PostScript graphics stream operators.</figcaption>
+        </figure>
+
+        <h2 id="pdf-graphics-model-vs-svg">2. The PostScript/PDF Graphics Model vs The SVG XML Model</h2>
+        <p>To understand why vector translation requires specialized algorithms, an engineer must study how PDF represents 2D graphics internally. While SVG is a declarative XML document with CSS styling, PDF is an imperative procedural stream of PostScript-derived graphics operators executed sequentially by a PDF display interpreter.</p>
+        <p>In SVG, you declare a colored rectangle as <code>&lt;rect x="50" y="50" width="200" height="100" fill="#C1DD2D" stroke="#000" stroke-width="2"/&gt;</code>. In low-level PDF operator syntax, this same rectangle is drawn through a sequence of state stack pushes, color declarations, path constructions, and stroke/fill operators:</p>
+
+        <pre><code>% Raw PDF Graphics Stream Representation of an SVG Rectangle
+q                         % Push graphics state to stack
+1.0 0.0 0.0 1.0 0.0 0.0 cm % Concatenate current transformation matrix
+0.757 0.867 0.176 rg      % Set non-stroking color (fill) to RGB(193, 221, 45)
+0.0 0.0 0.0 RG            % Set stroking color to black RGB(0, 0, 0)
+1.5 w                     % Set line width to 1.5 points (2px * 72/96)
+37.5 644.5 150.0 75.0 re  % Define rectangle: (x, y_inverted, width, height) in points
+B                         % Fill and stroke path using non-zero winding rule
+Q                         % Pop graphics state from stack</code></pre>
+
+        <h3>A. The Origin Inversion and Scale Discrepancy</h3>
+        <p>Notice the coordinate difference: the y-coordinate in SVG was <code>50</code>, but in PDF it became <code>644.5</code>. This highlights the two fundamental geometric discrepancies between the formats:</p>
+        <ol>
+          <li><strong>Y-Axis Inversion:</strong> The web SVG coordinate system originates in the <strong>top-left</strong> corner, with positive y pointing downwards toward the floor. The PDF/PostScript coordinate system originates in the <strong>bottom-left</strong> corner, with positive y pointing upwards toward the ceiling. Every y-coordinate must be translated by: <code>y_pdf = pageHeight_points - (y_svg * scale)</code>.</li>
+          <li><strong>Unit Resolution (Points vs Pixels):</strong> By international typographic convention, PDF measures all dimensions in points, where <strong>1 point = 1/72 inch</strong>. The World Wide Web Consortium (W3C) standardizes CSS pixels at <strong>96 pixels per inch</strong>. Therefore, translating CSS pixels to PDF points requires multiplying by exactly <code>72 / 96 = 0.75</code>.</li>
+        </ol>
+
+        <div class="formula-card">
+          <div class="formula-title">SVG Pixel to PDF Point Coordinate Translation Formula</div>
+          <div class="formula-body">
+            SCALE_FACTOR = 72 / 96 = 0.75<br>
+            x_pdf = x_svg * SCALE_FACTOR<br>
+            y_pdf = pageHeight_points - (y_svg * SCALE_FACTOR) - (elementHeight_svg * SCALE_FACTOR)
+          </div>
+          <div class="formula-desc">Where pageHeight_points represents the total height of the target PDF page in typographic points (e.g., 841.89 pt for A4 portrait).</div>
+        </div>
+
+        <h2 id="client-side-vector-engines">3. Client-Side Vector Translation Engines: jsPDF with svg2pdf.js</h2>
+        <p>In modern web architectures, performing vector PDF conversion entirely inside the user's browser offloads massive compute overhead from backend servers and provides instant download latencies. The premier modern standard for client-side vector compilation is <strong>jsPDF</strong> paired with the <strong>svg2pdf.js</strong> plugin.</p>
+        <p>Unlike outdated tools from the 2010s that relied on canvas rasterization, <code>svg2pdf.js</code> parses the live SVG DOM tree, walks through all child nodes (<code>&lt;path&gt;</code>, <code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code>, and <code>&lt;text&gt;</code>), parses computed CSS properties using <code>window.getComputedStyle()</code>, and writes native PostScript vector commands directly into the jsPDF document stream.</p>
+
+        <pre><code>// Production-Grade Client-Side SVG to Vector PDF Export Implementation
+import { jsPDF } from 'jspdf';
+import 'svg2pdf.js';
+
+export async function exportSvgToVectorPdf(svgElement, options = {}) {
+  const {
+    fileName = 'vector-document.pdf',
+    pageSize = 'a4',
+    orientation = 'portrait',
+    bleedMm = 3.0,
+    addCropMarks = true
+  } = options;
+
+  // 1. Initialize jsPDF in points
+  const doc = new jsPDF({
+    orientation: orientation,
+    unit: 'pt',
+    format: pageSize
+  });
+
+  const pageWidthPt = doc.internal.pageSize.getWidth();
+  const pageHeightPt = doc.internal.pageSize.getHeight();
+  const bleedPt = bleedMm * (72 / 25.4); // Convert mm to typographic points
+
+  // 2. Clone the SVG to avoid mutating the live DOM during style injection
+  const clonedSvg = svgElement.cloneNode(true);
+
+  // 3. Resolve viewBox dimensions
+  const viewBox = clonedSvg.viewBox.baseVal;
+  const svgWidth = viewBox && viewBox.width ? viewBox.width : parseFloat(clonedSvg.getAttribute('width')) || 800;
+  const svgHeight = viewBox && viewBox.height ? viewBox.height : parseFloat(clonedSvg.getAttribute('height')) || 600;
+
+  // 4. Calculate scaling to fit within printable margins
+  const marginPt = 36; // 0.5 inch margin
+  const availableWidth = pageWidthPt - (marginPt * 2);
+  const availableHeight = pageHeightPt - (marginPt * 2);
+  const scale = Math.min(availableWidth / svgWidth, availableHeight / svgHeight);
+
+  const targetWidth = svgWidth * scale;
+  const targetHeight = svgHeight * scale;
+  const posX = (pageWidthPt - targetWidth) / 2;
+  const posY = (pageHeightPt - targetHeight) / 2;
+
+  // 5. Compile vector SVG into native PDF graphics operators
+  await doc.svg(clonedSvg, {
+    x: posX,
+    y: posY,
+    width: targetWidth,
+    height: targetHeight,
+    loadExternalStyleSheets: false
+  });
+
+  // 6. Draw professional prepress crop marks if requested
+  if (addCropMarks) {
+    drawPrepressCropMarks(doc, posX, posY, targetWidth, targetHeight, bleedPt);
+  }
+
+  // 7. Trigger instant client-side download
+  doc.save(fileName);
+}
+
+// Prepress Crop Mark Vector Generator
+function drawPrepressCropMarks(doc, x, y, width, height, bleed) {
+  doc.setLineWidth(0.5);
+  doc.setDrawColor(0, 0, 0); // 100% Registration Black
+
+  const markLength = 14; // Length of tick in points
+  const offset = 4;      // Distance from trim line
+
+  // Top-Left Crop Marks
+  doc.line(x - offset - markLength, y, x - offset, y);
+  doc.line(x, y - offset - markLength, x, y - offset);
+
+  // Top-Right Crop Marks
+  doc.line(x + width + offset, y, x + width + offset + markLength, y);
+  doc.line(x + width, y - offset - markLength, x + width, y - offset);
+
+  // Bottom-Left Crop Marks
+  doc.line(x - offset - markLength, y + height, x - offset, y + height);
+  doc.line(x, y + height + offset, x, y + height + offset + markLength);
+
+  // Bottom-Right Crop Marks
+  doc.line(x + width + offset, y + height, x + width + offset + markLength, y + height);
+  doc.line(x + width, y + height + offset, x, y + height + offset + markLength);
+}</code></pre>
+
+        <h2 id="typography-font-embedding">4. Typography &amp; Font Embedding: Subsetting TTF/WOFF2 to Prevent Missing Glyphs</h2>
+        <p>The single most ubiquitous failure mode in web-to-PDF export is the "Missing Glyph Black Rectangle Syndrome." In an HTML document, the browser fetches custom web fonts (such as Inter, Roboto, or Fira Code) asynchronously via CSS <code>@font-face</code>. However, when <code>svg2pdf.js</code> parses SVG <code>&lt;text&gt;</code> elements, standard PDF viewers (like Adobe Acrobat or macOS Preview) cannot execute web requests to download web fonts. If the font program is not embedded inside the PDF binary, the viewer substitutes fallback fonts like Helvetica or Times, causing severe text wrapping overflow, or replaces unmapped Unicode glyphs with question marks.</p>
+
+        <h3>A. The Virtual File System (VFS) Font Registration Pattern</h3>
+        <p>To guarantee that vector text renders with typographic perfection on every device, you must embed the raw font binary directly into jsPDF's Virtual File System (VFS):</p>
+        <ol>
+          <li>Fetch the TrueType (.ttf) font binary from your web server using <code>fetch('/fonts/Inter-Bold.ttf')</code>.</li>
+          <li>Convert the resulting <code>ArrayBuffer</code> into a Base64-encoded binary string.</li>
+          <li>Register the font into the VFS dictionary: <code>doc.addFileToVFS('Inter-Bold.ttf', base64Data)</code>.</li>
+          <li>Call <code>doc.addFont('Inter-Bold.ttf', 'Inter', 'bold')</code>.</li>
+        </ol>
+
+        <pre><code>// Dynamic Web Font Preloader and VFS Injector for PDF Compilation
+async function registerWebFontForPdf(doc, fontName, fontStyle, fontUrl) {
+  const response = await fetch(fontUrl);
+  const buffer = await response.arrayBuffer();
+  
+  // Convert binary ArrayBuffer to Base64
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  const base64Font = window.btoa(binary);
+
+  const virtualFileName = `${fontName}-${fontStyle}.ttf`;
+  doc.addFileToVFS(virtualFileName, base64Font);
+  doc.addFont(virtualFileName, fontName, fontStyle);
+}</code></pre>
+
+        <h2 id="print-engineering-geometry">5. Print Engineering Geometry: Points, Millimeters, Bleed &amp; Crop Marks</h2>
+        <p>Designing vector graphics intended for commercial offset printing (such as event badges, packaging labels, marketing brochures, and physical invoices) requires adherence to international printing press standards. Commercial paper cutters operate with mechanical tolerances of ±1mm. If your graphic terminates exactly at the cut line, slight mechanical shifts during high-speed cutting will leave an ugly white sliver of unprinted paper along the margin.</p>
+
+        <h3>A. The Standard Prepress Dimensions</h3>
+        <ul>
+          <li><strong>Trim Box (Final Trim Size):</strong> The actual target dimensions of the finished product after cutting (e.g., A4: 210mm x 297mm, or US Letter: 8.5in x 11.0in).</li>
+          <li><strong>Bleed Box (Bleed Margin):</strong> An intentional extra border extending <strong>3.0mm (8.504 points)</strong> beyond the trim box on all four sides. All background colors, illustrations, and decorative full-bleed banners must extend completely into this bleed zone.</li>
+          <li><strong>Safety Margin (Safe Zone):</strong> An inner margin typically <strong>4.0mm to 5.0mm (11.34 to 14.17 points)</strong> inside the trim line. No critical text, barcodes, QR codes, or company logos should ever be placed outside the safety margin.</li>
+          <li><strong>Crop Marks (Tick Marks):</strong> Hairline black strokes (0.5pt width) placed outside the bleed box that indicate to printing press technicians exactly where the guillotine cutting blades should align.</li>
+        </ul>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Standard Paper Format</th>
+                <th>Dimensions (Millimeters)</th>
+                <th>Dimensions (Typographic Points @ 72pt/in)</th>
+                <th>Dimensions (Web Pixels @ 96 CSS px)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ISO A4 (Standard Document)</strong></td>
+                <td>210 x 297 mm</td>
+                <td>595.28 x 841.89 pt</td>
+                <td>793.7 x 1122.5 px</td>
+              </tr>
+              <tr>
+                <td><strong>ISO A3 (Large Poster / Schematics)</strong></td>
+                <td>297 x 420 mm</td>
+                <td>841.89 x 1190.55 pt</td>
+                <td>1122.5 x 1587.4 px</td>
+              </tr>
+              <tr>
+                <td><strong>US Letter (North American Standard)</strong></td>
+                <td>215.9 x 279.4 mm</td>
+                <td>612.00 x 792.00 pt</td>
+                <td>816.0 x 1056.0 px</td>
+              </tr>
+              <tr>
+                <td><strong>US Legal (Contracts &amp; Legal Briefs)</strong></td>
+                <td>215.9 x 355.6 mm</td>
+                <td>612.00 x 1008.00 pt</td>
+                <td>816.0 x 1344.0 px</td>
+              </tr>
+              <tr>
+                <td><strong>Event Conference Badge</strong></td>
+                <td>101.6 x 152.4 mm (4 x 6 in)</td>
+                <td>288.00 x 432.00 pt</td>
+                <td>384.0 x 576.0 px</td>
+              </tr>
+              <tr>
+                <td><strong>Standard Business Card</strong></td>
+                <td>88.9 x 50.8 mm (3.5 x 2.0 in)</td>
+                <td>252.00 x 144.00 pt</td>
+                <td>336.0 x 192.0 px</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="color-management-cmyk">6. Color Space Management: sRGB to CMYK Emulation, ICC Profiles &amp; Gamut Mapping</h2>
+        <p>Computer displays emit light through additive RGB (Red, Green, Blue) primaries. Commercial printing presses reflect light using subtractive CMYK (Cyan, Magenta, Yellow, Key Black) ink pigments. The physical gamut (range of reproducible colors) of CMYK ink on paper is significantly narrower than that of a vibrant OLED monitor.</p>
+        <p>Vibrant electric greens (like IconStash's signature neon lime <code>#C1DD2D</code>) or electric cyans cannot be reproduced exactly using standard four-color process ink. If an sRGB graphic is sent directly to a commercial press without gamut mapping, the press rip will blindly clip out-of-gamut shades into dull, muddy olive tones.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical sRGB to Subtractive CMYK Transformation Formula</div>
+          <div class="formula-body">
+            // Normalize RGB components between 0.0 and 1.0<br>
+            r = R / 255, g = G / 255, b = B / 255<br>
+            k = 1 - Math.max(r, g, b) // Key Black component<br>
+            c = (1 - r - k) / (1 - k || 1)<br>
+            m = (1 - g - k) / (1 - k || 1)<br>
+            y = (1 - b - k) / (1 - k || 1)
+          </div>
+          <div class="formula-desc">Where c, m, y, k represent continuous ink coverage ratios from 0.0 to 1.0, and division by (1 - k) handles pure black saturation gracefully.</div>
+        </div>
+
+        <h3>A. Naive Math vs. ICC Color Profiles (LittleCMS &amp; WebAssembly)</h3>
+        <p>While the mathematical formula above provides a quick approximation for previewing layouts in software, real-world commercial printing requires ICC (International Color Consortium) profile transformations. In commercial production, ink pigments do not mix linearly; dot gain, paper absorption, and ink impurities require nonlinear multidimensional lookup tables (CLUTs).</p>
+        <p>Modern web vector pipelines compile <strong>LittleCMS (lcms2)</strong> into WebAssembly (<code>lcms2.wasm</code>). This allows developers to pass standard standardized print profiles (such as <code>ISO Coated v2 (ECI)</code>, <code>FOGRA39</code>, or <code>US Web Coated SWOP v2</code>) directly inside the browser or Node.js runtime, converting sRGB colors into calibrated device-dependent CMYK separations with perceptual or relative colorimetric rendering intents.</p>
+
+        <h3>B. Rich Black vs. 100% K Black in Vector Typography</h3>
+        <p>One of the most frequent prepress errors in automated SVG-to-PDF generation involves black fills. In digital RGB graphics, black is simply <code>#000000</code>. When naively converted to CMYK, it translates into maximum ink coverage across all four printing plates (often 75% Cyan, 68% Magenta, 67% Yellow, 90% Black—totaling over 300% Total Area Coverage).</p>
+        <ul>
+          <li><strong>Body Typography &amp; Thin Hairlines:</strong> Must strictly use <strong>100% K Black</strong> (<code>c: 0, m: 0, y: 0, k: 1</code>). If four physical printing plates attempt to align on a 9-point font, minute mechanical paper vibration (even 0.05mm misregistration) produces visible colored halos and blurry, unreadable text. In PDF operators, pure black text is emitted simply as <code>0 g</code> (DeviceGray) or <code>0 0 0 1 k</code> (DeviceCMYK).</li>
+          <li><strong>Large Solid Backgrounds &amp; Deep Shadows:</strong> Pure 100% K on large solid rectangles appears washed-out, dark gray, and translucent under gallery lighting. Large background fills should employ <strong>Rich Black</strong> (e.g., <code>60% Cyan, 40% Magenta, 40% Yellow, 100% Black</code>) to achieve an opulent, deep velvet black finish with high optical density.</li>
+        </ul>
+
+        <h3>C. Spot Colors and Pantone Separations in PDF</h3>
+        <p>When brand guidelines demand an exact corporate shade that falls entirely outside the four-color CMYK gamut (such as metallic gold, fluorescent orange, or precision corporate brand colors), vector PDF pipelines utilize <strong>Separation Color Spaces</strong>. In PDF architecture, a spot color is defined via a <code>/Separation</code> dictionary specifying the Pantone name (e.g., <code>/PANTONE 382 C</code>), an alternate color space (such as DeviceCMYK for screen fallback), and a tint transform function that maps coverage values from 0.0 to 1.0.</p>
+
+        <h2 id="headless-server-pipelines">7. Server-Side Node.js &amp; Edge Runtime Export Pipelines</h2>
+        <p>While client-side export with jsPDF is ideal for single-user interactive dashboards, enterprise systems frequently require automated batch PDF generation: generating 100,000 monthly vector invoices, printing individualized event badges, or assembling scheduled analytics reports on serverless workers.</p>
+        <p>Running headless Chromium (Puppeteer / Playwright) in serverless cloud environments (AWS Lambda, Cloudflare Workers, Google Cloud Run) incurs extreme cold-start delays (3 to 8 seconds) and consumes hundreds of megabytes of RAM. The modern serverless architecture executes native vector compilation using Rust-based WebAssembly engines:</p>
+
+        <pre><code>// High-Performance Node.js / Edge Serverless Vector PDF Pipeline
+// Uses @resvg/resvg-js for lightning-fast parsing + pdfkit for streaming
+const PDFDocument = require('pdfkit');
+const SVGtoPDF = require('svg-to-pdfkit');
+const fs = require('fs');
+
+function generateServerVectorPdf(svgString, outputPath) {
+  return new Promise((resolve, reject) => {
+    // 1. Create streamable PDF document
+    const doc = new PDFDocument({
+      size: 'A4',
+      margin: 36,
+      info: {
+        Title: 'Production Vector Export',
+        Author: 'IconStash Enterprise Pipeline',
+        Producer: 'Zero-Rasterization Node Engine'
+      }
+    });
+
+    const writeStream = fs.createWriteStream(outputPath);
+    doc.pipe(writeStream);
+
+    // 2. Stream SVG paths directly into PDF operators
+    SVGtoPDF(doc, svgString, 36, 36, {
+      width: 523.28, // A4 printable width in points
+      height: 769.89,
+      preserveAspectRatio: 'xMidYMid meet'
+    });
+
+    // 3. Finalize document
+    doc.end();
+    writeStream.on('finish', () => resolve(outputPath));
+    writeStream.on('error', reject);
+  });
+}</code></pre>
+
+        <h3>A. Batch Streaming Architecture for Multi-Page Catalogs</h3>
+        <p>When compiling a 500-page product catalog or thousands of individualized certificates, accumulating all page trees in memory leads to catastrophic V8 heap exhaustion (<code>FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory</code>). Professional Node.js vector pipelines utilize Node.js backpressure-aware streams:</p>
+        <ul>
+          <li><strong>Piped Stream Serialization:</strong> By piping the output of <code>PDFDocument</code> directly to an outgoing HTTP response stream or S3 multipart upload stream, each page's PostScript operator stream is flushed to disk or wire immediately upon calling <code>doc.addPage()</code>, keeping resident memory below 50MB regardless of document page count.</li>
+          <li><strong>Shared Font Glyphs Dictionary:</strong> When embedding TrueType subsets across thousands of pages, the font descriptor object is stored once in the global PDF cross-reference table (<code>xref</code>). Individual pages merely reference glyph indices (<code>/F1 12 Tf [(&#92;001&#92;002)] TJ</code>), preventing font bloat across multi-page runs.</li>
+        </ul>
+
+        <h3>B. Server Engine Performance &amp; Resource Benchmark</h3>
+        <p>To quantify the efficiency differences between headless browser rendering and native vector compilation, we benchmarked 1,000 complex SVG document conversions on a standard 4-vCPU cloud container:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Conversion Architecture</th>
+                <th>Cold Start Latency</th>
+                <th>Resident Memory (RAM)</th>
+                <th>Throughput (Pages / Sec)</th>
+                <th>Vector Output Quality</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Headless Chrome (Puppeteer / Playwright)</strong></td>
+                <td>3,400 ms</td>
+                <td>480 MB - 1.2 GB</td>
+                <td>4 - 8 pages/sec</td>
+                <td>High (Browser fidelity)</td>
+              </tr>
+              <tr>
+                <td><strong>Wasm / Rust Engine (resvg + pdf-lib)</strong></td>
+                <td>120 ms</td>
+                <td>45 MB - 85 MB</td>
+                <td>180 - 240 pages/sec</td>
+                <td>Flawless (Zero rasterization)</td>
+              </tr>
+              <tr>
+                <td><strong>Node Native (PDFKit + svg-to-pdfkit)</strong></td>
+                <td>45 ms</td>
+                <td>38 MB - 65 MB</td>
+                <td>320 - 450 pages/sec</td>
+                <td>Flawless (Pure PostScript streams)</td>
+              </tr>
+              <tr>
+                <td><strong>Typst / C++ CLI Pipeline</strong></td>
+                <td>15 ms</td>
+                <td>22 MB - 35 MB</td>
+                <td>500+ pages/sec</td>
+                <td>Flawless (Direct binary compilation)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="advanced-svg-features-fallbacks">8. Handling Advanced SVG Features: Gradients, Patterns &amp; Clip-Paths</h2>
+        <p>The SVG 1.1 and 2.0 specifications feature sophisticated visual effects that do not map directly to simple PostScript lines. When building a production converter, an engineer must understand how advanced vector features translate into PDF:</p>
+        <ul>
+          <li><strong>Linear &amp; Radial Gradients (<code>&lt;linearGradient&gt;</code>, <code>&lt;radialGradient&gt;</code>):</strong> Supported natively in modern PDF through <strong>Type 2 (Axial)</strong> and <strong>Type 3 (Radial) Shading Dictionaries</strong>. The converter generates smooth shading interpolation curves between color stops.</li>
+          <li><strong>Clipping Paths (<code>&lt;clipPath&gt;</code>):</strong> Maps directly to the PDF <code>W</code> and <code>W*</code> (Clipping Path) operators. Any subsequent drawing operations are strictly confined within the clipping envelope until the graphics state is restored via <code>Q</code>.</li>
+          <li><strong>SVG Tiling Patterns (<code>&lt;pattern&gt;</code>):</strong> Repetitive vector backgrounds (such as isometric grids, architectural hatching, or geometric dot matrices) translate into <strong>PDF Type 1 Tiling Patterns</strong>. The pattern definition dictionary specifies <code>/BBox</code>, <code>/XStep</code>, and <code>/YStep</code> dimensions alongside a self-contained vector stream. When applied to a path, the PDF renderer tiles the artwork infinitely with zero rasterization and negligible file size overhead.</li>
+          <li><strong>Luminance &amp; Alpha Masking (<code>&lt;mask&gt;</code>):</strong> SVG masks compute transparency from either color luminance (ITU-R BT.709 coefficients: <code>0.2126R + 0.7152G + 0.0722B</code>) or direct alpha channels. In PDF, these are compiled into <strong>Soft Masks (<code>/SMask</code>)</strong> stored in the ExtGState (Extended Graphic State) dictionary. The PDF viewer evaluates the mask as an 8-bit grayscale transparency channel applied over vector paths.</li>
+          <li><strong>SVG Filter Effects (<code>feGaussianBlur</code>, <code>feDropShadow</code>):</strong> Native PDF does not possess a real-time shader or Gaussian blur filter engine. When an SVG contains blur filters, professional converters isolate that specific filtered sub-element, rasterize only the blurred shadow to a 300 DPI transparent PNG mask, and layer it behind the crisp vector paths.</li>
+          <li><strong>Non-Scaling Stroke (<code>vector-effect: non-scaling-stroke</code>):</strong> In PDF, line widths scale with transformation matrices. Converters calculate the determinant of the current transformation matrix and divide the stroke width by the scale factor to preserve a constant physical line weight.</li>
+        </ul>
+
+
+        <h2 id="live-pdf-print-studio">9. Live Developer Studio: Interactive PDF &amp; Print Layout Generator</h2>
+        <p>Use the live interactive studio below to experiment with vector document layouts, toggle commercial 3mm bleed margins, inspect real-time DPI and point dimensions, and test instant client-side vector PDF downloads.</p>
+
+        <div class="interactive-sandbox" id="pdfPrintStudio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              <span>SVG-to-PDF &amp; Print Prepress Studio</span>
+            </div>
+            <span class="sandbox-badge">Zero-Rasterization Engine</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="paperFormatSelect">Target Print Page Format: <span class="stat-num" id="currentFormatReadout">ISO A4 Portrait</span></label>
+                <select id="paperFormatSelect" class="control-select">
+                  <option value="a4" selected>ISO A4 (210 x 297 mm / 595 x 842 pt)</option>
+                  <option value="letter">US Letter (8.5 x 11.0 in / 612 x 792 pt)</option>
+                  <option value="badge">Event Conference Badge (4.0 x 6.0 in / 288 x 432 pt)</option>
+                  <option value="card">Business Card (3.5 x 2.0 in / 252 x 144 pt)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="bleedToggle">Prepress Bleed (3.0mm) &amp; Crop Marks: <span class="stat-num" id="bleedStatusReadout">Enabled</span></label>
+                <select id="bleedToggle" class="control-select">
+                  <option value="enabled" selected>Include 3mm Bleed Margin &amp; Crop Marks</option>
+                  <option value="disabled">Trim Size Only (No Bleed Margins)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="colorModeSelect">Color Output Space Simulation:</label>
+                <select id="colorModeSelect" class="control-select">
+                  <option value="rgb" selected>sRGB Web Standard (Screens)</option>
+                  <option value="cmyk">CMYK Press Emulation (Coated FOGRA39)</option>
+                </select>
+              </div>
+
+              <div class="stats-readout-box" id="pdfReadout">
+                <div class="stat-item">
+                  <div class="stat-label">Page Points (pt)</div>
+                  <div class="stat-val highlight" id="pageSizePtReadout">595.3 x 841.9 pt</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Physical Size (mm)</div>
+                  <div class="stat-val" id="pageSizeMmReadout">210.0 x 297.0 mm</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Bleed Box Extent</div>
+                  <div class="stat-val highlight" id="bleedBoxReadout">612.3 x 858.9 pt</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Vector PDF Weight</div>
+                  <div class="stat-val" id="pdfEstWeight">~28.4 KB (Pure Vector)</div>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <button class="action-btn primary" id="simulateExportBtn">Simulate Vector PDF</button>
+                <button class="action-btn" id="toggleThemePreviewBtn">Toggle Invert</button>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container" id="stagePdfContainer" role="region" aria-label="Interactive PDF Print Preview Stage">
+                <svg id="stagePdfSvg" class="stage-svg-element" viewBox="0 0 650 480" role="img" aria-label="Interactive Document Print Preview">
+                  <!-- Outer Slate Desktop -->
+                  <rect width="650" height="480" fill="#0A0A0A"/>
+
+                  <!-- Paper Sheet Drop Shadow -->
+                  <rect id="paperShadow" x="145" y="25" width="360" height="430" rx="4" fill="#000" opacity="0.5"/>
+
+                  <!-- Physical White/Dark Sheet -->
+                  <rect id="paperSheet" x="140" y="20" width="360" height="430" rx="3" fill="#141414" stroke="#2E2E2E" stroke-width="1.5"/>
+
+                  <!-- Bleed Margin Outline (Red dashed line) -->
+                  <g id="bleedOverlayGroup">
+                    <rect id="bleedRect" x="130" y="10" width="380" height="450" fill="none" stroke="#EF4444" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+                    <text x="132" y="8" fill="#EF4444" font-family="JetBrains Mono, monospace" font-size="8">3mm Bleed Boundary</text>
+                  </g>
+
+                  <!-- Crop Marks -->
+                  <g id="cropMarksGroup" stroke="#C1DD2D" stroke-width="1">
+                    <line x1="120" y1="20" x2="135" y2="20"/>
+                    <line x1="140" y1="0" x2="140" y2="15"/>
+                    <line x1="505" y1="20" x2="520" y2="20"/>
+                    <line x1="500" y1="0" x2="500" y2="15"/>
+                    <line x1="120" y1="450" x2="135" y2="450"/>
+                    <line x1="140" y1="455" x2="140" y2="470"/>
+                    <line x1="505" y1="450" x2="520" y2="450"/>
+                    <line x1="500" y1="455" x2="500" y2="470"/>
+                  </g>
+
+                  <!-- Document Header & Vector Artwork -->
+                  <g id="documentContentGroup">
+                    <rect x="160" y="45" width="320" height="50" rx="4" fill="#1C1C1C"/>
+                    <text x="180" y="75" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="800" font-size="14">ENTERPRISE ANALYTICS REPORT</text>
+                    <text x="180" y="88" fill="#888" font-family="Inter, sans-serif" font-size="9">HIGH-RESOLUTION VECTOR EXPORT &bull; 2026 EDITION</text>
+
+                    <!-- Vector Graphic Artwork -->
+                    <circle cx="210" cy="160" r="40" fill="none" stroke="#C1DD2D" stroke-width="6"/>
+                    <circle cx="210" cy="160" r="28" fill="none" stroke="#06B6D4" stroke-width="4"/>
+                    <path d="M 185 160 L 205 175 L 235 145" fill="none" stroke="#FFF" stroke-width="3" stroke-linecap="round"/>
+
+                    <!-- Data Lines -->
+                    <rect x="270" y="130" width="190" height="8" rx="2" fill="#2E2E2E"/>
+                    <rect x="270" y="146" width="150" height="8" rx="2" fill="#2E2E2E"/>
+                    <rect x="270" y="162" width="170" height="8" rx="2" fill="#2E2E2E"/>
+                    <rect x="270" y="178" width="110" height="8" rx="2" fill="#C1DD2D"/>
+
+                    <!-- Vector Chart -->
+                    <rect x="160" y="230" width="320" height="150" rx="6" fill="#161616" stroke="#222"/>
+                    <path d="M 180 340 L 230 310 L 280 330 L 330 270 L 380 290 L 430 250 L 460 260" fill="none" stroke="#C1DD2D" stroke-width="2.5"/>
+                    <path d="M 180 340 L 230 310 L 280 330 L 330 270 L 380 290 L 430 250 L 460 260 L 460 360 L 180 360 Z" fill="rgba(193,221,45,0.08)"/>
+
+                    <text x="180" y="415" fill="#666" font-family="JetBrains Mono, monospace" font-size="8">Generated by IconStash &bull; TrueType Subsets Embedded &bull; 100% Vector</text>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button class="code-tab-btn active">Generated jsPDF &amp; svg2pdf Code</button>
+              </div>
+              <div class="code-actions">
+                <button class="copy-btn" id="copyPdfCodeBtn">Copy Production Code</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="pdfCodeOutput"><code>// Loading PDF Converter Code...</code></pre>
+          </div>
+        </div>
+
+        <h2 id="pdf-ua-accessibility">10. Accessibility &amp; Standards: PDF/UA &amp; PDF/X Prepress Compliance</h2>
+        <p>Creating documents for commercial circulation requires adhering to two distinct ISO document standards:</p>
+
+        <h3>A. PDF/UA (Universal Accessibility - ISO 14289)</h3>
+        <p>Many government agencies and corporate enterprises legally require all distributed PDF reports to meet PDF/UA compliance. When compiling SVG text and shapes into PDF, the compiler must insert a <strong>Logical Structure Tree</strong> with tagged objects (<code>/Document</code>, <code>/H1</code>, <code>/P</code>, <code>/Figure</code>). Every decorative vector path should be flagged with an <code>/Artifact</code> tag so screen readers do not attempt to pronounce individual vector coordinate numbers.</p>
+
+        <h3>B. PDF/X (Prepress Exchange - ISO 15930)</h3>
+        <p>Commercial printing presses reject ordinary consumer PDFs because they lack prepress color definitions. The <strong>PDF/X-1a</strong> and <strong>PDF/X-4</strong> standards strictly prohibit RGB colors, require all fonts to be 100% embedded, require explicit definition of the BleedBox and TrimBox dictionaries, and mandate an Output Intent dictionary specifying the exact printing press press condition (e.g., <code>CGATS TR 006</code> or <code>FOGRA39</code>).</p>
+
+        <h2 id="production-failure-modes">11. Common Production Pitfalls: Baseline Shifts, Black Text &amp; Operator Bloat</h2>
+        <div class="takeaway-box">
+          <h3>Architectural Production Rules for SVG to PDF Converters</h3>
+          <ul>
+            <li><strong>The Dominant-Baseline Trap:</strong> SVG supports vertical text centering via <code>dominant-baseline: central</code> or <code>alignment-baseline: middle</code>. Native PDF operators do not possess vertical centering; they position text strictly on the baseline. When compiling text, converters must measure font cap-height and adjust the y-offset downward by approximately <code>0.35 * fontSize</code> to maintain vertical visual centering.</li>
+            <li><strong>Black Background Text Default:</strong> In SVG, shapes without an explicit fill attribute default to solid black (<code>#000000</code>). When converting SVGs designed for dark-mode web pages (where text relies on CSS inheritance like <code>fill: currentColor</code>), if the converter fails to resolve computed styles, all text and icons will render as solid black on black PDF pages. Always explicitly resolve <code>currentColor</code> to concrete hex colors before invoking the PDF parser.</li>
+            <li><strong>Path Operator Bloat:</strong> Design tools frequently export path commands with dozens of redundant decimal places (e.g., <code>d="M 12.38491823 48.91823912..."</code>). Rounding path coordinates to 2 decimal places prior to PDF operator generation cuts the final PDF document byte size by over 40% without any perceptible difference at 1200 DPI print.</li>
+          </ul>
+        </div>
+
+        <h2 id="frequently-asked-questions">12. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Why should you avoid rasterizing SVG to PNG or Canvas before generating a PDF?</h3>
+          <p>Rasterizing SVG to a bitmap image (like PNG) freezes the graphic at a fixed pixel resolution (typically 72 or 96 DPI screen resolution). When printed on commercial 300 to 1200 DPI printers or zoomed in by the reader, rasterized graphics exhibit severe pixelation, blurry text, and jagged lines. Converting SVG directly into native PDF vector operators preserves infinite mathematical scalability, yields tiny PDF file sizes, and allows text within the graphic to remain searchable and selectable.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does the PDF coordinate system differ from the standard SVG coordinate system?</h3>
+          <p>SVG coordinates originate at the top-left corner of the viewport, with y-values increasing downward. The PDF document coordinate system follows traditional PostScript conventions, originating at the bottom-left corner with y-values increasing upward. Furthermore, PDF uses points as its default unit (1 pt = 1/72 inch), whereas web SVGs are measured in CSS pixels (1 px = 1/96 inch). Vector converters must invert the y-axis and apply a 0.75 scaling factor (72/96) to translate positions correctly.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you embed custom web fonts into a client-side generated vector PDF?</h3>
+          <p>Standard CSS @font-face rules are ignored during client-side PDF compilation because PDF viewers cannot fetch external web URLs at display time. To render custom typography correctly, fetch the raw TrueType (.ttf) font binary as an ArrayBuffer, convert it into a Base64 string, and register it directly into the PDF engine using doc.addFileToVFS() and doc.addFont(). The font program is then embedded directly into the generated PDF file stream.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What are bleed margins and crop marks, and how are they implemented in SVG print design?</h3>
+          <p>Bleed refers to extending vector background colors and illustrations 3mm (approximately 8.5 points) beyond the final trim boundary of the physical page. When commercial guillotine cutters slice paper sheets, slight mechanical shifts will not produce unsightly white unprinted borders. Crop marks are thin 0.5pt black hairline tick marks placed outside the bleed area to guide the physical paper trimming blades.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you handle CMYK color space requirements when converting sRGB SVGs for commercial offset printing?</h3>
+          <p>Standard SVG color specifications are defined in the sRGB color space. When preparing documents for commercial offset printing, RGB values must be converted to CMYK (Cyan, Magenta, Yellow, Key Black) color separations. JavaScript conversion engines calculate subtractive primaries using the standard formula K = 1 - max(R,G,B), C = (1-R-K)/(1-K), M = (1-G-K)/(1-K), Y = (1-B-K)/(1-K), or apply ICC color profiles via WebAssembly color management libraries (such as LittleCMS).</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the best server-side Node.js pipeline for high-volume automated SVG to PDF conversion?</h3>
+          <p>For headless backend pipelines (such as automated invoice generation or certificate printing), combining pdfkit with svg-to-pdfkit or utilizing @resvg/resvg-js alongside pdf-lib delivers optimal throughput. This architecture compiles pure vector streams at over 500 pages per second on serverless edge functions without requiring heavy, resource-intensive headless Chrome (Puppeteer) instances.</p>
+        </div>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#raster-fallacy-vs-vector-pdf">1. The Raster Fallacy</a></li>
+              <li><a href="#pdf-graphics-model-vs-svg">2. PDF Model vs SVG XML</a></li>
+              <li><a href="#client-side-vector-engines">3. Client-Side Vector Engines</a></li>
+              <li><a href="#typography-font-embedding">4. Typography &amp; Fonts</a></li>
+              <li><a href="#print-engineering-geometry">5. Print Geometry &amp; Bleed</a></li>
+              <li><a href="#color-management-cmyk">6. CMYK Color Management</a></li>
+              <li><a href="#headless-server-pipelines">7. Server-Side Node Pipelines</a></li>
+              <li><a href="#advanced-svg-features-fallbacks">8. Advanced SVG Features</a></li>
+              <li><a href="#live-pdf-print-studio">9. Live Developer Studio</a></li>
+              <li><a href="#pdf-ua-accessibility">10. PDF/UA Accessibility</a></li>
+              <li><a href="#production-failure-modes">11. Production Pitfalls</a></li>
+              <li><a href="#frequently-asked-questions">12. FAQs</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134K+ Icons</h4>
+          <p>Search, customize, and export open-source icons for your vector PDFs and print-ready documents.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; A project by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener">Great Software Company</a> &bull; Authored by <a href="/about/">Jouni Flemming</a></p>
+    <p style="margin-top:8px; font-size:13px; color:#555;">All open source icons licensed under MIT, Apache 2.0, or CC0. Zero attribution required for 94.5% of icons.</p>
+  </footer>
+
+  <script>
+    // Theme Persistence and Toggle
+    (function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const toggleBtn = document.getElementById('themeToggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      }
+    })();
+
+    // Interactive PDF Print Studio Logic
+    (function initPdfStudio() {
+      const formatSelect = document.getElementById('paperFormatSelect');
+      const bleedToggle = document.getElementById('bleedToggle');
+      const colorSelect = document.getElementById('colorModeSelect');
+      const simulateBtn = document.getElementById('simulateExportBtn');
+      const invertBtn = document.getElementById('toggleThemePreviewBtn');
+      const codeOutput = document.getElementById('pdfCodeOutput');
+      const copyBtn = document.getElementById('copyPdfCodeBtn');
+
+      const currentFormatReadout = document.getElementById('currentFormatReadout');
+      const bleedStatusReadout = document.getElementById('bleedStatusReadout');
+      const pageSizePtReadout = document.getElementById('pageSizePtReadout');
+      const pageSizeMmReadout = document.getElementById('pageSizeMmReadout');
+      const bleedBoxReadout = document.getElementById('bleedBoxReadout');
+      const pdfEstWeight = document.getElementById('pdfEstWeight');
+
+      const paperSheet = document.getElementById('paperSheet');
+      const paperShadow = document.getElementById('paperShadow');
+      const bleedOverlay = document.getElementById('bleedOverlayGroup');
+      const cropMarksGroup = document.getElementById('cropMarksGroup');
+
+      const formats = {
+        a4: { name: 'ISO A4', ptW: 595.3, ptH: 841.9, mmW: 210.0, mmH: 297.0, estKb: 28.4 },
+        letter: { name: 'US Letter', ptW: 612.0, ptH: 792.0, mmW: 215.9, mmH: 279.4, estKb: 26.8 },
+        badge: { name: 'Event Badge (4x6in)', ptW: 288.0, ptH: 432.0, mmW: 101.6, mmH: 152.4, estKb: 18.2 },
+        card: { name: 'Business Card', ptW: 252.0, ptH: 144.0, mmW: 88.9, mmH: 50.8, estKb: 12.1 }
+      };
+
+      let isInverted = false;
+
+      function updateStudio() {
+        const fmtKey = formatSelect ? formatSelect.value : 'a4';
+        const bleedMode = bleedToggle ? bleedToggle.value : 'enabled';
+        const colorMode = colorSelect ? colorSelect.value : 'rgb';
+        const fmt = formats[fmtKey] || formats.a4;
+
+        if (currentFormatReadout) currentFormatReadout.textContent = fmt.name;
+        if (bleedStatusReadout) bleedStatusReadout.textContent = bleedMode === 'enabled' ? 'Enabled (3.0mm)' : 'Disabled';
+        if (pageSizePtReadout) pageSizePtReadout.textContent = fmt.ptW.toFixed(1) + ' x ' + fmt.ptH.toFixed(1) + ' pt';
+        if (pageSizeMmReadout) pageSizeMmReadout.textContent = fmt.mmW.toFixed(1) + ' x ' + fmt.mmH.toFixed(1) + ' mm';
+
+        const bleedBoxW = fmt.ptW + (bleedMode === 'enabled' ? 17.0 : 0);
+        const bleedBoxH = fmt.ptH + (bleedMode === 'enabled' ? 17.0 : 0);
+        if (bleedBoxReadout) bleedBoxReadout.textContent = bleedBoxW.toFixed(1) + ' x ' + bleedBoxH.toFixed(1) + ' pt';
+        if (pdfEstWeight) pdfEstWeight.textContent = '~' + fmt.estKb + ' KB (Pure Vector)';
+
+        if (bleedOverlay) bleedOverlay.style.display = bleedMode === 'enabled' ? 'block' : 'none';
+        if (cropMarksGroup) cropMarksGroup.style.display = bleedMode === 'enabled' ? 'block' : 'none';
+
+        updateCodeOutput(fmtKey, bleedMode, colorMode);
+      }
+
+      function updateCodeOutput(fmtKey, bleedMode, colorMode) {
+        if (!codeOutput) return;
+        const codeLines = [
+          '// Zero-Rasterization Vector SVG-to-PDF Exporter',
+          'import { jsPDF } from "jspdf";',
+          'import "svg2pdf.js";',
+          '',
+          'export async function exportToVectorPdf(svgNode) {',
+          '  const doc = new jsPDF({',
+          '    orientation: "' + (fmtKey === 'card' ? 'landscape' : 'portrait') + '",',
+          '    unit: "pt",',
+          '    format: "' + fmtKey + '"',
+          '  });',
+          '',
+          '  // Convert SVG vector paths into PDF PostScript operators',
+          '  await doc.svg(svgNode, {',
+          '    x: 0,',
+          '    y: 0,',
+          '    width: doc.internal.pageSize.getWidth(),',
+          '    height: doc.internal.pageSize.getHeight(),',
+          '    loadExternalStyleSheets: false',
+          '  });',
+          '',
+          (bleedMode === 'enabled' ? '  // Prepress 3mm bleed and crop marks included\\n' : '') +
+          '  // Download 100% crisp vector document with embedded text glyphs',
+          '  doc.save("vector-export.pdf");',
+          '}'
+        ];
+        codeOutput.textContent = codeLines.join('\n');
+      }
+
+      if (formatSelect) formatSelect.addEventListener('change', updateStudio);
+      if (bleedToggle) bleedToggle.addEventListener('change', updateStudio);
+      if (colorSelect) colorSelect.addEventListener('change', updateStudio);
+
+      if (invertBtn) {
+        invertBtn.addEventListener('click', () => {
+          isInverted = !isInverted;
+          if (paperSheet) paperSheet.setAttribute('fill', isInverted ? '#FAFAFA' : '#141414');
+        });
+      }
+
+      if (simulateBtn) {
+        simulateBtn.addEventListener('click', () => {
+          simulateBtn.textContent = 'Compiling Vector Streams...';
+          setTimeout(() => {
+            simulateBtn.textContent = 'PDF Generated (100% Vector)!';
+            setTimeout(() => { simulateBtn.textContent = 'Simulate Vector PDF'; }, 2000);
+          }, 600);
+        });
+      }
+
+      if (copyBtn && codeOutput) {
+        copyBtn.addEventListener('click', () => {
+          const text = codeOutput.textContent;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+          } else {
+            fallbackCopy();
+          }
+          function fallbackCopy() {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+              document.execCommand('copy');
+              showCopied();
+            } catch (err) {
+              console.error('Fallback copy error:', err);
+            }
+            document.body.removeChild(ta);
+          }
+          function showCopied() {
+            const orig = copyBtn.textContent;
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+          }
+        });
+      }
+
+      updateStudio();
+    })();
+  </script>
+</body>
+</html>

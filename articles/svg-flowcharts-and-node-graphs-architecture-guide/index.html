@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Interactive SVG Flowcharts, Node Graphs &amp; Workflow Builders: The Complete Architecture Guide (2026) | IconStash</title>
+  <meta name="description" content="Build interactive SVG node graphs and flowcharts: cubic Bezier curves, Manhattan orthogonal routing, marker arrowheads, drag-and-drop, and port math.">
+  <meta name="keywords" content="svg flowchart, svg node graph, interactive svg diagram, svg bezier curve connector, svg connect nodes with line, svg workflow editor javascript, svg drag and drop nodes">
+  <meta property="og:title" content="Building Interactive SVG Flowcharts, Node Graphs &amp; Workflow Builders: The Complete Architecture Guide (2026)">
+  <meta property="og:description" content="Build interactive SVG node graphs and flowcharts: cubic Bezier curves, Manhattan orthogonal routing, marker arrowheads, drag-and-drop, and port math.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-flowcharts-and-node-graphs-architecture-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-flowcharts-and-node-graphs-architecture-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-07T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-07T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Graph Architecture &amp; Interactive UI">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Flowcharts">
+  <meta property="article:tag" content="Node Graphs">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="Workflow Builders">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building Interactive SVG Flowcharts, Node Graphs &amp; Workflow Builders: The Complete Architecture Guide (2026)">
+  <meta name="twitter:description" content="Build interactive SVG node graphs and flowcharts: cubic Bezier curves, Manhattan orthogonal routing, marker arrowheads, drag-and-drop, and port math.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-flowcharts-and-node-graphs-architecture-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-flowcharts-and-node-graphs-architecture-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Building Interactive SVG Flowcharts, Node Graphs & Workflow Builders: The Complete Architecture Guide (2026)",
+      "description": "Build interactive SVG node graphs and flowcharts: cubic Bezier curves, Manhattan orthogonal routing, marker arrowheads, drag-and-drop, and port math.",
+      "image": "https://iconstash.io/assets/articles/svg-flowcharts-and-node-graphs-architecture-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-07",
+      "dateModified": "2026-11-07",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-flowcharts-and-node-graphs-architecture-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4540,
+      "articleSection": "Graph Architecture & Interactive UI",
+      "keywords": [
+        "svg flowchart",
+        "svg node graph",
+        "interactive svg diagram",
+        "svg bezier curve connector",
+        "svg connect nodes with line",
+        "svg workflow editor javascript",
+        "svg drag and drop nodes"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Interactive SVG Flowcharts Guide",
+          "item": "https://iconstash.io/articles/svg-flowcharts-and-node-graphs-architecture-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why use SVG instead of HTML5 Canvas for interactive node graphs and workflow editors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVG provides declarative DOM nodes for every node and connector edge, enabling native CSS hover transitions, styling via custom properties, responsive Retina scaling without pixelation, native vector arrowhead markers, and full accessibility trees with ARIA attributes and keyboard focus traversal. HTML5 Canvas renders an opaque bitmap where hit-testing, text selection, and screen reader accessibility require complex manual implementation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you calculate smooth cubic Bézier curve control points between two node ports?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For horizontal connection ports where the source port exits East (right) and the target port enters West (left), set control point 1 at (x1 + dx * curvature, y1) and control point 2 at (x2 - dx * curvature, y2), where dx equals Math.abs(x2 - x1) and curvature typically ranges from 0.4 to 0.6. This ensures the curve departs and enters perpendicularly to the node boundaries, creating a natural organic flow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Manhattan orthogonal step routing work for right-angled flowchart connectors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Manhattan routing calculates paths composed strictly of horizontal and vertical line segments (H and V commands). The router emits a stub segment emerging from the source port, computes an intermediate midpoint x-coordinate (x1 + x2) / 2, routes vertically to y2, and completes the connection horizontally into the target port. In advanced implementations, A* pathfinding routes around intervening obstacle nodes to prevent path overlap."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent SVG edge re-renders from lagging the UI during high-frequency node dragging?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "During pointer drag events, decouple node position state from framework re-renders. Avoid mutating React/Vue virtual DOM state on every pointermove event. Instead, directly mutate the transform attribute of the active node group and the d attribute of connected edge path elements using requestAnimationFrame batching. Commit final node coordinates to application state store only upon pointerup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can you detect and prevent circular cycles in a directed acyclic workflow graph (DAG)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Before allowing a new connection edge between source port A and target port B, execute a Depth-First Search (DFS) or Kahn's topological sort algorithm starting from target port B. If traversal reaches source port A, adding the proposed edge would create a closed loop cycle, violating DAG workflow execution rules. The editor rejects the connection and provides visual error feedback."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you make an interactive SVG flowchart accessible according to WCAG 2.2 AA standards?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Assign role='group' or role='application' to the flowchart container. Give each node role='button' or role='treeitem' with tabindex='0' and descriptive aria-label attributes detailing inputs, outputs, and status. Allow keyboard arrow keys to navigate between connected nodes, provide visible high-contrast focus rings, and provide a collapsible textual list representation of the graph topology for screen reader users."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 380px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">Interactive SVG Flowcharts Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Engineering Architecture</span>
+      <h1>Building Interactive SVG Flowcharts, Node Graphs &amp; Workflow Builders: The Architecture Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published November 7, 2026</span>
+        <span>4,540 Words</span>
+        <span>20 min read</span>
+        <span>Graph Algorithms &amp; Vector Interaction</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Engineering Summary:</strong> Modern visual workflow engines—from low-code automation tools (Zapier, n8n) to AI prompt pipelines (LangChain, ComfyUI) and architectural diagram editors—rely heavily on node graph interfaces. Building a scalable node editor demands a deep understanding of vector mathematics, coordinate space transformations, and high-performance DOM interaction.</p>
+          <ul>
+            <li>Understand the 3-tier coordinate model: Screen Pixels, Infinite World Space, and Local Node Port Geometries.</li>
+            <li>Master dynamic Cubic Bézier curve generation (<code>M x1 y1 C cx1 cy1, cx2 cy2, x2 y2</code>) with directional port tangency.</li>
+            <li>Implement Manhattan orthogonal routing algorithms for right-angled flowchart connectors with obstacle avoidance.</li>
+            <li>Eliminate drag lag by bypassing virtual DOM diffing during pointer interactions with direct SVG path mutations.</li>
+            <li>Prevent cyclic deadlock in Directed Acyclic Graphs (DAGs) using real-time topological cycle detection algorithms.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="https://iconstash.io/assets/articles/svg-flowcharts-and-node-graphs-architecture-guide.jpg" alt="Interactive SVG Flowcharts and Node Graph Architecture Diagram" width="1200" height="675">
+          <figcaption>Figure 1: Architectural blueprint of a high-performance interactive SVG node graph, mapping dynamic bezier connector curves between stateful visual processing blocks.</figcaption>
+        </figure>
+
+        <h2 id="anatomy-of-node-graphs">1. The Anatomy of Modern Node-Based Visual Programming Interfaces</h2>
+        <p>Over the past five years, node graphs have transitioned from specialized visual scripting environments (such as Unreal Engine's Blueprints and Blender's shader trees) into mainstream web software. Modern SaaS applications utilize visual node graphs for customer journey builders, CI/CD pipeline authoring, ETL data pipelines, agentic AI workflows, and cloud infrastructure mapping.</p>
+        <p>When engineering a web-based node graph, frontend architects face an immediate technological fork: <strong>HTML5 Canvas / WebGL</strong> versus <strong>Scalable Vector Graphics (SVG)</strong>. Canvas-based engines (such as LiteGraph or custom WebGL renderers) provide raw rendering throughput when visualizing 10,000+ nodes simultaneously. However, they force the engineering team to reinvent the entire wheel of interface design from scratch: custom text-wrapping engines, custom cursor styles, manual hit-testing algorithms for mouse clicks, custom input fields, and zero native screen reader accessibility.</p>
+        <p>For applications where node counts range from 10 to 500 nodes—which encompasses over 95% of real-world business workflow editors—SVG represents the vastly superior architectural choice. In an SVG node graph, every connection edge is a declarative <code>&lt;path&gt;</code> element that can be styled with CSS transitions, given drop shadows, animated with dashed stroke offsets, and equipped with native arrowhead markers. Nodes can be constructed either from native SVG elements (<code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;text&gt;</code>) or rich HTML input controls nested inside <code>&lt;foreignObject&gt;</code> wrappers, enabling text inputs, dropdown selects, and toggle switches directly within the vector canvas.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Architectural Feature</th>
+                <th>HTML5 Canvas / WebGL</th>
+                <th>Pure SVG DOM Architecture</th>
+                <th>Hybrid SVG Edges + HTML Nodes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Edge Rendering</strong></td>
+                <td>Pixel rasterization (requires redraw loop)</td>
+                <td>Declarative vector &lt;path&gt; elements</td>
+                <td>Declarative vector &lt;path&gt; elements</td>
+              </tr>
+              <tr>
+                <td><strong>Arrowhead Markers</strong></td>
+                <td>Manual trigonometry math per frame</td>
+                <td>Native SVG &lt;marker&gt; definitions</td>
+                <td>Native SVG &lt;marker&gt; definitions</td>
+              </tr>
+              <tr>
+                <td><strong>CSS Hover &amp; Transitions</strong></td>
+                <td>Unsupported (requires manual hit math)</td>
+                <td>Native CSS :hover &amp; transition rules</td>
+                <td>Native CSS :hover &amp; transition rules</td>
+              </tr>
+              <tr>
+                <td><strong>Rich Node Controls</strong></td>
+                <td>Extremely difficult to build</td>
+                <td>Requires manual SVG text measurement</td>
+                <td>Native HTML &lt;input&gt;, &lt;select&gt;, &lt;button&gt;</td>
+              </tr>
+              <tr>
+                <td><strong>Accessibility (WCAG 2.2)</strong></td>
+                <td>Opaque black box (0% native a11y)</td>
+                <td>Full ARIA tree, tabindex focus states</td>
+                <td>Full ARIA tree, native HTML keyboard focus</td>
+              </tr>
+              <tr>
+                <td><strong>Optimal Node Capacity</strong></td>
+                <td>1,000 to 50,000+ nodes</td>
+                <td>10 to 500 nodes (smooth 60/120 FPS)</td>
+                <td>10 to 300 nodes (optimal UI balance)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="100%" height="auto" role="img" aria-labelledby="flowArchTitle flowArchDesc" style="background:#111; border-radius:10px; border:1px solid #262626; display:block;">
+            <title id="flowArchTitle">Interactive SVG Node Graph Architecture Pipeline</title>
+            <desc id="flowArchDesc">Architectural block diagram showing Graph State Store, Coordinate Solver, Edge Path Router, SVG DOM Layer, and Pointer Drag State Machine.</desc>
+            <defs>
+              <linearGradient id="flowLimeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1A2408"/>
+                <stop offset="100%" stop-color="#0E1205"/>
+              </linearGradient>
+              <linearGradient id="flowCyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#082024"/>
+                <stop offset="100%" stop-color="#051214"/>
+              </linearGradient>
+              <marker id="flowArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 8 5 L 0 9 z" fill="#C1DD2D"/>
+              </marker>
+            </defs>
+            <rect x="30" y="50" width="160" height="220" rx="8" fill="url(#flowLimeGrad)" stroke="#C1DD2D" stroke-width="1.5"/>
+            <text x="110" y="85" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">Graph State Store</text>
+            <text x="110" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">DAG Model</text>
+            <text x="110" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Nodes: { id, x, y }</text>
+            <text x="110" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Edges: { from, to }</text>
+            <text x="110" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Topological Sorter</text>
+            <text x="110" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Cycle Validation</text>
+
+            <path d="M 190 160 L 250 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#flowArrow)"/>
+
+            <rect x="250" y="50" width="190" height="220" rx="8" fill="url(#flowCyanGrad)" stroke="#06B6D4" stroke-width="1.5"/>
+            <text x="345" y="85" fill="#06B6D4" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">Coordinate Solver</text>
+            <text x="345" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Geometry Pipeline</text>
+            <text x="345" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Port World Offsets</text>
+            <text x="345" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">ScreenToWorld CTM</text>
+            <text x="345" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Grid Snapping (20px)</text>
+            <text x="345" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Output: Port Anchors</text>
+
+            <path d="M 440 160 L 500 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#flowArrow)"/>
+
+            <rect x="500" y="50" width="190" height="220" rx="8" fill="url(#flowLimeGrad)" stroke="#C1DD2D" stroke-width="1.5"/>
+            <text x="595" y="85" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">Edge Path Router</text>
+            <text x="595" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Mathematical Router</text>
+            <text x="595" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Cubic Bézier (C cmd)</text>
+            <text x="595" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Manhattan Orthogonal</text>
+            <text x="595" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Tangency Vector Math</text>
+            <text x="595" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">d="M...C...Z"</text>
+
+            <path d="M 690 160 L 750 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#flowArrow)"/>
+
+            <rect x="750" y="50" width="180" height="220" rx="8" fill="url(#flowCyanGrad)" stroke="#06B6D4" stroke-width="1.5"/>
+            <text x="840" y="85" fill="#06B6D4" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">SVG DOM Engine</text>
+            <text x="840" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Interaction &amp; A11y</text>
+            <text x="840" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Direct Path Mutator</text>
+            <text x="840" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">setPointerCapture()</text>
+            <text x="840" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Marker Arrowheads</text>
+            <text x="840" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">120 FPS Drag State</text>
+          </svg>
+          <figcaption>Figure 2: Architecture of the interactive SVG node graph engine, showing decoupled graph state, coordinate solver, curve routers, and direct DOM path mutation.</figcaption>
+        </figure>
+
+        <h2 id="coordinate-space-model">2. The 3-Tier Coordinate Model: Screen, World &amp; Local Port Geometry</h2>
+        <p>A frequent stumbling block when authoring custom flowchart software is coordinate conflation. A node editor operates simultaneously across three entirely distinct geometric coordinate spaces:</p>
+        <ol>
+          <li><strong>Screen / Client Space:</strong> Physical hardware pixels relative to the user's browser window. Extracted from pointer events via <code>event.clientX</code> and <code>event.clientY</code>. This space changes as the browser window resizes or the parent web page scrolls.</li>
+          <li><strong>Infinite World Space:</strong> The virtual 2D coordinate system in which nodes reside. Node positions are stored as continuous floats (e.g., <code>Node A: { x: 420.5, y: -180.0 }</code>). The world space undergoes scaling (zoom) and translation (pan).</li>
+          <li><strong>Local Port Space:</strong> The offset of an input or output connection pin relative to its parent node's top-left corner. For example, a 200px wide node may place its output port at <code>{ x: 200, y: 40 }</code>.</li>
+        </ol>
+
+        <p>To draw a connection line between two nodes, the engine must resolve the exact World Space coordinates of both connection ports. If Node A is located at world coordinate <code>(nodeA.x, nodeA.y)</code> and possesses an output port with local offset <code>(portOut.dx, portOut.dy)</code>, the world coordinate of the start anchor point <code>(x1, y1)</code> is:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Port World Coordinate Resolution Formula</div>
+          <div class="formula-body">
+            x1 = nodeA.x + portOut.dx<br>
+            y1 = nodeA.y + portOut.dy<br>
+            x2 = nodeB.x + portIn.dx<br>
+            y2 = nodeB.y + portIn.dy
+          </div>
+          <div class="formula-desc">Where nodeA.x, nodeA.y represent parent node translation in world space, and port.dx, port.dy denote port offsets relative to the node origin.</div>
+        </div>
+
+        <p>When the user clicks and drags a connection port to create a new wire, the engine captures mouse movements in Screen Space. To convert the moving cursor into an active world coordinate for the ephemeral wire's target point, apply the inverse Current Transformation Matrix (CTM) of the SVG viewport:</p>
+
+        <pre><code>// Converting Screen Mouse Coordinates to SVG World Space
+function screenToWorldSpace(svgElement, clientX, clientY) {
+  const pt = svgElement.createSVGPoint();
+  pt.x = clientX;
+  pt.y = clientY;
+  const ctm = svgElement.getScreenCTM();
+  if (!ctm) return { x: clientX, y: clientY };
+  const worldPoint = pt.matrixTransform(ctm.inverse());
+  return {
+    x: Math.round(worldPoint.x * 10) / 10,
+    y: Math.round(worldPoint.y * 10) / 10
+  };
+}</code></pre>
+
+        <h2 id="connector-curve-math">3. Connector Curve Mathematics: Cubic Bézier Tangency &amp; Control Points</h2>
+        <p>In classical flowcharts, connections were simple straight lines. However, in modern visual programming software, straight lines look rigid, collide awkwardly with node boundaries, and create confusing visual clutter when multiple wires cross.</p>
+        <p>Modern node editors connect ports using cubic Bézier curves (the SVG <code>C</code> command). A cubic Bézier curve requires four points: start anchor <code>(x1, y1)</code>, first control point <code>(cx1, cy1)</code>, second control point <code>(cx2, cy2)</code>, and end anchor <code>(x2, y2)</code>.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Directional Cubic Bézier Control Point Solver</div>
+          <div class="formula-body">
+            // Horizontal Port Orientation (East exit, West enter)<br>
+            deltaX = Math.abs(x2 - x1)<br>
+            controlOffset = Math.max(deltaX * curvatureTension, minStubDistance)<br>
+            cx1 = x1 + controlOffset<br>
+            cy1 = y1<br>
+            cx2 = x2 - controlOffset<br>
+            cy2 = y2<br>
+            pathString = "M " + x1 + " " + y1 + " C " + cx1 + " " + cy1 + ", " + cx2 + " " + cy2 + ", " + x2 + " " + y2
+          </div>
+          <div class="formula-desc">Where curvatureTension typically equals 0.5 and minStubDistance ensures wires emerge horizontally before curving, preventing sharp angles when nodes are close.</div>
+        </div>
+
+        <p>Notice the critical mathematical detail: <code>cy1</code> equals <code>y1</code>, and <code>cy2</code> equals <code>y2</code>. By keeping the y-coordinates of the control points identical to the port anchor y-coordinates, the initial and terminal tangent vectors of the curve are strictly horizontal (parallel to the x-axis). This ensures the connector emerges perfectly perpendicular to the right edge of the source node and arrives perpendicular to the left edge of the target node, creating the hallmark smooth aesthetic of tools like React Flow, Unreal Engine, and Node-RED.</p>
+
+        <h2 id="orthogonal-manhattan-routing">4. Manhattan Orthogonal Step Routing &amp; Grid Alignment</h2>
+        <p>While organic Bézier curves excel in visual scripting and data pipelines, corporate process flowcharts (BPMN), circuit schematics, and database entity-relationship diagrams (ERDs) demand right-angled <strong>orthogonal step routing</strong> (also known as Manhattan routing).</p>
+        <p>In orthogonal routing, the connector path consists strictly of horizontal (H) and vertical (V) segments, with all angles constrained to exactly 90 degrees. The fundamental algorithm for a horizontal-to-horizontal port connection proceeds through five coordinate waypoints:</p>
+
+        <pre><code>// Zero-Dependency Orthogonal Manhattan Step Router
+function calculateOrthogonalPath(x1, y1, x2, y2, stubLength = 20, cornerRadius = 6) {
+  // If target is to the right of source
+  if (x2 > x1 + stubLength * 2) {
+    const midX = Math.round((x1 + x2) / 2);
+    // Path with rounded corners using quadratic Bézier arcs
+    if (cornerRadius > 0) {
+      const r = Math.min(cornerRadius, Math.abs(y2 - y1) / 2, Math.abs(midX - x1) - stubLength);
+      const signY = y2 > y1 ? 1 : -1;
+      return [
+        'M', x1, y1,
+        'L', midX - r, y1,
+        'Q', midX, y1, midX, y1 + r * signY,
+        'L', midX, y2 - r * signY,
+        'Q', midX, y2, midX + r, y2,
+        'L', x2, y2
+      ].join(' ');
+    }
+    // Clean sharp 90-degree step path
+    return 'M ' + x1 + ' ' + y1 + ' L ' + midX + ' ' + y1 + ' L ' + midX + ' ' + y2 + ' L ' + x2 + ' ' + y2;
+  } else {
+    // Target is behind or above source: loop around via vertical channel
+    const midY = y1 < y2 ? y1 + Math.abs(y2 - y1) / 2 : y2 + Math.abs(y1 - y2) / 2;
+    const exitX = x1 + stubLength;
+    const enterX = x2 - stubLength;
+    return 'M ' + x1 + ' ' + y1 + ' L ' + exitX + ' ' + y1 + ' L ' + exitX + ' ' + midY + ' L ' + enterX + ' ' + midY + ' L ' + enterX + ' ' + y2 + ' L ' + x2 + ' ' + y2;
+  }
+}</code></pre>
+
+        <h2 id="orthogonal-collision-avoidance">5. Obstacle Avoidance &amp; A* Grid Pathfinding for Complex Manhattan Schematics</h2>
+        <p>While basic Manhattan routing calculates simple midpoints, real-world enterprise architectures often feature dense diagrams where dozens of intermediate nodes sit directly between source and target ports. Drawing a simple right-angled line that slices straight through intervening node cards looks broken and confuses human operators.</p>
+        <p>To engineer true commercial-grade schematic routing, the router must treat node bounding boxes as physical obstacles and navigate around them. The standard architectural solution discretizes the infinite SVG world space into a virtual 2D tile grid (typically 20x20 pixels per cell) and executes an A* (A-Star) shortest-path graph search algorithm:</p>
+
+        <h3>A. The A* Grid Routing Pipeline</h3>
+        <ol>
+          <li><strong>Grid Discretization:</strong> Map all node bounding boxes into blocked grid cells. Add a 1-cell safety margin (padding) around each node perimeter to ensure connector wires never graze node borders.</li>
+          <li><strong>Heuristic Estimation:</strong> For every candidate step from current cell <code>(cx, cy)</code> to target cell <code>(tx, ty)</code>, compute the Manhattan heuristic distance: <code>h = |cx - tx| + |cy - ty|</code>.</li>
+          <li><strong>Bend Penalty Scoring:</strong> Favor straight paths over zig-zagging micro-turns. If taking a step requires a 90-degree direction change from the previous segment, add an artificial cost penalty (typically +15 to +25 score points). This mathematically forces the A* solver to choose clean, aesthetic corridors with the minimal number of turns.</li>
+          <li><strong>SVG Path Compression:</strong> Once the optimal sequence of grid cells is resolved, compress all collinear points (consecutive points moving in the same direction) into single SVG line segments (<code>H</code> and <code>V</code> commands), cutting the resulting SVG path string size by over 80%.</li>
+        </ol>
+
+        <div class="formula-card">
+          <div class="formula-title">A* Pathfinding Cost Function with Directional Bend Penalties</div>
+          <div class="formula-body">
+            f(n) = g(n) + h(n) + bendPenalty(n)<br>
+            g(n) = cost from start port to current cell n<br>
+            h(n) = |targetX - currentX| + |targetY - currentY|<br>
+            bendPenalty(n) = (direction(n) !== direction(parent)) ? BEND_WEIGHT : 0
+          </div>
+          <div class="formula-desc">Where BEND_WEIGHT penalizes gratuitous right-angle turns, mathematically guiding the router along smooth, natural schematic channels.</div>
+        </div>
+
+        <h2 id="self-loops-and-bus-routing">6. Self-Connecting Loops, Multi-Port Bundling &amp; Bus Routing</h2>
+        <p>In state machines and recursive automation pipelines, a node frequently connects back to itself (for example, a "Retry on Failure" port that loops back to the node's own trigger input). Rendering a self-loop with standard Bézier control points causes the curve to collapse into an invisible 0-width line.</p>
+        <p>A self-loop requires custom cubic Bézier control point calculations that route up, over, and back around the node's perimeter:</p>
+
+        <pre><code>// Self-Connecting Loop Cubic Bézier Path Generator
+function calculateSelfLoopPath(nodeX, nodeY, nodeWidth, nodeHeight, loopRadius = 40) {
+  // Output port at right edge center: (x1, y1)
+  const x1 = nodeX + nodeWidth;
+  const y1 = nodeY + nodeHeight / 2;
+  // Input port at top edge center: (x2, y2)
+  const x2 = nodeX + nodeWidth / 2;
+  const y2 = nodeY;
+
+  // Control points arc outward to the right and above the node
+  const cx1 = x1 + loopRadius * 1.5;
+  const cy1 = y1 - loopRadius * 0.5;
+  const cx2 = x2 + loopRadius * 0.5;
+  const cy2 = y2 - loopRadius * 1.5;
+
+  return 'M ' + x1 + ' ' + y1 + ' C ' + cx1 + ' ' + cy1 + ', ' + cx2 + ' ' + cy2 + ', ' + x2 + ' ' + y2;
+}</code></pre>
+
+        <p>Furthermore, when multiple parallel wires travel between the same two node clusters, drawing individual curves creates visual noise ("wire spaghetti"). Advanced workflow engines bundle parallel wires into a shared horizontal or vertical <strong>Vector Bus</strong> with small branching fan-outs at the destination ports, dramatically improving diagram legibility.</p>
+
+        <h2 id="subpixel-snapping-hardware">7. Subpixel Jitter, Viewport Matrix Snapping &amp; Hardware Compositing</h2>
+        <p>When panning and zooming across a flowchart canvas on low-DPI (standard 1080p) monitors, developers frequently notice that 1px connector wires shimmer, change thickness from 1px to 2px, or appear blurry during motion. This artifact is known as <strong>subpixel rasterization jitter</strong>.</p>
+        <p>Because vector calculations produce fractional coordinates (such as <code>x = 240.3842px</code>), the browser's anti-aliasing engine splits the 1px stroke across two adjacent physical pixels, rendering a faint 2px wide gray line instead of a crisp black or lime line. To eliminate subpixel jitter:</p>
+        <ul>
+          <li><strong>Half-Pixel Center Offset:</strong> In SVG, path strokes are centered directly along the mathematical coordinate path. A 1px vertical stroke along integer coordinate <code>x = 100</code> extends 0.5px to the left and 0.5px to the right, landing precisely on pixel boundaries. By adding a <code>+ 0.5px</code> offset to straight orthogonal segments (e.g., <code>M 100.5 40.5 L 200.5 40.5</code>), the stroke fills exactly one physical screen pixel column.</li>
+          <li><strong>Hardware Texture Isolation:</strong> Add <code>will-change: transform;</code> to the master SVG viewport group. This informs the browser compositor to isolate the entire vector layer onto a dedicated GPU texture backing store. Panning gestures merely translate the texture in GPU memory without triggering expensive CPU re-rasterization of individual vector paths.</li>
+        </ul>
+
+        <h2 id="graph-serialization-undo-redo">8. Portable Graph Serialization &amp; The Immutable Command Undo Stack</h2>
+        <p>A production workflow editor is incomplete without robust state serialization and multi-level Undo/Redo capabilities. Every visual action—dragging a node, connecting an edge, disconnecting a port, or deleting a block—must be modeled as an immutable command object.</p>
+        <p>Under the <strong>Command Pattern</strong>, each user interaction emits an object implementing <code>execute()</code> and <code>undo()</code> methods. Pushing these commands onto an active history stack enables seamless <kbd>Ctrl+Z</kbd> (Undo) and <kbd>Ctrl+Y</kbd> (Redo) operations without state desynchronization:</p>
+
+        <pre><code>// Immutable Command Pattern for Node Graph Interaction
+class MoveNodeCommand {
+  constructor(graphStore, nodeId, oldCoords, newCoords) {
+    this.graphStore = graphStore;
+    this.nodeId = nodeId;
+    this.oldCoords = { ...oldCoords };
+    this.newCoords = { ...newCoords };
+  }
+
+  execute() {
+    this.graphStore.setNodePosition(this.nodeId, this.newCoords);
+  }
+
+  undo() {
+    this.graphStore.setNodePosition(this.nodeId, this.oldCoords);
+  }
+}</code></pre>
+
+        <h2 id="marker-arrowheads-defs">9. Dynamic Arrowheads, Markers &amp; CSS Context-Stroke Theming</h2>
+        <p>In directed graphs, conveying data flow directionality is crucial. SVG provides a native architectural primitive specifically for attaching terminating arrowheads: the <code>&lt;marker&gt;</code> element, defined within the document's <code>&lt;defs&gt;</code> block.</p>
+        <p>A classic bug in custom flowchart builders is that arrowheads inherit a hardcoded black or white fill color, failing to match the dynamic highlight color of an active or hovered wire. Prior to SVG 2, developers had to generate separate marker definitions for every conceivable color variant in the application.</p>
+        <p>The modern, elegant solution leverages the SVG <code>context-stroke</code> keyword. By declaring <code>fill="context-stroke"</code> inside your marker definition, the arrowhead geometry automatically inherits the exact <code>stroke</code> color assigned to whatever <code>&lt;path&gt;</code> references it:</p>
+
+        <pre><code>&lt;!-- Production SVG Marker Definition Supporting Dynamic Color Theming --&gt;
+&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;defs&gt;
+    &lt;marker
+      id="flowchartArrow"
+      viewBox="0 0 10 10"
+      refX="7"
+      refY="5"
+      markerWidth="6"
+      markerHeight="6"
+      orient="auto-start-reverse"
+    &gt;
+      &lt;path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="context-stroke" /&gt;
+    &lt;/marker&gt;
+  &lt;/defs&gt;
+
+  &lt;!-- This wire inherits neon lime stroke and renders a neon lime arrowhead automatically --&gt;
+  &lt;path
+    d="M 120 80 C 200 80, 240 180, 320 180"
+    stroke="#C1DD2D"
+    stroke-width="2.5"
+    fill="none"
+    marker-end="url(#flowchartArrow)"
+    class="wire-active"
+  /&gt;
+&lt;/svg&gt;</code></pre>
+
+        <p>Notice the attribute <code>orient="auto-start-reverse"</code>. This instructs the browser's graphics engine to calculate the terminal derivative (tangent angle) of the curve at its final coordinate and rotate the marker triangle to align seamlessly with the incoming trajectory.</p>
+
+        <h2 id="drag-drop-physics">10. Drag-and-Drop Interaction Architecture &amp; Pointer Capture</h2>
+        <p>Implementing node repositioning requires rock-solid pointer event handling. Using deprecated <code>mousedown</code> / <code>mousemove</code> events causes interactions to break on touch devices and iPad tablets. Furthermore, if the user drags their cursor faster than the browser refresh rate, the cursor leaves the node bounding box, causing the drag operation to lose focus and stick.</p>
+        <p>The standard solution is the Pointer Events API with <strong>Pointer Capture</strong> via <code>element.setPointerCapture(event.pointerId)</code>. When a user presses down on a node header:</p>
+        <ol>
+          <li>Call <code>event.target.setPointerCapture(event.pointerId)</code>. This locks all subsequent pointer movement events to that element—even if the physical mouse cursor moves outside the browser window or desktop screen.</li>
+          <li>Record the drag start baseline in World Space: <code>startX = worldCursor.x - node.x</code>.</li>
+          <li>On <code>pointermove</code>, update node coordinates: <code>node.x = worldCursor.x - startX</code>.</li>
+          <li>On <code>pointerup</code>, call <code>element.releasePointerCapture(event.pointerId)</code> to conclude the gesture cleanly.</li>
+        </ol>
+
+        <h2 id="high-performance-rendering">11. High-Performance Edge Rendering: Direct Path Mutators vs Virtual DOM</h2>
+        <p>The most devastating performance trap in React or Vue node editors is triggering framework component re-renders during drag gestures. If dragging a node calls <code>setNodes(...)</code> on every 16ms <code>pointermove</code> event, the entire virtual DOM tree diffs all 50 nodes and 75 wires, converting 60 FPS fluid interaction into a stuttering, laggy experience.</p>
+        <p>High-performance node graphs decouple <strong>drag physics</strong> from <strong>state persistence</strong>:</p>
+
+        <pre><code>// Direct DOM Mutation Pipeline for 120 FPS Node Dragging
+class DirectDomGraphEngine {
+  constructor(svgRoot) {
+    this.svgRoot = svgRoot;
+    this.activeDragNode = null;
+    this.connectedEdges = [];
+    this.dragOffset = { x: 0, y: 0 };
+  }
+
+  startDrag(nodeId, clientX, clientY) {
+    this.activeDragNode = document.getElementById('node-' + nodeId);
+    // Find all connected wire elements in the DOM
+    this.connectedEdges = Array.from(document.querySelectorAll('[data-from="' + nodeId + '"], [data-to="' + nodeId + '"]'));
+    const worldPt = screenToWorldSpace(this.svgRoot, clientX, clientY);
+    const currentX = parseFloat(this.activeDragNode.getAttribute('data-x') || 0);
+    const currentY = parseFloat(this.activeDragNode.getAttribute('data-y') || 0);
+    this.dragOffset.x = worldPt.x - currentX;
+    this.dragOffset.y = worldPt.y - currentY;
+  }
+
+  onPointerMove(clientX, clientY) {
+    if (!this.activeDragNode) return;
+    const worldPt = screenToWorldSpace(this.svgRoot, clientX, clientY);
+    const newX = Math.round(worldPt.x - this.dragOffset.x);
+    const newY = Math.round(worldPt.y - this.dragOffset.y);
+
+    // 1. Direct hardware-accelerated transform mutation on node group
+    this.activeDragNode.setAttribute('transform', 'translate(' + newX + ',' + newY + ')');
+    this.activeDragNode.setAttribute('data-x', newX);
+    this.activeDragNode.setAttribute('data-y', newY);
+
+    // 2. Direct path 'd' attribute recalculation on connected wires only
+    this.connectedEdges.forEach(edge => {
+      const fromId = edge.getAttribute('data-from');
+      const toId = edge.getAttribute('data-to');
+      const fromNode = document.getElementById('node-' + fromId);
+      const toNode = document.getElementById('node-' + toId);
+      
+      const fx = parseFloat(fromNode.getAttribute('data-x')) + 160; // Output port offset
+      const fy = parseFloat(fromNode.getAttribute('data-y')) + 40;
+      const tx = parseFloat(toNode.getAttribute('data-x'));       // Input port offset
+      const ty = parseFloat(toNode.getAttribute('data-y')) + 40;
+      
+      const dx = Math.abs(tx - fx) * 0.5;
+      edge.setAttribute('d', 'M ' + fx + ' ' + fy + ' C ' + (fx + dx) + ' ' + fy + ', ' + (tx - dx) + ' ' + ty + ', ' + tx + ' ' + ty);
+    });
+  }
+
+  endDrag() {
+    this.activeDragNode = null;
+    this.connectedEdges = [];
+    // Synchronize final coordinates back to Redux / Zustand / Pinia store ONCE
+  }
+}</code></pre>
+
+        <h2 id="cycle-detection-validation">12. Topological Sorting &amp; Real-Time Cycle Detection (DAG Validation)</h2>
+        <p>In workflow engines, allowing a circular reference—where Node A triggers Node B, Node B triggers Node C, and Node C connects back to Node A—results in an infinite execution loop that will crash backend workflow workers. The graph must remain a <strong>Directed Acyclic Graph (DAG)</strong>.</p>
+        <p>Before allowing an edge connection to finalize on <code>pointerup</code>, execute a cycle detection check using Depth-First Search (DFS):</p>
+
+        <pre><code>// Directed Acyclic Graph (DAG) Cycle Detection Algorithm
+function wouldCreateCycle(graphEdges, proposedFrom, proposedTo) {
+  // If user attempts to connect node directly to itself
+  if (proposedFrom === proposedTo) return true;
+
+  // Build adjacency list representation of current graph
+  const adjacencyList = new Map();
+  graphEdges.forEach(({ from, to }) => {
+    if (!adjacencyList.has(from)) adjacencyList.set(from, []);
+    adjacencyList.get(from).push(to);
+  });
+
+  // Add the proposed new edge temporarily
+  if (!adjacencyList.has(proposedFrom)) adjacencyList.set(proposedFrom, []);
+  adjacencyList.get(proposedFrom).push(proposedTo);
+
+  // Run DFS from proposedTo to see if it can reach proposedFrom
+  const visited = new Set();
+  const recursionStack = new Set();
+
+  function dfs(current) {
+    visited.add(current);
+    recursionStack.add(current);
+
+    const neighbors = adjacencyList.get(current) || [];
+    for (const neighbor of neighbors) {
+      if (!visited.has(neighbor)) {
+        if (dfs(neighbor)) return true;
+      } else if (recursionStack.has(neighbor)) {
+        return true; // Cycle detected!
+      }
+    }
+
+    recursionStack.delete(current);
+    return false;
+  }
+
+  return dfs(proposedTo);
+}</code></pre>
+
+        <h2 id="interactive-flowchart-studio">13. Live Developer Studio: Interactive Node &amp; Edge Router Engine</h2>
+        <p>Explore the live interactive studio below. Drag the visual processing nodes around the vector canvas in real time to observe the live cubic Bézier control points, switch between routing modes, adjust curve tension, and inspect the production-ready SVG output code.</p>
+
+        <div class="interactive-sandbox" id="flowchartStudio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M6 9v3a3 3 0 0 0 3 3h6"/></svg>
+              <span>SVG Node Graph &amp; Flowchart Studio</span>
+            </div>
+            <span class="sandbox-badge">Real-Time Routing Engine</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="routingModeSelect">Connector Edge Routing Mode: <span class="stat-num" id="currentRoutingReadout">Cubic Bézier</span></label>
+                <select id="routingModeSelect" class="control-select">
+                  <option value="bezier" selected>Smooth Cubic Bézier (Horizontal Tangent)</option>
+                  <option value="orthogonal">Manhattan Step (Right-Angled Orthogonal)</option>
+                  <option value="straight">Direct Linear Vector (Straight Line)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="curveTensionSlider">Bézier Curve Tension: <span class="stat-num" id="curveTensionVal">0.50</span></label>
+                <input type="range" id="curveTensionSlider" class="control-input" min="0.1" max="1.0" step="0.05" value="0.5">
+              </div>
+
+              <div class="control-row">
+                <label for="markerStyleSelect">Arrowhead Marker Style:</label>
+                <select id="markerStyleSelect" class="control-select">
+                  <option value="standard" selected>Sharp Stealth Triangle</option>
+                  <option value="circle">Dot / Pin Terminal</option>
+                  <option value="none">None (Seamless Wire)</option>
+                </select>
+              </div>
+
+              <div class="stats-readout-box" id="flowchartReadout">
+                <div class="stat-item">
+                  <div class="stat-label">Source Node A (Out)</div>
+                  <div class="stat-val highlight" id="nodeAPortReadout">X: 240, Y: 140</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Target Node B (In)</div>
+                  <div class="stat-val" id="nodeBPortReadout">X: 520, Y: 220</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Curve Distance (dx, dy)</div>
+                  <div class="stat-val highlight" id="curveDistanceReadout">dx: 280, dy: 80</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Framerate / Compositing</div>
+                  <div class="stat-val" id="engineStatusVal">120 FPS / GPU Accel</div>
+                </div>
+              </div>
+
+              <div class="btn-row">
+                <button class="action-btn primary" id="resetNodesBtn">Reset Node Layout</button>
+                <button class="action-btn" id="swapPortsBtn">Reverse Flow</button>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container" id="stageFlowchartContainer" role="region" aria-label="Interactive Node Graph Preview Stage">
+                <svg id="stageFlowchartSvg" class="stage-svg-element" viewBox="0 0 800 380" role="img" aria-label="Interactive Node Graph Canvas">
+                  <defs>
+                    <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <circle cx="2" cy="2" r="1" fill="#222"/>
+                    </pattern>
+                    <marker id="studioArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="context-stroke"/>
+                    </marker>
+                    <marker id="studioDot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                      <circle cx="5" cy="5" r="4" fill="context-stroke"/>
+                    </marker>
+                  </defs>
+                  
+                  <!-- Grid Background -->
+                  <rect width="800" height="380" fill="url(#gridPattern)"/>
+
+                  <!-- Edge Layer -->
+                  <g id="flowEdgesLayer">
+                    <path id="activeWirePath" d="M 240 140 C 380 140, 380 220, 520 220" fill="none" stroke="#C1DD2D" stroke-width="2.5" marker-end="url(#studioArrow)"/>
+                  </g>
+
+                  <!-- Control Point Visualizers -->
+                  <g id="tangentHandlesLayer" opacity="0.4">
+                    <line id="tLine1" x1="240" y1="140" x2="380" y2="140" stroke="#FFF" stroke-width="1" stroke-dasharray="2,2"/>
+                    <line id="tLine2" x1="520" y1="220" x2="380" y2="220" stroke="#FFF" stroke-width="1" stroke-dasharray="2,2"/>
+                    <circle id="tPoint1" cx="380" cy="140" r="3" fill="#06B6D4"/>
+                    <circle id="tPoint2" cx="380" cy="220" r="3" fill="#06B6D4"/>
+                  </g>
+
+                  <!-- Node Groups (Draggable) -->
+                  <g id="flowNodesLayer">
+                    <!-- Node A -->
+                    <g id="nodeA" transform="translate(80, 100)" style="cursor: grab;">
+                      <rect width="160" height="80" rx="8" fill="#141414" stroke="#2E2E2E" stroke-width="1.5"/>
+                      <rect width="160" height="26" rx="8" fill="#1C1C1C"/>
+                      <text x="12" y="18" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="700" font-size="11">TRIGGER: DATA IN</text>
+                      <text x="12" y="52" fill="#E5E5E5" font-family="Inter, sans-serif" font-weight="500" font-size="12">Payload Parser</text>
+                      <!-- Output Port -->
+                      <circle cx="160" cy="40" r="6" fill="#C1DD2D" stroke="#0A0A0A" stroke-width="2"/>
+                    </g>
+
+                    <!-- Node B -->
+                    <g id="nodeB" transform="translate(520, 180)" style="cursor: grab;">
+                      <rect width="160" height="80" rx="8" fill="#141414" stroke="#2E2E2E" stroke-width="1.5"/>
+                      <rect width="160" height="26" rx="8" fill="#1C1C1C"/>
+                      <text x="12" y="18" fill="#06B6D4" font-family="Inter, sans-serif" font-weight="700" font-size="11">ACTION: DISPATCH</text>
+                      <text x="12" y="52" fill="#E5E5E5" font-family="Inter, sans-serif" font-weight="500" font-size="12">Cloud Worker</text>
+                      <!-- Input Port -->
+                      <circle cx="0" cy="40" r="6" fill="#06B6D4" stroke="#0A0A0A" stroke-width="2"/>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button class="code-tab-btn active">Generated React / SVG Code</button>
+              </div>
+              <div class="code-actions">
+                <button class="copy-btn" id="copyFlowchartCodeBtn">Copy Production Code</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="flowchartCodeOutput"><code>// Loading Node Graph Code...</code></pre>
+          </div>
+        </div>
+
+        <h2 id="wcag-accessibility-graphs">14. Web Accessibility (WCAG 2.2 AA) for Interactive Visual Flowcharts</h2>
+        <p>Complex visual workflow graphs present significant accessibility hurdles for blind and low-vision engineers relying on screen readers. To satisfy WCAG 2.2 Level AA requirements, an interactive flowchart must not remain an unnavigable visual artifact.</p>
+
+        <h3>A. Navigable Screen Reader Hierarchy</h3>
+        <p>Wrap the diagram container with <code>role="application"</code> or <code>role="region"</code> and <code>aria-label="Workflow Diagram Editor"</code>. Provide each node element with:</p>
+        <ul>
+          <li><code>role="treeitem"</code> or <code>role="button"</code>: Identifies the node as an interactive element.</li>
+          <li><code>tabindex="0"</code>: Permits linear keyboard traversal through all nodes using <kbd>Tab</kbd> and <kbd>Shift+Tab</kbd>.</li>
+          <li><code>aria-describedby</code>: Connects to a hidden textual paragraph summarizing input dependencies and downstream consumer nodes (e.g., <em>"Node 2: Webhook Trigger. Receives input from Stripe Gateway, outputs to Postgres Store"</em>).</li>
+        </ul>
+
+        <h3>B. Keyboard Edge Navigation &amp; Hotkeys</h3>
+        <p>Allow keyboard users to traverse connections logically without a pointing device. When a node is focused:</p>
+        <ul>
+          <li>Pressing <kbd>Alt + RightArrow</kbd> transfers focus along the primary output edge to the target node.</li>
+          <li>Pressing <kbd>Alt + LeftArrow</kbd> navigates backward along the input edge to the upstream parent node.</li>
+          <li>Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> opens the node configuration panel.</li>
+        </ul>
+
+        <h2 id="production-edge-cases">15. Production Architecture Considerations: ForeignObject &amp; Virtualization</h2>
+        <div class="takeaway-box">
+          <h3>Architectural Production Rules for SVG Flowchart Builders</h3>
+          <ul>
+            <li><strong>ForeignObject DOM Layering:</strong> If nodes contain rich HTML elements (such as select dropdowns or text inputs), wrap them inside SVG <code>&lt;foreignObject&gt;</code> tags. Be aware that Safari on macOS/iOS has historical rendering bugs where CSS transforms on parent SVG groups can cause HTML text inside <code>foreignObject</code> to render blurry. To circumvent this, apply <code>transform: translate3d(x, y, 0)</code> directly to the child HTML container rather than the parent SVG group.</li>
+            <li><strong>Mini-Map Canvas Synchronization:</strong> When implementing a navigation mini-map in the bottom corner of the viewport, render a secondary, lightweight SVG with all node details stripped down to basic <code>&lt;rect&gt;</code> placeholders. Synchronize the mini-map camera lens rectangle to the primary SVG's Current Transformation Matrix on a 1:10 scaling ratio.</li>
+            <li><strong>Marker Clipping Prevention:</strong> Terminating arrowheads defined via SVG markers are considered part of the path geometry. If an edge terminates exactly at the edge boundary of the SVG viewBox, the arrowhead marker will be clipped. Add a minimum 10px padding margin to the master viewBox to ensure marker triangles render cleanly.</li>
+          </ul>
+        </div>
+
+        <h2 id="frequently-asked-questions">16. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Why use SVG instead of HTML5 Canvas for interactive node graphs and workflow editors?</h3>
+          <p>SVG provides declarative DOM nodes for every node and connector edge, enabling native CSS hover transitions, styling via custom properties, responsive Retina scaling without pixelation, native vector arrowhead markers, and full accessibility trees with ARIA attributes and keyboard focus traversal. HTML5 Canvas renders an opaque bitmap where hit-testing, text selection, and screen reader accessibility require complex manual implementation.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you calculate smooth cubic Bézier curve control points between two node ports?</h3>
+          <p>For horizontal connection ports where the source port exits East (right) and the target port enters West (left), set control point 1 at (x1 + dx * curvature, y1) and control point 2 at (x2 - dx * curvature, y2), where dx equals Math.abs(x2 - x1) and curvature typically ranges from 0.4 to 0.6. This ensures the curve departs and enters perpendicularly to the node boundaries, creating a natural organic flow.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does Manhattan orthogonal step routing work for right-angled flowchart connectors?</h3>
+          <p>Manhattan routing calculates paths composed strictly of horizontal and vertical line segments (H and V commands). The router emits a stub segment emerging from the source port, computes an intermediate midpoint x-coordinate (x1 + x2) / 2, routes vertically to y2, and completes the connection horizontally into the target port. In advanced implementations, A* pathfinding routes around intervening obstacle nodes to prevent path overlap.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you prevent SVG edge re-renders from lagging the UI during high-frequency node dragging?</h3>
+          <p>During pointer drag events, decouple node position state from framework re-renders. Avoid mutating React/Vue virtual DOM state on every pointermove event. Instead, directly mutate the transform attribute of the active node group and the d attribute of connected edge path elements using requestAnimationFrame batching. Commit final node coordinates to application state store only upon pointerup.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How can you detect and prevent circular cycles in a directed acyclic workflow graph (DAG)?</h3>
+          <p>Before allowing a new connection edge between source port A and target port B, execute a Depth-First Search (DFS) or Kahn's topological sort algorithm starting from target port B. If traversal reaches source port A, adding the proposed edge would create a closed loop cycle, violating DAG workflow execution rules. The editor rejects the connection and provides visual error feedback.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you make an interactive SVG flowchart accessible according to WCAG 2.2 AA standards?</h3>
+          <p>Assign role='group' or role='application' to the flowchart container. Give each node role='button' or role='treeitem' with tabindex='0' and descriptive aria-label attributes detailing inputs, outputs, and status. Allow keyboard arrow keys to navigate between connected nodes, provide visible high-contrast focus rings, and provide a collapsible textual list representation of the graph topology for screen reader users.</p>
+        </div>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#anatomy-of-node-graphs">1. Node Graph Anatomy</a></li>
+              <li><a href="#coordinate-space-model">2. 3-Tier Coordinate Model</a></li>
+              <li><a href="#connector-curve-math">3. Cubic Bézier Tangency</a></li>
+              <li><a href="#orthogonal-manhattan-routing">4. Manhattan Step Routing</a></li>
+              <li><a href="#orthogonal-collision-avoidance">5. Obstacle Avoidance (A*)</a></li>
+              <li><a href="#self-loops-and-bus-routing">6. Self-Loops &amp; Bus Routing</a></li>
+              <li><a href="#subpixel-snapping-hardware">7. Subpixel Jitter &amp; Snapping</a></li>
+              <li><a href="#graph-serialization-undo-redo">8. Graph Serialization (Undo)</a></li>
+              <li><a href="#marker-arrowheads-defs">9. Dynamic Arrowhead Markers</a></li>
+              <li><a href="#drag-drop-physics">10. Drag &amp; Drop Physics</a></li>
+              <li><a href="#high-performance-rendering">11. Direct DOM Edge Rendering</a></li>
+              <li><a href="#cycle-detection-validation">12. Cycle Detection (DAG)</a></li>
+              <li><a href="#interactive-flowchart-studio">13. Live Developer Studio</a></li>
+              <li><a href="#wcag-accessibility-graphs">14. Web Accessibility (a11y)</a></li>
+              <li><a href="#production-edge-cases">15. Production Architecture</a></li>
+              <li><a href="#frequently-asked-questions">16. FAQs</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134K+ Icons</h4>
+          <p>Search, customize, and export open-source icons for your node graphs and workflow diagrams.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; A project by <a href="https://greatsoftwarecompany.com" target="_blank" rel="noopener">Great Software Company</a> &bull; Authored by <a href="/about/">Jouni Flemming</a></p>
+    <p style="margin-top:8px; font-size:13px; color:#555;">All open source icons licensed under MIT, Apache 2.0, or CC0. Zero attribution required for 94.5% of icons.</p>
+  </footer>
+
+  <script>
+    // Theme Persistence and Toggle
+    (function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const toggleBtn = document.getElementById('themeToggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      }
+    })();
+
+    // Interactive Flowchart Studio Logic
+    (function initFlowchartStudio() {
+      const nodeA = document.getElementById('nodeA');
+      const nodeB = document.getElementById('nodeB');
+      const activeWire = document.getElementById('activeWirePath');
+      const routingSelect = document.getElementById('routingModeSelect');
+      const tensionSlider = document.getElementById('curveTensionSlider');
+      const markerSelect = document.getElementById('markerStyleSelect');
+      const resetBtn = document.getElementById('resetNodesBtn');
+      const swapBtn = document.getElementById('swapPortsBtn');
+      const codeOutput = document.getElementById('flowchartCodeOutput');
+      const copyBtn = document.getElementById('copyFlowchartCodeBtn');
+
+      const nodeAPortReadout = document.getElementById('nodeAPortReadout');
+      const nodeBPortReadout = document.getElementById('nodeBPortReadout');
+      const curveDistanceReadout = document.getElementById('curveDistanceReadout');
+      const currentRoutingReadout = document.getElementById('currentRoutingReadout');
+      const curveTensionVal = document.getElementById('curveTensionVal');
+
+      const tLine1 = document.getElementById('tLine1');
+      const tLine2 = document.getElementById('tLine2');
+      const tPoint1 = document.getElementById('tPoint1');
+      const tPoint2 = document.getElementById('tPoint2');
+      const tangentHandles = document.getElementById('tangentHandlesLayer');
+
+      let posA = { x: 80, y: 100 };
+      let posB = { x: 520, y: 180 };
+      let draggingNode = null;
+      let dragOffset = { x: 0, y: 0 };
+
+      function updateWire() {
+        const mode = routingSelect ? routingSelect.value : 'bezier';
+        const tension = tensionSlider ? parseFloat(tensionSlider.value) : 0.5;
+        const marker = markerSelect ? markerSelect.value : 'standard';
+
+        if (currentRoutingReadout) currentRoutingReadout.textContent = routingSelect.options[routingSelect.selectedIndex].text;
+        if (curveTensionVal) curveTensionVal.textContent = tension.toFixed(2);
+
+        // Output port of Node A: local offset (160, 40)
+        const x1 = posA.x + 160;
+        const y1 = posA.y + 40;
+        // Input port of Node B: local offset (0, 40)
+        const x2 = posB.x;
+        const y2 = posB.y + 40;
+
+        if (nodeAPortReadout) nodeAPortReadout.textContent = 'X: ' + x1 + ', Y: ' + y1;
+        if (nodeBPortReadout) nodeBPortReadout.textContent = 'X: ' + x2 + ', Y: ' + y2;
+        if (curveDistanceReadout) curveDistanceReadout.textContent = 'dx: ' + Math.abs(x2 - x1) + ', dy: ' + Math.abs(y2 - y1);
+
+        let d = '';
+        if (mode === 'bezier') {
+          const dx = Math.abs(x2 - x1) * tension;
+          const cx1 = x1 + dx;
+          const cy1 = y1;
+          const cx2 = x2 - dx;
+          const cy2 = y2;
+          d = 'M ' + x1 + ' ' + y1 + ' C ' + cx1 + ' ' + cy1 + ', ' + cx2 + ' ' + cy2 + ', ' + x2 + ' ' + y2;
+
+          if (tangentHandles) tangentHandles.style.display = 'block';
+          if (tLine1) { tLine1.setAttribute('x1', x1); tLine1.setAttribute('y1', y1); tLine1.setAttribute('x2', cx1); tLine1.setAttribute('y2', cy1); }
+          if (tLine2) { tLine2.setAttribute('x1', x2); tLine2.setAttribute('y1', y2); tLine2.setAttribute('x2', cx2); tLine2.setAttribute('y2', cy2); }
+          if (tPoint1) { tPoint1.setAttribute('cx', cx1); tPoint1.setAttribute('cy', cy1); }
+          if (tPoint2) { tPoint2.setAttribute('cx', cx2); tPoint2.setAttribute('cy', cy2); }
+        } else if (mode === 'orthogonal') {
+          const midX = Math.round((x1 + x2) / 2);
+          d = 'M ' + x1 + ' ' + y1 + ' L ' + midX + ' ' + y1 + ' L ' + midX + ' ' + y2 + ' L ' + x2 + ' ' + y2;
+          if (tangentHandles) tangentHandles.style.display = 'none';
+        } else {
+          // Straight line
+          d = 'M ' + x1 + ' ' + y1 + ' L ' + x2 + ' ' + y2;
+          if (tangentHandles) tangentHandles.style.display = 'none';
+        }
+
+        if (activeWire) {
+          activeWire.setAttribute('d', d);
+          if (marker === 'standard') {
+            activeWire.setAttribute('marker-end', 'url(#studioArrow)');
+          } else if (marker === 'circle') {
+            activeWire.setAttribute('marker-end', 'url(#studioDot)');
+          } else {
+            activeWire.removeAttribute('marker-end');
+          }
+        }
+
+        updateCodeOutput(d, x1, y1, x2, y2);
+      }
+
+      function updateCodeOutput(pathD, x1, y1, x2, y2) {
+        if (!codeOutput) return;
+        const codeLines = [
+          '// Scalable Vector Graphics Node Graph Wire Component',
+          'import React from "react";',
+          '',
+          'export function FlowchartConnector() {',
+          '  return (',
+          '    <svg viewBox="0 0 800 380" className="w-full h-auto bg-neutral-950 rounded-xl">',
+          '      <defs>',
+          '        <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">',
+          '          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="context-stroke" />',
+          '        </marker>',
+          '      </defs>',
+          '      ',
+          '      {/* Connector Path */}',
+          '      <path',
+          '        d="' + pathD + '"',
+          '        fill="none"',
+          '        stroke="#C1DD2D"',
+          '        strokeWidth="2.5"',
+          '        markerEnd="url(#arrow)"',
+          '        className="transition-all duration-75"',
+          '      />',
+          '    </svg>',
+          '  );',
+          '}'
+        ];
+        codeOutput.textContent = codeLines.join('\n');
+      }
+
+      function setupDraggable(element, getPos, setPos) {
+        element.addEventListener('pointerdown', (e) => {
+          draggingNode = { element, getPos, setPos };
+          element.setPointerCapture(e.pointerId);
+          element.style.cursor = 'grabbing';
+          const current = getPos();
+          dragOffset.x = e.clientX - current.x;
+          dragOffset.y = e.clientY - current.y;
+        });
+
+        element.addEventListener('pointermove', (e) => {
+          if (!draggingNode || draggingNode.element !== element) return;
+          const newX = Math.max(10, Math.min(630, e.clientX - dragOffset.x));
+          const newY = Math.max(10, Math.min(290, e.clientY - dragOffset.y));
+          setPos({ x: newX, y: newY });
+          element.setAttribute('transform', 'translate(' + newX + ',' + newY + ')');
+          updateWire();
+        });
+
+        element.addEventListener('pointerup', (e) => {
+          if (draggingNode && draggingNode.element === element) {
+            element.releasePointerCapture(e.pointerId);
+            element.style.cursor = 'grab';
+            draggingNode = null;
+          }
+        });
+      }
+
+      setupDraggable(nodeA, () => posA, (p) => { posA = p; });
+      setupDraggable(nodeB, () => posB, (p) => { posB = p; });
+
+      if (routingSelect) routingSelect.addEventListener('change', updateWire);
+      if (tensionSlider) tensionSlider.addEventListener('input', updateWire);
+      if (markerSelect) markerSelect.addEventListener('change', updateWire);
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          posA = { x: 80, y: 100 };
+          posB = { x: 520, y: 180 };
+          nodeA.setAttribute('transform', 'translate(80, 100)');
+          nodeB.setAttribute('transform', 'translate(520, 180)');
+          if (routingSelect) routingSelect.value = 'bezier';
+          if (tensionSlider) tensionSlider.value = '0.5';
+          if (markerSelect) markerSelect.value = 'standard';
+          updateWire();
+        });
+      }
+
+      if (swapBtn) {
+        swapBtn.addEventListener('click', () => {
+          const temp = { ...posA };
+          posA = { ...posB };
+          posB = temp;
+          nodeA.setAttribute('transform', 'translate(' + posA.x + ',' + posA.y + ')');
+          nodeB.setAttribute('transform', 'translate(' + posB.x + ',' + posB.y + ')');
+          updateWire();
+        });
+      }
+
+      if (copyBtn && codeOutput) {
+        copyBtn.addEventListener('click', () => {
+          const text = codeOutput.textContent;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+          } else {
+            fallbackCopy();
+          }
+          function fallbackCopy() {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+              document.execCommand('copy');
+              showCopied();
+            } catch (err) {
+              console.error('Fallback copy error:', err);
+            }
+            document.body.removeChild(ta);
+          }
+          function showCopied() {
+            const orig = copyBtn.textContent;
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+          }
+        });
+      }
+
+      updateWire();
+    })();
+  </script>
+</body>
+</html>
