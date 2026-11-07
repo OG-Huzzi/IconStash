@@ -25,7 +25,7 @@
   <meta property="article:tag" content="Cartography">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Building Interactive SVG Maps &amp; Geospatial Visualizations from Scratch: The 2026 Engineering Guide">
-  <meta name="twitter:description" content="Build interactive SVG maps from GeoJSON: Mercator and Albers projections, choropleth heatmaps, SVG paths, CTM tooltips, pan-zoom, and accessible vector GIS.">
+  <meta name="twitter:description" content="Build interactive SVG maps from GeoJSON: Mercator, Albers projections, choropleths, SVG paths, CTM tooltips, pan-zoom, and accessible vector GIS.">
   <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-maps-and-geospatial-visualization-guide.jpg">
   <link rel="canonical" href="https://iconstash.io/articles/svg-maps-and-geospatial-visualization-guide/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -440,7 +440,7 @@
         </div>
 
         <figure class="article-figure">
-          <img src="https://iconstash.io/assets/articles/svg-maps-and-geospatial-visualization-guide.jpg" alt="Interactive SVG Maps and Geospatial Cartography Architecture Diagram" width="1200" height="675">
+          <img src="https://iconstash.io/assets/articles/svg-maps-and-geospatial-visualization-guide.jpg" alt="Interactive SVG Maps and Geospatial Cartography Architecture Diagram" width="1200" height="675" fetchpriority="high" decoding="async">
           <figcaption>Figure 1: Architectural pipeline of modern zero-dependency SVG geospatial cartography, converting raw GeoJSON coordinates into high-performance vector visual surfaces.</figcaption>
         </figure>
 
@@ -642,7 +642,7 @@
         <p>With projection formulas in hand, we can build a pure TypeScript or JavaScript compiler that transforms a GeoJSON object into clean, production-grade SVG markup. The pipeline consists of three discrete stages:</p>
         <ol>
           <li><strong>Bounding Box Computation:</strong> Scan all feature coordinates to determine geographic bounds [minLon, minLat, maxLon, maxLat].</li>
-          <li><strong>Transform Scaling:</strong> Compute scale factor <code>k</code> and translation offsets <code>(dx, dy)</code> to center the projected map perfectly inside the target SVG <code>viewBox</code>.</li>
+          <li><strong>Transform Scaling:</strong> Compute scale factor <code>k</code> and translation offsets <code>(dx, dy)</code> to center the projected map perfectly inside the target SVG <code>viewBox</code> (for an exhaustive exploration of coordinate bounds and aspect ratio scaling modes, see our <a href="/articles/understanding-svg-viewbox-guide/">complete SVG viewBox guide</a>).</li>
           <li><strong>Path String Generation:</strong> Iterate through polygon rings, emit <code>M x y</code> (move-to) commands for starting vertices, emit <code>L x y</code> (line-to) for subsequent points, and terminate with <code>Z</code> (close-path).</li>
         </ol>
 
@@ -711,7 +711,7 @@ class GeoJsonSvgCompiler {
 }</code></pre>
 
         <h2 id="choropleth-theming">5. Choropleth Heatmaps &amp; Data Classification Scales</h2>
-        <p>A choropleth map is a thematic cartographic visualization where geographic regions are shaded, patterned, or colored in proportion to a statistical metric (such as unemployment rates, server request latency, or gross domestic product). Designing an effective choropleth map requires careful consideration of data classification mathematics and perceptual color theory.</p>
+        <p>A choropleth map is a thematic cartographic visualization where geographic regions are shaded, patterned, or colored in proportion to a statistical metric (such as unemployment rates, server request latency, or gross domestic product). Designing an effective choropleth map requires careful consideration of data classification mathematics and perceptual color theory. These cartographic heatmaps can also be linked dynamically with companion charts, as demonstrated in our <a href="/articles/svg-charts-and-data-visualization-from-scratch-guide/">guide to building SVG charts and data visualizations from scratch</a>.</p>
         <p>Feeding raw numbers directly into a linear RGB interpolation function yields poor results because real-world geographic data rarely follows a uniform distribution. Extreme outliers (such as a massive population density in a capital city like Tokyo or London) compress 95% of other regions into an identical faint color shade. Cartographers address this using three mathematical classification schemes:</p>
         <ul>
           <li><strong>Quantile Classification:</strong> Distributes features equally across all color bins so that each color shade contains an identical count of geographic regions. This guarantees high visual contrast across the entire map, though it can obscure natural clusters.</li>
@@ -786,7 +786,7 @@ function isFeatureVisibleInViewBox(featureBBox, viewBox) {
         <p>Testing thousands of polygons linearly during every frame of a touch gesture introduces micro-stutters. By organizing all geographic features into a spatial Quadtree data structure during application initialization, point-in-polygon queries and bounding-box intersection tests operate in logarithmic time <code>O(log N)</code> instead of linear time <code>O(N)</code>. A 2D Quadtree recursively partitions the 2D bounding space into four quadrants (Northwest, Northeast, Southwest, Southeast), allowing entire clusters of invisible territories to be pruned in a single conditional branch.</p>
 
         <h2 id="pan-zoom-matrix-transforms">8. Smooth Pan, Pinch-Zooming &amp; Matrix Transformations in Geospatial Viewports</h2>
-        <p>Interactive exploration of geospatial maps requires fluid panning (via mouse drag or single-finger swipe) and zoom-to-focal-point mechanics (via mouse scroll wheel or two-finger pinch gesture). While basic map tutorials attempt to implement zoom by mutating the width and height of the root SVG element, this approach causes severe layout re-evaluations across surrounding HTML containers.</p>
+        <p>Interactive exploration of geospatial maps requires fluid panning (via mouse drag or single-finger swipe) and zoom-to-focal-point mechanics (via mouse scroll wheel or two-finger pinch gesture). While basic map tutorials attempt to implement zoom by mutating the width and height of the root SVG element, this approach causes severe layout re-evaluations across surrounding HTML containers (for complete algorithmic implementations of friction curves, boundary constraints, and momentum physics, study our comprehensive <a href="/articles/svg-pan-and-zoom-guide/">SVG pan and zoom guide</a>, and consult our <a href="/articles/svg-coordinate-systems-and-transformations-guide/">SVG coordinate systems and transformations guide</a> for matrix calculus).</p>
         <p>The high-performance approach manipulates the SVG viewport through one of two mathematically decoupled mechanisms:</p>
         <ol>
           <li><strong>ViewBox Window Sliding:</strong> Mutate the <code>viewBox="minX minY width height"</code> attribute of the root SVG. Panning translates <code>minX</code> and <code>minY</code> in direct proportion to screen pointer displacement divided by the current scale factor. Zooming scales <code>width</code> and <code>height</code> proportionally around the focal coordinate of the mouse cursor.</li>
@@ -966,7 +966,7 @@ function getSvgCoordinates(svgElement, clientX, clientY) {
 }</code></pre>
 
         <h2 id="performance-optimization">13. Performance Optimization: Geometry Decimation &amp; Delta Encoding</h2>
-        <p>A raw GeoJSON export of world boundaries from Natural Earth Data can easily exceed 15 megabytes, containing hundreds of thousands of intricate coastal fjord vertices. Sending this payload over mobile cellular networks introduces extreme DOM bloat and garbage collection pauses.</p>
+        <p>A raw GeoJSON export of world boundaries from Natural Earth Data can easily exceed 15 megabytes, containing hundreds of thousands of intricate coastal fjord vertices. Sending this payload over mobile cellular networks introduces extreme DOM bloat and garbage collection pauses (for broader strategies on caching, compression, and tree-shaking vector assets, study our <a href="/articles/how-to-optimize-svg-icons-for-web-performance/">guide to optimizing SVG for web performance</a>).</p>
 
         <div class="takeaway-box">
           <h3>Production Optimization Rules for SVG Cartography</h3>
@@ -1138,17 +1138,22 @@ function getSvgCoordinates(svgElement, clientX, clientY) {
           path.style.cursor = 'pointer';
           path.style.transition = 'all 150ms ease';
 
-          path.addEventListener('mouseenter', () => {
+          function activateRegion() {
             path.setAttribute('stroke', '#FFF');
             path.setAttribute('stroke-width', '3');
             if (hoverRegionLabel) hoverRegionLabel.textContent = region.name + ' (' + region.id + ')';
             if (hoverMetricVal) hoverMetricVal.textContent = val + (metric === 'latency' ? ' ms' : metric === 'traffic' ? ' TB' : 'K');
-          });
-
-          path.addEventListener('mouseleave', () => {
+          }
+          function deactivateRegion() {
             path.setAttribute('stroke', '#0A0A0A');
             path.setAttribute('stroke-width', '1.5');
-          });
+          }
+
+          path.addEventListener('mouseenter', activateRegion);
+          path.addEventListener('mouseleave', deactivateRegion);
+          path.addEventListener('focus', activateRegion);
+          path.addEventListener('blur', deactivateRegion);
+          path.addEventListener('pointerdown', activateRegion);
 
           regionsGroup.appendChild(path);
         });
@@ -1157,7 +1162,7 @@ function getSvgCoordinates(svgElement, clientX, clientY) {
       }
 
       if (stageMapSvg) {
-        stageMapSvg.addEventListener('mousemove', (e) => {
+        function updateCoord(e) {
           const pt = stageMapSvg.createSVGPoint();
           pt.x = e.clientX;
           pt.y = e.clientY;
@@ -1168,7 +1173,10 @@ function getSvgCoordinates(svgElement, clientX, clientY) {
               cursorCoordReadout.textContent = 'X: ' + Math.round(transformed.x) + ', Y: ' + Math.round(transformed.y);
             }
           }
-        });
+        }
+        stageMapSvg.addEventListener('mousemove', updateCoord);
+        stageMapSvg.addEventListener('pointermove', updateCoord);
+        stageMapSvg.addEventListener('pointerdown', updateCoord);
       }
 
       function updateCodeOutput() {

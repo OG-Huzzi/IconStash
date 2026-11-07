@@ -25,7 +25,7 @@
   <meta property="article:tag" content="Vector Graphics">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How to Convert SVG to PDF &amp; High-Resolution Vector Print in JavaScript: The 2026 Production Guide">
-  <meta name="twitter:description" content="Convert SVG to vector PDF in JavaScript: client-side jsPDF, svg2pdf, font embedding, 300 DPI print layouts, CMYK emulation, bleed marks, and Node.js export.">
+  <meta name="twitter:description" content="Convert SVG to vector PDF in JavaScript: jsPDF, svg2pdf, font embedding, 300 DPI print layouts, CMYK emulation, bleed marks, and Node.js server pipelines.">
   <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-to-pdf-and-high-resolution-print-guide.jpg">
   <link rel="canonical" href="https://iconstash.io/articles/svg-to-pdf-and-high-resolution-print-guide/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -439,12 +439,12 @@
         </div>
 
         <figure class="article-figure">
-          <img src="https://iconstash.io/assets/articles/svg-to-pdf-and-high-resolution-print-guide.jpg" alt="Convert SVG to PDF and High Resolution Vector Print Architecture Diagram" width="1200" height="675">
+          <img src="https://iconstash.io/assets/articles/svg-to-pdf-and-high-resolution-print-guide.jpg" alt="Convert SVG to PDF and High Resolution Vector Print Architecture Diagram" width="1200" height="675" fetchpriority="high" decoding="async">
           <figcaption>Figure 1: Architectural pipeline of modern vector PDF compilation, translating SVG XML DOM trees into native PostScript PDF graphics operator streams.</figcaption>
         </figure>
 
         <h2 id="raster-fallacy-vs-vector-pdf">1. The Raster Fallacy: Why Converting SVG to Canvas/PNG Before PDF Ruins Print</h2>
-        <p>A staggering percentage of web applications implement PDF export using an architectural anti-pattern known as the "Raster Screenshot Trap." A developer uses a library like <code>html2canvas</code> to paint an SVG chart or diagram onto an HTML5 <code>&lt;canvas&gt;</code> element, calls <code>canvas.toDataURL('image/png')</code>, and embeds that PNG bitmap into a blank PDF page via <code>doc.addImage(...)</code>.</p>
+        <p>A staggering percentage of web applications implement PDF export using an architectural anti-pattern known as the "Raster Screenshot Trap." A developer uses a library like <code>html2canvas</code> to paint an SVG chart or diagram onto an HTML5 <code>&lt;canvas&gt;</code> element, calls <code>canvas.toDataURL('image/png')</code>, and embeds that PNG bitmap into a blank PDF page via <code>doc.addImage(...)</code> (if you genuinely require client-side bitmap images for social previews or legacy web fallbacks, consult our <a href="/articles/convert-svg-to-png-javascript-guide/">guide to converting SVG to PNG in JavaScript</a>, but never use bitmaps as the source for print PDFs).</p>
         <p>While this naive approach creates the superficial illusion of a working PDF on a computer monitor, it is fundamentally broken for physical printing, enterprise archival, and professional document exchange:</p>
         <ol>
           <li><strong>Resolution Destruction at Print Scale:</strong> Computer monitors display graphics at 72 to 96 CSS pixels per inch (PPI). Commercial laser printers and offset printing presses operate at 300 to 1200 Dots Per Inch (DPI). A 72 DPI rasterized PNG embedded in a PDF will print with horrifying pixelation, blurry text edges, and fuzzy lines when output on physical paper.</li>
@@ -555,7 +555,7 @@
         </figure>
 
         <h2 id="pdf-graphics-model-vs-svg">2. The PostScript/PDF Graphics Model vs The SVG XML Model</h2>
-        <p>To understand why vector translation requires specialized algorithms, an engineer must study how PDF represents 2D graphics internally. While SVG is a declarative XML document with CSS styling, PDF is an imperative procedural stream of PostScript-derived graphics operators executed sequentially by a PDF display interpreter.</p>
+        <p>To understand why vector translation requires specialized algorithms, an engineer must study how PDF represents 2D graphics internally. While SVG is a declarative XML document with CSS styling, PDF is an imperative procedural stream of PostScript-derived graphics operators executed sequentially by a PDF display interpreter (for an in-depth review of how SVG coordinate systems and viewBox viewports map into user space units, see our <a href="/articles/understanding-svg-viewbox-guide/">guide to understanding the SVG viewBox</a>).</p>
         <p>In SVG, you declare a colored rectangle as <code>&lt;rect x="50" y="50" width="200" height="100" fill="#C1DD2D" stroke="#000" stroke-width="2"/&gt;</code>. In low-level PDF operator syntax, this same rectangle is drawn through a sequence of state stack pushes, color declarations, path constructions, and stroke/fill operators:</p>
 
         <pre><code>% Raw PDF Graphics Stream Representation of an SVG Rectangle
@@ -896,9 +896,9 @@ function generateServerVectorPdf(svgString, outputPath) {
         <h2 id="advanced-svg-features-fallbacks">8. Handling Advanced SVG Features: Gradients, Patterns &amp; Clip-Paths</h2>
         <p>The SVG 1.1 and 2.0 specifications feature sophisticated visual effects that do not map directly to simple PostScript lines. When building a production converter, an engineer must understand how advanced vector features translate into PDF:</p>
         <ul>
-          <li><strong>Linear &amp; Radial Gradients (<code>&lt;linearGradient&gt;</code>, <code>&lt;radialGradient&gt;</code>):</strong> Supported natively in modern PDF through <strong>Type 2 (Axial)</strong> and <strong>Type 3 (Radial) Shading Dictionaries</strong>. The converter generates smooth shading interpolation curves between color stops.</li>
-          <li><strong>Clipping Paths (<code>&lt;clipPath&gt;</code>):</strong> Maps directly to the PDF <code>W</code> and <code>W*</code> (Clipping Path) operators. Any subsequent drawing operations are strictly confined within the clipping envelope until the graphics state is restored via <code>Q</code>.</li>
-          <li><strong>SVG Tiling Patterns (<code>&lt;pattern&gt;</code>):</strong> Repetitive vector backgrounds (such as isometric grids, architectural hatching, or geometric dot matrices) translate into <strong>PDF Type 1 Tiling Patterns</strong>. The pattern definition dictionary specifies <code>/BBox</code>, <code>/XStep</code>, and <code>/YStep</code> dimensions alongside a self-contained vector stream. When applied to a path, the PDF renderer tiles the artwork infinitely with zero rasterization and negligible file size overhead.</li>
+          <li><strong>Linear &amp; Radial Gradients (<code>&lt;linearGradient&gt;</code>, <code>&lt;radialGradient&gt;</code>):</strong> Supported natively in modern PDF through <strong>Type 2 (Axial)</strong> and <strong>Type 3 (Radial) Shading Dictionaries</strong>. The converter generates smooth shading interpolation curves between color stops (for syntax patterns and color stop transitions, read our complete <a href="/articles/how-to-use-svg-gradients-guide/">SVG gradients guide</a>).</li>
+          <li><strong>Clipping Paths (<code>&lt;clipPath&gt;</code>):</strong> Maps directly to the PDF <code>W</code> and <code>W*</code> (Clipping Path) operators. Any subsequent drawing operations are strictly confined within the clipping envelope until the graphics state is restored via <code>Q</code> (for nested clip paths and bounding envelopes, consult our <a href="/articles/svg-clipping-masking-blend-modes-guide/">SVG clipping and masking guide</a>).</li>
+          <li><strong>SVG Tiling Patterns (<code>&lt;pattern&gt;</code>):</strong> Repetitive vector backgrounds (such as isometric grids, architectural hatching, or geometric dot matrices) translate into <strong>PDF Type 1 Tiling Patterns</strong>. The pattern definition dictionary specifies <code>/BBox</code>, <code>/XStep</code>, and <code>/YStep</code> dimensions alongside a self-contained vector stream. When applied to a path, the PDF renderer tiles the artwork infinitely with zero rasterization and negligible file size overhead (for creating seamless grid, checker, and dot tiles, explore our <a href="/articles/svg-patterns-and-textures-css-guide/">SVG patterns and textures guide</a>).</li>
           <li><strong>Luminance &amp; Alpha Masking (<code>&lt;mask&gt;</code>):</strong> SVG masks compute transparency from either color luminance (ITU-R BT.709 coefficients: <code>0.2126R + 0.7152G + 0.0722B</code>) or direct alpha channels. In PDF, these are compiled into <strong>Soft Masks (<code>/SMask</code>)</strong> stored in the ExtGState (Extended Graphic State) dictionary. The PDF viewer evaluates the mask as an 8-bit grayscale transparency channel applied over vector paths.</li>
           <li><strong>SVG Filter Effects (<code>feGaussianBlur</code>, <code>feDropShadow</code>):</strong> Native PDF does not possess a real-time shader or Gaussian blur filter engine. When an SVG contains blur filters, professional converters isolate that specific filtered sub-element, rasterize only the blurred shadow to a 300 DPI transparent PNG mask, and layer it behind the crisp vector paths.</li>
           <li><strong>Non-Scaling Stroke (<code>vector-effect: non-scaling-stroke</code>):</strong> In PDF, line widths scale with transformation matrices. Converters calculate the determinant of the current transformation matrix and divide the stroke width by the scale factor to preserve a constant physical line weight.</li>
@@ -1160,13 +1160,22 @@ function generateServerVectorPdf(svgString, outputPath) {
       const paperSheet = document.getElementById('paperSheet');
       const paperShadow = document.getElementById('paperShadow');
       const bleedOverlay = document.getElementById('bleedOverlayGroup');
+      const bleedRect = document.getElementById('bleedRect');
       const cropMarksGroup = document.getElementById('cropMarksGroup');
+      const docContent = document.getElementById('documentContentGroup');
 
       const formats = {
         a4: { name: 'ISO A4', ptW: 595.3, ptH: 841.9, mmW: 210.0, mmH: 297.0, estKb: 28.4 },
         letter: { name: 'US Letter', ptW: 612.0, ptH: 792.0, mmW: 215.9, mmH: 279.4, estKb: 26.8 },
         badge: { name: 'Event Badge (4x6in)', ptW: 288.0, ptH: 432.0, mmW: 101.6, mmH: 152.4, estKb: 18.2 },
         card: { name: 'Business Card', ptW: 252.0, ptH: 144.0, mmW: 88.9, mmH: 50.8, estKb: 12.1 }
+      };
+
+      const layoutGeometry = {
+        a4: { w: 320, h: 440, x: 165, y: 20, transform: 'translate(0, 0)' },
+        letter: { w: 340, h: 440, x: 155, y: 20, transform: 'translate(10, 0)' },
+        badge: { w: 280, h: 420, x: 185, y: 30, transform: 'translate(-10, 10) scale(0.92, 0.95)' },
+        card: { w: 460, h: 260, x: 95, y: 110, transform: 'translate(-38, 95) scale(0.95, 0.60)' }
       };
 
       let isInverted = false;
@@ -1176,6 +1185,7 @@ function generateServerVectorPdf(svgString, outputPath) {
         const bleedMode = bleedToggle ? bleedToggle.value : 'enabled';
         const colorMode = colorSelect ? colorSelect.value : 'rgb';
         const fmt = formats[fmtKey] || formats.a4;
+        const geom = layoutGeometry[fmtKey] || layoutGeometry.a4;
 
         if (currentFormatReadout) currentFormatReadout.textContent = fmt.name;
         if (bleedStatusReadout) bleedStatusReadout.textContent = bleedMode === 'enabled' ? 'Enabled (3.0mm)' : 'Disabled';
@@ -1187,8 +1197,53 @@ function generateServerVectorPdf(svgString, outputPath) {
         if (bleedBoxReadout) bleedBoxReadout.textContent = bleedBoxW.toFixed(1) + ' x ' + bleedBoxH.toFixed(1) + ' pt';
         if (pdfEstWeight) pdfEstWeight.textContent = '~' + fmt.estKb + ' KB (Pure Vector)';
 
+        // Update visual sheet geometry
+        if (paperSheet) {
+          paperSheet.setAttribute('x', geom.x);
+          paperSheet.setAttribute('y', geom.y);
+          paperSheet.setAttribute('width', geom.w);
+          paperSheet.setAttribute('height', geom.h);
+        }
+        if (paperShadow) {
+          paperShadow.setAttribute('x', geom.x + 5);
+          paperShadow.setAttribute('y', geom.y + 5);
+          paperShadow.setAttribute('width', geom.w);
+          paperShadow.setAttribute('height', geom.h);
+        }
+
+        const bleedPad = 10;
         if (bleedOverlay) bleedOverlay.style.display = bleedMode === 'enabled' ? 'block' : 'none';
-        if (cropMarksGroup) cropMarksGroup.style.display = bleedMode === 'enabled' ? 'block' : 'none';
+        if (bleedRect) {
+          bleedRect.setAttribute('x', geom.x - bleedPad);
+          bleedRect.setAttribute('y', geom.y - bleedPad);
+          bleedRect.setAttribute('width', geom.w + 2 * bleedPad);
+          bleedRect.setAttribute('height', geom.h + 2 * bleedPad);
+        }
+
+        if (cropMarksGroup) {
+          cropMarksGroup.style.display = bleedMode === 'enabled' ? 'block' : 'none';
+          const lines = cropMarksGroup.querySelectorAll('line');
+          if (lines && lines.length === 8) {
+            const x1 = geom.x, y1 = geom.y, x2 = geom.x + geom.w, y2 = geom.y + geom.h;
+            // Top-left
+            lines[0].setAttribute('x1', x1 - 20); lines[0].setAttribute('y1', y1); lines[0].setAttribute('x2', x1 - 5); lines[0].setAttribute('y2', y1);
+            lines[1].setAttribute('x1', x1); lines[1].setAttribute('y1', y1 - 20); lines[1].setAttribute('x2', x1); lines[1].setAttribute('y2', y1 - 5);
+            // Top-right
+            lines[2].setAttribute('x1', x2 + 5); lines[2].setAttribute('y1', y1); lines[2].setAttribute('x2', x2 + 20); lines[2].setAttribute('y2', y1);
+            lines[3].setAttribute('x1', x2); lines[3].setAttribute('y1', y1 - 20); lines[3].setAttribute('x2', x2); lines[3].setAttribute('y2', y1 - 5);
+            // Bottom-left
+            lines[4].setAttribute('x1', x1 - 20); lines[4].setAttribute('y1', y2); lines[4].setAttribute('x2', x1 - 5); lines[4].setAttribute('y2', y2);
+            lines[5].setAttribute('x1', x1); lines[5].setAttribute('y1', y2 + 5); lines[5].setAttribute('x2', x1); lines[5].setAttribute('y2', y2 + 20);
+            // Bottom-right
+            lines[6].setAttribute('x1', x2 + 5); lines[6].setAttribute('y1', y2); lines[6].setAttribute('x2', x2 + 20); lines[6].setAttribute('y2', y2);
+            lines[7].setAttribute('x1', x2); lines[7].setAttribute('y1', y2 + 5); lines[7].setAttribute('x2', x2); lines[7].setAttribute('y2', y2 + 20);
+          }
+        }
+
+        if (docContent) {
+          docContent.setAttribute('transform', geom.transform);
+          docContent.style.filter = colorMode === 'cmyk' ? 'saturate(0.85) contrast(1.05)' : 'none';
+        }
 
         updateCodeOutput(fmtKey, bleedMode, colorMode);
       }
@@ -1199,8 +1254,18 @@ function generateServerVectorPdf(svgString, outputPath) {
           '// Zero-Rasterization Vector SVG-to-PDF Exporter',
           'import { jsPDF } from "jspdf";',
           'import "svg2pdf.js";',
+          ...(colorMode === 'cmyk' ? [
+            'import { transformColorSpace, FOGRA39_PROFILE } from "./prepress-color-icc";'
+          ] : []),
           '',
           'export async function exportToVectorPdf(svgNode) {',
+          ...(colorMode === 'cmyk' ? [
+            '  // Map sRGB colors to CMYK device gamut via Coated FOGRA39 ICC profile',
+            '  const prepressSvg = await transformColorSpace(svgNode, FOGRA39_PROFILE);',
+            '  const targetNode = prepressSvg;'
+          ] : [
+            '  const targetNode = svgNode;'
+          ]),
           '  const doc = new jsPDF({',
           '    orientation: "' + (fmtKey === 'card' ? 'landscape' : 'portrait') + '",',
           '    unit: "pt",',
@@ -1208,7 +1273,7 @@ function generateServerVectorPdf(svgString, outputPath) {
           '  });',
           '',
           '  // Convert SVG vector paths into PDF PostScript operators',
-          '  await doc.svg(svgNode, {',
+          '  await doc.svg(targetNode, {',
           '    x: 0,',
           '    y: 0,',
           '    width: doc.internal.pageSize.getWidth(),',
@@ -1216,7 +1281,9 @@ function generateServerVectorPdf(svgString, outputPath) {
           '    loadExternalStyleSheets: false',
           '  });',
           '',
-          (bleedMode === 'enabled' ? '  // Prepress 3mm bleed and crop marks included\\n' : '') +
+          ...(bleedMode === 'enabled' ? [
+            '  // Prepress 3mm bleed and crop marks included (BleedBox & TrimBox registered)'
+          ] : []),
           '  // Download 100% crisp vector document with embedded text glyphs',
           '  doc.save("vector-export.pdf");',
           '}'

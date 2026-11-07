@@ -59,6 +59,9 @@ for (const item of deliverables) {
   const descMatch = content.match(/<meta\s+name="description"\s+content="([^"]+)"/i);
   assert(descMatch && descMatch[1].length <= 155, `Meta description length (${descMatch ? descMatch[1].length : 0}) <= 155`);
 
+  const twDescMatch = content.match(/<meta\s+name="twitter:description"\s+content="([^"]+)"/i);
+  assert(twDescMatch && twDescMatch[1].length <= 155, `Twitter description length (${twDescMatch ? twDescMatch[1].length : 0}) <= 155`);
+
   // 3. Canonical link with trailing slash
   assert(content.includes(`<link rel="canonical" href="${item.canonical}">`), `Canonical link correct: ${item.canonical}`);
   assert(item.canonical.endsWith('/'), `Canonical URL has trailing slash: ${item.canonical}`);
@@ -77,6 +80,7 @@ for (const item of deliverables) {
       console.warn(`  [WARN] Python PIL could not check resolution: ${e.message}`);
     }
   }
+  assert(content.includes('fetchpriority="high"') && content.includes('decoding="async"'), 'Hero image has fetchpriority="high" and decoding="async" for LCP');
 
   // 5. OpenGraph & Twitter tags pointing to full absolute URL
   assert(content.includes(`property="og:image" content="https://iconstash.io/assets/articles/${item.image}"`), 'OG Image points to full absolute URL');
@@ -178,18 +182,22 @@ for (const item of deliverables) {
     assert(content.includes('id="projectionSelect"'), 'Interactive projectionSelect present');
     assert(content.includes('id="stageMapContainer"'), 'Interactive stageMapContainer present');
     assert(content.includes('id="copyMapCodeBtn"'), 'Interactive copyMapCodeBtn present');
+    assert(content.includes('pointermove') && content.includes('pointerdown'), 'Map studio supports pointermove and touch interaction');
     assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
   } else if (item.slug === 'svg-flowcharts-and-node-graphs-architecture-guide') {
     assert(content.includes('id="flowchartStudio"'), 'Interactive studio #flowchartStudio present');
     assert(content.includes('id="routingModeSelect"'), 'Interactive routingModeSelect present');
     assert(content.includes('id="stageFlowchartContainer"'), 'Interactive stageFlowchartContainer present');
     assert(content.includes('id="copyFlowchartCodeBtn"'), 'Interactive copyFlowchartCodeBtn present');
+    assert(content.includes('screenToSvg') && content.includes('getScreenCTM'), 'Flowchart studio dragging uses getScreenCTM coordinate projection');
     assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
   } else if (item.slug === 'svg-to-pdf-and-high-resolution-print-guide') {
     assert(content.includes('id="pdfPrintStudio"'), 'Interactive studio #pdfPrintStudio present');
     assert(content.includes('id="paperFormatSelect"'), 'Interactive paperFormatSelect present');
     assert(content.includes('id="stagePdfContainer"'), 'Interactive stagePdfContainer present');
     assert(content.includes('id="copyPdfCodeBtn"'), 'Interactive copyPdfCodeBtn present');
+    assert(content.includes('layoutGeometry') && content.includes('paperSheet.setAttribute'), 'PDF print studio dynamically updates sheet geometry on format changes');
+    assert(!content.includes('included\\n'), 'PDF code generator avoids inline literal \\n concatenation');
     assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
   }
 
@@ -199,6 +207,10 @@ for (const item of deliverables) {
     const scriptCode = scriptMatch[1];
     assert(!scriptCode.includes("+'\\n'") && !scriptCode.includes("+'\\\\n'"), 'Interactive code generator avoids double-escaped literal newline strings');
   }
+
+  // 15. Contextual Internal Linking (SEO Topical Clustering)
+  const articleLinks = (content.match(/href="\/articles\/[^"]+"/g) || []).filter(h => h !== 'href="/articles/"' && !h.includes(item.slug));
+  assert(articleLinks.length >= 3, `Article contains >= 3 contextual internal links to related guides (found ${articleLinks.length})`);
 
   // 15. No raw unrendered LaTeX math delimiters
   const latexMatches = [...content.matchAll(/(\$[^$\n]+\$)/g)].map(m => m[1]).filter(m => !m.includes('{') && !m.includes('"'));

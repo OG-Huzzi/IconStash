@@ -439,7 +439,7 @@
         </div>
 
         <figure class="article-figure">
-          <img src="https://iconstash.io/assets/articles/svg-flowcharts-and-node-graphs-architecture-guide.jpg" alt="Interactive SVG Flowcharts and Node Graph Architecture Diagram" width="1200" height="675">
+          <img src="https://iconstash.io/assets/articles/svg-flowcharts-and-node-graphs-architecture-guide.jpg" alt="Interactive SVG Flowcharts and Node Graph Architecture Diagram" width="1200" height="675" fetchpriority="high" decoding="async">
           <figcaption>Figure 1: Architectural blueprint of a high-performance interactive SVG node graph, mapping dynamic bezier connector curves between stateful visual processing blocks.</figcaption>
         </figure>
 
@@ -613,7 +613,7 @@ function screenToWorldSpace(svgElement, clientX, clientY) {
           <div class="formula-desc">Where curvatureTension typically equals 0.5 and minStubDistance ensures wires emerge horizontally before curving, preventing sharp angles when nodes are close.</div>
         </div>
 
-        <p>Notice the critical mathematical detail: <code>cy1</code> equals <code>y1</code>, and <code>cy2</code> equals <code>y2</code>. By keeping the y-coordinates of the control points identical to the port anchor y-coordinates, the initial and terminal tangent vectors of the curve are strictly horizontal (parallel to the x-axis). This ensures the connector emerges perfectly perpendicular to the right edge of the source node and arrives perpendicular to the left edge of the target node, creating the hallmark smooth aesthetic of tools like React Flow, Unreal Engine, and Node-RED.</p>
+        <p>Notice the critical mathematical detail: <code>cy1</code> equals <code>y1</code>, and <code>cy2</code> equals <code>y2</code>. By keeping the y-coordinates of the control points identical to the port anchor y-coordinates, the initial and terminal tangent vectors of the curve are strictly horizontal (parallel to the x-axis). This ensures the connector emerges perfectly perpendicular to the right edge of the source node and arrives perpendicular to the left edge of the target node, creating the hallmark smooth aesthetic of tools like React Flow, Unreal Engine, and Node-RED (for deeper polynomial derivations, arc length calculations, and tangent vectors, explore our <a href="/articles/svg-bezier-curves-and-path-math-guide/">guide to SVG Bézier curves and path math</a>).</p>
 
         <h2 id="orthogonal-manhattan-routing">4. Manhattan Orthogonal Step Routing &amp; Grid Alignment</h2>
         <p>While organic Bézier curves excel in visual scripting and data pipelines, corporate process flowcharts (BPMN), circuit schematics, and database entity-relationship diagrams (ERDs) demand right-angled <strong>orthogonal step routing</strong> (also known as Manhattan routing).</p>
@@ -700,7 +700,7 @@ function calculateSelfLoopPath(nodeX, nodeY, nodeWidth, nodeHeight, loopRadius =
         <p>Because vector calculations produce fractional coordinates (such as <code>x = 240.3842px</code>), the browser's anti-aliasing engine splits the 1px stroke across two adjacent physical pixels, rendering a faint 2px wide gray line instead of a crisp black or lime line. To eliminate subpixel jitter:</p>
         <ul>
           <li><strong>Half-Pixel Center Offset:</strong> In SVG, path strokes are centered directly along the mathematical coordinate path. A 1px vertical stroke along integer coordinate <code>x = 100</code> extends 0.5px to the left and 0.5px to the right, landing precisely on pixel boundaries. By adding a <code>+ 0.5px</code> offset to straight orthogonal segments (e.g., <code>M 100.5 40.5 L 200.5 40.5</code>), the stroke fills exactly one physical screen pixel column.</li>
-          <li><strong>Hardware Texture Isolation:</strong> Add <code>will-change: transform;</code> to the master SVG viewport group. This informs the browser compositor to isolate the entire vector layer onto a dedicated GPU texture backing store. Panning gestures merely translate the texture in GPU memory without triggering expensive CPU re-rasterization of individual vector paths.</li>
+          <li><strong>Hardware Texture Isolation:</strong> Add <code>will-change: transform;</code> to the master SVG viewport group. This informs the browser compositor to isolate the entire vector layer onto a dedicated GPU texture backing store. Panning gestures merely translate the texture in GPU memory without triggering expensive CPU re-rasterization of individual vector paths (for comprehensive viewport matrices and infinite canvas pan-zoom implementation, see our <a href="/articles/svg-pan-and-zoom-guide/">SVG pan and zoom guide</a>).</li>
         </ul>
 
         <h2 id="graph-serialization-undo-redo">8. Portable Graph Serialization &amp; The Immutable Command Undo Stack</h2>
@@ -757,7 +757,7 @@ class MoveNodeCommand {
   /&gt;
 &lt;/svg&gt;</code></pre>
 
-        <p>Notice the attribute <code>orient="auto-start-reverse"</code>. This instructs the browser's graphics engine to calculate the terminal derivative (tangent angle) of the curve at its final coordinate and rotate the marker triangle to align seamlessly with the incoming trajectory.</p>
+        <p>Notice the attribute <code>orient="auto-start-reverse"</code>. This instructs the browser's graphics engine to calculate the terminal derivative (tangent angle) of the curve at its final coordinate and rotate the marker triangle to align seamlessly with the incoming trajectory (for complete marker configuration rules, viewBox offsets, and markerUnits behaviors, see our <a href="/articles/svg-markers-and-arrowheads-guide/">SVG markers and arrowheads guide</a>).</p>
 
         <h2 id="drag-drop-physics">10. Drag-and-Drop Interaction Architecture &amp; Pointer Capture</h2>
         <p>Implementing node repositioning requires rock-solid pointer event handling. Using deprecated <code>mousedown</code> / <code>mousemove</code> events causes interactions to break on touch devices and iPad tablets. Furthermore, if the user drags their cursor faster than the browser refresh rate, the cursor leaves the node bounding box, causing the drag operation to lose focus and stick.</p>
@@ -771,7 +771,7 @@ class MoveNodeCommand {
 
         <h2 id="high-performance-rendering">11. High-Performance Edge Rendering: Direct Path Mutators vs Virtual DOM</h2>
         <p>The most devastating performance trap in React or Vue node editors is triggering framework component re-renders during drag gestures. If dragging a node calls <code>setNodes(...)</code> on every 16ms <code>pointermove</code> event, the entire virtual DOM tree diffs all 50 nodes and 75 wires, converting 60 FPS fluid interaction into a stuttering, laggy experience.</p>
-        <p>High-performance node graphs decouple <strong>drag physics</strong> from <strong>state persistence</strong>:</p>
+        <p>High-performance node graphs decouple <strong>drag physics</strong> from <strong>state persistence</strong> (to master the underlying path syntax and mutation primitives, read our <a href="/articles/svg-path-commands-and-d-attribute-guide/">SVG path commands and d attribute guide</a>):</p>
 
         <pre><code>// Direct DOM Mutation Pipeline for 120 FPS Node Dragging
 class DirectDomGraphEngine {
@@ -1141,6 +1141,16 @@ function wouldCreateCycle(graphEdges, proposedFrom, proposedTo) {
       const tPoint1 = document.getElementById('tPoint1');
       const tPoint2 = document.getElementById('tPoint2');
       const tangentHandles = document.getElementById('tangentHandlesLayer');
+      const stageSvg = document.getElementById('stageFlowchartSvg');
+
+      function screenToSvg(clientX, clientY) {
+        if (!stageSvg) return { x: clientX, y: clientY };
+        const pt = stageSvg.createSVGPoint();
+        pt.x = clientX;
+        pt.y = clientY;
+        const ctm = stageSvg.getScreenCTM();
+        return ctm ? pt.matrixTransform(ctm.inverse()) : { x: clientX, y: clientY };
+      }
 
       let posA = { x: 80, y: 100 };
       let posB = { x: 520, y: 180 };
@@ -1240,15 +1250,17 @@ function wouldCreateCycle(graphEdges, proposedFrom, proposedTo) {
           draggingNode = { element, getPos, setPos };
           element.setPointerCapture(e.pointerId);
           element.style.cursor = 'grabbing';
+          const svgPt = screenToSvg(e.clientX, e.clientY);
           const current = getPos();
-          dragOffset.x = e.clientX - current.x;
-          dragOffset.y = e.clientY - current.y;
+          dragOffset.x = svgPt.x - current.x;
+          dragOffset.y = svgPt.y - current.y;
         });
 
         element.addEventListener('pointermove', (e) => {
           if (!draggingNode || draggingNode.element !== element) return;
-          const newX = Math.max(10, Math.min(630, e.clientX - dragOffset.x));
-          const newY = Math.max(10, Math.min(290, e.clientY - dragOffset.y));
+          const svgPt = screenToSvg(e.clientX, e.clientY);
+          const newX = Math.max(10, Math.min(630, Math.round(svgPt.x - dragOffset.x)));
+          const newY = Math.max(10, Math.min(290, Math.round(svgPt.y - dragOffset.y)));
           setPos({ x: newX, y: newY });
           element.setAttribute('transform', 'translate(' + newX + ',' + newY + ')');
           updateWire();
