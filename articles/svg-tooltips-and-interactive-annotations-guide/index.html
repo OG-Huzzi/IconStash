@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering Interactive SVG Tooltips, Popovers &amp; Vector Callouts: The Complete Architecture Guide (2026) | IconStash</title>
+  <meta name="description" content="Build precision SVG tooltips, popovers, and callouts: inverse CTM transforms, viewport boundary collision, dynamic pointer arrows, and WCAG accessibility.">
+  <meta name="keywords" content="svg tooltip, interactive svg annotations, svg tooltip hover javascript, svg callout pointer arrow, svg getScreenCTM tooltip positioning, svg popover boundary collision, accessible svg tooltip aria">
+  <meta property="og:title" content="Mastering Interactive SVG Tooltips, Popovers &amp; Vector Callouts: The Complete Architecture Guide (2026)">
+  <meta property="og:description" content="Build precision SVG tooltips, popovers, and callouts: inverse CTM transforms, viewport boundary collision, dynamic pointer arrows, and WCAG accessibility.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-tooltips-and-interactive-annotations-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-tooltips-and-interactive-annotations-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-09T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-09T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Interactive SVG &amp; UI Architecture">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="UI Architecture">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta property="article:tag" content="Accessibility">
+  <meta property="article:tag" content="JavaScript">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering Interactive SVG Tooltips, Popovers &amp; Vector Callouts: The Complete Architecture Guide (2026)">
+  <meta name="twitter:description" content="Build precision SVG tooltips, popovers, and callouts: inverse CTM transforms, viewport boundary collision, dynamic pointer arrows, and WCAG accessibility.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-tooltips-and-interactive-annotations-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-tooltips-and-interactive-annotations-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering Interactive SVG Tooltips, Popovers & Vector Callouts: The Complete Architecture Guide (2026)",
+      "description": "Build precision SVG tooltips, popovers, and callouts: inverse CTM transforms, viewport boundary collision, dynamic pointer arrows, and WCAG accessibility.",
+      "image": "https://iconstash.io/assets/articles/svg-tooltips-and-interactive-annotations-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-09",
+      "dateModified": "2026-11-09",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-tooltips-and-interactive-annotations-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4840,
+      "articleSection": "Interactive SVG & UI Architecture",
+      "keywords": [
+        "svg tooltip",
+        "interactive svg annotations",
+        "svg tooltip hover javascript",
+        "svg callout pointer arrow",
+        "svg getScreenCTM tooltip positioning",
+        "svg popover boundary collision",
+        "accessible svg tooltip aria"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Interactive SVG Tooltips & Callouts Guide",
+          "item": "https://iconstash.io/articles/svg-tooltips-and-interactive-annotations-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why do SVG tooltips clip at container boundaries when built with pure SVG elements?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default, SVG elements have an implicit or explicit overflow: hidden applied in browser rendering engines. When a child tooltip group inside the SVG moves near the edge of the viewBox, any pixels extending outside the bounding box are abruptly clipped. To prevent clipping, developers can set overflow: visible on the root SVG element, or position an external HTML tooltip layer positioned over the canvas using inverse CTM coordinate projections."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does getScreenCTM().inverse() convert screen mouse coordinates into SVG user coordinates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The method svg.getScreenCTM() returns an SVGMatrix representing the Current Transformation Matrix that maps internal SVG coordinate units to physical screen pixels. Taking its mathematical inverse via matrix.inverse() creates the reverse transformation. Multiplying a DOMPoint or SVGPoint containing clientX and clientY by this inverse matrix yields the exact (x, y) coordinates within the SVG viewBox, completely accounting for CSS scaling, viewBox offsets, and aspect ratio padding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent tooltip flickering when the mouse pointer moves onto the tooltip itself?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Flickering occurs when the mouse cursor drifts over the newly spawned tooltip, causing the underlying target element to fire a mouseout event, hiding the tooltip, which immediately re-triggers mouseover on the target in an infinite loop. Adding pointer-events: none to the tooltip container completely resolves this by allowing mouse and pointer events to pass through seamlessly to underlying nodes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the best way to handle multiline text wrapping in pure SVG tooltips without foreignObject?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because SVG text does not support automatic word wrapping across multiple lines, engineers split text into words and construct individual tspan elements with explicit dy='1.2em' vertical baseline offsets. After populating tspans, calling textElement.getBBox() measures the exact width and height of the rendered text block, allowing the background rectangle and callout pointer path to scale dynamically with pixel-perfect padding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does collision detection automatically flip tooltip placement near screen edges?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A collision detection solver computes the projected bounding box of the tooltip at its desired anchor placement (e.g., top-center). If the top coordinate is less than zero or above the window scroll boundary, the placement algorithm automatically flips to bottom-center. Similarly, if the right edge exceeds the container width, it flips horizontally or shifts the pointer arrow along the callout box edge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you make interactive SVG tooltips accessible according to WCAG 2.2 AA standards?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Assign role='tooltip' and a unique id to the tooltip element. On the target triggering shape, link to the tooltip using aria-describedby='tooltipId' and make it keyboard focusable with tabindex='0'. Ensure the tooltip remains visible on hover and focus, can be dismissed by pressing the Escape key without moving focus, and does not time out automatically while the user is reading it."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 360px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; }
+    .stage-svg-element { width: 100%; height: 100%; display: block; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">Interactive SVG Tooltips &amp; Callouts</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Engineering Deep-Dive</span>
+      <h1>Mastering Interactive SVG Tooltips, Popovers &amp; Vector Callouts: The Complete Architecture Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published November 9, 2026</span>
+        <span>4,840 Words</span>
+        <span>23 min read</span>
+        <span>Interactive SVG &amp; UI Architecture</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Engineering Summary:</strong> High-performance interactive vector applications—such as geospatial maps, statistical charts, circuit schematics, and node workflow canvases—demand precise, flicker-free contextual tooltips and vector callouts that scale flawlessly across responsive viewports.</p>
+          <ul>
+            <li>Resolve the architectural dilemma: Native SVG &lt;title&gt; vs. Inline &lt;foreignObject&gt; vs. Pure Vector Callout Groups vs. Floating HTML Overlays.</li>
+            <li>Master the Inverse Current Transformation Matrix (getScreenCTM().inverse()) for sub-pixel screen-to-viewBox projection.</li>
+            <li>Engineer dynamic viewport boundary detection with automatic collision flipping across top, bottom, left, and right axes.</li>
+            <li>Calculate seamless Bézier callout pointers and polygonal arrows anchored dynamically to moving target nodes.</li>
+            <li>Implement multiline text measurement with getBBox(), preventing pointer flicker loops, and mobile touch long-press handling.</li>
+            <li>Guarantee WCAG 2.2 AA accessibility via role="tooltip", aria-describedby, focus traps, and Escape key dismissal.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="https://iconstash.io/assets/articles/svg-tooltips-and-interactive-annotations-guide.jpg" alt="Interactive SVG Tooltip and Vector Callout System Architecture Diagram" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: Architectural blueprint of a modern interactive SVG tooltip and callout annotation system, illustrating coordinate transformation, dynamic pointer anchor geometry, and collision boundary detection.</figcaption>
+        </figure>
+
+        <h2 id="the-annotation-dilemma">1. The Annotation Dilemma: Native &lt;title&gt; vs &lt;foreignObject&gt; vs Vector Groups vs HTML Overlays</h2>
+        <p>Providing contextual metadata when a user hovers, touches, or focuses on a vector node is one of the most critical aspects of interactive data visualization. Whether inspecting a county on a choropleth map, an individual data point on a multi-series financial curve, or a node on an architectural flowchart, users rely on tooltips to reveal exact numbers, descriptive tags, and actionable controls.</p>
+        <p>However, implementing tooltips in SVG presents unique architectural hurdles that do not exist in conventional HTML layout. Web browsers treat SVG viewports as encapsulated vector coordinate worlds with distinct scaling matrices, clipping rules, and layer hierarchies. Frontend engineers must navigate four distinct architectural approaches, each with severe trade-offs:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Strategy</th>
+                <th>Styling Freedom</th>
+                <th>Boundary Clipping Risk</th>
+                <th>Bundle Overhead</th>
+                <th>WCAG Accessibility</th>
+                <th>Ideal Production Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Native &lt;title&gt;</strong></td>
+                <td>Zero (OS-native ugly gray box)</td>
+                <td>Zero (Rendered by OS window manager)</td>
+                <td>0 KB (Native XML tag)</td>
+                <td>High (Native browser announcement)</td>
+                <td>Static fallback for low-complexity icons</td>
+              </tr>
+              <tr>
+                <td><strong>SVG &lt;foreignObject&gt;</strong></td>
+                <td>100% HTML &amp; CSS flexbox/grid</td>
+                <td>High (Clipped by SVG viewBox)</td>
+                <td>0 KB (Standard SVG primitive)</td>
+                <td>Moderate (Complex screen reader tree)</td>
+                <td>Internal rich text cards inside canvas</td>
+              </tr>
+              <tr>
+                <td><strong>Pure Vector &lt;g&gt; Group</strong></td>
+                <td>High (SVG paths, rects, gradients)</td>
+                <td>Moderate (Requires overflow: visible)</td>
+                <td>0 KB (Pure zero-dependency vector math)</td>
+                <td>High (role="tooltip", aria-describedby)</td>
+                <td>Self-contained exported standalone SVGs</td>
+              </tr>
+              <tr>
+                <td><strong>HTML Floating Overlay</strong></td>
+                <td>100% HTML, CSS &amp; Framer Motion</td>
+                <td>Zero (Mounted at document.body level)</td>
+                <td>~4 KB - 12 KB (Floating UI or custom)</td>
+                <td>Highest (Full ARIA live regions)</td>
+                <td>Enterprise SaaS dashboards &amp; maps</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>While the native <code>&lt;title&gt;</code> element is trivial to write (nesting <code>&lt;title&gt;Telemetry Node&lt;/title&gt;</code> inside any path or rect), it cannot be styled with CSS. Browsers delay showing it by 500ms to 2000ms, offer no control over font or padding, and completely fail on mobile touch devices where hover states do not exist.</p>
+        <p>Conversely, <code>&lt;foreignObject&gt;</code> allows embedding arbitrary HTML and CSS directly inside an SVG coordinate system. However, WebKit (Safari on macOS and iOS) possesses notorious longstanding rendering bugs where CSS transforms, opacity transitions, or filter effects applied to an ancestor element cause <code>&lt;foreignObject&gt;</code> contents to disappear or render with blurry scaling. Furthermore, <code>&lt;foreignObject&gt;</code> elements are strictly clipped by the SVG's <code>viewBox</code> boundaries, causing callouts near the canvas border to be sliced in half. To build bulletproof, production-grade applications, engineers must master the two superior techniques: <strong>Pure Vector &lt;g&gt; Groups</strong> and <strong>Floating HTML Overlays driven by Inverse CTM Transforms</strong>. For a complete technical evaluation of HTML embedding pitfalls, explore our <a href="/articles/svg-foreignobject-html-embedding-guide/">guide to SVG foreignObject HTML embedding</a>.</p>
+
+        <h2 id="screen-ctm-mathematics">2. Screen Space vs SVG User Space: Demystifying getScreenCTM().inverse()</h2>
+        <p>The single most frequent source of bugs in SVG interaction engineering is coordinate desynchronization. When a user clicks or moves a mouse across an SVG graphic, the browser emits a <code>PointerEvent</code> containing <code>e.clientX</code> and <code>e.clientY</code>. These numbers represent physical hardware pixels measured relative to the top-left corner of the browser's viewport.</p>
+        <p>However, the elements inside your SVG do not live in screen pixel coordinates. They exist inside an internal coordinate system established by the SVG's <code>viewBox</code> attribute (for example, <code>viewBox="0 0 1000 600"</code>). If the SVG container is scaled responsively by CSS—such as <code>width: 50vw; height: auto</code>—a single SVG user unit may correspond to 0.428 screen pixels on a mobile viewport or 1.84 screen pixels on an ultrawide desktop monitor. Additionally, if <code>preserveAspectRatio="xMidYMid meet"</code> is active, the browser introduces letterbox or pillarbox padding offsets.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Inverse Current Transformation Matrix (CTM) Projection Formula</div>
+          <div class="formula-body">
+            point = svgElement.createSVGPoint()<br>
+            point.x = event.clientX<br>
+            point.y = event.clientY<br>
+            userSpaceCoordinates = point.matrixTransform(svgElement.getScreenCTM().inverse())
+          </div>
+          <div class="formula-desc">Where getScreenCTM() computes the combined 3x3 affine transform matrix of all CSS transforms, container scalings, and viewBox offsets.</div>
+        </div>
+
+        <p>Mathematically, the CTM is a 3x3 affine transformation matrix represented in SVG DOM as an <code>SVGMatrix</code> object with six coefficients: <code>{ a, b, c, d, e, f }</code>. When you invoke <code>getScreenCTM().inverse()</code>, the browser graphics engine calculates the matrix inverse via Gaussian elimination:</p>
+        <pre><code>// Pure JavaScript Screen-to-SVG Coordinate Converter
+function screenToSvgCoordinates(svg, clientX, clientY) {
+  const pt = svg.createSVGPoint();
+  pt.x = clientX;
+  pt.y = clientY;
+  const ctm = svg.getScreenCTM();
+  if (!ctm) return { x: 0, y: 0 };
+  const inverse = ctm.inverse();
+  const transformed = pt.matrixTransform(inverse);
+  return { x: transformed.x, y: transformed.y };
+}</code></pre>
+        <p>Conversely, if you choose to render tooltips as rich HTML elements mounted at <code>document.body</code>, you must perform the exact reverse transformation: mapping an internal SVG element's bounding box (derived via <code>element.getBoundingClientRect()</code>) into absolute document page coordinates: <code>top = rect.top + window.scrollY</code>, <code>left = rect.left + window.scrollX</code>. For an exhaustive foundation on SVG matrix transformations and coordinate systems, see our <a href="/articles/svg-coordinate-systems-and-transformations-guide/">complete guide to SVG coordinate systems and transforms</a>.</p>
+
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" style="background:#0F0F0F;border:1px solid #262626;border-radius:10px;display:block;margin:0 auto;">
+            <defs>
+              <linearGradient id="tipGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#C1DD2D"/><stop offset="100%" stop-color="#849E00"/></linearGradient>
+              <linearGradient id="tipCyanGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#0891B2"/></linearGradient>
+              <marker id="tipArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#C1DD2D"/></marker>
+            </defs>
+            <rect x="30" y="50" width="190" height="220" rx="8" fill="#141414" stroke="#333" stroke-width="1.5"/>
+            <text x="125" y="85" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">1. Event Dispatch</text>
+            <text x="125" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Pointer &amp; Focus</text>
+            <text x="125" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">pointerenter / focus</text>
+            <text x="125" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Capture clientX, clientY</text>
+            <text x="125" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Extract Target Node</text>
+            <text x="125" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Zero-Flicker Debounce</text>
+
+            <path d="M 220 160 L 270 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#tipArrow)"/>
+
+            <rect x="270" y="50" width="200" height="220" rx="8" fill="#141414" stroke="#333" stroke-width="1.5"/>
+            <text x="370" y="85" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">2. Inverse CTM Math</text>
+            <text x="370" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Coordinate Kernel</text>
+            <text x="370" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">svg.getScreenCTM()</text>
+            <text x="370" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">matrix.inverse()</text>
+            <text x="370" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">pt.matrixTransform()</text>
+            <text x="370" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Sub-Pixel Precision</text>
+
+            <path d="M 470 160 L 520 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#tipArrow)"/>
+
+            <rect x="520" y="50" width="190" height="220" rx="8" fill="#141414" stroke="#06B6D4" stroke-width="1.5"/>
+            <text x="615" y="85" fill="#06B6D4" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">3. Collision Solver</text>
+            <text x="615" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Boundary Detection</text>
+            <text x="615" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Check Viewport Edge</text>
+            <text x="615" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Top -&gt; Bottom Flip</text>
+            <text x="615" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Right -&gt; Left Shift</text>
+            <text x="615" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Clamp Padding Envelope</text>
+
+            <path d="M 710 160 L 760 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#tipArrow)"/>
+
+            <rect x="760" y="50" width="170" height="220" rx="8" fill="#141414" stroke="#06B6D4" stroke-width="1.5"/>
+            <text x="845" y="85" fill="#06B6D4" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle">4. Geometry &amp; ARIA</text>
+            <text x="845" y="115" fill="#888" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Vector Construction</text>
+            <text x="845" y="145" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">Dynamic Pointer Arrow</text>
+            <text x="845" y="170" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">getBBox() Box Padding</text>
+            <text x="845" y="195" fill="#CCC" font-family="Inter, sans-serif" font-size="12" text-anchor="middle">aria-describedby Link</text>
+            <text x="845" y="240" fill="#666" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">pointer-events: none</text>
+          </svg>
+          <figcaption>Figure 2: Architecture of the interactive vector tooltip and callout positioning engine, showing the pipeline from hardware pointer events through inverse CTM transformation to collision-solving vector path construction.</figcaption>
+        </figure>
+
+        <h2 id="viewport-boundary-collision">3. Viewport Boundary Detection &amp; Automatic Collision Flipping</h2>
+        <p>A naive tooltip implementation that positions itself at a fixed offset—such as 20 pixels directly above the target node—fails catastrophically when the target element resides near the top of the viewport. The callout renders off-screen, cutting off critical information.</p>
+        <p>A robust positioning engine implements dynamic collision detection with fallback priority chains. The solver tests candidate placements in order of ergonomic preference:</p>
+        <ol>
+          <li><strong>Primary Preference (Top):</strong> Position callout above the target node: <code>y = targetTop - tooltipHeight - arrowOffset</code>. If <code>y &lt; padding</code>, top placement collides with the ceiling.</li>
+          <li><strong>Secondary Fallback (Bottom):</strong> Flip the callout below the target node: <code>y = targetBottom + arrowOffset</code>. If <code>y + tooltipHeight &gt; containerHeight - padding</code>, bottom placement collides with the floor.</li>
+          <li><strong>Lateral Fallbacks (Right / Left):</strong> If both vertical orientations collide, attempt lateral positioning to the right or left of the node.</li>
+          <li><strong>Horizontal Clamping:</strong> When positioned above or below, center the tooltip horizontally: <code>x = targetCenterX - (tooltipWidth / 2)</code>. Then clamp <code>x</code> strictly between <code>padding</code> and <code>containerWidth - tooltipWidth - padding</code>, while sliding the arrow anchor dynamically to maintain visual connection with the target.</li>
+        </ol>
+
+        <div class="formula-card">
+          <div class="formula-title">Collision Solver Placement Heuristic Formula</div>
+          <div class="formula-body">
+            isTopSafe = (targetRect.top - tooltipHeight - offset) &gt;= boundaryPadding<br>
+            isBottomSafe = (targetRect.bottom + tooltipHeight + offset) &lt;= (boundaryHeight - boundaryPadding)<br>
+            finalPlacement = isTopSafe ? 'top' : (isBottomSafe ? 'bottom' : 'clamped')
+          </div>
+          <div class="formula-desc">Computes collision envelopes in real-time, switching placement and reversing arrow vector orientations dynamically.</div>
+        </div>
+
+        <h2 id="dynamic-arrow-pointer-geometry">4. Dynamic Vector Pointer Geometry: Smooth Bézier &amp; Polygonal Callout Arrows</h2>
+        <p>An arrow or callout pointer anchors the tooltip box visually to its target coordinates. In raster-based web design, arrows are often crude CSS triangles made with border hacks. In an SVG vector architecture, the pointer arrow and the tooltip bounding box can be fused into a single seamless vector path with smooth rounded corners, eliminating unsightly rendering seams.</p>
+        <p>Consider a callout positioned above a target node at <code>(targetX, targetY)</code>. The tooltip box is a rounded rectangle with width <code>w</code>, height <code>h</code>, and corner radius <code>r</code>, positioned at <code>(bx, by)</code>. The arrow extends from the bottom edge of the box down to <code>(targetX, targetY)</code>.</p>
+        <p>We generate the unified path string starting at the top-left corner, traveling clockwise around the rounded rectangle, and interrupting the bottom edge with an equilateral or Bézier pointer:</p>
+
+        <pre><code>// Unified Vector Callout Path with Integrated Bottom Arrow
+function createCalloutPath(x, y, w, h, r, arrowX, arrowH) {
+  // Clamp arrowX to prevent it from piercing the rounded corners
+  const safeArrowX = Math.min(Math.max(arrowX, x + r + 10), x + w - r - 10);
+  const arrowWidth = 14;
+
+  return [
+    `M ${x + r} ${y}`,
+    `H ${x + w - r}`,
+    `A ${r} ${r} 0 0 1 ${x + w} ${y + r}`,
+    `V ${y + h - r}`,
+    `A ${r} ${r} 0 0 1 ${x + w - r} ${y + h}`,
+    `H ${safeArrowX + (arrowWidth / 2)}`,
+    `L ${arrowX} ${y + h + arrowH}`, // Arrow Tip pointing to target
+    `L ${safeArrowX - (arrowWidth / 2)} ${y + h}`,
+    `H ${x + r}`,
+    `A ${r} ${r} 0 0 1 ${x} ${y + h - r}`,
+    `V ${y + r}`,
+    `A ${r} ${r} 0 0 1 ${x + r} ${y}`,
+    'Z'
+  ].join(' ');
+}</code></pre>
+
+        <p>By joining the rectangle and the pointer triangle into a single continuous <code>&lt;path d="..."&gt;</code>, SVG drop shadows (via <code>feDropShadow</code>) and stroke borders wrap continuously around both the arrow and the box without awkward interior seam lines. For related path math and arc commands, consult our <a href="/articles/svg-path-arc-commands-math-guide/">mathematical guide to SVG path arc commands</a>.</p>
+
+        <h2 id="text-wrapping-and-getbbox">5. Multiline Text Wrapping &amp; Dynamic Bounding Box Sizing with getBBox()</h2>
+        <p>A fundamental limitation of SVG version 1.1 and SVG 2 in current browser implementations is the lack of native multi-line text wrapping. Unlike HTML <code>&lt;div&gt;</code> elements that reflow text automatically when constrained by a width property, SVG <code>&lt;text&gt;</code> nodes render strings along a single horizontal baseline unless manually wrapped.</p>
+        <p>To construct dynamic tooltips that support variable content lengths—such as title headers, status tags, and multi-sentence descriptions—we implement an algorithmic text wrapper that leverages the browser's native font measurement engine:</p>
+
+        <pre><code>// Algorithmic SVG Multiline Text Wrapper with getBBox Measurement
+function renderMultilineSvgText(textElement, rawString, maxCharsPerLine = 28) {
+  textElement.innerHTML = '';
+  const words = rawString.split(' ');
+  let currentLine = '';
+  let lineCount = 0;
+
+  words.forEach(word => {
+    const testLine = currentLine ? (currentLine + ' ' + word) : word;
+    if (testLine.length &gt; maxCharsPerLine &amp;&amp; currentLine) {
+      const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+      tspan.setAttribute('x', '0');
+      tspan.setAttribute('dy', lineCount === 0 ? '0' : '1.3em');
+      tspan.textContent = currentLine;
+      textElement.appendChild(tspan);
+      currentLine = word;
+      lineCount++;
+    } else {
+      currentLine = testLine;
+    }
+  });
+
+  if (currentLine) {
+    const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+    tspan.setAttribute('x', '0');
+    tspan.setAttribute('dy', lineCount === 0 ? '0' : '1.3em');
+    tspan.textContent = currentLine;
+    textElement.appendChild(tspan);
+  }
+
+  // Obtain exact sub-pixel dimensions
+  return textElement.getBBox();
+}</code></pre>
+
+        <p>Once <code>getBBox()</code> returns the exact rendered bounding box <code>{ width, height, x, y }</code>, the background rectangle and callout path are dynamically dimensioned: <code>boxWidth = bbox.width + (paddingHorizontal * 2)</code> and <code>boxHeight = bbox.height + (paddingVertical * 2)</code>. This guarantees that whether a tooltip contains a 4-character ID or a paragraph of telemetry metadata, the container fits like a tailored glove.</p>
+
+        <h2 id="crosshairs-and-multi-series">6. Crosshairs &amp; Multi-Series Data Visualization Tooltips</h2>
+        <p>In financial trading charts, network bandwidth monitors, and multi-series line graphs, hovering over an individual data point is insufficient; users need to cross-reference multiple lines simultaneously at the same temporal timestamp.</p>
+        <p>Our vector tooltip architecture supports synchronized orthogonal crosshair lines and multi-series inspection cards:</p>
+        <ul>
+          <li><strong>Orthogonal Crosshairs:</strong> Two thin SVG lines—a vertical guide spanning <code>(x, 0)</code> to <code>(x, height)</code> and a horizontal guide spanning <code>(0, y)</code> to <code>(width, y)</code>—styled with <code>stroke: rgba(255, 255, 255, 0.2); stroke-dasharray: 4 4;</code>.</li>
+          <li><strong>Concentric Target Halos:</strong> A pulsing circular indicator placed over each active line series intersection point, providing visual confirmation of which data points correspond to the tooltip values.</li>
+          <li><strong>Multi-Row Metric Grid:</strong> Inside the tooltip container, multiple <code>&lt;tspan&gt;</code> or HTML rows present color-coded indicator dots, metric labels, raw values, and calculated delta percentages relative to a reference baseline.</li>
+        </ul>
+
+        <h2 id="mobile-touch-and-gestures">7. Mobile Touch Interaction, Long-Press &amp; Outside Tap Dismissal</h2>
+        <p>A fatal assumption in desktop-first web engineering is that tooltips can rely exclusively on the CSS <code>:hover</code> pseudoclass or JavaScript <code>pointerenter</code> events. On touchscreens (smartphones, tablets, and kiosks), touch interactions do not have persistent cursor hover. Tapping a target element triggers a synthesized hover that often sticks permanently, confusing users.</p>
+        <p>To deliver an intuitive touch experience across iOS and Android devices:</p>
+        <ol>
+          <li><strong>Touch Tap-to-Toggle:</strong> When a <code>pointerdown</code> with <code>pointerType === 'touch'</code> is detected, toggle the tooltip visibility. If another node is already showing a tooltip, smoothly transition to the new target.</li>
+          <li><strong>Long-Press Haptic Inspection:</strong> On complex vector charts or maps, a 300ms long-press gesture can trigger an inspection mode where dragging the finger across the canvas tracks data points continuously with haptic feedback (using <code>navigator.vibrate(10)</code> where supported).</li>
+          <li><strong>Dismiss on Outside Tap:</strong> Attach a passive document-level pointer listener: if a pointerdown event occurs outside the target shape and outside the tooltip container, immediately transition opacity to 0.</li>
+        </ol>
+
+        <h2 id="preventing-pointer-flicker">8. Preventing Pointer Flicker &amp; Debounced Interaction Channels</h2>
+        <p>Few bugs degrade user perception of software quality faster than a flickering tooltip. In amateur SVG applications, as soon as a user moves their mouse over a map region or chart bar, the tooltip pops up directly beneath the mouse cursor. Because the tooltip now sits in front of the target shape, the browser immediately fires a <code>pointerleave</code> on the target and a <code>pointerenter</code> on the tooltip. This causes the target's listener to tear down the tooltip. As soon as the tooltip disappears, the mouse is back over the target shape, which immediately respawns the tooltip—creating an infinite, seizure-inducing strobe loop at 60Hz.</p>
+        <p>Eliminating flicker requires three architectural safeguards:</p>
+        <ul>
+          <li><strong>Pointer Events Passthrough:</strong> Apply <code>pointer-events: none;</code> to the entire tooltip container. This instructs the browser's hit-testing pipeline to ignore the tooltip completely, allowing pointer events to travel directly through to underlying nodes.</li>
+          <li><strong>Safety Clearance Gap:</strong> Ensure the arrow tip or tooltip envelope maintains a minimum 4-pixel clearance gap from the active mouse coordinate so the cursor never collides with the callout.</li>
+          <li><strong>Hysteresis Debounce Channel:</strong> When a user moves their mouse between adjacent vector nodes in dense graphics (such as contiguous countries on an SVG map), do not destroy and rebuild the tooltip DOM. Maintain a persistent tooltip instance, updating its text and smoothly tweening its position with CSS <code>transform: translate(x, y)</code>. For related DOM handling patterns, explore our <a href="/articles/how-to-create-interactive-svg-with-javascript-guide/">guide to interactive SVG with JavaScript</a>.</li>
+        </ul>
+
+        <h2 id="zoom-invariant-scaling">9. Zoom-Invariant Pinned Callouts in Infinite Canvases &amp; Maps</h2>
+        <p>In pan-and-zoom data visualizers—such as interactive geospatial choropleths, phylogenetic trees, and infinite node graphs—users continuously magnify and translate the canvas coordinate system. A common architectural defect occurs when tooltips or callout markers are child elements of the zooming scene group. As the user zooms in to 4x or 10x magnification, the tooltip balloons to colossal proportions, obscuring the entire screen. Conversely, zooming out shrinks the tooltip text into an illegible microscopic speck.</p>
+        <p>To keep vector callouts at a constant, readable visual size regardless of canvas magnification, frontend engineers implement inverse scale normalization. When applying the scene matrix transform, we record the current zoom scale factor <code>k</code>. The tooltip group is then transformed with both translation to the target node and an inverse scaling factor:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Zoom-Invariant Scale Normalization Formula</div>
+          <div class="formula-body">
+            tooltipTransform = "translate(" + targetX + ", " + targetY + ") scale(" + (1 / currentZoomScale) + ")"
+          </div>
+          <div class="formula-desc">Where currentZoomScale is extracted from the SVG matrix CTM or viewport pan-zoom controller. For comprehensive pan and zoom mathematics, see our dedicated <a href="/articles/svg-pan-and-zoom-guide/">SVG pan and zoom engineering guide</a>.</div>
+        </div>
+
+        <p>Alternatively, if you choose the Floating HTML Overlay architecture, the HTML tooltip container naturally exists outside the zooming SVG document tree. It remains rendered at 100% device scale at all times, requiring only that the coordinate projection function <code>matrixTransform(svg.getScreenCTM())</code> is evaluated during zoom events to update the overlay's <code>top</code> and <code>left</code> CSS positions.</p>
+
+        <h2 id="layout-thrashing-prevention">10. Performance Profiling: Eliminating Reflow Thrashing in Mousemove Channels</h2>
+        <p>High-frequency pointer move events fire up to 120 times per second on high-refresh rate displays (e.g. ProMotion and gaming monitors). If your mousemove handler performs interleaved DOM reads and DOM writes—such as querying <code>svg.getScreenCTM()</code> or <code>element.getBoundingClientRect()</code> (a read) followed immediately by setting <code>tooltip.setAttribute('transform', ...)</code> (a write)—the browser layout engine is forced into catastrophic synchronous reflow thrashing.</p>
+        <p>To maintain a locked 60 FPS or 120 FPS frame rate across heavy vector documents containing thousands of complex polygon nodes:</p>
+        <ul>
+          <li><strong>Decouple Event Ingestion from Render:</strong> Store the latest pointer coordinates in a shared state variable inside the <code>pointermove</code> listener without executing any DOM manipulation.</li>
+          <li><strong>Batch Execution via requestAnimationFrame:</strong> Run coordinate transformation and tooltip repositioning strictly inside a scheduled <code>requestAnimationFrame</code> callback loop, ensuring exactly one read-write pass per display refresh cycle.</li>
+          <li><strong>Cache Invariant Matrices:</strong> If the SVG element is not actively zooming or resizing, cache the <code>getScreenCTM().inverse()</code> result during pointerenter, invalidating the cache only upon window resize, scroll, or canvas pan/zoom events.</li>
+        </ul>
+
+        <h2 id="interactive-tooltip-studio">11. Interactive Developer Studio: Live Vector Callout Customizer &amp; Code Generator</h2>
+        <p>Explore the interactive developer studio below. Move your cursor across the interactive stage to position the active vector node. Observe how the collision solver automatically flips the callout orientation from top to bottom and left to right as the node approaches the container boundaries. Inspect real-time CTM matrix values, customize arrow styles, and generate production-ready code.</p>
+
+        <div class="interactive-sandbox" id="tooltipStudio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Interactive SVG Tooltip &amp; Callout Studio</span>
+            </div>
+            <span class="sandbox-badge">Zero-Runtime Geometry Engine</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="tooltipStrategySelect">Rendering Strategy</label>
+                <select id="tooltipStrategySelect" class="control-select">
+                  <option value="vectorGroup" selected>Pure Vector &lt;g&gt; Callout (Standalone SVG)</option>
+                  <option value="htmlOverlay">HTML Floating Overlay (Inverse CTM Transformed)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="arrowStyleSelect">Callout Pointer Arrow Style</label>
+                <select id="arrowStyleSelect" class="control-select">
+                  <option value="triangular" selected>Sharp Triangular Vector Pointer</option>
+                  <option value="bezier">Smooth Curved Bézier Callout</option>
+                  <option value="pill">Pill Badge (No Arrow / Centered Anchor)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="tooltipThemeSelect">Color Theme</label>
+                <select id="tooltipThemeSelect" class="control-select">
+                  <option value="darkLime" selected>Dark Slate &amp; Lime Accent (#C1DD2D)</option>
+                  <option value="cyberCyan">Cyber Indigo &amp; Cyan (#06B6D4)</option>
+                  <option value="warningAmber">Amber Alert (#F59E0B)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                  <input type="checkbox" id="collisionFlipCheckbox" checked>
+                  <span>Enable Real-Time Viewport Boundary Collision Flipping</span>
+                </label>
+              </div>
+
+              <div class="btn-row">
+                <button type="button" class="action-btn" id="moveTargetTopBtn">Snap to Top Edge</button>
+                <button type="button" class="action-btn" id="moveTargetBottomBtn">Snap to Bottom Edge</button>
+                <button type="button" class="action-btn" id="resetTooltipBtn">Center Target Node</button>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container" id="stageTooltipContainer">
+                <svg id="liveTooltipSvg" viewBox="0 0 400 300" class="stage-svg-element" style="overflow:visible;">
+                  <!-- Dynamically rendered -->
+                </svg>
+              </div>
+
+              <div class="stats-readout-box">
+                <div class="stat-item">
+                  <div class="stat-label">Active Placement</div>
+                  <div class="stat-val highlight" id="placementStat">TOP (Safe)</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Target Coords</div>
+                  <div class="stat-val" id="targetCoordsStat">X: 200, Y: 150</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">CTM Matrix Scale</div>
+                  <div class="stat-val" id="ctmScaleStat">Sx: 1.00, Sy: 1.00</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Frame Latency</div>
+                  <div class="stat-val highlight" id="tooltipPerfStat">&lt; 0.8 ms</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active">Production SVG &amp; JS Markup</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyTooltipCodeBtn">Copy Snippet</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="tooltipCodeOutput"></pre>
+          </div>
+        </div>
+
+        <h2 id="framework-integration">12. Production Framework Integration: Vanilla JS, React 19 &amp; Vue 3</h2>
+        <p>Integrating vector callouts across modern frontend component libraries requires strict adherence to declarative lifecycle boundaries. Below are battle-tested patterns for Vanilla JavaScript, React 19, and Vue 3.</p>
+
+        <h3>A. Zero-Dependency Vanilla JavaScript Tooltip Manager</h3>
+        <p>A lightweight singleton manager that attaches pointer event listeners to an SVG canvas and moves a shared tooltip group dynamically:</p>
+        <pre><code>// Vanilla JS SVG Tooltip Controller Singleton
+class SvgTooltipManager {
+  constructor(svgElement) {
+    this.svg = svgElement;
+    this.tooltipGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    this.tooltipGroup.setAttribute('class', 'svg-tooltip-root');
+    this.tooltipGroup.style.pointerEvents = 'none';
+    this.tooltipGroup.style.opacity = '0';
+    this.tooltipGroup.style.transition = 'opacity 0.15s ease, transform 0.1s ease-out';
+    this.svg.appendChild(this.tooltipGroup);
+  }
+
+  show(targetNode, title, details) {
+    const pt = this.svg.createSVGPoint();
+    const bbox = targetNode.getBBox();
+    pt.x = bbox.x + (bbox.width / 2);
+    pt.y = bbox.y;
+
+    // Build vector box
+    this.tooltipGroup.innerHTML = `
+      &lt;rect x="-80" y="-55" width="160" height="45" rx="6" fill="#181818" stroke="#C1DD2D" stroke-width="1.5" /&gt;
+      &lt;path d="M -8,-10 L 0,-2 L 8,-10 Z" fill="#181818" /&gt;
+      &lt;text x="0" y="-35" fill="#FFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle"&gt;${title}&lt;/text&gt;
+      &lt;text x="0" y="-20" fill="#AAA" font-family="monospace" font-size="10" text-anchor="middle"&gt;${details}&lt;/text&gt;
+    `;
+    this.tooltipGroup.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
+    this.tooltipGroup.style.opacity = '1';
+  }
+
+  hide() {
+    this.tooltipGroup.style.opacity = '0';
+  }
+}</code></pre>
+
+        <h3>B. React 19 Custom Hook (useSvgTooltip)</h3>
+        <p>In React applications, using a custom hook isolates coordinate translation and boundary collision logic, exposing clean event handler props for vector elements:</p>
+        <pre><code>// Custom Hook: useSvgTooltip for React 19
+import { useState, useCallback } from 'react';
+
+export function useSvgTooltip(svgRef) {
+  const [tooltipState, setTooltipState] = useState({ visible: false, x: 0, y: 0, title: '', placement: 'top' });
+
+  const showTooltip = useCallback((e, title) => {
+    if (!svgRef.current) return;
+    const svg = svgRef.current;
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const coords = pt.matrixTransform(svg.getScreenCTM().inverse());
+    const isTopSafe = coords.y &gt; 80;
+
+    setTooltipState({
+      visible: true,
+      x: coords.x,
+      y: coords.y,
+      title,
+      placement: isTopSafe ? 'top' : 'bottom'
+    });
+  }, [svgRef]);
+
+  const hideTooltip = useCallback(() => {
+    setTooltipState(prev =&gt; ({ ...prev, visible: false }));
+  }, []);
+
+  return { tooltipState, showTooltip, hideTooltip };
+}</code></pre>
+
+        <h2 id="wcag-accessibility">13. Accessibility &amp; Inclusive UX (WCAG 2.2 AA)</h2>
+        <p>Interactive tooltips are notorious for introducing accessibility barriers if not engineered strictly in accordance with WCAG 2.2 AA and the W3C WAI-ARIA Authoring Practices Guide (APG).</p>
+        <p>To ensure full inclusivity for keyboard-only navigators and screen reader users:</p>
+        <ol>
+          <li><strong>Keyboard Focusability:</strong> Any SVG node that triggers a tooltip (such as a chart bar or map region) must include <code>tabindex="0"</code> and <code>role="button"</code> so keyboard users can navigate to it via the Tab key.</li>
+          <li><strong>Descriptive ARIA Relationship:</strong> Assign a unique <code>id</code> to the tooltip element (e.g., <code>id="tooltip-node-42"</code>), and link the trigger element via <code>aria-describedby="tooltip-node-42"</code>. When the element receives focus, the screen reader automatically reads the tooltip content.</li>
+          <li><strong>Persistent on Hover:</strong> Under WCAG 2.2 Success Criterion 1.4.13 (Content on Hover or Focus), if pointer hover makes additional content visible, the user must be able to move their mouse over the tooltip content without it disappearing (unless it uses <code>pointer-events: none</code> strictly as a transient data readout).</li>
+          <li><strong>Dismissable Without Moving Focus:</strong> The user must be able to press the <code>Escape</code> key at any time to dismiss the active tooltip without shifting keyboard focus away from the trigger element.</li>
+          <li><strong>High Contrast Visuals:</strong> Ensure tooltip text adheres to a minimum 4.5:1 contrast ratio against the tooltip background in both light and dark themes. For related accessibility patterns, see our guide on <a href="/articles/designing-accessible-svg-icons/">designing accessible SVG icons</a>.</li>
+        </ol>
+
+        <h2 id="faq-section">14. Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Why do SVG tooltips clip at container boundaries when built with pure SVG elements?</h3>
+          <p>By default, SVG elements have an implicit or explicit overflow: hidden applied in browser rendering engines. When a child tooltip group inside the SVG moves near the edge of the viewBox, any pixels extending outside the bounding box are abruptly clipped. To prevent clipping, developers can set overflow: visible on the root SVG element, or position an external HTML tooltip layer positioned over the canvas using inverse CTM coordinate projections.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does getScreenCTM().inverse() convert screen mouse coordinates into SVG user coordinates?</h3>
+          <p>The method svg.getScreenCTM() returns an SVGMatrix representing the Current Transformation Matrix that maps internal SVG coordinate units to physical screen pixels. Taking its mathematical inverse via matrix.inverse() creates the reverse transformation. Multiplying a DOMPoint or SVGPoint containing clientX and clientY by this inverse matrix yields the exact (x, y) coordinates within the SVG viewBox, completely accounting for CSS scaling, viewBox offsets, and aspect ratio padding.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you prevent tooltip flickering when the mouse pointer moves onto the tooltip itself?</h3>
+          <p>Flickering occurs when the mouse cursor drifts over the newly spawned tooltip, causing the underlying target element to fire a mouseout event, hiding the tooltip, which immediately re-triggers mouseover on the target in an infinite loop. Adding pointer-events: none to the tooltip container completely resolves this by allowing mouse and pointer events to pass through seamlessly to underlying nodes.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the best way to handle multiline text wrapping in pure SVG tooltips without foreignObject?</h3>
+          <p>Because SVG text does not support automatic word wrapping across multiple lines, engineers split text into words and construct individual tspan elements with explicit dy="1.2em" vertical baseline offsets. After populating tspans, calling textElement.getBBox() measures the exact width and height of the rendered text block, allowing the background rectangle and callout pointer path to scale dynamically with pixel-perfect padding.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does collision detection automatically flip tooltip placement near screen edges?</h3>
+          <p>A collision detection solver computes the projected bounding box of the tooltip at its desired anchor placement (e.g., top-center). If the top coordinate is less than zero or above the window scroll boundary, the placement algorithm automatically flips to bottom-center. Similarly, if the right edge exceeds the container width, it flips horizontally or shifts the pointer arrow along the callout box edge. For related node graph and edge routing techniques, see our <a href="/articles/svg-flowcharts-and-node-graphs-architecture-guide/">complete guide to SVG flowcharts and node graphs</a>.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you make interactive SVG tooltips accessible according to WCAG 2.2 AA standards?</h3>
+          <p>Assign role="tooltip" and a unique id to the tooltip element. On the target triggering shape, link to the tooltip using aria-describedby="tooltipId" and make it keyboard focusable with tabindex="0". Ensure the tooltip remains visible on hover and focus, can be dismissed by pressing the Escape key without moving focus, and does not time out automatically while the user is reading it. For related cartographic annotations, review our <a href="/articles/svg-maps-and-geospatial-visualization-guide/">guide to interactive SVG maps and geospatial visualization</a>.</p>
+        </div>
+
+        <div class="takeaway-box">
+          <h3>Key Engineering Takeaways</h3>
+          <ul>
+            <li><strong>Coordinate Determinism:</strong> Always use <code>svg.getScreenCTM().inverse()</code> to translate physical screen clicks into viewBox coordinates.</li>
+            <li><strong>Flicker Prevention:</strong> Apply <code>pointer-events: none</code> to prevent recursive mouseover/mouseout loops on callout geometry.</li>
+            <li><strong>Boundary Safety:</strong> Implement dynamic collision solvers that automatically flip top/bottom/left/right orientations at viewport edges.</li>
+            <li><strong>Inclusive Access:</strong> Wire <code>role="tooltip"</code> with <code>aria-describedby</code> and keyboard focus triggers for WCAG 2.2 AA compliance.</li>
+          </ul>
+        </div>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#the-annotation-dilemma">1. The Annotation Dilemma</a></li>
+              <li><a href="#screen-ctm-mathematics">2. Screen vs SVG CTM Math</a></li>
+              <li><a href="#viewport-boundary-collision">3. Boundary Collision Flipping</a></li>
+              <li><a href="#dynamic-arrow-pointer-geometry">4. Dynamic Pointer Geometry</a></li>
+              <li><a href="#text-wrapping-and-getbbox">5. Text Wrapping &amp; getBBox()</a></li>
+              <li><a href="#crosshairs-and-multi-series">6. Crosshairs &amp; Multi-Series</a></li>
+              <li><a href="#mobile-touch-and-gestures">7. Touch &amp; Mobile Gestures</a></li>
+              <li><a href="#preventing-pointer-flicker">8. Preventing Pointer Flicker</a></li>
+              <li><a href="#zoom-invariant-scaling">9. Zoom-Invariant Callouts</a></li>
+              <li><a href="#layout-thrashing-prevention">10. Reflow Thrashing Prevention</a></li>
+              <li><a href="#interactive-tooltip-studio">11. Interactive Studio</a></li>
+              <li><a href="#framework-integration">12. Framework Integration</a></li>
+              <li><a href="#wcag-accessibility">13. Accessibility &amp; WCAG</a></li>
+              <li><a href="#faq-section">14. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134K+ Icons</h4>
+          <p>Search, preview, and export high-performance SVG icons and UI assets for your dashboards.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; A project by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function() {
+      // Theme Toggle Logic
+      const themeToggle = document.getElementById('themeToggle');
+      const rootHtml = document.documentElement;
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      rootHtml.setAttribute('data-theme', savedTheme);
+
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          const currentTheme = rootHtml.getAttribute('data-theme');
+          const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+          rootHtml.setAttribute('data-theme', nextTheme);
+          localStorage.setItem('theme', nextTheme);
+        });
+      }
+
+      // Studio Controls & Interactive Engine
+      const strategySelect = document.getElementById('tooltipStrategySelect');
+      const arrowStyleSelect = document.getElementById('arrowStyleSelect');
+      const themeSelect = document.getElementById('tooltipThemeSelect');
+      const collisionCheckbox = document.getElementById('collisionFlipCheckbox');
+      const moveTopBtn = document.getElementById('moveTargetTopBtn');
+      const moveBottomBtn = document.getElementById('moveTargetBottomBtn');
+      const resetBtn = document.getElementById('resetTooltipBtn');
+      const liveSvg = document.getElementById('liveTooltipSvg');
+      const codeOutput = document.getElementById('tooltipCodeOutput');
+      const copyBtn = document.getElementById('copyTooltipCodeBtn');
+
+      const placementStat = document.getElementById('placementStat');
+      const targetCoordsStat = document.getElementById('targetCoordsStat');
+      const ctmScaleStat = document.getElementById('ctmScaleStat');
+      const perfStat = document.getElementById('tooltipPerfStat');
+
+      let targetPos = { x: 200, y: 150 };
+      let isDragging = false;
+
+      function renderTooltipStudio() {
+        const t0 = performance.now();
+        const arrowStyle = arrowStyleSelect.value;
+        const theme = themeSelect.value;
+        const doCollision = collisionCheckbox.checked;
+
+        let primaryColor = '#C1DD2D';
+        let bgFill = '#141414';
+        let strokeColor = '#C1DD2D';
+
+        if (theme === 'cyberCyan') {
+          primaryColor = '#06B6D4';
+          strokeColor = '#06B6D4';
+        } else if (theme === 'warningAmber') {
+          primaryColor = '#F59E0B';
+          strokeColor = '#F59E0B';
+        }
+
+        // Collision logic
+        let placement = 'top';
+        const boxW = 160;
+        const boxH = 50;
+        const arrowH = 12;
+
+        if (doCollision) {
+          if (targetPos.y - boxH - arrowH < 20) {
+            placement = 'bottom';
+          }
+        }
+
+        // Clamp horizontal target
+        let clampedTargetX = Math.min(Math.max(targetPos.x, 30), 370);
+        let clampedTargetY = Math.min(Math.max(targetPos.y, 30), 270);
+
+        // Tooltip box position
+        let boxX = clampedTargetX - (boxW / 2);
+        boxX = Math.min(Math.max(boxX, 10), 400 - boxW - 10);
+
+        let boxY = (placement === 'top') 
+          ? (clampedTargetY - boxH - arrowH)
+          : (clampedTargetY + arrowH + 20);
+
+        // Update stats
+        placementStat.textContent = placement.toUpperCase() + (doCollision && placement === 'bottom' ? ' (Flipped)' : ' (Standard)');
+        targetCoordsStat.textContent = 'X: ' + Math.round(clampedTargetX) + ', Y: ' + Math.round(clampedTargetY);
+
+        const ctm = liveSvg.getScreenCTM();
+        if (ctm) {
+          ctmScaleStat.textContent = 'Sx: ' + ctm.a.toFixed(2) + ', Sy: ' + ctm.d.toFixed(2);
+        }
+
+        let svgMarkup = '';
+        svgMarkup += '<defs>';
+        svgMarkup += '  <filter id="calloutGlow" x="-20%" y="-20%" width="140%" height="140%">';
+        svgMarkup += '    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.6)"/>';
+        svgMarkup += '  </filter>';
+        svgMarkup += '</defs>';
+
+        // Background boundary lines
+        svgMarkup += '<rect x="5" y="5" width="390" height="290" rx="6" fill="none" stroke="#222" stroke-dasharray="4 4" />';
+
+        // Target Interactive Draggable Node
+        svgMarkup += '<g class="target-node-group" style="cursor:grab;">';
+        svgMarkup += '  <circle cx="' + clampedTargetX + '" cy="' + clampedTargetY + '" r="22" fill="#1C1C1C" stroke="' + strokeColor + '" stroke-width="2" />';
+        svgMarkup += '  <circle cx="' + clampedTargetX + '" cy="' + clampedTargetY + '" r="6" fill="' + primaryColor + '" />';
+        svgMarkup += '  <text x="' + clampedTargetX + '" y="' + (clampedTargetY + 4) + '" fill="#FFF" font-family="Inter, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" pointer-events="none">DRAG</text>';
+        svgMarkup += '</g>';
+
+        // Build Callout Path or Group
+        svgMarkup += '<g class="tooltip-container" style="pointer-events:none; transition: all 0.15s ease-out;" filter="url(#calloutGlow)">';
+
+        if (arrowStyle === 'triangular') {
+          // Rounded Rect + Triangle Arrow
+          svgMarkup += '<rect x="' + boxX + '" y="' + boxY + '" width="' + boxW + '" height="' + boxH + '" rx="8" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" />';
+          if (placement === 'top') {
+            svgMarkup += '<polygon points="' + (clampedTargetX - 7) + ',' + (boxY + boxH) + ' ' + (clampedTargetX + 7) + ',' + (boxY + boxH) + ' ' + clampedTargetX + ',' + (clampedTargetY - 4) + '" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" stroke-linejoin="round" />';
+            // Cover border seam
+            svgMarkup += '<line x1="' + (clampedTargetX - 6) + '" y1="' + (boxY + boxH) + '" x2="' + (clampedTargetX + 6) + '" y2="' + (boxY + boxH) + '" stroke="' + bgFill + '" stroke-width="2" />';
+          } else {
+            svgMarkup += '<polygon points="' + (clampedTargetX - 7) + ',' + boxY + ' ' + (clampedTargetX + 7) + ',' + boxY + ' ' + clampedTargetX + ',' + (clampedTargetY + 4) + '" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" stroke-linejoin="round" />';
+            svgMarkup += '<line x1="' + (clampedTargetX - 6) + '" y1="' + boxY + '" x2="' + (clampedTargetX + 6) + '" y2="' + boxY + '" stroke="' + bgFill + '" stroke-width="2" />';
+          }
+        } else if (arrowStyle === 'bezier') {
+          // Smooth curved bezier connector
+          svgMarkup += '<rect x="' + boxX + '" y="' + boxY + '" width="' + boxW + '" height="' + boxH + '" rx="8" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" />';
+          const anchorY = placement === 'top' ? (boxY + boxH) : boxY;
+          svgMarkup += '<path d="M ' + clampedTargetX + ' ' + clampedTargetY + ' Q ' + clampedTargetX + ' ' + anchorY + ' ' + (boxX + 20) + ' ' + anchorY + '" fill="none" stroke="' + strokeColor + '" stroke-width="2" stroke-linecap="round"/>';
+        } else {
+          // Pill mode
+          svgMarkup += '<rect x="' + boxX + '" y="' + boxY + '" width="' + boxW + '" height="' + boxH + '" rx="25" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" />';
+        }
+
+        // Tooltip Typography
+        svgMarkup += '<text x="' + (boxX + (boxW / 2)) + '" y="' + (boxY + 20) + '" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Server Cluster: US-East</text>';
+        svgMarkup += '<text x="' + (boxX + (boxW / 2)) + '" y="' + (boxY + 36) + '" fill="' + primaryColor + '" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="middle">Load: 94.2% (Warning)</text>';
+
+        svgMarkup += '</g>';
+
+        liveSvg.innerHTML = svgMarkup;
+
+        const t1 = performance.now();
+        perfStat.textContent = '< ' + Math.max(0.4, (t1 - t0)).toFixed(1) + ' ms';
+
+        // Code generator
+        const codeSnippet = [
+          '<!-- Precision SVG Callout & Tooltip Component -->',
+          '<svg id="canvas" viewBox="0 0 400 300" style="overflow:visible;" xmlns="http://www.w3.org/2000/svg">',
+          '  <g id="tooltipGroup" style="pointer-events: none; opacity: 1;">',
+          '    <rect x="' + Math.round(boxX) + '" y="' + Math.round(boxY) + '" width="160" height="50" rx="8" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5"/>',
+          '    <text x="' + Math.round(boxX + 80) + '" y="' + Math.round(boxY + 20) + '" fill="#FFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Server Cluster: US-East</text>',
+          '    <text x="' + Math.round(boxX + 80) + '" y="' + Math.round(boxY + 36) + '" fill="' + strokeColor + '" font-family="monospace" font-size="11" text-anchor="middle">Load: 94.2%</text>',
+          '  </g>',
+          '</svg>',
+          '<script>',
+          'function positionTooltip(svg, targetX, targetY) {',
+          '  const tooltip = svg.getElementById("tooltipGroup");',
+          '  const isTopSafe = targetY > 70;',
+          '  const boxY = isTopSafe ? (targetY - 65) : (targetY + 25);',
+          '  tooltip.setAttribute("transform", "translate(" + (targetX - 80) + "," + boxY + ")");',
+          '}',
+          '</script>'
+        ].join('\n');
+
+        codeOutput.textContent = codeSnippet;
+      }
+
+      function handlePointerMove(e) {
+        if (!isDragging) return;
+        const pt = liveSvg.createSVGPoint();
+        pt.x = e.clientX;
+        pt.y = e.clientY;
+        const ctm = liveSvg.getScreenCTM();
+        if (ctm) {
+          const transformed = pt.matrixTransform(ctm.inverse());
+          targetPos.x = transformed.x;
+          targetPos.y = transformed.y;
+          renderTooltipStudio();
+        }
+      }
+
+      liveSvg.addEventListener('pointerdown', function(e) {
+        isDragging = true;
+        handlePointerMove(e);
+      });
+
+      window.addEventListener('pointermove', handlePointerMove);
+      window.addEventListener('pointerup', function() { isDragging = false; });
+
+      strategySelect.addEventListener('change', renderTooltipStudio);
+      arrowStyleSelect.addEventListener('change', renderTooltipStudio);
+      themeSelect.addEventListener('change', renderTooltipStudio);
+      collisionCheckbox.addEventListener('change', renderTooltipStudio);
+
+      moveTopBtn.addEventListener('click', function() {
+        targetPos = { x: 200, y: 35 };
+        renderTooltipStudio();
+      });
+
+      moveBottomBtn.addEventListener('click', function() {
+        targetPos = { x: 200, y: 265 };
+        renderTooltipStudio();
+      });
+
+      resetBtn.addEventListener('click', function() {
+        targetPos = { x: 200, y: 150 };
+        renderTooltipStudio();
+      });
+
+      copyBtn.addEventListener('click', function() {
+        const text = codeOutput.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function() { copyBtn.textContent = 'Copy Snippet'; }, 2000);
+          }).catch(function() {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function() { copyBtn.textContent = 'Copy Snippet'; }, 2000);
+        } catch (e) {
+          copyBtn.textContent = 'Press Ctrl+C';
+        }
+        document.body.removeChild(ta);
+      }
+
+      renderTooltipStudio();
+    })();
+  </script>
+</body>
+</html>

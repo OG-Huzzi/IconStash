@@ -274,7 +274,8 @@ for (const item of deliverables) {
   assert(articlesIndex.includes(item.canonical) || articlesIndex.includes(item.canonical.replace('https://iconstash.io', '')), `articles/index.html contains link to ${item.slug}`);
 }
 
-assert(articlesIndex.includes('<span class="count">96 guides</span>'), 'Guides count updated to 96 guides');
+const guidesMatch = articlesIndex.match(/<span class="count">(\d+)\s+guides<\/span>/);
+assert(guidesMatch && parseInt(guidesMatch[1], 10) >= 96, `Guides count is at least 96 guides (found ${guidesMatch ? guidesMatch[1] : 0})`);
 assert(articlesIndex.includes('"position": 145') && articlesIndex.includes('"position": 146') && articlesIndex.includes('"position": 147'), 'ItemList contains positions 145, 146, 147');
 
 // Sitemap Verification: articles-sitemap.xml
@@ -285,12 +286,12 @@ for (const item of deliverables) {
   assert(sitemap.includes(`<loc>${item.canonical}</loc>`), `articles-sitemap.xml includes ${item.canonical}`);
   assert(sitemap.includes(`<loc>${item.canonical}</loc><lastmod>2026-11-07</lastmod>`), `${item.slug} has current lastmod 2026-11-07`);
 }
-assert(sitemap.includes('<loc>https://iconstash.io/articles/</loc><lastmod>2026-11-07</lastmod>'), 'Articles hub in sitemap has lastmod 2026-11-07');
+assert(sitemap.match(/<loc>https:\/\/iconstash\.io\/articles\/<\/loc><lastmod>2026-11-(0[7-9]|[12]\d)<\/lastmod>/), 'Articles hub in sitemap has lastmod >= 2026-11-07');
 
 // Parent sitemap.xml
 console.log('\n--- Checking parent sitemap.xml ---');
 const parentSitemap = fs.readFileSync('sitemap.xml', 'utf8');
-assert(parentSitemap.includes('<sitemap><loc>https://iconstash.io/articles-sitemap.xml</loc><lastmod>2026-11-07</lastmod></sitemap>'), 'parent sitemap.xml references articles-sitemap.xml with 2026-11-07');
+assert(parentSitemap.match(/<sitemap><loc>https:\/\/iconstash\.io\/articles-sitemap\.xml<\/loc><lastmod>2026-11-(0[7-9]|[12]\d)<\/lastmod><\/sitemap>/), 'parent sitemap.xml references articles-sitemap.xml with >= 2026-11-07');
 
 // llms.txt
 console.log('\n--- Checking llms.txt ---');
@@ -298,8 +299,8 @@ const llms = fs.readFileSync('llms.txt', 'utf8');
 for (const item of deliverables) {
   assert(llms.includes(item.canonical), `llms.txt includes ${item.canonical}`);
 }
-assert(llms.includes('- Last updated: 2026-11-07'), 'llms.txt has updated timestamp 2026-11-07 in Key Facts header');
-assert(llms.includes('Last updated: 2026-11-07'), 'llms.txt has updated timestamp 2026-11-07 in footer');
+assert(llms.match(/- Last updated: 2026-11-(0[7-9]|[12]\d)/), 'llms.txt has updated timestamp >= 2026-11-07 in Key Facts header');
+assert(llms.match(/Last updated: 2026-11-(0[7-9]|[12]\d)/), 'llms.txt has updated timestamp >= 2026-11-07 in footer');
 
 console.log(`\n========================================`);
 console.log(`VERIFICATION SUMMARY: ${passed} PASSED, ${failed} FAILED`);
