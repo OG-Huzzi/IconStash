@@ -1032,11 +1032,11 @@ export function PrecisionGauge({ value, min = 0, max = 100, label = 'Metric' }) 
       }
 
       function describeArc(cx, cy, r, startAngle, endAngle) {
-        const start = polarToCartesian(cx, cy, r, endAngle);
-        const end = polarToCartesian(cx, cy, r, startAngle);
+        const start = polarToCartesian(cx, cy, r, startAngle);
+        const end = polarToCartesian(cx, cy, r, endAngle);
         const arcSweep = endAngle - startAngle;
         const largeArcFlag = arcSweep <= 180 ? '0' : '1';
-        return ['M', start.x, start.y, 'A', r, r, 0, largeArcFlag, 0, end.x, end.y].join(' ');
+        return ['M', start.x, start.y, 'A', r, r, 0, largeArcFlag, 1, end.x, end.y].join(' ');
       }
 
       function renderGauge() {
@@ -1156,6 +1156,11 @@ export function PrecisionGauge({ value, min = 0, max = 100, label = 'Metric' }) 
           '  </style>',
           '  <path class="gauge-track" d="' + (type === 'circle360' ? 'M 150 50 A 100 100 0 1 1 149.9 50' : describeArc(cx, cy, r, startAngle, endAngle)) + '" />',
           '  <path class="gauge-active" d="' + (type === 'circle360' ? 'M 150 50 A 100 100 0 1 1 149.9 50' : describeArc(cx, cy, r, startAngle, endAngle)) + '" />',
+          (type !== 'circle360' ? '  <g class="gauge-needle" transform="rotate(' + currentAngle.toFixed(1) + ' 150 150)">
+    <polygon points="147,160 153,160 151,65 149,65" fill="#EF4444"/>
+    <circle cx="150" cy="150" r="8" fill="#181818" stroke="#EF4444" stroke-width="2"/>
+    <circle cx="150" cy="150" r="3" fill="#FFFFFF"/>
+  </g>' : ''),
           '  <text x="150" y="' + textY + '" fill="#FFF" font-family="monospace" font-size="28" font-weight="bold" text-anchor="middle">' + val + '%</text>',
           '</svg>',
           '<script>',
@@ -1163,11 +1168,13 @@ export function PrecisionGauge({ value, min = 0, max = 100, label = 'Metric' }) 
           '  const clamped = Math.min(Math.max(percent, 0), 100);',
           '  const circumference = ' + totalArcLength.toFixed(1) + ';',
           '  const offset = circumference - (clamped / 100 * circumference);',
-          '  document.querySelector(".gauge-active").style.strokeDashoffset = offset;',
-          '  document.querySelector(".gauge-needle").style.transform = "rotate(" + (' + startAngle + ' + (clamped / 100 * ' + sweepAngle + ')) + "deg)";',
+          '  const activePath = document.querySelector(".gauge-active");',
+          '  if (activePath) activePath.style.strokeDashoffset = offset;',
+          '  const needle = document.querySelector(".gauge-needle");',
+          '  if (needle) needle.style.transform = "rotate(" + (' + startAngle + ' + (clamped / 100 * ' + sweepAngle + ')) + "deg)";',
           '}',
           '</script>'
-        ].join('\n');
+        ].filter(Boolean).join('\n');
 
         codeOutput.textContent = generatedCode;
       }

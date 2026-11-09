@@ -183,6 +183,10 @@ for (const item of deliverables) {
     assert(content.includes('id="copyGaugeCodeBtn"'), 'Interactive copyGaugeCodeBtn present');
     assert(content.includes('id="gaugeValueSlider"'), 'Interactive value slider present');
     assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
+    // Deep mathematical & code generator assertions
+    assert(content.includes("polarToCartesian(cx, cy, r, startAngle)") && content.includes("largeArcFlag, 1, end.x, end.y"), 'Gauge describeArc uses clockwise positive angular sweep (sweep-flag = 1) starting at startAngle');
+    assert(content.includes('class="gauge-needle" transform="rotate('), 'Generated gauge snippet includes needle element in SVG markup');
+    assert(content.includes('if (needle) needle.style.transform'), 'Generated setGaugeValue guards needle query to prevent null reference error');
   } else if (item.slug === 'svg-tooltips-and-interactive-annotations-guide') {
     assert(content.includes('id="tooltipStudio"'), 'Interactive studio #tooltipStudio present');
     assert(content.includes('id="tooltipStrategySelect"'), 'Interactive tooltipStrategySelect present');
@@ -190,6 +194,9 @@ for (const item of deliverables) {
     assert(content.includes('id="copyTooltipCodeBtn"'), 'Interactive copyTooltipCodeBtn present');
     assert(content.includes('id="collisionFlipCheckbox"'), 'Interactive collision flip toggle present');
     assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
+    // Deep geometry assertions
+    assert(content.includes('const nodeR = 22;') && content.includes('arrowTipY = clampedTargetY - nodeR - 2'), 'Tooltip arrow touches boundary of node without overlapping circle');
+    assert(content.includes('<rect x="0" y="0" width="160" height="50"') && content.includes('transform="translate('), 'Tooltip generated snippet normalizes child coordinates to prevent double-offset translation bug');
   } else if (item.slug === 'svg-displacement-maps-and-distortion-effects-guide') {
     assert(content.includes('id="displacementStudio"'), 'Interactive studio #displacementStudio present');
     assert(content.includes('id="dispEffectSelect"'), 'Interactive dispEffectSelect present');
@@ -197,6 +204,10 @@ for (const item of deliverables) {
     assert(content.includes('id="copyDispCodeBtn"'), 'Interactive copyDispCodeBtn present');
     assert(content.includes('id="triggerPulseBtn"'), 'Interactive triggerPulseBtn present');
     assert(content.includes("document.execCommand('copy')"), 'Clipboard copy has robust document.execCommand fallback');
+    // Deep DOM & shader pipeline assertions
+    assert(!content.includes('stageSvg.innerHTML = `\n          &lt;defs&gt;') && !content.includes('&lt;filter id="studioDispFilter"'), 'Displacement studio does not use escaped HTML entities (&lt;) in stageSvg.innerHTML');
+    assert(content.includes('<filter id="studioDispFilter"') && content.includes('<feTurbulence id="studioTurb"'), 'Displacement studio contains valid SVG filter elements with studioTurb and studioDisp IDs');
+    assert(content.includes('stageSvg.innerHTML = `\n          <defs>'), 'Displacement studio assigns real SVG markup to stageSvg.innerHTML');
   }
 
   // 14. Code generator output sanity check: no double-escaped literal '\n' in generated output strings

@@ -1038,24 +1038,32 @@ export function useSvgTooltip(svgRef) {
         const boxW = 160;
         const boxH = 50;
         const arrowH = 12;
+        const nodeR = 22;
+
+        // Clamp horizontal & vertical target
+        let clampedTargetX = Math.min(Math.max(targetPos.x, 30), 370);
+        let clampedTargetY = Math.min(Math.max(targetPos.y, 30), 270);
 
         if (doCollision) {
-          if (targetPos.y - boxH - arrowH < 20) {
+          if (clampedTargetY - boxH - arrowH - nodeR < 15) {
             placement = 'bottom';
           }
         }
-
-        // Clamp horizontal target
-        let clampedTargetX = Math.min(Math.max(targetPos.x, 30), 370);
-        let clampedTargetY = Math.min(Math.max(targetPos.y, 30), 270);
 
         // Tooltip box position
         let boxX = clampedTargetX - (boxW / 2);
         boxX = Math.min(Math.max(boxX, 10), 400 - boxW - 10);
 
-        let boxY = (placement === 'top') 
-          ? (clampedTargetY - boxH - arrowH)
-          : (clampedTargetY + arrowH + 20);
+        let arrowTipY, arrowBaseY, boxY;
+        if (placement === 'top') {
+          arrowTipY = clampedTargetY - nodeR - 2;
+          arrowBaseY = arrowTipY - arrowH;
+          boxY = arrowBaseY - boxH;
+        } else {
+          arrowTipY = clampedTargetY + nodeR + 2;
+          arrowBaseY = arrowTipY + arrowH;
+          boxY = arrowBaseY;
+        }
 
         // Update stats
         placementStat.textContent = placement.toUpperCase() + (doCollision && placement === 'bottom' ? ' (Flipped)' : ' (Standard)');
@@ -1078,7 +1086,7 @@ export function useSvgTooltip(svgRef) {
 
         // Target Interactive Draggable Node
         svgMarkup += '<g class="target-node-group" style="cursor:grab;">';
-        svgMarkup += '  <circle cx="' + clampedTargetX + '" cy="' + clampedTargetY + '" r="22" fill="#1C1C1C" stroke="' + strokeColor + '" stroke-width="2" />';
+        svgMarkup += '  <circle cx="' + clampedTargetX + '" cy="' + clampedTargetY + '" r="' + nodeR + '" fill="#1C1C1C" stroke="' + strokeColor + '" stroke-width="2" />';
         svgMarkup += '  <circle cx="' + clampedTargetX + '" cy="' + clampedTargetY + '" r="6" fill="' + primaryColor + '" />';
         svgMarkup += '  <text x="' + clampedTargetX + '" y="' + (clampedTargetY + 4) + '" fill="#FFF" font-family="Inter, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" pointer-events="none">DRAG</text>';
         svgMarkup += '</g>';
@@ -1090,18 +1098,19 @@ export function useSvgTooltip(svgRef) {
           // Rounded Rect + Triangle Arrow
           svgMarkup += '<rect x="' + boxX + '" y="' + boxY + '" width="' + boxW + '" height="' + boxH + '" rx="8" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" />';
           if (placement === 'top') {
-            svgMarkup += '<polygon points="' + (clampedTargetX - 7) + ',' + (boxY + boxH) + ' ' + (clampedTargetX + 7) + ',' + (boxY + boxH) + ' ' + clampedTargetX + ',' + (clampedTargetY - 4) + '" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" stroke-linejoin="round" />';
+            svgMarkup += '<polygon points="' + (clampedTargetX - 7) + ',' + (boxY + boxH) + ' ' + (clampedTargetX + 7) + ',' + (boxY + boxH) + ' ' + clampedTargetX + ',' + arrowTipY + '" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" stroke-linejoin="round" />';
             // Cover border seam
             svgMarkup += '<line x1="' + (clampedTargetX - 6) + '" y1="' + (boxY + boxH) + '" x2="' + (clampedTargetX + 6) + '" y2="' + (boxY + boxH) + '" stroke="' + bgFill + '" stroke-width="2" />';
           } else {
-            svgMarkup += '<polygon points="' + (clampedTargetX - 7) + ',' + boxY + ' ' + (clampedTargetX + 7) + ',' + boxY + ' ' + clampedTargetX + ',' + (clampedTargetY + 4) + '" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" stroke-linejoin="round" />';
+            svgMarkup += '<polygon points="' + (clampedTargetX - 7) + ',' + boxY + ' ' + (clampedTargetX + 7) + ',' + boxY + ' ' + clampedTargetX + ',' + arrowTipY + '" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" stroke-linejoin="round" />';
             svgMarkup += '<line x1="' + (clampedTargetX - 6) + '" y1="' + boxY + '" x2="' + (clampedTargetX + 6) + '" y2="' + boxY + '" stroke="' + bgFill + '" stroke-width="2" />';
           }
         } else if (arrowStyle === 'bezier') {
           // Smooth curved bezier connector
           svgMarkup += '<rect x="' + boxX + '" y="' + boxY + '" width="' + boxW + '" height="' + boxH + '" rx="8" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" />';
           const anchorY = placement === 'top' ? (boxY + boxH) : boxY;
-          svgMarkup += '<path d="M ' + clampedTargetX + ' ' + clampedTargetY + ' Q ' + clampedTargetX + ' ' + anchorY + ' ' + (boxX + 20) + ' ' + anchorY + '" fill="none" stroke="' + strokeColor + '" stroke-width="2" stroke-linecap="round"/>';
+          const startAnchorY = placement === 'top' ? (clampedTargetY - nodeR) : (clampedTargetY + nodeR);
+          svgMarkup += '<path d="M ' + clampedTargetX + ' ' + startAnchorY + ' Q ' + clampedTargetX + ' ' + anchorY + ' ' + (boxX + 20) + ' ' + anchorY + '" fill="none" stroke="' + strokeColor + '" stroke-width="2" stroke-linecap="round"/>';
         } else {
           // Pill mode
           svgMarkup += '<rect x="' + boxX + '" y="' + boxY + '" width="' + boxW + '" height="' + boxH + '" rx="25" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5" />';
@@ -1122,17 +1131,17 @@ export function useSvgTooltip(svgRef) {
         const codeSnippet = [
           '<!-- Precision SVG Callout & Tooltip Component -->',
           '<svg id="canvas" viewBox="0 0 400 300" style="overflow:visible;" xmlns="http://www.w3.org/2000/svg">',
-          '  <g id="tooltipGroup" style="pointer-events: none; opacity: 1;">',
-          '    <rect x="' + Math.round(boxX) + '" y="' + Math.round(boxY) + '" width="160" height="50" rx="8" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5"/>',
-          '    <text x="' + Math.round(boxX + 80) + '" y="' + Math.round(boxY + 20) + '" fill="#FFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Server Cluster: US-East</text>',
-          '    <text x="' + Math.round(boxX + 80) + '" y="' + Math.round(boxY + 36) + '" fill="' + strokeColor + '" font-family="monospace" font-size="11" text-anchor="middle">Load: 94.2%</text>',
+          '  <g id="tooltipGroup" transform="translate(' + Math.round(boxX) + ',' + Math.round(boxY) + ')" style="pointer-events: none; opacity: 1;">',
+          '    <rect x="0" y="0" width="160" height="50" rx="8" fill="' + bgFill + '" stroke="' + strokeColor + '" stroke-width="1.5"/>',
+          '    <text x="80" y="20" fill="#FFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Server Cluster: US-East</text>',
+          '    <text x="80" y="36" fill="' + strokeColor + '" font-family="monospace" font-size="11" text-anchor="middle">Load: 94.2%</text>',
           '  </g>',
           '</svg>',
           '<script>',
           'function positionTooltip(svg, targetX, targetY) {',
           '  const tooltip = svg.getElementById("tooltipGroup");',
-          '  const isTopSafe = targetY > 70;',
-          '  const boxY = isTopSafe ? (targetY - 65) : (targetY + 25);',
+          '  const isTopSafe = targetY > 90;',
+          '  const boxY = isTopSafe ? (targetY - 86) : (targetY + 36);',
           '  tooltip.setAttribute("transform", "translate(" + (targetX - 80) + "," + boxY + ")");',
           '}',
           '<\/script>'

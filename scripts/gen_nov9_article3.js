@@ -1156,96 +1156,96 @@ export function useDisplacementEffect(filterId: string) {
 
         if (effect === 'liquidRipple') {
           filterMarkup = \`
-            &lt;filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB"&gt;
-              &lt;feTurbulence id="studioTurb" type="fractalNoise" baseFrequency="\${freqVal}" numOctaves="\${octaves}" result="noiseMap"/&gt;
-              &lt;feDisplacementMap id="studioDisp" in="SourceGraphic" in2="noiseMap" scale="\${scale}" xChannelSelector="R" yChannelSelector="G"/&gt;
-            &lt;/filter&gt;
+            <filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+              <feTurbulence id="studioTurb" type="fractalNoise" baseFrequency="\${freqVal}" numOctaves="\${octaves}" result="noiseMap"/>
+              <feDisplacementMap id="studioDisp" in="SourceGraphic" in2="noiseMap" scale="\${scale}" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
           \`;
           graphicMarkup = \`
-            &lt;g filter="url(#studioDispFilter)"&gt;
-              &lt;rect x="40" y="30" width="280" height="220" rx="16" fill="#14180A" stroke="#C1DD2D" stroke-width="2.5"/&gt;
-              &lt;circle cx="180" cy="115" r="48" fill="#C1DD2D" fill-opacity="0.15" stroke="#C1DD2D" stroke-width="2"/&gt;
-              &lt;path d="M 180 85 L 205 130 L 155 130 Z" fill="#C1DD2D"/&gt;
-              &lt;text x="180" y="185" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="800" font-size="16" text-anchor="middle" letter-spacing="0.05em"&gt;LIQUID SURFACE&lt;/text&gt;
-              &lt;text x="180" y="210" fill="#888" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle"&gt;scale="\${scale}" freq="\${freqVal}"&lt;/text&gt;
-            &lt;/g&gt;
+            <g filter="url(#studioDispFilter)">
+              <rect x="40" y="30" width="280" height="220" rx="16" fill="#14180A" stroke="#C1DD2D" stroke-width="2.5"/>
+              <circle cx="180" cy="115" r="48" fill="#C1DD2D" fill-opacity="0.15" stroke="#C1DD2D" stroke-width="2"/>
+              <path d="M 180 85 L 205 130 L 155 130 Z" fill="#C1DD2D"/>
+              <text x="180" y="185" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="800" font-size="16" text-anchor="middle" letter-spacing="0.05em">LIQUID SURFACE</text>
+              <text x="180" y="210" fill="#888" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle">scale="\${scale}" freq="\${freqVal}"</text>
+            </g>
           \`;
           primCount = '2 Filters';
           memEstimate = (scale > 50 ? '0.6 MB' : '0.4 MB');
         } else if (effect === 'glassRefract') {
           filterMarkup = \`
-            &lt;filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB"&gt;
-              &lt;feTurbulence id="studioTurb" type="fractalNoise" baseFrequency="\${freqVal}" numOctaves="\${octaves}" result="glassNoise"/&gt;
-              &lt;feDisplacementMap id="studioDisp" in="SourceGraphic" in2="glassNoise" scale="\${scale}" xChannelSelector="R" yChannelSelector="B" result="warped"/&gt;
-              &lt;feGaussianBlur in="warped" stdDeviation="1.5" result="blurred"/&gt;
-              &lt;feSpecularLighting in="glassNoise" surfaceScale="2" specularConstant="1.2" specularExponent="20" lighting-color="#FFFFFF" result="specular"&gt;
-                &lt;fePointLight x="-40" y="-80" z="180"/&gt;
-              &lt;/feSpecularLighting&gt;
-              &lt;feComposite in="blurred" in2="specular" operator="arithmetic" k1="0" k2="1" k3="0.8" k4="0"/&gt;
-            &lt;/filter&gt;
+            <filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+              <feTurbulence id="studioTurb" type="fractalNoise" baseFrequency="\${freqVal}" numOctaves="\${octaves}" result="glassNoise"/>
+              <feDisplacementMap id="studioDisp" in="SourceGraphic" in2="glassNoise" scale="\${scale}" xChannelSelector="R" yChannelSelector="B" result="warped"/>
+              <feGaussianBlur in="warped" stdDeviation="1.5" result="blurred"/>
+              <feSpecularLighting in="glassNoise" surfaceScale="2" specularConstant="1.2" specularExponent="20" lighting-color="#FFFFFF" result="specular">
+                <fePointLight x="-40" y="-80" z="180"/>
+              </feSpecularLighting>
+              <feComposite in="blurred" in2="specular" operator="arithmetic" k1="0" k2="1" k3="0.8" k4="0"/>
+            </filter>
           \`;
           graphicMarkup = \`
-            &lt;g&gt;
-              &lt;!-- Backdrop pattern --&gt;
-              &lt;line x1="60" y1="30" x2="300" y2="250" stroke="#333" stroke-width="4"/&gt;
-              &lt;line x1="300" y1="30" x2="60" y2="250" stroke="#333" stroke-width="4"/&gt;
-              &lt;circle cx="180" cy="140" r="70" fill="#1C2308" stroke="#C1DD2D" stroke-width="2"/&gt;
-              &lt;!-- Frosted Glass Overlay --&gt;
-              &lt;g filter="url(#studioDispFilter)"&gt;
-                &lt;rect x="70" y="60" width="220" height="160" rx="12" fill="#06B6D4" fill-opacity="0.25" stroke="#06B6D4" stroke-width="2"/&gt;
-                &lt;text x="180" y="135" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="800" font-size="16" text-anchor="middle"&gt;FROSTED GLASS&lt;/text&gt;
-                &lt;text x="180" y="160" fill="#C1DD2D" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle"&gt;feSpecularLighting&lt;/text&gt;
-              &lt;/g&gt;
-            &lt;/g&gt;
+            <g>
+              <!-- Backdrop pattern -->
+              <line x1="60" y1="30" x2="300" y2="250" stroke="#333" stroke-width="4"/>
+              <line x1="300" y1="30" x2="60" y2="250" stroke="#333" stroke-width="4"/>
+              <circle cx="180" cy="140" r="70" fill="#1C2308" stroke="#C1DD2D" stroke-width="2"/>
+              <!-- Frosted Glass Overlay -->
+              <g filter="url(#studioDispFilter)">
+                <rect x="70" y="60" width="220" height="160" rx="12" fill="#06B6D4" fill-opacity="0.25" stroke="#06B6D4" stroke-width="2"/>
+                <text x="180" y="135" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="800" font-size="16" text-anchor="middle">FROSTED GLASS</text>
+                <text x="180" y="160" fill="#C1DD2D" font-family="JetBrains Mono, monospace" font-size="12" text-anchor="middle">feSpecularLighting</text>
+              </g>
+            </g>
           \`;
           primCount = '5 Filters';
           memEstimate = '0.9 MB';
         } else if (effect === 'chromaticGlitch') {
           filterMarkup = \`
-            &lt;filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB"&gt;
-              &lt;feTurbulence id="studioTurb" type="fractalNoise" baseFrequency="\${freqVal} 0.005" numOctaves="\${octaves}" result="glitchNoise"/&gt;
-              &lt;feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redChan"/&gt;
-              &lt;feDisplacementMap id="studioDisp" in="redChan" in2="glitchNoise" scale="\${scale}" xChannelSelector="R" yChannelSelector="G" result="shiftedRed"/&gt;
-              &lt;feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cyanChan"/&gt;
-              &lt;feDisplacementMap in="cyanChan" in2="glitchNoise" scale="\${-Math.round(scale * 0.75)}" xChannelSelector="R" yChannelSelector="G" result="shiftedCyan"/&gt;
-              &lt;feBlend in="shiftedRed" in2="shiftedCyan" mode="screen"/&gt;
-            &lt;/filter&gt;
+            <filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+              <feTurbulence id="studioTurb" type="fractalNoise" baseFrequency="\${freqVal} 0.005" numOctaves="\${octaves}" result="glitchNoise"/>
+              <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redChan"/>
+              <feDisplacementMap id="studioDisp" in="redChan" in2="glitchNoise" scale="\${scale}" xChannelSelector="R" yChannelSelector="G" result="shiftedRed"/>
+              <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cyanChan"/>
+              <feDisplacementMap in="cyanChan" in2="glitchNoise" scale="\${-Math.round(scale * 0.75)}" xChannelSelector="R" yChannelSelector="G" result="shiftedCyan"/>
+              <feBlend in="shiftedRed" in2="shiftedCyan" mode="screen"/>
+            </filter>
           \`;
           graphicMarkup = \`
-            &lt;g filter="url(#studioDispFilter)"&gt;
-              &lt;rect x="50" y="40" width="260" height="200" rx="8" fill="#120A1A" stroke="#D946EF" stroke-width="2"/&gt;
-              &lt;text x="180" y="125" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="900" font-size="28" text-anchor="middle" letter-spacing="0.08em"&gt;CYBERPUNK&lt;/text&gt;
-              &lt;text x="180" y="165" fill="#06B6D4" font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle" font-weight="700"&gt;RGB CHANNEL SPLIT&lt;/text&gt;
-              &lt;rect x="100" y="185" width="160" height="12" fill="#D946EF" fill-opacity="0.4"/&gt;
-            &lt;/g&gt;
+            <g filter="url(#studioDispFilter)">
+              <rect x="50" y="40" width="260" height="200" rx="8" fill="#120A1A" stroke="#D946EF" stroke-width="2"/>
+              <text x="180" y="125" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="900" font-size="28" text-anchor="middle" letter-spacing="0.08em">CYBERPUNK</text>
+              <text x="180" y="165" fill="#06B6D4" font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle" font-weight="700">RGB CHANNEL SPLIT</text>
+              <rect x="100" y="185" width="160" height="12" fill="#D946EF" fill-opacity="0.4"/>
+            </g>
           \`;
           primCount = '6 Filters';
           memEstimate = '1.2 MB';
         } else if (effect === 'meltingText') {
           filterMarkup = \`
-            &lt;filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB"&gt;
-              &lt;feTurbulence id="studioTurb" type="turbulence" baseFrequency="\${freqVal} 0.08" numOctaves="\${octaves}" result="meltNoise"/&gt;
-              &lt;feDisplacementMap id="studioDisp" in="SourceGraphic" in2="meltNoise" scale="\${scale}" xChannelSelector="G" yChannelSelector="R"/&gt;
-            &lt;/filter&gt;
+            <filter id="studioDispFilter" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">
+              <feTurbulence id="studioTurb" type="turbulence" baseFrequency="\${freqVal} 0.08" numOctaves="\${octaves}" result="meltNoise"/>
+              <feDisplacementMap id="studioDisp" in="SourceGraphic" in2="meltNoise" scale="\${scale}" xChannelSelector="G" yChannelSelector="R"/>
+            </filter>
           \`;
           graphicMarkup = \`
-            &lt;g filter="url(#studioDispFilter)"&gt;
-              &lt;rect x="40" y="45" width="280" height="190" rx="12" fill="#0F1404" stroke="#C1DD2D" stroke-width="1.5"/&gt;
-              &lt;text x="180" y="120" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="900" font-size="34" text-anchor="middle"&gt;LIQUEFY&lt;/text&gt;
-              &lt;text x="180" y="160" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle" letter-spacing="0.1em"&gt;KINETIC VECTOR MELT&lt;/text&gt;
-              &lt;circle cx="120" cy="190" r="6" fill="#C1DD2D"/&gt;
-              &lt;circle cx="180" cy="190" r="6" fill="#C1DD2D"/&gt;
-              &lt;circle cx="240" cy="190" r="6" fill="#C1DD2D"/&gt;
-            &lt;/g&gt;
+            <g filter="url(#studioDispFilter)">
+              <rect x="40" y="45" width="280" height="190" rx="12" fill="#0F1404" stroke="#C1DD2D" stroke-width="1.5"/>
+              <text x="180" y="120" fill="#C1DD2D" font-family="Inter, sans-serif" font-weight="900" font-size="34" text-anchor="middle">LIQUEFY</text>
+              <text x="180" y="160" fill="#FFFFFF" font-family="Inter, sans-serif" font-weight="700" font-size="14" text-anchor="middle" letter-spacing="0.1em">KINETIC VECTOR MELT</text>
+              <circle cx="120" cy="190" r="6" fill="#C1DD2D"/>
+              <circle cx="180" cy="190" r="6" fill="#C1DD2D"/>
+              <circle cx="240" cy="190" r="6" fill="#C1DD2D"/>
+            </g>
           \`;
           primCount = '2 Filters';
           memEstimate = '0.5 MB';
         }
 
         stageSvg.innerHTML = \`
-          &lt;defs&gt;
+          <defs>
             \${filterMarkup}
-          &lt;/defs&gt;
+          </defs>
           \${graphicMarkup}
         \`;
 
@@ -1256,7 +1256,7 @@ export function useDisplacementEffect(filterId: string) {
         let snippet = '<!-- Production SVG & CSS Displacement Shader -->\\n';
         snippet += '<svg width="0" height="0" style="position:absolute;" aria-hidden="true">\\n';
         snippet += '  <defs>\\n';
-        snippet += filterMarkup.replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim() + '\\n';
+        snippet += filterMarkup.trim() + '\\n';
         snippet += '  </defs>\\n';
         snippet += '</svg>\\n\\n';
         snippet += '/* Apply via CSS */\\n';
