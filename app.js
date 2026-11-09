@@ -2430,14 +2430,18 @@
   }
 
   function normalizeStartupRoute() {
-    const localDev = /^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/i.test(window.location.hostname);
     const editorIconId = editorIntentFromLocation();
     if (editorIconId && !currentRouteHash().startsWith("#/icon/")) {
       history.replaceState(null, "", `${location.pathname}${location.search}#/icon/${encodeURIComponent(editorIconId)}`);
       return;
     }
-    if (!window.location.hash || (localDev && window.location.hash === "#/search")) {
-      history.replaceState(null, "", `${location.pathname}${location.search}#/`);
+    // A fresh visit lands straight in the icon workspace, not the marketing
+    // homepage. The homepage stays reachable at #/ via the top-left logo.
+    // Only the JS default changes: index.html still ships with the home view
+    // active in its raw HTML, so its title/canonical/OG/JSON-LD are untouched
+    // for crawlers and no-JS clients.
+    if (!window.location.hash || window.location.hash === "#") {
+      history.replaceState(null, "", `${location.pathname}${location.search}#/search`);
     }
   }
 
@@ -2761,7 +2765,7 @@
     setAdvanceMode(false);
     state.currentIconId = "";
     detailMetaLoadingId = "";
-    if (routeHome && window.location.hash.startsWith("#/icon/")) history.replaceState(null, "", "#/");
+    if (routeHome && window.location.hash.startsWith("#/icon/")) history.replaceState(null, "", "#/search");
     syncGridToDetailPanel();
   }
 
@@ -4028,7 +4032,8 @@
         event.preventDefault();
         ui().closeModals();
         clearAllFilters({ skipRender: true });
-        window.location.hash = "#/";
+        // "Icons" returns to the workspace; the top-left logo is the home link.
+        window.location.hash = "#/search";
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
