@@ -208,6 +208,11 @@ for (const item of deliverables) {
   if (scriptMatch) {
     const scriptCode = scriptMatch[1];
     assert(!scriptCode.includes("+'\\n'") && !scriptCode.includes("+'\\\\n'"), 'Interactive code generator avoids double-escaped literal newline strings');
+    assert(!scriptCode.includes("+\"...\"") && !scriptCode.includes("+'...'") && !scriptCode.includes("...' />") && !scriptCode.includes("...';"), 'Interactive code generator avoids placeholder ellipsis truncations');
+    if (item.slug === 'svg-qr-code-generation-and-customization-guide') {
+      assert(scriptCode.includes('rsEncode') && scriptCode.includes('rsGeneratorPoly'), 'QR studio implements full Reed-Solomon polynomial division');
+      assert(scriptCode.includes('stampFinder') && scriptCode.includes('maskPattern'), 'QR studio implements ISO 18004 finder and mask patterns');
+    }
   }
 
   // 15. Contextual Internal Linking (SEO Topical Clustering)

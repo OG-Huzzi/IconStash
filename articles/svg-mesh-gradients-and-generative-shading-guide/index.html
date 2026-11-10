@@ -1173,16 +1173,22 @@ export function buildAutomatedMeshSvg(colors: string[], width = 1000, height = 7
         stageContainer.innerHTML = fullSvg;
         statMeshNodes.textContent = colors.length + ' Anchors';
 
-        updateCodeOutput(fullSvg, colors, blur);
+        updateCodeOutput(fullSvg, colors, blur, filterMarkup, shapesMarkup);
       }
 
-      function updateCodeOutput(fullSvg, colors, blur) {
+      function updateCodeOutput(fullSvg, colors, blur, filterMarkup, shapesMarkup) {
         if (currentTab === 'svg') {
           codeOutput.textContent = fullSvg;
         } else if (currentTab === 'css') {
           codeOutput.textContent = '/* CSS Smooth Mesh Gradient Stack */\n.mesh-background {\n  background-color: #0A0A0A;\n  background-image:\n    radial-gradient(at 20% 25%, ' + colors[0] + 'b3 0px, transparent 55%),\n    radial-gradient(at 80% 30%, ' + colors[1] + 'bf 0px, transparent 50%),\n    radial-gradient(at 50% 80%, ' + colors[2] + 'd9 0px, transparent 60%),\n    radial-gradient(at 75% 70%, ' + colors[3] + '99 0px, transparent 45%);\n  background-repeat: no-repeat;\n}';
         } else if (currentTab === 'react') {
-          codeOutput.textContent = 'import React from \'react\';\n\nexport const SvgMeshGradient = () => (\n  <div className="relative w-full h-full overflow-hidden bg-neutral-950">\n    <svg\n      className="w-full h-full object-cover transform-gpu will-change-transform"\n      viewBox="0 0 1000 700"\n      preserveAspectRatio="none"\n      xmlns="http://www.w3.org/2000/svg"\n    >\n      ' + fullSvg.slice(fullSvg.indexOf('<defs>'), 260) + '...\n    </svg>\n  </div>\n);';
+          const jsxFilter = (filterMarkup || '')
+            .replace(/stop-color=/g, 'stopColor=')
+            .replace(/stop-opacity=/g, 'stopOpacity=');
+          const jsxShapes = (shapesMarkup || '')
+            .replace(/class=/g, 'className=')
+            .replace(/style="mix-blend-mode:\s*screen;"/g, 'style={{ mixBlendMode: \'screen\' }}');
+          codeOutput.textContent = 'import React from \'react\';\n\nexport const SvgMeshGradient = () => (\n  <div className="relative w-full h-full overflow-hidden bg-neutral-950">\n    <svg\n      className="w-full h-full object-cover transform-gpu will-change-transform"\n      viewBox="0 0 1000 700"\n      preserveAspectRatio="none"\n      xmlns="http://www.w3.org/2000/svg"\n      role="img"\n      aria-label="Vector mesh gradient surface"\n    >\n      ' + jsxFilter.split('\n').join('\n      ') + '\n      <rect width="1000" height="700" fill="#0A0A0A" />\n      ' + jsxShapes.split('\n').join('\n      ') + '\n    </svg>\n  </div>\n);';
         }
       }
 

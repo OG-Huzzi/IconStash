@@ -1154,78 +1154,314 @@ export default {
       const tabNodeBtn = document.getElementById('tabNodeBtn');
       let currentTab = 'svg';
 
-      // Lightweight Deterministic Matrix Generator for Version 2 (25x25)
-      function generateMatrix(text, ecl, hasLogo) {
-        const size = 25;
-        const matrix = Array.from({ length: size }, () => Array(size).fill(false));
+      // Complete Zero-Dependency ISO/IEC 18004 QR Code Matrix Generator (Byte Mode, Versions 1-5)
+      function generateMatrix(text, eclStr, hasLogo) {
+        let effectiveEcl = (eclStr || 'M').toUpperCase();
+        if (hasLogo && (effectiveEcl === 'L' || effectiveEcl === 'M')) {
+          effectiveEcl = 'Q';
+        }
 
-        // 1. Finder Eyes (Top-Left, Top-Right, Bottom-Left)
-        function stampEye(startR, startC) {
-          for (let r = 0; r < 7; r++) {
-            for (let c = 0; c < 7; c++) {
-              const isBorder = (r === 0 || r === 6 || c === 0 || c === 6);
-              const isCenter = (r >= 2 && r <= 4 && c >= 2 && c <= 4);
-              if (isBorder || isCenter) {
-                matrix[startR + r][startC + c] = true;
+        const ECL_MAP = { L: 1, M: 0, Q: 3, H: 2 };
+        const ecl = ECL_MAP[effectiveEcl] !== undefined ? ECL_MAP[effectiveEcl] : 0;
+
+        // Galois Field GF(256) Tables & Arithmetic
+        const GF_EXP = new Uint8Array(512);
+        const GF_LOG = new Uint8Array(256);
+        let val = 1;
+        for (let i = 0; i < 255; i++) {
+          GF_EXP[i] = val;
+          GF_LOG[val] = i;
+          val <<= 1;
+          if (val & 0x100) val ^= 0x11D;
+        }
+        for (let i = 255; i < 512; i++) {
+          GF_EXP[i] = GF_EXP[i - 255];
+        }
+
+        function gfMul(a, b) {
+          if (a === 0 || b === 0) return 0;
+          return GF_EXP[GF_LOG[a] + GF_LOG[b]];
+        }
+
+        function rsGeneratorPoly(n) {
+          let poly = [1];
+          for (let i = 0; i < n; i++) {
+            const next = new Array(poly.length + 1).fill(0);
+            const root = GF_EXP[i];
+            for (let j = 0; j < poly.length; j++) {
+              next[j] ^= gfMul(poly[j], root);
+              next[j + 1] ^= poly[j];
+            }
+            poly = next;
+          }
+          return poly;
+        }
+
+        function rsEncode(data, ecCount) {
+          const gen = rsGeneratorPoly(ecCount);
+          const msg = new Array(data.length + ecCount).fill(0);
+          for (let i = 0; i < data.length; i++) msg[i] = data[i];
+
+          for (let i = 0; i < data.length; i++) {
+            const coef = msg[i];
+            if (coef !== 0) {
+              for (let j = 0; j < gen.length; j++) {
+                msg[i + j] ^= gfMul(gen[j], coef);
+              }
+            }
+          }
+          return msg.slice(data.length);
+        }
+
+        // Specifications for Versions 1-5 (ISO 18004 Table 7 & Table 9)
+        const QR_SPECS = [
+          null,
+          { size: 21, align: [], params: [
+            { data: 16, ec: 10, b: 1 }, { data: 19, ec: 7, b: 1 }, { data: 9, ec: 17, b: 1 }, { data: 13, ec: 13, b: 1 }
+          ]},
+          { size: 25, align: [6, 18], params: [
+            { data: 28, ec: 16, b: 1 }, { data: 34, ec: 10, b: 1 }, { data: 16, ec: 28, b: 1 }, { data: 22, ec: 22, b: 1 }
+          ]},
+          { size: 29, align: [6, 22], params: [
+            { data: 44, ec: 26, b: 1 }, { data: 55, ec: 15, b: 1 }, { data: 26, ec: 22, b: 2 }, { data: 34, ec: 18, b: 2 }
+          ]},
+          { size: 33, align: [6, 26], params: [
+            { data: 64, ec: 18, b: 2 }, { data: 80, ec: 20, b: 1 }, { data: 36, ec: 16, b: 4 }, { data: 48, ec: 26, b: 2 }
+          ]},
+          { size: 37, align: [6, 30], params: [
+            { data: 86, ec: 24, b: 2 }, { data: 108, ec: 26, b: 1 }, { data: 46, ec: 22, b: 4 }, { data: 62, ec: 18, b: 4 }
+          ]}
+        ];
+
+        // Convert string to UTF-8 byte array
+        const utf8Bytes = [];
+        for (let i = 0; i < text.length; i++) {
+          let code = text.charCodeAt(i);
+          if (code < 0x80) {
+            utf8Bytes.push(code);
+          } else if (code < 0x800) {
+            utf8Bytes.push(0xc0 | (code >> 6), 0x80 | (code & 0x3f));
+          } else if (code < 0xd800 || code >= 0xe000) {
+            utf8Bytes.push(0xe0 | (code >> 12), 0x80 | ((code >> 6) & 0x3f), 0x80 | (code & 0x3f));
+          } else {
+            i++;
+            code = 0x10000 + (((code & 0x3ff) << 10) | (text.charCodeAt(i) & 0x3ff));
+            utf8Bytes.push(0xf0 | (code >> 18), 0x80 | ((code >> 12) & 0x3f), 0x80 | ((code >> 6) & 0x3f), 0x80 | (code & 0x3f));
+          }
+        }
+
+        let version = 1;
+        for (; version <= 5; version++) {
+          const sp = QR_SPECS[version];
+          const pa = sp.params[ecl];
+          if (utf8Bytes.length <= pa.data - 3) break;
+        }
+        if (version > 5) version = 5;
+
+        const spec = QR_SPECS[version];
+        const param = spec.params[ecl];
+
+        const bits = [];
+        function pushBits(val, len) {
+          for (let i = len - 1; i >= 0; i--) {
+            bits.push((val >>> i) & 1);
+          }
+        }
+
+        // Byte Mode (0100) + Character Count (8 bits for V1-9) + data
+        pushBits(0b0100, 4);
+        pushBits(Math.min(utf8Bytes.length, param.data - 2), 8);
+        for (let i = 0; i < utf8Bytes.length && bits.length + 8 <= param.data * 8; i++) {
+          pushBits(utf8Bytes[i], 8);
+        }
+        const maxBits = param.data * 8;
+        const termLen = Math.min(4, maxBits - bits.length);
+        pushBits(0, termLen);
+        while (bits.length % 8 !== 0) bits.push(0);
+
+        const padPatterns = [0xEC, 0x11];
+        let padIdx = 0;
+        while (bits.length < maxBits) {
+          pushBits(padPatterns[padIdx % 2], 8);
+          padIdx++;
+        }
+
+        const dataWords = [];
+        for (let i = 0; i < bits.length; i += 8) {
+          let byte = 0;
+          for (let b = 0; b < 8; b++) byte = (byte << 1) | bits[i + b];
+          dataWords.push(byte);
+        }
+
+        const numBlocks = param.b;
+        const totalDataWords = param.data;
+        const ecPerBlock = param.ec;
+        const baseBlockLen = Math.floor(totalDataWords / numBlocks);
+        const extraBlocks = totalDataWords % numBlocks;
+
+        const dataBlocks = [];
+        const ecBlocks = [];
+        let offset = 0;
+
+        for (let b = 0; b < numBlocks; b++) {
+          const blockLen = baseBlockLen + (b >= numBlocks - extraBlocks ? 1 : 0);
+          const blockData = dataWords.slice(offset, offset + blockLen);
+          offset += blockLen;
+          dataBlocks.push(blockData);
+          ecBlocks.push(rsEncode(blockData, ecPerBlock));
+        }
+
+        const interleaved = [];
+        const maxDataBlockLen = Math.max(...dataBlocks.map(b => b.length));
+        for (let i = 0; i < maxDataBlockLen; i++) {
+          for (let b = 0; b < numBlocks; b++) {
+            if (i < dataBlocks[b].length) interleaved.push(dataBlocks[b][i]);
+          }
+        }
+
+        for (let i = 0; i < ecPerBlock; i++) {
+          for (let b = 0; b < numBlocks; b++) {
+            interleaved.push(ecBlocks[b][i]);
+          }
+        }
+
+        const allBits = [];
+        for (const byte of interleaved) {
+          for (let i = 7; i >= 0; i--) {
+            allBits.push((byte >>> i) & 1);
+          }
+        }
+
+        const size = spec.size;
+        const matrix = Array.from({ length: size }, () => Array(size).fill(false));
+        const isFunction = Array.from({ length: size }, () => Array(size).fill(false));
+
+        function setFunction(r, c, val) {
+          if (r >= 0 && r < size && c >= 0 && c < size) {
+            matrix[r][c] = val;
+            isFunction[r][c] = true;
+          }
+        }
+
+        function stampFinder(startR, startC) {
+          for (let r = -1; r <= 7; r++) {
+            for (let c = -1; c <= 7; c++) {
+              const qr = startR + r;
+              const qc = startC + c;
+              if (qr < 0 || qr >= size || qc < 0 || qc >= size) continue;
+              if (r >= 0 && r <= 6 && c >= 0 && c <= 6) {
+                const isBorder = (r === 0 || r === 6 || c === 0 || c === 6);
+                const isCenter = (r >= 2 && r <= 4 && c >= 2 && c <= 4);
+                setFunction(qr, qc, isBorder || isCenter);
+              } else {
+                setFunction(qr, qc, false);
               }
             }
           }
         }
-        stampEye(0, 0);
-        stampEye(0, size - 7);
-        stampEye(size - 7, 0);
 
-        // 2. Timing Patterns
+        stampFinder(0, 0);
+        stampFinder(0, size - 7);
+        stampFinder(size - 7, 0);
+
         for (let i = 8; i < size - 8; i++) {
-          matrix[6][i] = (i % 2 === 0);
-          matrix[i][6] = (i % 2 === 0);
+          setFunction(6, i, i % 2 === 0);
+          setFunction(i, 6, i % 2 === 0);
         }
 
-        // 3. Alignment Pattern at (18, 18)
-        for (let r = 16; r <= 20; r++) {
-          for (let c = 16; c <= 20; c++) {
-            const isBorder = (r === 16 || r === 20 || c === 16 || c === 20);
-            const isCenter = (r === 18 && c === 18);
-            if (isBorder || isCenter) {
-              matrix[r][c] = true;
+        if (spec.align.length > 0) {
+          const coords = spec.align;
+          for (const r of coords) {
+            for (const c of coords) {
+              if ((r === 6 && c === 6) || (r === 6 && c === size - 7) || (r === size - 7 && c === 6)) continue;
+              for (let dr = -2; dr <= 2; dr++) {
+                for (let dc = -2; dc <= 2; dc++) {
+                  const isBorder = Math.abs(dr) === 2 || Math.abs(dc) === 2;
+                  const isCenter = dr === 0 && dc === 0;
+                  setFunction(r + dr, c + dc, isBorder || isCenter);
+                }
+              }
             }
           }
         }
 
-        // 4. Deterministic Hash-based Data Modules
-        let hash = 0;
-        for (let i = 0; i < text.length; i++) {
-          hash = ((hash << 5) - hash) + text.charCodeAt(i);
-          hash |= 0;
+        setFunction(4 * version + 9, 8, true);
+
+        for (let i = 0; i <= 8; i++) {
+          setFunction(8, i, false);
+          setFunction(i, 8, false);
         }
+        for (let i = size - 8; i < size; i++) {
+          setFunction(8, i, false);
+          setFunction(size - (size - i), 8, false);
+        }
+
+        let bitIdx = 0;
+        let dir = -1;
+        let row = size - 1;
+        let col = size - 1;
+
+        while (col > 0) {
+          if (col === 6) col--;
+          for (let step = 0; step < size; step++) {
+            const r = row;
+            for (let cOff = 0; cOff < 2; cOff++) {
+              const c = col - cOff;
+              if (!isFunction[r][c]) {
+                const bit = bitIdx < allBits.length ? allBits[bitIdx++] : 0;
+                matrix[r][c] = (bit === 1);
+              }
+            }
+            row += dir;
+          }
+          dir = -dir;
+          row += dir;
+          col -= 2;
+        }
+
+        const maskFn = (r, c) => (r + c) % 2 === 0;
+        const maskPattern = 0;
 
         for (let r = 0; r < size; r++) {
           for (let c = 0; c < size; c++) {
-            // Skip reserved function patterns
-            const isTL = (r < 8 && c < 8);
-            const isTR = (r < 8 && c >= size - 8);
-            const isBL = (r >= size - 8 && c < 8);
-            const isTiming = (r === 6 || c === 6);
-            const isAlign = (r >= 16 && r <= 20 && c >= 16 && c <= 20);
-            if (isTL || isTR || isBL || isTiming || isAlign) continue;
-
-            // Pseudo-random data module bit based on coordinates & hash
-            const seed = (r * 31 + c * 17 + hash);
-            matrix[r][c] = ((seed ^ (seed >> 4)) % 3 !== 0);
+            if (!isFunction[r][c]) {
+              if (maskFn(r, c)) {
+                matrix[r][c] = !matrix[r][c];
+              }
+            }
           }
         }
 
-        // 5. If Center Logo is Enabled, clear safe zone (7x7 modules at center)
+        const formatData = (ecl << 3) | maskPattern;
+        let rem = formatData << 10;
+        const polyBCH = 0x537;
+        for (let i = 14; i >= 10; i--) {
+          if ((rem >>> i) & 1) {
+            rem ^= (polyBCH << (i - 10));
+          }
+        }
+        const formatBits = ((formatData << 10) | rem) ^ 0x5412;
+
+        for (let i = 0; i < 6; i++) matrix[8][i] = ((formatBits >>> (14 - i)) & 1) === 1;
+        matrix[8][7] = ((formatBits >>> 8) & 1) === 1;
+        matrix[8][8] = ((formatBits >>> 7) & 1) === 1;
+        matrix[7][8] = ((formatBits >>> 6) & 1) === 1;
+        for (let i = 0; i < 6; i++) matrix[5 - i][8] = ((formatBits >>> (5 - i)) & 1) === 1;
+
+        for (let i = 0; i < 8; i++) matrix[8][size - 1 - i] = ((formatBits >>> i) & 1) === 1;
+        for (let i = 0; i < 7; i++) matrix[size - 7 + i][8] = ((formatBits >>> (8 + i)) & 1) === 1;
+
         if (hasLogo) {
+          const cutRadius = version <= 2 ? 2 : 3;
           const mid = Math.floor(size / 2);
-          for (let r = mid - 3; r <= mid + 3; r++) {
-            for (let c = mid - 3; c <= mid + 3; c++) {
+          for (let r = mid - cutRadius; r <= mid + cutRadius; r++) {
+            for (let c = mid - cutRadius; c <= mid + cutRadius; c++) {
               matrix[r][c] = false;
             }
           }
         }
 
-        return matrix;
+        return { matrix, version, size, effectiveEcl };
       }
 
       function compileSvgPath(matrix, style, eyeStyle, color, hasLogo) {
@@ -1234,7 +1470,6 @@ export default {
         const totalDim = size + (qz * 2);
         let pathParts = [];
 
-        // Helper to check if a module is part of the 3 finder eyes
         function isFinderEye(r, c) {
           return (r < 7 && c < 7) || (r < 7 && c >= size - 7) || (r >= size - 7 && c < 7);
         }
@@ -1272,15 +1507,12 @@ export default {
           const ex = eye.c + qz;
           const ey = eye.r + qz;
           if (eyeStyle === 'rounded') {
-            // Smooth stadium eye
             pathParts.push('M' + (ex + 2) + ',' + ey + 'h3a2,2 0 0,1 2,2v3a2,2 0 0,1 -2,2h-3a2,2 0 0,1 -2,-2v-3a2,2 0 0,1 2,-2z M' + (ex + 2) + ',' + (ey + 1) + 'a1,1 0 0,0 -1,1v3a1,1 0 0,0 1,1h3a1,1 0 0,0 1,-1v-3a1,1 0 0,0 -1,-1z M' + (ex + 3) + ',' + (ey + 2) + 'h1a1,1 0 0,1 1,1v1a1,1 0 0,1 -1,1h-1a1,1 0 0,1 -1,-1v-1a1,1 0 0,1 1,-1z');
           } else if (eyeStyle === 'target') {
-            // Concentric target circles
             const ecx = ex + 3.5;
             const ecy = ey + 3.5;
             pathParts.push('M' + (ecx - 3.5) + ',' + ecy + 'a3.5,3.5 0 1,0 7,0a3.5,3.5 0 1,0 -7,0z M' + (ecx - 2.5) + ',' + ecy + 'a2.5,2.5 0 1,1 5,0a2.5,2.5 0 1,1 -5,0z M' + (ecx - 1.5) + ',' + ecy + 'a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0z');
           } else {
-            // Classic square box
             pathParts.push('M' + ex + ',' + ey + 'h7v7h-7z M' + (ex + 1) + ',' + (ey + 1) + 'v5h5v-5z M' + (ex + 2) + ',' + (ey + 2) + 'h3v3h-3z');
           }
         }
@@ -1288,9 +1520,11 @@ export default {
         const d = pathParts.join(' ');
         let logoMarkup = '';
         if (hasLogo) {
-          const midX = Math.floor(size / 2) + qz;
-          const midY = Math.floor(size / 2) + qz;
-          logoMarkup = '\n    <!-- Center Brand Icon Cutout -->\n    <rect x="' + (midX - 3.5) + '" y="' + (midY - 3.5) + '" width="7" height="7" rx="1.5" fill="#0A0A0A" stroke="' + color + '" stroke-width="0.3" />\n    <circle cx="' + midX + '" cy="' + midY + '" r="2" fill="' + color + '" />\n    <path d="M' + (midX - 1) + ',' + (midY - 1) + ' L' + (midX + 1) + ',' + (midY + 1) + ' M' + (midX + 1) + ',' + (midY - 1) + ' L' + (midX - 1) + ',' + (midY + 1) + '" stroke="#0A0A0A" stroke-width="0.6" stroke-linecap="round" />';
+          const cutRadius = size <= 25 ? 2.5 : 3.5;
+          const midX = Math.floor(size / 2) + qz + 0.5;
+          const midY = Math.floor(size / 2) + qz + 0.5;
+          const cutDim = cutRadius * 2;
+          logoMarkup = '\n    <!-- Center Brand Icon Cutout -->\n    <rect x="' + (midX - cutRadius) + '" y="' + (midY - cutRadius) + '" width="' + cutDim + '" height="' + cutDim + '" rx="1.5" fill="#0A0A0A" stroke="' + color + '" stroke-width="0.3" />\n    <circle cx="' + midX + '" cy="' + midY + '" r="' + (cutRadius * 0.6) + '" fill="' + color + '" />\n    <path d="M' + (midX - cutRadius*0.3) + ',' + (midY - cutRadius*0.3) + ' L' + (midX + cutRadius*0.3) + ',' + (midY + cutRadius*0.3) + ' M' + (midX + cutRadius*0.3) + ',' + (midY - cutRadius*0.3) + ' L' + (midX - cutRadius*0.3) + ',' + (midY + cutRadius*0.3) + '" stroke="#0A0A0A" stroke-width="0.6" stroke-linecap="round" />';
         }
 
         const fullSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + totalDim + ' ' + totalDim + '" width="100%" height="100%" shape-rendering="geometricPrecision" role="img" aria-label="QR Code vector matrix">\n  <rect width="' + totalDim + '" height="' + totalDim + '" fill="#080808" rx="2"/>\n  <path fill="' + color + '" fill-rule="evenodd" d="' + d + '" />' + logoMarkup + '\n</svg>';
@@ -1306,16 +1540,15 @@ export default {
         const color = colorSelect.value;
         const hasLogo = logoCheckbox.checked;
 
-        const matrix = generateMatrix(text, ecl, hasLogo);
+        const { matrix, version, size, effectiveEcl } = generateMatrix(text, ecl, hasLogo);
         const { fullSvg, totalDim, d } = compileSvgPath(matrix, style, eyeStyle, color, hasLogo);
 
         stageContainer.innerHTML = fullSvg;
 
-        // Update readouts
-        statMatrixDim.textContent = matrix.length + ' × ' + matrix.length;
-        statModuleCount.textContent = (matrix.length * matrix.length).toString();
+        statMatrixDim.textContent = size + ' × ' + size + ' (V' + version + ')';
+        statModuleCount.textContent = (size * size).toString();
         const eclBudgets = { 'L': '7% (L)', 'M': '15% (M)', 'Q': '25% (Q)', 'H': '30% (H)' };
-        statErrorBudget.textContent = eclBudgets[ecl] || '30% (H)';
+        statErrorBudget.textContent = eclBudgets[effectiveEcl] || '30% (H)';
         statDomNodes.textContent = '1 <path>';
 
         updateCodeOutput(fullSvg, totalDim, d, color);
@@ -1325,9 +1558,9 @@ export default {
         if (currentTab === 'svg') {
           codeOutput.textContent = fullSvg;
         } else if (currentTab === 'react') {
-          codeOutput.textContent = 'import React from \'react\';\n\nexport const CustomQrCode = ({ size = 280, color = \'' + color + '\' }) => (\n  <svg\n    xmlns="http://www.w3.org/2000/svg"\n    viewBox="0 0 ' + totalDim + ' ' + totalDim + '"\n    width={size}\n    height={size}\n    role="img"\n    aria-label="Vector QR Code"\n    shapeRendering="geometricPrecision"\n  >\n    <rect width="' + totalDim + '" height="' + totalDim + '" fill="#080808" rx="2" />\n    <path fill={color} fillRule="evenodd" d="' + d.slice(0, 160) + '..." />\n  </svg>\n);';
+          codeOutput.textContent = 'import React from \'react\';\n\nexport const CustomQrCode = ({ size = 280, color = \'' + color + '\' }) => (\n  <svg\n    xmlns="http://www.w3.org/2000/svg"\n    viewBox="0 0 ' + totalDim + ' ' + totalDim + '"\n    width={size}\n    height={size}\n    role="img"\n    aria-label="Vector QR Code"\n    shapeRendering="geometricPrecision"\n  >\n    <rect width="' + totalDim + '" height="' + totalDim + '" fill="#080808" rx="2" />\n    <path fill={color} fillRule="evenodd" d="' + d + '" />\n  </svg>\n);';
         } else if (currentTab === 'node') {
-          codeOutput.textContent = '// Node.js / Cloudflare Worker Vector Endpoint\nexport function getQrSvgResponse(payload, color = \'' + color + '\') {\n  const svg = \'' + fullSvg.slice(0, 180) + '...\';\n  return new Response(svg, {\n    headers: { \'Content-Type\': \'image/svg+xml; charset=utf-8\' }\n  });\n}';
+          codeOutput.textContent = '// Node.js / Cloudflare Worker Vector Endpoint\nexport function getQrSvgResponse(payload, color = \'' + color + '\') {\n  const svg = `' + fullSvg + '`;\n  return new Response(svg, {\n    headers: { \'Content-Type\': \'image/svg+xml; charset=utf-8\' }\n  });\n}';
         }
       }
 
