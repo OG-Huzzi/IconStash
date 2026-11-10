@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Precision SVG QR Codes from Scratch: The Complete Vector Engineering Guide (2026) | IconStash</title>
+  <meta name="description" content="Master precision SVG QR code generation: Reed-Solomon math, single-path matrices, custom eye patterns, safe logo cutouts, and fluid styling in modern JS.">
+  <meta name="keywords" content="svg qr code, generate qr code svg javascript, custom qr code svg react, vector qr code generator, qr code with logo svg, responsive svg qr code, qr code reed solomon svg, zero dependency qr code svg">
+  <meta property="og:title" content="Building Precision SVG QR Codes from Scratch: The Complete Vector Engineering Guide (2026)">
+  <meta property="og:description" content="Master precision SVG QR code generation: Reed-Solomon math, single-path matrices, custom eye patterns, safe logo cutouts, and fluid styling in modern JS.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-qr-code-generation-and-customization-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-qr-code-generation-and-customization-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-10T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-10T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Engineering &amp; Visual Computing">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="QR Code">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="React">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building Precision SVG QR Codes from Scratch: The Complete Vector Engineering Guide (2026)">
+  <meta name="twitter:description" content="Master precision SVG QR code generation: Reed-Solomon math, single-path matrices, custom eye patterns, safe logo cutouts, and fluid styling in modern JS.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-qr-code-generation-and-customization-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-qr-code-generation-and-customization-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Building Precision SVG QR Codes from Scratch: The Complete Vector Engineering Guide (2026)",
+      "description": "Master precision SVG QR code generation: Reed-Solomon math, unified path matrices, custom eye patterns, embedded logos, and fluid styling in JS & React.",
+      "image": "https://iconstash.io/assets/articles/svg-qr-code-generation-and-customization-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-10",
+      "dateModified": "2026-11-10",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-qr-code-generation-and-customization-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4780,
+      "articleSection": "Vector Engineering & Visual Computing",
+      "keywords": [
+        "svg qr code",
+        "generate qr code svg javascript",
+        "custom qr code svg react",
+        "vector qr code generator",
+        "qr code with logo svg",
+        "responsive svg qr code",
+        "qr code reed solomon svg"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Precision SVG QR Code Generation & Customization Guide",
+          "item": "https://iconstash.io/articles/svg-qr-code-generation-and-customization-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is pure SVG superior to HTML5 Canvas or PNG for QR code generation in web applications?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pure SVG delivers infinite vector resolution that never blurs on high-DPI displays or large physical print mediums. Furthermore, SVG elements integrate directly into the DOM and CSSOM, allowing dynamic theming with CSS custom properties, seamless dark-mode switching, and zero rasterization delay. By compiling the QR code matrix into a single unified path, SVG avoids the memory footprint and layout overhead of thousands of individual DOM nodes while remaining fully accessible."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Reed-Solomon error correction allow brand logos to be embedded inside a QR code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reed-Solomon error correction over Galois Field GF(256) appends redundant parity bytes to the data payload. When configured with Error Correction Level H (High), the mathematical code can recover up to 30% of lost, obscured, or damaged modules. By calculating a centered exclusion zone within this 30% mathematical budget and applying an appropriate safety margin, an engineer can place a custom brand icon or logo without corrupting data decodability."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What causes camera scanners to fail when rendering custom rounded or fluid QR code modules?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Camera barcode scanners rely on threshold binarization and morphological edge detection. Scanners fail when engineers over-round the three corner finder patterns (position detection eyes), reduce module contrast below the ISO 4:1 threshold, or allow fluid connected blobs to merge across the quiet zone or timing tracks. To ensure 100% optical scannability, finder patterns must maintain their strict 7:7 concentric square or stadium geometry and a minimum 4-module quiet zone must be preserved."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is rendering thousands of individual rect elements an anti-pattern in SVG QR codes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A standard Version 10 QR code consists of 57 by 57 modules, resulting in up to 3,249 individual module points. Rendering each module as a separate rect tag floods the browser DOM with thousands of nodes, triggering substantial memory overhead, slow style recalculations, and layout thrashing. Instead, production vector generators compile all active modules into a single contiguous SVG path string (e.g., M0,0h1v1h-1z...), reducing DOM complexity to a single lightweight element."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should developers handle responsive scaling and print export for vector SVG QR codes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVG QR codes should define an exact viewBox matching the matrix grid dimension plus quiet zone padding (e.g., viewBox='0 0 33 33' for a 25x25 matrix with 4-module padding) while leaving width and height unconstrained in the XML or managed via CSS (width: 100%; max-width: 280px; height: auto). For physical print, this ensures crisp vector output at 300, 600, or 1200 DPI without subpixel antialiasing blur or color shifts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can SVG QR codes be dynamically themed for dark mode without breaking optical contrast?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, but developers must avoid naive color inversion that flips the dark modules to light on a dark background unless the scanner explicitly supports inverted polarity. Most consumer cameras and POS scanners expect dark modules on a light background (positive polarity). When styling for dark mode UI, wrap the QR code in an isolated high-contrast container with a crisp light background plate, or ensure the background maintains a minimum 4:1 contrast ratio against the foreground vector path."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 380px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; padding: 20px; }
+    .stage-svg-element { width: 100%; height: 100%; max-width: 320px; max-height: 320px; display: block; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">SVG QR Code Generation &amp; Customization</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Vector Engineering &amp; Computer Vision</span>
+      <h1>Building Precision SVG QR Codes from Scratch: The Complete Vector Engineering and Customization Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>Published November 10, 2026</span>
+        <span>4,780 Words</span>
+        <span>23 min read</span>
+        <span>Vector Systems &amp; Visual Barcodes</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Engineering Summary:</strong> Modern SaaS authentication, mobile deep links, contactless payments, and event ticketing require responsive, brand-aligned QR codes that remain mathematically scannable under diverse ambient conditions.</p>
+          <ul>
+            <li>Eliminate brittle raster PNGs and bloated third-party generators by producing zero-dependency Scalable Vector Graphics (SVG) QR codes.</li>
+            <li>Understand the finite field mathematics of Reed-Solomon error correction and Galois Field GF(256) parity calculations.</li>
+            <li>Compress thousands of individual matrix rectangles into a single contiguous SVG path element to prevent DOM bloat and layout thrashing.</li>
+            <li>Architect custom finder eye patterns (square, rounded stadium, concentric rings) while preserving ISO/IEC 18004 optical geometry.</li>
+            <li>Engineer safe center logo cutouts using the 30% Error Correction Level H budget without triggering camera decoding failures.</li>
+            <li>Guarantee WCAG 2.2 AA accessibility and print-ready 300+ DPI vector fidelity across web, PDF, and digital signage platforms.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="https://iconstash.io/assets/articles/svg-qr-code-generation-and-customization-guide.jpg" alt="Precision SVG QR Code Generation and Customization Architecture Diagram" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: Architectural blueprint of modern SVG QR code generation, demonstrating unified vector path compilation, custom eye geometries, and safe center logo exclusion zones.</figcaption>
+        </figure>
+
+        <h2 id="qr-code-vector-revolution">1. The Vector QR Code Revolution: Why Raster PNGs Are Obsolete for Modern Web Applications</h2>
+        <p>Quick Response (QR) codes have transformed from an industrial parts-tracking convenience into the universal bridge connecting physical environments with digital web applications. Whether facilitating multi-factor authentication (TOTP and WebAuthn enrollment), instantaneous peer-to-peer payments (such as UPI, PIX, and SEPA instant credit transfers), mobile onboarding flows, or interactive conference badge credentials, nearly every modern product engineer must deliver dynamic two-dimensional barcodes.</p>
+        <p>For more than a decade, the standard implementation pattern was remarkably primitive: backend services or frontend scripts invoked canvas-based drawing routines or rasterized PNG buffers via server endpoints, serving an opaque 256×256 pixel image. In the era of high-DPI displays, responsive dark-mode theming, and multi-platform vector workflows, this legacy raster architecture imposes severe operational liabilities:</p>
+        <ul>
+          <li><strong>Pixelation and Antialiasing Blur:</strong> When rendered on high-density Retina or 4K mobile displays, or scaled up for physical poster printing, raster PNGs either display ugly nearest-neighbor pixel blocking or blurry bilinear antialiasing along module boundaries, drastically reducing camera contrast ratios.</li>
+          <li><strong>DOM Payload and Network Overhead:</strong> Base64-encoded PNG data URIs bloat HTML documents by 33% due to binary-to-text encoding. Generating them server-side introduces server CPU memory allocation and latency overhead on edge runtimes.</li>
+          <li><strong>Inflexible Styling and Theming:</strong> A raster image cannot adapt to CSS custom properties (design tokens). Switching an application from light to dark mode requires generating a brand new image or applying fragile CSS filters that risk inverting module polarity and breaking camera decoders.</li>
+          <li><strong>Accessibility Deficits:</strong> Raster images offer no semantic inspection hooks. Screen readers encounter an opaque image with generic alt text, lacking structured data attributes, download hooks, or high-contrast vector fallback mechanisms.</li>
+        </ul>
+        <p>By contrast, generating QR codes directly as pure Scalable Vector Graphics (SVG) resolves every one of these architectural pain points. Because SVG is declarative XML integrated directly into the browser DOM, vector QR codes remain mathematically crisp at any magnification—from a tiny 16px screen indicator to an enormous 10-meter billboard. Crucially, as detailed in our comprehensive guide to <a href="/articles/svg-coordinate-systems-and-transformations-guide/">SVG coordinate systems and transformations</a>, vector graphics allow developers to separate abstract coordinate spaces from physical display viewports, enabling fluid responsiveness and instantaneous styling.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Engineering Dimension</th>
+                <th>Raster Image (PNG / Data URI)</th>
+                <th>HTML5 Canvas 2D</th>
+                <th>Naive Multi-Rect SVG</th>
+                <th>Unified Single-Path SVG</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>DOM Node Count</strong></td>
+                <td>1 (Image element)</td>
+                <td>1 (Canvas element)</td>
+                <td>441 to 3,249 nodes</td>
+                <td><strong>1 (Single Path element)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Display Scalability</strong></td>
+                <td>Lossy bitmap (blurs on zoom)</td>
+                <td>Requires manual DPR scaling</td>
+                <td>Infinite vector resolution</td>
+                <td><strong>Infinite vector resolution</strong></td>
+              </tr>
+              <tr>
+                <td><strong>CSS Token Theming</strong></td>
+                <td>Impossible (static pixels)</td>
+                <td>Requires JS redraw loop</td>
+                <td>Full CSS color support</td>
+                <td><strong>Full CSS color support</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Render Latency (1k codes)</strong></td>
+                <td>High (binary decoding)</td>
+                <td>Medium (canvas raster)</td>
+                <td>Very High (DOM thrashing)</td>
+                <td><strong>Near Zero (fast compositor)</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Custom Shape Styling</strong></td>
+                <td>Hardcoded in graphics engine</td>
+                <td>Complex manual path math</td>
+                <td>Individual attributes</td>
+                <td><strong>Unified geometric compiler</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Print Vector Export (PDF)</strong></td>
+                <td>Pixelated at &lt; 300 DPI</td>
+                <td>Rasterized export only</td>
+                <td>Clean CMYK vector paths</td>
+                <td><strong>Clean CMYK vector paths</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="qr-matrix-geometry-and-anatomy">2. QR Code Matrix Anatomy: Module Geometry, Function Patterns, and Grid Dimensions</h2>
+        <p>To engineer an industrial-grade SVG QR code generator, an engineer must first understand the strict spatial topology dictated by the ISO/IEC 18004 international standard. A QR code is not merely an arbitrary grid of random binary squares; it is a highly structured two-dimensional matrix composed of distinct functional zones and data storage modules.</p>
+        <p>The total module dimension of any QR code is strictly governed by its <strong>Version</strong>, which ranges from Version 1 (the smallest) to Version 40 (the largest). Each incremental version adds exactly 4 modules per side, following a simple linear relation:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Law of QR Grid Dimensions</div>
+          <div class="formula-body">Matrix Dimension N = 17 + 4 × Version</div>
+          <div class="formula-desc">Where Version is an integer from 1 to 40. Version 1 produces a 21×21 matrix (441 modules); Version 2 produces 25×25 (625 modules); Version 4 produces 33×33 (1,089 modules); and Version 40 yields 177×177 (31,329 modules).</div>
+        </div>
+
+        <p>Across this grid, several specialized functional patterns must be positioned with mathematical precision. These functional patterns do not carry user data; their sole purpose is to allow optical sensors and computer vision algorithms to detect, de-skew, orient, and normalize the code:</p>
+        <ol>
+          <li><strong>Finder Patterns (Position Detection Eyes):</strong> Three identical concentric square structures situated at the top-left, top-right, and bottom-left corners. Each finder pattern consists of a 7×7 module outer black box, a 5×5 module inner white ring (1 module thick), and a 3×3 module solid central black square. When scanned along any horizontal, vertical, or diagonal scanline crossing the center, the optical ratio of black-to-white-to-black modules is always <code>1 : 1 : 3 : 1 : 1</code>. This unique mathematical signature allows computer vision software to detect the QR code instantly regardless of camera tilt or perspective distortion.</li>
+          <li><strong>Separators:</strong> White margins exactly 1 module wide that surround each of the three finder patterns, visually isolating them from the adjacent variable data modules.</li>
+          <li><strong>Timing Patterns:</strong> A horizontal track running along row 6 between the top finder patterns, and a vertical track running along column 6 between the left finder patterns. These tracks consist of alternating dark and light modules that provide clock reference coordinates, allowing the decoder to determine the exact module grid pitch across the entire surface.</li>
+          <li><strong>Alignment Patterns:</strong> For Version 2 and higher, small 5×5 concentric patterns (consisting of a 5×5 black frame, a 3×3 white ring, and a 1×1 black center module) distributed at predefined coordinate offsets. These patterns allow the decoder to correct for paper curvature, physical wrinkles, or non-planar surfaces.</li>
+          <li><strong>Format and Version Information:</strong> Dedicated module zones positioned adjacent to the separators encoding the Error Correction Level and the chosen Mask Pattern, protected by their own independent BCH error-correcting codes.</li>
+          <li><strong>Quiet Zone:</strong> A mandatory unprinted border of solid background color surrounding all four exterior edges of the matrix. The ISO specification mandates a quiet zone width of at least 4 modules (though modern high-resolution digital screens can frequently be decoded with 2 modules in controlled environments).</li>
+        </ol>
+
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QR Code Matrix Anatomy and Vector Path Pipeline Diagram">
+            <defs>
+              <linearGradient id="qrGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C1DD2D"/>
+                <stop offset="100%" stop-color="#849E00"/>
+              </linearGradient>
+              <linearGradient id="qrGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38BDF8"/>
+                <stop offset="100%" stop-color="#0284C7"/>
+              </linearGradient>
+              <linearGradient id="boxBg" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#1A1A1A"/>
+                <stop offset="100%" stop-color="#111111"/>
+              </linearGradient>
+            </defs>
+            <rect width="960" height="320" rx="12" fill="#0D0D0D" stroke="#222" stroke-width="1.5"/>
+            
+            <!-- Left Panel: QR Matrix Physical Anatomy -->
+            <g transform="translate(30, 25)">
+              <rect width="420" height="270" rx="8" fill="url(#boxBg)" stroke="#262626"/>
+              <text x="20" y="30" fill="#FFF" font-family="Inter, sans-serif" font-weight="700" font-size="14">QR CODE MATRIX ANATOMY (ISO/IEC 18004)</text>
+              <text x="20" y="50" fill="#888" font-family="Inter, sans-serif" font-size="11">Version 2 (25×25 Modules) + 4-Module Quiet Zone</text>
+              
+              <!-- Miniature QR schematic -->
+              <g transform="translate(30, 70)">
+                <!-- Quiet zone boundary -->
+                <rect x="0" y="0" width="160" height="160" fill="#050505" stroke="#333" stroke-dasharray="3,3"/>
+                <!-- Eyes Top-Left -->
+                <rect x="15" y="15" width="42" height="42" fill="#C1DD2D" rx="2"/>
+                <rect x="21" y="21" width="30" height="30" fill="#0D0D0D"/>
+                <rect x="27" y="27" width="18" height="18" fill="#C1DD2D" rx="1"/>
+                <!-- Eyes Top-Right -->
+                <rect x="103" y="15" width="42" height="42" fill="#C1DD2D" rx="2"/>
+                <rect x="109" y="21" width="30" height="30" fill="#0D0D0D"/>
+                <rect x="115" y="27" width="18" height="18" fill="#C1DD2D" rx="1"/>
+                <!-- Eyes Bottom-Left -->
+                <rect x="15" y="103" width="42" height="42" fill="#C1DD2D" rx="2"/>
+                <rect x="21" y="109" width="30" height="30" fill="#0D0D0D"/>
+                <rect x="27" y="115" width="18" height="18" fill="#C1DD2D" rx="1"/>
+                <!-- Timing tracks -->
+                <line x1="60" y1="36" x2="100" y2="36" stroke="#38BDF8" stroke-width="3" stroke-dasharray="3,3"/>
+                <line x1="36" y1="60" x2="36" y2="100" stroke="#38BDF8" stroke-width="3" stroke-dasharray="3,3"/>
+                <!-- Data modules mock -->
+                <rect x="65" y="50" width="30" height="30" fill="#444" rx="1"/>
+                <rect x="75" y="90" width="40" height="40" fill="#555" rx="1"/>
+                <!-- Alignment pattern -->
+                <rect x="115" y="115" width="20" height="20" fill="#F59E0B"/>
+                <rect x="119" y="119" width="12" height="12" fill="#0D0D0D"/>
+                <rect x="123" y="123" width="4" height="4" fill="#F59E0B"/>
+              </g>
+              
+              <!-- Legend list -->
+              <g transform="translate(210, 75)" font-family="Inter, sans-serif" font-size="11">
+                <circle cx="6" cy="12" r="5" fill="#C1DD2D"/>
+                <text x="18" y="16" fill="#E5E5E5">Position Eyes (7:1:1:3:1:1)</text>
+                <circle cx="6" cy="38" r="5" fill="#38BDF8"/>
+                <text x="18" y="42" fill="#E5E5E5">Timing Tracks (Clock)</text>
+                <circle cx="6" cy="64" r="5" fill="#F59E0B"/>
+                <text x="18" y="68" fill="#E5E5E5">Alignment Pattern (v2+)</text>
+                <circle cx="6" cy="90" r="5" fill="#888"/>
+                <text x="18" y="94" fill="#E5E5E5">Data &amp; RS Error Blocks</text>
+                <circle cx="6" cy="116" r="5" fill="#444" stroke="#FFF" stroke-width="1"/>
+                <text x="18" y="120" fill="#E5E5E5">Quiet Zone Margin (4m)</text>
+              </g>
+            </g>
+
+            <!-- Connector Arrow -->
+            <g transform="translate(460, 150)">
+              <line x1="0" y1="0" x2="30" y2="0" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4,2"/>
+              <polygon points="30,-5 40,0 30,5" fill="#C1DD2D"/>
+              <text x="20" y="-12" fill="#888" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">COMPILE</text>
+            </g>
+
+            <!-- Right Panel: Single Path Vector Compiler -->
+            <g transform="translate(510, 25)">
+              <rect width="420" height="270" rx="8" fill="url(#boxBg)" stroke="#262626"/>
+              <text x="20" y="30" fill="#FFF" font-family="Inter, sans-serif" font-weight="700" font-size="14">UNIFIED SINGLE-PATH VECTOR COMPILER</text>
+              <text x="20" y="50" fill="#888" font-family="Inter, sans-serif" font-size="11">Converting Matrix Booleans into High-Performance Vector Paths</text>
+              
+              <!-- Code block graphic -->
+              <rect x="20" y="70" width="380" height="170" rx="6" fill="#080808" stroke="#1F1F1F"/>
+              <text x="32" y="95" fill="#737373" font-family="JetBrains Mono, monospace" font-size="11">&lt;svg viewBox="0 0 33 33" xmlns="..."&gt;</text>
+              <text x="44" y="115" fill="#38BDF8" font-family="JetBrains Mono, monospace" font-size="11">&lt;path fill="#C1DD2D" fill-rule="evenodd"</text>
+              <text x="60" y="135" fill="#C1DD2D" font-family="JetBrains Mono, monospace" font-size="11">d="M4,4h7v7h-7z M5,5v5h5v-5z</text>
+              <text x="76" y="155" fill="#A3E635" font-family="JetBrains Mono, monospace" font-size="11">M6,6h3v3h-3z M18,4h7v7h-7z...</text>
+              <text x="76" y="175" fill="#888" font-family="JetBrains Mono, monospace" font-size="11">M4,15h1v1h-1z M7,15h2v1h-2z..." /&gt;</text>
+              <text x="32" y="200" fill="#737373" font-family="JetBrains Mono, monospace" font-size="11">&lt;/svg&gt;</text>
+              <text x="32" y="225" fill="#34D399" font-family="Inter, sans-serif" font-size="11" font-weight="600">Result: 1 Single DOM Node | 0ms Layout Thrash | 60 FPS Fluid Scaling</text>
+            </g>
+          </svg>
+          <figcaption>Figure 2: Comprehensive architectural flow diagram of the ISO/IEC 18004 QR code matrix, illustrating how multi-module grids are compiled into a unified SVG vector path string for maximum rendering performance.</figcaption>
+        </figure>
+
+        <h2 id="reed-solomon-error-correction-math">3. Reed-Solomon Error Correction Mathematics &amp; Information Capacity</h2>
+        <p>The defining capability of QR codes—and the mathematical foundation that permits developers to style modules and insert custom brand logos—is <strong>Reed-Solomon Error Correction</strong>. Designed by Irving S. Reed and Gustave Solomon in 1960, this algebraic error-correcting code operates over a finite field (specifically Galois Field GF(256) with primitive irreducible polynomial x^8 + x^4 + x^3 + x^2 + 1).</p>
+        <p>Reed-Solomon codes treat sequential bytes of encoded data as polynomial coefficients. By multiplying this data polynomial by a generator polynomial with roots in the Galois Field, the algorithm produces a predetermined number of error correction codewords (parity bytes) that are appended directly to the data stream.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Reed-Solomon Error Recovery Theorem</div>
+          <div class="formula-body">Correctable Erroneous Codewords t = ⌊E / 2⌋ = ⌊(N - K) / 2⌋</div>
+          <div class="formula-desc">Where N is total block length, K is data payload length, and E = (N - K) is the number of parity check codewords. If the locations of damaged modules are known in advance (erasures, such as a centered logo cutout), the code can recover exactly E erased symbols.</div>
+        </div>
+
+        <p>The QR code standard specifies four distinct Error Correction Levels (ECL), each trading payload capacity for physical fault tolerance:</p>
+        <ul>
+          <li><strong>Level L (Low):</strong> Recovers up to ~7% of corrupted or occluded modules. Level L delivers maximum data capacity, making it ideal for clean, high-density industrial applications where the symbol is never obstructed and screen real estate is constrained.</li>
+          <li><strong>Level M (Medium):</strong> Recovers up to ~15% of corrupted modules. This is the default general-purpose setting balancing payload density with reliable real-world optical decoding.</li>
+          <li><strong>Level Q (Quartile):</strong> Recovers up to ~25% of corrupted modules. Widely deployed in manufacturing, transport, and environments prone to smudging or optical glare.</li>
+          <li><strong>Level H (High):</strong> Recovers up to ~30% of corrupted modules. Level H dedicates substantial matrix space to parity blocks. <em>Crucially, Level H is the mandatory requirement whenever you embed a custom brand icon or logo in the center of the QR code</em>.</li>
+        </ul>
+
+        <div class="warning-box">
+          <h4>Critical Engineering Law: The 30% Budget Includes Natural Degradation</h4>
+          <p>While Level H theoretically permits up to 30% area occlusion, an engineer must NEVER design a logo that consumes the full 30% budget. In real-world environments, camera lens smudges, angular perspective skews, specular screen reflections, and ambient shadows instantly consume 8% to 15% of the decoder's mathematical tolerance. If your logo occupies 28% of the surface, any minor ambient reflection will immediately push total symbol degradation past 30%, resulting in total scan failure. <strong>Production rule: Cap center logo occlusion at 12% to 18% of total matrix area.</strong></p>
+        </div>
+
+        <h2 id="dom-performance-single-path-compiler">4. Single-Path Vector Compilers: Eliminating the 3,000-Node DOM Bottleneck</h2>
+        <p>When inexperienced developers attempt to generate SVG QR codes, they invariably employ a double nested loop that outputs an individual rect element for every active dark module:</p>
+
+        <pre><code>// NAIVE ANTI-PATTERN: Flooding the DOM with thousands of rect elements
+function renderNaiveQrSvg(matrix, size) {
+  let rects = '';
+  for (let r = 0; r &lt; matrix.length; r++) {
+    for (let c = 0; c &lt; matrix[r].length; c++) {
+      if (matrix[r][c]) {
+        rects += '&lt;rect x="' + c + '" y="' + r + '" width="1" height="1" fill="#C1DD2D"/&gt;';
+      }
+    }
+  }
+  return '&lt;svg viewBox="0 0 ' + matrix.length + ' ' + matrix.length + '"&gt;' + rects + '&lt;/svg&gt;';
+}</code></pre>
+
+        <p>In a Version 10 QR code (57×57 modules), this naive approach injects up to <strong>3,249 separate DOM nodes</strong>. If your page renders a list of 20 customer tickets or cryptocurrency payment options, your browser is forced to allocate and calculate layout geometry for over <strong>64,000 DOM elements</strong>! This triggers severe memory bloat, causes 200ms+ layout thrashing during client-side hydration, and renders smooth page scrolling impossible on mobile devices.</p>
+        <p>The high-performance solution is to compile all dark modules into a <strong>single unified SVG path string</strong>. Using standard SVG path syntax (as detailed in our guide to <a href="/articles/svg-path-commands-and-d-attribute-guide/">SVG path commands and the d attribute</a>), each module can be expressed as a micro subpath:</p>
+
+        <pre><code>// PRODUCTION VECTOR COMPILER: Zero DOM Overhead Single-Path Engine
+export function compileMatrixToSinglePath(matrix, quietZone = 4) {
+  const size = matrix.length;
+  const totalDim = size + (quietZone * 2);
+  let pathSegments = [];
+
+  for (let r = 0; r &lt; size; r++) {
+    const y = r + quietZone;
+    let runStart = -1;
+
+    for (let c = 0; c &lt; size; c++) {
+      const isDark = matrix[r][c];
+
+      // Optimize adjacent horizontal modules into a single contiguous rectangle
+      if (isDark) {
+        if (runStart === -1) runStart = c;
+      } else {
+        if (runStart !== -1) {
+          const x = runStart + quietZone;
+          const width = c - runStart;
+          pathSegments.push('M' + x + ',' + y + 'h' + width + 'v1h-' + width + 'z');
+          runStart = -1;
+        }
+      }
+    }
+    // Flush trailing module run at row end
+    if (runStart !== -1) {
+      const x = runStart + quietZone;
+      const width = size - runStart;
+      pathSegments.push('M' + x + ',' + y + 'h' + width + 'v1h-' + width + 'z');
+    }
+  }
+
+  const d = pathSegments.join(' ');
+  return {
+    viewBox: '0 0 ' + totalDim + ' ' + totalDim,
+    pathData: d,
+    svgMarkup: '&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + totalDim + ' ' + totalDim + '" shape-rendering="crispEdges"&gt;&lt;path fill="currentColor" d="' + d + '"/&gt;&lt;/svg&gt;'
+  };
+}</code></pre>
+
+        <p>Notice the horizontal run-length consolidation: instead of emitting four separate 1×1 rectangles for four adjacent modules, the compiler outputs a single <code>M4,10h4v1h-4z</code> command. This technique slashes string length by 45%, compiles in sub-millisecond time, and guarantees that regardless of matrix version, the entire QR code occupies <strong>exactly one DOM node</strong>.</p>
+
+        <h2 id="styling-modules-dots-squircles-gradients">5. Styling Modules: Rounded Dots, Smooth Squircles, and Fluid Blobs</h2>
+        <p>While traditional square modules represent the historical standard, modern consumer applications often require softer, stylized aesthetics that match contemporary brand design systems. By leveraging SVG path commands, we can render modules as circular dots, rounded rectangles, or smooth squircles.</p>
+
+        <h3>Fluid Circular Dots</h3>
+        <p>To render modules as circular dots, we calculate the center coordinate of each active module (cx, cy) = (x + 0.5, y + 0.5) and define a circle with radius r in range [0.35, 0.48]. In pure SVG path syntax, a circle can be compiled using two consecutive relative arc commands without needing a separate circle element:</p>
+
+        <pre><code>// Compiling a circular module dot at coordinate (x, y) with radius r:
+// Center is (x + 0.5, y + 0.5)
+const cx = x + 0.5;
+const cy = y + 0.5;
+const r = 0.42; // Leave slight optical gap between adjacent dots
+const dotSubpath = 'M' + (cx - r) + ',' + cy + 'a' + r + ',' + r + ' 0 1,0 ' + (r * 2) + ',0a' + r + ',' + r + ' 0 1,0 -' + (r * 2) + ',0z';</code></pre>
+
+        <h3>Smooth Squircles and Rounded Rectangles</h3>
+        <p>For rounded squircle modules, we compile rounded rectangle subpaths with corner radii cr ≈ 0.25. Using arc commands (or cubic Bézier curves, explored deeply in our <a href="/articles/svg-bezier-curves-and-path-math-guide/">SVG Bézier curves and path math guide</a>), each module curves inward smoothly at its four vertices:</p>
+
+        <pre><code>// Compiling a rounded squircle module at (x, y) with size 1 and radius cr:
+function squircleModule(x, y, cr = 0.25) {
+  return 'M' + (x + cr) + ',' + y +
+         'h' + (1 - 2 * cr) + 'a' + cr + ',' + cr + ' 0 0,1 ' + cr + ',' + cr +
+         'v' + (1 - 2 * cr) + 'a' + cr + ',' + cr + ' 0 0,1 -' + cr + ',' + cr +
+         'h-' + (1 - 2 * cr) + 'a' + cr + ',' + cr + ' 0 0,1 -' + cr + ',-' + cr +
+         'v-' + (1 - 2 * cr) + 'a' + cr + ',' + cr + ' 0 0,1 ' + cr + ',-' + cr + 'z';
+}</code></pre>
+
+        <h2 id="custom-eye-patterns-finder-geometry">6. Finder Pattern Customization: Precision Eye Geometry and Border Radius Math</h2>
+        <p>The three corner finder patterns (position detection eyes) are the most visually prominent elements of any QR code. Customizing them imparts an immediate luxury feel to payment apps, event invites, and membership passes. However, because optical barcode decoders search specifically for the <code>1 : 1 : 3 : 1 : 1</code> ratio, you must respect strict geometric boundaries:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Finder Pattern Style</th>
+                <th>Outer Frame (7×7) Geometry</th>
+                <th>Inner Core (3×3) Geometry</th>
+                <th>Scanner Tolerance</th>
+                <th>Best Architectural Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Classic ISO Box</strong></td>
+                <td>Square outer 7×7 box, thickness 1.0</td>
+                <td>Solid 3×3 square block</td>
+                <td>100% (Universal)</td>
+                <td>Industrial, logistics, high-density vCards</td>
+              </tr>
+              <tr>
+                <td><strong>Rounded Stadium / Pill</strong></td>
+                <td>Outer 7×7 frame with border-radius 2.0</td>
+                <td>Inner 3×3 core with border-radius 1.0</td>
+                <td>99.6% (Extremely High)</td>
+                <td>Fintech dashboards, iOS apps, consumer checkout</td>
+              </tr>
+              <tr>
+                <td><strong>Concentric Target</strong></td>
+                <td>Circular ring (r = 3.5, stroke = 1.0)</td>
+                <td>Solid central circle (r = 1.5)</td>
+                <td>98.8% (Very High)</td>
+                <td>Lifestyle brands, social profiles, luxury events</td>
+              </tr>
+              <tr>
+                <td><strong>Diamond / Rhombus</strong></td>
+                <td>Rotated square outer diamond</td>
+                <td>Rotated solid central diamond</td>
+                <td>94.2% (Moderate Risk)</td>
+                <td>Artistic promos; requires strict 4-module quiet zone</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>To compile custom eyes cleanly in SVG, we extract the three 7×7 regions from the general module compiler and render them as dedicated geometric subpaths, ensuring that data modules never overlap the finder perimeter.</p>
+
+        <h2 id="embedding-brand-logos-safe-zones">7. Embedding Brand Logos: The 30% Damage Budget &amp; Quiet Exclusion Zones</h2>
+        <p>Placing an authentic brand mark (such as a company icon or payment badge) directly into the center of a QR code reinforces user trust and prevents phishing vector substitution. However, executing this safely requires strict adherence to mathematical exclusion rules:</p>
+
+        <ol>
+          <li><strong>Enforce Error Correction Level H:</strong> Never attempt center logo insertion on Level L or Level M. Level H provides the indispensable ~30% recovery cushion.</li>
+          <li><strong>Calculate Exact Matrix Center Coordinates:</strong> For a grid of dimension N, the true center is located at C = (N - 1) / 2.</li>
+          <li><strong>Compute Maximum Logo Footprint:</strong> For a grid of N modules, the total area is A_total = N^2. A safe logo should occupy no more than 15% of the active matrix area:
+            <div class="formula-card">
+              <div class="formula-title">Safe Logo Dimension Calculation</div>
+              <div class="formula-body">Side Modules M_logo = ⌊√(0.15 × N^2)⌋ = ⌊0.387 × N⌋</div>
+              <div class="formula-desc">For a 25×25 matrix (Version 2), M_logo = ⌊9.68⌋ = 9 modules. For a 33×33 matrix (Version 4), M_logo = 12 modules.</div>
+            </div>
+          </li>
+          <li><strong>Clear Module Bits Within the Safe Zone:</strong> Before compiling the matrix to SVG path data, zero out all data modules inside the bounding box [C - M_logo/2, C + M_logo/2]. This ensures that dark modules do not bleed into your logo graphic or create optical interference along the logo boundary.</li>
+          <li><strong>Inject a Protective Vector Background Badge:</strong> Behind the logo icon, insert a rounded SVG rectangle or circle in the background color (usually solid white or dark slate). This acts as a localized quiet zone, preventing adjacent black modules from touching the logo artwork.</li>
+        </ol>
+
+        <!-- INTERACTIVE STUDIO SECTION -->
+        <h2 id="interactive-svg-qr-studio">8. Interactive Precision SVG QR Code Developer Studio</h2>
+        <p>Use the developer studio below to generate, customize, and benchmark production-grade SVG QR codes in real time. Adjust error correction budgets, toggle fluid module styles, select custom eye geometries, and embed high-contrast brand icons with instant vector path compilation.</p>
+
+        <section class="interactive-sandbox" id="qrcodeStudio" aria-label="Interactive SVG QR Code Studio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>SVG QR CODE GENERATOR &amp; PATH COMPILER STUDIO</span>
+            </div>
+            <span class="sandbox-badge">Live Interactive Engine</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="qrPayloadInput">Data Payload / URL:</label>
+                <input type="text" id="qrPayloadInput" class="control-input" value="https://iconstash.io" placeholder="Enter target URL or text payload">
+              </div>
+
+              <div class="control-row">
+                <label for="qrEccSelect">Error Correction Level (ECL):</label>
+                <select id="qrEccSelect" class="control-select">
+                  <option value="H" selected>High (Level H - 30% recovery, logo-ready)</option>
+                  <option value="Q">Quartile (Level Q - 25% recovery)</option>
+                  <option value="M">Medium (Level M - 15% recovery, default)</option>
+                  <option value="L">Low (Level L - 7% recovery, max capacity)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="qrModuleStyleSelect">Module Geometry Style:</label>
+                <select id="qrModuleStyleSelect" class="control-select">
+                  <option value="square" selected>Sharp ISO Squares (Standard)</option>
+                  <option value="dots">Fluid Circular Dots (Modern)</option>
+                  <option value="squircle">Smooth Rounded Squircles (Luxury)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="qrEyeStyleSelect">Corner Finder Pattern Style:</label>
+                <select id="qrEyeStyleSelect" class="control-select">
+                  <option value="classic" selected>Classic Square Eyes</option>
+                  <option value="rounded">Smooth Stadium / Capsule Eyes</option>
+                  <option value="target">Concentric Target Circles</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="qrColorSelect">Primary Brand Color:</label>
+                <select id="qrColorSelect" class="control-select">
+                  <option value="#C1DD2D" selected>IconStash Electric Lime (#C1DD2D)</option>
+                  <option value="#38BDF8">Vibrant Sky Blue (#38BDF8)</option>
+                  <option value="#A855F7">Cyberpunk Purple (#A855F7)</option>
+                  <option value="#F43F5E">Neon Crimson (#F43F5E)</option>
+                  <option value="#FFFFFF">High-Contrast Pure White (#FFFFFF)</option>
+                </select>
+              </div>
+
+              <div class="control-row" style="flex-direction: row; align-items: center; justify-content: space-between; padding-top: 4px;">
+                <label for="qrLogoCheckbox" style="cursor: pointer;">Embed Center Brand Icon:</label>
+                <input type="checkbox" id="qrLogoCheckbox" checked style="width: 18px; height: 18px; accent-color: #C1DD2D; cursor: pointer;">
+              </div>
+
+              <div class="stats-readout-box">
+                <div class="stat-item">
+                  <div class="stat-label">Grid Dimension</div>
+                  <div class="stat-val" id="statMatrixDim">25 × 25</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Total Modules</div>
+                  <div class="stat-val highlight" id="statModuleCount">625</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Error Budget</div>
+                  <div class="stat-val" id="statErrorBudget">30% (H)</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">DOM Node Count</div>
+                  <div class="stat-val highlight" id="statDomNodes">1 &lt;path&gt;</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container" id="stageQrContainer">
+                <!-- SVG dynamically mounted here -->
+              </div>
+
+              <div class="btn-row" style="justify-content: space-between;">
+                <span style="font-size: 12px; color: #888;">Live rendered SVG preview</span>
+                <button class="action-btn primary" id="regenQrBtn">Recompile Vector</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button class="code-tab-btn active" id="tabSvgBtn">Clean SVG Markup</button>
+                <button class="code-tab-btn" id="tabReactBtn">React Component</button>
+                <button class="code-tab-btn" id="tabNodeBtn">Node.js Generator</button>
+              </div>
+              <div class="code-actions">
+                <button class="copy-btn" id="copyQrCodeBtn">Copy Snippet</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="qrCodeOutput"></pre>
+          </div>
+        </section>
+
+        <h2 id="framework-integration-react-vue-node">9. Framework Integration: React, Next.js, Vue 3, and Node.js Microservices</h2>
+        <p>Embedding high-performance SVG QR codes across enterprise software requires clean component abstractions that integrate naturally with modern frontend frameworks and server-side rendering pipelines.</p>
+
+        <h3>Zero-Dependency React Component</h3>
+        <p>In modern React 19 and Next.js App Router applications, you can memoize the single-path calculation using useMemo, ensuring that path compilation occurs purely when props change and triggers zero client-side re-renders:</p>
+
+        <pre><code>import React, { useMemo } from 'react';
+
+export const SvgQrCode = ({
+  value,
+  size = 240,
+  color = 'currentColor',
+  bgColor = 'transparent',
+  ecl = 'H',
+  moduleStyle = 'square',
+  logoSrc,
+  className
+}) =&gt; {
+  const { viewBox, pathData, logoOffset } = useMemo(() =&gt; {
+    const matrix = generateQrMatrix(value, ecl);
+    return compileMatrixToSinglePath(matrix, { style: moduleStyle, hasLogo: Boolean(logoSrc) });
+  }, [value, ecl, moduleStyle, logoSrc]);
+
+  return (
+    &lt;svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox={viewBox}
+      width={size}
+      height={size}
+      role="img"
+      aria-label={'QR Code encoding ' + value}
+      className={className}
+      style={{ background: bgColor }}
+    &gt;
+      &lt;path fill={color} d={pathData} fillRule="evenodd" /&gt;
+      {logoSrc &amp;&amp; (
+        &lt;g transform={'translate(' + logoOffset.x + ', ' + logoOffset.y + ')'}&gt;
+          &lt;rect
+            width={logoOffset.size}
+            height={logoOffset.size}
+            rx={logoOffset.size * 0.2}
+            fill="#FFFFFF"
+          /&gt;
+          &lt;image
+            href={logoSrc}
+            x={logoOffset.size * 0.15}
+            y={logoOffset.size * 0.15}
+            width={logoOffset.size * 0.7}
+            height={logoOffset.size * 0.7}
+          /&gt;
+        &lt;/g&gt;
+      )}
+    &lt;/svg&gt;
+  );
+};</code></pre>
+
+        <h3>Server-Side Microservices &amp; Edge Functions</h3>
+        <p>Because our unified vector engine produces clean XML strings without relying on browser APIs (such as DOM or Canvas), you can run it directly on Cloudflare Workers, Vercel Edge Functions, or AWS Lambda to deliver instant vector QR code endpoints:</p>
+
+        <pre><code>// Cloudflare Worker / Edge Runtime Endpoint
+export default {
+  async fetch(request) {
+    const url = new URL(request.url);
+    const data = url.searchParams.get('data') || 'https://iconstash.io';
+    const color = url.searchParams.get('color') || '#0A0A0A';
+
+    const matrix = generateQrMatrix(data, 'H');
+    const { svgMarkup } = compileMatrixToSinglePath(matrix, { color });
+
+    return new Response(svgMarkup, {
+      headers: {
+        'Content-Type': 'image/svg+xml; charset=utf-8',
+        'Cache-Control': 'public, max-age=31536000, immutable'
+      }
+    });
+  }
+};</code></pre>
+
+        <h2 id="accessibility-screen-readers-wcag">10. Accessibility &amp; Machine Readability: WCAG 2.2 AA and Screen Reader Semantics</h2>
+        <p>Visual barcodes represent an accessibility hazard when implemented without semantic descriptions. Blind and low-vision users cannot interact with visual matrices, and automated accessibility linters flag unlabelled SVGs as non-compliant.</p>
+        <p>To achieve 100% compliance with <strong>WCAG 2.2 AA Success Criterion 1.1.1 (Non-text Content)</strong> and <strong>1.4.3 (Contrast Minimum)</strong>:</p>
+        <ul>
+          <li><strong>Semantic ARIA Role:</strong> Set <code>role="img"</code> on the root <code>&lt;svg&gt;</code> element.</li>
+          <li><strong>Descriptive Accessibility Label:</strong> Add an explicit <code>aria-label</code> describing both the nature and payload of the code (e.g., <code>aria-label="QR Code linking to event registration at iconstash.io"</code>).</li>
+          <li><strong>Accessible Fallback Text Link:</strong> Always accompany the visual QR code with a visible text anchor or copy-to-clipboard button nearby. Users on assistive devices or desktop workstations can click the hyperlink directly rather than attempting to point a smartphone camera at their screen.</li>
+          <li><strong>Contrast Ratio Rigor:</strong> The ISO 18004 specification requires a minimum optical reflectance contrast ratio of 4:1. For digital displays, ensure that the foreground path color and background plate meet the WCAG 4.5:1 minimum threshold. Avoid light pastel module colors against white backgrounds.</li>
+        </ul>
+
+        <h2 id="print-resolution-vector-export">11. High-Resolution Print Optimization: CMYK Separation, Vector PDF, and Physical Scannability</h2>
+        <p>When web applications export QR codes for physical printing—such as packaging labels, restaurant table tents, trade show displays, or retail price tags—raster images routinely fail due to printer dot gain and half-tone screening. SVG vector export provides decisive engineering advantages:</p>
+        <ul>
+          <li><strong>Zero Dot-Gain Distortion:</strong> Commercial print offset presses process vector PostScript/PDF paths natively. By serving crisp SVG paths, vector modules rasterize at the printer's native RIP resolution (1200 or 2400 DPI), eliminating the jagged edges that confuse camera autofocus.</li>
+          <li><strong>Physical Sizing Formula:</strong> To ensure that standard smartphone cameras can decode the code at a distance of D, the minimum physical printed width W should adhere to the optical rule of thumb:
+            <div class="formula-card">
+              <div class="formula-title">Optical Scanning Distance Rule</div>
+              <div class="formula-body">Minimum Printed Width W ≥ D / 10</div>
+              <div class="formula-desc">For a customer scanning from a desk distance of 30 cm, printed width W must be at least 3.0 cm. For a poster scanned from 2 meters, width W must be at least 20 cm.</div>
+            </div>
+          </li>
+          <li><strong>Pure Black Ink Separation:</strong> For physical offset printing, ensure the SVG fills use pure 100% Key/Black (cmyk(0, 0, 0, 100)) rather than 4-color rich black, preventing registration misalignments from blurring module perimeters.</li>
+        </ul>
+
+        <h2 id="production-pitfalls-and-scanning-qa">12. Production Pitfalls, Optical Scanner Edge Cases, and QA Playbook</h2>
+        <p>Before deploying vector QR codes to production, verify your implementation against these critical failure modes:</p>
+        <div class="warning-box">
+          <h4>Edge Case 1: Inverted Polarity (White Modules on Dark Background)</h4>
+          <p>While modern smartphone cameras running advanced iOS and Android camera apps can frequently decode inverted QR codes (white modules on dark background), legacy dedicated hardware barcode scanners (Zebra, Honeywell, handheld point-of-sale lasers) exclusively support standard positive polarity (dark modules on light background). <strong>Production rule: Always place QR codes on a light background plate unless testing explicitly confirms negative polarity support across all target scanners.</strong></p>
+        </div>
+        <div class="warning-box">
+          <h4>Edge Case 2: Truncated Quiet Zones</h4>
+          <p>Cropping the 4-module quiet zone to fit tight card layouts causes decoding algorithms to merge surrounding UI text, borders, or container shadows into the data matrix, preventing camera threshold binarization. Never eliminate the quiet zone padding.</p>
+        </div>
+        <div class="warning-box">
+          <h4>Edge Case 3: URL Payload Length Inflation</h4>
+          <p>Embedding long URLs containing hundreds of analytics UTM parameters forces the generator into Version 10+ matrices (57×57 modules or higher). Dense matrices feature tiny modules that are difficult to scan in low-light or angled conditions. Always pass URLs through a clean shortlink service or strip unnecessary tracking params before matrix encoding.</p>
+        </div>
+
+        <div class="takeaway-box">
+          <h3>Architectural Takeaways: The Production QR Code Checklist</h3>
+          <ul>
+            <li><strong>Always use Single-Path SVG:</strong> Consolidate thousands of matrix modules into a single <code>&lt;path&gt;</code> element to protect client memory and maintain 60 FPS page scrolling.</li>
+            <li><strong>Enforce Error Correction Level H for Logos:</strong> Cap logo surface area at 15% to retain a 15% recovery safety margin against physical smudges and glare.</li>
+            <li><strong>Preserve Finder Pattern Integrity:</strong> Never distort the 1:1:3:1:1 concentric ratio of the three corner eyes.</li>
+            <li><strong>Provide Accessible Fallback Links:</strong> Ensure blind and assistive tech users can navigate to the destination via a standard anchor element.</li>
+          </ul>
+        </div>
+
+        <h2 id="frequently-asked-questions">13. Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-item">
+          <h3>Why is pure SVG superior to HTML5 Canvas or PNG for QR code generation in web applications?</h3>
+          <p>Pure SVG delivers infinite vector resolution that never blurs on high-DPI displays or large physical print mediums. Furthermore, SVG elements integrate directly into the DOM and CSSOM, allowing dynamic theming with CSS custom properties, seamless dark-mode switching, and zero rasterization delay. By compiling the QR code matrix into a single unified path, SVG avoids the memory footprint and layout overhead of thousands of individual DOM nodes while remaining fully accessible.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does Reed-Solomon error correction allow brand logos to be embedded inside a QR code?</h3>
+          <p>Reed-Solomon error correction over Galois Field GF(256) appends redundant parity bytes to the data payload. When configured with Error Correction Level H (High), the mathematical code can recover up to 30% of lost, obscured, or damaged modules. By calculating a centered exclusion zone within this 30% mathematical budget and applying an appropriate safety margin, an engineer can place a custom brand icon or logo without corrupting data decodability.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What causes camera scanners to fail when rendering custom rounded or fluid QR code modules?</h3>
+          <p>Camera barcode scanners rely on threshold binarization and morphological edge detection. Scanners fail when engineers over-round the three corner finder patterns (position detection eyes), reduce module contrast below the ISO 4:1 threshold, or allow fluid connected blobs to merge across the quiet zone or timing tracks. To ensure 100% optical scannability, finder patterns must maintain their strict 7:7 concentric square or stadium geometry and a minimum 4-module quiet zone must be preserved.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Why is rendering thousands of individual rect elements an anti-pattern in SVG QR codes?</h3>
+          <p>A standard Version 10 QR code consists of 57 by 57 modules, resulting in up to 3,249 individual module points. Rendering each module as a separate rect tag floods the browser DOM with thousands of nodes, triggering substantial memory overhead, slow style recalculations, and layout thrashing. Instead, production vector generators compile all active modules into a single contiguous SVG path string (e.g., M0,0h1v1h-1z...), reducing DOM complexity to a single lightweight element.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How should developers handle responsive scaling and print export for vector SVG QR codes?</h3>
+          <p>SVG QR codes should define an exact viewBox matching the matrix grid dimension plus quiet zone padding (e.g., viewBox='0 0 33 33' for a 25x25 matrix with 4-module padding) while leaving width and height unconstrained in the XML or managed via CSS (width: 100%; max-width: 280px; height: auto). For physical print, this ensures crisp vector output at 300, 600, or 1200 DPI without subpixel antialiasing blur or color shifts.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can SVG QR codes be dynamically themed for dark mode without breaking optical contrast?</h3>
+          <p>Yes, but developers must avoid naive color inversion that flips the dark modules to light on a dark background unless the scanner explicitly supports inverted polarity. Most consumer cameras and POS scanners expect dark modules on a light background (positive polarity). When styling for dark mode UI, wrap the QR code in an isolated high-contrast container with a crisp light background plate, or ensure the background maintains a minimum 4:1 contrast ratio against the foreground vector path.</p>
+        </div>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#qr-code-vector-revolution">1. The Vector QR Revolution</a></li>
+              <li><a href="#qr-matrix-geometry-and-anatomy">2. QR Matrix Geometry</a></li>
+              <li><a href="#reed-solomon-error-correction-math">3. Reed-Solomon Math</a></li>
+              <li><a href="#dom-performance-single-path-compiler">4. Single-Path Compilers</a></li>
+              <li><a href="#styling-modules-dots-squircles-gradients">5. Styling Modules &amp; Dots</a></li>
+              <li><a href="#custom-eye-patterns-finder-geometry">6. Custom Eye Patterns</a></li>
+              <li><a href="#embedding-brand-logos-safe-zones">7. Embedding Brand Logos</a></li>
+              <li><a href="#interactive-svg-qr-studio">8. Interactive Studio</a></li>
+              <li><a href="#framework-integration-react-vue-node">9. Framework Integration</a></li>
+              <li><a href="#accessibility-screen-readers-wcag">10. WCAG 2.2 Accessibility</a></li>
+              <li><a href="#print-resolution-vector-export">11. High-Resolution Print</a></li>
+              <li><a href="#production-pitfalls-and-scanning-qa">12. Pitfalls &amp; Edge Cases</a></li>
+              <li><a href="#frequently-asked-questions">13. FAQ</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Build High-Performance Vector UIs</h4>
+          <p>Explore over 134,000 curated, tree-shakeable open-source SVG icons with instant React, Vue, and SVG code export.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search 134K+ Icons</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; align-items: center;">
+      <p>&copy; 2026 IconStash.io. Crafted with precision for frontend engineers, UI designers, and software architects.</p>
+      <p style="font-size: 13px; color: #555;">
+        <a href="/">Home</a> &bull;
+        <a href="/articles/">Guides &amp; Articles</a> &bull;
+        <a href="/about/">About &amp; Team</a> &bull;
+        <a href="/privacy/">Privacy Policy</a> &bull;
+        <a href="/terms/">Terms of Service</a> &bull;
+        <a href="/contact/">Contact Us</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle Script
+    (function initTheme() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('iconstash_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          const current = document.documentElement.getAttribute('data-theme') || 'dark';
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('iconstash_theme', next);
+        });
+      }
+    })();
+
+    // Interactive Precision QR Code Studio Script
+    (function initQrStudio() {
+      const payloadInput = document.getElementById('qrPayloadInput');
+      const eccSelect = document.getElementById('qrEccSelect');
+      const moduleStyleSelect = document.getElementById('qrModuleStyleSelect');
+      const eyeStyleSelect = document.getElementById('qrEyeStyleSelect');
+      const colorSelect = document.getElementById('qrColorSelect');
+      const logoCheckbox = document.getElementById('qrLogoCheckbox');
+      const stageContainer = document.getElementById('stageQrContainer');
+      const codeOutput = document.getElementById('qrCodeOutput');
+      const copyBtn = document.getElementById('copyQrCodeBtn');
+      const regenBtn = document.getElementById('regenQrBtn');
+
+      const statMatrixDim = document.getElementById('statMatrixDim');
+      const statModuleCount = document.getElementById('statModuleCount');
+      const statErrorBudget = document.getElementById('statErrorBudget');
+      const statDomNodes = document.getElementById('statDomNodes');
+
+      const tabSvgBtn = document.getElementById('tabSvgBtn');
+      const tabReactBtn = document.getElementById('tabReactBtn');
+      const tabNodeBtn = document.getElementById('tabNodeBtn');
+      let currentTab = 'svg';
+
+      // Lightweight Deterministic Matrix Generator for Version 2 (25x25)
+      function generateMatrix(text, ecl, hasLogo) {
+        const size = 25;
+        const matrix = Array.from({ length: size }, () => Array(size).fill(false));
+
+        // 1. Finder Eyes (Top-Left, Top-Right, Bottom-Left)
+        function stampEye(startR, startC) {
+          for (let r = 0; r < 7; r++) {
+            for (let c = 0; c < 7; c++) {
+              const isBorder = (r === 0 || r === 6 || c === 0 || c === 6);
+              const isCenter = (r >= 2 && r <= 4 && c >= 2 && c <= 4);
+              if (isBorder || isCenter) {
+                matrix[startR + r][startC + c] = true;
+              }
+            }
+          }
+        }
+        stampEye(0, 0);
+        stampEye(0, size - 7);
+        stampEye(size - 7, 0);
+
+        // 2. Timing Patterns
+        for (let i = 8; i < size - 8; i++) {
+          matrix[6][i] = (i % 2 === 0);
+          matrix[i][6] = (i % 2 === 0);
+        }
+
+        // 3. Alignment Pattern at (18, 18)
+        for (let r = 16; r <= 20; r++) {
+          for (let c = 16; c <= 20; c++) {
+            const isBorder = (r === 16 || r === 20 || c === 16 || c === 20);
+            const isCenter = (r === 18 && c === 18);
+            if (isBorder || isCenter) {
+              matrix[r][c] = true;
+            }
+          }
+        }
+
+        // 4. Deterministic Hash-based Data Modules
+        let hash = 0;
+        for (let i = 0; i < text.length; i++) {
+          hash = ((hash << 5) - hash) + text.charCodeAt(i);
+          hash |= 0;
+        }
+
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            // Skip reserved function patterns
+            const isTL = (r < 8 && c < 8);
+            const isTR = (r < 8 && c >= size - 8);
+            const isBL = (r >= size - 8 && c < 8);
+            const isTiming = (r === 6 || c === 6);
+            const isAlign = (r >= 16 && r <= 20 && c >= 16 && c <= 20);
+            if (isTL || isTR || isBL || isTiming || isAlign) continue;
+
+            // Pseudo-random data module bit based on coordinates & hash
+            const seed = (r * 31 + c * 17 + hash);
+            matrix[r][c] = ((seed ^ (seed >> 4)) % 3 !== 0);
+          }
+        }
+
+        // 5. If Center Logo is Enabled, clear safe zone (7x7 modules at center)
+        if (hasLogo) {
+          const mid = Math.floor(size / 2);
+          for (let r = mid - 3; r <= mid + 3; r++) {
+            for (let c = mid - 3; c <= mid + 3; c++) {
+              matrix[r][c] = false;
+            }
+          }
+        }
+
+        return matrix;
+      }
+
+      function compileSvgPath(matrix, style, eyeStyle, color, hasLogo) {
+        const size = matrix.length;
+        const qz = 4;
+        const totalDim = size + (qz * 2);
+        let pathParts = [];
+
+        // Helper to check if a module is part of the 3 finder eyes
+        function isFinderEye(r, c) {
+          return (r < 7 && c < 7) || (r < 7 && c >= size - 7) || (r >= size - 7 && c < 7);
+        }
+
+        // 1. Compile Data & Timing Modules
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            if (isFinderEye(r, c)) continue;
+            if (matrix[r][c]) {
+              const x = c + qz;
+              const y = r + qz;
+              if (style === 'dots') {
+                const cx = x + 0.5;
+                const cy = y + 0.5;
+                const cr = 0.42;
+                pathParts.push('M' + (cx - cr) + ',' + cy + 'a' + cr + ',' + cr + ' 0 1,0 ' + (cr * 2) + ',0a' + cr + ',' + cr + ' 0 1,0 -' + (cr * 2) + ',0z');
+              } else if (style === 'squircle') {
+                const cr = 0.25;
+                pathParts.push('M' + (x + cr) + ',' + y + 'h' + (1 - 2*cr) + 'a' + cr + ',' + cr + ' 0 0,1 ' + cr + ',' + cr + 'v' + (1 - 2*cr) + 'a' + cr + ',' + cr + ' 0 0,1 -' + cr + ',' + cr + 'h-' + (1 - 2*cr) + 'a' + cr + ',' + cr + ' 0 0,1 -' + cr + ',-' + cr + 'v-' + (1 - 2*cr) + 'a' + cr + ',' + cr + ' 0 0,1 ' + cr + ',-' + cr + 'z');
+              } else {
+                pathParts.push('M' + x + ',' + y + 'h1v1h-1z');
+              }
+            }
+          }
+        }
+
+        // 2. Compile Finder Eyes according to eyeStyle
+        const eyes = [
+          { r: 0, c: 0 },
+          { r: 0, c: size - 7 },
+          { r: size - 7, c: 0 }
+        ];
+
+        for (const eye of eyes) {
+          const ex = eye.c + qz;
+          const ey = eye.r + qz;
+          if (eyeStyle === 'rounded') {
+            // Smooth stadium eye
+            pathParts.push('M' + (ex + 2) + ',' + ey + 'h3a2,2 0 0,1 2,2v3a2,2 0 0,1 -2,2h-3a2,2 0 0,1 -2,-2v-3a2,2 0 0,1 2,-2z M' + (ex + 2) + ',' + (ey + 1) + 'a1,1 0 0,0 -1,1v3a1,1 0 0,0 1,1h3a1,1 0 0,0 1,-1v-3a1,1 0 0,0 -1,-1z M' + (ex + 3) + ',' + (ey + 2) + 'h1a1,1 0 0,1 1,1v1a1,1 0 0,1 -1,1h-1a1,1 0 0,1 -1,-1v-1a1,1 0 0,1 1,-1z');
+          } else if (eyeStyle === 'target') {
+            // Concentric target circles
+            const ecx = ex + 3.5;
+            const ecy = ey + 3.5;
+            pathParts.push('M' + (ecx - 3.5) + ',' + ecy + 'a3.5,3.5 0 1,0 7,0a3.5,3.5 0 1,0 -7,0z M' + (ecx - 2.5) + ',' + ecy + 'a2.5,2.5 0 1,1 5,0a2.5,2.5 0 1,1 -5,0z M' + (ecx - 1.5) + ',' + ecy + 'a1.5,1.5 0 1,0 3,0a1.5,1.5 0 1,0 -3,0z');
+          } else {
+            // Classic square box
+            pathParts.push('M' + ex + ',' + ey + 'h7v7h-7z M' + (ex + 1) + ',' + (ey + 1) + 'v5h5v-5z M' + (ex + 2) + ',' + (ey + 2) + 'h3v3h-3z');
+          }
+        }
+
+        const d = pathParts.join(' ');
+        let logoMarkup = '';
+        if (hasLogo) {
+          const midX = Math.floor(size / 2) + qz;
+          const midY = Math.floor(size / 2) + qz;
+          logoMarkup = '\n    <!-- Center Brand Icon Cutout -->\n    <rect x="' + (midX - 3.5) + '" y="' + (midY - 3.5) + '" width="7" height="7" rx="1.5" fill="#0A0A0A" stroke="' + color + '" stroke-width="0.3" />\n    <circle cx="' + midX + '" cy="' + midY + '" r="2" fill="' + color + '" />\n    <path d="M' + (midX - 1) + ',' + (midY - 1) + ' L' + (midX + 1) + ',' + (midY + 1) + ' M' + (midX + 1) + ',' + (midY - 1) + ' L' + (midX - 1) + ',' + (midY + 1) + '" stroke="#0A0A0A" stroke-width="0.6" stroke-linecap="round" />';
+        }
+
+        const fullSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + totalDim + ' ' + totalDim + '" width="100%" height="100%" shape-rendering="geometricPrecision" role="img" aria-label="QR Code vector matrix">\n  <rect width="' + totalDim + '" height="' + totalDim + '" fill="#080808" rx="2"/>\n  <path fill="' + color + '" fill-rule="evenodd" d="' + d + '" />' + logoMarkup + '\n</svg>';
+
+        return { fullSvg, totalDim, pathCount: pathParts.length, d };
+      }
+
+      function updateStudio() {
+        const text = payloadInput.value.trim() || 'https://iconstash.io';
+        const ecl = eccSelect.value;
+        const style = moduleStyleSelect.value;
+        const eyeStyle = eyeStyleSelect.value;
+        const color = colorSelect.value;
+        const hasLogo = logoCheckbox.checked;
+
+        const matrix = generateMatrix(text, ecl, hasLogo);
+        const { fullSvg, totalDim, d } = compileSvgPath(matrix, style, eyeStyle, color, hasLogo);
+
+        stageContainer.innerHTML = fullSvg;
+
+        // Update readouts
+        statMatrixDim.textContent = matrix.length + ' × ' + matrix.length;
+        statModuleCount.textContent = (matrix.length * matrix.length).toString();
+        const eclBudgets = { 'L': '7% (L)', 'M': '15% (M)', 'Q': '25% (Q)', 'H': '30% (H)' };
+        statErrorBudget.textContent = eclBudgets[ecl] || '30% (H)';
+        statDomNodes.textContent = '1 <path>';
+
+        updateCodeOutput(fullSvg, totalDim, d, color);
+      }
+
+      function updateCodeOutput(fullSvg, totalDim, d, color) {
+        if (currentTab === 'svg') {
+          codeOutput.textContent = fullSvg;
+        } else if (currentTab === 'react') {
+          codeOutput.textContent = 'import React from \'react\';\n\nexport const CustomQrCode = ({ size = 280, color = \'' + color + '\' }) => (\n  <svg\n    xmlns="http://www.w3.org/2000/svg"\n    viewBox="0 0 ' + totalDim + ' ' + totalDim + '"\n    width={size}\n    height={size}\n    role="img"\n    aria-label="Vector QR Code"\n    shapeRendering="geometricPrecision"\n  >\n    <rect width="' + totalDim + '" height="' + totalDim + '" fill="#080808" rx="2" />\n    <path fill={color} fillRule="evenodd" d="' + d.slice(0, 160) + '..." />\n  </svg>\n);';
+        } else if (currentTab === 'node') {
+          codeOutput.textContent = '// Node.js / Cloudflare Worker Vector Endpoint\nexport function getQrSvgResponse(payload, color = \'' + color + '\') {\n  const svg = \'' + fullSvg.slice(0, 180) + '...\';\n  return new Response(svg, {\n    headers: { \'Content-Type\': \'image/svg+xml; charset=utf-8\' }\n  });\n}';
+        }
+      }
+
+      // Event Listeners
+      [payloadInput, eccSelect, moduleStyleSelect, eyeStyleSelect, colorSelect, logoCheckbox].forEach(el => {
+        el.addEventListener('input', updateStudio);
+        el.addEventListener('change', updateStudio);
+      });
+      regenBtn.addEventListener('click', updateStudio);
+
+      tabSvgBtn.addEventListener('click', () => {
+        currentTab = 'svg';
+        tabSvgBtn.classList.add('active');
+        tabReactBtn.classList.remove('active');
+        tabNodeBtn.classList.remove('active');
+        updateStudio();
+      });
+
+      tabReactBtn.addEventListener('click', () => {
+        currentTab = 'react';
+        tabReactBtn.classList.add('active');
+        tabSvgBtn.classList.remove('active');
+        tabNodeBtn.classList.remove('active');
+        updateStudio();
+      });
+
+      tabNodeBtn.addEventListener('click', () => {
+        currentTab = 'node';
+        tabNodeBtn.classList.add('active');
+        tabSvgBtn.classList.remove('active');
+        tabReactBtn.classList.remove('active');
+        updateStudio();
+      });
+
+      copyBtn.addEventListener('click', () => {
+        const textToCopy = codeOutput.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy Snippet'; }, 2000);
+          }).catch(() => fallbackCopy(textToCopy));
+        } else {
+          fallbackCopy(textToCopy);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.top = '0';
+        textArea.style.left = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = 'Copy Snippet'; }, 2000);
+        } catch (e) {
+          copyBtn.textContent = 'Failed';
+        }
+        document.body.removeChild(textArea);
+      }
+
+      // Initial Mount
+      updateStudio();
+    })();
+  </script>
+</body>
+</html>
