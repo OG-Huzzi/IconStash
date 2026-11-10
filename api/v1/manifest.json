@@ -1,0 +1,58 @@
+{
+  "name": "IconStash API",
+  "version": "1.0.0",
+  "apiBase": "https://iconstash.io/api/v1",
+  "docs": "https://iconstash.io/api/",
+  "website": "https://iconstash.io/",
+  "description": "Free, keyless, read-only access to 134,701 open-source SVG icons across 28 libraries. No signup, no rate limit, CORS enabled.",
+  "licenseNote": "Icons belong to their upstream authors. Check the per-library licence; only CC BY 4.0 sets require attribution.",
+  "dataSnapshot": "2026-05-05T15:07:40.341Z",
+  "generatedAt": "2026-11-10",
+  "counts": {
+    "libraries": 28,
+    "icons": 134701,
+    "zeroAttributionIcons": 127291,
+    "attributionRequiredIcons": 7410
+  },
+  "endpoints": [
+    {
+      "path": "/api/v1/manifest.json",
+      "description": "Service metadata, version and endpoint list."
+    },
+    {
+      "path": "/api/v1/libraries.json",
+      "description": "The 28-library catalogue with licences."
+    },
+    {
+      "path": "/api/v1/index.json",
+      "description": "Compact search index over all icons (no SVG data)."
+    },
+    {
+      "path": "/api/v1/libraries/{slug}.json",
+      "description": "Full icon array for one library."
+    },
+    {
+      "path": "/api/v1/openapi.json",
+      "description": "OpenAPI 3.1 description of this API."
+    }
+  ],
+  "sdk": {
+    "name": "@iconstash/sdk",
+    "location": "packages/iconstash/"
+  },
+  "mcp": {
+    "name": "@iconstash/sdk (iconstash-mcp binary)",
+    "location": "packages/iconstash/mcp.js"
+  },
+  "terms": {
+    "authentication": "none",
+    "rateLimit": "none",
+    "cors": "*",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ],
+    "cost": "free"
+  }
+}

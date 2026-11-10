@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IconStash API - Free, keyless SVG icon API</title>
+  <meta name="description" content="Free, keyless, read-only API for 134,701 open-source SVG icons across 28 libraries. No signup, no rate limit, CORS enabled, plus an MCP server for AI assistants.">
+  <link rel="canonical" href="https://iconstash.io/api/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/style.css?v=20261109-grid-default">
+  <style>
+    .api-wrap{max-width:940px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
+    .api-wrap h1{font-size:clamp(30px,5vw,46px);font-weight:900;letter-spacing:-.02em;margin:0 0 10px}
+    .api-wrap h2{font-size:21px;font-weight:800;margin:38px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--glass-border)}
+    .api-wrap h3{font-size:16px;font-weight:700;margin:24px 0 8px}
+    .api-wrap p{color:var(--text-secondary);margin:0 0 14px}
+    .api-wrap a{color:var(--neon-blue);text-decoration:none}
+    .api-wrap a:hover{text-decoration:underline}
+    .api-lead{font-size:17px;color:var(--text-primary)!important;max-width:720px}
+    .api-badges{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px}
+    .api-badge{font:600 12px var(--font-mono);padding:6px 11px;border:1px solid var(--glass-border-bright);border-radius:999px;color:var(--text-secondary);background:var(--glass-2)}
+    pre{background:#0d0d0d;border:1px solid var(--glass-border);border-radius:10px;padding:16px 18px;overflow-x:auto;font:13px/1.6 var(--font-mono);color:#e6e6e6;margin:0 0 18px}
+    pre .c{color:#7d8b6a}
+    table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:14px}
+    th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--glass-border);vertical-align:top}
+    th{color:var(--text-secondary);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+    code{font:13px var(--font-mono);background:var(--glass-3);padding:2px 6px;border-radius:5px;color:var(--text-primary)}
+    .api-card{background:var(--bg-surface);border:1px solid var(--glass-border);border-radius:12px;padding:18px 20px;margin:0 0 16px}
+    .api-card h3{margin-top:0}
+    .api-note{border-left:3px solid var(--neon-blue);padding:2px 0 2px 16px;color:var(--text-secondary);margin:18px 0}
+    .api-foot{margin-top:48px;padding-top:20px;border-top:1px solid var(--glass-border);color:var(--text-muted);font-size:13px}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebAPI","name":"IconStash API","url":"https://iconstash.io/api/","description":"Free, keyless, read-only API for 134,701 open-source SVG icons across 28 libraries.","documentation":"https://iconstash.io/api/","termsOfService":"https://iconstash.io/terms/","provider":{"@type":"Organization","name":"IconStash","url":"https://iconstash.io/"}}
+  </script>
+</head>
+<body class="pseo-page">
+  <div class="app-shell">
+    <header id="main-header">
+      <div class="header-left">
+        <a class="logo" href="/" aria-label="IconStash.io home">
+          <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+          <span class="logo-text">IconStash<span class="logo-io">.io</span></span>
+        </a>
+      </div>
+      <div class="header-right"><a href="/" class="nav-link">Icon search</a></div>
+    </header>
+    <main id="main-content">
+      <div class="route-view pseo-view active">
+        <div class="api-wrap">
+
+          <h1>IconStash API</h1>
+          <p class="api-lead">Free, keyless, read-only access to 134,701 open-source SVG icons across 28 libraries. No signup, no API key, no rate limit.</p>
+          <div class="api-badges">
+            <span class="api-badge">REST-style static JSON</span>
+            <span class="api-badge">CORS enabled</span>
+            <span class="api-badge">No auth</span>
+            <span class="api-badge">OpenAPI 3.1</span>
+            <span class="api-badge">MCP server</span>
+            <span class="api-badge">Free forever</span>
+          </div>
+
+          <p>The API is a small set of static JSON files on the same CDN as the site. There is no application server behind it — which is why it can be free, unlimited and always available. Search runs locally in the SDK or MCP server over a compact index (~1 MB gzipped); full SVG data is fetched only for the library you pick.</p>
+
+          <h2>Quick start</h2>
+          <pre><span class="c"># Service metadata</span>
+curl https://iconstash.io/api/v1/manifest.json
+
+<span class="c"># All 28 libraries with licences</span>
+curl https://iconstash.io/api/v1/libraries.json
+
+<span class="c"># Every icon in one library (full SVG data)</span>
+curl https://iconstash.io/api/v1/libraries/lucide.json
+
+<span class="c"># Compact search index</span>
+curl https://iconstash.io/api/v1/index.json</pre>
+
+          <h2>Endpoints</h2>
+          <table>
+            <thead><tr><th>Endpoint</th><th>Returns</th></tr></thead>
+            <tbody>
+              <tr><td><code>/api/v1/manifest.json</code></td><td>Version, counts, licences, endpoint list, SDK/MCP pointers</td></tr>
+              <tr><td><code>/api/v1/libraries.json</code></td><td>28 libraries: name, slug, count, licence, npm, docs URL</td></tr>
+              <tr><td><code>/api/v1/index.json</code></td><td>Compact search index over all 134,701 icons (no SVG data)</td></tr>
+              <tr><td><code>/api/v1/libraries/{slug}.json</code></td><td>Full icon array for one library, including <code>svgPath</code> and <code>viewBox</code></td></tr>
+              <tr><td><code>/api/v1/openapi.json</code></td><td>OpenAPI 3.1 machine-readable specification</td></tr>
+            </tbody>
+          </table>
+
+          <div class="api-note">Library payloads are served directly from the site's existing <code>data/</code> files. The API adds no duplicate icon data, so the repository stays small.</div>
+
+          <h2>JavaScript SDK</h2>
+          <div class="api-card">
+            <h3>Zero dependencies, Node 18+ and browsers</h3>
+            <pre>npm install @iconstash/sdk
+
+const { createClient } = require('@iconstash/sdk');
+const icons = createClient();
+
+const hits = await icons.search('camera', { library: 'lucide', limit: 5 });
+const icon = await icons.getIcon('lucide-camera');
+const svg  = await icons.svg('lucide-camera', { color: '#2563eb', size: 32 });
+const jsx  = await icons.snippet('lucide-camera', 'jsx');
+
+<span class="c">// Unique to IconStash: one concept, all 28 libraries</span>
+const variants = await icons.compare('camera');</pre>
+            <p>Available: <code>manifest()</code>, <code>libraries()</code>, <code>library(slug)</code>, <code>search()</code>, <code>getIcon()</code>, <code>svg()</code>, <code>snippet()</code>, <code>compare()</code>. Point at your own copy with <code>createClient({ base })</code>.</p>
+          </div>
+
+          <h2>MCP server for AI assistants</h2>
+          <p>Let Claude, Cursor, VS Code or any MCP client search and fetch icons directly inside your editor. It runs as a local process on your machine — IconStash hosts nothing for it.</p>
+          <pre>{
+  "mcpServers": {
+    "iconstash": {
+      "command": "npx",
+      "args": ["-y", "@iconstash/sdk", "iconstash-mcp"]
+    }
+  }
+}</pre>
+          <table>
+            <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>search_icons</code></td><td>Keyword search with library / category / style filters</td></tr>
+              <tr><td><code>get_icon</code></td><td>Full record for one icon id</td></tr>
+              <tr><td><code>get_svg</code></td><td>SVG, JSX, CSS, HTML or data URI for one icon</td></tr>
+              <tr><td><code>compare_concept</code></td><td>The same concept drawn by all 28 libraries</td></tr>
+              <tr><td><code>list_libraries</code></td><td>All libraries, counts and licences</td></tr>
+            </tbody>
+          </table>
+
+          <h2>Licences</h2>
+          <p>Icons belong to their upstream authors. Every record carries a <code>license</code> and an <code>attributionRequired</code> flag. All sets except Solar Icons (CC BY 4.0) are MIT, Apache 2.0, ISC or CC0 and require no attribution. Check the <a href="/terms/">terms</a> and each library's own licence before commercial use.</p>
+
+          <h2>Terms of use</h2>
+          <p>No authentication, no rate limit and no cost. Responses carry <code>Access-Control-Allow-Origin: *</code> so they work from browsers and build tools. Please cache responses and avoid re-downloading the full index on every request — it is versioned and CDN-cached.</p>
+
+          <div class="api-foot">
+            <a href="/">IconStash</a> &middot; <a href="/api/v1/openapi.json">OpenAPI spec</a> &middot; <a href="/llms.txt">llms.txt</a> &middot; <a href="mailto:heybro@iconstash.io">Contact</a>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

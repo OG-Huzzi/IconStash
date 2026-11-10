@@ -1,0 +1,20 @@
+{
+  "name": "@iconstash/sdk",
+  "version": "1.0.0",
+  "description": "Free, keyless client for the IconStash static API, plus an MCP server for AI assistants.",
+  "type": "commonjs",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./mcp": "./mcp.js"
+  },
+  "bin": {
+    "iconstash-mcp": "./mcp.js"
+  },
+  "files": ["index.js", "mcp.js", "README.md"],
+  "keywords": ["icons", "svg", "iconstash", "mcp", "api"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IconStash API",
+    "version": "1.0.0",
+    "description": "Free, keyless, read-only access to 134,701 open-source SVG icons across 28 libraries. No signup, no rate limit, CORS enabled.",
+    "contact": {
+      "name": "IconStash",
+      "url": "https://iconstash.io/contact/"
+    },
+    "license": {
+      "name": "See per-library licence",
+      "url": "https://iconstash.io/terms/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://iconstash.io/api/v1",
+      "description": "Production (static, CDN-cached)"
+    }
+  ],
+  "tags": [
+    {
+      "name": "catalogue"
+    },
+    {
+      "name": "icons"
+    }
+  ],
+  "paths": {
+    "/manifest.json": {
+      "get": {
+        "tags": [
+          "catalogue"
+        ],
+        "summary": "Service manifest",
+        "operationId": "getManifest",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/libraries.json": {
+      "get": {
+        "tags": [
+          "catalogue"
+        ],
+        "summary": "List all icon libraries",
+        "operationId": "listLibraries",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "slug": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "count": {
+                        "type": "integer"
+                      },
+                      "version": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "license": {
+                        "type": "string"
+                      },
+                      "attributionRequired": {
+                        "type": "boolean"
+                      },
+                      "style": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "grid": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "npm": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "docsUrl": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "hubUrl": {
+                        "type": "string"
+                      },
+                      "dataUrl": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/index.json": {
+      "get": {
+        "tags": [
+          "icons"
+        ],
+        "summary": "Compact search index over all icons",
+        "operationId": "getIndex",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/libraries/{slug}.json": {
+      "get": {
+        "tags": [
+          "icons"
+        ],
+        "summary": "All icons in one library",
+        "operationId": "getLibrary",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Library slug, e.g. lucide"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Globally unique icon id, e.g. lucide-camera"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "library": {
+                        "type": "string"
+                      },
+                      "librarySlug": {
+                        "type": "string"
+                      },
+                      "libraryVersion": {
+                        "type": "string"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "subCategory": {
+                        "type": "string"
+                      },
+                      "style": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "svgPath": {
+                        "type": "string",
+                        "description": "Inner SVG markup (paths/shapes), without the <svg> wrapper"
+                      },
+                      "viewBox": {
+                        "type": "string"
+                      },
+                      "strokeWidth": {
+                        "type": "number"
+                      },
+                      "docsUrl": {
+                        "type": "string"
+                      },
+                      "npmPackage": {
+                        "type": "string"
+                      },
+                      "jsxImport": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown library"
+          }
+        }
+      }
+    },
+    "/openapi.json": {
+      "get": {
+        "tags": [
+          "catalogue"
+        ],
+        "summary": "This document",
+        "operationId": "getOpenApi",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
