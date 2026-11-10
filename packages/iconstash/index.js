@@ -94,7 +94,23 @@ function createClient(options = {}) {
   async function library(slug) {
     const key = normalize(slug);
     if (!caches.payloads.has(key)) {
-      caches.payloads.set(key, getJson(`${base}/libraries/${encodeURIComponent(key)}.json`));
+      const siteRoot = base.replace(/\/api\/v1\/?$/, '');
+      const primary = `${base}/libraries/${encodeURIComponent(key)}.json`;
+      const fallback = `${siteRoot}/data/${encodeURIComponent(key)}.json`;
+      // Some hosts serve /api/v1/libraries/<slug>.json via an Apache rewrite;
+      // if that rewrite is unavailable, fall back to the public data/ file so
+      // the SDK still works with zero configuration.
+      caches.payloads.set(key, (async () => {
+        try {
+          return await getJson(primary);
+        } catch (error) {
+          try {
+            return await getJson(fallback);
+          } catch (_) {
+            throw error;
+          }
+        }
+      })());
     }
     return caches.payloads.get(key);
   }

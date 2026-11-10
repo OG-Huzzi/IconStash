@@ -31,7 +31,11 @@ DirectoryIndex index.php index.html
   # file. This is why the API adds no duplicate icon data to the repository:
   # the 28 payloads (140 MB) are not copied. Slugs are strictly lowercase
   # alphanumerics, which also blocks path traversal.
-  RewriteRule ^api/v1/libraries/([a-z0-9]+)\.json$ /data/$1.json [L,NC]
+  # NOTE: the substitution is RELATIVE (no leading slash). In per-directory
+  # .htaccess context a leading slash on an INTERNAL rewrite is resolved as a
+  # filesystem path, which 404s. External redirects above can use a leading
+  # slash safely; this internal one cannot.
+  RewriteRule ^api/v1/libraries/([a-z0-9]+)\.json$ data/$1.json [L,NC]
 
   # Never expose auto-generated directory listings. A directory with no index
   # file (e.g. /sitemaps/) otherwise returns a 200 "Index of /..." page that
