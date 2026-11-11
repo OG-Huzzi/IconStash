@@ -1194,14 +1194,7 @@ function computeConfettiShading(particle, baseColor, reverseColor) {
       let currentTab = 'js';
       const colors = ['#C1DD2D', '#D2ED3E', '#22C55E', '#3B82F6', '#EC4899', '#EAB308', '#A855F7'];
 
-      interface ActiveParticle {
-        el: SVGElement;
-        x: number; y: number;
-        vx: number; vy: number;
-        wobble: number; wobbleSpeed: number;
-        spin: number; spinSpeed: number;
-        life: number; decay: number;
-      }
+      // Active particle pool element
       let activeParticles = [];
       let animFrameId = null;
       let lastTime = performance.now();
@@ -1213,29 +1206,37 @@ function computeConfettiShading(particle, baseColor, reverseColor) {
         const shape = confettiShapeSelect.value;
 
         if (currentTab === 'js') {
-          confettiCodeOutput.textContent = '// Zero-Dependency SVG Confetti Cannon\n' +
-            'fireVectorConfetti({\n' +
-            '  count: ' + count + ',\n' +
-            '  spreadAngle: ' + spread + ',\n' +
-            '  gravity: ' + (grav * 800) + ',\n' +
-            '  shape: "' + shape + '",\n' +
-            '  colors: ["#C1DD2D", "#22C55E", "#3B82F6", "#EAB308", "#EC4899"]\n' +
-            '});';
+          const jsLines = [
+            '// Zero-Dependency SVG Confetti Cannon',
+            'fireVectorConfetti({',
+            '  count: ' + count + ',',
+            '  spreadAngle: ' + spread + ',',
+            '  gravity: ' + (grav * 800) + ',',
+            '  shape: "' + shape + '",',
+            '  colors: ["#C1DD2D", "#22C55E", "#3B82F6", "#EAB308", "#EC4899"]',
+            '});'
+          ];
+          confettiCodeOutput.textContent = jsLines.join('\\n');
         } else {
-          confettiCodeOutput.textContent = 'import { useCallback } from "react";\n' +
-            'import { useConfetti } from "@/hooks/useConfetti";\n\n' +
-            'export function CelebrateButton() {\n' +
-            '  const { fire } = useConfetti({\n' +
-            '    count: ' + count + ',\n' +
-            '    spread: ' + spread + ',\n' +
-            '    shape: "' + shape + '"\n' +
-            '  });\n\n' +
-            '  return (\n' +
-            '    <button onClick={fire} className="btn-celebrate">\n' +
-            '      Complete Milestone &rarr;\n' +
-            '    </button>\n' +
-            '  );\n' +
-            '}';
+          const reactLines = [
+            'import { useCallback } from "react";',
+            'import { useConfetti } from "@/hooks/useConfetti";',
+            '',
+            'export function CelebrateButton() {',
+            '  const { fire } = useConfetti({',
+            '    count: ' + count + ',',
+            '    spread: ' + spread + ',',
+            '    shape: "' + shape + '"',
+            '  });',
+            '',
+            '  return (',
+            '    <button onClick={fire} className="btn-celebrate">',
+            '      Complete Milestone &rarr;',
+            '    </button>',
+            '  );',
+            '}'
+          ];
+          confettiCodeOutput.textContent = reactLines.join('\\n');
         }
       }
 

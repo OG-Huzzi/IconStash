@@ -1229,33 +1229,40 @@ export const NoiseSurface = memo(function NoiseSurface({
 
       function generateCode(type, freq, octaves, blend, opacity) {
         if (currentTab === 'svg') {
-          noiseCodeOutput.textContent = '<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">\n' +
-            '  <defs>\n' +
-            '    <filter id="noiseFilter" x="0" y="0" width="128" height="128" filterUnits="userSpaceOnUse">\n' +
-            '      <feTurbulence type="' + type + '" baseFrequency="' + freq + '" numOctaves="' + octaves + '" stitchTiles="stitch" result="noise" />\n' +
-            '      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 ' + opacity + ' 0" />\n' +
-            '    </filter>\n' +
-            '    <pattern id="noisePattern" width="128" height="128" patternUnits="userSpaceOnUse">\n' +
-            '      <rect width="128" height="128" filter="url(#noiseFilter)" />\n' +
-            '    </pattern>\n' +
-            '  </defs>\n' +
-            '  <rect width="100%" height="100%" fill="url(#noisePattern)" style="mix-blend-mode: ' + blend + ';" />\n' +
-            '</svg>';
+          const lines = [
+            '<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">',
+            '  <defs>',
+            '    <filter id="noiseFilter" x="0" y="0" width="128" height="128" filterUnits="userSpaceOnUse">',
+            '      <feTurbulence type="' + type + '" baseFrequency="' + freq + '" numOctaves="' + octaves + '" stitchTiles="stitch" result="noise" />',
+            '      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 ' + opacity + ' 0" />',
+            '    </filter>',
+            '    <pattern id="noisePattern" width="128" height="128" patternUnits="userSpaceOnUse">',
+            '      <rect width="128" height="128" filter="url(#noiseFilter)" />',
+            '    </pattern>',
+            '  </defs>',
+            '  <rect width="100%" height="100%" fill="url(#noisePattern)" style="mix-blend-mode: ' + blend + ';" />',
+            '</svg>'
+          ];
+          noiseCodeOutput.textContent = lines.join('\\n');
         } else {
           const rawSvg = '<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="' + type + '" baseFrequency="' + freq + '" numOctaves="' + octaves + '" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0 0 0 ' + opacity + ' 0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>';
           const encoded = encodeURIComponent(rawSvg);
-          noiseCodeOutput.textContent = '/* CSS Background Texture */\n' +
-            '.tactile-surface {\n' +
-            '  position: relative;\n' +
-            '}\n\n' +
-            '.tactile-surface::after {\n' +
-            '  content: "";\n' +
-            '  position: absolute;\n' +
-            '  inset: 0;\n' +
-            '  pointer-events: none;\n' +
-            '  background-image: url("data:image/svg+xml,' + encoded + '");\n' +
-            '  mix-blend-mode: ' + blend + ';\n' +
-            '}';
+          const cssLines = [
+            '/* CSS Background Texture */',
+            '.tactile-surface {',
+            '  position: relative;',
+            '}',
+            '',
+            '.tactile-surface::after {',
+            '  content: "";',
+            '  position: absolute;',
+            '  inset: 0;',
+            '  pointer-events: none;',
+            '  background-image: url("data:image/svg+xml,' + encoded + '");',
+            '  mix-blend-mode: ' + blend + ';',
+            '}'
+          ];
+          noiseCodeOutput.textContent = cssLines.join('\\n');
         }
       }
 

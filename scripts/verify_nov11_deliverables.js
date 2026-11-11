@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 const { execSync } = require('child_process');
 
 let passed = 0;
@@ -214,6 +215,16 @@ for (const item of deliverables) {
     const scriptCode = scriptMatch[1];
     assert(!scriptCode.includes("+'\\n'") && !scriptCode.includes("+'\\\\n'"), 'Interactive code generator avoids double-escaped literal newline strings');
     assert(!scriptCode.includes("+\"...\"") && !scriptCode.includes("+'...'") && !scriptCode.includes("...' />") && !scriptCode.includes("...';"), 'Interactive code generator avoids placeholder ellipsis truncations');
+    
+    // Strict JavaScript engine syntax parsing test
+    let syntaxValid = false;
+    try {
+      new vm.Script(scriptCode, { filename: item.slug });
+      syntaxValid = true;
+    } catch (e) {
+      console.error(`    Syntax Error in ${item.slug}:`, e.message);
+    }
+    assert(syntaxValid, `Client-side JavaScript in ${item.slug} passes strict V8/browser syntax validation`);
   }
 
   // 15. Contextual Internal Linking (SEO Topical Clustering)

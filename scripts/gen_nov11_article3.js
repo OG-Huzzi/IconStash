@@ -1247,34 +1247,38 @@ console.log('Successfully generated ' + badgesToBuild.length + ' static vector b
         let glossDef = '';
         let glossRect = '';
         if (style === 'plastic') {
-          glossDef = '    <linearGradient id="g" x2="0" y2="100%"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset=".1" stop-color="#aaa" stop-opacity=".1"/><stop offset=".9" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>\n';
-          glossRect = '    <rect width="' + totalWidth + '" height="' + height + '" fill="url(#g)"/>\n';
+          glossDef = '    <linearGradient id="g" x2="0" y2="100%"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset=".1" stop-color="#aaa" stop-opacity=".1"/><stop offset=".9" stop-color="#000" stop-opacity=".3"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></linearGradient>';
+          glossRect = '    <rect width="' + totalWidth + '" height="' + height + '" fill="url(#g)"/>';
         }
 
         let beaconMarkup = '';
         if (hasBeacon) {
-          beaconMarkup = '  <circle cx="' + beaconX + '" cy="' + beaconY + '" r="3" fill="' + valueTextColor + '" opacity="0.8"><animate attributeName="r" values="3;7;9" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0.2;0" dur="1.8s" repeatCount="indefinite"/></circle><circle cx="' + beaconX + '" cy="' + beaconY + '" r="3.5" fill="' + valueTextColor + '"/>\n';
+          beaconMarkup = '  <circle cx="' + beaconX + '" cy="' + beaconY + '" r="3" fill="' + valueTextColor + '" opacity="0.8"><animate attributeName="r" values="3;7;9" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0.2;0" dur="1.8s" repeatCount="indefinite"/></circle><circle cx="' + beaconX + '" cy="' + beaconY + '" r="3.5" fill="' + valueTextColor + '"/>';
         }
 
-        return '<svg xmlns="http://www.w3.org/2000/svg" width="' + totalWidth + '" height="' + height + '" viewBox="0 0 ' + totalWidth + ' ' + height + '" role="img" aria-label="' + label + ': ' + value + '">\n' +
-          '  <title>' + label + ': ' + value + '</title>\n' +
-          '  <defs>\n' +
-          '    <clipPath id="c"><rect width="' + totalWidth + '" height="' + height + '" rx="' + rx + '" fill="#fff"/></clipPath>\n' +
-          glossDef +
-          '  </defs>\n' +
-          '  <g clip-path="url(#c)">\n' +
-          '    <rect width="' + leftWidth + '" height="' + height + '" fill="#555555"/>\n' +
-          '    <rect x="' + leftWidth + '" width="' + rightWidth + '" height="' + height + '" fill="' + color + '"/>\n' +
-          glossRect +
-          '  </g>\n' +
-          beaconMarkup +
-          '  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="110"' + letterSpacing + fontWeight + '>\n' +
-          '    <text x="' + (leftTextX * 10) + '" y="' + shadowY + '" transform="scale(.1)" fill="#010101" fill-opacity=".3">' + labelText + '</text>\n' +
-          '    <text x="' + (leftTextX * 10) + '" y="' + textY + '" transform="scale(.1)" fill="#fff">' + labelText + '</text>\n' +
-          '    <text x="' + (rightTextX * 10) + '" y="' + shadowY + '" transform="scale(.1)" fill="#010101" fill-opacity=".3">' + valueText + '</text>\n' +
-          '    <text x="' + (rightTextX * 10) + '" y="' + textY + '" transform="scale(.1)" fill="' + valueTextColor + '">' + valueText + '</text>\n' +
-          '  </g>\n' +
-          '</svg>';
+        const lines = [
+          '<svg xmlns="http://www.w3.org/2000/svg" width="' + totalWidth + '" height="' + height + '" viewBox="0 0 ' + totalWidth + ' ' + height + '" role="img" aria-label="' + label + ': ' + value + '">',
+          '  <title>' + label + ': ' + value + '</title>',
+          '  <defs>',
+          '    <clipPath id="c"><rect width="' + totalWidth + '" height="' + height + '" rx="' + rx + '" fill="#fff"/></clipPath>',
+          glossDef,
+          '  </defs>',
+          '  <g clip-path="url(#c)">',
+          '    <rect width="' + leftWidth + '" height="' + height + '" fill="#555555"/>',
+          '    <rect x="' + leftWidth + '" width="' + rightWidth + '" height="' + height + '" fill="' + color + '"/>',
+          glossRect,
+          '  </g>',
+          beaconMarkup,
+          '  <g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="110"' + letterSpacing + fontWeight + '>',
+          '    <text x="' + (leftTextX * 10) + '" y="' + shadowY + '" transform="scale(.1)" fill="#010101" fill-opacity=".3">' + labelText + '</text>',
+          '    <text x="' + (leftTextX * 10) + '" y="' + textY + '" transform="scale(.1)" fill="#fff">' + labelText + '</text>',
+          '    <text x="' + (rightTextX * 10) + '" y="' + shadowY + '" transform="scale(.1)" fill="#010101" fill-opacity=".3">' + valueText + '</text>',
+          '    <text x="' + (rightTextX * 10) + '" y="' + textY + '" transform="scale(.1)" fill="' + valueTextColor + '">' + valueText + '</text>',
+          '  </g>',
+          '</svg>'
+        ].filter(function(l) { return l && l.length > 0; });
+
+        return lines.join('\\n');
       }
 
       function updateStudio() {
@@ -1304,9 +1308,12 @@ console.log('Successfully generated ' + badgesToBuild.length + ' static vector b
           const colorName = badgeColorSelect.options[badgeColorSelect.selectedIndex].text.split(' ')[0].toLowerCase();
           badgeCodeOutput.textContent = '[![' + label + ' - ' + value + '](https://img.shields.io/badge/' + encodeURIComponent(label) + '-' + encodeURIComponent(value) + '-' + color.replace('#', '') + '?style=' + style + ')](https://iconstash.io/)';
         } else {
-          badgeCodeOutput.textContent = '<a href="https://iconstash.io/" target="_blank" rel="noopener noreferrer">\n' +
-            '  <img src="https://img.shields.io/badge/' + encodeURIComponent(label) + '-' + encodeURIComponent(value) + '-' + color.replace('#', '') + '?style=' + style + '" alt="' + label + ': ' + value + '" />\n' +
-            '</a>';
+          const htmlLines = [
+            '<a href="https://iconstash.io/" target="_blank" rel="noopener noreferrer">',
+            '  <img src="https://img.shields.io/badge/' + encodeURIComponent(label) + '-' + encodeURIComponent(value) + '-' + color.replace('#', '') + '?style=' + style + '" alt="' + label + ': ' + value + '" />',
+            '</a>'
+          ];
+          badgeCodeOutput.textContent = htmlLines.join('\\n');
         }
       }
 
