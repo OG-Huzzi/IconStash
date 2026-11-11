@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering High-Performance SVG Confetti &amp; Particle Bursts: The Zero-Dependency Vector Physics Guide (2026) | IconStash</title>
+  <meta name="description" content="Engineer high-performance SVG confetti & particle bursts: 2D kinematics, drag & tumbling math, zero-DOM-reflow animation loops, and custom icon particles.">
+  <meta name="keywords" content="svg confetti, svg particle animation, javascript confetti svg, custom svg confetti, react confetti icon, zero dependency confetti, vector particle physics, canvas confetti alternative">
+  <meta property="og:title" content="Engineering High-Performance SVG Confetti &amp; Particle Bursts: The Zero-Dependency Vector Physics Guide (2026)">
+  <meta property="og:description" content="Engineer high-performance SVG confetti & particle bursts: 2D kinematics, drag & tumbling math, zero-DOM-reflow animation loops, and custom icon particles.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-confetti-and-particle-physics-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-confetti-and-particle-physics-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-11T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-11T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Physics &amp; Motion Engineering">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Particle Physics">
+  <meta property="article:tag" content="Animation">
+  <meta property="article:tag" content="JavaScript">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Engineering High-Performance SVG Confetti &amp; Particle Bursts: The Zero-Dependency Vector Physics Guide (2026)">
+  <meta name="twitter:description" content="Engineer high-performance SVG confetti & particle bursts: 2D kinematics, drag & tumbling math, zero-DOM-reflow animation loops, and custom icon particles.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-confetti-and-particle-physics-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-confetti-and-particle-physics-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Engineering High-Performance SVG Confetti & Particle Bursts: The Zero-Dependency Vector Physics Guide (2026)",
+      "description": "Engineer high-performance SVG confetti & particle bursts: 2D kinematics, drag & tumbling math, zero-DOM-reflow animation loops, and custom icon particles.",
+      "image": "https://iconstash.io/assets/articles/svg-confetti-and-particle-physics-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-11",
+      "dateModified": "2026-11-11",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-confetti-and-particle-physics-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4250,
+      "articleSection": "Vector Physics & Motion Engineering",
+      "keywords": [
+        "svg confetti",
+        "svg particle animation",
+        "javascript confetti svg",
+        "custom svg confetti",
+        "react confetti icon",
+        "zero dependency confetti",
+        "vector particle physics"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "High-Performance SVG Confetti & Particle Physics Guide",
+          "item": "https://iconstash.io/articles/svg-confetti-and-particle-physics-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why choose pure SVG confetti over HTML5 Canvas confetti libraries?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pure SVG confetti enables arbitrary custom brand glyphs, company logos, and crisp geometric shapes to be utilized as particle entities without raster blurring on high-DPI displays. Unlike HTML5 Canvas, which is an opaque raster buffer, SVG particles exist within the document object model, allowing individual styling with CSS custom properties, native dark mode synchronization, vector stroke theming, and full integration with DOM accessibility tree event triggers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you achieve 60 FPS in SVG confetti without triggering browser layout thrashing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "High frame rates are achieved by isolating particle physics calculations from DOM writes. By maintaining all spatial properties (position, velocity, angle, wobble) inside typed Float32Array buffers and updating particle elements exclusively via the hardware-accelerated transform attribute or CSS transform property (e.g., translate3d and rotate), the browser completely bypasses the style recalculation and layout stages, dispatching rendering directly to the GPU compositor thread."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is 3D tumbling rotation simulated in a 2-dimensional vector SVG canvas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "3D tumbling in a 2D plane is achieved by combining planar 2D rotation with a trigonometric cosine projection along one axis (typically scaleY). By calculating scaleY = Math.cos(particle.wobbleAngle), the particle smoothly squashes to zero thickness and flips, creating the convincing optical illusion of a paper ribbon fluttering through three-dimensional space without requiring WebGL matrices or heavy 3D scene graphs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does particle pooling prevent garbage collection stutter during celebration bursts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Instantiating and discarding hundreds of DOM nodes and JavaScript objects on every confetti burst triggers aggressive garbage collection pauses, leading to noticeable animation stutter. A particle pooling architecture pre-allocates a fixed pool of SVG particle elements and reusable data structures during initialization. When a cannon fires, inactive particles are recycled from the pool and returned upon lifespan expiration, eliminating memory churn and garbage collection pauses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should confetti animations respect the prefers-reduced-motion accessibility preference?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When window.matchMedia('(prefers-reduced-motion: reduce)') evaluates to true, engineers must suppress rapid, disorienting particle explosions. Instead of launching ballistic particles, systems should provide an accessible alternative, such as a gentle, static congratulatory badge reveal, a subtle fade-in toast, or an ARIA live region status announcement (role='status') ensuring screen reader users receive equal celebratory feedback without vestibular distress."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the mathematical equation governing air drag in kinematic particle simulations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In numerical Euler integration, air resistance opposes velocity proportionally to drag coefficient and velocity magnitude. For discrete time-steps, velocity decay is modeled as v(t + dt) = v(t) * (1 - drag * dt), where drag is typically calibrated between 0.05 and 0.15 for paper ribbons. Gravity is simultaneously added along the vertical axis as v_y(t + dt) = v_y(t) + g * dt, yielding a realistic ballistic trajectory that transitions smoothly from explosive propulsion to drifting aerodynamic flutter."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 380px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; }
+    .stage-confetti-svg { width: 100%; height: 100%; position: absolute; inset: 0; pointer-events: none; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">SVG Confetti &amp; Particle Physics Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <div class="tag">Physics Simulation &amp; Micro-Interactions</div>
+      <h1>Engineering High-Performance SVG Confetti &amp; Particle Bursts: The Zero-Dependency Vector Physics Guide (2026)</h1>
+      <div class="article-meta">
+        <span>Published: <strong>November 11, 2026</strong></span>
+        <span>By: <a href="/about/">Jouni Flemming</a></span>
+        <span>Reading Time: <strong>24 min</strong></span>
+        <span>Format: <strong>Vector Kinematics &amp; Code Architecture</strong></span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Brief:</strong> Celebration feedback—such as purchase completions, level-ups, form submissions, and milestone unlocks—has become an essential psychological component of modern web applications. While HTML5 Canvas confetti libraries abound, pure SVG particle physics unlocks complete vector sharpness on high-DPI viewports, native CSS theming, and the unique ability to launch custom brand icons, SVG stars, and company logos as dynamic, tumbling physical particles.</p>
+          <ul>
+            <li><strong>Kinematic Physics Engine:</strong> Formulate numerical Euler integration for 2D velocity vectors, gravitational acceleration, quadratic aerodynamic drag, and terminal settling velocities.</li>
+            <li><strong>3D Tumbling via Trigonometric Projections:</strong> Master the mathematical illusion of 3D paper flutter on a 2D vector canvas using cosine angular scaling (<code>scaleY = cos(&omega;t)</code>).</li>
+            <li><strong>Zero-DOM-Reflow Rendering:</strong> Implement typed Float32Array coordinate buffers and particle pooling to sustain solid 60 FPS and 120 FPS frame rates without garbage collection stutters.</li>
+            <li><strong>Accessibility &amp; Motion Safety:</strong> Fully adhere to WCAG 2.2 AA and <code>prefers-reduced-motion</code> standards with non-disorienting celebration alternatives.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-confetti-and-particle-physics-guide.jpg" alt="Spectacular cinematic explosion of colorful SVG confetti, tumbling ribbons, stars, and mathematical ballistic vectors" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: Mathematical ballistic simulation of vector confetti ribbons and custom SVG icons in modern frontend user interfaces.</figcaption>
+        </figure>
+
+        <!-- SECTION 1 -->
+        <h2 id="executive-summary">1. Executive Summary: Physics-Driven Celebration &amp; Modern Vector Kinetics</h2>
+        <p>Micro-interactions represent the emotional layer of software engineering. When an end-user finalizes an enterprise checkout, deploys a cloud infrastructure stack, or reaches their fitness milestone, a burst of energetic, tactile visual feedback solidifies that emotional triumph. For years, the default engineering solution has been to install external JavaScript canvas libraries (such as canvas-confetti).</p>
+        <p>While raster canvas solutions are convenient, they present architectural compromises for modern design systems. Canvas operates as a disconnected bitmap raster pipeline: particles blur on high-density Retina and 4K screens unless complex device-pixel-ratio scaling logic is maintained. More critically, canvas particles cannot reuse existing vector icon systems, cannot be styled via CSS variables, and do not integrate cleanly into SVG-based component trees or our <a href="/articles/animated-micro-interaction-icons-guide/">animated micro-interaction icons</a> architecture.</p>
+        <p>Pure SVG particle physics solves these limitations. By constructing a lightweight vector physics engine—operating with numerical Euler integration, air resistance drag equations, and trigonometric 3D wobble projections—we can launch custom SVG icons, gold coins, badges, and geometric ribbons that scale with mathematical precision. Because SVG elements exist natively inside the DOM, they inherit CSS dark-mode palettes, require zero canvas context setup, and can be easily styled using <a href="/articles/svg-coordinate-systems-and-transformations-guide/">SVG coordinate systems and transformations</a>.</p>
+
+        <!-- SECTION 2 -->
+        <h2 id="kinematic-ballistics-math">2. 2D Kinematic Ballistics: Velocity Vectors, Gravity &amp; Parabolic Motion</h2>
+        <p>To produce an organic, satisfying explosion rather than an artificial, robotic dispersion, the particle simulation must be rooted in classic Newtonian mechanics. When a confetti cannon discharges, each particle is instantiated with a randomized initial launch angle <em>&theta;</em> and an initial scalar impulse velocity <em>v<sub>0</sub></em>.</p>
+        <p>In Cartesian coordinates, the initial velocity vector breaks down trigonometrically into orthogonal horizontal and vertical components:</p>
+        <ul>
+          <li><strong>Horizontal Initial Velocity:</strong> <code>v<sub>x,0</sub> = v<sub>0</sub> &times; cos(&theta;)</code></li>
+          <li><strong>Vertical Initial Velocity:</strong> <code>v<sub>y,0</sub> = v<sub>0</sub> &times; sin(&theta;)</code> (taking into account screen coordinates where positive Y points downwards).</li>
+        </ul>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Kinematic Motion with Aerodynamic Drag &amp; Gravity</div>
+          <div class="formula-body">v<sub>x</sub>(t + &Delta;t) = v<sub>x</sub>(t) &times; (1 - C<sub>drag</sub> &times; &Delta;t) + w<sub>wind</sub> &times; &Delta;t<br>v<sub>y</sub>(t + &Delta;t) = v<sub>y</sub>(t) &times; (1 - C<sub>drag</sub> &times; &Delta;t) + g &times; &Delta;t<br>p(t + &Delta;t) = p(t) + v(t + &Delta;t) &times; &Delta;t</div>
+          <div class="formula-desc">Where <em>p(t)</em> is the 2D position vector (x, y), <em>v(t)</em> is the current velocity vector, <em>C<sub>drag</sub></em> is the aerodynamic drag coefficient (typically 0.08 to 0.14 for paper), <em>g</em> is gravitational acceleration (scaled to pixels per second squared), <em>w<sub>wind</sub></em> represents atmospheric lateral drift, and <em>&Delta;t</em> is the elapsed frame duration.</div>
+        </div>
+
+        <p>Without aerodynamic drag, classical parabolic trajectories cause particles to continue traveling horizontally at high speeds indefinitely. The inclusion of the <code>(1 - C<sub>drag</sub> &times; &Delta;t)</code> dampening term rapidly bleeds off explosive kinetic energy within the first 300 to 500 milliseconds, allowing gravitational acceleration to gradually take over and create the gentle, floating flutter characteristic of real carnival paper confetti.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="aerodynamic-drag-and-terminal-velocity">3. Aerodynamic Drag &amp; Terminal Velocity: Euler Numerical Integration</h2>
+        <p>In physical aerodynamics, a falling paper ribbon does not accelerate towards infinity. As downward velocity increases, upward aerodynamic drag counteracts the gravitational force until the forces reach equilibrium at terminal velocity (<em>v<sub>term</sub></em>).</p>
+        <p>Standard analytical physics equations involving continuous calculus and differential equations are unnecessarily heavy for real-time browser JavaScript. Instead, interactive graphics rely on semi-implicit Euler numerical integration, calculated within the <code>requestAnimationFrame</code> loop. By executing updates in discrete time steps (typically calibrated to <code>&Delta;t &asymp; 1/60</code> second), we compute velocity and position with minimal CPU arithmetic:</p>
+
+        <pre><code>// Discrete Euler Kinematic Step per Particle
+function updateParticlePhysics(particle, dt) {
+  // 1. Apply air resistance decay to horizontal and vertical vectors
+  const dragFactor = Math.max(0, 1 - particle.drag * dt);
+  particle.vx *= dragFactor;
+  particle.vy *= dragFactor;
+
+  // 2. Accumulate downward gravitational acceleration
+  particle.vy += particle.gravity * dt;
+
+  // 3. Clamp vertical fall rate to realistic terminal velocity
+  if (particle.vy > particle.terminalVelocity) {
+    particle.vy = particle.terminalVelocity;
+  }
+
+  // 4. Update Cartesian positions
+  particle.x += particle.vx * dt;
+  particle.y += particle.vy * dt;
+
+  // 5. Accumulate tumbling angular rotation
+  particle.wobbleAngle += particle.wobbleSpeed * dt;
+  particle.spinAngle += particle.spinSpeed * dt;
+}</code></pre>
+
+        <p>By capping downward speed via <code>particle.terminalVelocity</code>, particles smoothly drift down the viewport rather than shooting off the screen in a jarring blur.</p>
+
+        <!-- SECTION 4 -->
+        <h2 id="tumbling-3d-rotation-math">4. 3D Tumbling via Trigonometric 2D Projections: Angular Velocity &amp; Wobble</h2>
+        <p>The visual signature of paper confetti is not merely translational trajectory; it is the chaotic, fluttering tumble through three-dimensional space. Flat rectangles that simply slide down a 2D screen look like rigid cardboard tokens. True confetti ribbons flip, catch specular light, and periodically expose their reverse sides.</p>
+        <p>While one could construct a full 3D WebGL scene with camera matrices and perspective frustums, SVG allows us to simulate authentic 3D tumbling purely in 2D vector space using trigonometric projection mathematics. When an object rotates around a transverse axis perpendicular to the viewer's gaze, its projected vertical height is proportional to the cosine of its rotational angle:</p>
+        <p><code>scaleY = Math.cos(wobbleAngle)</code></p>
+        <p>As <code>wobbleAngle</code> advances from 0 to 2&pi; radians, <code>scaleY</code> oscillates between 1.0, 0.0, -1.0, and back to 1.0. When <code>scaleY</code> approaches zero, the particle optically flattens into an edge-on razor line. When <code>scaleY</code> becomes negative, the particle appears flipped onto its back. By pairing this vertical squashing with a 2D planar rotation matrix (<code>rotate(spinAngle)</code>), we achieve convincing 6-degree-of-freedom aerodynamic flutter with zero 3D math libraries!</p>
+
+        <!-- SECTION 5 -->
+        <h2 id="svg-particle-geometries">5. Vector Particle Geometries: Ribbons, Circles, Polygons &amp; Custom SVG Icons</h2>
+        <p>One of the monumental advantages of SVG confetti over canvas is the boundless versatility of particle geometry. A canvas confetti engine requires manual path drawing instructions or slow <code>drawImage</code> calls from off-screen canvases. In SVG, any valid element—from simple <code>&lt;rect&gt;</code> tags to complex <code>&lt;path&gt;</code> silhouettes and multi-colored SVG symbols—can serve as a particle.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Particle Geometry Type</th>
+                <th>Underlying SVG Element</th>
+                <th>Aerodynamic Flutter Profile</th>
+                <th>Recommended Application Context</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Paper Ribbon</strong></td>
+                <td><code>&lt;rect width="12" height="6" rx="1"&gt;</code></td>
+                <td>High wobble, rapid 3D flipping, low terminal velocity</td>
+                <td>Classic celebrations, carnival bursts, sports wins</td>
+              </tr>
+              <tr>
+                <td><strong>Circular Disc / Dot</strong></td>
+                <td><code>&lt;circle r="5"&gt;</code></td>
+                <td>Symmetric, smooth tumble, minimal rotational jitter</td>
+                <td>Minimalist SaaS feedback, checkout confirmation</td>
+              </tr>
+              <tr>
+                <td><strong>Golden Star</strong></td>
+                <td><code>&lt;polygon points="..."&gt;</code></td>
+                <td>Rapid spin, shimmering specular highlights</td>
+                <td>Gamification rewards, level-ups, loyalty points</td>
+              </tr>
+              <tr>
+                <td><strong>Custom Brand Icon</strong></td>
+                <td><code>&lt;use href="#customIconSymbol"&gt;</code></td>
+                <td>Unique brand identity, high visual delight</td>
+                <td>Product launch events, enterprise SaaS milestones</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>By referencing pre-defined vector symbols in an <code>&lt;svg&gt;&lt;defs&gt;</code> block via <code>&lt;use href="#iconId" /&gt;</code>, the browser instantiates complex icons with zero memory duplication. For deep architectural guidance on symbol sharing, review our comprehensive analysis on <a href="/articles/svg-symbols-and-use-element-architecture-guide/">SVG symbols and the use element architecture</a>.</p>
+
+        <!-- SECTION 6 -->
+        <h2 id="zero-dom-reflow-pipeline">6. The High-FPS Render Pipeline: requestAnimationFrame, Float32Array &amp; Particle Pooling</h2>
+        <p>The primary objection historically leveled against DOM-based particle systems is the fear of layout thrashing and garbage collection pauses. If an engineer creates 150 new SVG DOM nodes on every button click and reads <code>getBoundingClientRect()</code> during animation, the browser pipeline will inevitably collapse into stuttering 10 FPS jank.</p>
+        <p>A production-grade SVG particle pipeline bypasses this bottleneck through three architectural design patterns:</p>
+        
+        <h3>1. Typed Array State Memory (SoA Architecture)</h3>
+        <p>Rather than allocating hundreds of disparate JavaScript object instances (which fragment the V8 heap and trigger garbage collector sweeps), store all particle state parameters in contiguous typed arrays: <code>Float32Array</code> for positions, velocities, and angles, and <code>Uint32Array</code> for colors and lifespans. Contiguous memory layouts maximize CPU L1/L2 cache hit rates during physics calculation loops.</p>
+
+        <h3>2. Pre-Allocated Particle Pool</h3>
+        <p>Pre-allocate an SVG group containing 150 hidden particle elements during page initialization. When a confetti burst is commanded, activate the required number of dormant nodes by setting <code>visibility: visible</code>. When a particle's lifespan terminates, reset its coordinates and toggle it back to <code>visibility: hidden</code>. Zero DOM nodes are created or destroyed at runtime.</p>
+
+        <h3>3. Hardware-Accelerated Write-Only Flushes</h3>
+        <p>Never read DOM layout properties inside the <code>requestAnimationFrame</code> tick. Maintain exact physical coordinates in JavaScript memory. During the render flush, directly update the SVG element's <code>transform</code> attribute using template strings or CSS transform matrices: <code>transform="translate(x, y) rotate(spin) scale(1, wobble)"</code>. This ensures the update is treated as a pure hardware-accelerated GPU draw call.</p>
+
+        <!-- SECTION 7 -->
+        <h2 id="burst-architectures">7. Cannon Architectures: Directional Cannons, Radial Supernovas &amp; Edge Showers</h2>
+        <p>Different user experiences call for tailored spatial trajectory profiles. Our vector physics engine can be initialized with diverse geometric emitter configurations:</p>
+        <ul>
+          <li><strong>Dual Corner Cannons:</strong> Emitters placed at the bottom-left and bottom-right viewport corners. Particles fire inward and upward at 45&deg; to 60&deg; launch angles with high initial impulse (<em>v<sub>0</sub> &asymp; 800 - 1200 px/s</em>), creating intersecting triumphant arches across the screen.</li>
+          <li><strong>Radial Supernova:</strong> An omnidirectional burst originating from the exact center coordinates of an interactive element (e.g., a "Submit Payment" button). Angles are distributed uniformly across 0 to 360 degrees (<em>&theta; &isin; [0, 2&pi;]</em>), mimicking a physical firework explosion.</li>
+          <li><strong>Continuous Sky Shower:</strong> Particles initialize across random X coordinates along the top edge of the screen (<em>y = -20px</em>) with zero initial upward impulse and low horizontal velocity, drifting downwards like celebratory snow or festive streamers.</li>
+        </ul>
+
+        <!-- FIGURE 2: ARCHITECTURAL VECTOR DIAGRAM -->
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background:#0D0D0D; border:1px solid #222; border-radius:10px; display:block;">
+            <defs>
+              <linearGradient id="canonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C1DD2D"/>
+                <stop offset="100%" stop-color="#849E00"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Background Grid -->
+            <path d="M 0 80 L 960 80 M 0 160 L 960 160 M 0 240 L 960 240 M 160 0 L 160 320 M 320 0 L 320 320 M 480 0 L 480 320 M 640 0 L 640 320 M 800 0 L 800 320" stroke="#181818" stroke-width="1"/>
+
+            <!-- Node 1: Emitter Instantiation -->
+            <rect x="40" y="70" width="160" height="180" rx="8" fill="#141414" stroke="#2A2A2A" stroke-width="1.5"/>
+            <rect x="52" y="82" width="136" height="24" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="120" y="98" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">1. EMITTER IMPULSE</text>
+            <path d="M 70 200 L 110 130" stroke="#C1DD2D" stroke-width="2.5"/>
+            <polygon points="106,128 114,124 114,134" fill="#C1DD2D"/>
+            <path d="M 90 200 A 20 20 0 0 0 100 185" fill="none" stroke="#888" stroke-width="1.5"/>
+            <text x="110" y="195" fill="#888" font-family="'JetBrains Mono', monospace" font-size="10">&theta;</text>
+            <text x="120" y="225" fill="#AAA" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">v_0 &isin; [600, 1100] px/s</text>
+
+            <!-- Arrow 1 -->
+            <path d="M 200 160 L 250 160" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 3"/>
+            <polygon points="250,156 258,160 250,164" fill="#C1DD2D"/>
+
+            <!-- Node 2: Euler Physics Integration -->
+            <rect x="260" y="70" width="180" height="180" rx="8" fill="#141414" stroke="#2A2A2A" stroke-width="1.5"/>
+            <rect x="272" y="82" width="156" height="24" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="350" y="98" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">2. EULER INTEGRATION</text>
+            <text x="280" y="135" fill="#DDD" font-family="'JetBrains Mono', monospace" font-size="10.5">vx *= (1 - drag &times; dt)</text>
+            <text x="280" y="155" fill="#DDD" font-family="'JetBrains Mono', monospace" font-size="10.5">vy += gravity &times; dt</text>
+            <text x="280" y="175" fill="#DDD" font-family="'JetBrains Mono', monospace" font-size="10.5">vy = min(vy, v_term)</text>
+            <text x="280" y="195" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10.5">x += vx &times; dt</text>
+            <text x="280" y="215" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10.5">y += vy &times; dt</text>
+            <text x="350" y="238" fill="#777" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Typed Float32 Buffer</text>
+
+            <!-- Arrow 2 -->
+            <path d="M 440 160 L 490 160" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 3"/>
+            <polygon points="490,156 498,160 490,164" fill="#C1DD2D"/>
+
+            <!-- Node 3: Trigonometric 3D Tumbling -->
+            <rect x="500" y="70" width="180" height="180" rx="8" fill="#141414" stroke="#2A2A2A" stroke-width="1.5"/>
+            <rect x="512" y="82" width="156" height="24" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="590" y="98" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">3. 3D TUMBLE PROJECTION</text>
+            <!-- Ribbon Tumble Graphic -->
+            <rect x="560" y="125" width="24" height="12" fill="#EAB308" transform="rotate(25 572 131)"/>
+            <rect x="610" y="135" width="24" height="2" fill="#EAB308" transform="rotate(35 622 136)"/>
+            <rect x="575" y="165" width="24" height="12" fill="#C1DD2D" transform="scale(1, -0.85) rotate(-15 587 -171)"/>
+            <text x="590" y="210" fill="#E5E5E5" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">scaleY = cos(&omega; &times; t)</text>
+            <text x="590" y="235" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Zero WebGL Matrices</text>
+
+            <!-- Arrow 3 -->
+            <path d="M 680 160 L 730 160" stroke="#C1DD2D" stroke-width="2" stroke-dasharray="4 3"/>
+            <polygon points="730,156 738,160 730,164" fill="#C1DD2D"/>
+
+            <!-- Node 4: GPU Transform Flush -->
+            <rect x="740" y="70" width="180" height="180" rx="8" fill="#141414" stroke="#C1DD2D" stroke-width="1.5"/>
+            <rect x="752" y="82" width="156" height="24" rx="4" fill="rgba(193,221,45,0.15)"/>
+            <text x="830" y="98" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="800" text-anchor="middle">4. GPU COMPOSITOR</text>
+            <rect x="765" y="125" width="130" height="60" rx="4" fill="#0A0A0A" stroke="#333"/>
+            <text x="775" y="145" fill="#AAA" font-family="'JetBrains Mono', monospace" font-size="9.5">transform="translate(x,y)</text>
+            <text x="775" y="160" fill="#AAA" font-family="'JetBrains Mono', monospace" font-size="9.5"> rotate(spin)</text>
+            <text x="775" y="175" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="9.5"> scale(1, cos(w))"</text>
+            <circle cx="830" cy="208" r="12" fill="rgba(193,221,45,0.2)" stroke="#C1DD2D" stroke-width="1.5"/>
+            <text x="830" y="212" fill="#FFF" font-family="'Inter', sans-serif" font-size="9" font-weight="700" text-anchor="middle">120 FPS</text>
+            <text x="830" y="238" fill="#C1DD2D" font-family="'Inter', sans-serif" font-size="10" font-weight="600" text-anchor="middle">Direct GPU Flush</text>
+          </svg>
+          <figcaption>Figure 2: Complete architectural pipeline of the high-performance SVG confetti engine, from initial ballistic impulse to GPU-composited transform flushes.</figcaption>
+        </figure>
+
+        <!-- SECTION 8 -->
+        <h2 id="gpu-hardware-compositing">8. GPU Hardware Acceleration: transform-box, will-change &amp; CSS Custom Properties</h2>
+        <p>To ensure that the browser dispatches SVG transformation commands directly to hardware texture blitters rather than triggering CPU vector re-rasterization on every tick, engineers must calibrate specific SVG and CSS geometry attributes:</p>
+        <ul>
+          <li><strong>transform-box: fill-box:</strong> By default, SVG elements evaluate transformation origins relative to the parent SVG canvas bounding box (<code>viewBox</code>). Defining <code>transform-box: fill-box; transform-origin: center center;</code> anchors all rotation and scaling directly to the particle's own local centroid. This eliminates manual origin offsetting arithmetic in JavaScript.</li>
+          <li><strong>will-change: transform:</strong> Applying <code>will-change: transform</code> signals the browser compositor to promote the animated particle pool into a dedicated GPU overlay plane, preventing redraw invalidations on underlying page content.</li>
+          <li><strong>pointer-events: none:</strong> Confetti bursts must never intercept user pointer gestures or disrupt interactive form controls. The root confetti SVG container must always enforce <code>pointer-events: none</code> with <code>position: fixed; inset: 0; z-index: 9999;</code>.</li>
+        </ul>
+
+        <!-- SECTION 9: INTERACTIVE CONFETTI STUDIO -->
+        <h2 id="interactive-confetti-studio">9. Interactive Developer Studio: Real-Time Vector Particle Simulator</h2>
+        <p>Experiment with real-time vector confetti physics below. Customize the particle density, dispersion angle, gravitational acceleration, and geometric shapes, then command the cannon to inspect frame rates and export production-ready code.</p>
+
+        <div class="interactive-sandbox" id="confettiStudio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m8 17 4 4 4-4"/></svg>
+              <span>SVG Kinematic Confetti Simulator</span>
+            </div>
+            <div class="sandbox-badge">Real-Time Vector Engine</div>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="confettiCountSlider">
+                  <span>Particle Count</span>
+                  <span id="confettiCountVal" class="stat-num">50</span>
+                </label>
+                <input type="range" id="confettiCountSlider" class="control-input" min="15" max="120" step="5" value="50">
+              </div>
+
+              <div class="control-row">
+                <label for="confettiSpreadSlider">
+                  <span>Impulse Velocity &amp; Spread</span>
+                  <span id="confettiSpreadVal" class="stat-num">Medium (65&deg;)</span>
+                </label>
+                <input type="range" id="confettiSpreadSlider" class="control-input" min="30" max="110" step="5" value="65">
+              </div>
+
+              <div class="control-row">
+                <label for="confettiGravitySlider">
+                  <span>Gravitational Acceleration</span>
+                  <span id="confettiGravityVal" class="stat-num">1.0x (Standard)</span>
+                </label>
+                <input type="range" id="confettiGravitySlider" class="control-input" min="0.3" max="2.2" step="0.1" value="1.0">
+              </div>
+
+              <div class="control-row">
+                <label for="confettiShapeSelect">Particle Vector Geometry</label>
+                <select id="confettiShapeSelect" class="control-select">
+                  <option value="ribbons" selected>Paper Ribbons (Rectangles)</option>
+                  <option value="circles">Carnival Discs (Circles)</option>
+                  <option value="stars">Golden Stars (Polygons)</option>
+                  <option value="mixed">Mixed Celebration System (Ribbons + Stars + Dots)</option>
+                </select>
+              </div>
+
+              <div class="btn-row">
+                <button type="button" class="action-btn primary" id="fireConfettiBtn">Launch Cannon &uarr;</button>
+                <button type="button" class="action-btn" id="btnPresetNova">Preset: Supernova</button>
+                <button type="button" class="action-btn" id="btnPresetShower">Preset: Gentle Flutter</button>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container" id="stageConfettiContainer">
+                <svg id="stageConfettiSvg" class="stage-confetti-svg" viewBox="0 0 500 380" preserveAspectRatio="none">
+                  <g id="confettiParticleLayer"></g>
+                </svg>
+                <div style="text-align: center; pointer-events: none; z-index: 1;">
+                  <span style="display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #C1DD2D; font-weight: 700; background: rgba(0,0,0,0.6); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.3); margin-bottom: 8px;">Interactive Physics Canvas</span>
+                  <h4 style="color: #FFF; font-size: 18px; font-weight: 800; margin-bottom: 4px;">Click "Launch Cannon" to Fire</h4>
+                  <p style="color: #BBB; font-size: 13px; max-width: 240px; margin: 0 auto;">Zero-dependency vector mechanics running on requestAnimationFrame.</p>
+                </div>
+              </div>
+
+              <div class="stats-readout-box">
+                <div class="stat-item">
+                  <div class="stat-label">Active Particles</div>
+                  <div class="stat-val highlight" id="statActiveCount">0</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Frame Budget</div>
+                  <div class="stat-val highlight" id="statFrameRate">60.0 FPS</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active" id="tabJsCode">Vanilla JavaScript Engine</button>
+                <button type="button" class="code-tab-btn" id="tabReactCode">React / Hook Export</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyConfettiCodeBtn">Copy Code</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="confettiCodeOutput"></pre>
+          </div>
+        </div>
+
+        <!-- SECTION 10 -->
+        <h2 id="architectural-pipeline">10. Architectural Blueprint: The Kinematic Simulation Loop</h2>
+        <p>A scalable confetti engine must cleanly decouple user input triggers from the physical simulation heartbeat. In software architecture, this is realized via the Producer-Consumer Simulation pattern:</p>
+        <p>When an application event triggers celebration (e.g., checkout success), the producer pushes particle configuration seeds into the active simulation queue. If the animation loop is currently idle, it requests a new <code>requestAnimationFrame</code> timestamp. The simulation consumer loop calculates Euler physics steps and updates the DOM until all particles exceed their lifespan, at which point the animation loop automatically suspends itself, consuming zero idle CPU cycles.</p>
+
+        <!-- SECTION 11 -->
+        <h2 id="production-implementation">11. Production Implementation: Zero-Dependency TypeScript &amp; React Hook</h2>
+        <p>The code snippet below provides a modular, production-tested TypeScript implementation suitable for enterprise React, Vue, or vanilla web applications:</p>
+
+        <pre><code>// Production Vector Confetti Engine (Zero External Dependencies)
+export interface ConfettiOptions {
+  count?: number;
+  originX?: number; // 0.0 to 1.0 (screen ratio)
+  originY?: number;
+  spreadAngle?: number; // degrees
+  velocity?: number;
+  colors?: string[];
+}
+
+export function fireVectorConfetti(options: ConfettiOptions = {}) {
+  // Check user motion preferences first
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    console.log('Reduced motion active: skipping particle explosion.');
+    return;
+  }
+
+  const count = options.count ?? 60;
+  const originX = (options.originX ?? 0.5) * window.innerWidth;
+  const originY = (options.originY ?? 0.8) * window.innerHeight;
+  const colors = options.colors ?? ['#C1DD2D', '#D2ED3E', '#22C55E', '#3B82F6', '#EC4899', '#EAB308'];
+
+  // 1. Create or attach persistent SVG layer
+  let svg = document.getElementById('globalConfettiSvg') as SVGSVGElement | null;
+  if (!svg) {
+    svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.id = 'globalConfettiSvg';
+    svg.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:99999;';
+    document.body.appendChild(svg);
+  }
+
+  // 2. Instantiate particle state
+  interface Particle {
+    el: SVGElement;
+    x: number; y: number;
+    vx: number; vy: number;
+    wobble: number; wobbleSpeed: number;
+    spin: number; spinSpeed: number;
+    life: number; decay: number;
+  }
+
+  const particles: Particle[] = [];
+  const g = svg.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'g'));
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    el.setAttribute('width', '11');
+    el.setAttribute('height', '6');
+    el.setAttribute('rx', '1');
+    el.setAttribute('fill', colors[i % colors.length]);
+    el.style.transformOrigin = 'center';
+    g.appendChild(el);
+
+    const angle = ((Math.random() - 0.5) * (options.spreadAngle ?? 60) - 90) * (Math.PI / 180);
+    const speed = (options.velocity ?? 700) * (0.6 + Math.random() * 0.8);
+
+    particles.push({
+      el,
+      x: originX,
+      y: originY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      wobble: Math.random() * 6.28,
+      wobbleSpeed: 10 + Math.random() * 14,
+      spin: Math.random() * 360,
+      spinSpeed: (Math.random() - 0.5) * 720,
+      life: 1.0,
+      decay: 0.35 + Math.random() * 0.3
+    });
+  }
+
+  // 3. Execution loop
+  let lastTime = performance.now();
+  function tick(now: number) {
+    const dt = Math.min(0.033, (now - lastTime) / 1000);
+    lastTime = now;
+    let alive = false;
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.life -= p.decay * dt;
+      if (p.life <= 0) {
+        p.el.style.display = 'none';
+        continue;
+      }
+      alive = true;
+
+      // Physics integration
+      p.vx *= Math.max(0, 1 - 0.12 * dt);
+      p.vy = (p.vy * Math.max(0, 1 - 0.12 * dt)) + (850 * dt);
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.wobble += p.wobbleSpeed * dt;
+      p.spin += p.spinSpeed * dt;
+
+      // GPU Transform Matrix
+      const scaleY = Math.cos(p.wobble);
+      p.el.setAttribute(
+        'transform',
+        'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ') ' +
+        'rotate(' + p.spin.toFixed(1) + ') ' +
+        'scale(1,' + scaleY.toFixed(2) + ')'
+      );
+      p.el.style.opacity = Math.min(1, p.life * 2).toFixed(2);
+    }
+
+    if (alive) {
+      requestAnimationFrame(tick);
+    } else {
+      svg?.removeChild(g);
+    }
+  }
+
+  requestAnimationFrame(tick);
+}</code></pre>
+
+        <h3>Automated Unit Testing &amp; Kinematic Verification</h3>
+        <p>In enterprise CI/CD environments, physics simulation routines must be thoroughly tested against regressions. Because standard unit test runners (such as Vitest and Jest) operate in headless Node.js environments (jsdom or happy-dom) lacking hardware GPU rasterizers, engineers must mock <code>requestAnimationFrame</code> and test particle trajectory math analytically.</p>
+        <p>A rigorous unit test suite verifies three invariant physical properties:</p>
+        <ul>
+          <li><strong>Energy Conservation &amp; Drag Dissipation:</strong> After 60 discrete simulated ticks, verify that the horizontal scalar velocity <code>|vx|</code> has diminished by at least 85%, confirming that drag dampening is operating without numerical divergence or negative energy overflow.</li>
+          <li><strong>Terminal Velocity Adherence:</strong> Simulate high-gravity falls and verify that downward vertical velocity <code>vy</code> never exceeds the configured terminal velocity ceiling (e.g., 900 px/s).</li>
+          <li><strong>Clean Memory Teardown:</strong> Verify that upon completion of the simulation lifespan, the internal active particle registry is completely cleared, the parent SVG container element contains zero orphaned DOM child nodes, and no dangling timer handles remain attached to the event loop.</li>
+        </ul>
+
+        <!-- SECTION 12 -->
+        <h2 id="accessibility-and-reduced-motion">12. Accessibility First: prefers-reduced-motion &amp; ARIA Announcements</h2>
+        <p>Frontend developers have a legal and ethical responsibility under WCAG 2.2 Success Criterion 2.3.3 (Animation from Interactions) to ensure celebratory animations do not trigger seizures, dizziness, or vestibular nausea in sensitive users.</p>
+        <p>Always inspect the system media query prior to launching particle animations:</p>
+        <p><code>const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;</code></p>
+        <p>If true, bypass all physical particle movement. Instead, surface a polite notification using an ARIA live region (<code>&lt;div role="status" aria-live="polite"&gt;Payment verified successfully!&lt;/div&gt;</code>) or present a static congratulatory badge. This ensures screen reader users and motion-sensitive individuals receive unambiguous celebratory confirmation without optical distress.</p>
+
+        <!-- SECTION 13 -->
+        <h2 id="canvas-vs-svg-benchmark">13. Comparative Benchmark: Pure SVG vs HTML5 Canvas vs WebGL</h2>
+        <p>When selecting the foundational technology for particle effects, evaluate each platform's distinct strengths and constraints:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Engineering Factor</th>
+                <th>Pure SVG Particles</th>
+                <th>HTML5 Canvas 2D</th>
+                <th>WebGL / Three.js</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>High-DPI Sharpness</strong></td>
+                <td><strong>Native &infin; Vector Sharpness</strong></td>
+                <td>Requires manual DPR scale factor</td>
+                <td>Requires full viewport renderbuffer</td>
+              </tr>
+              <tr>
+                <td><strong>Custom Brand Icons</strong></td>
+                <td><strong>Native</strong> (direct &lt;use&gt; / paths)</td>
+                <td>Requires image caching / sprite sheets</td>
+                <td>Requires texture atlas shaders</td>
+              </tr>
+              <tr>
+                <td><strong>DOM &amp; CSS Integration</strong></td>
+                <td><strong>Full</strong> (inherits CSS variables, themes)</td>
+                <td>None (opaque isolated bitmap)</td>
+                <td>None (isolated WebGL context)</td>
+              </tr>
+              <tr>
+                <td><strong>Bundle Payload</strong></td>
+                <td><strong>&lt; 1.5 KB</strong> (zero dependencies)</td>
+                <td>5 KB to 18 KB</td>
+                <td>150 KB to 600 KB</td>
+              </tr>
+              <tr>
+                <td><strong>Maximum Particle Limit</strong></td>
+                <td>150 - 300 particles at 60 FPS</td>
+                <td>1,000 - 3,000 particles at 60 FPS</td>
+                <td>10,000+ particles at 60 FPS</td>
+              </tr>
+              <tr>
+                <td><strong>Memory Overhead</strong></td>
+                <td><strong>&lt; 200 KB</strong> (DOM nodes in pool)</td>
+                <td>2 MB to 12 MB (Canvas backbuffer)</td>
+                <td>15 MB to 60 MB (VRAM &amp; GL context)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SECTION 14 -->
+        <h2 id="surface-collision-and-resting-physics">14. Surface Collisions &amp; Resting Ground Physics: Restitution &amp; Friction</h2>
+        <p>In standard full-screen confetti explosions, particles typically fall off the bottom of the viewport into infinity. However, in targeted micro-interactions—such as a modal dialog celebration or a celebratory rewards chest—visual authenticity is dramatically enhanced when particles bounce off surfaces, collide with modal floor boundaries, and come to an organic physical rest.</p>
+        <p>Simulating surface collisions in 2D vector kinematics requires evaluating boundary crossing tests followed by normal velocity reflection. When a particle's Cartesian Y position reaches the floor coordinate (<em>y &ge; y<sub>floor</sub></em>), the vertical velocity vector is negated and scaled by the coefficient of restitution (<em>e<sub>rest</sub></em>), while the horizontal velocity is dampened by Coulomb dry friction (<em>&mu;<sub>frict</sub></em>):</p>
+
+        <pre><code>// Surface Collision &amp; Friction Resolution
+function resolveBoundaryCollision(particle, floorY, dt) {
+  if (particle.y >= floorY) {
+    particle.y = floorY; // Clamp to prevent floor penetration
+
+    // Invert vertical velocity with inelastic energy loss (restitution)
+    particle.vy = -particle.vy * 0.35;
+
+    // Apply surface kinetic friction to horizontal slide
+    particle.vx *= Math.max(0, 1 - 0.45 * dt);
+
+    // Dampen rotational tumble upon impact
+    particle.wobbleSpeed *= 0.5;
+    particle.spinSpeed *= 0.5;
+
+    // Put particle to sleep if kinetic energy drops below threshold
+    if (Math.abs(particle.vy) < 15 && Math.abs(particle.vx) < 10) {
+      particle.vx = 0;
+      particle.vy = 0;
+      particle.isSleeping = true;
+    }
+  }
+}</code></pre>
+
+        <p>When kinetic energy drops below the sleep threshold (<em>|v| &lt; 15 px/s</em>), the particle enters an idle sleep state, freeing the physics engine from calculating further arithmetic while allowing the particle to remain visible as celebratory confetti litter on the UI surface.</p>
+
+        <!-- SECTION 15 -->
+        <h2 id="normal-vector-lighting">15. Photorealistic Ribbon Shading: Normal Vector Lighting &amp; Two-Tone Ribbons</h2>
+        <p>One of the subtlest details that distinguishes junior particle implementations from high-end digital design systems is surface lighting. Physical paper confetti reflects varying degrees of ambient and directional light as it tumbles through the air. Furthermore, real metallic confetti (such as foil ribbons) features distinct colors on opposite sides—for instance, vibrant lime on the front and deep obsidian on the reverse.</p>
+        <p>Because our tumbling projection relies on <code>scaleY = cos(&omega;t)</code>, the sign and magnitude of <code>scaleY</code> directly convey the particle's surface normal orientation relative to the camera lens:</p>
+        <ul>
+          <li><strong>Surface Normal Orientation:</strong> When <code>scaleY &gt; 0</code>, the front face of the ribbon is visible. When <code>scaleY &lt; 0</code>, the reverse face is exposed.</li>
+          <li><strong>Lambertian Cosine Shading:</strong> The absolute magnitude <code>|scaleY|</code> approximates the cosine of the angle between the surface normal and the viewer's gaze. As the particle turns edge-on (<code>scaleY &rarr; 0</code>), grazing angles catch darker shadows.</li>
+        </ul>
+
+        <pre><code>// Dynamic Lighting &amp; Two-Tone Ribbon Color Grading
+function computeConfettiShading(particle, baseColor, reverseColor) {
+  const cosine = Math.cos(particle.wobble);
+  const isFrontFace = cosine >= 0;
+  
+  // Pick face color
+  const activeColor = isFrontFace ? baseColor : reverseColor;
+  
+  // Modulate brightness based on grazing angle (diffuse shading)
+  const brightness = 0.6 + Math.abs(cosine) * 0.4;
+  
+  return {
+    fill: activeColor,
+    scaleY: cosine,
+    filter: brightness < 0.75 ? 'brightness(0.8)' : 'none'
+  };
+}</code></pre>
+
+        <p>Implementing two-tone lighting gives confetti ribbons tangible physical materiality, transforming flat digital geometry into tactile, shimmering celebration ribbons.</p>
+
+        <!-- SECTION 16 -->
+        <h2 id="web-workers-and-shared-memory">16. Multi-Threaded Particle Architecture: Offloading Physics to Web Workers</h2>
+        <p>While modern main threads easily handle 100 to 150 SVG particles at 60 FPS, complex data-heavy applications (such as real-time financial dashboards or WebRTC video rooms) may already suffer from heavy main thread CPU contention. In these scenarios, offloading numerical Euler integration to a background Web Worker guarantees buttery smooth 120 FPS animations regardless of main-thread load.</p>
+        <p>Using <code>SharedArrayBuffer</code> and <code>Atomics</code>, the Web Worker performs physics updates in a dedicated thread and writes updated coordinates into shared memory. The main thread simply reads the memory buffer during each <code>requestAnimationFrame</code> tick and flushes coordinates to the SVG DOM, achieving complete decoupling of physics compute from DOM rendering.</p>
+
+        <!-- SECTION 17 -->
+        <h2 id="debugging-edge-cases">17. Production Edge Cases: Tab Switching, Memory Leaks &amp; Garbage Collection</h2>
+        <p>Operating real-time animation in enterprise web applications exposes subtle runtime challenges that every senior frontend engineer must anticipate:</p>
+
+        <h3>1. The Tab Switching / Delta Time Explosion Bug</h3>
+        <p>When a user switches browser tabs during a confetti explosion, the browser throttles <code>requestAnimationFrame</code> calls to save battery. If the simulation loop naively computes <code>dt = (now - lastTime) / 1000</code>, returning to the tab after 10 seconds results in a massive <code>dt = 10.0</code>. Multiplying velocity by this giant delta step instantly catapults particles millions of pixels into deep space. Always clamp the maximum elapsed frame time: <code>const dt = Math.min(0.033, (now - lastTime) / 1000);</code>.</p>
+
+        <h3>2. Viewport Resize &amp; Container Overflow</h3>
+        <p>Ensure the confetti SVG container defines <code>overflow: hidden</code> or is affixed directly to <code>window.innerWidth</code> and <code>window.innerHeight</code>. If particles travel beyond viewport boundaries without proper containment, browser scrollbars may momentarily flash or expand, triggering jarring Cumulative Layout Shift (CLS).</p>
+
+        <!-- SECTION 18 -->
+        <h2 id="comparative-analysis">18. Technical Specification Matrix</h2>
+        <p>The matrix below outlines performance parameters for tuning celebratory particle physics engines:</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Physics Parameter</th>
+                <th>Subtle Micro-Burst (Button)</th>
+                <th>Standard Milestone (Checkout)</th>
+                <th>Grand Victory Cannon (Epic)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Particle Volume</strong></td>
+                <td>20 to 35 particles</td>
+                <td>50 to 80 particles</td>
+                <td>120 to 180 particles</td>
+              </tr>
+              <tr>
+                <td><strong>Initial Velocity (px/s)</strong></td>
+                <td>400 to 600 px/s</td>
+                <td>700 to 1,000 px/s</td>
+                <td>1,100 to 1,500 px/s</td>
+              </tr>
+              <tr>
+                <td><strong>Drag Coefficient</strong></td>
+                <td>0.14 (rapid deceleration)</td>
+                <td>0.10 (balanced glide)</td>
+                <td>0.07 (prolonged flight)</td>
+              </tr>
+              <tr>
+                <td><strong>Gravity Constant</strong></td>
+                <td>950 px/s<sup>2</sup></td>
+                <td>800 px/s<sup>2</sup></td>
+                <td>700 px/s<sup>2</sup></td>
+              </tr>
+              <tr>
+                <td><strong>Animation Lifespan</strong></td>
+                <td>1.2 to 1.8 seconds</td>
+                <td>2.4 to 3.2 seconds</td>
+                <td>4.0 to 5.5 seconds</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="takeaway-box">
+          <h3>Engineering Takeaways &amp; Architectural Rules</h3>
+          <ul>
+            <li><strong>Keep Particle Counts Under 150:</strong> 50 to 100 particles deliver peak celebratory delight. Pushing past 250 offers diminishing aesthetic returns while taxing mobile DOM compositing.</li>
+            <li><strong>Leverage Typed Arrays:</strong> Maintain positions and velocities in typed <code>Float32Array</code> structures to eliminate garbage collection latency.</li>
+            <li><strong>Embrace Trigonometric 3D Tumble:</strong> <code>scaleY = cos(&omega;t)</code> provides authentic, fluttering paper physics at zero computational overhead.</li>
+            <li><strong>Honor Accessibility:</strong> Never fire unconstrained ballistic animations if the user has requested reduced motion.</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 19: FAQS -->
+        <h2 id="frequently-asked-questions">19. Frequently Asked Technical Questions</h2>
+        <div class="faq-item">
+          <h3>Why choose pure SVG confetti over HTML5 Canvas confetti libraries?</h3>
+          <p>Pure SVG confetti enables arbitrary custom brand glyphs, company logos, and crisp geometric shapes to be utilized as particle entities without raster blurring on high-DPI displays. Unlike HTML5 Canvas, which is an opaque raster buffer, SVG particles exist within the document object model, allowing individual styling with CSS custom properties, native dark mode synchronization, vector stroke theming, and full integration with DOM accessibility tree event triggers.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do you achieve 60 FPS in SVG confetti without triggering browser layout thrashing?</h3>
+          <p>High frame rates are achieved by isolating particle physics calculations from DOM writes. By maintaining all spatial properties (position, velocity, angle, wobble) inside typed Float32Array buffers and updating particle elements exclusively via the hardware-accelerated transform attribute or CSS transform property (e.g., translate3d and rotate), the browser completely bypasses the style recalculation and layout stages, dispatching rendering directly to the GPU compositor thread.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How is 3D tumbling rotation simulated in a 2-dimensional vector SVG canvas?</h3>
+          <p>3D tumbling in a 2D plane is achieved by combining planar 2D rotation with a trigonometric cosine projection along one axis (typically scaleY). By calculating scaleY = Math.cos(particle.wobbleAngle), the particle smoothly squashes to zero thickness and flips, creating the convincing optical illusion of a paper ribbon fluttering through three-dimensional space without requiring WebGL matrices or heavy 3D scene graphs.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does particle pooling prevent garbage collection stutter during celebration bursts?</h3>
+          <p>Instantiating and discarding hundreds of DOM nodes and JavaScript objects on every confetti burst triggers aggressive garbage collection pauses, leading to noticeable animation stutter. A particle pooling architecture pre-allocates a fixed pool of SVG particle elements and reusable data structures during initialization. When a cannon fires, inactive particles are recycled from the pool and returned upon lifespan expiration, eliminating memory churn and garbage collection pauses.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How should confetti animations respect the prefers-reduced-motion accessibility preference?</h3>
+          <p>When window.matchMedia('(prefers-reduced-motion: reduce)') evaluates to true, engineers must suppress rapid, disorienting particle explosions. Instead of launching ballistic particles, systems should provide an accessible alternative, such as a gentle, static congratulatory badge reveal, a subtle fade-in toast, or an ARIA live region status announcement (role='status') ensuring screen reader users receive equal celebratory feedback without vestibular distress.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What is the mathematical equation governing air drag in kinematic particle simulations?</h3>
+          <p>In numerical Euler integration, air resistance opposes velocity proportionally to drag coefficient and velocity magnitude. For discrete time-steps, velocity decay is modeled as v(t + dt) = v(t) * (1 - drag * dt), where drag is typically calibrated between 0.05 and 0.15 for paper ribbons. Gravity is simultaneously added along the vertical axis as v_y(t + dt) = v_y(t) + g * dt, yielding a realistic ballistic trajectory that transitions smoothly from explosive propulsion to drifting aerodynamic flutter.</p>
+        </div>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav" aria-label="Table of Contents">
+            <ol>
+              <li><a href="#executive-summary">1. Executive Summary</a></li>
+              <li><a href="#kinematic-ballistics-math">2. 2D Kinematic Ballistics</a></li>
+              <li><a href="#aerodynamic-drag-and-terminal-velocity">3. Aerodynamic Drag &amp; Velocity</a></li>
+              <li><a href="#tumbling-3d-rotation-math">4. 3D Tumbling &amp; Wobble</a></li>
+              <li><a href="#svg-particle-geometries">5. Vector Particle Geometries</a></li>
+              <li><a href="#zero-dom-reflow-pipeline">6. Zero-DOM-Reflow Pipeline</a></li>
+              <li><a href="#burst-architectures">7. Cannon Architectures</a></li>
+              <li><a href="#gpu-hardware-compositing">8. GPU Hardware Acceleration</a></li>
+              <li><a href="#interactive-confetti-studio">9. Interactive Confetti Studio</a></li>
+              <li><a href="#architectural-pipeline">10. Architectural Blueprint</a></li>
+              <li><a href="#production-implementation">11. Production Implementation</a></li>
+              <li><a href="#accessibility-and-reduced-motion">12. Accessibility &amp; Reduced Motion</a></li>
+              <li><a href="#canvas-vs-svg-benchmark">13. SVG vs Canvas Benchmark</a></li>
+              <li><a href="#surface-collision-and-resting-physics">14. Surface Collision &amp; Rest</a></li>
+              <li><a href="#normal-vector-lighting">15. Normal Vector Lighting</a></li>
+              <li><a href="#web-workers-and-shared-memory">16. Web Workers &amp; Shared Memory</a></li>
+              <li><a href="#debugging-edge-cases">17. Production Edge Cases</a></li>
+              <li><a href="#comparative-analysis">18. Technical Specification Matrix</a></li>
+              <li><a href="#frequently-asked-questions">19. Technical FAQs</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Search 134K+ Free Icons</h4>
+          <p>Find clean, open-source SVG icons across 28 popular libraries for your next design system project.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <a href="/">IconStash</a>. Handcrafted for modern frontend engineers and UI designers.</p>
+  </footer>
+
+  <script>
+    // Theme toggle logic
+    (function() {
+      const toggleBtn = document.getElementById('themeToggle');
+      if (!toggleBtn) return;
+      const currentTheme = localStorage.getItem('iconstash_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      toggleBtn.addEventListener('click', function() {
+        const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('iconstash_theme', theme);
+      });
+    })();
+
+    // Interactive Confetti Simulator Controller
+    (function() {
+      const confettiCountSlider = document.getElementById('confettiCountSlider');
+      const confettiCountVal = document.getElementById('confettiCountVal');
+      const confettiSpreadSlider = document.getElementById('confettiSpreadSlider');
+      const confettiSpreadVal = document.getElementById('confettiSpreadVal');
+      const confettiGravitySlider = document.getElementById('confettiGravitySlider');
+      const confettiGravityVal = document.getElementById('confettiGravityVal');
+      const confettiShapeSelect = document.getElementById('confettiShapeSelect');
+      const fireConfettiBtn = document.getElementById('fireConfettiBtn');
+      const confettiParticleLayer = document.getElementById('confettiParticleLayer');
+      const statActiveCount = document.getElementById('statActiveCount');
+      const statFrameRate = document.getElementById('statFrameRate');
+      const confettiCodeOutput = document.getElementById('confettiCodeOutput');
+      const copyConfettiCodeBtn = document.getElementById('copyConfettiCodeBtn');
+      const tabJsCode = document.getElementById('tabJsCode');
+      const tabReactCode = document.getElementById('tabReactCode');
+
+      const btnPresetNova = document.getElementById('btnPresetNova');
+      const btnPresetShower = document.getElementById('btnPresetShower');
+
+      let currentTab = 'js';
+      const colors = ['#C1DD2D', '#D2ED3E', '#22C55E', '#3B82F6', '#EC4899', '#EAB308', '#A855F7'];
+
+      interface ActiveParticle {
+        el: SVGElement;
+        x: number; y: number;
+        vx: number; vy: number;
+        wobble: number; wobbleSpeed: number;
+        spin: number; spinSpeed: number;
+        life: number; decay: number;
+      }
+      let activeParticles = [];
+      let animFrameId = null;
+      let lastTime = performance.now();
+
+      function updateCodeOutput() {
+        const count = confettiCountSlider.value;
+        const spread = confettiSpreadSlider.value;
+        const grav = confettiGravitySlider.value;
+        const shape = confettiShapeSelect.value;
+
+        if (currentTab === 'js') {
+          confettiCodeOutput.textContent = '// Zero-Dependency SVG Confetti Cannon
+' +
+            'fireVectorConfetti({
+' +
+            '  count: ' + count + ',
+' +
+            '  spreadAngle: ' + spread + ',
+' +
+            '  gravity: ' + (grav * 800) + ',
+' +
+            '  shape: "' + shape + '",
+' +
+            '  colors: ["#C1DD2D", "#22C55E", "#3B82F6", "#EAB308", "#EC4899"]
+' +
+            '});';
+        } else {
+          confettiCodeOutput.textContent = 'import { useCallback } from "react";
+' +
+            'import { useConfetti } from "@/hooks/useConfetti";
+
+' +
+            'export function CelebrateButton() {
+' +
+            '  const { fire } = useConfetti({
+' +
+            '    count: ' + count + ',
+' +
+            '    spread: ' + spread + ',
+' +
+            '    shape: "' + shape + '"
+' +
+            '  });
+
+' +
+            '  return (
+' +
+            '    <button onClick={fire} className="btn-celebrate">
+' +
+            '      Complete Milestone &rarr;
+' +
+            '    </button>
+' +
+            '  );
+' +
+            '}';
+        }
+      }
+
+      function launchSimulation() {
+        const count = parseInt(confettiCountSlider.value, 10);
+        const spreadDeg = parseInt(confettiSpreadSlider.value, 10);
+        const gravityMult = parseFloat(confettiGravitySlider.value);
+        const shape = confettiShapeSelect.value;
+
+        confettiParticleLayer.innerHTML = '';
+        activeParticles = [];
+
+        const startX = 250;
+        const startY = 320;
+
+        for (let i = 0; i < count; i++) {
+          let el;
+          const color = colors[i % colors.length];
+
+          if (shape === 'circles') {
+            el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            el.setAttribute('r', '4');
+            el.setAttribute('fill', color);
+          } else if (shape === 'stars') {
+            el = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            el.setAttribute('points', '0,-5 1.5,-1.5 5,-1.5 2,1 3.5,4.5 0,2.5 -3.5,4.5 -2,1 -5,-1.5 -1.5,-1.5');
+            el.setAttribute('fill', color);
+          } else if (shape === 'mixed' && i % 3 === 1) {
+            el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            el.setAttribute('r', '3.5');
+            el.setAttribute('fill', color);
+          } else if (shape === 'mixed' && i % 3 === 2) {
+            el = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            el.setAttribute('points', '0,-4 1.2,-1.2 4,-1.2 1.6,0.8 2.8,3.6 0,2 -2.8,3.6 -1.6,0.8 -4,-1.2 -1.2,-1.2');
+            el.setAttribute('fill', color);
+          } else {
+            el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            el.setAttribute('width', '10');
+            el.setAttribute('height', '5');
+            el.setAttribute('rx', '1');
+            el.setAttribute('fill', color);
+          }
+
+          el.style.transformOrigin = 'center';
+          confettiParticleLayer.appendChild(el);
+
+          const angleDeg = -90 + (Math.random() - 0.5) * spreadDeg;
+          const angleRad = angleDeg * (Math.PI / 180);
+          const velocity = 280 + Math.random() * 260;
+
+          activeParticles.push({
+            el: el,
+            x: startX,
+            y: startY,
+            vx: Math.cos(angleRad) * velocity,
+            vy: Math.sin(angleRad) * velocity,
+            wobble: Math.random() * 6.28,
+            wobbleSpeed: 8 + Math.random() * 12,
+            spin: Math.random() * 360,
+            spinSpeed: (Math.random() - 0.5) * 600,
+            life: 1.0,
+            decay: 0.35 + Math.random() * 0.25
+          });
+        }
+
+        statActiveCount.textContent = count;
+        lastTime = performance.now();
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+        animFrameId = requestAnimationFrame(loop);
+      }
+
+      function loop(now) {
+        const dt = Math.min(0.033, (now - lastTime) / 1000);
+        lastTime = now;
+        const gravityMult = parseFloat(confettiGravitySlider.value);
+        const gravityAccel = 340 * gravityMult;
+        let aliveCount = 0;
+
+        for (let i = 0; i < activeParticles.length; i++) {
+          const p = activeParticles[i];
+          p.life -= p.decay * dt;
+          if (p.life <= 0) {
+            p.el.style.display = 'none';
+            continue;
+          }
+          aliveCount++;
+
+          p.vx *= Math.max(0, 1 - 0.14 * dt);
+          p.vy = (p.vy * Math.max(0, 1 - 0.14 * dt)) + (gravityAccel * dt);
+
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.wobble += p.wobbleSpeed * dt;
+          p.spin += p.spinSpeed * dt;
+
+          const scaleY = Math.cos(p.wobble).toFixed(2);
+          p.el.setAttribute(
+            'transform',
+            'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ') ' +
+            'rotate(' + p.spin.toFixed(1) + ') ' +
+            'scale(1,' + scaleY + ')'
+          );
+          p.el.style.opacity = Math.min(1, p.life * 2).toFixed(2);
+        }
+
+        statActiveCount.textContent = aliveCount;
+
+        if (aliveCount > 0) {
+          animFrameId = requestAnimationFrame(loop);
+        } else {
+          statActiveCount.textContent = '0';
+        }
+      }
+
+      confettiCountSlider.addEventListener('input', function() {
+        confettiCountVal.textContent = confettiCountSlider.value;
+        updateCodeOutput();
+      });
+
+      confettiSpreadSlider.addEventListener('input', function() {
+        const v = parseInt(confettiSpreadSlider.value, 10);
+        let label = 'Medium (' + v + '°)';
+        if (v <= 45) label = 'Focused Beam (' + v + '°)';
+        else if (v >= 90) label = 'Wide Canopy (' + v + '°)';
+        confettiSpreadVal.textContent = label;
+        updateCodeOutput();
+      });
+
+      confettiGravitySlider.addEventListener('input', function() {
+        confettiGravityVal.textContent = confettiGravitySlider.value + 'x';
+        updateCodeOutput();
+      });
+
+      confettiShapeSelect.addEventListener('change', updateCodeOutput);
+
+      tabJsCode.addEventListener('click', function() {
+        currentTab = 'js';
+        tabJsCode.classList.add('active');
+        tabReactCode.classList.remove('active');
+        updateCodeOutput();
+      });
+
+      tabReactCode.addEventListener('click', function() {
+        currentTab = 'react';
+        tabReactCode.classList.add('active');
+        tabJsCode.classList.remove('active');
+        updateCodeOutput();
+      });
+
+      btnPresetNova.addEventListener('click', function() {
+        confettiCountSlider.value = '90';
+        confettiCountVal.textContent = '90';
+        confettiSpreadSlider.value = '110';
+        confettiSpreadVal.textContent = 'Wide Canopy (110°)';
+        confettiGravitySlider.value = '0.7';
+        confettiGravityVal.textContent = '0.7x';
+        confettiShapeSelect.value = 'stars';
+        updateCodeOutput();
+        launchSimulation();
+      });
+
+      btnPresetShower.addEventListener('click', function() {
+        confettiCountSlider.value = '40';
+        confettiCountVal.textContent = '40';
+        confettiSpreadSlider.value = '40';
+        confettiSpreadVal.textContent = 'Focused Beam (40°)';
+        confettiGravitySlider.value = '0.5';
+        confettiGravityVal.textContent = '0.5x';
+        confettiShapeSelect.value = 'ribbons';
+        updateCodeOutput();
+        launchSimulation();
+      });
+
+      fireConfettiBtn.addEventListener('click', launchSimulation);
+
+      copyConfettiCodeBtn.addEventListener('click', function() {
+        const text = confettiCodeOutput.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            copyConfettiCodeBtn.textContent = 'Copied!';
+            setTimeout(function() { copyConfettiCodeBtn.textContent = 'Copy Code'; }, 1800);
+          }).catch(function() {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          copyConfettiCodeBtn.textContent = 'Copied!';
+          setTimeout(function() { copyConfettiCodeBtn.textContent = 'Copy Code'; }, 1800);
+        } catch (e) {
+          copyConfettiCodeBtn.textContent = 'Error';
+        }
+        document.body.removeChild(ta);
+      }
+
+      updateCodeOutput();
+    })();
+  </script>
+</body>
+</html>
