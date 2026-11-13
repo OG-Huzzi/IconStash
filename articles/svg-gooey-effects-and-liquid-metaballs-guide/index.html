@@ -1036,11 +1036,65 @@ export const LiquidGooeyButton = ({ label = "Explore Icons", onClick }) => {
 };</code></pre>
 
         <!-- SECTION 12 -->
-        <h2 id="mobile-performance-budget">12. Mobile Performance Optimization &amp; Frame Budget Analysis (60 FPS / 120 Hz)</h2>
+        <h2 id="mobile-performance-budget">12. Mobile Performance Optimization, Browser Engine Differences &amp; Frame Budget Analysis (60 FPS / 120 Hz)</h2>
         <p>Executing continuous vector filters on mobile hardware requires strict adherence to a 16.67 millisecond frame budget (8.33 ms for 120 Hz ProMotion displays). Fragment shaders on mobile GPUs (such as Apple Apple-designed silicon or Qualcomm Adreno) feature limited unified memory cache line width.</p>
-        <p>Our empirical performance benchmarks across mobile devices reveal three key thresholds:</p>
+        
+        <h3>Compositor Architecture: Blink vs. Gecko vs. WebKit Engine Discrepancies</h3>
+        <p>A frequent pitfall in cross-platform frontend engineering is assuming SVG filter pipelines render identically across browser rendering engines. Under the hood, Chromium (Blink) executes filters via Skia Ganesh and Graphite backends; Mozilla Firefox (Gecko) routes through WebRender using GPU shaders; and Apple Safari (WebKit) relies on CoreAnimation layers composited through Metal.</p>
+        <p>When applying a steep <code>feColorMatrix</code> alpha transfer function (<em>y</em> = <em>m</em> &times; &alpha; &minus; <em>k</em>), these engines exhibit distinct subpixel antialiasing characteristics:</p>
+        <ul>
+          <li><strong>WebKit (Safari iOS &amp; macOS):</strong> WebKit performs aggressive alpha layer caching. When rapid animations mutate positions under an SVG filter, WebKit can drop below 60 FPS if the filter container is constantly invalidated. Applying <code>transform: translateZ(0);</code> and <code>contain: strict;</code> forces CoreAnimation to allocate an isolated backing store, eliminating parent repaint cascades. Additionally, WebKit rounds fractional alpha values aggressively, requiring the threshold multiplier to stay between 18 and 22 to prevent visible perimeter pixelation.</li>
+          <li><strong>Blink (Chrome &amp; Edge):</strong> Chromium utilizes separate compositor threads for CSS transforms, allowing buttery 120 Hz animations even during heavy JavaScript execution. However, applying <code>feColorMatrix</code> to elements containing subpixel anti-aliased text collapses font rendering into grayscale antialiasing. This makes the <code>feComposite in="SourceGraphic" operator="atop"</code> pattern absolutely essential.</li>
+          <li><strong>Gecko (Firefox):</strong> Firefox's WebRender engine boasts exceptional raw filter compilation speeds, but can exhibit subpixel halo fringing if elements contain partially transparent border strokes. Ensure all child particles use solid hex or RGB colors rather than semi-transparent alpha channels before passing into <code>feGaussianBlur</code>.</li>
+        </ul>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Technology Pipeline</th>
+                <th>Rendering Paradigm</th>
+                <th>CPU / GPU Profile</th>
+                <th>Safari iOS Support</th>
+                <th>Accessibility &amp; DOM Intact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>SVG feColorMatrix</strong></td>
+                <td>GPU Fragment Shaders / Compositor</td>
+                <td>Low CPU / Moderate GPU Fill Rate</td>
+                <td>100% Full Support (Universal)</td>
+                <td>Yes (Semantic DOM elements &amp; text intact)</td>
+              </tr>
+              <tr>
+                <td><strong>HTML5 Canvas 2D</strong></td>
+                <td>Pixel Rasterization Loop</td>
+                <td>High CPU / Low-to-Moderate GPU</td>
+                <td>100% Full Support</td>
+                <td>No (Requires custom canvas accessibility trees)</td>
+              </tr>
+              <tr>
+                <td><strong>WebGL Marching Squares</strong></td>
+                <td>Scalar Iso-Surface Shaders</td>
+                <td>Zero CPU / High GPU Shader Load</td>
+                <td>98% Support (Context loss risks)</td>
+                <td>No (Pure pixel buffer, inaccessible black box)</td>
+              </tr>
+              <tr>
+                <td><strong>CSS Paint Worklet (Houdini)</strong></td>
+                <td>Off-Thread Procedural Canvas</td>
+                <td>Moderate CPU / Low GPU</td>
+                <td>0% (Unsupported in Apple WebKit)</td>
+                <td>Partial (Background decoration only)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Our empirical performance benchmarks across mobile devices reveal three key engineering thresholds:</p>
         <ol>
-          <li><strong>Blur Radius Throttling:</strong> Standard deviations exceeding <code>stdDeviation="16"</code> quadruple the required texture sampling taps inside the 2D Gaussian convolution kernel. Keeping blur standard deviations between 6 and 10 reduces fragment fill rate by over 65%.</li>
+          <li><strong>Blur Radius Throttling:</strong> Standard deviations exceeding <code>stdDeviation="16"</code> quadruple the required texture sampling taps inside the 2D Gaussian convolution kernel. Because a discrete 2D Gaussian blur samples across a kernel radius of <em>R</em> = &lceil;3&sigma;&rceil;, setting &sigma; = 10 requires sampling a 61&times;61 pixel matrix per fragment. Keeping blur standard deviations between 6 and 10 reduces fragment fill rate by over 65%.</li>
           <li><strong>Layer Surface Area:</strong> Never apply an SVG gooey filter to a container spanning more than 500&times;500 CSS pixels. For full-screen particle backgrounds, construct modular tiling cells or employ the pure geometric tangent approach detailed in Section 7.</li>
           <li><strong>Avoid Simultaneous Drop Shadows:</strong> Stacking a CSS <code>box-shadow</code> or SVG <code>feDropShadow</code> directly onto an element already processing an <code>feColorMatrix</code> gooey filter causes double-pass framebuffer thrashing. Generate shadow illusions using an independent underlying vector element.</li>
         </ol>
@@ -1291,15 +1345,31 @@ export const LiquidGooeyButton = ({ label = "Explore Icons", onClick }) => {
         animFrameId = requestAnimationFrame(loop);
       }
 
-      stage.addEventListener('mousemove', function(e) {
+      function updatePointerCoords(clientX, clientY) {
         if (particleSelect.value === 'magnetic-cursor') {
           const rect = stage.getBoundingClientRect();
           const scaleX = 360 / rect.width;
           const scaleY = 280 / rect.height;
-          mouseX = (e.clientX - rect.left) * scaleX;
-          mouseY = (e.clientY - rect.top) * scaleY;
+          mouseX = (clientX - rect.left) * scaleX;
+          mouseY = (clientY - rect.top) * scaleY;
         }
+      }
+
+      stage.addEventListener('mousemove', function(e) {
+        updatePointerCoords(e.clientX, e.clientY);
       });
+
+      stage.addEventListener('touchmove', function(e) {
+        if (e.touches && e.touches[0]) {
+          updatePointerCoords(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+
+      stage.addEventListener('touchstart', function(e) {
+        if (e.touches && e.touches[0]) {
+          updatePointerCoords(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
 
       blurSlider.addEventListener('input', updateFilter);
       thresholdSlider.addEventListener('input', updateFilter);

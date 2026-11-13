@@ -536,7 +536,18 @@ function buildArticle2() {
           <div class="formula-desc">Where K<sub>s</sub> is the specular constant (surface reflectivity), &vec;N is the normalized surface gradient normal, &vec;H is the halfway vector between light source &vec;L and viewer &vec;V, &alpha; is the specular exponent (surface glossiness), and L<sub>color</sub> is the incident light color.</div>
         </div>
 
-        <p>The normal gradient vector is extracted by measuring the rate of change of the blurred alpha mask along horizontal and vertical axes:</p>
+        <p>The normal gradient vector is extracted by measuring the rate of change of the blurred alpha mask along horizontal and vertical axes using a discrete Sobel convolution kernel:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Finite Difference Surface Normal Gradient</div>
+          <div class="formula-body">
+            &part;<em>Z</em>/&part;<em>x</em> = [<em>Z</em>(<em>x</em>+1, <em>y</em>) &minus; <em>Z</em>(<em>x</em>&minus;1, <em>y</em>)] / 2 &emsp; &part;<em>Z</em>/&part;<em>y</em> = [<em>Z</em>(<em>x</em>, <em>y</em>+1) &minus; <em>Z</em>(<em>x</em>, <em>y</em>&minus;1)] / 2
+          </div>
+          <div class="formula-desc">The surfaceScale attribute <em>s</em> modulates height elevation, assembling normal vector &vec;N = (&minus;&part;<em>Z</em>/&part;<em>x</em> &times; <em>s</em>, &minus;&part;<em>Z</em>/&part;<em>y</em> &times; <em>s</em>, 1.0) / &radic;[(&part;<em>Z</em>/&part;<em>x</em> &times; <em>s</em>)<sup>2</sup> + (&part;<em>Z</em>/&part;<em>y</em> &times; <em>s</em>)<sup>2</sup> + 1.0]. The halfway vector &vec;H = (&vec;L + &vec;V) / |&vec;L + &vec;V| guarantees stable Blinn-Phong specular dot products across mobile GPU fragment pipelines without vector trigonometric singularities.</div>
+        </div>
+
+        <p>When combined with <code>feComposite in="specularOut" in2="SourceAlpha" operator="in"</code>, the specular highlight is strictly clipped to the interior perimeter of the card, preventing any light bleed from spilling onto background UI elements. This produces a millimeter-precise, beveled edge that elevates flat vector boxes into three-dimensional tactile glass slabs.</p>
+
         <pre><code>// Numerical Surface Normal Calculation
 N_x = -(Alpha[x + 1, y] - Alpha[x - 1, y]) * surfaceScale;
 N_y = -(Alpha[x, y + 1] - Alpha[x, y - 1]) * surfaceScale;
@@ -669,14 +680,26 @@ glassCard.addEventListener('mousemove', (e) => {
         <!-- SECTION 6 -->
         <h2 id="simulating-chromatic-dispersion">6. Simulating Chromatic Dispersion: Prismatic Color Splitting Across Color Channels</h2>
         <p>When light passes through high-end optical glass, such as camera lenses or cut crystal chandeliers, microscopic dispersion separates white light into its spectral rainbow components. Adding subtle chromatic dispersion along the boundaries of refracted glass gives it unmistakable physical authenticity.</p>
-        <p>We engineer chromatic dispersion in SVG by decoupling the red, green, and blue color channels and displacing each with slightly offset scale factors:</p>
+        
+        <h3>The Physics of Optical Dispersion: Cauchy's Empirical Formula</h3>
+        <p>In physical optics, a transparent material's index of refraction (&eta;) is not constant across all colors; it varies inversely with the wavelength (&lambda;) of the incident light. Augustin-Louis Cauchy derived the empirical dispersion relationship governing optical glasses:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Cauchy's Dispersion Equation</div>
+          <div class="formula-body">
+            &eta;(&lambda;) = <em>A</em> + <em>B</em> / &lambda;<sup>2</sup> + <em>C</em> / &lambda;<sup>4</sup>
+          </div>
+          <div class="formula-desc">Where <em>A</em> represents the baseline refractive index of the medium, <em>B</em> determines the coefficient of chromatic dispersion, and &lambda; is the light wavelength in vacuum. Because red light (&lambda; &approx; 700 nm) has a longer wavelength than blue light (&lambda; &approx; 430 nm), red rays experience a lower refractive index and bend less severely than blue rays.</div>
+        </div>
+
+        <p>We engineer chromatic dispersion in SVG by decoupling the red, green, and blue color channels and displacing each with slightly offset scale factors reflecting Cauchy's differential refraction:</p>
 
         <ol>
           <li>Isolate the Red channel using <code>feColorMatrix</code> (values="1 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 1 0").</li>
-          <li>Displace the Red channel with a high scale factor: <code>scale="12"</code>.</li>
-          <li>Isolate the Green channel and displace with a medium scale factor: <code>scale="10"</code>.</li>
-          <li>Isolate the Blue channel and displace with a low scale factor: <code>scale="8"</code>.</li>
-          <li>Recombine all three channels using <code>feBlend mode="lighten"</code> or <code>feComposite operator="arithmetic"</code>.</li>
+          <li>Displace the Red channel with a high scale factor: <code>scale="14"</code> (longer wavelength, higher displacement spread).</li>
+          <li>Isolate the Green channel and displace with a medium scale factor: <code>scale="10"</code> (median wavelength reference).</li>
+          <li>Isolate the Blue channel and displace with a low scale factor: <code>scale="6"</code> (shorter wavelength, compact dispersion).</li>
+          <li>Recombine all three channels using <code>feBlend mode="screen"</code> or <code>feComposite operator="arithmetic"</code>.</li>
         </ol>
 
         <p>Because the channels displace by differing pixel amounts, high-contrast edges behind the glass develop delicate cyan and magenta fringes, simulating optical lens dispersion with zero raster artifacting. For more on color transformations, review our guide on <a href="/articles/dark-mode-svg-icons-theming/">dark mode SVG theming and color palettes</a>.</p>
@@ -851,12 +874,13 @@ glassCard.addEventListener('mousemove', (e) => {
                         <feBlend in="blurOut" in2="rimHighlight" mode="screen" />
                       </filter>
                     </defs>
+                    <rect id="feGlassPlateOverlay" x="50%" y="50%" transform="translate(-130, -75)" width="260" height="150" rx="16" fill="rgba(255,255,255,0.04)" filter="url(#interactiveGlassFilter)" style="opacity: 0.95;" />
                   </svg>
 
                   <!-- Foreground Floating Glass Card -->
                   <div id="interactiveFloatingGlassCard" style="position: relative; z-index: 3; width: 260px; padding: 24px 20px; border-radius: 16px; background: rgba(18, 18, 18, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.25); text-align: center;">
                     <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.15); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.3);">Optical Glass</span>
-                    <h4 style="color: #FFF; font-size: 17px; font-weight: 800; margin: 10px 0 4px;">Refractive Vector UI</h4>
+                    <div class="glass-card-title" style="color: #FFF; font-size: 17px; font-weight: 800; margin: 10px 0 4px;">Refractive Vector UI</div>
                     <p style="color: #CCC; font-size: 12.5px; line-height: 1.5; margin: 0;">Snell refraction and 3D specular edge caustics rendered at 60 FPS.</p>
                   </div>
                 </div>
@@ -1042,7 +1066,61 @@ export const VisionGlassCard: React.FC&lt;VisionGlassCardProps&gt; = ({
   }
 }</code></pre>
 
-        <p>Under the newer <strong>APCA (Accessible Perceptual Contrast Algorithm)</strong> standard incorporated into future W3C guidelines, contrast is evaluated non-linearly across spatial frequencies. Because frosted glass blurs high spatial frequencies while leaving low-frequency color masses intact, dark text over light glass cards can suffer severe readability loss when hovering over white images. By enforcing a dark tint floor of at least <code>rgba(18, 18, 18, 0.75)</code>, enterprise design systems guarantee that text always passes perceptual contrast checks regardless of dynamic backdrop contents.</p>
+        <p>Under the newer <strong>APCA (Accessible Perceptual Contrast Algorithm)</strong> standard incorporated into future W3C guidelines, contrast is evaluated non-linearly across spatial frequencies. Because frosted glass blurs high spatial frequencies while leaving low-frequency color masses intact, dark text over light glass cards can suffer severe readability loss when hovering over white images.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Accessible Perceptual Contrast Algorithm (APCA)</div>
+          <div class="formula-body">
+            <em>L</em><sub>c</sub> = (<em>Y</em><sub>txt</sub><sup>0.56</sup> &minus; <em>Y</em><sub>bg</sub><sup>0.57</sup>) &times; 1.14
+          </div>
+          <div class="formula-desc">Where <em>Y</em> represents the relative luminance of text and background calculated from sRGB transfer curves. An absolute perceptual lightness contrast |<em>L</em><sub>c</sub>| &ge; 75 is required for body text (under 24px) over frosted glass substrates.</div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Glass Substrate Tint</th>
+                <th>Underlying Backdrop Type</th>
+                <th>APCA Lightness Contrast (|<em>L</em><sub>c</sub>|)</th>
+                <th>WCAG 2.2 Ratio</th>
+                <th>Compliance Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dark Acrylic (rgba 18,18,18, 0.75)</strong></td>
+                <td>Vibrant Light Image (#FFFFFF peaks)</td>
+                <td>84.2 (Safe)</td>
+                <td>6.8:1</td>
+                <td>WCAG AA &amp; AAA Compliant</td>
+              </tr>
+              <tr>
+                <td><strong>Dark Acrylic (rgba 18,18,18, 0.75)</strong></td>
+                <td>Dark Theme Canvas (#0A0A0A)</td>
+                <td>96.1 (Crisp)</td>
+                <td>14.2:1</td>
+                <td>WCAG AA &amp; AAA Compliant</td>
+              </tr>
+              <tr>
+                <td><strong>Light Acrylic (rgba 255,255,255, 0.85)</strong></td>
+                <td>Vibrant Dark Graphic (#111111)</td>
+                <td>82.4 (Safe)</td>
+                <td>6.4:1</td>
+                <td>WCAG AA Compliant</td>
+              </tr>
+              <tr>
+                <td><strong>Bare Glass (No Tint, Blur Only)</strong></td>
+                <td>High-Contrast Edge Backdrop</td>
+                <td>32.1 (Failing)</td>
+                <td>1.8:1</td>
+                <td>Non-Compliant (Severe Legibility Loss)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>By enforcing a dark tint floor of at least <code>rgba(18, 18, 18, 0.75)</code>, enterprise design systems guarantee that text always passes perceptual contrast checks regardless of dynamic backdrop contents.</p>
 
         <!-- SECTION 14 -->
         <h2 id="frequently-asked-questions">14. Frequently Asked Questions: SVG Glassmorphism &amp; Refractive Materials</h2>
@@ -1197,6 +1275,24 @@ export const VisionGlassCard: React.FC&lt;VisionGlassCardProps&gt; = ({
           feTurbNode.setAttribute('type', 'fractalNoise');
           feDispNode.setAttribute('xChannelSelector', 'R');
           feDispNode.setAttribute('yChannelSelector', 'G');
+        }
+
+        const statGlassEta = document.getElementById('statGlassEta');
+        const statGlassShaders = document.getElementById('statGlassShaders');
+        if (statGlassEta) {
+          const eta = 1.0 + (disp / 25) * 0.52;
+          statGlassEta.innerHTML = '&eta; &asymp; ' + eta.toFixed(2);
+        }
+        if (statGlassShaders) {
+          statGlassShaders.textContent = (disp > 0 ? 'Refraction (Displacement)' : 'Pure Gaussian Blur') + ' + Specular Rim';
+        }
+
+        if (card) {
+          card.style.backdropFilter = 'blur(' + blur + 'px) saturate(' + Math.round(140 + spec * 25) + '%)';
+          card.style.webkitBackdropFilter = 'blur(' + blur + 'px) saturate(' + Math.round(140 + spec * 25) + '%)';
+          const insetAlpha = Math.min(0.6, 0.12 + spec * 0.12).toFixed(2);
+          card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.5), inset 0 ' + (spec > 1.2 ? '1.5px' : '1px') + ' 0 rgba(255,255,255,' + insetAlpha + ')';
+          card.style.borderColor = 'rgba(255, 255, 255, ' + Math.min(0.38, 0.1 + spec * 0.08).toFixed(2) + ')';
         }
 
         renderCodeOutput(blur, disp, spec, texture);

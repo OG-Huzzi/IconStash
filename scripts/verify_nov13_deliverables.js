@@ -277,7 +277,59 @@ for (const item of deliverables) {
     const articleClean = articleMatch[0].replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
     const articleWords = articleClean.split(/\s+/).filter(w => w.length > 0);
     assert(articleWords.length >= 4000, `Article content body word count (${articleWords.length}) >= 4000 words`);
+
+    // 21. Pure prose word count (excluding code, svg, scripts, styles) >= 4000
+    const pureProse = articleMatch[0].replace(/<(script|style|svg|pre)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ');
+    const pureWords = pureProse.split(/\s+/).filter(w => w.length > 0);
+    assert(pureWords.length >= 4000, `Article pure technical prose word count (${pureWords.length}) >= 4000 words`);
   }
+
+  // 22. Heading Hierarchy Integrity (no jumps like H2 -> H4)
+  const headings = [...content.matchAll(/<(h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi)].map(m => ({
+    tag: m[1].toLowerCase(),
+    text: m[2].replace(/<[^>]+>/g, '').trim()
+  }));
+  let prevLevel = 0;
+  let hasHeadingJumps = false;
+  for (const h of headings) {
+    const level = parseInt(h.tag[1], 10);
+    if (level > prevLevel + 1 && prevLevel > 0) {
+      hasHeadingJumps = true;
+      console.error(`    Heading hierarchy jump in ${item.slug}: H${prevLevel} -> H${level} ("${h.text}")`);
+    }
+    prevLevel = level;
+  }
+  assert(!hasHeadingJumps, `Heading hierarchy in ${item.slug} strictly structured without level skips`);
+
+  // 23. Code block HTML escaping (no unescaped DOM tags inside <code>)
+  const codeBlocks = [...content.matchAll(/<code>([\s\S]*?)<\/code>/gi)];
+  let unescapedTagsCount = 0;
+  for (const cb of codeBlocks) {
+    const rawCode = cb[1];
+    const tags = rawCode.match(/<(g|polygon|text|rect|circle|path)[^>]*>/gi) || [];
+    unescapedTagsCount += tags.length;
+  }
+  assert(unescapedTagsCount === 0, `All code blocks in ${item.slug} properly HTML escaped (found ${unescapedTagsCount} raw unescaped tags)`);
+
+  // 24. Form Control Label Accessibility
+  const formControls = [...content.matchAll(/<(input|select|textarea)[^>]*id=["']([^"']+)["'][^>]*>/gi)].map(m => m[2]);
+  let missingFormLabels = [];
+  for (const cId of formControls) {
+    if (!content.includes(`for="${cId}"`) && !content.includes(`for='${cId}'`)) {
+      missingFormLabels.push(cId);
+    }
+  }
+  assert(missingFormLabels.length === 0, `All ${formControls.length} interactive form controls in ${item.slug} have associated labels`);
+
+  // 25. All hash anchors resolve to target IDs
+  const allHashAnchors = [...content.matchAll(/href=["']#([^"']+)["']/gi)].map(m => m[1]);
+  let missingTargets = [];
+  for (const tId of allHashAnchors) {
+    if (!content.includes(`id="${tId}"`)) {
+      missingTargets.push(tId);
+    }
+  }
+  assert(missingTargets.length === 0, `All ${allHashAnchors.length} hash anchors in ${item.slug} resolve to valid DOM id targets`);
 }
 
 // Site Integration Verification: articles/index.html
