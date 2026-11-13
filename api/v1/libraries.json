@@ -12,7 +12,7 @@
     "npm": "lucide",
     "docsUrl": "https://lucide.dev/icons/",
     "hubUrl": "https://iconstash.io/library/lucide/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/lucide.json"
+    "dataUrl": "https://iconstash.io/data/lucide.json"
   },
   {
     "slug": "tabler",
@@ -27,7 +27,7 @@
     "npm": "@tabler/icons",
     "docsUrl": "https://tabler.io/icons/icon/",
     "hubUrl": "https://iconstash.io/library/tabler/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/tabler.json"
+    "dataUrl": "https://iconstash.io/data/tabler.json"
   },
   {
     "slug": "phosphor",
@@ -42,7 +42,7 @@
     "npm": "@phosphor-icons/core",
     "docsUrl": "https://phosphoricons.com/",
     "hubUrl": "https://iconstash.io/library/phosphor/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/phosphor.json"
+    "dataUrl": "https://iconstash.io/data/phosphor.json"
   },
   {
     "slug": "material",
@@ -57,7 +57,7 @@
     "npm": "@mdi/js",
     "docsUrl": "https://pictogrammers.com/library/mdi/icon/",
     "hubUrl": "https://iconstash.io/library/material/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/material.json"
+    "dataUrl": "https://iconstash.io/data/material.json"
   },
   {
     "slug": "remix",
@@ -72,7 +72,7 @@
     "npm": "remixicon",
     "docsUrl": "https://remixicon.com/icon/",
     "hubUrl": "https://iconstash.io/library/remix/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/remix.json"
+    "dataUrl": "https://iconstash.io/data/remix.json"
   },
   {
     "slug": "iconoir",
@@ -87,7 +87,7 @@
     "npm": "iconoir",
     "docsUrl": "https://iconoir.com/",
     "hubUrl": "https://iconstash.io/library/iconoir/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/iconoir.json"
+    "dataUrl": "https://iconstash.io/data/iconoir.json"
   },
   {
     "slug": "heroicons",
@@ -102,7 +102,7 @@
     "npm": "heroicons",
     "docsUrl": "https://heroicons.com/",
     "hubUrl": "https://iconstash.io/library/heroicons/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/heroicons.json"
+    "dataUrl": "https://iconstash.io/data/heroicons.json"
   },
   {
     "slug": "bootstrap",
@@ -117,7 +117,7 @@
     "npm": "bootstrap-icons",
     "docsUrl": "https://icons.getbootstrap.com/icons/",
     "hubUrl": "https://iconstash.io/library/bootstrap/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/bootstrap.json"
+    "dataUrl": "https://iconstash.io/data/bootstrap.json"
   },
   {
     "slug": "feather",
@@ -132,7 +132,7 @@
     "npm": "feather-icons",
     "docsUrl": "https://feathericons.com/?query=",
     "hubUrl": "https://iconstash.io/library/feather/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/feather.json"
+    "dataUrl": "https://iconstash.io/data/feather.json"
   },
   {
     "slug": "mingcute",
@@ -147,7 +147,7 @@
     "npm": "mingcute_icon",
     "docsUrl": "https://www.mingcute.com/",
     "hubUrl": "https://iconstash.io/library/mingcute/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/mingcute.json"
+    "dataUrl": "https://iconstash.io/data/mingcute.json"
   },
   {
     "slug": "solar",
@@ -162,7 +162,7 @@
     "npm": "solar-icon-set",
     "docsUrl": "https://www.figma.com/community/file/1166831539721848736",
     "hubUrl": "https://iconstash.io/library/solar/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/solar.json"
+    "dataUrl": "https://iconstash.io/data/solar.json"
   },
   {
     "slug": "octicons",
@@ -177,7 +177,7 @@
     "npm": "@primer/octicons",
     "docsUrl": "https://primer.style/foundations/icons/",
     "hubUrl": "https://iconstash.io/library/octicons/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/octicons.json"
+    "dataUrl": "https://iconstash.io/data/octicons.json"
   },
   {
     "slug": "cssgg",
@@ -192,7 +192,7 @@
     "npm": "css.gg",
     "docsUrl": "https://css.gg/",
     "hubUrl": "https://iconstash.io/library/cssgg/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/cssgg.json"
+    "dataUrl": "https://iconstash.io/data/cssgg.json"
   },
   {
     "slug": "radix",
@@ -207,7 +207,7 @@
     "npm": "@radix-ui/react-icons",
     "docsUrl": "https://www.radix-ui.com/icons",
     "hubUrl": "https://iconstash.io/library/radix/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/radix.json"
+    "dataUrl": "https://iconstash.io/data/radix.json"
   },
   {
     "slug": "antdesign",
@@ -222,7 +222,7 @@
     "npm": "@ant-design/icons",
     "docsUrl": "https://ant.design/components/icon",
     "hubUrl": "https://iconstash.io/library/antdesign/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/antdesign.json"
+    "dataUrl": "https://iconstash.io/data/antdesign.json"
   },
   {
     "slug": "fluent",
@@ -237,7 +237,7 @@
     "npm": "@fluentui/svg-icons",
     "docsUrl": "https://github.com/microsoft/fluentui-system-icons",
     "hubUrl": "https://iconstash.io/library/fluent/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/fluent.json"
+    "dataUrl": "https://iconstash.io/data/fluent.json"
   },
   {
     "slug": "carbon",
@@ -252,7 +252,7 @@
     "npm": "@carbon/icons",
     "docsUrl": "https://carbondesignsystem.com/elements/icons/library/",
     "hubUrl": "https://iconstash.io/library/carbon/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/carbon.json"
+    "dataUrl": "https://iconstash.io/data/carbon.json"
   },
   {
     "slug": "ionicons",
@@ -267,7 +267,7 @@
     "npm": "ionicons",
     "docsUrl": "https://ionic.io/ionicons",
     "hubUrl": "https://iconstash.io/library/ionicons/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/ionicons.json"
+    "dataUrl": "https://iconstash.io/data/ionicons.json"
   },
   {
     "slug": "eva",
@@ -282,7 +282,7 @@
     "npm": "eva-icons",
     "docsUrl": "https://akveo.github.io/eva-icons/",
     "hubUrl": "https://iconstash.io/library/eva/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/eva.json"
+    "dataUrl": "https://iconstash.io/data/eva.json"
   },
   {
     "slug": "boxicons",
@@ -297,7 +297,7 @@
     "npm": "boxicons",
     "docsUrl": "https://boxicons.com/",
     "hubUrl": "https://iconstash.io/library/boxicons/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/boxicons.json"
+    "dataUrl": "https://iconstash.io/data/boxicons.json"
   },
   {
     "slug": "materialsymbols",
@@ -312,7 +312,7 @@
     "npm": "material-symbols",
     "docsUrl": "https://fonts.google.com/icons",
     "hubUrl": "https://iconstash.io/library/materialsymbols/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/materialsymbols.json"
+    "dataUrl": "https://iconstash.io/data/materialsymbols.json"
   },
   {
     "slug": "materialsymbolslight",
@@ -327,7 +327,7 @@
     "npm": "material-symbols",
     "docsUrl": "https://fonts.google.com/icons",
     "hubUrl": "https://iconstash.io/library/materialsymbolslight/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/materialsymbolslight.json"
+    "dataUrl": "https://iconstash.io/data/materialsymbolslight.json"
   },
   {
     "slug": "iconparkoutline",
@@ -342,7 +342,7 @@
     "npm": "@icon-park/svg",
     "docsUrl": "https://iconpark.oceanengine.com/official",
     "hubUrl": "https://iconstash.io/library/iconparkoutline/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/iconparkoutline.json"
+    "dataUrl": "https://iconstash.io/data/iconparkoutline.json"
   },
   {
     "slug": "iconparksolid",
@@ -357,7 +357,7 @@
     "npm": "@icon-park/svg",
     "docsUrl": "https://iconpark.oceanengine.com/official",
     "hubUrl": "https://iconstash.io/library/iconparksolid/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/iconparksolid.json"
+    "dataUrl": "https://iconstash.io/data/iconparksolid.json"
   },
   {
     "slug": "hugeicons",
@@ -372,7 +372,7 @@
     "npm": "hugeicons",
     "docsUrl": "https://hugeicons.com/icons",
     "hubUrl": "https://iconstash.io/library/hugeicons/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/hugeicons.json"
+    "dataUrl": "https://iconstash.io/data/hugeicons.json"
   },
   {
     "slug": "pixelarticons",
@@ -387,7 +387,7 @@
     "npm": "pixelarticons",
     "docsUrl": "https://pixelarticons.com/",
     "hubUrl": "https://iconstash.io/library/pixelarticons/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/pixelarticons.json"
+    "dataUrl": "https://iconstash.io/data/pixelarticons.json"
   },
   {
     "slug": "linemd",
@@ -402,7 +402,7 @@
     "npm": "line-md",
     "docsUrl": "https://icon-sets.iconify.design/line-md/",
     "hubUrl": "https://iconstash.io/library/linemd/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/linemd.json"
+    "dataUrl": "https://iconstash.io/data/linemd.json"
   },
   {
     "slug": "simpleicons",
@@ -417,6 +417,6 @@
     "npm": "simple-icons",
     "docsUrl": "https://simpleicons.org/",
     "hubUrl": "https://iconstash.io/library/simpleicons/",
-    "dataUrl": "https://iconstash.io/api/v1/libraries/simpleicons.json"
+    "dataUrl": "https://iconstash.io/data/simpleicons.json"
   }
 ]

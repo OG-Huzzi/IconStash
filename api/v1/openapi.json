@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "https://iconstash.io/api/v1",
+      "url": "https://iconstash.io",
       "description": "Production (static, CDN-cached)"
     }
   ],
@@ -28,7 +28,7 @@
     }
   ],
   "paths": {
-    "/manifest.json": {
+    "/api/v1/manifest.json": {
       "get": {
         "tags": [
           "catalogue"
@@ -49,7 +49,7 @@
         }
       }
     },
-    "/libraries.json": {
+    "/api/v1/libraries.json": {
       "get": {
         "tags": [
           "catalogue"
@@ -119,7 +119,7 @@
         }
       }
     },
-    "/index.json": {
+    "/api/v1/index.json": {
       "get": {
         "tags": [
           "icons"
@@ -140,12 +140,12 @@
         }
       }
     },
-    "/libraries/{slug}.json": {
+    "/data/{slug}.json": {
       "get": {
         "tags": [
           "icons"
         ],
-        "summary": "All icons in one library",
+        "summary": "All icons in one library (existing public data file)",
         "operationId": "getLibrary",
         "parameters": [
           {
@@ -230,7 +230,7 @@
         }
       }
     },
-    "/openapi.json": {
+    "/api/v1/openapi.json": {
       "get": {
         "tags": [
           "catalogue"

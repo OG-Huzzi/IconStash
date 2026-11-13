@@ -1,9 +1,9 @@
 /**
  * generate-api.js — builds the small static files for the public IconStash API.
  *
- * The API deliberately adds NO icon data. Library payloads are served by an
- * Apache rewrite from the existing data/<slug>.json files, so this script only
- * writes three small metadata documents under api/v1/:
+ * The API deliberately adds NO icon data. Library payloads are the site's
+ * existing public data/<slug>.json files served directly (no rewrite, no copy),
+ * so this script only writes the small metadata documents under api/v1/:
  *
  *   api/v1/manifest.json   service metadata, counts, licences, endpoints
  *   api/v1/libraries.json  the 28-library catalogue (with licences)
@@ -89,7 +89,7 @@ const libraries = (index.libraries || []).map((lib) => {
     npm: lib.npmPackage || null,
     docsUrl: lib.docsUrl || null,
     hubUrl: `${SITE}/library/${lib.slug}/`,
-    dataUrl: `${BASE}/libraries/${lib.slug}.json`
+    dataUrl: `${SITE}/data/${lib.slug}.json`
   };
 });
 
@@ -102,7 +102,7 @@ const endpoints = [
   { path: '/api/v1/manifest.json', description: 'Service metadata, version and endpoint list.' },
   { path: '/api/v1/libraries.json', description: 'The 28-library catalogue with licences.' },
   { path: '/api/v1/index.json', description: 'Compact search index over all icons (no SVG data).' },
-  { path: '/api/v1/libraries/{slug}.json', description: 'Full icon array for one library.' },
+  { path: '/data/{slug}.json', description: 'Full icon array for one library (existing public data file, no copy).' },
   { path: '/api/v1/openapi.json', description: 'OpenAPI 3.1 description of this API.' }
 ];
 
@@ -176,30 +176,30 @@ const openapi = {
     contact: { name: 'IconStash', url: `${SITE}/contact/` },
     license: { name: 'See per-library licence', url: `${SITE}/terms/` }
   },
-  servers: [{ url: BASE, description: 'Production (static, CDN-cached)' }],
+  servers: [{ url: SITE, description: 'Production (static, CDN-cached)' }],
   tags: [{ name: 'catalogue' }, { name: 'icons' }],
   paths: {
-    '/manifest.json': {
+    '/api/v1/manifest.json': {
       get: { tags: ['catalogue'], summary: 'Service manifest', operationId: 'getManifest',
         responses: { 200: { description: 'OK', content: { 'application/json': { schema: { type: 'object' } } } } } }
     },
-    '/libraries.json': {
+    '/api/v1/libraries.json': {
       get: { tags: ['catalogue'], summary: 'List all icon libraries', operationId: 'listLibraries',
         responses: { 200: { description: 'OK', content: { 'application/json': { schema: { type: 'array', items: librarySchema } } } } } }
     },
-    '/index.json': {
+    '/api/v1/index.json': {
       get: { tags: ['icons'], summary: 'Compact search index over all icons', operationId: 'getIndex',
         responses: { 200: { description: 'OK', content: { 'application/json': { schema: { type: 'object' } } } } } }
     },
-    '/libraries/{slug}.json': {
-      get: { tags: ['icons'], summary: 'All icons in one library', operationId: 'getLibrary',
+    '/data/{slug}.json': {
+      get: { tags: ['icons'], summary: 'All icons in one library (existing public data file)', operationId: 'getLibrary',
         parameters: [{ name: 'slug', in: 'path', required: true, schema: { type: 'string' }, description: 'Library slug, e.g. lucide' }],
         responses: {
           200: { description: 'OK', content: { 'application/json': { schema: { type: 'array', items: iconSchema } } } },
           404: { description: 'Unknown library' }
         } }
     },
-    '/openapi.json': {
+    '/api/v1/openapi.json': {
       get: { tags: ['catalogue'], summary: 'This document', operationId: 'getOpenApi',
         responses: { 200: { description: 'OK', content: { 'application/json': { schema: { type: 'object' } } } } } }
     }
@@ -273,4 +273,4 @@ const sizes = {
 console.log('IconStash static API generated:');
 for (const [file, bytes] of Object.entries(sizes)) console.log(`  ${file}  ${(bytes / 1024).toFixed(1)} KB`);
 console.log(`  libraries: ${libraries.length}, icons: ${totalIcons.toLocaleString('en-US')}`);
-console.log('  library payloads served by .htaccess rewrite from data/<slug>.json (no new icon data)');
+console.log('  library payloads are the existing data/<slug>.json files (no copy, no rewrite)');

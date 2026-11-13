@@ -1030,6 +1030,36 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 .density-toggle { display: inline-flex; padding: 3px; border: 1px solid var(--glass-border); background: var(--glass-1); border-radius: 10px; }
 .density-btn { width: 32px; height: 30px; }
 .density-btn svg { width: 16px; height: 16px; }
+/* Free API & MCP callout: visible next to the grid-density controls so
+   developers notice the distribution channel without leaving the grid. */
+.toolbar-api-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--glass-border-bright);
+  border-radius: 10px;
+  background: var(--glass-2);
+  color: var(--text-secondary);
+  font: 600 12px var(--font-mono);
+  letter-spacing: .02em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+.toolbar-api-link::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--neon-green, #c1dd2d);
+  box-shadow: 0 0 6px 1px var(--neon-green, #c1dd2d);
+}
+.toolbar-api-link:hover, .toolbar-api-link:focus-visible {
+  background: var(--glass-3);
+  color: var(--text-primary);
+  border-color: var(--neon-green, #c1dd2d);
+}
 .top-ad { flex: 0 0 90px; }
 .error-card {
   display: flex;

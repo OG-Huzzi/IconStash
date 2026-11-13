@@ -80,8 +80,8 @@ The MCP server is a **local process on your machine**. IconStash hosts nothing f
 curl https://iconstash.io/api/v1/manifest.json
 curl https://iconstash.io/api/v1/libraries.json
 curl https://iconstash.io/api/v1/index.json
-curl https://iconstash.io/api/v1/libraries/lucide.json
 curl https://iconstash.io/api/v1/openapi.json
+curl https://iconstash.io/data/lucide.json
 ```
 
 All responses are UTF-8 JSON with `Access-Control-Allow-Origin: *`. See [the API docs](https://iconstash.io/api/).
@@ -98,4 +98,4 @@ From the IconStash repo root:
 node scripts/generate-api.js
 ```
 
-This rebuilds `api/v1/manifest.json`, `libraries.json`, `index.json` and `openapi.json` from the existing `data/*.json` files. It adds no icon data — library payloads are served directly from `data/` via an Apache rewrite.
+This rebuilds `api/v1/manifest.json`, `libraries.json`, `index.json` and `openapi.json` from the existing `data/*.json` files. It adds no icon data — library payloads are the existing public `data/<slug>.json` files served directly (no copy, no rewrite).

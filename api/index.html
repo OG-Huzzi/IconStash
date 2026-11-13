@@ -70,7 +70,7 @@ curl https://iconstash.io/api/v1/manifest.json
 curl https://iconstash.io/api/v1/libraries.json
 
 <span class="c"># Every icon in one library (full SVG data)</span>
-curl https://iconstash.io/api/v1/libraries/lucide.json
+curl https://iconstash.io/data/lucide.json
 
 <span class="c"># Compact search index</span>
 curl https://iconstash.io/api/v1/index.json</pre>
@@ -82,12 +82,12 @@ curl https://iconstash.io/api/v1/index.json</pre>
               <tr><td><code>/api/v1/manifest.json</code></td><td>Version, counts, licences, endpoint list, SDK/MCP pointers</td></tr>
               <tr><td><code>/api/v1/libraries.json</code></td><td>28 libraries: name, slug, count, licence, npm, docs URL</td></tr>
               <tr><td><code>/api/v1/index.json</code></td><td>Compact search index over all 134,701 icons (no SVG data)</td></tr>
-              <tr><td><code>/api/v1/libraries/{slug}.json</code></td><td>Full icon array for one library, including <code>svgPath</code> and <code>viewBox</code></td></tr>
+              <tr><td><code>/data/{slug}.json</code></td><td>Full icon array for one library (existing public data file), including <code>svgPath</code> and <code>viewBox</code></td></tr>
               <tr><td><code>/api/v1/openapi.json</code></td><td>OpenAPI 3.1 machine-readable specification</td></tr>
             </tbody>
           </table>
 
-          <div class="api-note">Library payloads are served directly from the site's existing <code>data/</code> files. The API adds no duplicate icon data, so the repository stays small.</div>
+          <div class="api-note">Library payloads are the site's existing public <code>data/</code> files, served directly — no copy, no rewrite — so the repository stays small.</div>
 
           <h2>JavaScript SDK</h2>
           <div class="api-card">

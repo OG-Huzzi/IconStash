@@ -94,23 +94,10 @@ function createClient(options = {}) {
   async function library(slug) {
     const key = normalize(slug);
     if (!caches.payloads.has(key)) {
+      // Library payloads are the site's existing public data files — no copy,
+      // no rewrite, fully static and CDN-cached.
       const siteRoot = base.replace(/\/api\/v1\/?$/, '');
-      const primary = `${base}/libraries/${encodeURIComponent(key)}.json`;
-      const fallback = `${siteRoot}/data/${encodeURIComponent(key)}.json`;
-      // Some hosts serve /api/v1/libraries/<slug>.json via an Apache rewrite;
-      // if that rewrite is unavailable, fall back to the public data/ file so
-      // the SDK still works with zero configuration.
-      caches.payloads.set(key, (async () => {
-        try {
-          return await getJson(primary);
-        } catch (error) {
-          try {
-            return await getJson(fallback);
-          } catch (_) {
-            throw error;
-          }
-        }
-      })());
+      caches.payloads.set(key, getJson(`${siteRoot}/data/${encodeURIComponent(key)}.json`));
     }
     return caches.payloads.get(key);
   }
@@ -158,13 +145,14 @@ function createClient(options = {}) {
     if (!icon) throw new Error(`Icon not found: ${key}`);
     const libs = await libraries();
     const meta = libs.find((entry) => entry.slug === slug) || {};
+    const siteRoot = base.replace(/\/api\/v1\/?$/, '');
     return {
       ...icon,
       license: meta.license || null,
       attributionRequired: meta.attributionRequired === true,
       libraryName: meta.name || slug,
       url: `https://iconstash.io/icons/${key}/`,
-      dataUrl: `${base}/libraries/${slug}.json`
+      dataUrl: `${siteRoot}/data/${slug}.json`
     };
   }
 

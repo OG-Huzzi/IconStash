@@ -7,7 +7,7 @@
   "description": "Free, keyless, read-only access to 134,701 open-source SVG icons across 28 libraries. No signup, no rate limit, CORS enabled.",
   "licenseNote": "Icons belong to their upstream authors. Check the per-library licence; only CC BY 4.0 sets require attribution.",
   "dataSnapshot": "2026-05-05T15:07:40.341Z",
-  "generatedAt": "2026-11-10",
+  "generatedAt": "2026-11-13",
   "counts": {
     "libraries": 28,
     "icons": 134701,
@@ -28,8 +28,8 @@
       "description": "Compact search index over all icons (no SVG data)."
     },
     {
-      "path": "/api/v1/libraries/{slug}.json",
-      "description": "Full icon array for one library."
+      "path": "/data/{slug}.json",
+      "description": "Full icon array for one library (existing public data file, no copy)."
     },
     {
       "path": "/api/v1/openapi.json",

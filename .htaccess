@@ -26,17 +26,6 @@ DirectoryIndex index.php index.html
   RewriteCond %{REQUEST_URI} !^/Glossary/
   RewriteRule ^glossary/(.*)$ /Glossary/$1 [L,R=301,NC]
 
-  # --- Public static API ---
-  # /api/v1/libraries/<slug>.json is served by the EXISTING data/<slug>.json
-  # file. This is why the API adds no duplicate icon data to the repository:
-  # the 28 payloads (140 MB) are not copied. Slugs are strictly lowercase
-  # alphanumerics, which also blocks path traversal.
-  # NOTE: the substitution is RELATIVE (no leading slash). In per-directory
-  # .htaccess context a leading slash on an INTERNAL rewrite is resolved as a
-  # filesystem path, which 404s. External redirects above can use a leading
-  # slash safely; this internal one cannot.
-  RewriteRule ^api/v1/libraries/([a-z0-9]+)\.json$ data/$1.json [L,NC]
-
   # Never expose auto-generated directory listings. A directory with no index
   # file (e.g. /sitemaps/) otherwise returns a 200 "Index of /..." page that
   # leaks file names and mtimes to crawlers. Done with mod_rewrite rather than
@@ -82,9 +71,8 @@ AddDefaultCharset UTF-8
 
   # --- Public static API: CORS ---
   # A blanket rule on .json is deliberate: every JSON file on this site is
-  # public static data, and /api/v1/libraries/<slug>.json is internally
-  # rewritten to /data/<slug>.json (REQUEST_URI changes, so a path-scoped
-  # rule would miss the final response). This is the reliable form.
+  # public static data (including the /data/ library payloads served directly
+  # to API clients). No internal rewrite is used.
   <FilesMatch "\.json$">
     Header always set Access-Control-Allow-Origin "*"
     Header always set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
