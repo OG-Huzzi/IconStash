@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IconStash API - Free, keyless SVG icon API</title>
-  <meta name="description" content="Free, keyless, read-only API for 134,701 open-source SVG icons across 28 libraries. No signup, no rate limit, CORS enabled, plus an MCP server for AI assistants.">
+  <meta name="description" content="Free, keyless, read-only API for 134,701 open-source SVG icons across 28 libraries. No signup, no rate limit, CORS enabled, plus a single-file MCP server for AI assistants.">
   <link rel="canonical" href="https://iconstash.io/api/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="stylesheet" href="/style.css?v=20261109-grid-default">
+  <link rel="stylesheet" href="/style.css?v=20261113-api-mcp">
   <style>
     .api-wrap{max-width:940px;margin:0 auto;padding:40px 24px 80px;line-height:1.7}
     .api-wrap h1{font-size:clamp(30px,5vw,46px);font-weight:900;letter-spacing:-.02em;margin:0 0 10px}
@@ -52,15 +52,15 @@
           <h1>IconStash API</h1>
           <p class="api-lead">Free, keyless, read-only access to 134,701 open-source SVG icons across 28 libraries. No signup, no API key, no rate limit.</p>
           <div class="api-badges">
-            <span class="api-badge">REST-style static JSON</span>
+            <span class="api-badge">Static JSON</span>
             <span class="api-badge">CORS enabled</span>
             <span class="api-badge">No auth</span>
             <span class="api-badge">OpenAPI 3.1</span>
-            <span class="api-badge">MCP server</span>
+            <span class="api-badge">Single-file MCP server</span>
             <span class="api-badge">Free forever</span>
           </div>
 
-          <p>The API is a small set of static JSON files on the same CDN as the site. There is no application server behind it — which is why it can be free, unlimited and always available. Search runs locally in the SDK or MCP server over a compact index (~1 MB gzipped); full SVG data is fetched only for the library you pick.</p>
+          <p>The API is a small set of static JSON files on the same CDN as the site. There is no application server behind it &mdash; which is why it can be free, unlimited and always available. Search runs locally in the SDK or MCP server over a compact index (~1 MB gzipped); full SVG data is fetched only for the library you pick.</p>
 
           <h2>Quick start</h2>
           <pre><span class="c"># Service metadata</span>
@@ -73,7 +73,10 @@ curl https://iconstash.io/api/v1/libraries.json
 curl https://iconstash.io/data/lucide.json
 
 <span class="c"># Compact search index</span>
-curl https://iconstash.io/api/v1/index.json</pre>
+curl https://iconstash.io/api/v1/index.json
+
+<span class="c"># The MCP server as one runnable file</span>
+curl -O https://iconstash.io/api/iconstash-mcp.js</pre>
 
           <h2>Endpoints</h2>
           <table>
@@ -84,17 +87,19 @@ curl https://iconstash.io/api/v1/index.json</pre>
               <tr><td><code>/api/v1/index.json</code></td><td>Compact search index over all 134,701 icons (no SVG data)</td></tr>
               <tr><td><code>/data/{slug}.json</code></td><td>Full icon array for one library (existing public data file), including <code>svgPath</code> and <code>viewBox</code></td></tr>
               <tr><td><code>/api/v1/openapi.json</code></td><td>OpenAPI 3.1 machine-readable specification</td></tr>
+              <tr><td><code>/api/iconstash-mcp.js</code></td><td>Single-file MCP server (runs locally with Node 18+)</td></tr>
+              <tr><td><code>/api/iconstash-sdk.js</code></td><td>Single-file JavaScript SDK (zero dependencies)</td></tr>
             </tbody>
           </table>
 
-          <div class="api-note">Library payloads are the site's existing public <code>data/</code> files, served directly — no copy, no rewrite — so the repository stays small.</div>
+          <div class="api-note">Library payloads are the site's existing public <code>data/</code> files, served directly &mdash; no copy, no rewrite &mdash; so the repository stays small.</div>
 
           <h2>JavaScript SDK</h2>
           <div class="api-card">
-            <h3>Zero dependencies, Node 18+ and browsers</h3>
-            <pre>npm install @iconstash/sdk
-
-const { createClient } = require('@iconstash/sdk');
+            <h3>One file, zero dependencies</h3>
+            <pre><span class="c"># download it next to your script</span>
+curl -O https://iconstash.io/api/iconstash-sdk.js</pre>
+            <pre>const { createClient } = require('./iconstash-sdk.js');
 const icons = createClient();
 
 const hits = await icons.search('camera', { library: 'lucide', limit: 5 });
@@ -104,16 +109,19 @@ const jsx  = await icons.snippet('lucide-camera', 'jsx');
 
 <span class="c">// Unique to IconStash: one concept, all 28 libraries</span>
 const variants = await icons.compare('camera');</pre>
-            <p>Available: <code>manifest()</code>, <code>libraries()</code>, <code>library(slug)</code>, <code>search()</code>, <code>getIcon()</code>, <code>svg()</code>, <code>snippet()</code>, <code>compare()</code>. Point at your own copy with <code>createClient({ base })</code>.</p>
+            <p>Available: <code>manifest()</code>, <code>libraries()</code>, <code>library(slug)</code>, <code>search()</code>, <code>getIcon()</code>, <code>svg()</code>, <code>snippet()</code>, <code>compare()</code>. Point at your own copy with <code>createClient({ base })</code>. Source package: <a href="https://github.com/OG-Huzzi/IconStash/tree/main/packages/iconstash">packages/iconstash</a>.</p>
           </div>
 
           <h2>MCP server for AI assistants</h2>
-          <p>Let Claude, Cursor, VS Code or any MCP client search and fetch icons directly inside your editor. It runs as a local process on your machine — IconStash hosts nothing for it.</p>
+          <p>Let Claude, Cursor, VS Code or any MCP client search and fetch icons directly inside your editor. It runs as a local process on your machine &mdash; IconStash hosts nothing for it, and there is nothing to install beyond Node 18+.</p>
+          <pre><span class="c"># one file, no package manager</span>
+curl -O https://iconstash.io/api/iconstash-mcp.js</pre>
+          <p>Point your client at the downloaded file (use its absolute path):</p>
           <pre>{
   "mcpServers": {
     "iconstash": {
-      "command": "npx",
-      "args": ["-y", "@iconstash/sdk", "iconstash-mcp"]
+      "command": "node",
+      "args": ["/absolute/path/to/iconstash-mcp.js"]
     }
   }
 }</pre>
@@ -129,13 +137,13 @@ const variants = await icons.compare('camera');</pre>
           </table>
 
           <h2>Licences</h2>
-          <p>Icons belong to their upstream authors. Every record carries a <code>license</code> and an <code>attributionRequired</code> flag. All sets except Solar Icons (CC BY 4.0) are MIT, Apache 2.0, ISC or CC0 and require no attribution. Check the <a href="/terms/">terms</a> and each library's own licence before commercial use.</p>
+          <p>Icons belong to their upstream authors. Every library record carries a <code>license</code> and an <code>attributionRequired</code> flag, and <code>getIcon()</code> adds both to the icon. All sets except Solar Icons (CC BY 4.0) are MIT, Apache 2.0, ISC or CC0 and require no attribution. Check the <a href="/terms/">terms</a> and each library's own licence before commercial use.</p>
 
           <h2>Terms of use</h2>
-          <p>No authentication, no rate limit and no cost. Responses carry <code>Access-Control-Allow-Origin: *</code> so they work from browsers and build tools. Please cache responses and avoid re-downloading the full index on every request — it is versioned and CDN-cached.</p>
+          <p>No authentication, no rate limit and no cost. Responses carry <code>Access-Control-Allow-Origin: *</code> so they work from browsers and build tools. Please cache responses and avoid re-downloading the full index on every request &mdash; it is versioned and CDN-cached.</p>
 
           <div class="api-foot">
-            <a href="/">IconStash</a> &middot; <a href="/api/v1/openapi.json">OpenAPI spec</a> &middot; <a href="/llms.txt">llms.txt</a> &middot; <a href="mailto:heybro@iconstash.io">Contact</a>
+            <a href="/">IconStash</a> &middot; <a href="/api/v1/openapi.json">OpenAPI spec</a> &middot; <a href="/llms.txt">llms.txt</a> &middot; <a href="https://github.com/OG-Huzzi/IconStash">GitHub</a> &middot; <a href="mailto:heybro@iconstash.io">Contact</a>
           </div>
 
         </div>

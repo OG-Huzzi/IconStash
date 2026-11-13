@@ -103,7 +103,7 @@ async function callTool(client, name, args) {
       if (args.size) opts.size = Number(args.size);
       if (args.strokeWidth != null) opts.strokeWidth = Number(args.strokeWidth);
       const markup = await client.svg(args.id, opts);
-      return textResult(format === 'svg' ? markup : await client.snippet(args.id, format));
+      return textResult(format === 'svg' ? markup : await client.snippet(args.id, format, opts));
     }
     case 'compare_concept': {
       if (!args || !String(args.concept || '').trim()) throw new Error('concept is required');
@@ -158,6 +158,13 @@ async function handle(message, client) {
 function main() {
   const client = createClient({ base: process.env.ICONSTASH_API_BASE || undefined });
   let buffer = '';
+  let pending = 0;
+  let stdinEnded = false;
+  // Do not exit on stdin end while a tool call is still fetching: a client that
+  // writes a request and immediately closes stdin would otherwise lose the reply.
+  const maybeExit = () => {
+    if (stdinEnded && pending === 0) process.exit(0);
+  };
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', (chunk) => {
     buffer += chunk;
@@ -168,14 +175,23 @@ function main() {
       if (!line) continue;
       let message;
       try { message = JSON.parse(line); } catch (_) { continue; }
-      Promise.resolve(handle(message, client)).catch((error) => {
-        if (message && message.id !== undefined && message.id !== null) {
-          replyError(message.id, -32603, String(error && error.message ? error.message : error));
-        }
-      });
+      pending += 1;
+      Promise.resolve(handle(message, client))
+        .catch((error) => {
+          if (message && message.id !== undefined && message.id !== null) {
+            replyError(message.id, -32603, String(error && error.message ? error.message : error));
+          }
+        })
+        .finally(() => {
+          pending -= 1;
+          maybeExit();
+        });
     }
   });
-  process.stdin.on('end', () => process.exit(0));
+  process.stdin.on('end', () => {
+    stdinEnded = true;
+    maybeExit();
+  });
 }
 
 main();

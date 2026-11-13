@@ -72,6 +72,44 @@ function writeJson(rel, value) {
   return Buffer.byteLength(body);
 }
 
+function writeRaw(rel, body) {
+  const dest = path.join(ROOT, rel);
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  fs.writeFileSync(dest, body, 'utf8');
+  return Buffer.byteLength(body);
+}
+
+// Build the two one-file downloads the docs point at. The npm package is the
+// source of truth; these bundles just make the SDK and MCP server usable
+// without a package manager (the API stays frontend-only either way).
+function buildStandaloneFiles() {
+  const sdk = fs.readFileSync(path.join(ROOT, 'packages', 'iconstash', 'index.js'), 'utf8');
+  const mcp = fs.readFileSync(path.join(ROOT, 'packages', 'iconstash', 'mcp.js'), 'utf8');
+
+  const sdkBundle = '// IconStash SDK — generated single-file build. Do not edit.\n' +
+    '// Source: packages/iconstash/index.js. Regenerate: node scripts/generate-api.js\n\n' +
+    sdk;
+
+  const sdkBody = sdk
+    .replace(/^'use strict';\s*/, '')
+    .replace(/\nmodule\.exports\s*=\s*\{[\s\S]*?\};\s*$/, '\n');
+  const mcpBody = mcp
+    .replace(/^#![^\n]*\n/, '')
+    .replace(/^'use strict';\s*/, '')
+    .replace(/const \{ createClient \} = require\('\.\/index\.js'\);\s*/, '');
+
+  const mcpBundle = '#!/usr/bin/env node\n' +
+    '// IconStash MCP server — generated single-file build. Do not edit.\n' +
+    '// Source: packages/iconstash/{index.js,mcp.js}. Regenerate: node scripts/generate-api.js\n' +
+    '// Usage: node iconstash-mcp.js (Node 18+, no install, no API key)\n' +
+    "'use strict';\n\n" + sdkBody + '\n' + mcpBody;
+
+  return {
+    'api/iconstash-sdk.js': writeRaw('api/iconstash-sdk.js', sdkBundle),
+    'api/iconstash-mcp.js': writeRaw('api/iconstash-mcp.js', mcpBundle)
+  };
+}
+
 const index = readJson('data/index.json');
 const libraries = (index.libraries || []).map((lib) => {
   const meta = META[lib.slug] || {};
@@ -123,8 +161,16 @@ const manifest = {
     attributionRequiredIcons: totalIcons - zeroAttribution
   },
   endpoints,
-  sdk: { name: '@iconstash/sdk', location: 'packages/iconstash/' },
-  mcp: { name: '@iconstash/sdk (iconstash-mcp binary)', location: 'packages/iconstash/mcp.js' },
+  sdk: {
+    name: '@iconstash/sdk',
+    location: 'packages/iconstash/',
+    downloadUrl: `${SITE}/api/iconstash-sdk.js`
+  },
+  mcp: {
+    name: 'iconstash-mcp',
+    location: 'packages/iconstash/mcp.js',
+    downloadUrl: `${SITE}/api/iconstash-mcp.js`
+  },
   terms: {
     authentication: 'none',
     rateLimit: 'none',
@@ -267,10 +313,12 @@ const sizes = {
   'api/v1/manifest.json': writeJson('api/v1/manifest.json', manifest),
   'api/v1/libraries.json': writeJson('api/v1/libraries.json', libraries),
   'api/v1/index.json': writeJson('api/v1/index.json', compactIndex),
-  'api/v1/openapi.json': writeJson('api/v1/openapi.json', openapi)
+  'api/v1/openapi.json': writeJson('api/v1/openapi.json', openapi),
+  ...buildStandaloneFiles()
 };
 
 console.log('IconStash static API generated:');
 for (const [file, bytes] of Object.entries(sizes)) console.log(`  ${file}  ${(bytes / 1024).toFixed(1)} KB`);
 console.log(`  libraries: ${libraries.length}, icons: ${totalIcons.toLocaleString('en-US')}`);
 console.log('  library payloads are the existing data/<slug>.json files (no copy, no rewrite)');
+console.log('  standalone SDK/MCP downloads are generated from packages/iconstash');

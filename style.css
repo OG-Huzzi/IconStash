@@ -3557,3 +3557,188 @@ summary:focus-visible,
   pointer-events: none;
 }
 
+
+/* Developer offer band on the landing page. The API and MCP server are a
+   first-class part of the site, not just a link hidden in the grid toolbar. */
+.api-promo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 38px;
+  padding: 24px;
+  border: 1px solid var(--glass-border-bright);
+  border-radius: var(--radius-panel);
+  background:
+    radial-gradient(120% 160% at 0% 0%, rgba(193, 221, 45, 0.10), transparent 55%),
+    radial-gradient(100% 130% at 100% 100%, rgba(0, 195, 255, 0.07), transparent 60%),
+    var(--glass-1);
+  overflow: hidden;
+}
+.api-promo-copy { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.api-promo-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 600 11px var(--font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--neon-green);
+}
+.api-promo-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--neon-green);
+  box-shadow: 0 0 8px 1px var(--neon-green);
+}
+.api-promo h2 {
+  margin: 10px 0;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.15;
+}
+.api-promo p {
+  margin: 0;
+  max-width: 560px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.api-promo-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 18px;
+}
+.api-promo-cta { display: inline-flex; align-items: center; text-decoration: none; }
+.api-promo-spec {
+  color: var(--text-secondary);
+  font: 600 12px var(--font-mono);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--glass-border-bright);
+  padding-bottom: 2px;
+}
+.api-promo-spec:hover { color: var(--text-primary); }
+.api-promo-code {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  background: rgba(0, 0, 0, 0.28);
+}
+[data-theme="light"] .api-promo-code { background: rgba(0, 0, 0, 0.04); }
+.api-promo-code-head {
+  font: 600 11px var(--font-mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.api-promo-code pre {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.24);
+  overflow-x: auto;
+  font: 12px/1.6 var(--font-mono);
+  color: var(--text-primary);
+}
+[data-theme="light"] .api-promo-code pre { background: rgba(0, 0, 0, 0.04); }
+.api-promo-c { color: var(--text-muted); }
+.api-promo-mcp-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--text-secondary);
+  font: 12px var(--font-mono);
+}
+.api-promo-mcp-label {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--glass-3);
+  color: var(--neon-green);
+  font: 700 10px var(--font-mono);
+  letter-spacing: .06em;
+}
+.api-promo-mcp-line code {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: none;
+  padding: 0;
+}
+.api-promo-docs {
+  margin-top: auto;
+  color: var(--neon-blue);
+  font: 600 12px var(--font-mono);
+  text-decoration: none;
+}
+.api-promo-docs:hover { text-decoration: underline; }
+@media (max-width: 900px) {
+  .api-promo { grid-template-columns: 1fr; padding: 18px; }
+}
+
+
+/* Slim developer strip on the icon-grid landing view, directly under the
+   toolbar that holds the grid-density controls. */
+.api-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 10px;
+  padding: 8px 12px;
+  border: 1px solid rgba(193, 221, 45, 0.28);
+  border-radius: var(--radius-card);
+  background: linear-gradient(90deg, rgba(193, 221, 45, 0.10), rgba(193, 221, 45, 0.02) 60%, transparent);
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+.api-strip:hover {
+  border-color: var(--neon-green);
+  background: linear-gradient(90deg, rgba(193, 221, 45, 0.16), rgba(193, 221, 45, 0.04) 60%, transparent);
+}
+.api-strip-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: rgba(193, 221, 45, 0.14);
+  color: var(--neon-green);
+}
+.api-strip-icon svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.api-strip-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.api-strip-text strong { color: var(--text-primary); }
+.api-strip-cta {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--neon-green);
+  font: 700 11px var(--font-mono);
+}
+@media (max-width: 640px) {
+  .api-strip { gap: 8px; padding: 8px 10px; }
+  .api-strip-text { white-space: normal; line-height: 1.4; }
+  .api-strip-cta { display: none; }
+}

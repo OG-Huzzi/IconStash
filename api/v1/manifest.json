@@ -38,11 +38,13 @@
   ],
   "sdk": {
     "name": "@iconstash/sdk",
-    "location": "packages/iconstash/"
+    "location": "packages/iconstash/",
+    "downloadUrl": "https://iconstash.io/api/iconstash-sdk.js"
   },
   "mcp": {
-    "name": "@iconstash/sdk (iconstash-mcp binary)",
-    "location": "packages/iconstash/mcp.js"
+    "name": "iconstash-mcp",
+    "location": "packages/iconstash/mcp.js",
+    "downloadUrl": "https://iconstash.io/api/iconstash-mcp.js"
   },
   "terms": {
     "authentication": "none",

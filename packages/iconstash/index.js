@@ -161,9 +161,9 @@ function createClient(options = {}) {
     return svgMarkup(icon, svgOptions);
   }
 
-  async function snippet(id, format = 'svg') {
+  async function snippet(id, format = 'svg', snippetOptions = {}) {
     const icon = await getIcon(id);
-    const markup = await svg(id);
+    const markup = svgMarkup(icon, snippetOptions);
     switch (normalize(format)) {
       case 'jsx': {
         const parts = String(icon.name).split(/[-_\s]+/).filter(Boolean)

@@ -4,23 +4,21 @@ Free, keyless access to [IconStash](https://iconstash.io)'s 134,701 open-source 
 
 **No API key. No signup. No rate limit. No backend.** The API is a handful of static JSON files on the CDN; search runs locally in this SDK.
 
-## Install
+## Use it right now (no install)
+
+The site serves both tools as single, dependency-free files:
 
 ```bash
-npm install @iconstash/sdk
+curl -O https://iconstash.io/api/iconstash-sdk.js
+curl -O https://iconstash.io/api/iconstash-mcp.js
 ```
 
-Or use it directly from this repo: `node -e "const {createClient}=require('./packages/iconstash')"` / `node packages/iconstash/mcp.js`.
-
-## JavaScript
-
 ```js
-const { createClient } = require('@iconstash/sdk');
+const { createClient } = require('./iconstash-sdk.js');
 const icons = createClient();
 
 // Search (runs locally over a ~1 MB gzipped index)
 const hits = await icons.search('camera', { library: 'lucide', limit: 5 });
-// [{ id: 'lucide-camera', name: 'camera', library: 'lucide', license: ... , url: ... }, ...]
 
 // Full record incl. svgPath, viewBox, tags and licence
 const icon = await icons.getIcon('lucide-camera');
@@ -41,22 +39,30 @@ const meta = await icons.manifest();
 
 Point at a local or self-hosted copy with `createClient({ base: 'http://localhost:8000/api/v1' })` or the `ICONSTASH_API_BASE` environment variable.
 
+The npm package name `@iconstash/sdk` is reserved for this source package but **is not published to npm yet**. From this directory, once you are logged in to npm:
+
+```bash
+npm publish --access public
+```
+
+That enables the shorter `npm install @iconstash/sdk` / `npx -y @iconstash/sdk iconstash-mcp` forms.
+
 ## MCP server
 
-Add to your MCP client config (Claude Desktop, Cursor, VS Code, etc.):
+Download `iconstash-mcp.js` (above) and point your MCP client at its absolute path:
 
 ```json
 {
   "mcpServers": {
     "iconstash": {
-      "command": "npx",
-      "args": ["-y", "@iconstash/sdk", "iconstash-mcp"]
+      "command": "node",
+      "args": ["/absolute/path/to/iconstash-mcp.js"]
     }
   }
 }
 ```
 
-Or run without installing:
+Or run it from this repo without downloading anything:
 
 ```bash
 node packages/iconstash/mcp.js
@@ -88,7 +94,7 @@ All responses are UTF-8 JSON with `Access-Control-Allow-Origin: *`. See [the API
 
 ## Licences
 
-Icons belong to their upstream authors. Every response carries a `license` and `attributionRequired` flag. Only `CC BY 4.0` sets (Solar Icons) require visible attribution; all others are MIT, Apache 2.0, ISC or CC0.
+Icons belong to their upstream authors. Library records carry a `license` and `attributionRequired` flag, and `getIcon()` adds both to the icon. Only `CC BY 4.0` sets (Solar Icons) require visible attribution; all others are MIT, Apache 2.0, ISC or CC0.
 
 ## Regenerating the API data
 
@@ -98,4 +104,4 @@ From the IconStash repo root:
 node scripts/generate-api.js
 ```
 
-This rebuilds `api/v1/manifest.json`, `libraries.json`, `index.json` and `openapi.json` from the existing `data/*.json` files. It adds no icon data — library payloads are the existing public `data/<slug>.json` files served directly (no copy, no rewrite).
+This rebuilds `api/v1/manifest.json`, `libraries.json`, `index.json`, `openapi.json` and the two standalone downloads from the existing `data/*.json` files. It adds no icon data — library payloads are the existing public `data/<slug>.json` files served directly (no copy, no rewrite).
