@@ -1,0 +1,1326 @@
+const fs = require('fs');
+const path = require('path');
+
+const outDir = path.join('D:', 'Project IconStash', 'IconStash', 'articles', 'svg-glassmorphism-and-frosted-glass-guide');
+if (!fs.existsSync(outDir)) {
+  fs.mkdirSync(outDir, { recursive: true });
+}
+
+function buildArticle2() {
+  return `<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Glassmorphism &amp; Frosted Glass: The Complete Refractive Vector Material Guide (2026) | IconStash</title>
+  <meta name="description" content="Master SVG glassmorphism: refractive displacement maps, frosted glass caustics, feSpecularLighting rim sheens, Apple VisionOS materials, and live studio.">
+  <meta name="keywords" content="svg glassmorphism, svg frosted glass, backdrop filter svg, feDisplacementMap glass, svg specular lighting, liquid glass vector, apple visionos glassmorphism css, refractive material ui">
+  <meta property="og:title" content="Mastering SVG Glassmorphism &amp; Frosted Glass: The Complete Refractive Vector Material Guide (2026)">
+  <meta property="og:description" content="Master SVG glassmorphism: refractive displacement maps, frosted glass caustics, feSpecularLighting rim sheens, Apple VisionOS materials, and live studio.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-glassmorphism-and-frosted-glass-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-glassmorphism-and-frosted-glass-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-13T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-13T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Optical Material Engineering &amp; Vector Shaders">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Glassmorphism">
+  <meta property="article:tag" content="feSpecularLighting">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta property="article:tag" content="UI Design Systems">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Glassmorphism &amp; Frosted Glass: The Complete Refractive Vector Material Guide (2026)">
+  <meta name="twitter:description" content="Master SVG glassmorphism: refractive displacement maps, frosted glass caustics, feSpecularLighting rim sheens, Apple VisionOS materials, and live studio.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-glassmorphism-and-frosted-glass-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-glassmorphism-and-frosted-glass-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Glassmorphism & Frosted Glass: The Complete Refractive Vector Material Guide (2026)",
+      "description": "Master SVG glassmorphism: refractive displacement maps, frosted glass caustics, feSpecularLighting rim sheens, Apple VisionOS materials, and live studio.",
+      "image": "https://iconstash.io/assets/articles/svg-glassmorphism-and-frosted-glass-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-glassmorphism-and-frosted-glass-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4720,
+      "articleSection": "Optical Material Engineering & Vector Shaders",
+      "keywords": [
+        "svg glassmorphism",
+        "svg frosted glass",
+        "backdrop filter svg",
+        "feDisplacementMap glass",
+        "svg specular lighting",
+        "liquid glass vector",
+        "apple visionos glassmorphism css",
+        "refractive material ui"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Mastering SVG Glassmorphism & Frosted Glass Guide",
+          "item": "https://iconstash.io/articles/svg-glassmorphism-and-frosted-glass-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is SVG glassmorphism superior to basic CSS backdrop-filter blur?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard CSS backdrop-filter: blur() applies a uniform raster Gaussian blur across background pixels, creating a flat, milky, plastic appearance. It lacks optical refraction, surface micro-roughness, border specular highlights, and chromatic aberration. In contrast, SVG optical glass shaders combine feTurbulence, feDisplacementMap, and feSpecularLighting to physically simulate Snell's Law of refraction, tactile silica frost, beveled rim caustics, and prism color dispersion, achieving authentic physical glass depth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does feDisplacementMap simulate optical refraction and frosted glass textures?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The feDisplacementMap primitive uses the color channels of an input heightmap texture (typically synthesized via feTurbulence procedural noise) to spatially displace background pixels along X and Y axes. By mapping red channel intensity to horizontal displacement and green channel to vertical displacement, pixels underneath the glass bend dynamically based on surface normals, accurately simulating physical light ray deflection as it passes between air and optical glass."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the function of feSpecularLighting in rendering realistic 3D glass borders?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "feSpecularLighting treats the alpha channel of a vector shape as a 3D elevation heightmap and calculates surface normal vectors. It then computes Blinn-Phong specular reflections from a virtual directional or point light source (feDistantLight or fePointLight). This generates brilliant, razor-sharp specular rim highlights along the curved or beveled borders of cards and modal windows, giving them the luminous 3D edge sheen characteristic of premium glass materials."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you achieve chromatic dispersion (prismatic rainbow splitting) in SVG glass?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chromatic dispersion occurs when different wavelengths of light refract at slightly different angles through glass. In SVG, this is engineered by splitting the background graphic into separate red, green, and blue color channels using feColorMatrix, applying feDisplacementMap to each channel with incrementally staggered scale values (e.g., scale=12 for red, scale=10 for green, scale=8 for blue), and recombining them using feComposite or feBlend. This creates subtle prismatic color fringing along refracted edges."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you maintain 60 FPS performance when using SVG glass filters in web applications?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To ensure 60 FPS performance, isolate the glass filter to static card backdrops or promote glass layers to dedicated GPU surfaces using will-change: transform and contain: paint. Avoid full-screen dynamic backdrop displacement during rapid scrolling. Additionally, bake complex procedural noise textures into lightweight seamless SVG pattern tiles (128x128px) rather than computing live multi-octave Perlin noise across the full viewport on every repaint."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you ensure SVG glassmorphic UI remains readable and accessible under WCAG 2.2?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Translucent glass panels can compromise text contrast if background content shifts dynamically. To guarantee WCAG 2.2 AA compliance (minimum 4.5:1 contrast ratio for normal text), back the glass surface with an opaque semi-translucent tint (such as rgba(15,15,15,0.75) for dark mode or rgba(255,255,255,0.85) for light mode). Furthermore, implement the CSS @media (prefers-reduced-transparency: reduce) media query to substitute translucent glass with completely solid, high-contrast backgrounds for vision-impaired users."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 380px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; padding: 20px; }
+    .stage-glass-element { width: 100%; height: 100%; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">SVG Glassmorphism &amp; Frosted Glass Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <div class="tag">Optical Material Engineering &amp; Vector Shaders</div>
+      <h1>Mastering SVG Glassmorphism &amp; Frosted Glass: The Complete Refractive Vector Material Guide (2026)</h1>
+      <div class="article-meta">
+        <span>Published: <strong>November 13, 2026</strong></span>
+        <span>By: <a href="/about/">Jouni Flemming</a></span>
+        <span>Reading Time: <strong>26 min</strong></span>
+        <span>Format: <strong>Interactive Guide &amp; Optical Shader Architecture</strong></span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Brief:</strong> Translucent glass interfaces define contemporary spatial operating systemsâ€”from Apple VisionOS visionOS materials to Windows 11 Fluent Acrylic and macOS Sequoia. Yet, standard CSS <code>backdrop-filter: blur()</code> produces a flat, milky, plastic simulation devoid of authentic optical physics. By chaining SVG <code>feTurbulence</code>, <code>feDisplacementMap</code>, and <code>feSpecularLighting</code>, engineers can model real physical glass: light refraction, microscopic silica frost, chromatic dispersion, and luminous 3D beveled rim caustics.</p>
+          <ul>
+            <li><strong>Snell's Law in Vector Space:</strong> How <code>feDisplacementMap</code> spatial coordinate offsets simulate genuine ray bending through medium density differentials.</li>
+            <li><strong>Surface Normal Illumination:</strong> Harnessing <code>feSpecularLighting</code> and Blinn-Phong equations to generate razor-sharp 3D specular edge highlights on curved glass borders.</li>
+            <li><strong>Simulating Chromatic Dispersion:</strong> Splitting RGB color channels into staggered displacement passes to synthesize optical prism color fringing along glass edges.</li>
+            <li><strong>Tactile Frosted Glass Textures:</strong> Engineering fluted ribbed glass, hammered silica, and sandblasted architectural surfaces using procedural Perlin heightmaps.</li>
+            <li><strong>Interactive Vector Glass Studio:</strong> Live parameter tuning of blur diffusion, refractive displacement, specular elevation, and instant production CSS/SVG export.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-glassmorphism-and-frosted-glass-guide.jpg" alt="High-tech vector engineering visualization of frosted glassmorphism, refractive optical glass, and specular rim lighting" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-resolution optical simulation of layered frosted glassmorphism panels, showcasing refractive displacement and specular rim reflections.</figcaption>
+        </figure>
+
+        <!-- SECTION 1 -->
+        <h2 id="beyond-css-backdrop-filter">1. Beyond CSS backdrop-filter: The Need for True Refractive Vector Glass</h2>
+        <p>Over the past five years, glassmorphism has established itself as the preeminent aesthetic for high-end software products. Translucent surfaces provide critical spatial hierarchy: they keep modal dialogs, navigation rails, and floating toolbars visually anchored within the document context while indicating depth and elevation. However, the vast majority of web implementations rely exclusively on the single CSS declaration <code>backdrop-filter: blur(20px)</code>.</p>
+        <p>While performant, a pure Gaussian blur fails to replicate how light physically interacts with glass. In the natural physical world, silica glass is not an ethereal blur filter; it is a dense dielectric medium with a specific refractive index (&eta; &asymp; 1.52). As light photons enter glass, their phase velocity decelerates, bending rays according to Snell's Law. Furthermore, physical glass surfaces possess microscopic surface roughness (fractal grain) that scatters incident light, and beveled boundaries that reflect incident illumination as intense specular caustics.</p>
+        <p>CSS <code>backdrop-filter</code> is blind to these physical phenomena. It produces a uniform milky haze that looks like opaque plastic rather than luminous mineral crystal. By utilizing the SVG filter graph, frontend engineers can construct true <strong>vector optical shaders</strong> that introduce real-time refraction, surface texturing, and 3D border sheens directly into the DOM tree. For a foundational overview of procedural noise generation in SVG, explore our guide on <a href="/articles/svg-noise-textures-and-generative-grain-guide/">SVG noise textures and generative grain</a>.</p>
+        <p>Moreover, when users interact with spatial user interfacesâ€”such as head-mounted displays, dynamic spatial computing canvases, or interactive vector dashboardsâ€”flat Gaussian blurs feel static and lifeless. As UI elements move across diverse visual backgrounds, physical glass dynamically distorts high-contrast edges underneath, magnifying subtle color details, bending straight lines into gentle organic lenses, and concentrating ambient light along rounded bezels. Re-architecting our design systems to incorporate true vector optics bridges the cognitive divide between digital pixels and tangible materials.</p>
+        <p>When design tokens mandate consistency across platforms, vector-driven shaders provide deterministic rendering. Unlike native OS material blurs which vary wildly between Windows DWM (Desktop Window Manager) Acrylic, macOS AppKit material vibrancy, and Android SurfaceFlinger blur shaders, an SVG optical pipeline produces identical refractive distortions, caustic bevels, and specular angles across all modern web browsers.</p>
+
+        <!-- SECTION 2 -->
+        <h2 id="optical-physics-of-glass">2. Optical Physics of Glass: Snell's Law, Fresnel Reflections &amp; Caustic Dispersion</h2>
+        <p>To author convincing glass materials, we must translate classical optical physics into digital filter operations. In computational optics, glass is modeled as a non-magnetic, homogeneous dielectric medium. Three physical principles govern the appearance of glass in the visible electromagnetic spectrum:</p>
+
+        <ol>
+          <li><strong>Refraction (Snell's Law):</strong> When light transitions between air (refractive index &eta;<sub>1</sub> &asymp; 1.0003) and glass (&eta;<sub>2</sub> &asymp; 1.52), the angle of incidence &theta;<sub>1</sub> and angle of refraction &theta;<sub>2</sub> satisfy the relationship:
+            <div class="formula-card">
+              <div class="formula-title">Snell's Law of Optical Refraction</div>
+              <div class="formula-body">&eta;<sub>1</sub> &times; sin(&theta;<sub>1</sub>) = &eta;<sub>2</sub> &times; sin(&theta;<sub>2</sub>)</div>
+              <div class="formula-desc">This angular deflection causes visual distortion of objects situated behind the glass. In SVG, we simulate this deflection by displacing pixel sample coordinates using an input heightmap.</div>
+            </div>
+            When light hits an uneven or textured glass surface, the local surface normal vector &vec;N fluctuates across microscopic distances. This causes adjacent light rays to bend in slightly divergent directions, creating optical caustic patterns and shimmering focal lines.
+          </li>
+          <li><strong>Fresnel Reflection &amp; Schlick's Approximation:</strong> As the viewing angle approaches glancing incidence (near 90&deg; to the surface normal), reflectivity increases drastically toward 100%, while light passing perpendicularly through the center experiences high transmission. In computer graphics, this is calculated via Schlick's approximation:
+            <div class="formula-card">
+              <div class="formula-title">Fresnel Reflection (Schlick's Equation)</div>
+              <div class="formula-body">R(&theta;) = R<sub>0</sub> + (1 &minus; R<sub>0</sub>) &times; (1 &minus; cos &theta;)<sup>5</sup> &emsp; where R<sub>0</sub> = ((&eta;<sub>1</sub> &minus; &eta;<sub>2</sub>) / (&eta;<sub>1</sub> + &eta;<sub>2</sub>))<sup>2</sup></div>
+              <div class="formula-desc">For optical glass in air, R<sub>0</sub> is approximately 0.04 (4% normal reflectance). At glancing angles (cos &theta; &rarr; 0), reflectance shoots up to 1.0 (100%), creating intensely luminous edge borders.</div>
+            </div>
+          </li>
+          <li><strong>Chromatic Dispersion:</strong> The refractive index of glass is not constant; it varies inversely with wavelength (&eta;<sub>blue</sub> &gt; &eta;<sub>red</sub>) according to Cauchy's empirical equation &eta;(&lambda;) = A + B / &lambda;<sup>2</sup>. Consequently, high-frequency violet and blue photons bend more sharply than low-frequency red photons, producing prismatic color fringing along refracted borders.</li>
+        </ol>
+
+        <p>In digital rendering engines, these physical parameters establish our optical reference table. Standard soda-lime architectural glass exhibits an index of &eta; = 1.52; optical polycarbonate used in mobile device lenses reaches &eta; = 1.58; dense optical flint glass attains &eta; = 1.66. As &eta; increases, the refractive bending becomes more pronounced and the normal reflectance <em>R</em><sub>0</sub> climbs, yielding punchier border caustics and greater visual drama in UI layouts.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="crafting-procedural-frost">3. Crafting Procedural Frost: feTurbulence Coupled with feDisplacementMap</h2>
+        <p>The core engine of vector glass refraction is the combination of <code>feTurbulence</code> and <code>feDisplacementMap</code>. Rather than blurring the backdrop into an abstract soup, we physically distort background pixels according to a procedural micro-surface.</p>
+        <p>The <code>feTurbulence</code> filter primitive synthesizes Perlin gradient noise, outputting a 2D vector field stored in the red and green color channels. When piped into <code>feDisplacementMap</code>, the red channel dictates horizontal pixel displacement (&Delta;<em>x</em>), while the green channel dictates vertical pixel displacement (&Delta;<em>y</em>):</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: SVG Pixel Displacement Mapping</div>
+          <div class="formula-body">
+            P'(x, y) = P( x + S &times; (C<sub>R</sub>(x, y) &minus; 0.5), &nbsp; y + S &times; (C<sub>G</sub>(x, y) &minus; 0.5) )
+          </div>
+          <div class="formula-desc">Where S is the displacement scale factor, and C<sub>R</sub>, C<sub>G</sub> are the normalized color values (0.0 to 1.0) of the map texture. When C = 0.5, zero displacement occurs. Values above 0.5 displace positively; values below 0.5 displace negatively.</div>
+        </div>
+
+        <p>By pairing a high-frequency Perlin noise lattice (<code>baseFrequency="0.35"</code>) with a modest displacement scale (<code>scale="9"</code>), we simulate the fine, tactile surface scattering of sandblasted silica glass:</p>
+
+        <pre><code>&lt;!-- Frosted Silica Glass Refraction Filter --&gt;
+&lt;filter id="frosted-glass-refraction" x="-10%" y="-10%" width="120%" height="120%"&gt;
+  &lt;!-- Generate procedural micro-roughness heightmap --&gt;
+  &lt;feTurbulence type="fractalNoise" baseFrequency="0.35" numOctaves="3" result="glassNoise" /&gt;
+  
+  &lt;!-- Apply Snell-like pixel displacement to backdrop --&gt;
+  &lt;feDisplacementMap in="SourceGraphic" in2="glassNoise" 
+                     scale="9" 
+                     xChannelSelector="R" 
+                     yChannelSelector="G" 
+                     result="refractedBackdrop" /&gt;
+  
+  &lt;!-- Soften high-frequency noise with slight diffusion --&gt;
+  &lt;feGaussianBlur in="refractedBackdrop" stdDeviation="1.5" result="smoothGlass" /&gt;
+&lt;/filter&gt;</code></pre>
+
+        <p>Notice that unlike a simple blur, individual background shapes remain identifiable, but their contours break into organic, crystalline ripples that look genuinely physical. For detailed techniques on displacement maps, consult our deep dive on <a href="/articles/svg-displacement-maps-and-distortion-effects-guide/">SVG displacement maps and liquid distortion</a>.</p>
+        <p>In high-density UI architectures, adjusting the <code>numOctaves</code> attribute on <code>feTurbulence</code> dramatically alters the material characteristics. A single octave (<code>numOctaves="1"</code>) yields gentle, watery, liquid swells reminiscent of blown glass. Increasing octaves to 3 or 4 introduces fine fractal harmonics, converting the surface into sandblasted translucent privacy glass or etched architectural quartz.</p>
+        <p>To eliminate pixelation on high-DPI displays (such as 3x Retina screens), always ensure that the displacement map's coordinate system aligns with device pixels. Specifying <code>primitiveUnits="userSpaceOnUse"</code> guarantees that the Perlin noise lattice samples consistently regardless of parent container scaling.</p>
+
+        <!-- SECTION 4 -->
+        <h2 id="surface-normals-specular-lighting">4. 3D Surface Normals and Specular Rim Highlights via feSpecularLighting</h2>
+        <p>Frosted refraction solves the interior of the glass panel. However, the signature characteristic of premium glassmorphismâ€”as seen in Apple VisionOS and macOSâ€”is the <strong>luminous 3D specular edge sheen</strong>. When ambient room light strikes the rounded edge of a glass pane, it creates a crisp, glowing highlight that accentuates the panel's physical thickness.</p>
+        <p>In standard CSS, developers attempt to mimic this using <code>border: 1px solid rgba(255,255,255,0.2)</code>. This produces a flat, uniform stroke that looks artificial because real specular light is non-uniform: it shines intensely where the surface normal faces the light source and fades to zero on shadowed edges.</p>
+
+        <h3>The feSpecularLighting Engine</h3>
+        <p>SVG provides a full 3D Phong illumination shader via <code>feSpecularLighting</code>. It reads the alpha channel of your vector card as a heightmap elevation field <em>Z(x, y)</em> and computes the 2D surface normal gradient vector <strong>N</strong> at every pixel using finite central differences:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Blinn-Phong Specular Reflection</div>
+          <div class="formula-body">
+            I<sub>spec</sub> = K<sub>s</sub> &times; (&vec;N &bull; &vec;H)<sup>&alpha;</sup> &times; L<sub>color</sub>
+          </div>
+          <div class="formula-desc">Where K<sub>s</sub> is the specular constant (surface reflectivity), &vec;N is the normalized surface gradient normal, &vec;H is the halfway vector between light source &vec;L and viewer &vec;V, &alpha; is the specular exponent (surface glossiness), and L<sub>color</sub> is the incident light color.</div>
+        </div>
+
+        <p>The normal gradient vector is extracted by measuring the rate of change of the blurred alpha mask along horizontal and vertical axes:</p>
+        <pre><code>// Numerical Surface Normal Calculation
+N_x = -(Alpha[x + 1, y] - Alpha[x - 1, y]) * surfaceScale;
+N_y = -(Alpha[x, y + 1] - Alpha[x, y - 1]) * surfaceScale;
+N_z = 1.0;
+vec3 N = normalize(vec3(N_x, N_y, N_z));</code></pre>
+
+        <p>By adjusting <code>surfaceScale</code> (the height multiplier) and <code>specularExponent</code> (the sharpness of the highlight cone), you can transition from soft satin chrome to mirror-polished optical crystal:</p>
+
+        <pre><code>&lt;!-- 3D Specular Rim Lighting Filter --&gt;
+&lt;filter id="glass-specular-rim" x="-20%" y="-20%" width="140%" height="140%"&gt;
+  &lt;!-- Extract alpha border elevation --&gt;
+  &lt;feGaussianBlur in="SourceAlpha" stdDeviation="3" result="alphaBlur" /&gt;
+  
+  &lt;!-- Compute 3D Phong Specular Reflection --&gt;
+  &lt;feSpecularLighting in="alphaBlur" surfaceScale="5" specularConstant="1.4" 
+                      specularExponent="28" lighting-color="#FFFFFF" result="specLight"&gt;
+    &lt;feDistantLight azimuth="225" elevation="45" /&gt;
+  &lt;/feSpecularLighting&gt;
+  
+  &lt;!-- Mask highlight strictly to card perimeter --&gt;
+  &lt;feComposite in="specLight" in2="SourceAlpha" operator="in" result="specularRim" /&gt;
+  
+  &lt;!-- Blend specular sheen over translucent glass base --&gt;
+  &lt;feBlend in="SourceGraphic" in2="specularRim" mode="screen" /&gt;
+&lt;/filter&gt;</code></pre>
+
+        <p>This single filter primitive produces dynamic, directional illumination across curved corners, giving rounded cards authentic physical beveling that responds to light direction without drawing a single extra vector path.</p>
+
+        <!-- FIGURE 2: ARCHITECTURAL VECTOR FLOW DIAGRAM -->
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background:#0D0D0D; border:1px solid #222; border-radius:10px; display:block;">
+            <defs>
+              <linearGradient id="glassGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#849E00" stop-opacity="0.9"/>
+              </linearGradient>
+              <linearGradient id="glassCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2A2A2A" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#141414" stop-opacity="0.8"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Coordinate Grid Lines -->
+            <path d="M 0 80 L 960 80 M 0 160 L 960 160 M 0 240 L 960 240 M 160 0 L 160 320 M 320 0 L 320 320 M 480 0 L 480 320 M 640 0 L 640 320 M 800 0 L 800 320" stroke="#161616" stroke-width="1"/>
+
+            <!-- Stage 1: Procedural Heightmap (feTurbulence) -->
+            <rect x="40" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="52" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="120" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">1. TURBULENCE</text>
+            <!-- Heightmap lines -->
+            <path d="M 60 140 Q 80 120 100 145 T 140 135 T 180 150" fill="none" stroke="#C1DD2D" stroke-width="1.5" opacity="0.6"/>
+            <path d="M 60 160 Q 90 175 120 155 T 160 170 T 180 160" fill="none" stroke="#C1DD2D" stroke-width="1.5" opacity="0.8"/>
+            <path d="M 60 180 Q 85 195 110 175 T 150 185 T 180 170" fill="none" stroke="#C1DD2D" stroke-width="1.5" opacity="0.4"/>
+            <text x="120" y="215" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Perlin Heightmap</text>
+            <text x="120" y="235" fill="#555" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Fractal Noise Vectors</text>
+
+            <!-- Arrow 1 -->
+            <path d="M 215 160 L 265 160" stroke="#C1DD2D" stroke-width="2"/>
+            <circle cx="240" cy="160" r="3" fill="#C1DD2D"/>
+
+            <!-- Stage 2: Displacement Refraction (feDisplacementMap) -->
+            <rect x="280" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="292" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="360" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">2. DISPLACEMENT</text>
+            <!-- Distorted refraction wave -->
+            <path d="M 300 130 Q 330 110 360 140 T 420 130" fill="none" stroke="#849E00" stroke-width="2"/>
+            <path d="M 300 160 Q 330 140 360 170 T 420 160" fill="none" stroke="#C1DD2D" stroke-width="2"/>
+            <path d="M 300 190 Q 330 170 360 200 T 420 190" fill="none" stroke="#849E00" stroke-width="2"/>
+            <text x="360" y="215" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Snell's Refraction</text>
+            <text x="360" y="235" fill="#555" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Scale = 8 to 14</text>
+
+            <!-- Arrow 2 -->
+            <path d="M 455 160 L 505 160" stroke="#C1DD2D" stroke-width="2"/>
+            <circle cx="480" cy="160" r="3" fill="#C1DD2D"/>
+
+            <!-- Stage 3: Phong Specular Rim (feSpecularLighting) -->
+            <rect x="520" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="532" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="600" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">3. SPECULAR RIM</text>
+            <!-- Card border with glowing corner sheen -->
+            <rect x="545" y="125" width="110" height="70" rx="10" fill="none" stroke="#333" stroke-width="2"/>
+            <path d="M 545 155 L 545 135 A 10 10 0 0 1 555 125 L 610 125" fill="none" stroke="#FFF" stroke-width="3" filter="drop-shadow(0 0 4px #C1DD2D)"/>
+            <text x="600" y="215" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">3D Surface Normals</text>
+            <text x="600" y="235" fill="#555" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Azimuth = 225&deg;</text>
+
+            <!-- Arrow 3 -->
+            <path d="M 695 160 L 745 160" stroke="#C1DD2D" stroke-width="2"/>
+            <circle cx="720" cy="160" r="3" fill="#C1DD2D"/>
+
+            <!-- Stage 4: Composite Translucent Material -->
+            <rect x="760" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="772" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="840" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">4. COMPOSITE</text>
+            <!-- Finished Glassmorphic Card -->
+            <rect x="785" y="125" width="110" height="70" rx="10" fill="url(#glassCardGrad)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <path d="M 785 150 L 785 135 A 10 10 0 0 1 795 125 L 840 125" fill="none" stroke="#FFF" stroke-width="2" opacity="0.9"/>
+            <circle cx="820" cy="160" r="12" fill="rgba(193,221,45,0.2)"/>
+            <text x="820" y="164" fill="#C1DD2D" font-family="'Inter', sans-serif" font-size="12" font-weight="700" text-anchor="middle">&diamond;</text>
+            <text x="840" y="215" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Luminous Glass</text>
+            <text x="840" y="235" fill="#555" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Physical Caustics</text>
+          </svg>
+          <figcaption>Figure 2: Architectural pipeline of refractive vector glassmorphism, detailing the multi-pass displacement, specular normal lighting, and chromatic dispersion stages.</figcaption>
+        </figure>
+
+        <!-- SECTION 5 -->
+        <h2 id="architectural-lighting-models">5. Architectural Lighting Models: feDistantLight vs. fePointLight for Beveled Vector Edges</h2>
+        <p>Inside <code>feSpecularLighting</code>, SVG provides three distinct light source primitives: <code>feDistantLight</code>, <code>fePointLight</code>, and <code>feSpotLight</code>. Choosing the correct light model fundamentally shapes how your glass material integrates into an application's visual environment.</p>
+
+        <h3>feDistantLight (Infinite Sunlight)</h3>
+        <p><code>feDistantLight</code> simulates an illumination source located infinitely far away. All incident rays are parallel, defined strictly by two angles: <code>azimuth</code> (compass direction around the XY plane, 0&deg; to 360&deg;) and <code>elevation</code> (angle above the surface plane, 0&deg; to 90&deg;).</p>
+        <p>This is the industry standard for UI cards and system windows. A standard top-left key light uses <code>azimuth="225" elevation="45"</code>, ensuring every card in your dashboard shares an identical, coherent shadow and highlight trajectory regardless of its screen position.</p>
+
+        <h3>fePointLight (Interactive Positional Illumination)</h3>
+        <p>In contrast, <code>fePointLight</code> represents a 3D omnidirectional point light located at explicit coordinates (<em>X, Y, Z</em>). Rays diverge radially from the source. When bound to the user's mouse pointer coordinates via JavaScript, the specular sheen dynamically glides along the glass bevels as the cursor sweeps across the card, delivering breathtaking tactile interactivity.</p>
+
+        <pre><code>// Dynamic Mouse-Tracking Glass Point Light
+const lightNode = document.getElementById('interactivePointLight');
+const glassCard = document.getElementById('interactiveGlassCard');
+
+glassCard.addEventListener('mousemove', (e) => {
+  const rect = glassCard.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  lightNode.setAttribute('x', x);
+  lightNode.setAttribute('y', y);
+  lightNode.setAttribute('z', '60'); // Elevation above glass surface
+});</code></pre>
+
+        <!-- SECTION 6 -->
+        <h2 id="simulating-chromatic-dispersion">6. Simulating Chromatic Dispersion: Prismatic Color Splitting Across Color Channels</h2>
+        <p>When light passes through high-end optical glass, such as camera lenses or cut crystal chandeliers, microscopic dispersion separates white light into its spectral rainbow components. Adding subtle chromatic dispersion along the boundaries of refracted glass gives it unmistakable physical authenticity.</p>
+        <p>We engineer chromatic dispersion in SVG by decoupling the red, green, and blue color channels and displacing each with slightly offset scale factors:</p>
+
+        <ol>
+          <li>Isolate the Red channel using <code>feColorMatrix</code> (values="1 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 1 0").</li>
+          <li>Displace the Red channel with a high scale factor: <code>scale="12"</code>.</li>
+          <li>Isolate the Green channel and displace with a medium scale factor: <code>scale="10"</code>.</li>
+          <li>Isolate the Blue channel and displace with a low scale factor: <code>scale="8"</code>.</li>
+          <li>Recombine all three channels using <code>feBlend mode="lighten"</code> or <code>feComposite operator="arithmetic"</code>.</li>
+        </ol>
+
+        <p>Because the channels displace by differing pixel amounts, high-contrast edges behind the glass develop delicate cyan and magenta fringes, simulating optical lens dispersion with zero raster artifacting. For more on color transformations, review our guide on <a href="/articles/dark-mode-svg-icons-theming/">dark mode SVG theming and color palettes</a>.</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Abbe Number &amp; Dispersion Spread</div>
+          <div class="formula-body">V<sub>d</sub> = (&eta;<sub>d</sub> &minus; 1) / (&eta;<sub>F</sub> &minus; &eta;<sub>C</sub>) &emsp; &rarr; &emsp; &Delta;S = S<sub>base</sub> / V<sub>d</sub></div>
+          <div class="formula-desc">Where &eta;<sub>d</sub>, &eta;<sub>F</sub>, and &eta;<sub>C</sub> are refractive indices at Fraunhofer lines (yellow helium, blue hydrogen, red hydrogen). Materials with low Abbe numbers (high dispersion like heavy flint glass) create wider color separations (&Delta;S &asymp; 4px), while crown glass yields subtle, razor-sharp chromatic sheens (&Delta;S &le; 1.5px).</div>
+        </div>
+
+        <p>Here is the full SVG filter definition for a three-channel chromatic dispersion pipeline:</p>
+
+        <pre><code>&lt;!-- Tri-Band Chromatic Dispersion Glass Filter --&gt;
+&lt;filter id="chromatic-glass-filter" x="-20%" y="-20%" width="140%" height="140%"&gt;
+  &lt;feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="2" result="noise" /&gt;
+  
+  &lt;!-- Channel Separation --&gt;
+  &lt;feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redOnly" /&gt;
+  &lt;feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="greenOnly" /&gt;
+  &lt;feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blueOnly" /&gt;
+  
+  &lt;!-- Staggered Displacement --&gt;
+  &lt;feDisplacementMap in="redOnly" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" result="dispRed" /&gt;
+  &lt;feDisplacementMap in="greenOnly" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G" result="dispGreen" /&gt;
+  &lt;feDisplacementMap in="blueOnly" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" result="dispBlue" /&gt;
+  
+  &lt;!-- Spectral Recombination --&gt;
+  &lt;feBlend in="dispRed" in2="dispGreen" mode="screen" result="rgBlend" /&gt;
+  &lt;feBlend in="rgBlend" in2="dispBlue" mode="screen" result="fullDispersion" /&gt;
+&lt;/filter&gt;</code></pre>
+
+        <!-- SECTION 7 -->
+        <h2 id="fluted-ribbed-glass-textures">7. Fluted, Ribbed &amp; Hammered Architectural Glass Textures in Pure SVG</h2>
+        <p>Not all glass is flat and smooth. Modern interior architecture and luxury industrial design frequently employ <strong>fluted ribbed glass</strong> (Moroccan reeded glass) and <strong>hammered cathedral glass</strong>. These textured surfaces distort underlying content along specific directional axes.</p>
+
+        <h3>Fluted Ribbed Glass (1D Directional Refraction)</h3>
+        <p>Fluted glass features parallel vertical cylindrical ridges that stretch and distort horizontal content while preserving vertical line clarity. We synthesize this by setting <code>baseFrequency="0.08 0.0"</code> on <code>feTurbulence</code>, creating horizontally repeating vertical stripes, and constraining displacement strictly to the horizontal X axis (<code>xChannelSelector="R" yChannelSelector="none"</code>):</p>
+
+        <pre><code>&lt;!-- Architectural Fluted Ribbed Glass Filter --&gt;
+&lt;filter id="fluted-ribbed-glass"&gt;
+  &lt;!-- Vertical striped heightmap --&gt;
+  &lt;feTurbulence type="turbulence" baseFrequency="0.08 0.0" numOctaves="1" result="ribbedStripes" /&gt;
+  
+  &lt;!-- Horizontal-only displacement --&gt;
+  &lt;feDisplacementMap in="SourceGraphic" in2="ribbedStripes" scale="24" 
+                     xChannelSelector="R" yChannelSelector="R" /&gt;
+&lt;/filter&gt;</code></pre>
+
+        <h3>Hammered Cathedral Glass (Organic Low-Frequency Dimples)</h3>
+        <p>Hammered glass is characterized by smooth, undulating craters and molten depressions. We synthesize this by lowering the Perlin noise base frequency down to <code>baseFrequency="0.03"</code> while elevating the displacement scale to <code>scale="22"</code>. When illuminated with <code>feSpecularLighting</code>, the dimples catch highlights like hand-poured antique glass.</p>
+
+        <!-- TABLE 1 -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Glass Material Variant</th>
+                <th>Turbulence Base Frequency</th>
+                <th>Displacement Scale</th>
+                <th>Specular Surface Scale</th>
+                <th>Optical Characteristics</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Smooth Frosted Silica</strong></td>
+                <td>0.35 (Isotropic)</td>
+                <td>6 &ndash; 10</td>
+                <td>3.0</td>
+                <td>Soft, delicate frost with isotropic diffusion</td>
+              </tr>
+              <tr>
+                <td><strong>Fluted Reeded Glass</strong></td>
+                <td>0.08 0.0 (Unidirectional)</td>
+                <td>20 &ndash; 32</td>
+                <td>6.0</td>
+                <td>Linear vertical columnar distortion, privacy shielding</td>
+              </tr>
+              <tr>
+                <td><strong>Hammered Cathedral</strong></td>
+                <td>0.04 (Low frequency Perlin)</td>
+                <td>18 &ndash; 26</td>
+                <td>8.5</td>
+                <td>Irregular organic dimples, heavy fluid caustics</td>
+              </tr>
+              <tr>
+                <td><strong>Apple VisionOS Spatial</strong></td>
+                <td>0.80 (Micro-grain) + Blur 24</td>
+                <td>3 &ndash; 5</td>
+                <td>4.5</td>
+                <td>Ultra-clean translucent polymer with luminous rim sheen</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SECTION 8: INTERACTIVE DEVELOPER STUDIO -->
+        <h2 id="interactive-glass-studio">8. Interactive Vector Glassmorphism &amp; Refractive Material Studio (Live Workbench)</h2>
+        <p>Test and calibrate real-time vector glass shaders. Adjust the Gaussian diffusion radius, tweak displacement refraction scale, select between smooth frosted, fluted, and hammered glass textures, and modulate the 3D specular rim highlight elevation. You can preview the result live against dynamic background shapes and export instant production code.</p>
+
+        <div class="interactive-sandbox" id="glassStudio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <span>SVG Glassmorphism &amp; Refractive Material Studio</span>
+            </div>
+            <span class="sandbox-badge">GPU Shaders</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="glassBlurSlider">
+                  <span>Gaussian Diffusion (stdDev)</span>
+                  <span class="stat-num" id="glassBlurDisplay">8px</span>
+                </label>
+                <input type="range" class="control-input" id="glassBlurSlider" min="1" max="24" step="1" value="8">
+              </div>
+
+              <div class="control-row">
+                <label for="glassDisplacementSlider">
+                  <span>Refractive Displacement Scale</span>
+                  <span class="stat-num" id="glassDisplacementDisplay">10</span>
+                </label>
+                <input type="range" class="control-input" id="glassDisplacementSlider" min="0" max="35" step="1" value="10">
+              </div>
+
+              <div class="control-row">
+                <label for="glassSpecularSlider">
+                  <span>3D Specular Rim Shine</span>
+                  <span class="stat-num" id="glassSpecularDisplay">1.4</span>
+                </label>
+                <input type="range" class="control-input" id="glassSpecularSlider" min="0.2" max="3.0" step="0.2" value="1.4">
+              </div>
+
+              <div class="control-row">
+                <label for="glassTextureSelect">Surface Material Texture</label>
+                <select class="control-select" id="glassTextureSelect">
+                  <option value="frosted" selected>Smooth Frosted Silica</option>
+                  <option value="fluted">Fluted Ribbed Glass</option>
+                  <option value="hammered">Hammered Cathedral Glass</option>
+                </select>
+              </div>
+
+              <div class="btn-row">
+                <button type="button" class="action-btn primary" id="btnPresetVisionOS">Preset: VisionOS Acrylic</button>
+                <button type="button" class="action-btn" id="btnPresetFrostedMica">Preset: Heavy Frosted Mica</button>
+                <button type="button" class="action-btn" id="btnPresetFluted">Preset: Fluted Reeded</button>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container" id="stageGlassContainer">
+                <div class="stage-glass-element" id="stageGlassElement">
+                  <!-- Background geometric objects to refract -->
+                  <div style="position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, #C1DD2D 0%, transparent 40%), radial-gradient(circle at 80% 70%, #10B981 0%, transparent 45%), #0A0A0A; z-index: 1;">
+                    <div style="position: absolute; top: 40px; left: 50px; width: 80px; height: 80px; border-radius: 50%; background: #C1DD2D; opacity: 0.8;"></div>
+                    <div style="position: absolute; bottom: 50px; right: 60px; width: 110px; height: 110px; background: #849E00; transform: rotate(45deg); opacity: 0.7;"></div>
+                  </div>
+
+                  <!-- Injected SVG Filter Definitions -->
+                  <svg id="liveSvgGlassStage" width="100%" height="100%" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;">
+                    <defs>
+                      <filter id="interactiveGlassFilter" x="-20%" y="-20%" width="140%" height="140%">
+                        <feTurbulence id="feGlassTurbNode" type="fractalNoise" baseFrequency="0.35" numOctaves="2" result="turbMap" />
+                        <feDisplacementMap id="feGlassDispNode" in="SourceGraphic" in2="turbMap" scale="10" xChannelSelector="R" yChannelSelector="G" result="dispOut" />
+                        <feGaussianBlur id="feGlassBlurNode" in="dispOut" stdDeviation="8" result="blurOut" />
+                        <feSpecularLighting id="feGlassSpecNode" in="SourceAlpha" surfaceScale="4" specularConstant="1.4" specularExponent="24" lighting-color="#FFF" result="specOut">
+                          <feDistantLight id="feGlassLightNode" azimuth="225" elevation="45" />
+                        </feSpecularLighting>
+                        <feComposite in="specOut" in2="SourceAlpha" operator="in" result="rimHighlight" />
+                        <feBlend in="blurOut" in2="rimHighlight" mode="screen" />
+                      </filter>
+                    </defs>
+                  </svg>
+
+                  <!-- Foreground Floating Glass Card -->
+                  <div id="interactiveFloatingGlassCard" style="position: relative; z-index: 3; width: 260px; padding: 24px 20px; border-radius: 16px; background: rgba(18, 18, 18, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.25); text-align: center;">
+                    <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.15); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.3);">Optical Glass</span>
+                    <h4 style="color: #FFF; font-size: 17px; font-weight: 800; margin: 10px 0 4px;">Refractive Vector UI</h4>
+                    <p style="color: #CCC; font-size: 12.5px; line-height: 1.5; margin: 0;">Snell refraction and 3D specular edge caustics rendered at 60 FPS.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stats-readout-box">
+                <div class="stat-item">
+                  <div class="stat-label">Optical Refractive Index</div>
+                  <div class="stat-val highlight" id="statGlassEta">&eta; &asymp; 1.52</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">GPU Shader State</div>
+                  <div class="stat-val highlight" id="statGlassShaders">Multi-Pass Active</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active" id="tabSvgGlassCode">SVG Filter Markup</button>
+                <button type="button" class="code-tab-btn" id="tabCssGlassCode">CSS Card Stylesheet</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyGlassCodeBtn">Copy Code</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="glassCodeOutput"></pre>
+          </div>
+        </div>
+
+        <!-- SECTION 9 -->
+        <h2 id="cross-browser-fallback-matrix">9. Architectural Blueprint: Cross-Browser Fallback Matrix (Safari/WebKit, Chromium, Gecko)</h2>
+        <p>Deploying advanced SVG filters across heterogeneous browser engines requires rigorous compatibility architecture. While modern Chromium, WebKit (Safari), and Gecko (Firefox) fully support the SVG 1.1 Filter specification, their hardware acceleration paths diverge significantly.</p>
+
+        <h3>Browser Engine Divergence</h3>
+        <ul>
+          <li><strong>WebKit / Safari (iOS &amp; macOS):</strong> WebKit applies aggressive memory caps to intermediate filter buffers. To prevent visual stutter, WebKit requires explicit <code>-webkit-backdrop-filter</code> declaration alongside SVG filter references, and benefits greatly from <code>transform: translateZ(0)</code> to force GPU layer allocation.</li>
+          <li><strong>Chromium (Chrome, Edge, Brave):</strong> Chromium offloads <code>feDisplacementMap</code> directly to Skia / Vulkan or D3D11 shaders. Performance is blistering, but excessively large filter regions (&gt; 180%) can trigger tile cache eviction.</li>
+          <li><strong>Gecko (Firefox):</strong> Firefox processes SVG filters via WebRender. Gecko handles complex multi-octave Perlin noise with exceptional numerical precision, but can experience frame drops if backdrop filters are chained within deeply nested <code>overflow: hidden</code> elements.</li>
+        </ul>
+
+        <p>To guarantee seamless cross-browser rendering, adopt the following layered fallback strategy:</p>
+
+        <pre><code>/* Resilient Cross-Browser Glass Architecture */
+.glass-material-surface {
+  /* Level 1: Static High-Contrast Fallback (Legacy browsers) */
+  background-color: #161616;
+  
+  /* Level 2: Standard CSS Backdrop Blur (Baseline modern engines) */
+  @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+    background-color: rgba(18, 18, 18, 0.72);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+  }
+
+  /* Level 3: Optical SVG Refraction Shader (Advanced engines) */
+  @supports (filter: url("#glass-filter")) {
+    backdrop-filter: url("#glass-filter") blur(16px);
+  }
+}</code></pre>
+
+        <!-- SECTION 10 -->
+        <h2 id="gpu-layer-allocation">10. GPU Layer Allocation &amp; Paint Containment (contain: paint)</h2>
+        <p>When rendering multi-pass vector shaders, unconstrained paint invalidations can destroy scrolling performance. By applying the CSS <code>contain: paint layout</code> directive to glass containers, you establish a strict boundary. The browser's layout engine guarantees that descendants cannot draw outside the bounding box, allowing the compositor to cache the rasterized glass surface in VRAM.</p>
+        <p>In high-resolution Retina and 4K displays, an uncontained glass filter forces the compositor to redraw giant intermediate tile layers on every scroll tick. With paint containment enabled, the compositor reuses the existing GPU texture backing store via simple affine 2D blits, reducing compositor thread time from 18ms down to less than 1.2ms. For more details on clipping and masking techniques, see our guide on <a href="/articles/css-clip-path-and-svg-masking-guide/">CSS clip-path and SVG masking</a>.</p>
+
+        <!-- SECTION 11 -->
+        <h2 id="production-implementations-glass">11. Production Implementations: Apple VisionOS Frosted Card, Tailwind Glass Token &amp; React Component</h2>
+        <p>Below is a production-hardened React component representing an Apple VisionOS-inspired frosted acrylic card. It integrates hardware-accelerated 3D specular rim highlights, subtle refraction, and fully responsive typography.</p>
+
+        <pre><code>import React from 'react';
+
+export interface VisionGlassCardProps {
+  title: string;
+  category: string;
+  description: string;
+  icon?: React.ReactNode;
+}
+
+export const VisionGlassCard: React.FC&lt;VisionGlassCardProps&gt; = ({
+  title,
+  category,
+  description,
+  icon
+}) => {
+  return (
+    &lt;div 
+      className="vision-glass-container"
+      style={{
+        position: 'relative',
+        borderRadius: 20,
+        padding: '28px 24px',
+        background: 'rgba(18, 18, 18, 0.68)',
+        backdropFilter: 'blur(24px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+        border: '1px solid rgba(255, 255, 255, 0.12)',
+        boxShadow: '0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25)',
+        contain: 'paint layout',
+        overflow: 'hidden'
+      }}
+    &gt;
+      {/* Specular Edge Gradient Overlay */}
+      &lt;div 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%)',
+          borderRadius: 20
+        }} 
+      /&gt;
+
+      &lt;div style={{ position: 'relative', zIndex: 2 }}&gt;
+        &lt;span style={{ 
+          fontSize: 11, 
+          fontWeight: 800, 
+          textTransform: 'uppercase', 
+          letterSpacing: '0.08em', 
+          color: '#C1DD2D' 
+        }}&gt;
+          {category}
+        &lt;/span&gt;
+        &lt;h3 style={{ fontSize: 20, fontWeight: 800, color: '#FFF', margin: '8px 0' }}&gt;
+          {title}
+        &lt;/h3&gt;
+        &lt;p style={{ fontSize: 14.5, color: '#CCC', lineHeight: 1.6, margin: 0 }}&gt;
+          {description}
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+
+        <p>In modern Tailwind CSS v3 and v4 workflows, you can package these optical parameters as reusable design utility classes using CSS custom properties:</p>
+
+        <pre><code>/* Tailwind CSS Plugin Configuration: theme.css */
+@layer utilities {
+  .glass-acrylic {
+    background-color: rgba(18, 18, 18, 0.72);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    contain: paint layout;
+  }
+
+  .glass-mica {
+    background-color: rgba(24, 24, 27, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  }
+}</code></pre>
+
+        <!-- SECTION 12 -->
+        <h2 id="performance-diagnostics">12. Performance Diagnostics: Measuring Shading Passes &amp; Frame Rates</h2>
+        <p>In high-frequency rendering pipelines, measuring shader performance requires inspecting compositor frame times via Chrome DevTools Rendering panel. Key diagnostic metrics include:</p>
+        <ul>
+          <li><strong>Raster Time:</strong> The CPU time spent generating Skia draw commands for SVG primitives. Must remain below 2.0 ms per frame.</li>
+          <li><strong>GPU Fragment Fill Rate:</strong> Overdraw caused by overlapping translucent glass cards. Stacking more than three translucent layers on mobile can cause fragment memory bus saturation.</li>
+          <li><strong>Layer Invalidation Count:</strong> Verify that scrolling does not trigger repaints on static glass containers (indicated by green flash in DevTools Paint Flashing).</li>
+          <li><strong>Intermediate Framebuffer Memory Allocation:</strong> Every <code>feDisplacementMap</code> pass creates an intermediate offscreen surface. On a 1080p viewport, each 32-bit RGBA texture buffer consumes 8.3 Megabytes of VRAM. Chaining three displacement passes without bounding containment balloons memory usage to over 25 MB per component.</li>
+        </ul>
+
+        <!-- SECTION 13 -->
+        <h2 id="accessibility-contrast-legibility">13. Accessibility, Contrast Legibility (WCAG 2.2 APCA / 4.5:1) &amp; prefers-reduced-transparency</h2>
+        <p>Translucent glassmorphism poses substantial accessibility risks if background elements (such as bright photos, moving video, or text) show through the glass and degrade foreground text contrast. Under <strong>WCAG 2.2 Success Criterion 1.4.3 (Contrast Minimum)</strong>, text must maintain a minimum 4.5:1 contrast ratio against its effective background.</p>
+
+        <h3>The prefers-reduced-transparency Media Feature</h3>
+        <p>Modern operating systems (macOS, iOS, Windows) provide an accessibility setting to "Reduce Transparency". Web applications must honor this preference using the standard CSS media feature:</p>
+
+        <pre><code>/* Accessible Solid Material Architecture */
+@media (prefers-reduced-transparency: reduce) {
+  .vision-glass-container,
+  .glass-material-surface {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: #121212 !important; /* Solid high-contrast backing */
+    border-color: #333333 !important;
+  }
+}</code></pre>
+
+        <p>Under the newer <strong>APCA (Accessible Perceptual Contrast Algorithm)</strong> standard incorporated into future W3C guidelines, contrast is evaluated non-linearly across spatial frequencies. Because frosted glass blurs high spatial frequencies while leaving low-frequency color masses intact, dark text over light glass cards can suffer severe readability loss when hovering over white images. By enforcing a dark tint floor of at least <code>rgba(18, 18, 18, 0.75)</code>, enterprise design systems guarantee that text always passes perceptual contrast checks regardless of dynamic backdrop contents.</p>
+
+        <!-- SECTION 14 -->
+        <h2 id="frequently-asked-questions">14. Frequently Asked Questions: SVG Glassmorphism &amp; Refractive Materials</h2>
+        <div class="faq-item">
+          <h3>Why is SVG glassmorphism superior to basic CSS backdrop-filter blur?</h3>
+          <p>Standard CSS backdrop-filter: blur() applies a uniform raster Gaussian blur across background pixels, creating a flat, milky, plastic appearance. It lacks optical refraction, surface micro-roughness, border specular highlights, and chromatic aberration. In contrast, SVG optical glass shaders combine feTurbulence, feDisplacementMap, and feSpecularLighting to physically simulate Snell's Law of refraction, tactile silica frost, beveled rim caustics, and prism color dispersion, achieving authentic physical glass depth.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How does feDisplacementMap simulate optical refraction and frosted glass textures?</h3>
+          <p>The feDisplacementMap primitive uses the color channels of an input heightmap texture (typically synthesized via feTurbulence procedural noise) to spatially displace background pixels along X and Y axes. By mapping red channel intensity to horizontal displacement and green channel to vertical displacement, pixels underneath the glass bend dynamically based on surface normals, accurately simulating physical light ray deflection as it passes between air and optical glass.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What is the function of feSpecularLighting in rendering realistic 3D glass borders?</h3>
+          <p>feSpecularLighting treats the alpha channel of a vector shape as a 3D elevation heightmap and calculates surface normal vectors. It then computes Blinn-Phong specular reflections from a virtual directional or point light source (feDistantLight or fePointLight). This generates brilliant, razor-sharp specular rim highlights along the curved or beveled borders of cards and modal windows, giving them the luminous 3D edge sheen characteristic of premium glass materials.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you achieve chromatic dispersion (prismatic rainbow splitting) in SVG glass?</h3>
+          <p>Chromatic dispersion occurs when different wavelengths of light refract at slightly different angles through glass. In SVG, this is engineered by splitting the background graphic into separate red, green, and blue color channels using feColorMatrix, applying feDisplacementMap to each channel with incrementally staggered scale values (e.g., scale=12 for red, scale=10 for green, scale=8 for blue), and recombining them using feComposite or feBlend. This creates subtle prismatic color fringing along refracted edges.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you maintain 60 FPS performance when using SVG glass filters in web applications?</h3>
+          <p>To ensure 60 FPS performance, isolate the glass filter to static card backdrops or promote glass layers to dedicated GPU surfaces using will-change: transform and contain: paint. Avoid full-screen dynamic backdrop displacement during rapid scrolling. Additionally, bake complex procedural noise textures into lightweight seamless SVG pattern tiles (128x128px) rather than computing live multi-octave Perlin noise across the full viewport on every repaint.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you ensure SVG glassmorphic UI remains readable and accessible under WCAG 2.2?</h3>
+          <p>Translucent glass panels can compromise text contrast if background content shifts dynamically. To guarantee WCAG 2.2 AA compliance (minimum 4.5:1 contrast ratio for normal text), back the glass surface with an opaque semi-translucent tint (such as rgba(15,15,15,0.75) for dark mode or rgba(255,255,255,0.85) for light mode). Furthermore, implement the CSS @media (prefers-reduced-transparency: reduce) media query to substitute translucent glass with completely solid, high-contrast backgrounds for vision-impaired users.</p>
+        </div>
+
+        <!-- KEY TAKEAWAY BOX -->
+        <div class="takeaway-box">
+          <h3>Architectural Takeaways &amp; Engineering Checklist</h3>
+          <ul>
+            <li><strong>Authentic Refraction:</strong> Use <code>feDisplacementMap</code> with <code>feTurbulence</code> to simulate Snell's Law and surface frost.</li>
+            <li><strong>3D Beveled Borders:</strong> Employ <code>feSpecularLighting</code> with <code>feDistantLight</code> for photorealistic rim highlights.</li>
+            <li><strong>Layer Containment:</strong> Always declare <code>contain: paint layout</code> to lock GPU texture buffers and prevent scroll lag.</li>
+            <li><strong>WCAG Compliance:</strong> Guarantee minimum 4.5:1 contrast and provide solid fallbacks under <code>prefers-reduced-transparency</code>.</li>
+            <li><strong>Multi-Engine Safety:</strong> Pair SVG filters with CSS <code>backdrop-filter</code> and fallback background tints.</li>
+          </ul>
+        </div>
+
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#beyond-css-backdrop-filter">1. Beyond CSS backdrop-filter</a></li>
+              <li><a href="#optical-physics-of-glass">2. Optical Physics of Glass</a></li>
+              <li><a href="#crafting-procedural-frost">3. Crafting Procedural Frost</a></li>
+              <li><a href="#surface-normals-specular-lighting">4. 3D Surface Normals &amp; Rim</a></li>
+              <li><a href="#architectural-lighting-models">5. Architectural Lighting Models</a></li>
+              <li><a href="#simulating-chromatic-dispersion">6. Simulating Chromatic Dispersion</a></li>
+              <li><a href="#fluted-ribbed-glass-textures">7. Fluted &amp; Ribbed Glass</a></li>
+              <li><a href="#interactive-glass-studio">8. Interactive Glass Studio</a></li>
+              <li><a href="#cross-browser-fallback-matrix">9. Cross-Browser Fallbacks</a></li>
+              <li><a href="#gpu-layer-allocation">10. GPU Layer Allocation</a></li>
+              <li><a href="#production-implementations-glass">11. Production Implementations</a></li>
+              <li><a href="#performance-diagnostics">12. Performance Diagnostics</a></li>
+              <li><a href="#accessibility-contrast-legibility">13. Accessibility &amp; WCAG Fallbacks</a></li>
+              <li><a href="#frequently-asked-questions">14. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Need Clean Vector Icons?</h4>
+          <p>Search over 134,000 open-source SVG icons across 28 popular libraries with live color customization and instant export.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search 134K+ Icons</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <a href="/">IconStash</a>. A project by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. Author: <a href="/about/">Jouni Flemming</a>.</p>
+  </footer>
+
+  <script>
+    // Theme persistence script
+    (function() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('iconstash_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('iconstash_theme', next);
+        });
+      }
+    })();
+
+    // Interactive Glass Studio Controller
+    (function() {
+      const blurSlider = document.getElementById('glassBlurSlider');
+      const dispSlider = document.getElementById('glassDisplacementSlider');
+      const specSlider = document.getElementById('glassSpecularSlider');
+      const blurDisplay = document.getElementById('glassBlurDisplay');
+      const dispDisplay = document.getElementById('glassDisplacementDisplay');
+      const specDisplay = document.getElementById('glassSpecularDisplay');
+      const textureSelect = document.getElementById('glassTextureSelect');
+      const feTurbNode = document.getElementById('feGlassTurbNode');
+      const feDispNode = document.getElementById('feGlassDispNode');
+      const feBlurNode = document.getElementById('feGlassBlurNode');
+      const feSpecNode = document.getElementById('feGlassSpecNode');
+      const card = document.getElementById('interactiveFloatingGlassCard');
+      const codeOutput = document.getElementById('glassCodeOutput');
+      const tabSvg = document.getElementById('tabSvgGlassCode');
+      const tabCss = document.getElementById('tabCssGlassCode');
+      const copyBtn = document.getElementById('copyGlassCodeBtn');
+      const presetVision = document.getElementById('btnPresetVisionOS');
+      const presetMica = document.getElementById('btnPresetFrostedMica');
+      const presetFluted = document.getElementById('btnPresetFluted');
+
+      let currentTab = 'svg';
+
+      function updateStudio() {
+        const blur = parseInt(blurSlider.value, 10);
+        const disp = parseInt(dispSlider.value, 10);
+        const spec = parseFloat(specSlider.value);
+        const texture = textureSelect.value;
+
+        blurDisplay.textContent = blur + 'px';
+        dispDisplay.textContent = disp;
+        specDisplay.textContent = spec.toFixed(1);
+
+        feBlurNode.setAttribute('stdDeviation', blur);
+        feDispNode.setAttribute('scale', disp);
+        feSpecNode.setAttribute('specularConstant', spec);
+
+        if (texture === 'fluted') {
+          feTurbNode.setAttribute('baseFrequency', '0.08 0.0');
+          feTurbNode.setAttribute('type', 'turbulence');
+          feDispNode.setAttribute('xChannelSelector', 'R');
+          feDispNode.setAttribute('yChannelSelector', 'R');
+        } else if (texture === 'hammered') {
+          feTurbNode.setAttribute('baseFrequency', '0.04');
+          feTurbNode.setAttribute('type', 'fractalNoise');
+          feDispNode.setAttribute('xChannelSelector', 'R');
+          feDispNode.setAttribute('yChannelSelector', 'G');
+        } else {
+          feTurbNode.setAttribute('baseFrequency', '0.35');
+          feTurbNode.setAttribute('type', 'fractalNoise');
+          feDispNode.setAttribute('xChannelSelector', 'R');
+          feDispNode.setAttribute('yChannelSelector', 'G');
+        }
+
+        renderCodeOutput(blur, disp, spec, texture);
+      }
+
+      function renderCodeOutput(blur, disp, spec, texture) {
+        if (currentTab === 'svg') {
+          const freq = texture === 'fluted' ? '0.08 0.0' : texture === 'hammered' ? '0.04' : '0.35';
+          const type = texture === 'fluted' ? 'turbulence' : 'fractalNoise';
+          const lines = [
+            '<filter id="vector-glass-filter" x="-20%" y="-20%" width="140%" height="140%">',
+            '  <feTurbulence type="' + type + '" baseFrequency="' + freq + '" numOctaves="2" result="noiseMap" />',
+            '  <feDisplacementMap in="SourceGraphic" in2="noiseMap" scale="' + disp + '" xChannelSelector="R" yChannelSelector="G" result="refracted" />',
+            '  <feGaussianBlur in="refracted" stdDeviation="' + blur + '" result="blurred" />',
+            '  <feSpecularLighting in="SourceAlpha" surfaceScale="4" specularConstant="' + spec + '" specularExponent="24" lighting-color="#FFF" result="spec">',
+            '    <feDistantLight azimuth="225" elevation="45" />',
+            '  </feSpecularLighting>',
+            '  <feComposite in="spec" in2="SourceAlpha" operator="in" result="rimHighlight" />',
+            '  <feBlend in="blurred" in2="rimHighlight" mode="screen" />',
+            '</filter>'
+          ];
+          codeOutput.textContent = lines.join('\\n');
+        } else {
+          const cssLines = [
+            '/* CSS Glassmorphism Card Architecture */',
+            '.vision-glass-card {',
+            '  position: relative;',
+            '  border-radius: 20px;',
+            '  padding: 28px;',
+            '  background: rgba(18, 18, 18, 0.68);',
+            '  backdrop-filter: blur(' + blur + 'px) saturate(180%);',
+            '  -webkit-backdrop-filter: blur(' + blur + 'px) saturate(180%);',
+            '  border: 1px solid rgba(255, 255, 255, 0.12);',
+            '  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);',
+            '  contain: paint layout;',
+            '}'
+          ];
+          codeOutput.textContent = cssLines.join('\\n');
+        }
+      }
+
+      blurSlider.addEventListener('input', updateStudio);
+      dispSlider.addEventListener('input', updateStudio);
+      specSlider.addEventListener('input', updateStudio);
+      textureSelect.addEventListener('change', updateStudio);
+
+      tabSvg.addEventListener('click', function() {
+        currentTab = 'svg';
+        tabSvg.classList.add('active');
+        tabCss.classList.remove('active');
+        updateStudio();
+      });
+
+      tabCss.addEventListener('click', function() {
+        currentTab = 'css';
+        tabCss.classList.add('active');
+        tabSvg.classList.remove('active');
+        updateStudio();
+      });
+
+      presetVision.addEventListener('click', function() {
+        blurSlider.value = '16';
+        dispSlider.value = '4';
+        specSlider.value = '1.8';
+        textureSelect.value = 'frosted';
+        updateStudio();
+      });
+
+      presetMica.addEventListener('click', function() {
+        blurSlider.value = '8';
+        dispSlider.value = '14';
+        specSlider.value = '1.2';
+        textureSelect.value = 'hammered';
+        updateStudio();
+      });
+
+      presetFluted.addEventListener('click', function() {
+        blurSlider.value = '4';
+        dispSlider.value = '22';
+        specSlider.value = '2.2';
+        textureSelect.value = 'fluted';
+        updateStudio();
+      });
+
+      copyBtn.addEventListener('click', function() {
+        const text = codeOutput.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function() { copyBtn.textContent = 'Copy Code'; }, 1800);
+          }).catch(function() {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function() { copyBtn.textContent = 'Copy Code'; }, 1800);
+        } catch (e) {
+          copyBtn.textContent = 'Error';
+        }
+        document.body.removeChild(ta);
+      }
+
+      updateStudio();
+    })();
+  </script>
+</body>
+</html>`;
+}
+
+const html = buildArticle2();
+const outPath = path.join(outDir, 'index.html');
+fs.writeFileSync(outPath, html, 'utf8');
+console.log('Successfully wrote Article 2 to:', outPath);
+console.log('File size:', Math.round(fs.statSync(outPath).size / 1024), 'KB');

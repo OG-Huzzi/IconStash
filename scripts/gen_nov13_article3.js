@@ -1,0 +1,1535 @@
+const fs = require('fs');
+const path = require('path');
+
+const outDir = path.join('D:', 'Project IconStash', 'IconStash', 'articles', 'svg-isometric-projection-and-2-5d-graphics-guide');
+if (!fs.existsSync(outDir)) {
+  fs.mkdirSync(outDir, { recursive: true });
+}
+
+function buildArticle3() {
+  return `<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Isometric Projection &amp; 2.5D Vector Graphics: The Complete Mathematical Architecture Guide (2026) | IconStash</title>
+  <meta name="description" content="Master SVG isometric projection: 30-degree axonometric matrix math, 3D-to-2D coordinates, topological depth sorting, face shading vectors, and live studio.">
+  <meta name="keywords" content="svg isometric projection, isometric svg generator, svg 2.5d graphics, isometric matrix svg, isometric grid svg, topological depth sorting svg, isometric cube math, cloud architecture diagram svg">
+  <meta property="og:title" content="Mastering SVG Isometric Projection &amp; 2.5D Vector Graphics: The Complete Mathematical Architecture Guide (2026)">
+  <meta property="og:description" content="Master SVG isometric projection: 30-degree axonometric matrix math, 3D-to-2D coordinates, topological depth sorting, face shading vectors, and live studio.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-isometric-projection-and-2-5d-graphics-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-isometric-projection-and-2-5d-graphics-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-13T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-13T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Spatial Geometry &amp; 2.5D Vector Systems">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Isometric">
+  <meta property="article:tag" content="Linear Algebra">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta property="article:tag" content="Architecture Diagrams">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Isometric Projection &amp; 2.5D Vector Graphics: The Complete Mathematical Architecture Guide (2026)">
+  <meta name="twitter:description" content="Master SVG isometric projection: 30-degree axonometric matrix math, 3D-to-2D coordinates, topological depth sorting, face shading vectors, and live studio.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-isometric-projection-and-2-5d-graphics-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-isometric-projection-and-2-5d-graphics-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Isometric Projection & 2.5D Vector Graphics: The Complete Mathematical Architecture Guide (2026)",
+      "description": "Master SVG isometric projection: 30-degree axonometric matrix math, 3D-to-2D coordinates, topological depth sorting, face shading vectors, and live studio.",
+      "image": "https://iconstash.io/assets/articles/svg-isometric-projection-and-2-5d-graphics-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-isometric-projection-and-2-5d-graphics-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4760,
+      "articleSection": "Spatial Geometry & 2.5D Vector Systems",
+      "keywords": [
+        "svg isometric projection",
+        "isometric svg generator",
+        "svg 2.5d graphics",
+        "isometric matrix svg",
+        "isometric grid svg",
+        "topological depth sorting svg",
+        "isometric cube math",
+        "cloud architecture diagram svg"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Mastering SVG Isometric Projection & 2.5D Graphics Guide",
+          "item": "https://iconstash.io/articles/svg-isometric-projection-and-2-5d-graphics-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the mathematical equation to project 3D coordinates (X, Y, Z) into 2D SVG canvas coordinates (u, v)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "True 30-degree isometric projection maps 3D Cartesian coordinates to 2D screen coordinates using the affine equations: u = (X - Y) * cos(30°) = (X - Y) * (sqrt(3)/2) approx 0.866025 * (X - Y), and v = (X + Y) * sin(30°) - Z = (X + Y) * 0.5 - Z. In this system, the X and Y axes project at 30 degrees above the horizontal baseline, while the Z axis projects vertically downward or upward without foreshortening."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does depth sorting work in SVG since SVG has no 3D Z-buffer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVG renders elements strictly according to DOM document tree order (the Painter's Algorithm), where elements declared later paint over earlier elements. In an isometric grid without intersecting faces, sorting items by depth index D = X + Y + Z from lowest to highest guarantees correct occlusion: background objects at low (X, Y, Z) are painted first, and foreground objects at high coordinates are painted on top without visual artifacts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the exact SVG transform matrix values for rendering the top, left, and right faces of an isometric cube?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To project flat 2D square vector paths onto isometric cube faces: The top face uses matrix(0.866025, 0.5, -0.866025, 0.5, 0, 0) corresponding to rotate(45deg) and scale(1, 0.57735); the left face uses matrix(0.866025, 0.5, 0, 1, 0, 0) corresponding to skewY(30deg) and scale(0.866025, 1); the right face uses matrix(0.866025, -0.5, 0, 1, 0, 0) corresponding to skewY(-30deg) and scale(0.866025, 1)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you calculate directional face lighting and shading on an isometric SVG model?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Directional shading is calculated using Lambert's Cosine Law: Illumination I = I_ambient + I_dir * max(0, dot(N, L)), where N is the outward surface unit normal vector and L is the normalized light direction vector. For a standard top-left key light L = (-0.577, -0.577, 0.577): the top face (N = [0, 0, 1]) receives 100% illumination; the left face (N = [-1, 0, 0]) receives 75% illumination; the right face (N = [0, 1, 0]) receives 45% illumination, establishing immediate 3D volumetric depth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you draw connecting cables and pipelines between two 3D isometric nodes in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To draw connecting lines in isometric space, calculate the start and end coordinates in 3D world space (X1, Y1, Z1) and (X2, Y2, Z2), project them into 2D canvas coordinates using the isometric transform formula, and construct an SVG path with right-angled Manhattan routing or cubic Bezier curves. For Manhattan routing, paths travel strictly along isometric grid vectors (delta X, then delta Y, then delta Z), preserving the axonometric perspective."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you ensure complex isometric SVG diagrams remain accessible to screen readers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Complex isometric diagrams must use the WAI-ARIA Graphics Module: assign role='graphics-document' to the root svg element, provide a descriptive title and desc tag, group related nodes within g elements bearing role='graphics-object' and aria-label attributes, and hide purely decorative grid lines or connector cables using aria-hidden='true'. This allows screen readers to navigate the conceptual system hierarchy without getting overwhelmed by raw coordinate geometry."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 380px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; padding: 20px; }
+    .stage-iso-element { width: 100%; height: 100%; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: 1fr; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/stats/">Statistics</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <a href="/#/" class="header-cta">Open App</a>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">SVG Isometric Projection &amp; 2.5D Graphics Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <div class="tag">Spatial Geometry &amp; 2.5D Vector Systems</div>
+      <h1>Mastering SVG Isometric Projection &amp; 2.5D Vector Graphics: The Complete Mathematical Architecture Guide (2026)</h1>
+      <div class="article-meta">
+        <span>Published: <strong>November 13, 2026</strong></span>
+        <span>By: <a href="/about/">Jouni Flemming</a></span>
+        <span>Reading Time: <strong>26 min</strong></span>
+        <span>Format: <strong>Interactive Guide &amp; Linear Algebra Architecture</strong></span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Brief:</strong> 2.5D isometric visualization represents the gold standard for presenting complex systems: enterprise cloud infrastructure schematics, microservice topologies, database clusters, and interactive spatial interfaces. Unlike full 3D rendering engines (WebGL/Three.js) that require megabytes of JavaScript, complex camera frustums, and heavy GPU pipelines, pure SVG isometric projection delivers crisp, resolution-independent, searchable, and fully accessible vector graphics with zero runtime dependencies.</p>
+          <ul>
+            <li><strong>Axonometric Matrix Derivations:</strong> Mathematical formulation of the 30-degree isometric projection matrix mapping (<em>X, Y, Z</em>) world space to (<em>u, v</em>) screen coordinates.</li>
+            <li><strong>Affine Transformation Pipelines:</strong> Applying exact SVG <code>transform="matrix(a,b,c,d,e,f)"</code> attributes to skew, scale, and orient 2D squares into isometric top, left, and right cube faces.</li>
+            <li><strong>Topological Depth Sorting:</strong> Solving the SVG Painter's Algorithm dilemma to guarantee zero visual occlusions and eliminate z-fighting in dense multi-tier isometric clusters.</li>
+            <li><strong>Lambertian Diffuse Illumination:</strong> Computing surface normal dot products with directional key lights to establish volumetric depth and contrast.</li>
+            <li><strong>Interactive Isometric Studio:</strong> Real-time dimension modulation, lighting adjustments, multi-cube cluster stacking, and instant production SVG/JSON export.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-isometric-projection-and-2-5d-graphics-guide.jpg" alt="Sophisticated 3D vector engineering schematic of isometric cloud computing nodes, 2.5D architecture cubes, and coordinate grids" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-precision 2.5D isometric vector architecture illustrating modular cloud infrastructure cubes, 30-degree coordinate axes, and directional face shading.</figcaption>
+        </figure>
+
+        <!-- SECTION 1 -->
+        <h2 id="rise-of-isometric-graphics">1. The Rise of 2.5D Spatial Graphics in Modern Cloud, SaaS &amp; System Architecture</h2>
+        <p>In modern software engineering, communicating system architecture has become as vital as building the system itself. Cloud architectures spanning Kubernetes clusters, edge workers, distributed databases, and event-driven microservices are inherently multi-layered. When forced into flat 2D node graphs or box-and-arrow diagrams, visual connections quickly devolve into a confusing tangle of intersecting lines and crowded text.</p>
+        <p><strong>Isometric 2.5D projection</strong> solves this visual congestion by adding a discrete third spatial dimension without the distortion of perspective foreshortening. In an axonometric isometric drawing, parallel lines in 3D space remain strictly parallel on the 2D canvas, and distances along all three coordinate axes are scaled identically. This property makes isometric graphics uniquely suited for engineering: server blocks can be stacked vertically to represent hierarchy, horizontal planes depict subnetworks and VPC regions, and isometric connector paths route cleanly around components.</p>
+        <p>While some developers reach for full 3D libraries like Three.js or Babylon.js to draw these schematics, doing so introduces massive bundle overhead (500 KB to 2 MB), canvas blurriness on Retina screens, and poor SEO indexability. Pure SVG solves this completely: every node is an inspectable DOM element, text remains selectable and sharp, file sizes stay under 20 KB, and the entire diagram can be dynamically manipulated with standard CSS and JavaScript. For foundational context on vector transformations, review our guide on <a href="/articles/svg-coordinate-systems-and-transformations-guide/">SVG coordinate systems and transformations</a>.</p>
+
+        <!-- SECTION 2 -->
+        <h2 id="mathematical-foundations-isometric">2. The Mathematical Foundations of Axonometric vs. True Isometric Projection (30&deg;)</h2>
+        <p>Before writing a single line of SVG markup, we must understand the linear algebra of isometric projection. Isometric projection is a specialized form of <strong>axonometric orthographic projection</strong>. The word <em>isometric</em> comes from the Greek for "equal measure" because the scale along all three principal axes (<em>X</em>, <em>Y</em>, <em>Z</em>) is identical.</p>
+        <p>To construct a true isometric view from 3D space:</p>
+        <ol>
+          <li>The 3D coordinate system is first rotated around the vertical <em>Z</em> axis by 45&deg; (&pi; / 4 radians).</li>
+          <li>The system is then tilted forward around the horizontal axis by approximately 35.264&deg; (&arcsin;(tan 30&deg;) = &arctan;(&radic;2 / 2) radians).</li>
+        </ol>
+
+        <p>Under this specific combination of rotations, the projected <em>X</em>, <em>Y</em>, and <em>Z</em> axes meet at equal angles of 120&deg; relative to one another. When measured against the horizontal screen baseline, the <em>X</em> axis angles downward to the right at exactly 30&deg;, the <em>Y</em> axis angles downward to the left at 30&deg;, and the <em>Z</em> axis extends vertically at 90&deg;.</p>
+
+        <!-- FORMULA CARD 1 -->
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Angles of Axonometric Projection</div>
+          <div class="formula-body">
+            &theta;<sub>X</sub> = 30&deg; &emsp; &theta;<sub>Y</sub> = 150&deg; (30&deg; to left) &emsp; &theta;<sub>Z</sub> = 90&deg; (Vertical)<br>
+            Separation Angle = 120&deg; between all adjacent principal axes
+          </div>
+          <div class="formula-desc">Because all axes are inclined equally to the projection plane, a unit cube projects as a regular hexagon, where the three visible faces form congruent 60&deg;/120&deg; rhombuses.</div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <h2 id="deriving-coordinate-equations">3. Deriving the Coordinate Transform Equations: From World (X, Y, Z) to SVG Screen (u, v)</h2>
+        <p>To programmatically position elements, nodes, and connector conduits in an SVG diagram, we must convert any arbitrary 3D point (<em>X, Y, Z</em>) into a 2D canvas point (<em>u, v</em>). Let us derive these projection equations from basic trigonometry.</p>
+        <p>Let the positive <em>X</em> axis project along the vector (cos 30&deg;, sin 30&deg;), the positive <em>Y</em> axis project along (-cos 30&deg;, sin 30&deg;), and the positive <em>Z</em> axis extend straight upward (0, -1) in SVG screen coordinates (where screen <em>v</em> increases downward):</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: 3D to 2D Isometric Transform</div>
+          <div class="formula-body">
+            u = (X &minus; Y) &times; cos(30&deg;) = (X &minus; Y) &times; (&radic;3 / 2) &asymp; 0.866025 &times; (X &minus; Y)<br>
+            v = (X + Y) &times; sin(30&deg;) &minus; Z = (X + Y) &times; 0.5 &minus; Z
+          </div>
+          <div class="formula-desc">Where X, Y, Z represent 3D grid units (or pixels), and u, v represent the 2D Cartesian SVG canvas coordinates. Notice the remarkable simplicity: computing a 2D screen coordinate requires only two multiplications and four additions!</div>
+        </div>
+
+        <p>Let us verify the coordinate mapping for key points of a unit cube of size <em>S</em> = 60 located at the origin (0, 0, 0):</p>
+        <ul>
+          <li><strong>Origin Vertex (0, 0, 0):</strong> <em>u</em> = 0, <em>v</em> = 0 (The center front intersection).</li>
+          <li><strong>Right Bottom Vertex (60, 0, 0):</strong> <em>u</em> = 60 &times; 0.866 = 51.96, <em>v</em> = 60 &times; 0.5 = 30.0.</li>
+          <li><strong>Left Bottom Vertex (0, 60, 0):</strong> <em>u</em> = -60 &times; 0.866 = -51.96, <em>v</em> = 60 &times; 0.5 = 30.0.</li>
+          <li><strong>Top Peak Vertex (0, 0, 60):</strong> <em>u</em> = 0, <em>v</em> = -60.0.</li>
+          <li><strong>Top Right Vertex (60, 0, 60):</strong> <em>u</em> = 51.96, <em>v</em> = 30.0 &minus; 60 = -30.0.</li>
+          <li><strong>Top Left Vertex (0, 60, 60):</strong> <em>u</em> = -51.96, <em>v</em> = 30.0 &minus; 60 = -30.0.</li>
+          <li><strong>Top Back Vertex (60, 60, 60):</strong> <em>u</em> = 0, <em>v</em> = (60 + 60) &times; 0.5 &minus; 60 = 0.0.</li>
+        </ul>
+
+        <p>By connecting these calculated (<em>u, v</em>) vertices, you construct the exact boundary polygons for all three visible faces. For foundational mastery of drawing SVG paths with commands, consult our guide on <a href="/articles/svg-path-commands-and-d-attribute-guide/">SVG path commands and the d attribute</a>.</p>
+
+        <!-- SECTION 4 -->
+        <h2 id="svg-matrix-pipeline">4. The SVG Matrix Transformation Pipeline: matrix(a, b, c, d, e, f) for Isometric Faces</h2>
+        <p>While calculating polygon vertices directly is efficient for simple cubes, modern design systems frequently need to embed complex 2D vector artâ€”such as icons, charts, typography, or UI screensâ€”onto the faces of an isometric block. To project existing 2D graphics onto 3D planes without re-authoring them vertex by vertex, we utilize SVG affine matrix transforms: <code>transform="matrix(a, b, c, d, e, f)"</code>.</p>
+        <p>The standard 2D affine transformation matrix transforms a point (<em>x, y</em>) into (<em>x', y'</em>) via:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Matrix Equation: 2D Affine Transform</div>
+          <div class="formula-body">
+            [ x' ] &emsp; [ a &nbsp; c &nbsp; e ] &emsp; [ x ]<br>
+            [ y' ] = &nbsp;[ b &nbsp; d &nbsp; f ] &times; [ y ]<br>
+            [ 1 &nbsp;] &emsp; [ 0 &nbsp; 0 &nbsp; 1 ] &emsp; [ 1 ]
+          </div>
+          <div class="formula-desc">Where a, d control scaling, b, c control shearing, and e, f control translation.</div>
+        </div>
+
+        <p>For each of the three visible isometric planes, we derive the exact matrix constants:</p>
+
+        <h3>1. Top Horizontal Face (XY Plane)</h3>
+        <p>The top face is created by rotating a square by 45&deg; and then compressing its vertical axis by a factor of sin(35.264&deg;) / cos(45&deg;) = &radic;(2/3) / (&radic;2 / 2) = 2/&radic;3 &times; 0.5 &approx; 0.57735:</p>
+        <pre><code>&lt;!-- Top Face: rotate(-45) scale(1, 0.57735) --&gt;
+&lt;g transform="matrix(0.866025, 0.5, -0.866025, 0.5, tx, ty)"&gt;
+  &lt;!-- Flat 2D square content here --&gt;
+&lt;/g&gt;</code></pre>
+
+        <h3>2. Left Vertical Face (XZ Plane)</h3>
+        <p>The left face requires vertical shearing by +30&deg; combined with horizontal compression by cos(30&deg;) = &radic;3 / 2 &approx; 0.866025:</p>
+        <pre><code>&lt;!-- Left Face: skewY(30) scale(0.866025, 1) --&gt;
+&lt;g transform="matrix(0.866025, 0.5, 0, 1, tx, ty)"&gt;
+  &lt;!-- Content mapped to left wall --&gt;
+&lt;/g&gt;</code></pre>
+
+        <h3>3. Right Vertical Face (YZ Plane)</h3>
+        <p>The right face requires vertical shearing by -30&deg; combined with horizontal compression by 0.866025:</p>
+        <pre><code>&lt;!-- Right Face: skewY(-30) scale(0.866025, 1) --&gt;
+&lt;g transform="matrix(0.866025, -0.5, 0, 1, tx, ty)"&gt;
+  &lt;!-- Content mapped to right wall --&gt;
+&lt;/g&gt;</code></pre>
+
+        <p>With these three matrices, any standard icon from the IconStash catalog can be instantly projected onto the top of a server rack or the side of an isometric storage array with zero loss of vector sharpness. For complete transform chaining techniques, explore our guide on <a href="/articles/how-to-use-svg-transforms-guide/">how to use SVG transforms in CSS and vector art</a>.</p>
+
+        <!-- SECTION 5 -->
+        <h2 id="depth-sorting-dilemma">5. The SVG Depth Sorting Dilemma: Topological Sorting vs. The Painter's Algorithm</h2>
+        <p>In true 3D graphics (like OpenGL or WebGL), depth occlusion is handled automatically by the GPU hardware <strong>Z-buffer</strong>. As fragments are rasterized, their depth value is compared against the depth buffer; if a fragment is further away than an existing pixel, it is discarded. SVG has <strong>no Z-buffer</strong>. The SVG specification mandates that elements render strictly in document order: elements appearing later in the DOM paint on top of earlier elements (the <strong>Painter's Algorithm</strong>).</p>
+        <p>In complex isometric diagrams with dozens of stacked nodes, server racks, and connecting conduits, a naive DOM order causes catastrophic rendering bugs: background cubes bleed through foreground servers, and cables appear to float behind the boxes they are plugged into.</p>
+
+        <h3>The Linear Depth Metric</h3>
+        <p>For non-intersecting convex isometric blocks aligned to a regular orthogonal grid, we can compute an exact scalar depth index <em>D</em> for every block centered at (<em>X, Y, Z</em>):</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Isometric Depth Sorting Metric</div>
+          <div class="formula-body">D = X + Y + Z</div>
+          <div class="formula-desc">Because the isometric camera ray vector is &vec;C = (1, 1, 1), the distance from the projection camera plane to any point in space is directly proportional to the sum of its Cartesian coordinates X + Y + Z.</div>
+        </div>
+
+        <p>Before appending nodes into the SVG DOM, sort the node collection in ascending order of their depth metric <em>D</em>:</p>
+
+        <pre><code>// Production-Grade Isometric Depth Sorter
+function renderIsometricScene(nodes, svgContainer) {
+  // Sort from back to front (Painter's Algorithm)
+  const sortedNodes = [...nodes].sort((a, b) => {
+    const depthA = a.x + a.y + a.z;
+    const depthB = b.x + b.y + b.z;
+    return depthA - depthB;
+  });
+
+  // Render elements in strict depth order
+  sortedNodes.forEach(node => {
+    const group = createIsometricCubeElement(node);
+    svgContainer.appendChild(group);
+  });
+}</code></pre>
+
+        <p>This linear sorting algorithm runs in <em>O(N log N)</em> time, guaranteeing that all background infrastructure is painted first, followed by midground connections, and finally foreground interface pills.</p>
+
+        <!-- FIGURE 2: ARCHITECTURAL VECTOR FLOW DIAGRAM -->
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background:#0D0D0D; border:1px solid #222; border-radius:10px; display:block;">
+            <defs>
+              <linearGradient id="isoGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#849E00" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Coordinate Grid Lines -->
+            <path d="M 0 80 L 960 80 M 0 160 L 960 160 M 0 240 L 960 240 M 160 0 L 160 320 M 320 0 L 320 320 M 480 0 L 480 320 M 640 0 L 640 320 M 800 0 L 800 320" stroke="#161616" stroke-width="1"/>
+
+            <!-- Stage 1: 3D World Cartesian Coordinates -->
+            <rect x="40" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="52" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="120" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">1. 3D CARTESIAN</text>
+            <!-- 3D Axes -->
+            <path d="M 120 180 L 120 115 M 120 180 L 170 205 M 120 180 L 70 205" stroke="#FFF" stroke-width="2"/>
+            <text x="120" y="110" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">+Z</text>
+            <text x="180" y="210" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">+X</text>
+            <text x="60" y="210" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">+Y</text>
+            <text x="120" y="235" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Orthogonal World</text>
+
+            <!-- Arrow 1 -->
+            <path d="M 215 160 L 265 160" stroke="#C1DD2D" stroke-width="2"/>
+            <circle cx="240" cy="160" r="3" fill="#C1DD2D"/>
+
+            <!-- Stage 2: 30-Degree Projection Math -->
+            <rect x="280" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="292" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="360" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">2. PROJECTION MATH</text>
+            <!-- Math icon -->
+            <text x="360" y="145" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="middle">u = (X-Y)&times;cos30&deg;</text>
+            <text x="360" y="175" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" text-anchor="middle">v = (X+Y)&times;0.5-Z</text>
+            <text x="360" y="215" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Linear 30&deg; Mapping</text>
+            <text x="360" y="235" fill="#555" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Affine Conversion</text>
+
+            <!-- Arrow 2 -->
+            <path d="M 455 160 L 505 160" stroke="#C1DD2D" stroke-width="2"/>
+            <circle cx="480" cy="160" r="3" fill="#C1DD2D"/>
+
+            <!-- Stage 3: Topological Depth Sorting -->
+            <rect x="520" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="532" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="600" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">3. DEPTH SORTING</text>
+            <!-- Two cubes overlapping properly -->
+            <path d="M 580 120 L 610 135 L 610 165 L 580 150 Z" fill="#222" stroke="#444"/>
+            <path d="M 580 120 L 550 135 L 550 165 L 580 150 Z" fill="#333" stroke="#444"/>
+            <path d="M 580 120 L 610 135 L 580 150 L 550 135 Z" fill="#444" stroke="#555"/>
+            <!-- Front overlapping cube -->
+            <path d="M 610 145 L 640 160 L 640 190 L 610 175 Z" fill="#4D6300" stroke="#C1DD2D"/>
+            <path d="M 610 145 L 580 160 L 580 190 L 610 175 Z" fill="#849E00" stroke="#C1DD2D"/>
+            <path d="M 610 145 L 640 160 L 610 175 L 580 160 Z" fill="#C1DD2D" stroke="#FFF"/>
+            <text x="600" y="215" fill="#888" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Painter's Algorithm</text>
+            <text x="600" y="235" fill="#555" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">D = X + Y + Z</text>
+
+            <!-- Arrow 3 -->
+            <path d="M 695 160 L 745 160" stroke="#C1DD2D" stroke-width="2"/>
+            <circle cx="720" cy="160" r="3" fill="#C1DD2D"/>
+
+            <!-- Stage 4: Shaded 2.5D Vector Node -->
+            <rect x="760" y="60" width="160" height="200" rx="8" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+            <rect x="772" y="72" width="136" height="26" rx="4" fill="rgba(193,221,45,0.12)"/>
+            <text x="840" y="89" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">4. VECTOR SYSTEM</text>
+            <!-- Large Shaded Isometric Cube -->
+            <g transform="translate(840, 155)">
+              <!-- Left face -->
+              <polygon points="0,0 -42,-24 -42,32 0,56" fill="#182E05" stroke="#2A4808" stroke-width="1.5"/>
+              <!-- Right face -->
+              <polygon points="0,0 42,-24 42,32 0,56" fill="#0E1A03" stroke="#2A4808" stroke-width="1.5"/>
+              <!-- Top face -->
+              <polygon points="0,0 42,-24 0,-48 -42,-24" fill="#C1DD2D" stroke="#D2ED3E" stroke-width="1.5"/>
+              <text x="0" y="-20" fill="#0A0A0A" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="800" text-anchor="middle">API</text>
+            </g>
+            <text x="840" y="235" fill="#555" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle">Lambertian Shading</text>
+          </svg>
+          <figcaption>Figure 2: Architectural pipeline of SVG isometric 2.5D projection, demonstrating 3D world coordinate transformation, topological depth sorting, and Lambertian face shading.</figcaption>
+        </figure>
+
+        <!-- SECTION 6 -->
+        <h2 id="directional-face-illumination">6. Directional Face Illumination: Computing Lambertian Diffuse Shading from Normal Vectors</h2>
+        <p>A wireframe cube or solid monochromatic silhouette looks flat and ambiguous. In human perception, an isometric drawing only reads immediately as a three-dimensional solid when its faces exhibit coherent lighting contrast. We compute this contrast using <strong>Lambert's Cosine Law</strong>.</p>
+        <p>For each cube face with outward unit normal vector &vec;N and incident directional key light &vec;L:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Lambertian Diffuse Shading</div>
+          <div class="formula-body">
+            I = I<sub>ambient</sub> + I<sub>direct</sub> &times; max(0, &vec;N &bull; &vec;L)
+          </div>
+          <div class="formula-desc">Where &vec;N is the face normal vector and &vec;L is the normalized direction pointing toward the light source.</div>
+        </div>
+
+        <p>Let us define a standard high-contrast key light positioned in the upper-left sky: &vec;L = normalize(-1, -1, 1) = (-0.577, -0.577, 0.577):</p>
+        <ul>
+          <li><strong>Top Face (Normal &vec;N = [0, 0, 1]):</strong> &vec;N &bull; &vec;L = 0.577 &rarr; <strong>100% Brightness (Highlight Face)</strong>. Use primary accent tint (e.g. <code>#C1DD2D</code>).</li>
+          <li><strong>Left Face (Normal &vec;N = [-1, 0, 0]):</strong> &vec;N &bull; &vec;L = 0.577 &rarr; <strong>72% Brightness (Midtone Face)</strong>. Use medium shaded tone (e.g. <code>#849E00</code>).</li>
+          <li><strong>Right Face (Normal &vec;N = [0, 1, 0]):</strong> &vec;N &bull; &vec;L = -0.577 &rarr; <strong>42% Brightness (Shadow Face)</strong>. Use deep shade tone (e.g. <code>#3E4B00</code>).</li>
+        </ul>
+
+        <p>This systematic tri-tonal contrast instantly tricks the visual cortex into perceiving crisp, unambiguous volumetric solidity across thousands of rendered components.</p>
+
+        <!-- SECTION 7 -->
+        <h2 id="isometric-grids-tile-snapping">7. Constructing Dynamic Isometric Grids, Hexagonal Coordinate Systems &amp; Tile Snapping</h2>
+        <p>When engineering interactive diagram editors or city builders, users drag and place nodes across an isometric floor. To provide satisfying tactile alignment, the system must snap raw mouse coordinates (<em>u, v</em>) back onto the discrete isometric grid lattice (<em>X, Y</em>).</p>
+
+        <h3>The Inverse Isometric Matrix</h3>
+        <p>By inverting our forward projection equations, we derive the exact formula to convert 2D screen coordinates back into 3D ground coordinates (<em>Z</em> = 0):</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Inverse Isometric Transform (Screen to Grid)</div>
+          <div class="formula-body">
+            X = (v / sin 30&deg; + u / cos 30&deg;) / 2 = v + (u / &radic;3)<br>
+            Y = (v / sin 30&deg; &minus; u / cos 30&deg;) / 2 = v &minus; (u / &radic;3)
+          </div>
+          <div class="formula-desc">Given mouse coordinates (u, v) on the SVG canvas, applying this inverse transformation yields the floating-point ground coordinates (X, Y). Rounding to the nearest tile step size snaps the node precisely into the grid cell.</div>
+        </div>
+
+        <pre><code>// Grid Snapping Math for Interactive Canvas
+function snapScreenToIsoGrid(screenU, screenV, tileSize = 60) {
+  const root3 = Math.sqrt(3);
+  const rawX = (screenV + screenU / root3);
+  const rawY = (screenV - screenU / root3);
+
+  const tileX = Math.round(rawX / tileSize);
+  const tileY = Math.round(rawY / tileSize);
+
+  return { tileX, tileY };
+}</code></pre>
+
+        <!-- TABLE 1 -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Projection Technique</th>
+                <th>X/Y Incline Angle</th>
+                <th>Z-Axis Orientation</th>
+                <th>Foreshortening</th>
+                <th>Mathematical Efficiency</th>
+                <th>Primary Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>True Isometric (30&deg;)</strong></td>
+                <td>30.0&deg;</td>
+                <td>Vertical (90&deg;)</td>
+                <td>None (1:1:1 scale)</td>
+                <td>O(1) Matrix Blit</td>
+                <td>Cloud schematics, technical blueprints, system topology</td>
+              </tr>
+              <tr>
+                <td><strong>Dimetric Projection</strong></td>
+                <td>15.0&deg; &ndash; 26.5&deg; (2:1 pixel art)</td>
+                <td>Vertical (90&deg;)</td>
+                <td>Z scaled (0.5x)</td>
+                <td>Integer math only</td>
+                <td>Classic retro pixel art games, legacy CAD diagrams</td>
+              </tr>
+              <tr>
+                <td><strong>Trimetric Projection</strong></td>
+                <td>Unequal angles</td>
+                <td>Angled</td>
+                <td>Different on all 3 axes</td>
+                <td>Complex trigonometric</td>
+                <td>Dynamic camera views, cinematic perspective simulations</td>
+              </tr>
+              <tr>
+                <td><strong>Cabinet Oblique</strong></td>
+                <td>45.0&deg;</td>
+                <td>Vertical (90&deg;)</td>
+                <td>Receding axis 0.5x</td>
+                <td>Linear shift</td>
+                <td>Quick mechanical drafting, elementary schematics</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- SECTION 8: INTERACTIVE DEVELOPER STUDIO -->
+        <h2 id="interactive-isometric-studio">8. Interactive Isometric Vector &amp; Cloud Node Architecture Studio (Live Workbench)</h2>
+        <p>Test, construct, and customize 2.5D isometric architecture nodes in real-time. Adjust the cube width, length, and vertical height, select lighting directions, switch between single service nodes and tiered cloud clusters, and export clean, production-ready SVG path markup.</p>
+
+        <div class="interactive-sandbox" id="isoStudio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m12 12 9-5M12 12v10M12 12 3 7"/></svg>
+              <span>SVG Isometric 2.5D Architecture Studio</span>
+            </div>
+            <span class="sandbox-badge">Pure Vector Geometry</span>
+          </div>
+
+          <div class="sandbox-grid">
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="isoWidthSlider">
+                  <span>Width Dimension (X-Axis)</span>
+                  <span class="stat-num" id="isoWidthDisplay">70px</span>
+                </label>
+                <input type="range" class="control-input" id="isoWidthSlider" min="30" max="120" step="5" value="70">
+              </div>
+
+              <div class="control-row">
+                <label for="isoLengthSlider">
+                  <span>Length Dimension (Y-Axis)</span>
+                  <span class="stat-num" id="isoLengthDisplay">70px</span>
+                </label>
+                <input type="range" class="control-input" id="isoLengthSlider" min="30" max="120" step="5" value="70">
+              </div>
+
+              <div class="control-row">
+                <label for="isoHeightSlider">
+                  <span>Height Dimension (Z-Axis)</span>
+                  <span class="stat-num" id="isoHeightDisplay">60px</span>
+                </label>
+                <input type="range" class="control-input" id="isoHeightSlider" min="20" max="140" step="5" value="60">
+              </div>
+
+              <div class="control-row">
+                <label for="isoLightSelect">Directional Key Light Angle</label>
+                <select class="control-select" id="isoLightSelect">
+                  <option value="top-left" selected>Top-Left Sky Key (Standard 45&deg;)</option>
+                  <option value="top-right">Top-Right Key (Mirror 135&deg;)</option>
+                  <option value="noon">High Noon Overhead (Intense Top)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="isoStackSelect">Architecture Node Topology</label>
+                <select class="control-select" id="isoStackSelect">
+                  <option value="single" selected>Single Microservice Cube</option>
+                  <option value="cluster">Tiered Multi-Node Cluster</option>
+                </select>
+              </div>
+
+              <div class="btn-row">
+                <button type="button" class="action-btn primary" id="btnPresetServer">Preset: Server Blade</button>
+                <button type="button" class="action-btn" id="btnPresetDatabase">Preset: Database Cluster</button>
+                <button type="button" class="action-btn" id="btnPresetGateway">Preset: API Gateway</button>
+              </div>
+            </div>
+
+            <div class="stage-wrapper">
+              <div class="preview-stage-container" id="stageIsoContainer">
+                <div class="stage-iso-element" id="stageIsoElement">
+                  <!-- Live SVG Isometric Stage -->
+                  <svg id="liveSvgIsoStage" width="100%" height="100%" viewBox="0 0 360 280">
+                    <g id="isoGridBackdrop" opacity="0.15">
+                      <!-- Isometric Guide Grid -->
+                      <path d="M 180 20 L 340 112 L 180 204 L 20 112 Z M 180 50 L 310 125 L 180 200 L 50 125 Z M 180 80 L 280 138 L 180 196 L 80 138 Z" fill="none" stroke="#FFF" stroke-width="1"/>
+                    </g>
+                    <!-- Injected Dynamic Isometric Cube Polygons -->
+                    <g id="isoCubesGroup" transform="translate(180, 160)">
+                      <!-- Left Face -->
+                      <polygon id="isoFaceLeft" points="0,0 -60,-35 -60,25 0,60" fill="#182E05" stroke="#2A4808" stroke-width="1.5"/>
+                      <!-- Right Face -->
+                      <polygon id="isoFaceRight" points="0,0 60,-35 60,25 0,60" fill="#0E1A03" stroke="#2A4808" stroke-width="1.5"/>
+                      <!-- Top Face -->
+                      <polygon id="isoFaceTop" points="0,0 60,-35 0,-70 -60,-35" fill="#C1DD2D" stroke="#D2ED3E" stroke-width="1.5"/>
+                      <!-- Label -->
+                      <text id="isoLabel" x="0" y="-30" fill="#0A0A0A" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="900" text-anchor="middle">API NODE</text>
+                    </g>
+                  </svg>
+                  <div style="position: absolute; bottom: 12px; left: 16px; pointer-events: none; z-index: 5;">
+                    <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #888; font-weight: 700;">30&deg; Axonometric Projection</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stats-readout-box">
+                <div class="stat-item">
+                  <div class="stat-label">Vector Surface Polygons</div>
+                  <div class="stat-val highlight" id="statIsoPolygons">3 Faces (Crisp)</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Render Pipeline</div>
+                  <div class="stat-val highlight" id="statIsoEngine">Zero Raster Blit</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="generated-code-box">
+            <div class="code-box-head">
+              <div class="code-tabs">
+                <button type="button" class="code-tab-btn active" id="tabSvgIsoCode">SVG Vector Markup</button>
+                <button type="button" class="code-tab-btn" id="tabJsonIsoCode">Node Coordinate JSON</button>
+              </div>
+              <div class="code-actions">
+                <button type="button" class="copy-btn" id="copyIsoCodeBtn">Copy Code</button>
+              </div>
+            </div>
+            <pre class="code-output-area" id="isoCodeOutput"></pre>
+          </div>
+        </div>
+
+        <!-- SECTION 9 -->
+        <h2 id="managing-massive-25d-graphs">9. Architectural Blueprint: Managing Massive 2.5D Node Graphs Without DOM Choke</h2>
+        <p>In complex cloud monitoring systems, an infrastructure map may represent thousands of microservices, databases, and message queues. While SVG scales effortlessly to hundreds of elements, rendering 5,000+ individual polygon groups can overwhelm the browser's DOM tree, consuming excessive RAM and reducing scroll responsiveness.</p>
+
+        <h3>Architectural Optimization Patterns</h3>
+        <ul>
+          <li><strong>Symbol Reuse with &lt;use&gt;:</strong> Define standard component templates (such as a generic server cube or database cylinder) inside an SVG <code>&lt;defs&gt;</code> block as reusable <code>&lt;symbol&gt;</code> elements. Instantiate instances using <code>&lt;use href="#server-symbol" x="..." y="..." /&gt;</code> to reduce memory footprint by 80%.</li>
+          <li><strong>Spatial Viewport Culling:</strong> Calculate the bounding box of each isometric node against the current SVG <code>viewBox</code>. Detach nodes outside the visible viewport from the active DOM tree, re-inserting them dynamically during pan/zoom events.</li>
+          <li><strong>Path Batching by Material:</strong> Instead of drawing each cube face as an individual <code>&lt;polygon&gt;</code>, concatenate all top faces sharing an identical fill color into a single compound SVG <code>&lt;path d="M...Z M...Z"&gt;</code>. This collapses thousands of DOM nodes into a handful of draw calls.</li>
+        </ul>
+
+        <p>For extensive architectural guidance on viewports and bounding geometry, read our complete tutorial on <a href="/articles/understanding-svg-viewbox-guide/">understanding SVG viewBox and aspect ratio scaling</a>.</p>
+
+        <!-- SECTION 10 -->
+        <h2 id="isometric-path-calculations">10. Isometric Path Calculations: Drawing Connecting Cables, Data Conduits &amp; Flow Lines</h2>
+        <p>A diagram of isolated cubes is meaningless without network lines. In an isometric plane, connection cables must adhere strictly to the 30-degree coordinate grid (orthogonal Manhattan routing) to look visually correct.</p>
+        <p>Given start node <em>A</em>(<em>X</em><sub>1</sub>, <em>Y</em><sub>1</sub>, <em>Z</em><sub>1</sub>) and end node <em>B</em>(<em>X</em><sub>2</sub>, <em>Y</em><sub>2</sub>, <em>Z</em><sub>2</sub>), an isometric conduit routes in three sequential steps:</p>
+        <ol>
+          <li>Travel along the <em>X</em> axis from <em>X</em><sub>1</sub> &rarr; <em>X</em><sub>2</sub>.</li>
+          <li>Travel along the <em>Y</em> axis from <em>Y</em><sub>1</sub> &rarr; <em>Y</em><sub>2</sub>.</li>
+          <li>Ascend or descend vertically along the <em>Z</em> axis from <em>Z</em><sub>1</sub> &rarr; <em>Z</em><sub>2</sub>.</li>
+        </ol>
+
+        <pre><code>// Manhattan Isometric Path Builder
+function buildIsometricCable(p1, p2) {
+  // Step points in 3D
+  const ptA = projectIso(p1.x, p1.y, p1.z);
+  const ptB = projectIso(p2.x, p1.y, p1.z); // X segment
+  const ptC = projectIso(p2.x, p2.y, p1.z); // Y segment
+  const ptD = projectIso(p2.x, p2.y, p2.z); // Z segment
+
+  return 'M ' + ptA.u + ' ' + ptA.v + ' L ' + ptB.u + ' ' + ptB.v + ' L ' + ptC.u + ' ' + ptC.v + ' L ' + ptD.u + ' ' + ptD.v;
+}
+
+function projectIso(x, y, z) {
+  const cos30 = 0.866025;
+  return {
+    u: Math.round((x - y) * cos30),
+    v: Math.round((x + y) * 0.5 - z)
+  };
+}</code></pre>
+
+        <h3>Filleted Isometric Arcs &amp; Smooth Cubic Bezier Conduits</h3>
+        <p>In high-end architectural schematics, sharp 90-degree corners often produce visual clutter when multiple data conduits cross adjacent isometric planes. Substituting rigid right angles with smoothed fillet arcs yields a polished, modern aesthetic reminiscent of physical fiber optic cabling or printed circuit traces.</p>
+        <p>Because isometric projection skews Cartesian right angles into either 60-degree or 120-degree isometric angles, a circular fillet arc projects as an elliptical arc segment. Rather than attempting complex SVG <code>A</code> (elliptical arc) commands which require computing the semi-major axis tilt angle and radius ratios, the most robust technique is to generate <strong>cubic Bezier curves (C command)</strong> directly in 3D world space and project their control points into 2D screen coordinates.</p>
+        <p>For an isometric corner between the <em>X</em> and <em>Y</em> axes at corner vertex <em>P<sub>c</sub></em>(<em>X<sub>c</sub></em>, <em>Y<sub>c</sub></em>, <em>Z</em>) with fillet radius <em>R</em>, the incoming tangent point is <em>P<sub>in</sub></em> = (<em>X<sub>c</sub></em> &minus; <em>R</em>, <em>Y<sub>c</sub></em>, <em>Z</em>) and the outgoing tangent point is <em>P<sub>out</sub></em> = (<em>X<sub>c</sub></em>, <em>Y<sub>c</sub></em> + <em>R</em>, <em>Z</em>). The cubic Bezier control constant is:</p>
+        <div class="formula-card"><div class="formula-title">Mathematical Constant: Isometric Cubic Bezier Arc Factor</div><div class="formula-body">&kappa; = 4 &times; (&radic;2 &minus; 1) / 3 &approx; 0.55228475</div><div class="formula-desc">Constant &kappa; specifies the fractional distance along tangent vectors for cubic Bezier control handles to approximate circular and elliptical arcs.</div></div>
+        <p>The control points in 3D space are:</p>
+        <div class="formula-card"><div class="formula-title">Mathematical Formula: Isometric Tangent Control Vector 1</div><div class="formula-body">C<sub>1</sub> = P<sub>c</sub> + (P<sub>in</sub> &minus; P<sub>c</sub>) &times; (1 &minus; &kappa;)</div></div>
+        <div class="formula-card"><div class="formula-title">Mathematical Formula: Isometric Tangent Control Vector 2</div><div class="formula-body">C<sub>2</sub> = P<sub>c</sub> + (P<sub>out</sub> &minus; P<sub>c</sub>) &times; (1 &minus; &kappa;)</div></div>
+        <p>Projecting <em>P<sub>in</sub></em>, <em>C</em><sub>1</sub>, <em>C</em><sub>2</sub>, and <em>P<sub>out</sub></em> through our <code>projectIso()</code> function guarantees mathematically perfect curvature that automatically aligns with the 30-degree isometric foreshortening.</p>
+
+        <pre><code>// Smooth Isometric Corner Fillet with Cubic Bezier Curves
+function buildSmoothIsometricCorner(pIn, pCorner, pOut, radius = 20) {
+  const kappa = 0.55228475;
+  
+  // Calculate unit tangent directions
+  const dirIn = { x: Math.sign(pIn.x - pCorner.x), y: Math.sign(pIn.y - pCorner.y) };
+  const dirOut = { x: Math.sign(pOut.x - pCorner.x), y: Math.sign(pOut.y - pCorner.y) };
+
+  const ptStart = { x: pCorner.x + dirIn.x * radius, y: pCorner.y + dirIn.y * radius, z: pCorner.z };
+  const ptEnd = { x: pCorner.x + dirOut.x * radius, y: pCorner.y + dirOut.y * radius, z: pCorner.z };
+
+  const c1_3D = {
+    x: pCorner.x + dirIn.x * radius * (1 - kappa),
+    y: pCorner.y + dirIn.y * radius * (1 - kappa),
+    z: pCorner.z
+  };
+  const c2_3D = {
+    x: pCorner.x + dirOut.x * radius * (1 - kappa),
+    y: pCorner.y + dirOut.y * radius * (1 - kappa),
+    z: pCorner.z
+  };
+
+  const pStart2D = projectIso(ptStart.x, ptStart.y, ptStart.z);
+  const c1 = projectIso(c1_3D.x, c1_3D.y, c1_3D.z);
+  const c2 = projectIso(c2_3D.x, c2_3D.y, c2_3D.z);
+  const pEnd2D = projectIso(ptEnd.x, ptEnd.y, ptEnd.z);
+
+  return 'L ' + pStart2D.u + ' ' + pStart2D.v + ' C ' + c1.u + ' ' + c1.v + ', ' + c2.u + ' ' + c2.v + ', ' + pEnd2D.u + ' ' + pEnd2D.v;
+}</code></pre>
+
+        <p>Add animated dashed strokes (<code>stroke-dasharray</code>) to represent real-time data packets pulsing across your network. For marker styling, see our guide on <a href="/articles/svg-markers-and-arrowheads-guide/">SVG markers and arrowheads</a>.</p>
+
+        <!-- SECTION 11 -->
+        <h2 id="production-implementations-iso">11. Production Implementations: React Isometric Cloud Diagram, Vue System Map &amp; Vanilla JS</h2>
+        <p>Below is a production-grade React component implementing an interactive isometric cloud diagram. Nodes support hover state elevation, volumetric face shading, and dynamic SVG metadata.</p>
+
+        <pre><code>import React, { useState } from 'react';
+
+interface IsoNodeProps {
+  x: number;
+  y: number;
+  z: number;
+  width?: number;
+  length?: number;
+  height?: number;
+  label: string;
+  fillTop?: string;
+  fillLeft?: string;
+  fillRight?: string;
+}
+
+export const IsometricCubeNode: React.FC&lt;IsoNodeProps&gt; = ({
+  x, y, z,
+  width = 60,
+  length = 60,
+  height = 50,
+  label,
+  fillTop = "#C1DD2D",
+  fillLeft = "#849E00",
+  fillRight = "#4D6300"
+}) => {
+  const [hovered, setHovered] = useState(false);
+  const cos30 = 0.866025;
+  
+  // Elevation shift on hover
+  const currentZ = hovered ? z + 12 : z;
+
+  // 2D Projection helper
+  const p = (lx: number, ly: number, lz: number) => ({
+    u: Math.round((lx - ly) * cos30),
+    v: Math.round((lx + ly) * 0.5 - lz)
+  });
+
+  // Calculate vertices
+  const vOrigin = p(x, y, currentZ);
+  const vRight = p(x + width, y, currentZ);
+  const vLeft = p(x, y + length, currentZ);
+  const vBack = p(x + width, y + length, currentZ);
+  
+  const vOriginTop = p(x, y, currentZ + height);
+  const vRightTop = p(x + width, y, currentZ + height);
+  const vLeftTop = p(x, y + length, currentZ + height);
+  const vBackTop = p(x + width, y + length, currentZ + height);
+
+  return (
+    &lt;g 
+      className="iso-node-group" 
+      style={{ cursor: 'pointer', transition: 'transform 200ms ease' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    &gt;
+      {/* Left Wall Face */}
+      &lt;polygon 
+        points={[vOrigin.u, vOrigin.v, vLeft.u, vLeft.v, vLeftTop.u, vLeftTop.v, vOriginTop.u, vOriginTop.v].join(' ')} 
+        fill={fillLeft} 
+        stroke="#1A1A1A" 
+        strokeWidth="1" 
+      /&gt;
+
+      {/* Right Wall Face */}
+      &lt;polygon 
+        points={[vOrigin.u, vOrigin.v, vRight.u, vRight.v, vRightTop.u, vRightTop.v, vOriginTop.u, vOriginTop.v].join(' ')} 
+        fill={fillRight} 
+        stroke="#1A1A1A" 
+        strokeWidth="1" 
+      /&gt;
+
+      {/* Top Roof Face */}
+      &lt;polygon 
+        points={[vOriginTop.u, vOriginTop.v, vRightTop.u, vRightTop.v, vBackTop.u, vBackTop.v, vLeftTop.u, vLeftTop.v].join(' ')} 
+        fill={hovered ? "#D2ED3E" : fillTop} 
+        stroke="#FFFFFF" 
+        strokeWidth={hovered ? "1.5" : "1"} 
+      /&gt;
+
+      {/* Label on Top Face */}
+      &lt;text 
+        x={vBackTop.u} 
+        y={vOriginTop.v - height * 0.45} 
+        fill="#0A0A0A" 
+        fontSize="11" 
+        fontWeight="800" 
+        fontFamily="sans-serif" 
+        textAnchor="middle"
+      &gt;
+        {label}
+      &lt;/text&gt;
+    &lt;/g&gt;
+  );
+};</code></pre>
+
+        <h3>Vue 3 Composition API Implementation (&lt;script setup lang="ts"&gt;)</h3>
+        <p>For Vue 3 and Nuxt applications, reactive isometric components benefit from computed polygon coordinate strings. Vue's fine-grained reactivity ensures that when coordinate attributes change, only the affected SVG polygon points recompute without triggering parent scene repaints.</p>
+
+        <pre><code>&lt;template&gt;
+  &lt;g 
+    class="vue-iso-node" 
+    :style="{ cursor: 'pointer', transition: 'all 200ms ease' }"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+  &gt;
+    &lt;!-- Left Wall Face --&gt;
+    &lt;polygon :points="facePoints.left" :fill="props.fillLeft" stroke="#1A1A1A" stroke-width="1" /&gt;
+    &lt;!-- Right Wall Face --&gt;
+    &lt;polygon :points="facePoints.right" :fill="props.fillRight" stroke="#1A1A1A" stroke-width="1" /&gt;
+    &lt;!-- Top Roof Face --&gt;
+    &lt;polygon :points="facePoints.top" :fill="isHovered ? '#D2ED3E' : props.fillTop" stroke="#FFFFFF" stroke-width="1" /&gt;
+    &lt;!-- Node Identifier --&gt;
+    &lt;text :x="facePoints.labelX" :y="facePoints.labelY" fill="#0A0A0A" font-size="11" font-weight="800" text-anchor="middle"&gt;
+      {{ props.label }}
+    &lt;/text&gt;
+  &lt;/g&gt;
+&lt;/template&gt;
+
+&lt;script setup lang="ts"&gt;
+import { ref, computed } from 'vue';
+
+interface Props {
+  x: number;
+  y: number;
+  z: number;
+  width?: number;
+  length?: number;
+  height?: number;
+  label: string;
+  fillTop?: string;
+  fillLeft?: string;
+  fillRight?: string;
+}
+
+const props = withDefaults(defineProps&lt;Props&gt;(), {
+  width: 60,
+  length: 60,
+  height: 50,
+  fillTop: '#C1DD2D',
+  fillLeft: '#849E00',
+  fillRight: '#4D6300'
+});
+
+const isHovered = ref(false);
+const cos30 = 0.866025;
+
+const project = (px: number, py: number, pz: number) => ({
+  u: Math.round((px - py) * cos30),
+  v: Math.round((px + py) * 0.5 - pz)
+});
+
+const facePoints = computed(() => {
+  const currentZ = isHovered.value ? props.z + 12 : props.z;
+  const p0 = project(props.x, props.y, currentZ);
+  const pR = project(props.x + props.width, props.y, currentZ);
+  const pL = project(props.x, props.y + props.length, currentZ);
+  const pB = project(props.x + props.width, props.y + props.length, currentZ);
+
+  const p0T = project(props.x, props.y, currentZ + props.height);
+  const pRT = project(props.x + props.width, props.y, currentZ + props.height);
+  const pLT = project(props.x, props.y + props.length, currentZ + props.height);
+  const pBT = project(props.x + props.width, props.y + props.length, currentZ + props.height);
+
+  return {
+    left: [p0.u, p0.v, pL.u, pL.v, pLT.u, pLT.v, p0T.u, p0T.v].join(' '),
+    right: [p0.u, p0.v, pR.u, pR.v, pRT.u, pRT.v, p0T.u, p0T.v].join(' '),
+    top: [p0T.u, p0T.v, pRT.u, pRT.v, pBT.u, pBT.v, pLT.u, pLT.v].join(' '),
+    labelX: pBT.u,
+    labelY: p0T.v - props.height * 0.45
+  };
+});
+&lt;/script&gt;</code></pre>
+
+        <h3>Vanilla JavaScript Custom Element (&lt;isometric-node&gt;)</h3>
+        <p>For framework-agnostic micro-frontend architectures, encapsulation with native Web Components allows deploying isometric canvas elements into WordPress, Shopify, Astro, or plain static HTML pages without bundler friction:</p>
+
+        <pre><code>// Vanilla Web Component: &lt;isometric-node&gt;
+class IsometricNodeElement extends HTMLElement {
+  static get observedAttributes() {
+    return ['x', 'y', 'z', 'w', 'l', 'h', 'label'];
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  attributeChangedCallback() {
+    this.render();
+  }
+
+  render() {
+    const x = parseFloat(this.getAttribute('x') || '0');
+    const y = parseFloat(this.getAttribute('y') || '0');
+    const z = parseFloat(this.getAttribute('z') || '0');
+    const w = parseFloat(this.getAttribute('w') || '60');
+    const l = parseFloat(this.getAttribute('l') || '60');
+    const h = parseFloat(this.getAttribute('h') || '50');
+    const label = this.getAttribute('label') || 'Node';
+
+    const cos30 = 0.866025;
+    const p = (px, py, pz) => ({
+      u: Math.round((px - py) * cos30),
+      v: Math.round((px + py) * 0.5 - pz)
+    });
+
+    const p0 = p(x, y, z);
+    const pR = p(x + w, y, z);
+    const pL = p(x, y + l, z);
+    const pB = p(x + w, y + l, z);
+    const p0T = p(x, y, z + h);
+    const pRT = p(x + w, y, z + h);
+    const pLT = p(x, y + l, z + h);
+    const pBT = p(x + w, y + l, z + h);
+
+    this.innerHTML = '<g class="custom-iso-node" role="graphics-object" aria-label="' + label + '">' +
+  '<polygon points="' + [p0.u,p0.v,pL.u,pL.v,pLT.u,pLT.v,p0T.u,p0T.v].join(' ') + '" fill="#849E00" stroke="#1A1A1A" stroke-width="1" />' +
+  '<polygon points="' + [p0.u,p0.v,pR.u,pR.v,pRT.u,pRT.v,p0T.u,p0T.v].join(' ') + '" fill="#4D6300" stroke="#1A1A1A" stroke-width="1" />' +
+  '<polygon points="' + [p0T.u,p0T.v,pRT.u,pRT.v,pBT.u,pBT.v,pLT.u,pLT.v].join(' ') + '" fill="#C1DD2D" stroke="#FFFFFF" stroke-width="1" />' +
+  '<text x="' + pBT.u + '" y="' + (p0T.v - h * 0.45) + '" fill="#0A0A0A" font-size="11" font-weight="800" text-anchor="middle">' + label + '</text>' +
+'</g>';
+  }
+}
+customElements.define('isometric-node', IsometricNodeElement);</code></pre>
+
+        <!-- SECTION 12 -->
+        <h2 id="responsive-isometric-scaling">12. Responsive Isometric Scaling: Dynamic viewBox Framing, Zoom Bounds &amp; Touch Gestures</h2>
+        <p>Because isometric diagrams expand along diagonals, responsive framing requires careful calculation of the SVG <code>viewBox</code>. Unlike rectangular 2D layouts that scale cleanly with percentage widths, an isometric grid's bounding rectangle spans:</p>
+
+        <div class="formula-card">
+          <div class="formula-title">Mathematical Formula: Isometric Scene Bounding Box</div>
+          <div class="formula-body">
+            Width = (X<sub>max</sub> + Y<sub>max</sub>) &times; cos 30&deg; &emsp; Height = (X<sub>max</sub> + Y<sub>max</sub>) &times; sin 30&deg; + Z<sub>max</sub>
+          </div>
+          <div class="formula-desc">Always initialize your root SVG with a dynamically calculated viewBox="minX minY Width Height" to ensure complete diagram visibility on both mobile screens and ultra-wide desktop monitors without manual clipping.</div>
+        </div>
+
+        <h3>Interactive Pointer Navigation: Panning, Pinch-Zoom &amp; Boundary Constraints</h3>
+        <p>When presenting expansive isometric infrastructure schematics on touchscreens or laptop trackpads, users expect natural pan-and-zoom exploration. To prevent conflict between page scrolling and diagram inspection, follow standard mobile UX protocols:</p>
+        <ul>
+          <li>Apply CSS <code>touch-action: none;</code> to the SVG viewport container to intercept browser scroll and pinch gestures cleanly.</li>
+          <li>Track active pointer interactions using the W3C <code>PointerEvent</code> API (<code>pointerdown</code>, <code>pointermove</code>, <code>pointerup</code>, and <code>pointercancel</code>) with a <code>Map&lt;number, PointerEvent&gt;</code> to track multi-touch pinch gestures seamlessly.</li>
+          <li>For single-pointer drags, compute coordinate deltas (&Delta;<em>x</em>, &Delta;<em>y</em>) and offset the SVG <code>viewBox</code> origin: <code>minX -= dx * scaleFactor</code> and <code>minY -= dy * scaleFactor</code>.</li>
+          <li>For two-pointer pinches, compute the Euclidean distance between touch points: <em>d</em> = &radic;((<em>x</em><sub>2</sub> &minus; <em>x</em><sub>1</sub>)<sup>2</sup> + (<em>y</em><sub>2</sub> &minus; <em>y</em><sub>1</sub>)<sup>2</sup>). Adjust the zoom level proportionally around the pinch centroid, strictly clamping zoom magnification between 0.4&times; (macro overview) and 3.5&times; (micro component inspection).</li>
+          <li>Clamp the pan boundaries so the user cannot fling the isometric diagram entirely outside the visible viewport window.</li>
+        </ul>
+
+        <!-- SECTION 13 -->
+        <h2 id="accessibility-screen-readers">13. Accessibility, Screen Readers &amp; Semantic SVG Group Structure (role="graphics-document")</h2>
+        <p>Dense technical schematics often become inaccessible black boxes for users relying on screen readers. To satisfy <strong>WCAG 2.2 Success Criterion 1.1.1 (Non-text Content)</strong> and <strong>Success Criterion 1.3.1 (Info and Relationships)</strong>, implement the W3C WAI-ARIA Graphics Module:</p>
+        <ul>
+          <li>Assign <code>role="graphics-document"</code> and a descriptive <code>aria-label</code> to the root <code>&lt;svg&gt;</code> element.</li>
+          <li>Wrap related isometric node groups inside <code>&lt;g role="graphics-object" aria-roledescription="server node"&gt;</code>.</li>
+          <li>Include programmatic <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code> elements inside each interactive node group.</li>
+          <li>Mark decorative background grids and connection conduits with <code>aria-hidden="true"</code> so screen readers focus purely on informational nodes.</li>
+        </ul>
+
+        <!-- SECTION 14 -->
+        <h2 id="frequently-asked-questions">14. Frequently Asked Questions: SVG Isometric Projection &amp; 2.5D Systems</h2>
+        <div class="faq-item">
+          <h3>What is the mathematical equation to project 3D coordinates (X, Y, Z) into 2D SVG canvas coordinates (u, v)?</h3>
+          <p>True 30-degree isometric projection maps 3D Cartesian coordinates to 2D screen coordinates using the affine equations: u = (X - Y) * cos(30°) = (X - Y) * (sqrt(3)/2) approx 0.866025 * (X - Y), and v = (X + Y) * sin(30°) - Z = (X + Y) * 0.5 - Z. In this system, the X and Y axes project at 30 degrees above the horizontal baseline, while the Z axis projects vertically downward or upward without foreshortening.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How does depth sorting work in SVG since SVG has no 3D Z-buffer?</h3>
+          <p>SVG renders elements strictly according to DOM document tree order (the Painter's Algorithm), where elements declared later paint over earlier elements. In an isometric grid without intersecting faces, sorting items by depth index D = X + Y + Z from lowest to highest guarantees correct occlusion: background objects at low (X, Y, Z) are painted first, and foreground objects at high coordinates are painted on top without visual artifacts.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What are the exact SVG transform matrix values for rendering the top, left, and right faces of an isometric cube?</h3>
+          <p>To project flat 2D square vector paths onto isometric cube faces: The top face uses matrix(0.866025, 0.5, -0.866025, 0.5, 0, 0) corresponding to rotate(45deg) and scale(1, 0.57735); the left face uses matrix(0.866025, 0.5, 0, 1, 0, 0) corresponding to skewY(30deg) and scale(0.866025, 1); the right face uses matrix(0.866025, -0.5, 0, 1, 0, 0) corresponding to skewY(-30deg) and scale(0.866025, 1).</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you calculate directional face lighting and shading on an isometric SVG model?</h3>
+          <p>Directional shading is calculated using Lambert's Cosine Law: Illumination I = I_ambient + I_dir * max(0, dot(N, L)), where N is the outward surface unit normal vector and L is the normalized light direction vector. For a standard top-left key light L = (-0.577, -0.577, 0.577): the top face (N = [0, 0, 1]) receives 100% illumination; the left face (N = [-1, 0, 0]) receives 75% illumination; the right face (N = [0, 1, 0]) receives 45% illumination, establishing immediate 3D volumetric depth.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you draw connecting cables and pipelines between two 3D isometric nodes in SVG?</h3>
+          <p>To draw connecting lines in isometric space, calculate the start and end coordinates in 3D world space (X1, Y1, Z1) and (X2, Y2, Z2), project them into 2D canvas coordinates using the isometric transform formula, and construct an SVG path with right-angled Manhattan routing or cubic Bezier curves. For Manhattan routing, paths travel strictly along isometric grid vectors (delta X, then delta Y, then delta Z), preserving the axonometric perspective.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How do you ensure complex isometric SVG diagrams remain accessible to screen readers?</h3>
+          <p>Complex isometric diagrams must use the WAI-ARIA Graphics Module: assign role='graphics-document' to the root svg element, provide a descriptive title and desc tag, group related nodes within g elements bearing role='graphics-object' and aria-label attributes, and hide purely decorative grid lines or connector cables using aria-hidden='true'. This allows screen readers to navigate the conceptual system hierarchy without getting overwhelmed by raw coordinate geometry.</p>
+        </div>
+
+        <!-- KEY TAKEAWAY BOX -->
+        <div class="takeaway-box">
+          <h3>Architectural Takeaways &amp; Engineering Checklist</h3>
+          <ul>
+            <li><strong>Affine Formulas:</strong> Use <code>u = (X - Y) * 0.866025</code> and <code>v = (X + Y) * 0.5 - Z</code> for rapid projection.</li>
+            <li><strong>Painter's Sorting:</strong> Always sort DOM elements by scalar metric <code>D = X + Y + Z</code> to eliminate z-fighting.</li>
+            <li><strong>Volumetric Shading:</strong> Apply tri-tonal Lambertian face brightness (100% Top, 72% Left, 42% Right).</li>
+            <li><strong>Orthogonal Routing:</strong> Route connection conduits Manhattan-style along <em>X</em>, <em>Y</em>, <em>Z</em> grid axes.</li>
+            <li><strong>Semantic Accessibility:</strong> Use <code>role="graphics-document"</code> and clean ARIA grouping for screen reader accessibility.</li>
+          </ul>
+        </div>
+
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#rise-of-isometric-graphics">1. Rise of 2.5D Spatial Graphics</a></li>
+              <li><a href="#mathematical-foundations-isometric">2. Foundations of Isometric Projection</a></li>
+              <li><a href="#deriving-coordinate-equations">3. Deriving Projection Equations</a></li>
+              <li><a href="#svg-matrix-pipeline">4. SVG Matrix Pipeline</a></li>
+              <li><a href="#depth-sorting-dilemma">5. Depth Sorting &amp; Painter's Algorithm</a></li>
+              <li><a href="#directional-face-illumination">6. Directional Face Illumination</a></li>
+              <li><a href="#isometric-grids-tile-snapping">7. Isometric Grids &amp; Tile Snapping</a></li>
+              <li><a href="#interactive-isometric-studio">8. Interactive Isometric Studio</a></li>
+              <li><a href="#managing-massive-25d-graphs">9. Managing Massive 2.5D Graphs</a></li>
+              <li><a href="#isometric-path-calculations">10. Isometric Path Calculations</a></li>
+              <li><a href="#production-implementations-iso">11. Production Implementations</a></li>
+              <li><a href="#responsive-isometric-scaling">12. Responsive Isometric Scaling</a></li>
+              <li><a href="#accessibility-screen-readers">13. Accessibility &amp; Screen Readers</a></li>
+              <li><a href="#frequently-asked-questions">14. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Need Clean Vector Icons?</h4>
+          <p>Search over 134,000 open-source SVG icons across 28 popular libraries with live color customization and instant export.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search 134K+ Icons</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 <a href="/">IconStash</a>. A project by <a href="https://greatsoftwarecompany.com">Great Software Company</a>. Author: <a href="/about/">Jouni Flemming</a>.</p>
+  </footer>
+
+  <script>
+    // Theme persistence script
+    (function() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const savedTheme = localStorage.getItem('iconstash_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function() {
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('iconstash_theme', next);
+        });
+      }
+    })();
+
+    // Interactive Isometric Studio Controller
+    (function() {
+      const widthSlider = document.getElementById('isoWidthSlider');
+      const lengthSlider = document.getElementById('isoLengthSlider');
+      const heightSlider = document.getElementById('isoHeightSlider');
+      const widthDisplay = document.getElementById('isoWidthDisplay');
+      const lengthDisplay = document.getElementById('isoLengthDisplay');
+      const heightDisplay = document.getElementById('isoHeightDisplay');
+      const lightSelect = document.getElementById('isoLightSelect');
+      const stackSelect = document.getElementById('isoStackSelect');
+      const faceLeft = document.getElementById('isoFaceLeft');
+      const faceRight = document.getElementById('isoFaceRight');
+      const faceTop = document.getElementById('isoFaceTop');
+      const label = document.getElementById('isoLabel');
+      const cubesGroup = document.getElementById('isoCubesGroup');
+      const codeOutput = document.getElementById('isoCodeOutput');
+      const tabSvg = document.getElementById('tabSvgIsoCode');
+      const tabJson = document.getElementById('tabJsonIsoCode');
+      const copyBtn = document.getElementById('copyIsoCodeBtn');
+      const presetServer = document.getElementById('btnPresetServer');
+      const presetDatabase = document.getElementById('btnPresetDatabase');
+      const presetGateway = document.getElementById('btnPresetGateway');
+
+      let currentTab = 'svg';
+      const cos30 = 0.866025;
+
+      function project(x, y, z) {
+        return {
+          u: Math.round((x - y) * cos30),
+          v: Math.round((x + y) * 0.5 - z)
+        };
+      }
+
+      function updateStudio() {
+        const w = parseInt(widthSlider.value, 10);
+        const l = parseInt(lengthSlider.value, 10);
+        const h = parseInt(heightSlider.value, 10);
+        const light = lightSelect.value;
+        const stack = stackSelect.value;
+
+        widthDisplay.textContent = w + 'px';
+        lengthDisplay.textContent = l + 'px';
+        heightDisplay.textContent = h + 'px';
+
+        // Lighting palette
+        let topColor = '#C1DD2D';
+        let leftColor = '#849E00';
+        let rightColor = '#4D6300';
+
+        if (light === 'top-right') {
+          topColor = '#C1DD2D';
+          leftColor = '#4D6300';
+          rightColor = '#849E00';
+        } else if (light === 'noon') {
+          topColor = '#D2ED3E';
+          leftColor = '#3E4B00';
+          rightColor = '#3E4B00';
+        }
+
+        faceTop.setAttribute('fill', topColor);
+        faceLeft.setAttribute('fill', leftColor);
+        faceRight.setAttribute('fill', rightColor);
+
+        // Calculate vertices for primary node
+        const p0 = project(0, 0, 0);
+        const pRight = project(w, 0, 0);
+        const pLeft = project(0, l, 0);
+        const pBack = project(w, l, 0);
+
+        const p0Top = project(0, 0, h);
+        const pRightTop = project(w, 0, h);
+        const pLeftTop = project(0, l, h);
+        const pBackTop = project(w, l, h);
+
+        faceLeft.setAttribute('points', p0.u + ',' + p0.v + ' ' + pLeft.u + ',' + pLeft.v + ' ' + pLeftTop.u + ',' + pLeftTop.v + ' ' + p0Top.u + ',' + p0Top.v);
+        faceRight.setAttribute('points', p0.u + ',' + p0.v + ' ' + pRight.u + ',' + pRight.v + ' ' + pRightTop.u + ',' + pRightTop.v + ' ' + p0Top.u + ',' + p0Top.v);
+        faceTop.setAttribute('points', p0Top.u + ',' + p0Top.v + ' ' + pRightTop.u + ',' + pRightTop.v + ' ' + pBackTop.u + ',' + pBackTop.v + ' ' + pLeftTop.u + ',' + pLeftTop.v);
+
+        label.setAttribute('x', pBackTop.u);
+        label.setAttribute('y', Math.round(p0Top.v - h * 0.45));
+
+        renderCodeOutput(w, l, h, topColor, leftColor, rightColor, stack);
+      }
+
+      function renderCodeOutput(w, l, h, topColor, leftColor, rightColor, stack) {
+        if (currentTab === 'svg') {
+          const lines = [
+            '<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">',
+            '  <g transform="translate(200, 180)">',
+            '    <!-- Left Wall (XZ) -->',
+            '    <polygon points="' + faceLeft.getAttribute('points') + '" fill="' + leftColor + '" stroke="#1A1A1A" stroke-width="1" />',
+            '    <!-- Right Wall (YZ) -->',
+            '    <polygon points="' + faceRight.getAttribute('points') + '" fill="' + rightColor + '" stroke="#1A1A1A" stroke-width="1" />',
+            '    <!-- Top Face (XY) -->',
+            '    <polygon points="' + faceTop.getAttribute('points') + '" fill="' + topColor + '" stroke="#FFFFFF" stroke-width="1" />',
+            '    <!-- Node Identifier -->',
+            '    <text x="' + label.getAttribute('x') + '" y="' + label.getAttribute('y') + '" fill="#0A0A0A" font-size="11" font-weight="800" font-family="sans-serif" text-anchor="middle">SERVICE</text>',
+            '  </g>',
+            '</svg>'
+          ];
+          codeOutput.textContent = lines.join('\\n');
+        } else {
+          const jsonObj = {
+            projection: "axonometric-isometric-30deg",
+            dimensions: { width_X: w, length_Y: l, height_Z: h },
+            lighting: {
+              topFace: topColor,
+              leftFace: leftColor,
+              rightFace: rightColor
+            },
+            vertices2D: {
+              frontOrigin: project(0, 0, 0),
+              rightFloor: project(w, 0, 0),
+              leftFloor: project(0, l, 0),
+              topPeak: project(0, 0, h),
+              backTop: project(w, l, h)
+            }
+          };
+          codeOutput.textContent = JSON.stringify(jsonObj, null, 2);
+        }
+      }
+
+      widthSlider.addEventListener('input', updateStudio);
+      lengthSlider.addEventListener('input', updateStudio);
+      heightSlider.addEventListener('input', updateStudio);
+      lightSelect.addEventListener('change', updateStudio);
+      stackSelect.addEventListener('change', updateStudio);
+
+      tabSvg.addEventListener('click', function() {
+        currentTab = 'svg';
+        tabSvg.classList.add('active');
+        tabJson.classList.remove('active');
+        updateStudio();
+      });
+
+      tabJson.addEventListener('click', function() {
+        currentTab = 'json';
+        tabJson.classList.add('active');
+        tabSvg.classList.remove('active');
+        updateStudio();
+      });
+
+      presetServer.addEventListener('click', function() {
+        widthSlider.value = '90';
+        lengthSlider.value = '50';
+        heightSlider.value = '35';
+        lightSelect.value = 'top-left';
+        stackSelect.value = 'single';
+        updateStudio();
+      });
+
+      presetDatabase.addEventListener('click', function() {
+        widthSlider.value = '65';
+        lengthSlider.value = '65';
+        heightSlider.value = '110';
+        lightSelect.value = 'top-left';
+        stackSelect.value = 'single';
+        updateStudio();
+      });
+
+      presetGateway.addEventListener('click', function() {
+        widthSlider.value = '80';
+        lengthSlider.value = '80';
+        heightSlider.value = '45';
+        lightSelect.value = 'noon';
+        stackSelect.value = 'cluster';
+        updateStudio();
+      });
+
+      copyBtn.addEventListener('click', function() {
+        const text = codeOutput.textContent;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function() { copyBtn.textContent = 'Copy Code'; }, 1800);
+          }).catch(function() {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function() { copyBtn.textContent = 'Copy Code'; }, 1800);
+        } catch (e) {
+          copyBtn.textContent = 'Error';
+        }
+        document.body.removeChild(ta);
+      }
+
+      updateStudio();
+    })();
+  </script>
+</body>
+</html>`;
+}
+
+const html = buildArticle3();
+const outPath = path.join(outDir, 'index.html');
+fs.writeFileSync(outPath, html, 'utf8');
+console.log('Successfully wrote Article 3 to:', outPath);
+console.log('File size:', Math.round(fs.statSync(outPath).size / 1024), 'KB');
