@@ -212,6 +212,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Mastering SVG Signature Pads & Smooth Vector Ink: Bezier Splines, Pressure Dynamics & High-Precision Export Guide (2026)](https://iconstash.io/articles/svg-signature-pad-and-smooth-vector-drawing-guide/)
 - [Building High-Performance SVG Audio Visualizers & Waveforms: Web Audio API, Real-Time FFT & Vector Shaders Guide (2026)](https://iconstash.io/articles/svg-audio-visualizers-and-frequency-waveforms-guide/)
 - [Architecting SVG Radial Menus & Circular Navigation Wheels: Arc Trigonometry, Spring Physics & Accessible UI Guide (2026)](https://iconstash.io/articles/svg-radial-menus-and-circular-navigation-guide/)
+- [SVG Tree Diagrams & Hierarchical Data Visualization: The Complete Guide to Tidy Trees, Radial Projections & Interactive Nodes (2026)](https://iconstash.io/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/)
+- [SVG Circuit Diagrams & Electrical Schematics: The Comprehensive Engineering Guide to IEEE Symbols, Manhattan Autorouting & Dynamic CAD Simulation (2026)](https://iconstash.io/articles/svg-circuit-diagrams-and-schematic-visualization-guide/)
+- [SVG Gantt Charts & Interactive Timelines: Critical Path, Virtualization & Drag Physics Guide (2026)](https://iconstash.io/articles/svg-gantt-charts-and-project-timelines-guide/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives

@@ -163,4 +163,22 @@
   <url><loc>https://iconstash.io/articles/svg-signature-pad-and-smooth-vector-drawing-guide/</loc><lastmod>2026-11-14</lastmod></url>
   <url><loc>https://iconstash.io/articles/svg-audio-visualizers-and-frequency-waveforms-guide/</loc><lastmod>2026-11-14</lastmod></url>
   <url><loc>https://iconstash.io/articles/svg-radial-menus-and-circular-navigation-guide/</loc><lastmod>2026-11-14</lastmod></url>
+  <url>
+    <loc>https://iconstash.io/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://iconstash.io/articles/svg-circuit-diagrams-and-schematic-visualization-guide/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://iconstash.io/articles/svg-gantt-charts-and-project-timelines-guide/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

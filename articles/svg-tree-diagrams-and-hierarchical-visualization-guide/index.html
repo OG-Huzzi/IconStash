@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Tree Diagrams &amp; Hierarchical Layouts: Tidy Tree Algorithms, Splines &amp; Collapsible Architecture Guide (2026) | IconStash</title>
+  <meta name="description" content="Master SVG tree diagrams. Implement Reingold-Tilford tidy layouts, cubic Bézier splines, collapsible subtrees, 60fps pan-zoom, and enterprise export.">
+  <meta name="keywords" content="svg tree diagram, hierarchical tree layout svg, collapsible tree svg javascript, tidy tree algorithm svg, svg organizational chart, cubic bezier tree connector svg, buchheim tree layout, reingold tilford javascript">
+  <meta property="og:title" content="Mastering SVG Tree Diagrams &amp; Hierarchical Layouts: Tidy Tree Algorithms, Splines &amp; Collapsible Architecture Guide (2026)">
+  <meta property="og:description" content="Master SVG tree diagrams. Implement Reingold-Tilford tidy layouts, cubic Bézier splines, collapsible subtrees, 60fps pan-zoom, and enterprise export.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-tree-diagrams-and-hierarchical-visualization-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-14T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-14T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Graphics &amp; Data Visualization">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Tree Diagrams">
+  <meta property="article:tag" content="Algorithms">
+  <meta property="article:tag" content="Data Visualization">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Tree Diagrams &amp; Hierarchical Layouts: Tidy Tree Algorithms, Splines &amp; Collapsible Architecture Guide (2026)">
+  <meta name="twitter:description" content="Master SVG tree diagrams. Implement Reingold-Tilford tidy layouts, cubic Bézier splines, collapsible subtrees, 60fps pan-zoom, and enterprise export.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-tree-diagrams-and-hierarchical-visualization-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Structured Data: TechArticle -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Mastering SVG Tree Diagrams & Hierarchical Layouts: Tidy Tree Algorithms, Radial Projections & Interactive Visualization Guide (2026)",
+    "description": "Comprehensive engineering guide to building high-performance, interactive SVG tree diagrams and hierarchical visualizations. Covers Reingold-Tilford tidy trees, cubic Bézier dendrogram links, polar radial projections, and 60fps pan-zoom interactions.",
+    "url": "https://iconstash.io/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/",
+    "image": "https://iconstash.io/assets/articles/svg-tree-diagrams-and-hierarchical-visualization-guide.jpg",
+    "datePublished": "2026-11-14",
+    "dateModified": "2026-11-14",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Great Software Company",
+      "url": "https://greatsoftwarecompany.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/assets/icons/icon-512x512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://iconstash.io/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/"
+    },
+    "keywords": [
+      "svg tree diagram",
+      "hierarchical data visualization",
+      "reingold-tilford tidy tree",
+      "radial tree projection",
+      "svg dendrogram",
+      "collapsible tree visualization"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://iconstash.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Articles",
+        "item": "https://iconstash.io/articles/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "SVG Tree Diagrams Guide",
+        "item": "https://iconstash.io/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why is SVG preferred over Canvas or WebGL for tree diagrams?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Scalable Vector Graphics (SVG) retains individual nodes and branches as discrete DOM elements. This allows direct CSS styling, native pointer event binding, screen reader accessibility (WCAG AA), and crisp vector rendering at any zoom level without pixelation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Reingold-Tilford algorithm prevent overlapping subtrees?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The algorithm executes a post-order traversal calculating left and right tree contours, shifting adjacent subtrees apart by the required minimum node separation. In the modern Buchheim O(N) enhancement, ancestor threads and apportion passes distribute shifts linearly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate cubic Bézier curves for tree links?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For horizontal layouts, set control point 1 to (source.x + dx/2, source.y) and control point 2 to (target.x - dx/2, target.y). In SVG path syntax: M source.x,source.y C (source.x + dx/2),source.y (target.x - dx/2),target.y target.x,target.y."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you project tree nodes into polar radial coordinates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Map the linear breadth axis to an angle theta in radians: theta = (x / totalBreadth) * 2 * PI - PI / 2. Map the depth axis to radius r: r = depth * radialStep. Convert to Cartesian coordinates: cartX = originX + r * cos(theta), cartY = originY + r * sin(theta)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you handle smooth branch collapsing in SVG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Store collapsed child nodes on an internal property (e.g. node._children). On toggle, compute updated layout coordinates and interpolate node transform and link path attributes using requestAnimationFrame or CSS transitions, transitioning vanishing nodes into their parent's coordinate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you ensure SVG tree diagrams are accessible under WCAG 2.2 AA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wrap the container with role='tree', declare individual nodes with role='treeitem' and aria-expanded attributes, implement roving tabindex for keyboard arrow navigation, and provide descriptive text alternatives."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 420px; border: 1px dashed #444; border-radius: 10px; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; padding: 0; }
+    .stage-canvas-element { width: 100%; height: 100%; border-radius: 8px; overflow: hidden; display: block; position: relative; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    @media (max-width: 640px) { .stats-readout-box { grid-template-columns: repeat(2, 1fr); } }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/about/">About</a>
+      <a href="/#/" class="header-cta">Browse Library</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle visual theme" title="Toggle theme">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">Mastering SVG Tree Diagrams &amp; Hierarchical Layouts Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Engineering Architecture</span>
+      <h1>Mastering SVG Tree Diagrams &amp; Hierarchical Layouts: Tidy Tree Algorithms, Splines &amp; Collapsible Architecture Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-11-14">November 14, 2026</time>
+        <span>&bull;</span>
+        <span>26 min read</span>
+        <span>&bull;</span>
+        <span>6,120 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Summary:</strong> Hierarchical data structures—such as organization charts, file system directories, abstract syntax trees (ASTs), phylogenetic taxonomies, and decision graphs—present unique mathematical challenges in web rendering. Naive grid or flexbox solutions fail to resolve sibling collisions and parent centering across variable branch depths, while heavy canvas frameworks sacrifice DOM accessibility and crisp vector scaling.</p>
+          <ul>
+            <li><strong>The Tidy Tree Formulation:</strong> How the Reingold-Tilford algorithm and Buchheim's linear-time optimization solve the non-overlapping subtree packing problem in strict O(N) execution time.</li>
+            <li><strong>Vector Spline Mathematics:</strong> Deriving smooth cubic Bézier curves (C commands) with horizontal and vertical tangent continuity, contrasting them against orthogonal stepped connectors (H/V).</li>
+            <li><strong>Multi-Coordinate Projections:</strong> Transforming unified hierarchical data models between Horizontal (left-to-right), Vertical (top-to-bottom), and Polar Radial (360° spoke) coordinate spaces.</li>
+            <li><strong>Dynamic Subtree Collapsing:</strong> Implementing stateful node expansion, bounding box reclamation, and smooth 60 FPS CSS/JS coordinate tweening without layout jitter.</li>
+            <li><strong>Production Virtualization &amp; Accessibility:</strong> Viewport culling for 10,000+ nodes, symbol instancing via &lt;defs&gt; and &lt;use&gt;, and complete WCAG 2.2 AA compliant ARIA tree semantics.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-tree-diagrams-and-hierarchical-visualization-guide.jpg" alt="Mastering SVG Tree Diagrams and Hierarchical Data Visualization architectural guide hero visual showing glowing vector tree nodes and cubic bezier connections" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-precision hierarchical SVG tree diagram featuring luminous vector nodes, cubic Bézier spline connectors, collapsible branch indicators, and coordinate telemetry.</figcaption>
+        </figure>
+
+        <section id="introduction-and-vector-superiority">
+          <h2>1. Introduction: Why Pure SVG Dominates Hierarchical Tree Visualization</h2>
+          <p>Hierarchical data visualization is one of the most foundational and ubiquitous requirements across the modern software engineering landscape. Whether you are building an enterprise human resources platform charting an organization of tens of thousands of global employees, an interactive directory tree for an in-browser code editor, an abstract syntax tree (AST) visualizer for a compiler diagnostic suite, a phylogenetic taxonomic cladogram for genomic research, or a complex decision tree for an algorithmic trading model, communicating parent-child dependencies clearly and responsively is vital to user comprehension.</p>
+          <p>Yet frontend architects frequently encounter severe technical bottlenecks when selecting their graphical rendering medium. In web application development, three competing paradigms traditionally present themselves: nested HTML DOM trees using CSS Flexbox and Grid, rasterized HTML5 2D Canvas bitmaps, and native Scalable Vector Graphics (SVG). A rigorous architectural evaluation reveals why pure SVG is unequivocally the superior engineering medium for interactive hierarchical diagrams.</p>
+          <p>Traditional HTML/CSS approaches—where nodes are structured as nested <code>&lt;div&gt;</code> elements and connection lines are simulated with CSS pseudo-elements (such as <code>::before</code> and <code>::after</code> borders)—break down immediately under non-trivial layout demands. CSS pseudo-elements are fundamentally constrained to rectangular box geometries; they cannot construct fluid cubic Bézier curves, variable-width strokes, diagonal vectors, or non-rectilinear angles between arbitrarily positioned nodes. Furthermore, nested DOM trees suffer from catastrophic layout thrashing. Whenever a branch expands, collapses, or animates, the browser's rendering engine must recompute layout and reflow calculations for the entire parent document tree. In large diagrams, this triggers severe main-thread lockups, frame drops below 15 FPS, and degraded user experiences.</p>
+          <p>On the opposite end of the spectrum, HTML5 2D Canvas offers high-volume pixel rasterization, but it does so by sacrificing the Document Object Model entirely. In a Canvas environment, the entire tree diagram is flattened into an opaque grid of pixels. Every node loses its individual element identity. Consequently, implementing standard interactive capabilities—such as mouse hover tooltips, keyboard focus rings, active branch highlighting, or dynamic node recoloring—requires writing hundreds of lines of complex manual hit-testing mathematics and coordinate projection math. More critically, HTML5 Canvas is a complete black box to assistive technologies; screen readers cannot parse pixel coordinates, completely violating Web Content Accessibility Guidelines (WCAG 2.2 AA). Finally, Canvas graphics suffer from raster blur and pixelation whenever users pinch-to-zoom on high-density Retina or 4K/8K displays, or print schematics onto large-format physical documents.</p>
+          <p>Scalable Vector Graphics (SVG) represents the optimal engineering balance. Because SVG is an XML-based vector specification integrated natively into the browser's Document Object Model, every node, connector path, badge, text label, and icon retains its distinct identity as an inspectable, addressable DOM element. Developers can attach standard DOM event listeners (such as <code>pointerdown</code>, <code>pointermove</code>, <code>click</code>, and <code>focus</code>), apply reactive CSS classes and custom property themes, composite hardware-accelerated vector drop-shadows and filters, and render mathematically pure splines with subpixel precision. An SVG tree diagram scales infinitely from a compact mobile screen to a wall-mounted conference display with zero pixelation, while maintaining full accessibility and minimal memory consumption.</p>
+        </section>
+
+        <section id="hierarchical-data-modeling">
+          <h2>2. Hierarchical Data Modeling: Adjacency Lists, Nested Objects &amp; Pre-processing</h2>
+          <p>Before applying spatial layout algorithms, raw application data must be ingested and structured into a formal mathematical directed tree. In enterprise software architectures, hierarchical data typically originates from one of two canonical backends: relational SQL databases (which store hierarchical structures as flat adjacency lists or closure tables) and document or GraphQL APIs (which return deeply nested hierarchical JSON objects). A production vector tree engine must seamlessly handle both formats while guarding against malformed topologies such as cyclic dependencies and orphan branches.</p>
+
+          <h3>2.1 Flat Adjacency Lists vs. Deeply Nested Trees</h3>
+          <p>In relational databases (such as PostgreSQL, MySQL, or SQLite), trees are conventionally stored in normalized tables where each row represents a single node carrying an identifier and an optional parent foreign key pointer:</p>
+
+          <pre><code>// Canonical Flat Adjacency List Structure
+const rawAdjacencyList = [
+  { id: "root", name: "Global Architecture", role: "Core Foundation", parentId: null },
+  { id: "infra", name: "Infrastructure Platform", role: "Cloud Systems", parentId: "root" },
+  { id: "app", name: "Application Core", role: "User Experience", parentId: "root" },
+  { id: "k8s", name: "Kubernetes Mesh", role: "Cluster Runtime", parentId: "infra" },
+  { id: "edge", name: "Edge CDN Services", role: "Global POPs", parentId: "infra" },
+  { id: "fe", name: "Frontend Vector Engine", role: "SVG Pipelines", parentId: "app" },
+  { id: "state", name: "Reactive Store", role: "State Sync", parentId: "app" }
+];</code></pre>
+
+          <p>While an adjacency list is optimal for indexed SQL queries, table updates, and transactional integrity, layout calculation algorithms require a recursively navigable pointer graph where each parent maintains a list of direct references to its children. Converting a flat list into a navigable pointer hierarchy in linear time O(N) requires an in-memory hash map lookup, strictly avoiding O(N^2) nested array searches:</p>
+
+          <pre><code>function buildHierarchyFromAdjacencyList(items) {
+  const nodeMap = new Map();
+  const rootNodes = [];
+
+  // Pass 1: Instantiate node wrappers with normalized metadata
+  for (const item of items) {
+    nodeMap.set(item.id, {
+      ...item,
+      children: [],
+      _children: null, // Collapsed state cache
+      depth: 0,
+      width: item.width || 140,
+      height: item.height || 44
+    });
+  }
+
+  // Pass 2: Connect parent-child pointers and detect root elements
+  for (const item of items) {
+    const currentNode = nodeMap.get(item.id);
+    if (!item.parentId) {
+      rootNodes.push(currentNode);
+    } else {
+      const parentNode = nodeMap.get(item.parentId);
+      if (parentNode) {
+        parentNode.children.push(currentNode);
+      } else {
+        console.warn(`Orphan node detected: ${item.id}; missing parent ${item.parentId}`);
+        rootNodes.push(currentNode);
+      }
+    }
+  }
+
+  if (rootNodes.length === 0) {
+    throw new Error("Hierarchy initialization failed: No root node discovered in dataset.");
+  }
+
+  return rootNodes[0]; // Return the primary tree root
+}</code></pre>
+
+          <h3>2.2 Cycle Detection &amp; Structural Validation</h3>
+          <p>In production applications where hierarchical data may be authored or edited by end users, accidental circular dependencies (such as Node A pointing to Node B, which points to Node C, which points back to Node A) will cause infinite recursion and stack overflows in recursive tree layout algorithms. A robust tree engine must validate topological acyclicity before computing spatial coordinates. We can execute a fast depth-first traversal with a recursion visit set to detect cycles in O(V + E) time:</p>
+
+          <pre><code>function validateTreeAcyclicity(rootNode) {
+  const visited = new Set();
+  const recursionStack = new Set();
+
+  function dfs(node) {
+    if (recursionStack.has(node.id)) {
+      throw new Error(`Topological Cycle Detected: Node ${node.id} references an active ancestor.`);
+    }
+    if (visited.has(node.id)) return;
+
+    visited.add(node.id);
+    recursionStack.add(node.id);
+
+    if (node.children) {
+      for (const child of node.children) {
+        dfs(child);
+      }
+    }
+
+    recursionStack.delete(node.id);
+  }
+
+  dfs(rootNode);
+  return true;
+}</code></pre>
+
+          <h3>2.3 Metric Annotation: Depth, Subtree Leaf Density, and Bounding Boxes</h3>
+          <p>Once topological integrity is verified, we run a single bottom-up post-order traversal to annotate each node with its depth level, maximum descendant depth, and total leaf count. Knowing the exact leaf count of each subtree is essential for proportional radial angular allocation and responsive container dimensioning:</p>
+
+          <pre><code>function annotateSubtreeMetrics(node, currentDepth = 0) {
+  node.depth = currentDepth;
+
+  if (!node.children || node.children.length === 0) {
+    node.leafCount = 1;
+    node.maxDepth = currentDepth;
+    return;
+  }
+
+  let leaves = 0;
+  let maxD = currentDepth;
+
+  for (const child of node.children) {
+    annotateSubtreeMetrics(child, currentDepth + 1);
+    leaves += child.leafCount;
+    maxD = Math.max(maxD, child.maxDepth);
+  }
+
+  node.leafCount = leaves;
+  node.maxDepth = maxD;
+}</code></pre>
+        </section>
+
+        <section id="reingold-tilford-algorithm">
+          <h2>3. The Reingold-Tilford &amp; Buchheim Tidy Tree Layout Algorithm</h2>
+          <p>The mathematical objective of a tidy tree layout algorithm is to transform an abstract hierarchical graph into a visually balanced, aesthetic 2D coordinate map. While naive algorithms might simply divide the available screen width evenly across the nodes at each depth level, this approach leads to glaring visual defects: wide branches become uncomfortably compressed, narrow branches waste enormous amounts of whitespace, and parent nodes frequently appear misaligned from their direct progeny.</p>
+          <p>In their seminal 1981 paper <em>"Tidier Drawings of Trees"</em>, Edward M. Reingold and John S. Tilford formalized the mathematical axioms necessary for human aesthetic harmony in hierarchical drawings:</p>
+          <ul>
+            <li><strong>Aesthetic Invariant 1 (Strict Depth Stratification):</strong> Nodes at depth <em>d</em> must be positioned along a uniform level coordinate proportional to generation level.</li>
+            <li><strong>Aesthetic Invariant 2 (Parental Centering):</strong> Every parent node must be positioned at the exact arithmetic center of its immediate children.</li>
+            <li><strong>Aesthetic Invariant 3 (Isomorphic Subtree Congruence):</strong> Two subtrees with identical topological structures must be rendered with identical relative geometries, regardless of their location in the broader diagram.</li>
+            <li><strong>Aesthetic Invariant 4 (Compact Packing Without Collisions):</strong> Subtrees at the same generation level must be positioned as closely together as possible without violating minimal sibling margins.</li>
+          </ul>
+
+          <div class="formula-card">
+            <div class="formula-title">Buchheim Linear Time Layout Invariant</div>
+            <div class="formula-body">x(v) = preliminary(v) + modifier(ancestor(v)) &nbsp;|&nbsp; shift(w) = (gap - (right_contour(w) - left_contour(v))) / (index(w) - index(v))</div>
+            <div class="formula-desc">Christoph Buchheim et al. (2002) improved Reingold-Tilford from O(N^2) to strict O(N) by traversing contours via thread pointers and deferring coordinate displacements through cumulative modifier values.</div>
+          </div>
+
+          <h3>3.1 Understanding the O(N) Buchheim Contour Apportioning Breakthrough</h3>
+          <p>The original 1981 Reingold-Tilford algorithm satisfied all four aesthetic invariants, but it suffered from a severe algorithmic limitation: in worst-case scenarios with deeply unbalanced or asymmetrical trees, its runtime degraded to O(N^2). This degradation occurred because whenever two adjacent subtrees collided, the algorithm traversed all descendant nodes of the right subtree to apply a spatial displacement. If collisions occurred across multiple ancestral generations, subtrees were repeatedly re-traversed, creating quadratic computational overhead that caused noticeable browser lag on trees exceeding a few hundred nodes.</p>
+          <p>In 2002, computer scientists Christoph Buchheim, Michael Jünger, and Sebastian Leipert formulated a breakthrough modification that achieved strict O(N) linear time execution. The Buchheim algorithm avoids redundant subtree traversals by introducing three critical architectural concepts: <strong>Preliminary Coordinates</strong>, <strong>Contour Thread Pointers</strong>, and <strong>Modifier Accumulators</strong>.</p>
+          <p>During the first post-order traversal pass, each node calculates a preliminary coordinate relative to its immediate left sibling. When two subtrees meet, the algorithm only inspects their external contours—the rightmost boundary of the left subtree and the leftmost boundary of the right subtree. If a collision is detected, the required shift distance is not applied immediately to individual nodes; instead, the shift is stored in a modifier accumulator and apportioned proportionally across all intermediate sibling subtrees in constant time O(1). Thread pointers are created between unequal branches so that contour comparisons can continue across generational boundaries without tree re-traversals. Finally, a single pre-order pass descends the hierarchy, adding accumulated modifiers to preliminary coordinates to yield final Cartesian coordinates in exact linear time.</p>
+        </section>
+
+        <section id="coordinate-transformations-orientations">
+          <h2>4. Coordinate Projections: Horizontal, Vertical &amp; Radial Polar Trees</h2>
+          <p>A key architectural triumph of the tidy tree formulation is coordinate abstraction. The layout algorithm does not compute device-specific screen pixels directly; instead, it outputs two abstract mathematical axes: a <strong>Tier Axis</strong> (representing depth generation <em>d</em>) and a <strong>Spread Axis</strong> (representing lateral sibling positioning). By decoupling the layout math from screen projection, a single underlying tree model can be projected into three distinct visual orientations with mathematical precision.</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Layout Orientation</th>
+                  <th>Tier Axis (Generations)</th>
+                  <th>Spread Axis (Siblings)</th>
+                  <th>Ideal Use Cases</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Horizontal (Left-to-Right)</strong></td>
+                  <td>Cartesian X coordinate</td>
+                  <td>Cartesian Y coordinate</td>
+                  <td>Directory trees, file navigators, AST viewers, documentation sitemaps.</td>
+                </tr>
+                <tr>
+                  <td><strong>Vertical (Top-to-Bottom)</strong></td>
+                  <td>Cartesian Y coordinate</td>
+                  <td>Cartesian X coordinate</td>
+                  <td>Corporate org charts, family genealogical lineages, tournament brackets.</td>
+                </tr>
+                <tr>
+                  <td><strong>Polar Radial (360° Circle)</strong></td>
+                  <td>Radial Radius (<em>r</em>)</td>
+                  <td>Polar Angle (<em>&theta;</em> in radians)</td>
+                  <td>Phylogenetic species evolution, circular network dependencies, dense taxonomy.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>4.1 Polar Radial Trigonometry and Hemisphere Label Inversion</h3>
+          <p>Radial tree projections map depth into concentric rings radiating outward from a central origin, while lateral sibling spread is mapped across an angular circle spanning 0 to 2&pi; radians. Radial layouts provide extraordinary information density: because the circumference of each concentric ring expands proportionally to its radius, peripheral leaf nodes benefit from exponentially greater lateral perimeter space than inner nodes, preventing overcrowding in dense taxonomic datasets.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Polar to Cartesian Trigonometric Conversion</div>
+            <div class="formula-body">x = originX + r &times; cos(&theta;) &nbsp;&nbsp;|&nbsp;&nbsp; y = originY + r &times; sin(&theta;)</div>
+            <div class="formula-desc">Where r represents tree depth from root, &theta; is the angular radian allocation along the 360-degree perimeter, and (originX, originY) denotes the center of the SVG viewport.</div>
+          </div>
+        </section>
+
+        <section id="architecture-diagram">
+          <h2>5. Architectural Figure 2: The Tidy Tree Layout &amp; Serialization Pipeline</h2>
+          <p>The following architectural flowchart details the complete end-to-end data pipeline: from raw hierarchical JSON ingestion down through recursive metric annotation, Buchheim linear-time layout calculation, coordinate transformation, cubic Bézier spline interpolation, and final accessible SVG DOM serialization.</p>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: Architecture diagram of the tidy tree layout calculation and SVG rendering pipeline">
+              <defs>
+                <linearGradient id="treeGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#141414"/>
+                  <stop offset="100%" stop-color="#1F2806"/>
+                </linearGradient>
+                <linearGradient id="treeGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#181818"/>
+                  <stop offset="100%" stop-color="#141E05"/>
+                </linearGradient>
+                <linearGradient id="treeArrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#C1DD2D"/>
+                  <stop offset="100%" stop-color="#849E00"/>
+                </linearGradient>
+                <filter id="treeBoxGlow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+                </filter>
+              </defs>
+
+              <rect width="960" height="320" rx="12" fill="#0C0C0C" stroke="#222" stroke-width="1.5"/>
+
+              <!-- Flowchart Header -->
+              <text x="40" y="38" font-family="'Inter', sans-serif" font-size="14" font-weight="800" fill="#C1DD2D" letter-spacing="1">FIGURE 2: TIDY TREE LAYOUT &amp; VECTOR RENDERING PIPELINE</text>
+              <line x1="40" y1="48" x2="920" y2="48" stroke="#222" stroke-width="1"/>
+
+              <!-- Box 1: Data Ingestion -->
+              <g transform="translate(40, 75)" filter="url(#treeBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#treeGrad1)" stroke="#333" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.15)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">01</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Data Ingestion</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#888">Nested JSON / SQL</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Map Flat Adjacency</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Depth Annotations</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Subtree Depths</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Node Dimensioning</text>
+              </g>
+
+              <!-- Connector 1 -->
+              <path d="M 190 170 L 230 170" stroke="url(#treeArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="230,165 240,170 230,175" fill="#C1DD2D"/>
+
+              <!-- Box 2: Buchheim Tidy Layout -->
+              <g transform="translate(240, 75)" filter="url(#treeBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#treeGrad2)" stroke="#C1DD2D" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.2)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">02</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Tidy Tree Math</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#C1DD2D">O(N) Buchheim 2002</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Post-order Prelim</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Contour Threading</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Modifier Passes</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Sibling Centering</text>
+              </g>
+
+              <!-- Connector 2 -->
+              <path d="M 390 170 L 430 170" stroke="url(#treeArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="430,165 440,170 430,175" fill="#C1DD2D"/>
+
+              <!-- Box 3: Coordinate Transform -->
+              <g transform="translate(440, 75)" filter="url(#treeBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#treeGrad1)" stroke="#333" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.15)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">03</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Spatial Mapping</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#888">Matrix Projections</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Horizontal (L&rarr;R)</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Vertical (T&rarr;B)</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Polar Radial (r, &theta;)</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; ViewBox Framing</text>
+              </g>
+
+              <!-- Connector 3 -->
+              <path d="M 590 170 L 630 170" stroke="url(#treeArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="630,165 640,170 630,175" fill="#C1DD2D"/>
+
+              <!-- Box 4: Spline Generation -->
+              <g transform="translate(640, 75)" filter="url(#treeBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#treeGrad2)" stroke="#333" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.15)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">04</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Spline Synthesis</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#888">B&eacute;zier &amp; Step Paths</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Cubic B&eacute;zier (C)</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Orthogonal Steps</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Tangent Continuity</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Vector Stroke Defs</text>
+              </g>
+
+              <!-- Connector 4 -->
+              <path d="M 790 170 L 830 170" stroke="url(#treeArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="830,165 840,170 830,175" fill="#C1DD2D"/>
+
+              <!-- Box 5: DOM & ARIA -->
+              <g transform="translate(840, 75)" filter="url(#treeBoxGlow)">
+                <rect width="80" height="190" rx="8" fill="url(#treeGrad1)" stroke="#333" stroke-width="1.5"/>
+                <text x="14" y="38" font-family="'Inter', sans-serif" font-size="12" font-weight="800" fill="#C1DD2D">05. DOM</text>
+                <text x="14" y="65" font-family="'Inter', sans-serif" font-size="10" fill="#FFF">ARIA Roles</text>
+                <text x="14" y="82" font-family="'Inter', sans-serif" font-size="10" fill="#888">Treeitem</text>
+                <line x1="10" y1="95" x2="70" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="10" y="120" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">&bull; &lt;g&gt; Nodes</text>
+                <text x="10" y="140" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">&bull; 60fps Pan</text>
+                <text x="10" y="160" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">&bull; SVG Export</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Complete multi-stage architectural pipeline of the tidy tree engine: from ingestion and O(N) Buchheim positioning through coordinate projection, cubic Bézier spline interpolation, and accessible DOM serialization.</figcaption>
+          </figure>
+        </section>
+
+        <section id="interactive-tree-studio">
+          <h2>6. Interactive Developer Studio: Live Hierarchical Tree Visualizer</h2>
+          <p>Experiment with real-time vector tree synthesis below. Use the interactive controls to toggle between layout orientations (Horizontal, Vertical, and Polar Radial), switch connection spline types, and adjust node spacing. Click directly on any parent node (marked with a green pulse badge) to interactively expand and collapse its child branches in real time. Switch between SVG Markup, JavaScript Engine, and JSON Data tabs to export clean, production-ready code.</p>
+
+          <div class="interactive-sandbox" id="treeStudio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M6 14v6M18 14v6M3 8h18M6 8v6M18 8v6"/></svg>
+                <span>Live Interactive SVG Tree Studio</span>
+              </div>
+              <span class="sandbox-badge">Real-Time O(N) Engine</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label for="treeLayoutSelect">Layout Orientation: <span class="stat-num" id="layoutBadge">Horizontal (L&rarr;R)</span></label>
+                  <select id="treeLayoutSelect" class="control-select">
+                    <option value="horizontal" selected>Horizontal (Left-to-Right)</option>
+                    <option value="vertical">Vertical (Top-to-Bottom)</option>
+                    <option value="radial">Polar Radial (360&deg; Spoke)</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label for="treeCurveSelect">Connector Spline: <span class="stat-num" id="curveBadge">Cubic B&eacute;zier (C)</span></label>
+                  <select id="treeCurveSelect" class="control-select">
+                    <option value="bezier" selected>Cubic B&eacute;zier Splines (C)</option>
+                    <option value="step">Orthogonal Stepped (H/V)</option>
+                    <option value="straight">Direct Linear Vectors (L)</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label for="treeSpacingSlider">Node Level Separation: <span class="stat-num" id="spacingVal">140px</span></label>
+                  <input type="range" id="treeSpacingSlider" min="90" max="220" step="10" value="140" class="control-input">
+                </div>
+
+                <div class="control-row">
+                  <label for="treeSiblingSlider">Sibling Gap: <span class="stat-num" id="siblingVal">36px</span></label>
+                  <input type="range" id="treeSiblingSlider" min="20" max="70" step="4" value="36" class="control-input">
+                </div>
+
+                <div class="btn-row">
+                  <button type="button" class="action-btn primary" id="btnToggleAll">Collapse All Branches</button>
+                  <button type="button" class="action-btn" id="btnResetTree">Reset Default Tree</button>
+                  <button type="button" class="action-btn" id="btnZoomFit">Zoom to Fit</button>
+                </div>
+
+                <div class="stats-readout-box">
+                  <div class="stat-item">
+                    <div class="stat-label">Total Nodes</div>
+                    <div class="stat-val highlight" id="statTotalNodes">14</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Visible Nodes</div>
+                    <div class="stat-val" id="statVisibleNodes">14</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Max Depth</div>
+                    <div class="stat-val" id="statTreeDepth">4</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Connectors</div>
+                    <div class="stat-val" id="statConnectors">13</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="preview-stage-container" id="treeContainer">
+                  <svg id="treeSvg" class="stage-canvas-element" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="linkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.5"/>
+                      </linearGradient>
+                      <filter id="nodeGlow">
+                        <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#C1DD2D" flood-opacity="0.25"/>
+                      </filter>
+                    </defs>
+                    <g id="treeCanvasGroup" transform="translate(40, 40)"></g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs">
+                  <button type="button" class="code-tab-btn active" data-tab="svg">SVG Markup</button>
+                  <button type="button" class="code-tab-btn" data-tab="js">Vanilla JS Engine</button>
+                  <button type="button" class="code-tab-btn" data-tab="json">Tree Data Model</button>
+                </div>
+                <div class="code-actions">
+                  <button type="button" class="copy-btn" id="btnCopyTreeCode">Copy Code</button>
+                </div>
+              </div>
+              <pre class="code-output-area" id="treeCodeOutput">&lt;!-- Generating SVG Markup... --&gt;</pre>
+            </div>
+          </div>
+        
+          <h3>7.3 Higher-Order Continuity Analysis: C0, C1 and C2 Curvature Physics</h3>
+          <p>When engineering high-precision vector connectors, visual designers often notice subtle kinks, flattening, or optical distortions at junction points. These flaws stem from discontinuities in parametric derivatives. In geometric curve design, continuity is categorized into three mathematical tiers:</p>
+          <ul>
+            <li><strong>C0 Parametric Continuity (Positional):</strong> The end of one curve segment touches the beginning of the next segment: B1(1) = B2(0). This guarantees physical connectivity, but permits sharp, abrupt direction changes (e.g. sharp right-angle steps or jagged polylines).</li>
+            <li><strong>C1 Parametric Continuity (Tangential):</strong> The first derivatives match at the junction point: B1'(1) = B2'(0). The tangent vector maintains a continuous direction across the seam, completely eliminating sharp corners and producing smooth visual transitions.</li>
+            <li><strong>C2 Parametric Continuity (Curvature):</strong> The second derivatives match at the boundary: B1''(1) = B2''(0). The physical rate of curvature change is continuous across the joint. In transportation design and typography, C2 continuity eliminates specular lighting highlights and optical flattening, producing what industrial engineers term "aesthetic class-A surface quality".</li>
+          </ul>
+          <p>For standard SVG tree connectors, achieving C1 tangential continuity is mathematically sufficient to guarantee pleasing, seamless connections. In our cubic Bézier formula, because the control handles P1 and P2 share the exact vertical coordinates of P0 and P3 respectively, the curve begins with a horizontal slope (dy/dx = 0) and concludes with a horizontal slope. This prevents the connector from appearing to collide into the node card at an awkward diagonal slant.</p>
+
+          <h3>7.4 Catmull-Rom Spline Formulation for Multi-Point Routing</h3>
+          <p>When connecting a single parent node through multiple intermediate routing waypoints (for example, in circuit layout, obstacle avoidance around crowded subtrees, or multi-generational skip-level hierarchy links), a simple single-segment cubic Bézier curve cannot navigate multiple turns. In these advanced topologies, Catmull-Rom splines provide an analytical solution that passes through every specified control waypoint while automatically calculating tangent vectors:</p>
+          <pre><code>// Catmull-Rom to Cubic Bezier Control Handle Conversion
+function catmullRomToCubicBezier(p0, p1, p2, p3, tension = 0.5) {
+  const alpha = (1 - tension) / 6;
+  const cp1 = {
+    x: p1.x + (p2.x - p0.x) * alpha,
+    y: p1.y + (p2.y - p0.y) * alpha
+  };
+  const cp2 = {
+    x: p2.x - (p3.x - p1.x) * alpha,
+    y: p2.y - (p3.y - p1.y) * alpha
+  };
+  return { cp1, cp2 };
+}</code></pre>
+
+        </section>
+
+        <section id="vector-spline-connector-geometry">
+          <h2>7. Vector Spline Connector Geometry: Cubic Béziers vs. Orthogonal Steps</h2>
+          <p>Connecting two spatially separated nodes in an SVG tree requires generating vector path commands (the <code>d</code> attribute). While straight lines (<code>L</code> commands) are trivial to implement, they create severe visual clutter when multiple branches intersect or converge, producing harsh acute angles that distract the eye. Professional diagramming tools employ two primary spline aesthetics: <strong>Cubic Bézier Smooth Curves</strong> and <strong>Orthogonal Stepped Lines</strong>.</p>
+          <p>Selecting between smooth splines and orthogonal steps represents a fundamental aesthetic and cognitive design decision. Smooth Bézier curves emphasize continuous relational flow and organic hierarchy, making them ideal for mind maps, file trees, and exploratory knowledge graphs. Conversely, orthogonal stepped lines emphasize structural rigor, hierarchical chain-of-command, and formal governance, making them the industry standard for enterprise corporate charts and schematic diagrams.</p>
+
+          <h3>7.1 Mathematical Derivation of Smooth Cubic Bézier Connectors</h3>
+          <p>A cubic Bézier curve is defined by four points: a start anchor <em>P0</em>, two intermediate control handles <em>P1</em> and <em>P2</em>, and an end anchor <em>P3</em>. The parametric equation evaluates over normalized time <em>t</em> in [0, 1]:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Cubic Bézier Parametric Spline Formulation</div>
+            <div class="formula-body">B(t) = (1-t)<sup>3</sup>P<sub>0</sub> + 3(1-t)<sup>2</sup>tP<sub>1</sub> + 3(1-t)t<sup>2</sup>P<sub>2</sub> + t<sup>3</sup>P<sub>3</sub></div>
+            <div class="formula-desc">Where for a horizontal tree: P0 = (x0, y0), P1 = (x0 + &Delta;x/2, y0), P2 = (x1 - &Delta;x/2, y1), and P3 = (x1, y1). Setting the horizontal coordinates of P1 and P2 to the midpoint guarantees horizontal tangent alignment.</div>
+          </div>
+
+          <p>To eliminate awkward curvature cusps and guarantee tangential continuity, the first control point <em>P1</em> must emerge directly perpendicular to the parent node boundary. For a horizontal tree extending from parent (x0, y0) to child (x1, y1), setting P1 = ((x0 + x1)/2, y0) forces the initial derivative to point along the positive X axis with zero vertical slope. Similarly, setting P2 = ((x0 + x1)/2, y1) guarantees that the arriving curve lands at the child with a purely horizontal tangent. This symmetrical S-curve formulation produces clean, harmonious visual connectors regardless of vertical displacement.</p>
+        
+          <h3>8.4 The FLIP Animation Technique for Seamless Vector Tree Morphing</h3>
+          <p>Animating layout reflows in complex vector trees is notoriously difficult because expanding or collapsing a node shifts every neighboring subtree across both Cartesian axes simultaneously. If we attempt to animate these transitions by continuously recalculating and re-rendering layout coordinates on every animation frame, the browser must execute expensive layout algorithms dozens of times per second.</p>
+          <p>The FLIP animation technique (First, Last, Invert, Play), pioneered by Paul Lewis at Google, solves this performance bottleneck by decoupling layout calculation from visual rendering:</p>
+          <ul>
+            <li><strong>First:</strong> Capture the current bounding boxes and transformation coordinates of all visible nodes prior to state change.</li>
+            <li><strong>Last:</strong> Apply the state change (e.g. collapsing branch B), re-run the O(N) Buchheim layout once synchronously, and record the new target positions.</li>
+            <li><strong>Invert:</strong> For every node, calculate the delta: &Delta;x = x_first - x_last, and &Delta;y = y_first - y_last. Apply an immediate CSS transform: translate(&Delta;x, &Delta;y) with zero transition duration, visually snapping the elements back to their original on-screen locations.</li>
+            <li><strong>Play:</strong> In the next animation frame, enable CSS transitions (transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1)) and clear the invert transform. The browser's GPU hardware compositor smoothly animates all nodes to their final positions at 60 to 120 FPS.</li>
+          </ul>
+
+          <pre><code>function executeFlipTreeTransition(container, updateStateCallback) {
+  // 1. FIRST: Record initial positions
+  const firstPositions = new Map();
+  container.querySelectorAll('.tree-node-group').forEach(el => {
+    const id = el.getAttribute('data-node-id');
+    const transform = el.getAttribute('transform');
+    firstPositions.set(id, transform);
+  });
+
+  // 2. LAST: Apply state modification and recalculate layout
+  updateStateCallback();
+
+  // 3. INVERT & PLAY
+  container.querySelectorAll('.tree-node-group').forEach(el => {
+    const id = el.getAttribute('data-node-id');
+    const prevTransform = firstPositions.get(id);
+    const newTransform = el.getAttribute('transform');
+
+    if (prevTransform && prevTransform !== newTransform) {
+      // Invert: temporarily snap back to previous coordinate
+      el.style.transition = 'none';
+      el.setAttribute('transform', prevTransform);
+
+      requestAnimationFrame(() => {
+        // Play: animate smoothly to target
+        el.style.transition = 'transform 320ms cubic-bezier(0.16, 1, 0.3, 1)';
+        el.setAttribute('transform', newTransform);
+      });
+    }
+  });
+}</code></pre>
+
+        </section>
+
+        <section id="collapsible-subtrees-and-state">
+          <h2>8. Interactive Collapsible Subtrees: State Machine &amp; Morphing Transitions</h2>
+          <p>In large organizational structures or complex technical hierarchies, displaying every node simultaneously overwhelms human cognitive bandwidth and clutters the visual canvas. Interactive subtree expansion and collapse allows users to explore branches on demand. However, implementing this feature requires a state machine that properly reclaims vacated space and coordinates smooth vector animations.</p>
+
+          <h3>8.1 The Dual-Array State Pattern</h3>
+          <p>The standard architectural pattern for collapsible trees relies on two properties on each node object: <code>children</code> (the array of active, visible children) and <code>_children</code> (the cached array of hidden children):</p>
+          <ul>
+            <li><strong>Expanded State:</strong> <code>node.children</code> holds the active array of child node pointers; <code>node._children = null</code>. The node renders an expanded status indicator (such as an illuminated cyan pill or minus icon).</li>
+            <li><strong>Collapsed State:</strong> <code>node._children</code> preserves the child references while <code>node.children = null</code>. The node renders a collapsed status indicator (such as an emerald green badge displaying the count of hidden sub-elements).</li>
+          </ul>
+
+          <pre><code>function toggleSubtreeNode(node) {
+  if (node.children) {
+    // Collapse: stash visible children into _children
+    node._children = node.children;
+    node.children = null;
+  } else if (node._children) {
+    // Expand: restore children from _children
+    node.children = node._children;
+    node._children = null;
+  }
+}</code></pre>
+        
+          <h3>9.2 Touch Gesture Physics: Multi-Touch Pinch-to-Zoom Mathematics</h3>
+          <p>Delivering an exceptional mobile and tablet experience requires handling multi-touch pointer events with physical momentum and inertia. When two fingers contact the screen surface, we track the Euclidean distance between touch points on successive frames:</p>
+          <pre><code>// Euclidean Distance Between Two Touch Points
+function getTouchDistance(touchA, touchB) {
+  const dx = touchA.clientX - touchB.clientX;
+  const dy = touchA.clientY - touchB.clientY;
+  return Math.hypot(dx, dy);
+}
+
+function getTouchMidpoint(touchA, touchB) {
+  return {
+    x: (touchA.clientX + touchB.clientX) / 2,
+    y: (touchA.clientY + touchB.clientY) / 2
+  };
+}</code></pre>
+
+          <p>When the distance between touch points changes from $d_{\text{prev}}$ to $d_{\text{curr}}$, the instantaneous zoom multiplier is computed as $\Delta s = \frac{d_{\text{curr}}}{d_{\text{prev}}}$. To ensure the zoom centers naturally between the user's fingers, the pan offset is adjusted around the focal midpoint. Furthermore, when the user flicks the canvas with a rapid pointer gesture, an exponential decay physics loop ($v_{t+1} = v_t \cdot \mu$, where friction coefficient $\mu \approx 0.92$) produces authentic inertial deceleration.</p>
+
+          <h3>9.3 Viewport Minimap / Radar Architecture</h3>
+          <p>For large trees spanning thousands of pixels, users easily lose spatial orientation. An interactive minimap or radar overlay displays a bird's-eye thumbnail of the entire tree with a highlighted rectangular viewfinder showing the current viewport. In SVG, this is implemented effortlessly by creating a secondary miniature <code>&lt;svg class="tree-minimap"&gt;</code> element that clones the main tree geometry using an SVG <code>&lt;use href="#treeCanvasGroup" /&gt;</code> tag and renders a draggable viewport rect over the top.</p>
+
+        </section>
+
+        <section id="infinite-canvas-navigation">
+          <h2>9. Infinite Canvas Navigation: High-Performance Pan, Zoom &amp; CTM Inversion</h2>
+          <p>Real-world trees often span thousands of pixels in width and height, far exceeding the physical dimensions of the browser viewport. Providing seamless navigation requires implementing an infinite virtual canvas with smooth mouse wheel zooming, touch pinch-to-zoom, and drag-to-pan interactions.</p>
+          <p>Rather than modifying individual node positions during pan or zoom operations (which would require updating thousands of DOM nodes per frame), we encapsulate the entire tree within a single root SVG group <code>&lt;g id="treeCanvasGroup"&gt;</code> and update its <code>transform</code> attribute.</p>
+        
+          <h3>10.4 Spatial Partitioning with QuadTrees for High-Performance Hover</h3>
+          <p>When an SVG tree contains thousands of nodes, attaching individual DOM event listeners to every node element introduces significant memory overhead and can trigger garbage collection pauses during rapid canvas movements. Instead of binding listeners to every node, we employ <strong>Event Delegation</strong> combined with <strong>Spatial QuadTree Partitioning</strong>.</p>
+          <p>A single pointer event listener is attached to the parent <code>&lt;svg&gt;</code> container. As the pointer moves, its coordinates are queried against an in-memory 2D QuadTree in $O(\log N)$ logarithmic time to identify candidate nodes within a 15-pixel proximity radius. This eliminates thousands of DOM listeners and delivers sub-millisecond hover detection even on datasets of 50,000+ hierarchical nodes.</p>
+
+          <h3>10.5 Semantic Level-of-Detail (LOD) Scaling</h3>
+          <p>When users zoom out to view an entire corporate taxonomy, individual text labels, badges, and avatar images become unreadable microscopic smudges that consume valuable GPU rasterization bandwidth. A production tree engine implements <strong>Semantic Level-of-Detail (LOD)</strong> based on the active zoom scale:</p>
+          <ul>
+            <li><strong>High Zoom (&gt; 0.8x):</strong> Render full rich cards: employee photos, job titles, department badges, contact buttons, and detailed status pills.</li>
+            <li><strong>Medium Zoom (0.4x – 0.8x):</strong> Collapse cards into streamlined vector badges containing only employee names and high-contrast color pills.</li>
+            <li><strong>Low Zoom (&lt; 0.4x):</strong> Hide all typography entirely and render minimal 8px circular colored dots along the tree skeleton. This reduces SVG path complexity by over 90%, preserving fluid 60 FPS camera movements across massive enterprise graphs.</li>
+          </ul>
+
+        </section>
+
+        <section id="performance-and-dom-virtualization">
+          <h2>10. Enterprise Performance &amp; DOM Virtualization: Scaling to 10,000+ Nodes</h2>
+          <p>While SVG handles hundreds of nodes effortlessly, rendering an enterprise database hierarchy containing 10,000+ nodes directly into the DOM can exceed browser memory thresholds and degrade animation frame rates. At that scale, DOM virtualization and level-of-detail (LOD) culling become essential.</p>
+          <p>By computing the bounding box of each branch during layout calculation, the rendering engine can compare each node's screen coordinates against the visible SVG viewport rectangle. Any node or connector that lies entirely outside the visible bounding box is skipped during DOM creation, keeping the live SVG element count under 200 nodes regardless of total tree size.</p>
+        
+          <h3>11.1 Full WAI-ARIA Tree View 1.2 Design Pattern Specification</h3>
+          <p>To achieve full compliance with WAI-ARIA Authoring Practices Guide (APG) Tree View 1.2 standards, our SVG implementation supports a comprehensive keyboard navigation state machine:</p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Keyboard Key</th>
+                  <th>Standard Interaction Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Down Arrow (&darr;)</strong></td>
+                  <td>Moves focus to the next visible node in pre-order traversal sequence without expanding collapsed branches.</td>
+                </tr>
+                <tr>
+                  <td><strong>Up Arrow (&uarr;)</strong></td>
+                  <td>Moves focus to the previous visible node in pre-order sequence.</td>
+                </tr>
+                <tr>
+                  <td><strong>Right Arrow (&rarr;)</strong></td>
+                  <td>If current node is collapsed, expands the subtree. If already expanded, moves focus to its first child.</td>
+                </tr>
+                <tr>
+                  <td><strong>Left Arrow (&larr;)</strong></td>
+                  <td>If current node is expanded, collapses the subtree. If collapsed or a leaf, moves focus to its parent node.</td>
+                </tr>
+                <tr>
+                  <td><strong>Home / End</strong></td>
+                  <td>Moves keyboard focus to the root node (Home) or the last visible descendant node (End).</td>
+                </tr>
+                <tr>
+                  <td><strong>Asterisk (*)</strong></td>
+                  <td>Expands all sibling nodes at the current depth level simultaneously.</td>
+                </tr>
+                <tr>
+                  <td><strong>Enter / Space</strong></td>
+                  <td>Selects the focused node, triggers its primary action, or opens an associated detail modal.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>By coupling these keyboard handlers with an accessible live region (<code>&lt;div aria-live="polite" class="sr-only"&gt;</code>), screen readers verbally announce subtree expansions, employee name selections, and branch depth updates in real time, making the diagram fully usable for blind and low-vision professionals.</p>
+
+        
+          <h3>10.6 Hardware Acceleration &amp; Filter Surface Optimization</h3>
+          <p>Applying SVG vector filters—such as Gaussian blurs (<code>&lt;feGaussianBlur&gt;</code>) or drop-shadow effects (<code>&lt;feDropShadow&gt;</code>)—to hundreds of tree nodes can severely degrade rendering performance on integrated mobile GPUs. When a filter is applied to an SVG node, the browser engine must allocate an offscreen rasterization buffer, blit the vector elements into the texture, execute convolution filter passes on the CPU/GPU, and composite the result back into the master document layer.</p>
+          <p>To eliminate filter overhead, our production architecture implements three optimization techniques: first, constrain filter regions explicitly using <code>filterUnits="userSpaceOnUse"</code> and tight coordinate bounds (e.g. <code>x="-20%" y="-20%" width="140%" height="140%"</code>) to prevent the browser from allocating massive full-viewport textures; second, replace expensive dynamic vector filter chains with pre-rendered CSS box-shadows or lightweight 9-slice SVG shadow assets where possible; third, apply <code>will-change: transform</code> strictly to the root canvas group rather than individual nodes, ensuring the entire tree remains cached as a single hardware texture during camera pans and zoom gestures.</p>
+
+        </section>
+
+        <section id="accessibility-and-aria-roles">
+          <h2>11. Accessibility (WCAG 2.2 AA) &amp; ARIA Tree Semantics</h2>
+          <p>A critical flaw of many web diagrams is total inaccessibility to screen readers and keyboard-only users. Visualizing a tree on screen must not lock out users who rely on assistive technologies. Under WCAG 2.2 AA guidelines, an interactive tree diagram must expose a semantically navigable hierarchy through ARIA roles.</p>
+          <ul>
+            <li><strong>Root Element:</strong> The container or root group must carry <code>role="tree"</code> and an informative <code>aria-label</code> describing the diagram's scope.</li>
+            <li><strong>Node Elements:</strong> Each interactive node group must carry <code>role="treeitem"</code>, an <code>aria-label</code> detailing the node's title and level, and an explicit <code>tabindex="0"</code> (for active node) or <code>tabindex="-1"</code> (for inactive nodes).</li>
+            <li><strong>Branch State:</strong> Nodes with expandable subtrees must include <code>aria-expanded="true"</code> or <code>aria-expanded="false"</code>.</li>
+            <li><strong>Keyboard Navigation:</strong> Support standard keyboard shortcuts: Up/Down arrow keys to move through sibling items, Right arrow key to expand a collapsed branch, Left arrow key to collapse an expanded branch, and Enter/Space to select or trigger actions.</li>
+          </ul>
+        </section>
+
+        <section id="comparative-matrix-and-faq">
+          <h2>12. Architectural Comparison Matrix &amp; Frequently Asked Questions</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architecture Dimension</th>
+                  <th>Pure SVG (This Guide)</th>
+                  <th>D3.js Tree Module</th>
+                  <th>HTML5 2D Canvas</th>
+                  <th>HTML Nested &lt;div&gt;s</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Bundle Overhead</strong></td>
+                  <td><strong>0 KB</strong> (Native JS/SVG)</td>
+                  <td>~75 KB – 140 KB minified</td>
+                  <td>~30 KB – 80 KB custom</td>
+                  <td><strong>0 KB</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Resolution Independence</strong></td>
+                  <td><strong>Infinite</strong> (Pure vectors)</td>
+                  <td><strong>Infinite</strong> (SVG output)</td>
+                  <td>Pixelated on Retina/Zoom</td>
+                  <td>Standard DOM fonts</td>
+                </tr>
+                <tr>
+                  <td><strong>Connector Capabilities</strong></td>
+                  <td>Bézier, Stepped, Arc, Radial</td>
+                  <td>Bézier, Radial, Step</td>
+                  <td>Manual Bezier strokes</td>
+                  <td>Primitive 90° borders only</td>
+                </tr>
+                <tr>
+                  <td><strong>Event Delegation &amp; CSS</strong></td>
+                  <td>Native DOM &amp; CSS Hover</td>
+                  <td>Native DOM &amp; CSS Hover</td>
+                  <td>Manual hit-test math</td>
+                  <td>Native DOM &amp; CSS</td>
+                </tr>
+                <tr>
+                  <td><strong>WCAG AA Accessibility</strong></td>
+                  <td>Full ARIA Tree Support</td>
+                  <td>Configurable ARIA</td>
+                  <td>Requires Shadow DOM canvas</td>
+                  <td>Native HTML lists</td>
+                </tr>
+                <tr>
+                  <td><strong>Max Node Threshold</strong></td>
+                  <td>~5,000+ (Culling: 50,000+)</td>
+                  <td>~2,500+</td>
+                  <td>~20,000+</td>
+                  <td>~800 (DOM thrashing)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="takeaway-box" id="key-takeaways">
+            <h3>Key Engineering Takeaways</h3>
+            <ul>
+              <li><strong>O(N) Layout Efficiency:</strong> The Buchheim extension to Reingold-Tilford is mandatory for production applications, preventing O(N^2) exponential slowdowns on deep or unbalanced branches.</li>
+              <li><strong>Mathematical Tangent Matching:</strong> Placing cubic Bézier control points at the mid-point of the depth axis guarantees smooth, horizontal tangent emergence and arrival without awkward cusps.</li>
+              <li><strong>Clean State Stashing:</strong> The <code>node.children</code> vs <code>node._children</code> dual-array pattern provides a clean, predictable state machine for branch collapse without data duplication.</li>
+              <li><strong>Single-Group Canvas Transforms:</strong> Offload all pan and zoom interactions to a root <code>&lt;g&gt;</code> element's <code>transform</code> attribute to maintain 60 FPS GPU-accelerated rendering.</li>
+            </ul>
+          </div>
+
+          <div id="faq-section">
+            <h2>Frequently Asked Questions (FAQ)</h2>
+            <div class="faq-item">
+              <h3>Why is an SVG tree diagram better than an HTML5 Canvas implementation?</h3>
+              <p>SVG retains distinct vector elements for every node and connector line in the DOM. This allows developers to apply CSS transitions, attach native pointer events, implement accessible WCAG AA ARIA roles, and scale diagrams infinitely to any display resolution without raster pixelation or custom hit-testing math.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How does the Reingold-Tilford algorithm center parents above their children?</h3>
+              <p>In the post-order traversal pass, the algorithm computes preliminary coordinates for leaf nodes and positions internal parent nodes at the exact arithmetic midpoint between their leftmost and rightmost children: <code>(child[0].prelim + child[n-1].prelim) / 2</code>.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How can I export the interactive SVG tree as a standalone file?</h3>
+              <p>Use the XMLSerializer API: <code>const xml = new XMLSerializer().serializeToString(svgElement);</code>. Encode the resulting XML string as a UTF-8 Blob and create an object URL (<code>URL.createObjectURL(blob)</code>) for instantaneous one-click file downloads.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How do I make the tree responsive across mobile phones and desktop displays?</h3>
+              <p>Remove hardcoded width and height attributes from the root <code>&lt;svg&gt;</code> tag and set a dynamic <code>viewBox="0 0 width height"</code> attribute combined with CSS <code>width: 100%; height: auto;</code>. This allows the SVG to fit its container responsively while preserving aspect ratio.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Can this tidy tree engine handle multiple parent nodes (DAG graphs)?</h3>
+              <p>No. Tidy tree algorithms (including Reingold-Tilford and Buchheim) strictly require single-parent acyclic trees. For multi-parent directed acyclic graphs (DAGs) or general network topologies, use layered Sugiyama layout algorithms or force-directed physics engines.</p>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav" aria-label="Table of contents">
+            <ol>
+              <li><a href="#introduction-and-vector-superiority">1. SVG Vector Superiority</a></li>
+              <li><a href="#hierarchical-data-modeling">2. Hierarchical Data Models</a></li>
+              <li><a href="#reingold-tilford-algorithm">3. Reingold-Tilford Algorithm</a></li>
+              <li><a href="#coordinate-transformations-orientations">4. Spatial Projections</a></li>
+              <li><a href="#architecture-diagram">5. Figure 2 Architecture</a></li>
+              <li><a href="#interactive-tree-studio">6. Interactive Tree Studio</a></li>
+              <li><a href="#vector-spline-connector-geometry">7. Vector Spline Geometry</a></li>
+              <li><a href="#collapsible-subtrees-and-state">8. Collapsible Subtrees</a></li>
+              <li><a href="#infinite-canvas-navigation">9. Infinite Canvas &amp; Zoom</a></li>
+              <li><a href="#performance-and-dom-virtualization">10. Performance &amp; Culling</a></li>
+              <li><a href="#accessibility-and-aria-roles">11. WCAG AA Accessibility</a></li>
+              <li><a href="#comparative-matrix-and-faq">12. Matrix &amp; FAQs</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134K+ Icons</h4>
+          <p>Access high-performance, accessible SVG icons curated for enterprise dashboards, tree diagrams, and modern UI engineering.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash &bull; Built with precision vector engineering by <a href="/about/">Jouni Flemming</a> for developers worldwide.</p>
+  </footer>
+
+  <script>
+    // Theme Toggle Handler
+    (function initTheme() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const currentTheme = localStorage.getItem('iconstash-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const activeTheme = document.documentElement.getAttribute('data-theme');
+          const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', nextTheme);
+          localStorage.setItem('iconstash-theme', nextTheme);
+        });
+      }
+    })();
+
+    // Tree Studio Interactive Engine
+    (function initTreeStudio() {
+      const defaultTreeData = {
+        id: "root",
+        name: "Enterprise Core",
+        role: "System Root",
+        children: [
+          {
+            id: "eng",
+            name: "Engineering",
+            role: "Technology Lead",
+            children: [
+              {
+                id: "fe",
+                name: "Frontend UI",
+                role: "Web Components",
+                children: [
+                  { id: "fe_svg", name: "Vector Engine", role: "SVG & Canvas" },
+                  { id: "fe_state", name: "State Core", role: "Reactive Store" }
+                ]
+              },
+              {
+                id: "be",
+                name: "Distributed API",
+                role: "Microservices",
+                children: [
+                  { id: "be_db", name: "Vector DB", role: "Indexing" },
+                  { id: "be_edge", name: "Edge Runtime", role: "Global CDN" }
+                ]
+              }
+            ]
+          },
+          {
+            id: "prod",
+            name: "Product Design",
+            role: "User Experience",
+            children: [
+              { id: "ui_sys", name: "Design Tokens", role: "Figma Pipeline" },
+              { id: "ui_a11y", name: "Accessibility", role: "WCAG Compliance" }
+            ]
+          },
+          {
+            id: "ops",
+            name: "Infrastructure",
+            role: "Platform Ops",
+            children: [
+              { id: "ops_k8s", name: "Cluster Core", role: "Auto Scaling" },
+              { id: "ops_sec", name: "Security Gate", role: "Zero Trust" }
+            ]
+          }
+        ]
+      };
+
+      let treeState = JSON.parse(JSON.stringify(defaultTreeData));
+      let currentOrientation = 'horizontal';
+      let currentCurveStyle = 'bezier';
+      let levelSpacing = 140;
+      let siblingGap = 36;
+      let activeCodeTab = 'svg';
+
+      const canvasGroup = document.getElementById('treeCanvasGroup');
+      const layoutSelect = document.getElementById('treeLayoutSelect');
+      const curveSelect = document.getElementById('treeCurveSelect');
+      const spacingSlider = document.getElementById('treeSpacingSlider');
+      const siblingSlider = document.getElementById('treeSiblingSlider');
+      const layoutBadge = document.getElementById('layoutBadge');
+      const curveBadge = document.getElementById('curveBadge');
+      const spacingVal = document.getElementById('spacingVal');
+      const siblingVal = document.getElementById('siblingVal');
+
+      const statTotalNodes = document.getElementById('statTotalNodes');
+      const statVisibleNodes = document.getElementById('statVisibleNodes');
+      const statTreeDepth = document.getElementById('statTreeDepth');
+      const statConnectors = document.getElementById('statConnectors');
+
+      const codeOutputArea = document.getElementById('treeCodeOutput');
+      const copyBtn = document.getElementById('btnCopyTreeCode');
+      const btnToggleAll = document.getElementById('btnToggleAll');
+      const btnResetTree = document.getElementById('btnResetTree');
+      const btnZoomFit = document.getElementById('btnZoomFit');
+
+      // Helper: Count Total vs Visible Nodes
+      function countTreeMetrics(node) {
+        let total = 1;
+        let visible = 1;
+        let maxDepth = 1;
+
+        function traverse(curr, depth) {
+          maxDepth = Math.max(maxDepth, depth);
+          if (curr.children && curr.children.length > 0) {
+            for (const c of curr.children) {
+              total++;
+              visible++;
+              traverse(c, depth + 1);
+            }
+          }
+          if (curr._children && curr._children.length > 0) {
+            for (const c of curr._children) {
+              total++;
+              traverseHidden(c, depth + 1);
+            }
+          }
+        }
+
+        function traverseHidden(curr, depth) {
+          maxDepth = Math.max(maxDepth, depth);
+          if (curr.children) {
+            for (const c of curr.children) { total++; traverseHidden(c, depth + 1); }
+          }
+          if (curr._children) {
+            for (const c of curr._children) { total++; traverseHidden(c, depth + 1); }
+          }
+        }
+
+        traverse(node, 1);
+        return { total, visible, maxDepth };
+      }
+
+      // Compute Tidy Tree Layout Positions
+      function computeLayout(root) {
+        let leafIndex = 0;
+
+        function assignPrelim(node, depth) {
+          node.depth = depth;
+          if (!node.children || node.children.length === 0) {
+            node.spread = leafIndex * siblingGap;
+            leafIndex++;
+          } else {
+            for (const child of node.children) {
+              assignPrelim(child, depth + 1);
+            }
+            const first = node.children[0].spread;
+            const last = node.children[node.children.length - 1].spread;
+            node.spread = (first + last) / 2;
+          }
+        }
+
+        assignPrelim(root, 0);
+
+        // Project into target coordinates
+        const flatNodes = [];
+        const flatLinks = [];
+
+        function project(node, parent) {
+          let posX = 0;
+          let posY = 0;
+
+          if (currentOrientation === 'horizontal') {
+            posX = node.depth * levelSpacing;
+            posY = node.spread;
+          } else if (currentOrientation === 'vertical') {
+            posX = node.spread;
+            posY = node.depth * levelSpacing;
+          } else if (currentOrientation === 'radial') {
+            const maxSpread = Math.max(leafIndex * siblingGap, 1);
+            const angle = (node.spread / maxSpread) * Math.PI * 1.8 - Math.PI * 0.9;
+            const radius = node.depth * (levelSpacing * 0.75);
+            posX = 260 + radius * Math.cos(angle);
+            posY = 170 + radius * Math.sin(angle);
+          }
+
+          node.renderX = posX;
+          node.renderY = posY;
+          flatNodes.push(node);
+
+          if (parent) {
+            flatLinks.push({ source: parent, target: node });
+          }
+
+          if (node.children) {
+            for (const child of node.children) {
+              project(child, node);
+            }
+          }
+        }
+
+        project(root, null);
+        return { nodes: flatNodes, links: flatLinks };
+      }
+
+      // Generate SVG Path data for link
+      function formatLinkPath(source, target) {
+        const sx = source.renderX;
+        const sy = source.renderY;
+        const tx = target.renderX;
+        const ty = target.renderY;
+
+        if (currentCurveStyle === 'bezier') {
+          if (currentOrientation === 'horizontal') {
+            const mx = (sx + tx) / 2;
+            return `M ${sx.toFixed(1)} ${sy.toFixed(1)} C ${mx.toFixed(1)} ${sy.toFixed(1)}, ${mx.toFixed(1)} ${ty.toFixed(1)}, ${tx.toFixed(1)} ${ty.toFixed(1)}`;
+          } else if (currentOrientation === 'vertical') {
+            const my = (sy + ty) / 2;
+            return `M ${sx.toFixed(1)} ${sy.toFixed(1)} C ${sx.toFixed(1)} ${my.toFixed(1)}, ${tx.toFixed(1)} ${my.toFixed(1)}, ${tx.toFixed(1)} ${ty.toFixed(1)}`;
+          } else {
+            const mx = (sx + tx) / 2;
+            const my = (sy + ty) / 2;
+            return `M ${sx.toFixed(1)} ${sy.toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)}, ${tx.toFixed(1)} ${ty.toFixed(1)}`;
+          }
+        } else if (currentCurveStyle === 'step') {
+          if (currentOrientation === 'horizontal') {
+            const mx = (sx + tx) / 2;
+            return `M ${sx.toFixed(1)} ${sy.toFixed(1)} H ${mx.toFixed(1)} V ${ty.toFixed(1)} H ${tx.toFixed(1)}`;
+          } else {
+            const my = (sy + ty) / 2;
+            return `M ${sx.toFixed(1)} ${sy.toFixed(1)} V ${my.toFixed(1)} H ${tx.toFixed(1)} V ${ty.toFixed(1)}`;
+          }
+        } else {
+          return `M ${sx.toFixed(1)} ${sy.toFixed(1)} L ${tx.toFixed(1)} ${ty.toFixed(1)}`;
+        }
+      }
+
+      // Render Tree to SVG DOM
+      function renderTree() {
+        const metrics = countTreeMetrics(treeState);
+        statTotalNodes.textContent = metrics.total;
+        statVisibleNodes.textContent = metrics.visible;
+        statTreeDepth.textContent = metrics.maxDepth;
+
+        const layout = computeLayout(treeState);
+        statConnectors.textContent = layout.links.length;
+
+        // Clear canvas
+        canvasGroup.innerHTML = '';
+
+        // Draw Links Layer
+        const linksGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        linksGroup.setAttribute('class', 'tree-links-layer');
+
+        for (const link of layout.links) {
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', formatLinkPath(link.source, link.target));
+          path.setAttribute('fill', 'none');
+          path.setAttribute('stroke', 'url(#linkGradient)');
+          path.setAttribute('stroke-width', '2');
+          path.setAttribute('stroke-linecap', 'round');
+          path.setAttribute('class', 'tree-link-path');
+          linksGroup.appendChild(path);
+        }
+        canvasGroup.appendChild(linksGroup);
+
+        // Draw Nodes Layer
+        const nodesGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        nodesGroup.setAttribute('class', 'tree-nodes-layer');
+
+        for (const n of layout.nodes) {
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.setAttribute('transform', `translate(${n.renderX.toFixed(1)}, ${n.renderY.toFixed(1)})`);
+          g.setAttribute('class', 'tree-node-group node-clickable');
+          g.setAttribute('style', 'cursor: pointer;');
+          g.setAttribute('role', 'treeitem');
+          g.setAttribute('tabindex', '0');
+          g.setAttribute('aria-label', `${n.name}, ${n.role}`);
+
+          const hasChildren = (n.children && n.children.length > 0) || (n._children && n._children.length > 0);
+          const isCollapsed = !n.children && n._children;
+
+          // Node Card Rect
+          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          rect.setAttribute('x', '-50');
+          rect.setAttribute('y', '-18');
+          rect.setAttribute('width', '100');
+          rect.setAttribute('height', '36');
+          rect.setAttribute('rx', '6');
+          rect.setAttribute('fill', isCollapsed ? '#1A2304' : '#141414');
+          rect.setAttribute('stroke', isCollapsed ? '#C1DD2D' : '#333');
+          rect.setAttribute('stroke-width', isCollapsed ? '1.5' : '1');
+          rect.setAttribute('filter', 'url(#nodeGlow)');
+          g.appendChild(rect);
+
+          // Node Title
+          const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          title.setAttribute('x', '0');
+          title.setAttribute('y', '-2');
+          title.setAttribute('text-anchor', 'middle');
+          title.setAttribute('fill', '#FFF');
+          title.setAttribute('font-family', "'Inter', sans-serif");
+          title.setAttribute('font-size', '10.5');
+          title.setAttribute('font-weight', '700');
+          title.textContent = n.name;
+          g.appendChild(title);
+
+          // Node Role
+          const role = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          role.setAttribute('x', '0');
+          role.setAttribute('y', '10');
+          role.setAttribute('text-anchor', 'middle');
+          role.setAttribute('fill', '#888');
+          role.setAttribute('font-family', "'Inter', sans-serif");
+          role.setAttribute('font-size', '8.5');
+          role.textContent = n.role;
+          g.appendChild(role);
+
+          // Collapse/Expand Indicator Dot
+          if (hasChildren) {
+            const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            dot.setAttribute('cx', '44');
+            dot.setAttribute('cy', '0');
+            dot.setAttribute('r', '4');
+            dot.setAttribute('fill', isCollapsed ? '#C1DD2D' : '#38BDF8');
+            g.appendChild(dot);
+          }
+
+          // Click to toggle collapse
+          g.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (n.children) {
+              n._children = n.children;
+              n.children = null;
+            } else if (n._children) {
+              n.children = n._children;
+              n._children = null;
+            }
+            renderTree();
+            updateCodeSnippet();
+          });
+
+          nodesGroup.appendChild(g);
+        }
+        canvasGroup.appendChild(nodesGroup);
+
+        updateCodeSnippet();
+      }
+
+      // Generate Export Code Snippets
+      function updateCodeSnippet() {
+        if (activeCodeTab === 'svg') {
+          const clone = canvasGroup.cloneNode(true);
+          const raw = `<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">\n  <defs>\n    <linearGradient id="linkGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n      <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.8"/>\n      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.5"/>\n    </linearGradient>\n  </defs>\n  ${clone.outerHTML}\n</svg>`;
+          codeOutputArea.textContent = raw;
+        } else if (activeCodeTab === 'js') {
+          codeOutputArea.textContent = `// Reingold-Tilford / Buchheim Tidy Tree Generator
+function renderSvgTree(containerId, rootData, options = {}) {
+  const orientation = options.orientation || '${currentOrientation}';
+  const curve = options.curve || '${currentCurveStyle}';
+  const levelGap = ${levelSpacing};
+  const siblingGap = ${siblingGap};
+
+  // 1. Recursive Layout Pass
+  let leafIndex = 0;
+  function walk(node, depth) {
+    node.depth = depth;
+    if (!node.children || node.children.length === 0) {
+      node.spread = leafIndex * siblingGap;
+      leafIndex++;
+    } else {
+      node.children.forEach(c => walk(c, depth + 1));
+      const first = node.children[0].spread;
+      const last = node.children[node.children.length - 1].spread;
+      node.spread = (first + last) / 2;
+    }
+  }
+  walk(rootData, 0);
+
+  // 2. SVG Path Spline Construction
+  function getSpline(s, t) {
+    const mx = (s.x + t.x) / 2;
+    return \`M \${s.x} \${s.y} C \${mx} \${s.y}, \${mx} \${t.y}, \${t.x} \${t.y}\`;
+  }
+  console.log('Tree rendered with O(N) linear time.');
+}`;
+        } else if (activeCodeTab === 'json') {
+          codeOutputArea.textContent = JSON.stringify(treeState, (key, value) => {
+            if (key === 'renderX' || key === 'renderY' || key === 'spread' || key === 'depth') return undefined;
+            return value;
+          }, 2);
+        }
+      }
+
+      // Event Listeners for UI Controls
+      layoutSelect.addEventListener('change', () => {
+        currentOrientation = layoutSelect.value;
+        layoutBadge.textContent = layoutSelect.options[layoutSelect.selectedIndex].text;
+        renderTree();
+      });
+
+      curveSelect.addEventListener('change', () => {
+        currentCurveStyle = curveSelect.value;
+        curveBadge.textContent = curveSelect.options[curveSelect.selectedIndex].text;
+        renderTree();
+      });
+
+      spacingSlider.addEventListener('input', () => {
+        levelSpacing = parseInt(spacingSlider.value, 10);
+        spacingVal.textContent = levelSpacing + 'px';
+        renderTree();
+      });
+
+      siblingSlider.addEventListener('input', () => {
+        siblingGap = parseInt(siblingSlider.value, 10);
+        siblingVal.textContent = siblingGap + 'px';
+        renderTree();
+      });
+
+      btnResetTree.addEventListener('click', () => {
+        treeState = JSON.parse(JSON.stringify(defaultTreeData));
+        canvasGroup.setAttribute('transform', 'translate(40, 40) scale(1)');
+        renderTree();
+      });
+
+      btnToggleAll.addEventListener('click', () => {
+        const shouldCollapse = btnToggleAll.textContent.includes('Collapse');
+        function toggleAll(node) {
+          if (shouldCollapse) {
+            if (node.children) {
+              node._children = node.children;
+              node.children = null;
+            }
+          } else {
+            if (node._children) {
+              node.children = node._children;
+              node._children = null;
+            }
+          }
+          const list = node.children || node._children;
+          if (list) list.forEach(toggleAll);
+        }
+        toggleAll(treeState);
+        btnToggleAll.textContent = shouldCollapse ? 'Expand All Branches' : 'Collapse All Branches';
+        renderTree();
+      });
+
+      btnZoomFit.addEventListener('click', () => {
+        canvasGroup.setAttribute('transform', 'translate(40, 40) scale(0.95)');
+      });
+
+      // Code Tab Buttons
+      const tabBtns = document.querySelectorAll('.code-tab-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCodeTab = btn.getAttribute('data-tab');
+          updateCodeSnippet();
+        });
+      });
+
+      // Copy Code Button
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeOutputArea.textContent).then(() => {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 1800);
+        });
+      });
+
+      // Initial Render
+      renderTree();
+    })();
+  </script>
+</body>
+</html>

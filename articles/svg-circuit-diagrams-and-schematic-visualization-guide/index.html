@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Circuit Diagrams &amp; Electrical Schematic CAD: Standard Symbols, Auto-Routing &amp; Simulation Guide (2026) | IconStash</title>
+  <meta name="description" content="Build vector circuit schematics in SVG. Master IEEE 315 / IEC 60617 symbols, Manhattan auto-routing, wire jumpers, live logic, and CAD export.">
+  <meta name="keywords" content="svg circuit diagram, electronic schematic svg generator, manhattan routing svg wire, electronics circuit diagram web, svg electrical schematic symbols, wire bridge jumper svg, circuit simulation svg javascript, electronic cad web">
+  <meta property="og:title" content="Mastering SVG Circuit Diagrams &amp; Electrical Schematic CAD: Standard Symbols, Auto-Routing &amp; Simulation Guide (2026)">
+  <meta property="og:description" content="Build vector circuit schematics in SVG. Master IEEE 315 / IEC 60617 symbols, Manhattan auto-routing, wire jumpers, live logic, and CAD export.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-circuit-diagrams-and-schematic-visualization-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-circuit-diagrams-and-schematic-visualization-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-14T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-14T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Graphics &amp; Hardware Engineering">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Circuit Diagrams">
+  <meta property="article:tag" content="Electrical Engineering">
+  <meta property="article:tag" content="Manhattan Routing">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Circuit Diagrams &amp; Electrical Schematic CAD: Standard Symbols, Auto-Routing &amp; Simulation Guide (2026)">
+  <meta name="twitter:description" content="Build vector circuit schematics in SVG. Master IEEE 315 / IEC 60617 symbols, Manhattan auto-routing, wire jumpers, live logic, and CAD export.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-circuit-diagrams-and-schematic-visualization-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-circuit-diagrams-and-schematic-visualization-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Structured Data: TechArticle -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "SVG Circuit Diagrams & Electrical Schematics: The Comprehensive Engineering Guide to IEEE Symbols, Manhattan Autorouting & Dynamic CAD Simulation (2026)",
+    "description": "Comprehensive technical guide to building professional, interactive vector electrical schematics in pure SVG. Covers IEEE Std 315 & IEC 60617 symbol geometry, Manhattan orthogonal wire autorouting, solder dots vs bridge jumpers, and real-time electron drift simulation.",
+    "url": "https://iconstash.io/articles/svg-circuit-diagrams-and-schematic-visualization-guide/",
+    "image": "https://iconstash.io/assets/articles/svg-circuit-diagrams-and-schematic-visualization-guide.jpg",
+    "datePublished": "2026-11-14",
+    "dateModified": "2026-11-14",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Great Software Company",
+      "url": "https://greatsoftwarecompany.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/assets/icons/icon-512x512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://iconstash.io/articles/svg-circuit-diagrams-and-schematic-visualization-guide/"
+    },
+    "keywords": [
+      "svg circuit diagram",
+      "electrical schematic svg",
+      "ieee std 315 vector symbols",
+      "manhattan autorouting javascript",
+      "circuit simulation web",
+      "spice netlist svg export"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://iconstash.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Articles",
+        "item": "https://iconstash.io/articles/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "SVG Circuit Diagrams Guide",
+        "item": "https://iconstash.io/articles/svg-circuit-diagrams-and-schematic-visualization-guide/"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why is SVG the preferred format for web-based electrical schematics over HTML5 Canvas or PNG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Scalable Vector Graphics (SVG) maintains infinite resolution independence, allowing schematic diagrams to be zoomed from an overview of an entire motherboard down to individual sub-micron IC pin traces without blurriness or pixelation. Furthermore, SVG preserves the topological identity of every component, wire trace, and test pin as a DOM element, enabling interactive voltage probing, real-time current flow animations via stroke-dashoffset, and direct export to high-DPI PDF manufacturing datasheets."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you draw an IEEE-compliant resistor zigzag path in pure SVG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An IEEE Std 315 compliant resistor zigzag is constructed using the SVG path element with six alternating 60-degree diagonal peaks: d='M 0 20 L 10 20 L 15 10 L 25 30 L 35 10 L 45 30 L 50 20 L 60 20'. This geometry ensures symmetrical pin terminals aligned with standard 10px grid systems."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does a semi-circular bridge jumper arc work in SVG path syntax?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When two non-connected wires intersect perpendicularly, the horizontal wire incorporates an elliptical arc command: A rx ry x-axis-rotation large-arc-flag sweep-flag x y. By setting rx=6, ry=6, sweep-flag=1, the wire path forms a smooth semi-circular 6px radius arc that visually hops over the vertical wire (e.g. L (x-6) y A 6 6 0 0 1 (x+6) y), eliminating all electrical ambiguity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can SVG schematics be exported to SPICE or KiCad netlists?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Because the SVG schematic maintains an underlying Abstract Syntax Tree (AST) representing components and net connections, the engine can serialize the vector graph directly into standard Berkeley SPICE syntax (e.g. R1 N001 N002 10k) or KiCad S-expression netlists with 100% roundtrip fidelity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you animate electron current flow without degrading browser performance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Current flow is simulated by applying CSS keyframes to the stroke-dashoffset property along dashed wire vector paths. Because CSS keyframe animations on SVG stroke offsets execute on the browser's GPU compositor thread, hundreds of simultaneous current-carrying traces can be animated at 60 frames per second with near-zero CPU and JavaScript execution overhead."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you ensure SVG electrical schematics are accessible under WCAG 2.2 AA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Accessible SVG schematics incorporate role='graphics-document' on the root container, descriptive title and desc elements, and role='region' with informative aria-label attributes on each component group. Furthermore, interactive test points are assigned tabindex='0' and connected to an aria-live='polite' announcer to broadcast voltage readings to screen reader users during keyboard navigation."
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A; font-weight: 700; font-size: 13px; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; transition: all 150ms ease; display: inline-block; }
+    .header-cta:hover { background: #D2ED3E; transform: translateY(-1px); }
+    .theme-toggle-btn { background: transparent; border: 1px solid #262626; color: #A3A3A3; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { border-color: #404040; color: #F2F2F2; }
+
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 48px 24px 80px; width: 100%; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #FFF; font-weight: 500; }
+
+    .article-hero { margin-bottom: 36px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; background: rgba(193,221,45,0.12); color: #C1DD2D; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 4px; margin-bottom: 16px; border: 1px solid rgba(193,221,45,0.25); }
+    .article-hero h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.18; color: #FFF; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .article-meta { display: flex; gap: 20px; font-size: 13px; color: #737373; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+    .article-meta a { color: #C1DD2D; font-weight: 600; text-decoration: none; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: start; }
+    @media (min-width: 1024px) {
+      .article-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+    }
+
+    .article-main { min-width: 0; }
+    .featured-summary { background: linear-gradient(180deg, #141414 0%, #0E0E0E 100%); border: 1px solid #262626; border-left: 4px solid #C1DD2D; border-radius: 10px; padding: 24px 28px; margin-bottom: 32px; }
+    .featured-summary p { font-size: 15.5px; line-height: 1.7; color: #E5E5E5; margin-bottom: 12px; font-weight: 500; }
+    .featured-summary ul { margin: 0 0 0 20px; color: #D4D4D4; }
+    .featured-summary li { margin-bottom: 8px; font-size: 14.5px; line-height: 1.6; }
+
+    .article-figure { margin: 28px 0 36px; padding: 0; display: block; }
+    .article-figure img { width: 100%; max-width: 100%; height: auto; border-radius: 10px; display: block; border: 1px solid #262626; }
+    .article-figure figcaption { font-size: 0.85em; color: #737373; text-align: center; margin-top: 10px; font-style: italic; }
+
+    h2 { font-size: 26px; font-weight: 800; color: #FFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1F1F1F; }
+    h3 { font-size: 20px; font-weight: 700; color: #E5E5E5; margin: 32px 0 14px; }
+    h4 { font-size: 17px; font-weight: 700; color: #DDD; margin: 24px 0 10px; }
+    p { margin-bottom: 22px; color: #D4D4D4; font-size: 16px; line-height: 1.8; }
+    strong { color: #FFF; }
+    ul, ol { margin: 0 0 24px 28px; color: #D4D4D4; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 15.5px; }
+
+    pre { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.6; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 0.9em; background: #1A1A1A; padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+
+    .table-container { overflow-x: auto; margin: 32px 0; border: 1px solid #222; border-radius: 12px; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; font-size: 14.5px; }
+    th { background: #161616; color: #FFF; padding: 14px 18px; font-weight: 700; border-bottom: 1px solid #222; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #CCC; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 12px; padding: 24px; margin: 36px 0; }
+    .sandbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid #222; padding-bottom: 14px; }
+    .sandbox-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: #FFF; }
+    .sandbox-title svg { color: #C1DD2D; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+
+    .sandbox-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+    @media (max-width: 768px) { .sandbox-grid { grid-template-columns: 1fr; } }
+
+    .sandbox-controls { display: flex; flex-direction: column; gap: 16px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 13px; font-weight: 600; color: #BBB; display: flex; justify-content: space-between; }
+    .control-row .stat-num { color: #C1DD2D; font-family: "JetBrains Mono", monospace; }
+
+    .control-select, .control-input { background: #181818; border: 1px solid #333; color: #F2F2F2; padding: 8px 12px; border-radius: 6px; font-family: "Inter", sans-serif; font-size: 13.5px; width: 100%; }
+    .control-select:focus, .control-input:focus { outline: none; border-color: #C1DD2D; }
+
+    .stage-wrapper { display: flex; flex-direction: column; gap: 14px; }
+    .preview-stage-container { width: 100%; height: 420px; border: 1px dashed #444; border-radius: 10px; background: #080C08; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; user-select: none; padding: 0; }
+    .stage-canvas-element { width: 100%; height: 100%; border-radius: 8px; overflow: hidden; display: block; position: relative; }
+
+    .stats-readout-box { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: #0E0E0E; border: 1px solid #222; border-radius: 8px; padding: 12px; }
+    @media (max-width: 640px) { .stats-readout-box { grid-template-columns: repeat(2, 1fr); } }
+    .stat-item { text-align: center; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #777; font-weight: 700; letter-spacing: 0.05em; }
+    .stat-val { font-size: 13px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; margin-top: 2px; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .action-btn { background: #1E1E1E; border: 1px solid #333; color: #FFF; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 5px; cursor: pointer; transition: all 120ms ease; }
+    .action-btn:hover { background: #2A2A2A; border-color: #555; }
+    .action-btn.primary { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; font-weight: 700; }
+    .action-btn.primary:hover { background: #D2ED3E; }
+
+    .generated-code-box { margin-top: 20px; background: #0A0A0A; border: 1px solid #262626; border-radius: 8px; overflow: hidden; }
+    .code-box-head { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #161616; border-bottom: 1px solid #222; font-size: 12px; font-weight: 700; color: #888; flex-wrap: wrap; gap: 8px; }
+    .code-tabs { display: flex; gap: 6px; }
+    .code-tab-btn { background: transparent; border: none; color: #888; font-size: 12px; font-weight: 700; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+    .code-tab-btn.active { color: #C1DD2D; background: rgba(193,221,45,0.12); }
+    .code-actions { display: flex; gap: 8px; }
+    .copy-btn { background: rgba(193,221,45,0.15); border: 1px solid rgba(193,221,45,0.3); color: #C1DD2D; font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 4px; cursor: pointer; transition: all 120ms ease; }
+    .copy-btn:hover { background: #C1DD2D; color: #0A0A0A; }
+    .code-output-area { padding: 16px; max-height: 220px; overflow-y: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.5; color: #E5E5E5; word-break: break-all; white-space: pre-wrap; background: #080808; margin: 0; border: none; }
+
+    .formula-card { background: #161616; border: 1px solid #2E2E2E; border-left: 3px solid #C1DD2D; border-radius: 8px; padding: 16px 20px; margin: 20px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; font-weight: 700; margin-bottom: 6px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #C1DD2D; line-height: 1.5; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .formula-desc { font-size: 13.5px; color: #AAA; margin-top: 8px; line-height: 1.5; }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-item { background: #121212; border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; padding: 18px 22px; }
+    .faq-item h3 { margin-top: 0; font-size: 16px; color: #FFF; margin-bottom: 8px; }
+    .faq-item p { margin-bottom: 0; color: #A3A3A3; font-size: 14.5px; }
+
+    .article-sidebar { display: flex; flex-direction: column; gap: 24px; }
+    @media (min-width: 1024px) {
+      .article-sidebar { position: sticky; top: 80px; }
+    }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
+
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .site-footer { border-top: 1px solid #1F1F1F; padding: 48px 24px; background: #0A0A0A; text-align: center; font-size: 14px; color: #666; margin-top: 0; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    @media (max-width: 768px) {
+      .page-container { padding: 28px 16px 60px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+      .header-cta { padding: 6px 12px; font-size: 12px; }
+      .article-hero h1 { font-size: 26px; }
+      .featured-summary { padding: 18px 20px; }
+      pre { padding: 14px; font-size: 12.5px; }
+      .stats-readout-box { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+
+    /* Animated Current Electron Flow */
+    @keyframes electronFlow {
+      from { stroke-dashoffset: 24; }
+      to { stroke-dashoffset: 0; }
+    }
+    .current-active {
+      stroke: #C1DD2D !important;
+      stroke-dasharray: 4 6;
+      animation: electronFlow 0.8s linear infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/about/">About</a>
+      <a href="/#/" class="header-cta">Browse Library</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle visual theme" title="Toggle theme">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">Mastering SVG Circuit Diagrams &amp; Electrical Schematic CAD Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">CAD Engineering &amp; Hardware</span>
+      <h1>Mastering SVG Circuit Diagrams &amp; Electrical Schematic CAD: Standard Symbols, Auto-Routing &amp; Simulation Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-11-14">November 14, 2026</time>
+        <span>&bull;</span>
+        <span>28 min read</span>
+        <span>&bull;</span>
+        <span>6,250 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Summary:</strong> Interactive electrical schematics, electronic CAD viewers, and real-time circuit simulators represent the pinnacle of technical vector graphics on the modern web. From hardware documentation platforms and IoT telemetry dashboards to STEM education simulators and automated PCB design suites, developers require vector schematics that conform to international drafting standards while executing at 60 FPS in modern browsers.</p>
+          <ul>
+            <li><strong>International Symbol Standards:</strong> Authoring compliant vector symbols for passive components, active semiconductors, operational amplifiers, and logic gates according to IEEE Std 315-1975 and IEC 60617 specifications.</li>
+            <li><strong>Manhattan Grid Auto-Routing:</strong> Implementing A* (A-Star) orthogonal routing algorithms on 10px/20px snap grids with directional bend penalties and obstacle collision avoidance.</li>
+            <li><strong>Topological Disambiguation:</strong> Engineering explicit solder junction connection dots versus semi-circular bridge jumper arcs (A commands) to eliminate electrical short ambiguities.</li>
+            <li><strong>Dynamic Simulation &amp; Electron Flow:</strong> Leveraging SVG stroke-dashoffset animations and Kirchhoff's circuit laws to visualize real-time current flow, node voltages, and logic gate state propagation.</li>
+            <li><strong>Industrial CAD Interoperability:</strong> Ingesting SPICE netlists, generating BOM manifests, and exporting publication-grade vector schematics to high-DPI PDF datasheets and Gerber-ready formats.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-circuit-diagrams-and-schematic-visualization-guide.jpg" alt="Mastering SVG Circuit Diagrams and Electrical Schematic CAD guide hero visual showing glowing electronic schematics with logic gates, resistors, and Manhattan routed wire traces" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-precision electrical schematic CAD environment rendered in native SVG, featuring standardized IEEE/IEC components, orthogonal Manhattan routed traces, bridge jumpers, and real-time current telemetry.</figcaption>
+        </figure>
+
+        <section id="introduction-and-cad-imperative">
+          <h2>1. Introduction: The Vector Imperative in Electrical Schematic CAD</h2>
+          <p>In electronic engineering and hardware system design, the schematic diagram is the supreme source of truth. It bridges the conceptual gap between abstract circuit theory and physical silicon or printed circuit board (PCB) implementation. For decades, electronic design automation (EDA) tools—such as Altium Designer, Cadence OrCAD, KiCad, and Autodesk EAGLE—treated schematics as desktop-bound, proprietary binary databases. However, the rise of cloud-native hardware engineering, interactive web-based datasheets, educational electronics sandboxes, and browser-driven IoT device monitoring has ignited an urgent demand for high-performance, web-native schematic rendering engines.</p>
+          <p>When engineering a web-based schematic CAD platform, selecting the correct rendering medium is a mission-critical decision. Early web applications attempted to embed schematics using static raster formats (PNG, JPEG) or pre-rendered PDF canvases. These approaches failed catastrophically: zooming into a dense motherboard schematic to inspect a high-pin-count BGA microcontroller resulted in extreme pixelation, unreadable pin designators, and fuzzy net labels. Furthermore, raster images cannot participate in bidirectional application logic: clicking on a component cannot highlight its connected copper net, hovering over a test pin cannot display an interactive oscilloscope trace, and searching for a net name requires scanning pre-indexed image coordinates.</p>
+          <p>HTML5 2D Canvas implementations improve zooming performance, but they recreate the classic black-box architecture. Because Canvas flattens graphics into a single pixel buffer, every resistor, capacitor, integrated circuit pin, and wire trace loses its distinct computational identity. Implementing features such as interactive voltage probing, multi-select net highlighting, and responsive tooltip inspection requires authors to reconstruct an entire virtual scene graph and write thousands of lines of spatial hit-testing math. Furthermore, Canvas graphics fail to render crisply on high-DPI physical printouts and are completely invisible to screen readers, preventing visually impaired engineering students from accessing circuit documentation.</p>
+          <p>Scalable Vector Graphics (SVG) is the definitive, industry-standard technology for web-native schematic CAD. In SVG, every component symbol, wire segment, junction dot, and pin terminal exists as an independent, accessible DOM element. Developers can leverage CSS classes to dynamically change wire colors based on logic state (e.g., crimson for VCC (+5V), slate for GND, and luminous neon green for active clock signals). SVG's declarative <code>&lt;path&gt;</code> syntax enables subpixel orthogonal routing, while vector markers (<code>&lt;marker&gt;</code>) render non-distorting arrowheads and polarity indicators. Most importantly, an SVG schematic diagram can scale effortlessly from an overall macro view of a multi-board power supply down to a microscopic 0.1mm trace width with zero loss in resolution, all while delivering native DOM event binding, CSS hardware acceleration, and seamless programmatic export.</p>
+        </section>
+
+        <section id="electronic-symbol-standardization">
+          <h2>2. Electronic Symbol Standardization: IEEE Std 315 &amp; IEC 60617 Vector Geometry</h2>
+          <p>An electrical schematic is not merely an artistic drawing; it is a rigorous formal language governed by international engineering standards. In electrical schematic drafting, two primary standards dominate the global industry: <strong>IEEE Std 315-1975 (ANSI Y32.2)</strong>, predominantly utilized in North America, and <strong>IEC 60617 (British Standard BS 3939)</strong>, standard throughout Europe and international industrial automation.</p>
+          <p>A professional SVG schematic engine must implement standard symbol libraries with mathematical precision, ensuring pin terminals align strictly with grid vertices. Below, we examine the vector geometry and SVG path specifications for the fundamental building blocks of electronic circuitry.</p>
+
+          <h3>2.1 Passive Components: Resistors, Capacitors &amp; Inductors</h3>
+          <p>Passive two-terminal components form the foundation of analog signal conditioning and power filtering. In IEEE Std 315, a fixed resistor is drawn as a sharp 6-peak zigzag line representing resistive wire winding, whereas IEC 60617 represents a resistor as an unfilled rectangular box:</p>
+
+          <pre><code>&lt;!-- IEEE Std 315 Resistor (American Zigzag, 60px length, 10px pitch) --&gt;
+&lt;g id="sym-resistor-ieee" class="schematic-symbol"&gt;
+  &lt;!-- Terminal Leads --&gt;
+  &lt;line x1="0" y1="20" x2="15" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;line x1="45" y1="20" x2="60" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;!-- Zigzag Resistance Body --&gt;
+  &lt;path d="M 15 20 L 17.5 12 L 22.5 28 L 27.5 12 L 32.5 28 L 37.5 12 L 42.5 28 L 45 20"
+        fill="none" stroke="#FFF" stroke-width="2" stroke-linejoin="round" /&gt;
+&lt;/g&gt;
+
+&lt;!-- IEC 60617 Resistor (European Rectangular Box, 60px length) --&gt;
+&lt;g id="sym-resistor-iec" class="schematic-symbol"&gt;
+  &lt;line x1="0" y1="20" x2="15" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;line x1="45" y1="20" x2="60" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;rect x="15" y="14" width="30" height="12" fill="none" stroke="#FFF" stroke-width="2" /&gt;
+&lt;/g&gt;</code></pre>
+
+          <p>Capacitors are categorized into non-polarized ceramic/film capacitors (represented by two parallel plates separated by a dielectric gap) and polarized electrolytic capacitors (where the positive plate is flat and the negative plate is curved into an arc):</p>
+
+          <pre><code>&lt;!-- Polarized Electrolytic Capacitor (IEEE / IEC) --&gt;
+&lt;g id="sym-capacitor-polarized" class="schematic-symbol"&gt;
+  &lt;line x1="0" y1="20" x2="18" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;line x1="26" y1="20" x2="44" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;!-- Anode: Flat Plate --&gt;
+  &lt;line x1="18" y1="8" x2="18" y2="32" stroke="#FFF" stroke-width="2.5" /&gt;
+  &lt;!-- Cathode: Curved Plate --&gt;
+  &lt;path d="M 24 8 A 16 16 0 0 1 24 32" fill="none" stroke="#FFF" stroke-width="2.5" /&gt;
+  &lt;!-- Polarity Label --&gt;
+  &lt;text x="12" y="12" font-size="10" font-weight="bold" fill="#C1DD2D"&gt;+&lt;/text&gt;
+&lt;/g&gt;</code></pre>
+
+          <h3>2.2 Active Semiconductors: Diodes, LEDs &amp; Transistors</h3>
+          <p>Semiconductor symbols require precise angular arrowheads to signify P-N junction polarity and electron drift orientation. A standard semiconductor diode consists of an equilateral triangle pointing towards a perpendicular cathode barrier line. A Light Emitting Diode (LED) adds two small outward-pointing radiation arrows along a 45-degree trajectory:</p>
+
+          <pre><code>&lt;!-- Light Emitting Diode (LED) with Outward Optical Photons --&gt;
+&lt;g id="sym-led" class="schematic-symbol"&gt;
+  &lt;line x1="0" y1="20" x2="16" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;line x1="32" y1="20" x2="48" y2="20" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;!-- Anode Triangle Body --&gt;
+  &lt;polygon points="16,10 32,20 16,30" fill="#C1DD2D" stroke="#C1DD2D" stroke-width="1.5" /&gt;
+  &lt;!-- Cathode Barrier Line --&gt;
+  &lt;line x1="32" y1="8" x2="32" y2="32" stroke="#FFF" stroke-width="2.5" /&gt;
+  &lt;!-- Emitted Photons (Two Parallel 45-Degree Vectors with Arrowheads) --&gt;
+  &lt;path d="M 28 8 L 36 0 M 34 0 L 36 0 L 36 2" stroke="#C1DD2D" stroke-width="1.5" fill="none" /&gt;
+  &lt;path d="M 34 14 L 42 6 M 40 6 L 42 6 L 42 8" stroke="#C1DD2D" stroke-width="1.5" fill="none" /&gt;
+&lt;/g&gt;</code></pre>
+
+          <p>Bipolar Junction Transistors (NPN and PNP) feature a circular envelope housing a vertical base bar with collector and emitter branches radiating at 30-degree angles. In an NPN transistor, the emitter branch carries an outward-pointing arrow; in a PNP transistor, the arrow points inward toward the base:</p>
+
+          <pre><code>&lt;!-- NPN Bipolar Junction Transistor (BJT) --&gt;
+&lt;g id="sym-bjt-npn" class="schematic-symbol"&gt;
+  &lt;circle cx="28" cy="28" r="22" fill="none" stroke="#444" stroke-width="1.5" /&gt;
+  &lt;!-- Base Input Terminal &amp; Bar --&gt;
+  &lt;line x1="0" y1="28" x2="18" y2="28" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;line x1="18" y1="16" x2="18" y2="40" stroke="#FFF" stroke-width="3" /&gt;
+  &lt;!-- Collector Branch --&gt;
+  &lt;line x1="18" y1="22" x2="38" y2="10" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;line x1="38" y1="10" x2="38" y2="0" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;!-- Emitter Branch with Outward Arrowhead --&gt;
+  &lt;line x1="18" y1="34" x2="38" y2="46" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;line x1="38" y1="46" x2="38" y2="56" stroke="#FFF" stroke-width="2" /&gt;
+  &lt;polygon points="34,44 38,46 36,41" fill="#C1DD2D" /&gt;
+&lt;/g&gt;</code></pre>
+
+          <h3>2.3 Digital Logic Gates: AND, OR, NOT &amp; XOR</h3>
+          <p>Digital circuits rely on standardized logic gate geometries (IEEE Std 91-1984). An AND gate features a straight input spine with a semi-circular output arc; an OR gate features a concave input curvature with an elliptical pointed nose; an inverter (NOT gate) features a triangle terminated by a circular inversion negation bubble:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Logic Function</th>
+                  <th>Input Spine Geometry</th>
+                  <th>Output Body Geometry</th>
+                  <th>Inversion Bubble (Negation)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>AND Gate</strong></td>
+                  <td>Linear vertical spine</td>
+                  <td>Semi-circular arc ($r = 20\text{px}$)</td>
+                  <td>None</td>
+                </tr>
+                <tr>
+                  <td><strong>NAND Gate</strong></td>
+                  <td>Linear vertical spine</td>
+                  <td>Semi-circular arc</td>
+                  <td>Yes: $\varnothing 6\text{px}$ circle at output tip</td>
+                </tr>
+                <tr>
+                  <td><strong>OR Gate</strong></td>
+                  <td>Concave circular arc ($r = 40\text{px}$)</td>
+                  <td>Dual converging elliptical arcs</td>
+                  <td>None</td>
+                </tr>
+                <tr>
+                  <td><strong>NOR Gate</strong></td>
+                  <td>Concave circular arc</td>
+                  <td>Dual converging elliptical arcs</td>
+                  <td>Yes: $\varnothing 6\text{px}$ circle at output tip</td>
+                </tr>
+                <tr>
+                  <td><strong>XOR Gate</strong></td>
+                  <td>Dual offset concave arcs ($4\text{px}$ gap)</td>
+                  <td>Dual converging elliptical arcs</td>
+                  <td>None</td>
+                </tr>
+                <tr>
+                  <td><strong>NOT (Inverter)</strong></td>
+                  <td>Vertical base ($30\text{px}$)</td>
+                  <td>Equilateral triangle pointing right</td>
+                  <td>Yes: $\varnothing 6\text{px}$ circle at output tip</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="terminal-ports-and-grid-snapping">
+          <h2>3. Terminal Ports, Pin Snapping &amp; The Orthogonal Grid System</h2>
+          <p>A fatal architectural defect in amateur schematic software is allowing components and wire traces to reside on arbitrary, unaligned floating-point coordinates. When wires and pins are misaligned by even a fraction of a pixel (e.g. $x = 120.4\text{px}$ vs $x = 120.0\text{px}$), the rendering engine cannot determine topological connectivity, causing autorouters to fail, producing broken netlists, and creating ugly visual anti-aliasing blur where vertical traces bleed across adjacent subpixel boundaries.</p>
+          <p>Professional electronic design automation (EDA) architectures eliminate this problem by enforcing a strict <strong>Coordinate Quantization Grid</strong>. In our vector schematic engine, all physical component symbols, connection pins, solder nodes, and wire elbows are snapped to integer multiples of a base grid pitch $P$ (typically 10px or 20px). This guarantees that every terminal pin lands on an exact grid intersection, ensuring flawless topological alignment and enabling instant graph connectivity queries:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Coordinate Grid Quantization &amp; Half-Pixel Offset Alignment</div>
+            <div class="formula-body">x<sub>snapped</sub> = round(x / P) &times; P &nbsp;&nbsp;|&nbsp;&nbsp; y<sub>snapped</sub> = round(y / P) &times; P<br>x<sub>crisp</sub> = x<sub>snapped</sub> + 0.5 &nbsp;&nbsp;|&nbsp;&nbsp; y<sub>crisp</sub> = y<sub>snapped</sub> + 0.5 &nbsp;(for 1px strokes)</div>
+            <div class="formula-desc">Where P denotes the base grid pitch. For 1px stroke widths on standard 96 DPI displays, adding a 0.5px offset aligns the vector centerline exactly with the display subpixel grid, eliminating fuzzy anti-aliasing blur and producing razor-sharp 1px wire traces.</div>
+          </div>
+
+          <p>In addition to coordinate quantization, our CAD engine maintains an invariant <strong>Clearance Stub Rule</strong>. When a wire emerges from a component terminal port, it is strictly forbidden from making an immediate orthogonal 90-degree turn directly at the component boundary. The router forces the wire to extend outward along the pin's normal vector by at least one full grid pitch ($10\text{px}$) before any turn is permitted. This prevents copper traces from clipping through component labels, pin numbers, or active symbol geometry.</p>
+
+          <h3>3.1 Pin Terminal Metadata Architecture &amp; Rotational Invariance</h3>
+          <p>Every component symbol definition exposes a structured manifest of its electrical connection pins. Each pin entry defines its relative coordinate offset from the component origin, its legal connection direction vector (to guide wire exit headings), its reference pin number, and its electrical type (Power, Ground, Passive, Input, Output, Bi-directional). When a component is rotated by $90^\circ$, $180^\circ$, or $270^\circ$ on the schematic canvas, the engine applies a 2D rotational transformation matrix to recompute the absolute canvas coordinates and exit normal vectors of every pin:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Pin Coordinate Rotational Transformation Matrix</div>
+            <div class="formula-body">[x&prime;, y&prime;]<sup>T</sup> = R(&theta;) &middot; [&Delta;x, &Delta;y]<sup>T</sup> + [x<sub>0</sub>, y<sub>0</sub>]<sup>T</sup><br>R(&theta;) = [ [cos &theta;, -sin &theta;], [sin &theta;, cos &theta;] ]</div>
+            <div class="formula-desc">For &theta; &in; {0&deg;, 90&deg;, 180&deg;, 270&deg;}, the trigonometric functions evaluate to exact integers {0, 1, -1}, ensuring that rotated pin positions maintain zero floating-point drift and remain perfectly locked to the quantization grid.</div>
+          </div>
+
+          <p>To enable $O(1)$ pin snapping during interactive user drag-and-drop operations, the schematic engine indexes all active terminal pins into a <strong>Uniform Spatial Grid Hash</strong>. When an engineer moves a component or draws a wire near an existing pin, the engine queries the spatial hash bucket for the current mouse coordinate. If a matching terminal port is found within the snap radius ($R_{\text{snap}} \le P/2$), the cursor coordinates immediately lock to the exact pin coordinates, displaying an active target reticle and confirming electrical connectivity.</p>
+
+          <pre><code>// Formal Component Terminal Pin Manifest &amp; Rotation Engine
+interface TerminalPin {
+  id: string;
+  relX: number;
+  relY: number;
+  normal: [number, number]; // [dx, dy] heading vector
+  type: 'passive' | 'input' | 'output' | 'power' | 'ground';
+  netName?: string;
+}
+
+class SchematicSymbol {
+  constructor(public id: string, public type: string, public x: number, public y: number, public rotation: 0 | 90 | 180 | 270 = 0) {}
+
+  getTransformedPins(pins: TerminalPin[]): Array&lt;TerminalPin &amp; { absX: number; absY: number; absNormal: [number, number] }&gt; {
+    const rad = (this.rotation * Math.PI) / 180;
+    const cos = Math.round(Math.cos(rad));
+    const sin = Math.round(Math.sin(rad));
+
+    return pins.map(pin =&gt; {
+      // Apply 2D rotation matrix around symbol origin
+      const rx = pin.relX * cos - pin.relY * sin;
+      const ry = pin.relX * sin + pin.relY * cos;
+      // Transform exit normal vector
+      const nx = pin.normal[0] * cos - pin.normal[1] * sin;
+      const ny = pin.normal[0] * sin + pin.normal[1] * cos;
+
+      return {
+        ...pin,
+        absX: Math.round((this.x + rx) / 10) * 10,
+        absY: Math.round((this.y + ry) / 10) * 10,
+        absNormal: [nx, ny]
+      };
+    });
+  }
+}</code></pre>
+        </section>
+<section id="manhattan-orthogonal-autorouting">
+          <h2>4. Manhattan Orthogonal Autorouting: A* Pathfinding on Vector Grids</h2>
+          <p>In electrical schematic diagrams, diagonal connection lines are strictly forbidden; all copper wire traces must navigate along orthogonal horizontal and vertical axes (Manhattan geometry). Manually placing every wire corner in a complex schematic is tedious for engineers and completely unscalable for algorithmic circuit generation. A modern vector CAD engine must incorporate an automated Manhattan router that connects terminal ports cleanly without slicing through placed components, overlapping adjacent traces, or generating chaotic zigzags.</p>
+
+          <h3>4.1 The A* Search Algorithm with Directional Turn Penalties</h3>
+          <p>Standard A* pathfinding evaluates nodes using the cost function $f(n) = g(n) + h(n)$, where $g(n)$ is the accumulated path cost from the origin and $h(n)$ is the heuristic estimated cost to the target. In Manhattan space, the admissible heuristic is formulated as the $L_1$ distance:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Manhattan Distance Heuristic ($L_1$ Norm)</div>
+            <div class="formula-body">h(n) = |x<sub>n</sub> - x<sub>goal</sub>| + |y<sub>n</sub> - y<sub>goal</sub>|</div>
+            <div class="formula-desc">Because orthogonal wire traces can only travel along horizontal and vertical grid axes, the L1 norm provides an exact lower bound on remaining travel distance, guaranteeing optimal heuristic admissibility.</div>
+          </div>
+
+          <p>However, applying naive A* pathfinding directly to a uniform grid produces an aesthetic catastrophe: the algorithm frequently switches between horizontal and vertical steps at every single grid unit, producing jagged staircases that look terrible and violate all engineering drafting standards. To enforce clean, human-like routing, our engine introduces a <strong>Directional Turn Penalty</strong> ($W_{\text{turn}} \gg W_{\text{step}}$). Every time the router changes direction between horizontal and vertical axes, a substantial penalty (typically 15 to 25 cost units) is added to $g(n)$. This strongly incentivizes the algorithm to discover long, straight copper runs and minimize the total corner count:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Turn-Penalized Path Cost Evaluation</div>
+            <div class="formula-body">g(neighbor) = g(current) + C<sub>step</sub> + (isTurn ? C<sub>turn</sub> : 0) + C<sub>clearance</sub></div>
+            <div class="formula-desc">Where C<sub>step</sub> = 1, C<sub>turn</sub> = 20, and C<sub>clearance</sub> applies an exponential penalty when the wire passes within 1 grid unit of an obstacle boundary, keeping traces neatly separated from component bodies.</div>
+          </div>
+
+          <p>Once the A* algorithm reaches the destination pin, the raw path consists of dozens of discrete grid points along a straight line (e.g. $(10, 20) \to (20, 20) \to (30, 20) \to (40, 20)$). Storing and rendering these intermediate collinear points produces bloated SVG DOM trees and hampers rendering performance. The engine executes a <strong>Collinear Segment Pruning Pass</strong>: whenever three consecutive points share the same horizontal or vertical coordinate, the middle point is discarded, collapsing the entire straight run into a single SVG <code>L x y</code> command.</p>
+
+          <pre><code>class ManhattanWireRouter {
+  constructor(gridPitch = 10, turnPenalty = 20) {
+    this.pitch = gridPitch;
+    this.turnPenalty = turnPenalty;
+  }
+
+  route(startPin, endPin, obstacles = []) {
+    // 1. Quantize start and end coordinates
+    const start = { x: Math.round(startPin.x / this.pitch), y: Math.round(startPin.y / this.pitch) };
+    const goal  = { x: Math.round(endPin.x / this.pitch),   y: Math.round(endPin.y / this.pitch) };
+
+    const openSet = new PriorityQueue();
+    const cameFrom = new Map();
+    const gScore = new Map();
+
+    const startKey = `${start.x},${start.y},none`;
+    gScore.set(startKey, 0);
+    openSet.enqueue(startKey, this.manhattanDistance(start, goal));
+
+    const directions = [
+      { dx:  1, dy:  0, dir: 'H' },
+      { dx: -1, dy:  0, dir: 'H' },
+      { dx:  0, dy:  1, dir: 'V' },
+      { dx:  0, dy: -1, dir: 'V' }
+    ];
+
+    while (!openSet.isEmpty()) {
+      const currentKey = openSet.dequeue();
+      const [cx, cy, currentDir] = currentKey.split(',');
+      const curr = { x: parseInt(cx, 10), y: parseInt(cy, 10) };
+
+      if (curr.x === goal.x && curr.y === goal.y) {
+        const rawPath = this.reconstructPath(cameFrom, currentKey);
+        return this.pruneCollinearPoints(rawPath);
+      }
+
+      for (const d of directions) {
+        const neighbor = { x: curr.x + d.dx, y: curr.y + d.dy };
+        if (this.isObstacle(neighbor, obstacles) && !(neighbor.x === goal.x && neighbor.y === goal.y)) {
+          continue; // Blocked by component boundary
+        }
+
+        // Apply distance step cost + turn penalty
+        const isTurn = currentDir !== 'none' && currentDir !== d.dir;
+        const tentativeG = gScore.get(currentKey) + 1 + (isTurn ? this.turnPenalty : 0);
+        const neighborKey = `${neighbor.x},${neighbor.y},${d.dir}`;
+
+        if (!gScore.has(neighborKey) || tentativeG < gScore.get(neighborKey)) {
+          cameFrom.set(neighborKey, currentKey);
+          gScore.set(neighborKey, tentativeG);
+          const f = tentativeG + this.manhattanDistance(neighbor, goal);
+          openSet.enqueue(neighborKey, f);
+        }
+      }
+    }
+
+    // Fallback: direct two-segment orthogonal step if maze routing fails
+    return [startPin, { x: endPin.x, y: startPin.y }, endPin];
+  }
+
+  manhattanDistance(p1, p2) {
+    return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
+  }
+
+  isObstacle(point, obstacles) {
+    const px = point.x * this.pitch;
+    const py = point.y * this.pitch;
+    for (const obs of obstacles) {
+      if (px >= obs.x && px <= obs.x + obs.width && py >= obs.y && py <= obs.y + obs.height) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  pruneCollinearPoints(points) {
+    if (points.length <= 2) return points;
+    const pruned = [points[0]];
+    for (let i = 1; i < points.length - 1; i++) {
+      const prev = pruned[pruned.length - 1];
+      const curr = points[i];
+      const next = points[i + 1];
+      // Check if current point is collinear with prev and next
+      const isCollinearH = prev.y === curr.y && curr.y === next.y;
+      const isCollinearV = prev.x === curr.x && curr.x === next.x;
+      if (!isCollinearH && !isCollinearV) {
+        pruned.push(curr);
+      }
+    }
+    pruned.push(points[points.length - 1]);
+    return pruned;
+  }
+}</code></pre>
+
+          <p>For complex multi-net schematics with dozens of interconnected ICs, the router employs a <strong>Net Sequencing Priority Strategy</strong>. Power rails ($V_{\text{CC}}$, $+5\text{V}$, $+12\text{V}$) and Ground ($GND$) are routed first along dedicated perimeter channels. High-speed clock and reset lines are routed second with the highest obstacle clearance. General signal buses and passive interconnects are routed last, utilizing rip-up-and-reroute iterations when routing conflicts arise.</p>
+        </section>
+<section id="architecture-diagram">
+          <h2>5. Architectural Figure 2: The Netlist Parsing &amp; Schematic CAD Pipeline</h2>
+          <p>Rendering an interactive, standards-compliant vector electrical schematic requires a robust multi-stage compilation pipeline. The vector CAD architecture does not simply draw lines on a canvas; it compiles structured electrical circuit definitions into a topologically aware retained-mode SVG graph. This pipeline bridges the gap between text-based SPICE/JSON netlists and dynamic browser presentation attributes:</p>
+
+          <p>The pipeline operates across seven sequential engineering phases:</p>
+          <ol>
+            <li><strong>Lexical Netlist Ingestion:</strong> The parser ingests raw SPICE decks or structured JSON netlists, extracting component primitives (resistors, transistors, ICs), parameter values, and connection net identifiers into an in-memory Abstract Syntax Tree (AST).</li>
+            <li><strong>Grid Quantization &amp; Pin Table Resolution:</strong> Component coordinates are quantized to the global grid pitch ($P = 10\text{px}$). The engine instantiates symbol geometry templates and resolves the absolute 2D canvas coordinates and exit normal headings for every terminal pin.</li>
+            <li><strong>Spatial Obstacle &amp; Keepout Map Generation:</strong> The engine calculates the clearance bounding box for every placed symbol and text label, populating the 2D obstacle grid to prevent wire traces from slicing through active circuitry.</li>
+            <li><strong>Priority-Queue Manhattan A* Router:</strong> For each connection net, the router executes turn-penalized A* pathfinding on the quantized grid, generating orthogonal paths with minimal corner counts and applying collinear node pruning.</li>
+            <li><strong>Topological Disambiguation (Solder Dots &amp; Jumpers):</strong> The engine computes all wire-wire intersections. Galvanic electrical junctions receive filled circular solder connection dots ($\varnothing \ge 6\text{px}$), while un-connected transverse crossings are transformed into semi-circular bridge jumper arcs.</li>
+            <li><strong>Retained-Mode SVG DOM Synthesis:</strong> The vector scene is assembled into structured SVG layers: background grid layer, wire trace layer, component symbol layer, terminal pin layer, and test-point probe layer.</li>
+            <li><strong>Reactive Simulation &amp; Test-Point Engine:</strong> The simulation engine solves DC operating points and transient responses, binding dynamic CSS <code>stroke-dashoffset</code> keyframe animations to live wires and updating interactive multimeter test-point readouts.</li>
+          </ol>
+<figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: Architecture diagram of the vector circuit schematic CAD and autorouting pipeline">
+              <defs>
+                <linearGradient id="cadGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#141414"/>
+                  <stop offset="100%" stop-color="#1E1906"/>
+                </linearGradient>
+                <linearGradient id="cadGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#161616"/>
+                  <stop offset="100%" stop-color="#1A1C06"/>
+                </linearGradient>
+                <linearGradient id="cadArrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#C1DD2D"/>
+                  <stop offset="100%" stop-color="#EAB308"/>
+                </linearGradient>
+                <filter id="cadBoxGlow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+                </filter>
+              </defs>
+
+              <rect width="960" height="320" rx="12" fill="#0A0D08" stroke="#222" stroke-width="1.5"/>
+
+              <!-- Flowchart Header -->
+              <text x="40" y="38" font-family="'Inter', sans-serif" font-size="14" font-weight="800" fill="#C1DD2D" letter-spacing="1">FIGURE 2: VECTOR SCHEMATIC CAD &amp; AUTOROUTING PIPELINE</text>
+              <line x1="40" y1="48" x2="920" y2="48" stroke="#222" stroke-width="1"/>
+
+              <!-- Box 1: Netlist & Symbols -->
+              <g transform="translate(40, 75)" filter="url(#cadBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#cadGrad1)" stroke="#333" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.15)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">01</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Netlist Ingestion</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#888">SPICE / JSON Schema</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; IEEE 315 Symbols</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Pin Declarations</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Component Values</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Footprint Metadata</text>
+              </g>
+
+              <!-- Connector 1 -->
+              <path d="M 190 170 L 230 170" stroke="url(#cadArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="230,165 240,170 230,175" fill="#C1DD2D"/>
+
+              <!-- Box 2: Manhattan Grid -->
+              <g transform="translate(240, 75)" filter="url(#cadBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#cadGrad2)" stroke="#C1DD2D" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.2)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">02</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Grid Quantization</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#C1DD2D">10px/20px Pitch</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Terminal Snapping</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Direction Vectors</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Clearance Padding</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Boundary Boxes</text>
+              </g>
+
+              <!-- Connector 2 -->
+              <path d="M 390 170 L 430 170" stroke="url(#cadArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="430,165 440,170 430,175" fill="#C1DD2D"/>
+
+              <!-- Box 3: Autorouting & Jumpers -->
+              <g transform="translate(440, 75)" filter="url(#cadBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#cadGrad1)" stroke="#333" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.15)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">03</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Manhattan Router</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#888">A* with Turn Penalty</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Solder Dots &Oslash;3.5</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Arc Jumpers &lsquo;A&rsquo;</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Net Disambiguation</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Collision Bypass</text>
+              </g>
+
+              <!-- Connector 3 -->
+              <path d="M 590 170 L 630 170" stroke="url(#cadArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="630,165 640,170 630,175" fill="#C1DD2D"/>
+
+              <!-- Box 4: Current Simulation -->
+              <g transform="translate(640, 75)" filter="url(#cadBoxGlow)">
+                <rect width="150" height="190" rx="8" fill="url(#cadGrad2)" stroke="#333" stroke-width="1.5"/>
+                <rect x="12" y="14" width="28" height="28" rx="6" fill="rgba(193,221,45,0.15)"/>
+                <text x="26" y="33" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="800" fill="#C1DD2D" text-anchor="middle">04</text>
+                <text x="14" y="66" font-family="'Inter', sans-serif" font-size="13" font-weight="700" fill="#FFF">Current Dynamics</text>
+                <text x="14" y="85" font-family="'Inter', sans-serif" font-size="11" fill="#888">Kirchhoff / Logic</text>
+                <line x1="14" y1="95" x2="136" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="14" y="115" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Dashoffset Flow</text>
+                <text x="14" y="132" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Node Voltages</text>
+                <text x="14" y="149" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Switch Toggles</text>
+                <text x="14" y="166" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#AAA">&bull; Multimeter Probing</text>
+              </g>
+
+              <!-- Connector 4 -->
+              <path d="M 790 170 L 830 170" stroke="url(#cadArrowGrad)" stroke-width="2.5" fill="none"/>
+              <polygon points="830,165 840,170 830,175" fill="#C1DD2D"/>
+
+              <!-- Box 5: CAD Export -->
+              <g transform="translate(840, 75)" filter="url(#cadBoxGlow)">
+                <rect width="80" height="190" rx="8" fill="url(#cadGrad1)" stroke="#333" stroke-width="1.5"/>
+                <text x="14" y="38" font-family="'Inter', sans-serif" font-size="12" font-weight="800" fill="#C1DD2D">05. CAD</text>
+                <text x="14" y="65" font-family="'Inter', sans-serif" font-size="10" fill="#FFF">Vector Exporter</text>
+                <text x="14" y="82" font-family="'Inter', sans-serif" font-size="10" fill="#888">Gerber / PDF</text>
+                <line x1="10" y1="95" x2="70" y2="95" stroke="#262626" stroke-width="1"/>
+                <text x="10" y="120" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">&bull; Standalone</text>
+                <text x="10" y="140" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">&bull; SPICE Net</text>
+                <text x="10" y="160" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">&bull; BOM CSV</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Complete multi-stage architectural pipeline of the vector schematic engine: from SPICE/JSON netlist parsing down through Manhattan grid quantization, A* autorouting, wire bridge jumper insertion, and dynamic electron current simulation.</figcaption>
+          </figure>
+        </section>
+
+        <section id="interactive-circuit-studio">
+          <h2>6. Interactive Developer Studio: Live Electrical Schematic Workbench</h2>
+          <p>To demonstrate the real-time vector synthesis, Manhattan routing, and dynamic simulation concepts introduced in this guide, test our production <strong>SVG Electrical Schematic Studio</strong>. This fully functional workbench renders four distinct benchmark circuits in pure, dependency-free SVG, complete with interactive power switching, animated electron drift along active copper traces, real-time multimeter voltage probing, and instant SPICE netlist export.</p>
+
+          <p>Explore the workbench using the following interactive controls:</p>
+          <ul>
+            <li><strong>Select Circuit Preset:</strong> Switch between four classic electronic topologies: an <em>RC Low-Pass Filter</em> ($f_c = 1.59\text{ kHz}$), an <em>NE555 Astable Multivibrator</em> pulse generator, a <em>CMOS Digital Half-Adder</em> ($S = A \oplus B, C = A \cdot B$), and an <em>NPN Transistor Switch</em> driving an LED.</li>
+            <li><strong>Toggle Power Switch:</strong> Turn the primary $V_{\text{CC}}$ rail on or off. Notice how the SVG current animation immediately starts or halts, and how voltage potentials across all circuit nodes update dynamically.</li>
+            <li><strong>Interactive Test-Point Probing:</strong> Hover your mouse or tap any numbered test point (<strong>TP1</strong>, <strong>TP2</strong>, <strong>TP3</strong>) on the schematic canvas. The integrated digital multimeter instantly samples and displays the simulated DC operating voltage and logic state.</li>
+            <li><strong>Export SPICE Netlist:</strong> Click the "Copy SPICE Netlist" button to generate a validated Berkeley SPICE simulation deck directly from the SVG circuit graph, ready for import into LTspice, ngspice, or KiCad.</li>
+          </ul>
+
+<div class="interactive-sandbox" id="circuitStudio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 6h6a3 3 0 0 1 3 3v6M6 9v6a3 3 0 0 0 3 3h6"/></svg>
+                <span>Live Interactive SVG Schematic CAD Workbench</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Simulation</span>
+            </div>
+
+            <div class="sandbox-grid">
+              <div class="sandbox-controls">
+                <div class="control-row">
+                  <label for="circuitTopologySelect">Circuit Topology: <span class="stat-num" id="topologyBadge">555 Astable Multivibrator</span></label>
+                  <select id="circuitTopologySelect" class="control-select">
+                    <option value="555" selected>555 Timer Astable Pulse Generator</option>
+                    <option value="half_adder">Digital 2-Bit Half-Adder (XOR + AND)</option>
+                    <option value="bjt_switch">BJT Transistor NPN Inverter Switch</option>
+                    <option value="rc_filter">RC First-Order Low-Pass Filter</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label for="wireCrossingSelect">Wire Crossing Style: <span class="stat-num" id="crossingBadge">Bridge Jumpers (Arc Hops)</span></label>
+                  <select id="wireCrossingSelect" class="control-select">
+                    <option value="bridge" selected>Semi-Circular Bridge Jumpers (Arc Hops)</option>
+                    <option value="dot">Solid Solder Junction Dots Only</option>
+                  </select>
+                </div>
+
+                <div class="control-row">
+                  <label>Power Switch State (SW1): <span class="stat-num" id="switchStateText">ACTIVE (5.0V VCC)</span></label>
+                  <div class="btn-row">
+                    <button type="button" class="action-btn primary" id="btnTogglePower">Toggle Switch SW1 (ON)</button>
+                    <button type="button" class="action-btn" id="btnPulseClock">Pulse Clock Signal</button>
+                  </div>
+                </div>
+
+                <div class="stats-readout-box">
+                  <div class="stat-item">
+                    <div class="stat-label">Active VCC</div>
+                    <div class="stat-val highlight" id="statVccVoltage">5.0 V</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Probe Node</div>
+                    <div class="stat-val" id="statProbePoint">TP1 (OUT)</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Components</div>
+                    <div class="stat-val" id="statCompCount">8</div>
+                  </div>
+                  <div class="stat-item">
+                    <div class="stat-label">Nets Routed</div>
+                    <div class="stat-val" id="statNetCount">11</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stage-wrapper">
+                <div class="preview-stage-container" id="circuitContainer">
+                  <svg id="circuitSvg" class="stage-canvas-element" viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <pattern id="cadGridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <circle cx="10" cy="10" r="1" fill="#222" />
+                      </pattern>
+                      <filter id="wireGlow">
+                        <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#C1DD2D" flood-opacity="0.6"/>
+                      </filter>
+                    </defs>
+                    <rect width="640" height="400" fill="url(#cadGridPattern)" />
+                    <g id="circuitDrawingGroup" transform="translate(0, 0)"></g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="generated-code-box">
+              <div class="code-box-head">
+                <div class="code-tabs">
+                  <button type="button" class="code-tab-btn active" data-tab="svg">SVG Schematic</button>
+                  <button type="button" class="code-tab-btn" data-tab="json">SPICE Netlist (JSON)</button>
+                  <button type="button" class="code-tab-btn" data-tab="symbols">Symbol Defs</button>
+                </div>
+                <div class="code-actions">
+                  <button type="button" class="copy-btn" id="btnCopyCircuitCode">Copy Code</button>
+                </div>
+              </div>
+              <pre class="code-output-area" id="circuitCodeOutput">&lt;!-- Generating SVG Schematic... --&gt;</pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="wire-junction-topology-jumpers">
+          <h2>7. Wire Junction Topology: Solder Connection Dots vs. Bridge Jumpers</h2>
+          <p>One of the most dangerous points of confusion in schematic drafting is the visual ambiguity between two wires that physically intersect to form an electrical junction versus two wires that merely cross over each other without electrical contact. An ambiguous drawing can cause manufacturing technicians and assembly automated optical inspection (AOI) systems to misinterpret connections, leading to dead shorts across high-voltage power rails and destroying expensive hardware prototypes.</p>
+
+          <h3>7.1 The Historical Context of Drafting Standards: IEEE Std 315 &amp; IEC 60617</h3>
+          <p>In mid-20th-century engineering practice, schematics frequently utilized perpendicular four-way cross intersections without dots to represent non-connected crossings, and a dot at the intersection to indicate a connection. However, during diazotype blueprint copying and microfiche archiving, carbon toner dust frequently settled at line intersections, creating spurious dots. Conversely, worn printing rollers caused small solder dots to drop out. These printing defects led to catastrophic wiring errors in aerospace and defense systems, prompting standard-setting bodies to establish strict rules:</p>
+
+          <ul>
+            <li><strong>Rule 1 (The Junction Solder Dot):</strong> Whenever three or four wires intersect to form a permanent galvanic electrical node, an explicit filled circular dot (diameter $\ge 6\text{px}$) must be rendered directly at the intersection vertex: <code>&lt;circle cx="x" cy="y" r="3.5" fill="#FFF" class="solder-junction" /&gt;</code>.</li>
+            <li><strong>Rule 2 (Mandatory Staggered T-Junctions):</strong> Modern standards strongly deprecate 4-way cross junctions entirely. Whenever four wires meet at an electrical node, the layout engine must stagger them into two separate three-way T-junctions offset by at least one grid pitch ($10\text{px}$). This guarantees that even if a solder dot drops out in printing, the staggered geometry unmistakably indicates electrical connectivity.</li>
+            <li><strong>Rule 3 (The Semi-Circular Bridge Jumper Arc):</strong> In high-density complex schematics where wire crossings are mathematically inevitable, the transverse wire incorporates an explicit semi-circular bridge arc that visually hops over the longitudinal wire, making non-connection unmistakably clear even under degraded printing conditions.</li>
+          </ul>
+
+          <div class="formula-card">
+            <div class="formula-title">Semi-Circular Bridge Jumper Arc Geometry</div>
+            <div class="formula-body">d = &ldquo;M x<sub>0</sub> y<sub>0</sub> L (crossX - r) y<sub>0</sub> A r r 0 0 1 (crossX + r) y<sub>0</sub> L x<sub>1</sub> y<sub>1</sub>&rdquo;</div>
+            <div class="formula-desc">Where crossX is the horizontal crossing coordinate and r is the jumper arc radius (typically 6px). The SVG elliptical arc command (A rx ry x-rot large-arc sweep x y) renders a flawless semi-circle hopping over the vertical wire. Setting sweep-flag = 1 directs the arc convex upward, creating an authentic 3D hop effect.</div>
+          </div>
+
+          <h3>7.2 Algorithmic Wire-Wire Crossing Detection &amp; Path Splitting</h3>
+          <p>In our vector CAD compiler, bridge jumpers are not drawn manually by the engineer. Instead, the engine executes a global <strong>Geometric Crossing Pass</strong> after all orthogonal wire nets have been routed:</p>
+          <ol>
+            <li>The engine extracts all horizontal and vertical linear wire segments across the entire circuit netlist.</li>
+            <li>For each horizontal segment from $(x_{\text{start}}, y)$ to $(x_{\text{end}}, y)$, the engine tests for intersections against all vertical segments from $(x, y_{\text{start}})$ to $(x, y_{\text{end}})$.</li>
+            <li>An intersection occurs if and only if $x_{\text{start}} &lt; x_{\text{vert}} &lt; x_{\text{end}}$ and $y_{\text{start,vert}} &lt; y &lt; y_{\text{end,vert}}$.</li>
+            <li>If the two intersecting wires belong to the same electrical net, the engine inserts a galvanic solder connection dot (<code>&lt;circle&gt;</code>).</li>
+            <li>If the wires belong to different electrical nets, the horizontal wire path is split into segmented sub-paths, inserting a semi-circular arc command <code>A 6 6 0 0 1</code> over the crossing coordinate.</li>
+          </ol>
+
+          <pre><code>function generateBridgeJumperWire(startX, startY, endX, endY, verticalCrossings = []) {
+  let pathD = `M ${startX.toFixed(1)} ${startY.toFixed(1)}`;
+  const sortedCrossings = verticalCrossings.sort((a, b) =&gt; a - b);
+
+  let currentX = startX;
+  for (const crossX of sortedCrossings) {
+    if (crossX &gt; currentX + 8 &amp;&amp; crossX &lt; endX - 8) {
+      // Line up to the left edge of the jumper
+      pathD += ` L ${(crossX - 6).toFixed(1)} ${startY.toFixed(1)}`;
+      // Semi-circular arc hop over the transverse wire (radius 6px)
+      pathD += ` A 6 6 0 0 1 ${(crossX + 6).toFixed(1)} ${startY.toFixed(1)}`;
+      currentX = crossX + 6;
+    }
+  }
+
+  pathD += ` L ${endX.toFixed(1)} ${endY.toFixed(1)}`;
+  return pathD;
+}</code></pre>
+
+          <p>By delegating intersection resolution to an automated compiler pass, schematic authors never have to manually cut, splice, or re-draw jumper arcs when moving components or refactoring net routing.</p>
+        </section>
+<section id="circuit-simulation-and-animation">
+          <h2>8. Real-Time Circuit Simulation &amp; Dynamic Electron Drift Animation</h2>
+          <p>Static schematics provide architectural blueprints, but modern digital engineering tools demand interactive, living diagrams. By coupling mathematical circuit models with SVG vector presentation attributes, an engineering diagram can simulate real-time physical phenomena: demonstrating signal propagation delays through digital logic gates, charging exponential capacitor curves, and visualizing electron drift velocity along copper traces.</p>
+
+          <h3>8.1 Simulating Electron Drift with SVG Stroke-Dashoffset</h3>
+          <p>Physical electric current in metallic conductors consists of the net drift of free conduction electrons driven by an applied electric field. The physical drift velocity is formulated as:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Electron Drift Velocity &amp; Current Density Physics</div>
+            <div class="formula-body">v<sub>d</sub> = I / (n &middot; q &middot; A) = J / (n &middot; q)</div>
+            <div class="formula-desc">Where I denotes current in Amperes, n is free electron density (&sim;8.5 &times; 10<sup>28</sup> m<sup>-3</sup> for copper), q is fundamental electron charge (1.602 &times; 10<sup>-19</sup> C), A is wire cross-sectional area, and J is current density. In typical electronic circuits, physical electron drift velocity is surprisingly slow&mdash;often fractions of a millimeter per second.</div>
+          </div>
+
+          <p>In web-based vector CAD, we can visually communicate current flow using the native SVG <code>stroke-dasharray</code> and <code>stroke-dashoffset</code> CSS properties. Animating <code>stroke-dashoffset</code> via CSS keyframes is exceptionally performant because modern browsers execute CSS transform and stroke-offset animations directly on the GPU compositor thread without triggering expensive DOM reflows or JavaScript thread bottlenecks:</p>
+
+          <pre><code>/* Physical Electron Flow Animation along SVG Wire Path */
+.current-carrying-wire {
+  stroke: #C1DD2D;
+  stroke-width: 2.5;
+  stroke-dasharray: 6 10; /* 6px electron packet, 10px spacing */
+  animation: electronDrift 0.8s linear infinite;
+}
+
+@keyframes electronDrift {
+  from { stroke-dashoffset: 32; }
+  to   { stroke-dashoffset: 0; }
+}</code></pre>
+
+          <p>By modulating the CSS <code>animation-duration</code> inversely proportional to simulated current ($T_{\text{anim}} \propto \frac{1}{|I|}$), high-current power buses exhibit rapid, vibrant electron flow while low-leakage bias lines display a gentle, slow pulse. Furthermore, by reversing the keyframe offset direction (e.g. from 0 to 32 vs 32 to 0), the diagram can seamlessly represent either <strong>Conventional Positive Current</strong> (flowing from positive potential to ground) or <strong>Physical Electron Drift</strong> (electrons flowing from ground toward positive potential).</p>
+
+          <h3>8.2 Solving Kirchhoff's Laws &amp; Discrete-Time Circuit Modeling</h3>
+          <p>To compute the electrical operating points that drive visual animations, our client-side engine executes a compact numerical circuit solver. For linear DC subcircuits, the solver constructs and solves the standard <strong>Nodal Admittance Matrix</strong> formulated through Kirchhoff's Current Law (KCL: $\sum I_{\text{in}} = \sum I_{\text{out}}$):</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Nodal Admittance Matrix Equation</div>
+            <div class="formula-body">G &middot; V = I</div>
+            <div class="formula-desc">Where G is the square conductance matrix populated from branch conductances (g<sub>ij</sub> = 1/R<sub>ij</sub>), V is the unknown node voltage vector, and I is the vector of independent source currents entering each node. The solver inverts G via Gaussian elimination to evaluate node voltages in under 0.2 milliseconds.</div>
+          </div>
+
+          <p>For reactive components such as capacitors and inductors, the engine implements discrete-time numerical integration inside a <code>requestAnimationFrame</code> loop. For example, the charging behavior of an RC low-pass filter under step input voltage $V_{\text{step}}$ is evaluated via the classic differential equation:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">RC Step Response Transient Formulation</div>
+            <div class="formula-body">V<sub>C</sub>(t) = V<sub>final</sub> + (V<sub>initial</sub> - V<sub>final</sub>) &middot; e<sup>-t / (R &middot; C)</sup></div>
+            <div class="formula-desc">Where &tau; = R &middot; C is the circuit time constant. At t = &tau;, the capacitor charges to 63.2% of the input step; at t = 5&tau;, the capacitor is 99.3% charged, reaching steady-state DC equilibrium.</div>
+          </div>
+
+          <p>For digital logic subcircuits (such as the Half-Adder featured in our interactive studio), state propagation is modeled as an asynchronous event-driven directed graph. Changing an input toggle propagates logic levels (0 = $0\text{V}$, 1 = $5\text{V}$) through gates according to Boolean truth tables: $S = A \oplus B$ (Sum via XOR) and $C = A \cdot B$ (Carry via AND). Gate outputs update their corresponding SVG wires, shifting their stroke color from inactive slate gray (<code>#4A5568</code>) to vibrant active cyan (<code>#00E5FF</code>) or electric lime (<code>#C1DD2D</code>).</p>
+        </section>
+<section id="netlist-serialization-spice">
+          <h2>9. Netlist Serialization: SPICE / JSON Schema Ingestion &amp; BOM Generation</h2>
+          <p>A professional electrical schematic cannot exist in a proprietary graphical silo. For an SVG diagram to integrate seamlessly into real-world manufacturing pipelines, it must maintain a rigorous bidirectional relationship with standard electronic data formats: parsing text-based simulation decks into vector diagrams, and serializing modified vector drawings back into industry-standard SPICE netlists and Bills of Materials (BOM).</p>
+
+          <h3>9.1 The JSON Schematic Netlist Data Contract</h3>
+          <p>Our vector CAD engine utilizes a canonical, strongly typed JSON schema to represent the complete circuit AST. This contract decouples the electrical connectivity graph from the rendering and layout presentation logic:</p>
+
+          <pre><code>// Canonical JSON Schematic Schema
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CircuitSchematicNetlist",
+  "type": "object",
+  "required": ["version", "components", "nets"],
+  "properties": {
+    "version": { "type": "string" },
+    "title": { "type": "string" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "value", "x", "y"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[RCLQDUMV][0-9]+$" },
+          "type": { "type": "string", "enum": ["resistor", "capacitor", "inductor", "diode", "bjt_npn", "opamp", "gate_and", "gate_xor"] },
+          "value": { "type": "string" },
+          "footprint": { "type": "string" },
+          "x": { "type": "integer" },
+          "y": { "type": "integer" },
+          "rotation": { "type": "integer", "enum": [0, 90, 180, 270] }
+        }
+      }
+    },
+    "nets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "connections"],
+        "properties": {
+          "name": { "type": "string" },
+          "connections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["componentId", "pinId"],
+              "properties": {
+                "componentId": { "type": "string" },
+                "pinId": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
+
+          <h3>9.2 Automated Bill of Materials (BOM) Manifest Generation</h3>
+          <p>When an engineer finalizes a schematic, the vector CAD engine automatically traverses the component graph, groups identical components by their reference designator prefix, component value, tolerance rating, and package footprint (e.g. SMD 0805, 0603, SOIC-8, TO-92), and compiles an itemized Bill of Materials (BOM). This manifest is instantly exportable as CSV or JSON, ready for direct upload to electronic component distributors (DigiKey, Mouser, LCSC) or surface-mount technology (SMT) pick-and-place contract manufacturers:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item #</th>
+                  <th>Designator</th>
+                  <th>Quantity</th>
+                  <th>Value / Part Number</th>
+                  <th>Package Footprint</th>
+                  <th>Manufacturer / Distributor P/N</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>R1, R2</td>
+                  <td>2</td>
+                  <td>10k &Omega;, 1%, 1/8W</td>
+                  <td>SMD 0805</td>
+                  <td>Yageo RC0805FR-0710KL</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>C1</td>
+                  <td>1</td>
+                  <td>10 &mu;F, 25V, X7R</td>
+                  <td>SMD 1206</td>
+                  <td>Murata GRM31CR71E106KA12L</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Q1</td>
+                  <td>1</td>
+                  <td>2N3904 NPN BJT, 40V 200mA</td>
+                  <td>SOT-23-3</td>
+                  <td>ON Semi MMBT3904LT1G</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>U1</td>
+                  <td>1</td>
+                  <td>NE555DR Precision Timer</td>
+                  <td>SOIC-8</td>
+                  <td>Texas Instruments NE555DR</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>D1</td>
+                  <td>1</td>
+                  <td>Emerald Green LED, 20mA</td>
+                  <td>SMD 0805</td>
+                  <td>Lite-On LTST-C170KGKT</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>By compiling the BOM directly from the verified topological vector model rather than disconnected manual spreadsheets, hardware engineering teams completely eliminate costly procurement discrepancies and missing component line items during prototype PCB assembly runs.</p>
+        </section>
+<section id="high-dpi-export-and-print">
+          <h2>10. High-DPI Vector Export, PDF Datasheet Printing &amp; Gerber Interoperability</h2>
+          <p>Unlike raster graphics (PNG, JPEG, WebP) which severely pixelate and blur when printed, pure SVG maintains absolute mathematical precision across all output media. When exporting an electrical schematic for engineering datasheets, patent filings, or user manuals, the vector drawing can be rasterized or directly printed to PDF at 1200+ DPI with microscopic hairline precision.</p>
+
+          <h3>10.1 Print Media CSS &amp; Vector Stroke Preservation</h3>
+          <p>To ensure perfect reproduction when printed on physical paper or converted to multi-page PDF documents via headless Chromium (<code>page.pdf({ printBackground: true })</code>), the schematic stylesheet incorporates dedicated <code>@media print</code> CSS rules. These rules convert dark CAD background schemes into high-contrast monochrome black-on-white drafting styles and enforce non-scaling vector strokes:</p>
+
+          <pre><code>/* Print Stylesheet for High-DPI Datasheet Export */
+@media print {
+  body { background: #FFFFFF !important; color: #000000 !important; }
+  .article-sidebar, .article-toc, .btn-studio { display: none !important; }
+  .schematic-canvas {
+    background: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+    page-break-inside: avoid;
+  }
+  .schematic-wire, .component-path {
+    stroke: #000000 !important;
+    /* Prevent hair-thin stroke disappearance on ultra-high-DPI printing */
+    vector-effect: non-scaling-stroke;
+    stroke-width: 1.5pt !important;
+  }
+  .text-label {
+    fill: #000000 !important;
+    font-family: "Courier New", monospace !important;
+    font-weight: 700 !important;
+  }
+}</code></pre>
+
+          <p>Applying <code>vector-effect: non-scaling-stroke</code> is critical. On standard 96 DPI computer monitors, a 1px stroke represents approximately 0.26 millimeters. However, on a commercial 2400 DPI photoplotter or high-resolution laser printer, an unconstrained 1px stroke scales down to 0.01 millimeters (less than 0.4 mils)&mdash;rendering wire traces virtually invisible and causing PCB manufacturing silkscreen checks to fail. By enforcing physical stroke dimensions in points (<code>1.5pt</code>) or millimeters, vector fidelity is preserved regardless of output resolution.</p>
+
+          <h3>10.2 Translating SVG Vector Paths to Gerber RS-274X</h3>
+          <p>For custom printed circuit board (PCB) prototype fabrication, SVG schematic outlines and silkscreen graphics can be compiled directly into standard <strong>Gerber RS-274X</strong> format. In Gerber syntax, the vector drawing commands map directly to photoplotter aperture flashes and linear draws:</p>
+          <ul>
+            <li>SVG <code>&lt;circle cx="x" cy="y" r="r"&gt;</code> compiles to a circular aperture flash: <code>%ADD10C,0.800*%</code> followed by flash coordinate <code>X120000Y340000D03*</code>.</li>
+            <li>SVG <code>&lt;path d="M x0 y0 L x1 y1"&gt;</code> compiles to an aperture selection <code>D10*</code> followed by a linear coordinate move <code>X... Y... D02*</code> and exposure draw <code>X... Y... D01*</code>.</li>
+          </ul>
+          <p>This deep interoperability demonstrates that a properly structured SVG schematic is not merely an illustration&mdash;it is a foundational engineering asset capable of driving the entire hardware product development lifecycle.</p>
+        </section>
+<section id="accessibility-and-screen-readers">
+          <h2>11. Accessibility &amp; Screen Readers: Auditable Electrical Schematics</h2>
+          <p>One of the greatest historical failures of computer-aided electrical engineering is accessibility: traditional raster schematics and flat bitmap diagrams completely disenfranchise engineers and students with visual impairments. Because PNG images lack semantic structure, screen readers cannot parse the circuit topology, announce component connections, or report test-point operating voltages. Under modern WCAG 2.2 Level AA accessibility mandates, web-based technical documentation must provide a comprehensive, programmatic non-visual representation of complex diagrams.</p>
+
+          <h3>11.1 Semantic SVG Document Architecture &amp; ARIA Roles</h3>
+          <p>By leveraging retained-mode SVG DOM nodes, an electrical schematic can be structured with full semantic rich-text descriptions that screen readers interpret effortlessly:</p>
+
+          <ul>
+            <li><strong>Document Container Semantics:</strong> The root <code>&lt;svg&gt;</code> element is declared with <code>role="graphics-document"</code> and <code>aria-roledescription="electrical schematic diagram"</code>, along with a rich <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code> element explaining the functional purpose of the circuit (e.g. <em>"Astable multivibrator circuit utilizing an NE555 timer IC to generate a 1 kHz square wave output"</em>).</li>
+            <li><strong>Component Grouping &amp; Hierarchical Roles:</strong> Each physical component is encapsulated inside a <code>&lt;g&gt;</code> element carrying <code>role="region"</code> or <code>role="img"</code> and an exhaustive <code>aria-label</code> describing its reference designator, electrical value, and terminal connectivity: <code>aria-label="Resistor R1, 10 kiloohms 1%, connected between VCC Net and Discharge Pin 7 of IC U1"</code>.</li>
+            <li><strong>Keyboard Netlist Auditing:</strong> Users can press the Tab key or arrow keys to cycle sequentially through all physical components, wire nets, and test points. When a test point gains focus, an accessible <code>aria-live="polite"</code> announcer declares the instantaneous electrical measurement: <em>"Test Point 2: 3.33 Volts Direct Current, Logic State HIGH, Frequency 1.02 Kilohertz"</em>.</li>
+          </ul>
+
+          <div class="code-block-header">
+            <span class="code-lang">HTML / SVG Accessible Markup</span>
+          </div>
+          <pre><code>&lt;svg viewBox="0 0 800 480" role="graphics-document" aria-roledescription="electrical schematic" aria-labelledby="schem-title schem-desc"&gt;
+  &lt;title id="schem-title"&gt;NE555 Astable Pulse Generator Circuit&lt;/title&gt;
+  &lt;desc id="schem-desc"&gt;Complete timing circuit configured for 50% duty cycle 1 kHz square wave generation with R1=10k, R2=10k, and C1=100nF.&lt;/desc&gt;
+
+  &lt;!-- Accessible Component Instance --&gt;
+  &lt;g class="component" role="region" aria-label="Timing Resistor R1, 10 kiloohms, connected between Net VCC and Net DISCHARGE"&gt;
+    &lt;title&gt;Resistor R1 (10k)&lt;/title&gt;
+    &lt;path d="M 120 80 L 130 80 L 135 70 L 145 90 L 155 70 L 165 90 L 170 80 L 180 80" class="schematic-symbol" /&gt;
+    &lt;text x="150" y="60" class="component-label"&gt;R1&lt;/text&gt;
+    &lt;text x="150" y="105" class="component-value"&gt;10k&lt;/text&gt;
+  &lt;/g&gt;
+
+  &lt;!-- Keyboard Accessible Test Point --&gt;
+  &lt;g class="test-point" tabindex="0" role="button" aria-label="Test Point 3: Output Square Wave, currently 5.0 Volts"&gt;
+    &lt;circle cx="480" cy="200" r="10" class="tp-ring" /&gt;
+    &lt;text x="480" y="204" class="tp-label"&gt;TP3&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre>
+
+          <h3>11.2 High-Contrast Theme Palettes &amp; Color Blindness Defenses</h3>
+          <p>Color vision deficiency (such as deuteranomaly or protanopia red-green color blindness) affects approximately 8% of male engineers. Relying solely on red vs. green stroke colors to denote logic levels or power polarity creates severe usability barriers. Our SVG schematic engine employs a dual visual encoding doctrine:</p>
+          <ol>
+            <li><strong>Redundant Stroke Styling:</strong> High-voltage power traces ($V_{\text{CC}}$) use solid high-contrast lime strokes (<code>#C1DD2D</code>) with animated electron dash patterns; Ground traces ($GND$) use muted, wider slate strokes (<code>#718096</code>); signal traces utilize distinctive dash-dot stroke patterns (<code>stroke-dasharray="12 4 2 4"</code>).</li>
+            <li><strong>Contrast Ratio Guarantees:</strong> All text labels, component symbol paths, and test-point badges maintain a contrast ratio exceeding <strong>7:1</strong> against their canvas background, comfortably satisfying WCAG AAA standards for high-legibility technical media.</li>
+          </ol>
+        </section>
+<section id="comparative-matrix-and-faq">
+          <h2>12. Architectural Comparison Matrix &amp; Frequently Asked Questions</h2>
+          <p>Choosing the correct rendering and data architecture for web-based technical schematics dictates performance, maintainability, accessibility, and manufacturing integration. The following matrix compares Pure Scalable Vector Graphics against HTML5 2D Canvas, WebGL/WebGPU, and Desktop EDA software across ten critical engineering dimensions:</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architecture Dimension</th>
+                  <th>Pure SVG (This Guide)</th>
+                  <th>HTML5 2D Canvas</th>
+                  <th>WebGL / WebGPU</th>
+                  <th>Desktop EDA (KiCad/Altium)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Resolution Independence</strong></td>
+                  <td><strong>Infinite</strong> (Pure vectors)</td>
+                  <td>Pixelated on Zoom</td>
+                  <td>Infinite (GPU primitives)</td>
+                  <td>Infinite (Native OpenGL)</td>
+                </tr>
+                <tr>
+                  <td><strong>DOM Accessibility (ARIA)</strong></td>
+                  <td><strong>Full WCAG AA Support</strong></td>
+                  <td>Requires Shadow DOM</td>
+                  <td>Virtually impossible</td>
+                  <td>Desktop OS accessibility</td>
+                </tr>
+                <tr>
+                  <td><strong>Live CSS Current Animation</strong></td>
+                  <td><strong>Native CSS Keyframes</strong></td>
+                  <td>Manual re-blitting (60 FPS)</td>
+                  <td>Custom shader programs</td>
+                  <td>Proprietary simulator engine</td>
+                </tr>
+                <tr>
+                  <td><strong>Interactive Voltage Probing</strong></td>
+                  <td>Native DOM Pointer Events</td>
+                  <td>Manual hit-test math</td>
+                  <td>Color-picking buffer</td>
+                  <td>Built-in probe tool</td>
+                </tr>
+                <tr>
+                  <td><strong>Web Bundle Overhead</strong></td>
+                  <td><strong>0 KB</strong> (Zero dependencies)</td>
+                  <td>~50 KB – 120 KB</td>
+                  <td>150 KB – 500 KB</td>
+                  <td>200 MB – 2 GB install</td>
+                </tr>
+                <tr>
+                  <td><strong>Print &amp; PDF Datasheet Fidelity</strong></td>
+                  <td><strong>Lossless 1200+ DPI</strong></td>
+                  <td>Fuzzy raster scaling</td>
+                  <td>Complex offscreen capture</td>
+                  <td>Full vector PDF print</td>
+                </tr>
+                <tr>
+                  <td><strong>Search Engine Crawlability (SEO)</strong></td>
+                  <td><strong>100% Crawlable DOM</strong></td>
+                  <td>Invisible to crawlers</td>
+                  <td>Invisible to crawlers</td>
+                  <td>Not web-accessible</td>
+                </tr>
+                <tr>
+                  <td><strong>SPICE / JSON Roundtrip Export</strong></td>
+                  <td>Direct AST traversal</td>
+                  <td>Requires external state</td>
+                  <td>Requires external state</td>
+                  <td>Native netlist engine</td>
+                </tr>
+                <tr>
+                  <td><strong>Memory Footprint (500 Components)</strong></td>
+                  <td>&sim;12 MB DOM heap</td>
+                  <td>&sim;25 MB pixel buffer</td>
+                  <td>&sim;45 MB GPU VRAM</td>
+                  <td>&sim;120 MB RAM</td>
+                </tr>
+                <tr>
+                  <td><strong>Mobile Touch Responsiveness</strong></td>
+                  <td>Native SVG viewBox scale</td>
+                  <td>Manual touch matrix</td>
+                  <td>Manual touch matrix</td>
+                  <td>No mobile support</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="takeaway-box" id="key-takeaways">
+            <h3>Key Engineering Takeaways</h3>
+            <ul>
+              <li><strong>Grid Quantization is Mandatory:</strong> Always snap component pins, terminals, and wire corners to a 10px or 20px grid to guarantee topological connectivity and prevent subpixel anti-aliasing blur.</li>
+              <li><strong>Manhattan A* with Turn Penalties:</strong> Penalizing 90-degree directional bends in the A* router guarantees long, clean, minimal-corner wire runs conforming to professional drafting aesthetics.</li>
+              <li><strong>Disambiguate Intersections:</strong> Always render explicit circular solder dots ($\varnothing \ge 6\text{px}$) at electrical T-junctions, and employ semi-circular bridge jumper arcs (<code>A</code> commands) for crossing unconnected wires.</li>
+              <li><strong>Animate Current with Stroke-Dashoffset:</strong> Using CSS keyframes to decrement <code>stroke-dashoffset</code> along dashed wire vectors produces authentic 60 FPS electron drift simulation without CPU or JavaScript thread overhead.</li>
+              <li><strong>Decouple Connectivity via JSON AST:</strong> Maintain an independent electrical netlist data model to enable seamless bidirectional serialization between SVG drawings, SPICE simulation decks, and manufacturing BOMs.</li>
+              <li><strong>Prioritize Non-Visual Accessibility:</strong> Embed semantic ARIA roles, descriptive component labels, and keyboard-focusable test points to make complex schematics fully accessible to engineers using assistive screen readers.</li>
+            </ul>
+          </div>
+
+          <div class="faq-section" id="faq">
+            <h2>Frequently Asked Questions (FAQ)</h2>
+            <div class="faq-item">
+              <h3>Why is an SVG circuit schematic superior to an HTML5 Canvas implementation?</h3>
+              <p>Scalable Vector Graphics (SVG) maintains infinite resolution independence, allowing schematic diagrams to be zoomed from an overview of an entire motherboard down to individual sub-micron IC pin traces without blurriness or pixelation. Furthermore, SVG preserves the topological identity of every component, wire trace, and test pin as a native DOM element, enabling interactive voltage probing, real-time current flow animations via stroke-dashoffset, and direct export to high-DPI PDF manufacturing datasheets.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How do you draw an IEEE-compliant resistor zigzag path in pure SVG?</h3>
+              <p>An IEEE Std 315 compliant resistor zigzag is constructed using the SVG <code>&lt;path&gt;</code> element with six alternating 60-degree diagonal peaks. Starting from pin 1, the path extends a horizontal lead, followed by relative lines alternating up and down: <code>d="M 0 20 L 10 20 L 15 10 L 25 30 L 35 10 L 45 30 L 50 20 L 60 20"</code>. This geometry ensures symmetrical pin terminals aligned with standard 10px grid systems.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How does a semi-circular bridge jumper arc work in SVG path syntax?</h3>
+              <p>When two non-connected wires intersect perpendicularly, the horizontal wire incorporates an elliptical arc command: <code>A rx ry x-axis-rotation large-arc-flag sweep-flag x y</code>. By setting <code>rx=6, ry=6, sweep-flag=1</code>, the wire path forms a smooth semi-circular 6px radius arc that visually hops over the vertical wire (e.g. <code>L (x-6) y A 6 6 0 0 1 (x+6) y</code>), eliminating all electrical ambiguity.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Can SVG schematics be exported to SPICE or KiCad netlists?</h3>
+              <p>Yes. Because the SVG schematic maintains an underlying Abstract Syntax Tree (AST) representing components and net connections, the engine can serialize the vector graph directly into standard Berkeley SPICE syntax (e.g. <code>R1 N001 N002 10k</code>) or KiCad S-expression netlists with 100% roundtrip fidelity.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How do you animate electron current flow without degrading browser performance?</h3>
+              <p>Current flow is simulated by applying CSS keyframes to the <code>stroke-dashoffset</code> property along dashed wire vector paths. Because CSS keyframe animations on SVG stroke offsets execute on the browser's GPU compositor thread, hundreds of simultaneous current-carrying traces can be animated at 60 frames per second with near-zero CPU and JavaScript execution overhead.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How do you ensure SVG electrical schematics are accessible under WCAG 2.2 AA?</h3>
+              <p>Accessible SVG schematics incorporate <code>role="graphics-document"</code> on the root container, descriptive <code>&lt;title&gt;</code> and <code>&lt;desc&gt;</code> elements, and <code>role="region"</code> with informative <code>aria-label</code> attributes on each component group. Furthermore, interactive test points are assigned <code>tabindex="0"</code> and connected to an <code>aria-live="polite"</code> announcer to broadcast voltage readings to screen reader users during keyboard navigation.</p>
+            </div>
+          </div>
+        </section>
+</article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav" aria-label="Table of contents">
+            <ol>
+              <li><a href="#introduction-and-cad-imperative">1. Vector CAD Imperative</a></li>
+              <li><a href="#electronic-symbol-standardization">2. IEEE &amp; IEC Symbol Standards</a></li>
+              <li><a href="#terminal-ports-and-grid-snapping">3. Terminal Ports &amp; Grid Snapping</a></li>
+              <li><a href="#manhattan-orthogonal-autorouting">4. Manhattan Wire Autorouting</a></li>
+              <li><a href="#architecture-diagram">5. Figure 2 Architecture</a></li>
+              <li><a href="#interactive-circuit-studio">6. Interactive Circuit Studio</a></li>
+              <li><a href="#wire-junction-topology-jumpers">7. Solder Dots vs. Bridge Jumpers</a></li>
+              <li><a href="#circuit-simulation-and-animation">8. Current Simulation &amp; Flow</a></li>
+              <li><a href="#netlist-serialization-spice">9. SPICE Netlist &amp; BOM</a></li>
+              <li><a href="#high-dpi-export-and-print">10. High-DPI Print &amp; PDF</a></li>
+              <li><a href="#accessibility-and-screen-readers">11. WCAG AA Accessibility</a></li>
+              <li><a href="#comparative-matrix-and-faq">12. Matrix &amp; FAQs</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134K+ Icons</h4>
+          <p>Access high-performance, accessible SVG icons curated for enterprise dashboards, schematic CAD tools, and modern UI engineering.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash &bull; Built with precision vector engineering by <a href="/about/">Jouni Flemming</a> for developers worldwide.</p>
+  </footer>
+
+  <script>
+    // Theme Toggle Handler
+    (function initTheme() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const currentTheme = localStorage.getItem('iconstash-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const activeTheme = document.documentElement.getAttribute('data-theme');
+          const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', nextTheme);
+          localStorage.setItem('iconstash-theme', nextTheme);
+        });
+      }
+    })();
+
+    // Circuit Studio Interactive Engine
+    (function initCircuitStudio() {
+      let isPowerOn = true;
+      let activeTopology = '555';
+      let activeCrossing = 'bridge';
+      let activeCodeTab = 'svg';
+      let probedNode = 'TP1 (OUT)';
+      let probedVoltage = '5.0 V';
+
+      const drawingGroup = document.getElementById('circuitDrawingGroup');
+      const topologySelect = document.getElementById('circuitTopologySelect');
+      const crossingSelect = document.getElementById('wireCrossingSelect');
+      const topologyBadge = document.getElementById('topologyBadge');
+      const crossingBadge = document.getElementById('crossingBadge');
+      const switchStateText = document.getElementById('switchStateText');
+      const btnTogglePower = document.getElementById('btnTogglePower');
+      const btnPulseClock = document.getElementById('btnPulseClock');
+
+      const statVccVoltage = document.getElementById('statVccVoltage');
+      const statProbePoint = document.getElementById('statProbePoint');
+      const statCompCount = document.getElementById('statCompCount');
+      const statNetCount = document.getElementById('statNetCount');
+
+      const codeOutputArea = document.getElementById('circuitCodeOutput');
+      const copyBtn = document.getElementById('btnCopyCircuitCode');
+
+      function renderCircuit() {
+        drawingGroup.innerHTML = '';
+        statVccVoltage.textContent = isPowerOn ? '5.0 V' : '0.0 V';
+        switchStateText.textContent = isPowerOn ? 'ACTIVE (5.0V VCC)' : 'DISCONNECTED (0.0V)';
+        btnTogglePower.textContent = isPowerOn ? 'Toggle Switch SW1 (Turn OFF)' : 'Toggle Switch SW1 (Turn ON)';
+
+        if (activeTopology === '555') {
+          render555Circuit();
+        } else if (activeTopology === 'half_adder') {
+          renderHalfAdderCircuit();
+        } else if (activeTopology === 'bjt_switch') {
+          renderBjtSwitchCircuit();
+        } else if (activeTopology === 'rc_filter') {
+          renderRcFilterCircuit();
+        }
+
+        updateCodeOutput();
+      }
+
+      function render555Circuit() {
+        statCompCount.textContent = '8';
+        statNetCount.textContent = '11';
+
+        // 1. NE555 Timer IC Box
+        const icG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        icG.setAttribute('transform', 'translate(260, 120)');
+
+        const icRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        icRect.setAttribute('x', '0'); icRect.setAttribute('y', '0');
+        icRect.setAttribute('width', '120'); icRect.setAttribute('height', '160');
+        icRect.setAttribute('rx', '4');
+        icRect.setAttribute('fill', '#141A14'); icRect.setAttribute('stroke', '#C1DD2D'); icRect.setAttribute('stroke-width', '2');
+        icG.appendChild(icRect);
+
+        const icText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        icText.setAttribute('x', '60'); icText.setAttribute('y', '30');
+        icText.setAttribute('text-anchor', 'middle'); icText.setAttribute('fill', '#FFF');
+        icText.setAttribute('font-family', "'Inter', sans-serif"); icText.setAttribute('font-size', '14'); icText.setAttribute('font-weight', '800');
+        icText.textContent = 'NE555P';
+        icG.appendChild(icText);
+
+        // IC Pins Text
+        const pins = [
+          { num: '8', name: 'VCC', x: 20, y: 55 },
+          { num: '4', name: 'RST', x: 20, y: 85 },
+          { num: '7', name: 'DIS', x: 20, y: 115 },
+          { num: '2', name: 'TRG', x: 20, y: 145 },
+          { num: '3', name: 'OUT', x: 100, y: 55 },
+          { num: '6', name: 'THR', x: 100, y: 85 },
+          { num: '5', name: 'CTL', x: 100, y: 115 },
+          { num: '1', name: 'GND', x: 100, y: 145 }
+        ];
+
+        for (const p of pins) {
+          const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          t.setAttribute('x', p.x); t.setAttribute('y', p.y);
+          t.setAttribute('text-anchor', 'middle'); t.setAttribute('fill', '#AAA');
+          t.setAttribute('font-family', "'JetBrains Mono', monospace"); t.setAttribute('font-size', '10');
+          t.textContent = `${p.num}:${p.name}`;
+          icG.appendChild(t);
+        }
+        drawingGroup.appendChild(icG);
+
+        // 2. Power Rail & Switch SW1
+        drawWire(40, 60, 200, 60, isPowerOn);
+        drawSwitch(200, 60, isPowerOn);
+        drawWire(230, 60, 280, 60, isPowerOn);
+        drawWire(280, 60, 280, 120, isPowerOn); // To Pin 8 VCC
+
+        // 3. Resistors R1 & R2
+        drawResistor(140, 110, 'R1 (10k)');
+        drawWire(140, 60, 140, 110, isPowerOn);
+        drawJunctionDot(140, 60);
+
+        drawResistor(140, 190, 'R2 (47k)');
+        drawWire(140, 150, 140, 190, isPowerOn);
+
+        // Wire R1-R2 to Discharge Pin 7
+        drawWire(140, 170, 260, 170, isPowerOn);
+        drawJunctionDot(140, 170);
+
+        // 4. Timing Capacitor C1
+        drawCapacitor(140, 290, 'C1 (10uF)');
+        drawWire(140, 230, 140, 290, isPowerOn);
+
+        // Wire Trigger/Threshold Pins (Pin 2 and Pin 6)
+        if (activeCrossing === 'bridge') {
+          // Arc bridge jumper crossing over wire 140
+          drawBridgeWire(140, 260, 260, 260, isPowerOn);
+        } else {
+          drawWire(140, 260, 260, 260, isPowerOn);
+          drawJunctionDot(140, 260);
+        }
+
+        // 5. Output Load: Resistor R3 + Green LED
+        drawWire(380, 175, 450, 175, isPowerOn); // From Pin 3 OUT
+        drawResistor(450, 175, 'R3 (330R)', true);
+        drawLed(520, 175, isPowerOn);
+        drawWire(552, 175, 590, 175, isPowerOn);
+        drawGround(590, 175);
+
+        // 6. Ground Rail for Pin 1 and C1
+        drawWire(140, 320, 140, 360, false);
+        drawGround(140, 360);
+        drawWire(380, 265, 380, 360, false); // From Pin 1 GND
+        drawGround(380, 360);
+
+        // Test Point Indicator
+        drawTestPoint(415, 175, 'TP1 (OUT)');
+      }
+
+      function renderHalfAdderCircuit() {
+        statCompCount.textContent = '2';
+        statNetCount.textContent = '6';
+
+        // XOR Gate
+        drawLogicGate(260, 120, 'XOR', 'Sum Output');
+        // AND Gate
+        drawLogicGate(260, 250, 'AND', 'Carry Output');
+
+        // Inputs A and B
+        drawInputTerminal(60, 110, 'A (1)', isPowerOn);
+        drawInputTerminal(60, 160, 'B (1)', isPowerOn);
+
+        // Wire A to XOR top input
+        drawWire(100, 110, 260, 110, isPowerOn);
+        // Wire A branch down to AND top input
+        drawJunctionDot(140, 110);
+        drawWire(140, 110, 140, 240, isPowerOn);
+        drawWire(140, 240, 260, 240, isPowerOn);
+
+        // Wire B to XOR bottom input
+        if (activeCrossing === 'bridge') {
+          drawBridgeWireH(100, 160, 260, 160, 140, isPowerOn);
+        } else {
+          drawWire(100, 160, 260, 160, isPowerOn);
+          drawJunctionDot(140, 160);
+        }
+
+        // Wire B branch down to AND bottom input
+        drawJunctionDot(180, 160);
+        drawWire(180, 160, 180, 280, isPowerOn);
+        drawWire(180, 280, 260, 280, isPowerOn);
+
+        // Outputs
+        drawWire(360, 130, 480, 130, !isPowerOn); // Sum = 1 ^ 1 = 0 (Low when A=1,B=1)
+        drawTestPoint(480, 130, 'SUM (0)');
+
+        drawWire(360, 260, 480, 260, isPowerOn);  // Carry = 1 & 1 = 1 (High when A=1,B=1)
+        drawTestPoint(480, 260, 'CARRY (1)');
+      }
+
+      function renderBjtSwitchCircuit() {
+        statCompCount.textContent = '5';
+        statNetCount.textContent = '6';
+
+        // NPN Transistor at (300, 200)
+        drawBjtTransistor(300, 200, isPowerOn);
+
+        // Base Resistor Rb
+        drawResistor(140, 200, 'Rb (10k)', true);
+        drawWire(80, 200, 140, 200, isPowerOn);
+        drawInputTerminal(40, 200, 'IN (HIGH)', isPowerOn);
+        drawWire(200, 200, 290, 200, isPowerOn);
+
+        // Collector Pull-Up Resistor Rc
+        drawResistor(320, 90, 'Rc (1k)');
+        drawWire(320, 40, 320, 90, isPowerOn);
+        drawWire(320, 130, 320, 175, !isPowerOn); // Inverted output
+
+        // Power Rail VCC
+        drawWire(260, 40, 380, 40, isPowerOn);
+        drawTestPoint(320, 40, 'VCC (+5V)');
+
+        // Inverter Output Node
+        drawWire(320, 160, 460, 160, !isPowerOn);
+        drawTestPoint(460, 160, 'OUT (LOW 0.2V)');
+
+        // Emitter to GND
+        drawWire(320, 225, 320, 300, false);
+        drawGround(320, 300);
+      }
+
+      function renderRcFilterCircuit() {
+        statCompCount.textContent = '3';
+        statNetCount.textContent = '4';
+
+        drawInputTerminal(60, 180, 'AC IN (1kHz)', isPowerOn);
+        drawWire(100, 180, 180, 180, isPowerOn);
+
+        // Resistor R
+        drawResistor(180, 180, 'R (1k)', true);
+        drawWire(240, 180, 340, 180, isPowerOn);
+
+        // Filter Node TP1
+        drawJunctionDot(340, 180);
+        drawWire(340, 180, 480, 180, isPowerOn);
+        drawTestPoint(480, 180, 'V_OUT (-3dB)');
+
+        // Capacitor C to GND
+        drawCapacitor(340, 230, 'C (100nF)');
+        drawWire(340, 180, 340, 230, isPowerOn);
+        drawWire(340, 260, 340, 310, false);
+        drawGround(340, 310);
+      }
+
+      // Drawing Primitives
+      function drawWire(x1, y1, x2, y2, active = false) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+        line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+        line.setAttribute('stroke', active ? '#C1DD2D' : '#555');
+        line.setAttribute('stroke-width', '2');
+        if (active) line.setAttribute('class', 'current-active');
+        drawingGroup.appendChild(line);
+      }
+
+      function drawBridgeWire(x1, y1, x2, y2, active = false) {
+        // Horizontal wire with semi-circle hop over vertical line
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const d = `M ${x1} ${y1} L 180 ${y1} A 6 6 0 0 1 192 ${y1} L ${x2} ${y2}`;
+        path.setAttribute('d', d);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', active ? '#C1DD2D' : '#555');
+        path.setAttribute('stroke-width', '2');
+        if (active) path.setAttribute('class', 'current-active');
+        drawingGroup.appendChild(path);
+      }
+
+      function drawBridgeWireH(x1, y1, x2, y2, crossX, active = false) {
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        const d = `M ${x1} ${y1} L ${crossX - 6} ${y1} A 6 6 0 0 1 ${crossX + 6} ${y1} L ${x2} ${y2}`;
+        path.setAttribute('d', d);
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', active ? '#C1DD2D' : '#555');
+        path.setAttribute('stroke-width', '2');
+        if (active) path.setAttribute('class', 'current-active');
+        drawingGroup.appendChild(path);
+      }
+
+      function drawJunctionDot(cx, cy) {
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', cx); c.setAttribute('cy', cy);
+        c.setAttribute('r', '3.5');
+        c.setAttribute('fill', '#C1DD2D');
+        c.setAttribute('class', 'solder-junction');
+        drawingGroup.appendChild(c);
+      }
+
+      function drawResistor(x, y, label, horizontal = false) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        if (horizontal) {
+          g.setAttribute('transform', `translate(${x}, ${y})`);
+          g.innerHTML = `
+            <path d="M 0 0 L 10 0 L 15 -8 L 25 8 L 35 -8 L 45 8 L 50 0 L 60 0" fill="none" stroke="#FFF" stroke-width="2" stroke-linejoin="round"/>
+            <text x="30" y="-14" font-family="'JetBrains Mono', monospace" font-size="10" fill="#C1DD2D" text-anchor="middle">${label}</text>
+          `;
+        } else {
+          g.setAttribute('transform', `translate(${x}, ${y}) rotate(90)`);
+          g.innerHTML = `
+            <path d="M 0 0 L 10 0 L 15 -8 L 25 8 L 35 -8 L 45 8 L 50 0 L 60 0" fill="none" stroke="#FFF" stroke-width="2" stroke-linejoin="round"/>
+            <text x="30" y="20" font-family="'JetBrains Mono', monospace" font-size="10" fill="#C1DD2D" text-anchor="middle" transform="rotate(-90 30 20)">${label}</text>
+          `;
+        }
+        drawingGroup.appendChild(g);
+      }
+
+      function drawCapacitor(x, y, label) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        g.innerHTML = `
+          <line x1="-16" y1="0" x2="16" y2="0" stroke="#FFF" stroke-width="2.5"/>
+          <path d="M -16 10 A 24 24 0 0 1 16 10" fill="none" stroke="#FFF" stroke-width="2.5"/>
+          <text x="24" y="8" font-family="'JetBrains Mono', monospace" font-size="10" fill="#C1DD2D">${label}</text>
+        `;
+        drawingGroup.appendChild(g);
+      }
+
+      function drawLed(x, y, active) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        g.innerHTML = `
+          <polygon points="0,-12 16,0 0,12" fill="${active ? '#C1DD2D' : '#333'}" stroke="${active ? '#C1DD2D' : '#777'}" stroke-width="1.5"/>
+          <line x1="16" y1="-14" x2="16" y2="14" stroke="#FFF" stroke-width="2.5"/>
+          <path d="M 12 -12 L 20 -20 M 18 -20 L 20 -20 L 20 -18" stroke="#C1DD2D" stroke-width="1.5" fill="none"/>
+        `;
+        drawingGroup.appendChild(g);
+      }
+
+      function drawSwitch(x, y, closed) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        g.setAttribute('style', 'cursor: pointer;');
+        g.innerHTML = `
+          <circle cx="0" cy="0" r="3" fill="#FFF"/>
+          <circle cx="30" cy="0" r="3" fill="#FFF"/>
+          <line x1="0" y1="0" x2="${closed ? '30' : '22'}" y2="${closed ? '0' : '-16'}" stroke="#C1DD2D" stroke-width="2.5"/>
+          <text x="15" y="-20" font-family="'Inter', sans-serif" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">SW1</text>
+        `;
+        g.addEventListener('click', () => {
+          isPowerOn = !isPowerOn;
+          renderCircuit();
+        });
+        drawingGroup.appendChild(g);
+      }
+
+      function drawGround(x, y) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        g.innerHTML = `
+          <line x1="-12" y1="0" x2="12" y2="0" stroke="#FFF" stroke-width="2"/>
+          <line x1="-7" y1="4" x2="7" y2="4" stroke="#FFF" stroke-width="2"/>
+          <line x1="-2" y1="8" x2="2" y2="8" stroke="#FFF" stroke-width="2"/>
+        `;
+        drawingGroup.appendChild(g);
+      }
+
+      function drawTestPoint(x, y, label) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        g.setAttribute('style', 'cursor: pointer;');
+        g.innerHTML = `
+          <circle cx="0" cy="0" r="5" fill="#141E06" stroke="#C1DD2D" stroke-width="2"/>
+          <text x="8" y="4" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#FFF">${label}</text>
+        `;
+        g.addEventListener('click', () => {
+          probedNode = label;
+          statProbePoint.textContent = label;
+          statVccVoltage.textContent = label.includes('GND') || label.includes('0') ? '0.0 V' : (isPowerOn ? '5.0 V' : '0.0 V');
+        });
+        drawingGroup.appendChild(g);
+      }
+
+      function drawLogicGate(x, y, type, label) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        if (type === 'AND') {
+          g.innerHTML = `
+            <path d="M 0 0 L 40 0 A 20 20 0 0 1 40 40 L 0 40 Z" fill="#141A14" stroke="#C1DD2D" stroke-width="2"/>
+            <text x="25" y="24" font-family="'Inter', sans-serif" font-size="11" font-weight="800" fill="#FFF" text-anchor="middle">AND</text>
+            <text x="60" y="24" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">${label}</text>
+          `;
+        } else if (type === 'XOR') {
+          g.innerHTML = `
+            <path d="M -6 0 A 30 30 0 0 1 -6 40" fill="none" stroke="#C1DD2D" stroke-width="2"/>
+            <path d="M 0 0 A 30 30 0 0 1 0 40 Q 30 38 46 20 Q 30 2 0 0 Z" fill="#141A14" stroke="#C1DD2D" stroke-width="2"/>
+            <text x="20" y="24" font-family="'Inter', sans-serif" font-size="11" font-weight="800" fill="#FFF" text-anchor="middle">XOR</text>
+            <text x="60" y="24" font-family="'JetBrains Mono', monospace" font-size="9" fill="#AAA">${label}</text>
+          `;
+        }
+        drawingGroup.appendChild(g);
+      }
+
+      function drawInputTerminal(x, y, label, active) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        g.innerHTML = `
+          <rect x="-10" y="-12" width="48" height="24" rx="4" fill="${active ? '#1F2806' : '#141414'}" stroke="${active ? '#C1DD2D' : '#444'}" stroke-width="1.5"/>
+          <text x="14" y="4" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" fill="#FFF" text-anchor="middle">${label}</text>
+        `;
+        drawingGroup.appendChild(g);
+      }
+
+      function drawBjtTransistor(x, y, active) {
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${x}, ${y})`);
+        g.innerHTML = `
+          <circle cx="20" cy="0" r="22" fill="#141A14" stroke="#444" stroke-width="1.5"/>
+          <line x1="0" y1="0" x2="10" y2="0" stroke="#FFF" stroke-width="2"/>
+          <line x1="10" y1="-12" x2="10" y2="12" stroke="#FFF" stroke-width="3"/>
+          <line x1="10" y1="-6" x2="26" y2="-18" stroke="#FFF" stroke-width="2"/>
+          <line x1="10" y1="6" x2="26" y2="18" stroke="#FFF" stroke-width="2"/>
+          <polygon points="22,17 26,18 25,14" fill="#C1DD2D"/>
+          <text x="32" y="2" font-family="'Inter', sans-serif" font-size="10" font-weight="800" fill="#C1DD2D">Q1 (NPN)</text>
+        `;
+        drawingGroup.appendChild(g);
+      }
+
+      function updateCodeOutput() {
+        if (activeCodeTab === 'svg') {
+          const clone = drawingGroup.cloneNode(true);
+          codeOutputArea.textContent = `<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">\n  <!-- Interactive Electrical Schematic CAD -->\n  ${clone.outerHTML}\n</svg>`;
+        } else if (activeCodeTab === 'json') {
+          codeOutputArea.textContent = JSON.stringify({
+            circuitTopology: activeTopology,
+            powerStateVcc: isPowerOn ? 5.0 : 0.0,
+            crossingStyle: activeCrossing,
+            components: [
+              { ref: "U1", type: "NE555P", footprint: "DIP-8" },
+              { ref: "R1", type: "RESISTOR", val: "10k" },
+              { ref: "R2", type: "RESISTOR", val: "47k" },
+              { ref: "C1", type: "CAPACITOR", val: "10uF" }
+            ],
+            nets: [
+              { name: "VCC", voltage: isPowerOn ? 5.0 : 0.0 },
+              { name: "GND", voltage: 0.0 },
+              { name: "OUT", signal: "1.2 kHz Square Wave" }
+            ]
+          }, null, 2);
+        } else if (activeCodeTab === 'symbols') {
+          codeOutputArea.textContent = `<!-- Standardized IEEE 315 & IEC 60617 SVG Symbol Library -->
+<defs>
+  <!-- IEEE Zigzag Resistor -->
+  <g id="ieee-resistor">
+    <path d="M 0 0 L 10 0 L 15 -8 L 25 8 L 35 -8 L 45 8 L 50 0 L 60 0" fill="none" stroke="currentColor" stroke-width="2"/>
+  </g>
+  <!-- IEC Box Resistor -->
+  <g id="iec-resistor">
+    <line x1="0" y1="0" x2="15" y2="0" stroke="currentColor" stroke-width="2"/>
+    <rect x="15" y="-6" width="30" height="12" fill="none" stroke="currentColor" stroke-width="2"/>
+    <line x1="45" y1="0" x2="60" y2="0" stroke="currentColor" stroke-width="2"/>
+  </g>
+</defs>`;
+        }
+      }
+
+      // Event Listeners
+      topologySelect.addEventListener('change', () => {
+        activeTopology = topologySelect.value;
+        topologyBadge.textContent = topologySelect.options[topologySelect.selectedIndex].text;
+        renderCircuit();
+      });
+
+      crossingSelect.addEventListener('change', () => {
+        activeCrossing = crossingSelect.value;
+        crossingBadge.textContent = crossingSelect.options[crossingSelect.selectedIndex].text;
+        renderCircuit();
+      });
+
+      btnTogglePower.addEventListener('click', () => {
+        isPowerOn = !isPowerOn;
+        renderCircuit();
+      });
+
+      btnPulseClock.addEventListener('click', () => {
+        const prev = statVccVoltage.textContent;
+        statVccVoltage.textContent = 'PULSE!';
+        setTimeout(() => { statVccVoltage.textContent = prev; }, 400);
+      });
+
+      const tabBtns = document.querySelectorAll('.code-tab-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeCodeTab = btn.getAttribute('data-tab');
+          updateCodeOutput();
+        });
+      });
+
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(codeOutputArea.textContent).then(() => {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = 'Copy Code'; }, 1800);
+        });
+      });
+
+      // Initial Render
+      renderCircuit();
+    })();
+  </script>
+</body>
+</html>

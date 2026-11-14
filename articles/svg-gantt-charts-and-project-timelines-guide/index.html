@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Gantt Charts &amp; Interactive Timelines: Critical Path, Virtualization &amp; Drag Physics Guide</title>
+  <meta name="description" content="Build production SVG Gantt charts with timeline virtualization, orthogonal dependency routing, critical path method (CPM), and draggable task physics.">>
+  <link rel="canonical" href="https://iconstash.io/articles/svg-gantt-charts-and-project-timelines-guide/">
+  <meta name="author" content="Jouni Flemming">
+  <meta name="publisher" content="Great Software Company">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="SVG Gantt Charts &amp; Interactive Timelines: Critical Path, Virtualization &amp; Drag Physics Guide">
+  <meta property="og:description" content="Build production SVG Gantt charts with timeline virtualization, orthogonal dependency routing, critical path method (CPM), and draggable task physics.">>
+  <meta property="og:url" content="https://iconstash.io/articles/svg-gantt-charts-and-project-timelines-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-gantt-charts-and-project-timelines-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Gantt Charts &amp; Interactive Timelines: Critical Path, Virtualization &amp; Drag Physics Guide">
+  <meta name="twitter:description" content="Build production SVG Gantt charts with timeline virtualization, orthogonal dependency routing, critical path method (CPM), and draggable task physics.">>
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-gantt-charts-and-project-timelines-guide.jpg">
+
+  <!-- Structured Data: TechArticle -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "SVG Gantt Charts & Interactive Timelines: Critical Path, Virtualization & Drag Physics Guide",
+    "description": "Comprehensive engineering guide to building enterprise-grade, high-performance SVG Gantt charts and project management timelines with critical path analysis, dependency autorouting, DOM virtualization, and interactive task physics.",
+    "url": "https://iconstash.io/articles/svg-gantt-charts-and-project-timelines-guide/",
+    "image": "https://iconstash.io/assets/articles/svg-gantt-charts-and-project-timelines-guide.jpg",
+    "datePublished": "2026-11-14",
+    "dateModified": "2026-11-14",
+    "author": {
+      "@type": "Person",
+      "name": "Jouni Flemming",
+      "url": "https://iconstash.io/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Great Software Company",
+      "url": "https://greatsoftwarecompany.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://iconstash.io/assets/icons/icon-512x512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://iconstash.io/articles/svg-gantt-charts-and-project-timelines-guide/"
+    },
+    "keywords": [
+      "svg gantt chart",
+      "svg timeline visualization",
+      "critical path method javascript",
+      "orthogonal dependency routing",
+      "gantt chart virtualization",
+      "drag and drop gantt physics",
+      "project management svg",
+      "dag schedule solver"
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://iconstash.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Articles",
+        "item": "https://iconstash.io/articles/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "SVG Gantt Charts & Interactive Timelines Guide",
+        "item": "https://iconstash.io/articles/svg-gantt-charts-and-project-timelines-guide/"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why is SVG preferred over HTML5 Canvas for interactive enterprise Gantt charts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Scalable Vector Graphics (SVG) retains individual task bars, milestone diamonds, and dependency connectors as discrete, accessible DOM elements. This enables effortless CSS styling, hover tooltips, native pointer events, keyboard accessibility (WCAG AA), and crisp vector export to PDF and high-DPI displays without pixelation on deep zoom levels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Critical Path Method (CPM) identify bottleneck tasks in an SVG Gantt chart?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Critical Path Method performs a forward pass to compute Early Start (ES) and Early Finish (EF) dates across a Directed Acyclic Graph (DAG), followed by a backward pass to determine Late Start (LS) and Late Finish (LF) dates. Tasks where Total Float (Slack = LS - ES) equals zero constitute the Critical Path; any delay in these tasks directly extends the overall project completion date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you route orthogonal dependency arrows between Gantt task bars in SVG?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Orthogonal dependency connectors use SVG path elements with cubic or Manhattan right-angle routing. A Finish-to-Start link emerges horizontally from the predecessor task's right edge, travels an initial clearance distance (typically 12-16px), drops or rises vertically to the successor task's row, and enters the successor's left edge capped with an SVG marker arrowhead."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can an SVG Gantt chart render 50,000+ tasks without dropping below 60 FPS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "High-volume Gantt charts employ 2D DOM virtualization (windowing). The engine calculates the visible row and temporal viewport boundaries, rendering only the ~40 to 60 task bars currently within view and recycling SVG DOM elements during vertical and horizontal scrolling while tracking offscreen nodes in a lightweight spatial index."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do interactive drag and resize physics handle calendar weekend skipping?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Interactive dragging maps pixel deltas to non-linear calendar working hours. When a task bar is dragged across a non-working weekend (Saturday/Sunday) or holiday, the duration engine automatically skips non-working days, recalculating the spatial width to reflect working business days while maintaining the true calendar finish date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you ensure SVG Gantt charts are accessible to screen readers under WCAG 2.2 AA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Accessible SVG Gantt charts structure the timeline using role='treegrid' or role='table' with role='row' and role='gridcell' children. Each task element carries descriptive aria-label attributes detailing task name, start date, duration, percent complete, and predecessor dependencies, with an aria-live announcer broadcasting updates during drag-and-drop operations."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    /* Article-specific styles */
+    .article-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 3rem;
+    }
+    @media (max-width: 992px) {
+      .article-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+    .article-sidebar {
+      position: sticky;
+      top: 5rem;
+      align-self: start;
+      max-height: calc(100vh - 6rem);
+      overflow-y: auto;
+      background: #11141A;
+      border: 1px solid #1E232D;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    @media (max-width: 992px) {
+      .article-sidebar {
+        position: static;
+        max-height: none;
+      }
+    }
+    .article-sidebar h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94A3B8;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #1E232D;
+    }
+    .article-toc {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .article-toc li {
+      margin-bottom: 0.6rem;
+    }
+    .article-toc a {
+      color: #CBD5E1;
+      text-decoration: none;
+      transition: color 0.2s, padding-left 0.2s;
+      display: block;
+      line-height: 1.4;
+    }
+    .article-toc a:hover {
+      color: #C1DD2D;
+      padding-left: 0.25rem;
+    }
+    .article-main {
+      min-width: 0;
+    }
+    .article-header {
+      margin-bottom: 2.5rem;
+    }
+    .article-tag {
+      display: inline-block;
+      background: rgba(193, 221, 45, 0.1);
+      color: #C1DD2D;
+      border: 1px solid rgba(193, 221, 45, 0.25);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .article-title {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+      color: #94A3B8;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .article-meta a {
+      color: #C1DD2D;
+      text-decoration: none;
+    }
+    .article-lead {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      color: #E2E8F0;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+    .article-hero {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #1E232D;
+      margin-bottom: 2.5rem;
+      background: #0B0E14;
+    }
+    .article-hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+    .article-hero-caption {
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #94A3B8;
+      background: #11141A;
+      border-top: 1px solid #1E232D;
+      text-align: center;
+    }
+    .article-body h2 {
+      font-size: 1.75rem;
+      color: #FFFFFF;
+      margin: 2.5rem 0 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #1E232D;
+      letter-spacing: -0.01em;
+    }
+    .article-body h3 {
+      font-size: 1.3rem;
+      color: #F1F5F9;
+      margin: 1.75rem 0 0.75rem;
+    }
+    .article-body p {
+      color: #CBD5E1;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+    .article-body ul, .article-body ol {
+      color: #CBD5E1;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    .article-body li {
+      margin-bottom: 0.5rem;
+    }
+    .article-body strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+    .article-body code {
+      background: #1A1F2B;
+      color: #C1DD2D;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+      font-family: "JetBrains Mono", Consolas, Menlo, Monaco, monospace;
+    }
+    .article-body pre {
+      background: #0B0E14;
+      border: 1px solid #1E232D;
+      border-radius: 8px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    .article-body pre code {
+      background: transparent;
+      color: #E2E8F0;
+      padding: 0;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .code-block-header {
+      background: #151A24;
+      border: 1px solid #1E232D;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #94A3B8;
+      margin-top: 1.5rem;
+    }
+    .code-block-header + pre {
+      margin-top: 0;
+      border-radius: 0 0 8px 8px;
+    }
+    .code-lang {
+      font-weight: 600;
+      color: #C1DD2D;
+      text-transform: uppercase;
+    }
+    .formula-card {
+      background: #11141A;
+      border: 1px solid #1E232D;
+      border-left: 4px solid #C1DD2D;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .formula-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.5rem;
+    }
+    .formula-body {
+      font-family: "JetBrains Mono", monospace;
+      color: #C1DD2D;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .formula-desc {
+      font-size: 0.88rem;
+      color: #94A3B8;
+      line-height: 1.5;
+    }
+    .article-figure {
+      margin: 2rem 0;
+      background: #0B0E14;
+      border: 1px solid #1E232D;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .article-figure svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .article-figure figcaption {
+      padding: 0.75rem 1.25rem;
+      background: #11141A;
+      border-top: 1px solid #1E232D;
+      font-size: 0.85rem;
+      color: #94A3B8;
+      text-align: center;
+    }
+    .table-container {
+      overflow-x: auto;
+      margin: 1.75rem 0;
+      border: 1px solid #1E232D;
+      border-radius: 8px;
+      background: #0B0E14;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #1E232D;
+    }
+    th {
+      background: #11141A;
+      color: #F1F5F9;
+      font-weight: 600;
+    }
+    td {
+      color: #CBD5E1;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .takeaway-box {
+      background: linear-gradient(135deg, rgba(193, 221, 45, 0.08) 0%, rgba(17, 20, 26, 0.9) 100%);
+      border: 1px solid rgba(193, 221, 45, 0.3);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 2.5rem 0;
+    }
+    .takeaway-box h3 {
+      color: #C1DD2D;
+      margin-top: 0;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .takeaway-box ul {
+      margin-bottom: 0;
+    }
+    .faq-section {
+      margin: 3rem 0;
+    }
+    .faq-item {
+      background: #11141A;
+      border: 1px solid #1E232D;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .faq-item h3 {
+      font-size: 1.1rem;
+      color: #FFFFFF;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+    .faq-item p {
+      margin-bottom: 0;
+      color: #CBD5E1;
+      font-size: 0.95rem;
+    }
+
+    /* Gantt Studio Styles */
+    .studio-card {
+      background: #0B0E14;
+      border: 1px solid #1E232D;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 2rem 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+    .studio-header {
+      background: #11141A;
+      border-bottom: 1px solid #1E232D;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .studio-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .studio-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .studio-btn {
+      background: #1A1F2B;
+      border: 1px solid #2B3344;
+      color: #E2E8F0;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .studio-btn:hover {
+      background: #252D3D;
+      border-color: #3B465E;
+      color: #FFFFFF;
+    }
+    .studio-btn.active {
+      background: #C1DD2D;
+      border-color: #C1DD2D;
+      color: #0A0D12;
+    }
+    .studio-select {
+      background: #1A1F2B;
+      border: 1px solid #2B3344;
+      color: #E2E8F0;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .gantt-viewport-container {
+      position: relative;
+      background: #080A0E;
+      min-height: 440px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      border-bottom: 1px solid #1E232D;
+    }
+    .gantt-svg-canvas {
+      display: block;
+      user-select: none;
+      min-width: 800px;
+    }
+    .gantt-task-bar {
+      cursor: grab;
+      transition: filter 0.15s ease;
+    }
+    .gantt-task-bar:hover {
+      filter: brightness(1.15);
+    }
+    .gantt-task-bar.dragging {
+      cursor: grabbing;
+      filter: brightness(1.25) drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+    }
+    .gantt-dep-line {
+      fill: none;
+      stroke: #4A5568;
+      stroke-width: 1.5;
+      transition: stroke 0.2s ease, stroke-width 0.2s ease;
+    }
+    .gantt-dep-line.critical {
+      stroke: #FF4757;
+      stroke-width: 2.2;
+    }
+    .gantt-task-bar.critical {
+      stroke: #FF4757;
+      stroke-width: 1.5;
+    }
+    .gantt-milestone {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .gantt-milestone:hover {
+      transform: scale(1.15);
+      transform-origin: center;
+    }
+    .studio-footer {
+      background: #11141A;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: #94A3B8;
+    }
+    .studio-kpi {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .kpi-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .kpi-item span {
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+    .kpi-item.crit span {
+      color: #FF4757;
+    }
+  </style>
+</head>
+<body>
+  <div class="article-container">
+    <!-- Sidebar Navigation -->
+    <aside class="article-sidebar">
+      <h3>Article Contents</h3>
+      <ul class="article-toc">
+        <li><a href="#introduction-and-temporal-vector">1. Introduction: The Vector Imperative in Project Management</a></li>
+        <li><a href="#temporal-coordinate-projection-math">2. Temporal Coordinate Math: The Linear Projection Engine</a></li>
+        <li><a href="#task-bar-geometry-and-visual-topology">3. Task Bar Geometry &amp; Visual Topology</a></li>
+        <li><a href="#orthogonal-dependency-routing">4. Orthogonal Dependency Routing: Connecting the DAG</a></li>
+        <li><a href="#architecture-diagram">5. Architectural Figure 2: The Gantt Chart Vector Pipeline</a></li>
+        <li><a href="#interactive-gantt-studio">6. Interactive Developer Studio: Live Enterprise Gantt Workbench</a></li>
+        <li><a href="#critical-path-method-topological-sort">7. The Critical Path Method (CPM): Topological Sort &amp; Slack Math</a></li>
+        <li><a href="#dom-virtualization-high-volume-timelines">8. DOM Virtualization: Scaling to 50,000+ Tasks at 60 FPS</a></li>
+        <li><a href="#drag-resize-physics-and-momentum">9. Interactive Drag &amp; Resize Physics: Snapping &amp; Momentum</a></li>
+        <li><a href="#wbs-schema-and-evm-metrics">10. Data Contracts: WBS Schema, MS Project &amp; EVM Interoperability</a></li>
+        <li><a href="#accessibility-and-screen-readers">11. Accessibility &amp; Screen Readers: WCAG 2.2 AA Compliance</a></li>
+        <li><a href="#comparative-matrix-and-faq">12. Architectural Comparison Matrix &amp; Frequently Asked Questions</a></li>
+        <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+      <article class="article-main">
+        <header class="article-header">
+          <span class="article-tag">Data Visualization &bull; SVG Architecture</span>
+          <h1 class="article-title">SVG Gantt Charts &amp; Project Timelines: The Comprehensive Engineering Guide to Temporal Visualization, Dependency Routing &amp; High-Performance Vector Rendering</h1>
+          <div class="article-meta">
+            <span>By <a href="https://iconstash.io/about/">Jouni Flemming</a></span>
+            <span>&bull;</span>
+            <time datetime="2026-11-14">November 14, 2026</time>
+            <span>&bull;</span>
+            <span>Reading Time: 28 min</span>
+          </div>
+          <p class="article-lead">
+            Building enterprise-grade project management Gantt charts requires orchestrating complex mathematical systems: linear temporal-to-spatial projection, topological sorting over Directed Acyclic Graphs (DAGs), orthogonal wire autorouting between dependent task bars, Critical Path Method (CPM) slack calculation, and 60 FPS DOM virtualization. This definitive technical guide delivers the complete vector architecture for developing responsive, accessible, interactive SVG Gantt charts that scale gracefully from simple sprint boards to 50,000-task mission-critical engineering programs.
+          </p>
+
+          <figure class="article-hero">
+            <img src="../../assets/articles/svg-gantt-charts-and-project-timelines-guide.jpg" alt="Figure 1: Architectural hero diagram of an enterprise SVG Gantt chart and interactive timeline showing task dependencies, critical path highlights, and timescale grids" width="1200" height="675" loading="eager">
+            <figcaption class="article-hero-caption">Figure 1: Complete enterprise SVG Gantt chart architecture featuring hierarchical swimlanes, orthogonal dependency arcs, milestone diamonds, and real-time Critical Path Method highlights.</figcaption>
+          </figure>
+        </header>
+
+        <div class="article-body">
+          <section id="introduction-and-temporal-vector">
+            <h2>1. Introduction: The Vector Imperative in Project Management</h2>
+            <p>In modern industrial engineering, software development, construction management, and aerospace systems delivery, the Gantt chart remains the single most critical instrument for coordinating work, tracking dependencies, and preventing project delivery slippage. Originating from the hand-drawn operational diagrams created by Karol Adamiecki in 1896 and standardized by Henry Gantt in the 1910s, modern interactive digital timelines must navigate immense technical complexity. Today's enterprise engineering projects encompass thousands of interrelated activities, constrained by resource allocations, lead times, critical path bottlenecks, and shifting calendar milestones.</p>
+
+            <p>Historically, web developers attempted to build interactive Gantt charts using standard HTML table grids, nested <code>&lt;div&gt;</code> elements with absolute CSS positioning, or immediate-mode HTML5 2D Canvas rendering engines. Each of these traditional approaches introduces debilitating architectural compromises:</p>
+
+            <ul>
+              <li><strong>HTML/CSS <code>&lt;div&gt;</code> Layout Breakdowns:</strong> Attempting to draw diagonal or orthogonal dependency connectors between absolutely positioned HTML elements requires clumsy canvas overlays or awkward rotated border hacks. Furthermore, deep browser layout recalculations (reflows) triggered when dragging or resizing task bars introduce severe UI jank, dropping frame rates well below 30 FPS on schedules with more than a few hundred rows.</li>
+              <li><strong>HTML5 Canvas Resolution Pixelation:</strong> While 2D Canvas delivers rapid pixel blitting, it is an immediate-mode bitmap surface. When an executive or lead engineer zooms into an HTML5 Canvas Gantt chart on a 4K display or high-DPI laptop, task labels and connector lines become hopelessly blurry. Even worse, individual task bars lose their programmatic identity; inspecting task metadata, wiring up hover tooltips, and supporting accessible screen readers requires rebuilding an entirely custom hit-testing engine and shadow DOM hierarchy from scratch.</li>
+              <li><strong>Print &amp; Vector PDF Incompatibility:</strong> Enterprise project managers routinely require formal vector PDF exports for stakeholder steering committees and client contracts. HTML5 canvas charts export as blurry 72 DPI bitmaps, while pure vector SVG preserves microscopic sub-millimeter line fidelity at 1200+ DPI across standard architectural blueprint plotters.</li>
+            </ul>
+
+            <p><strong>Scalable Vector Graphics (SVG)</strong> is the optimal architectural foundation for enterprise timeline visualization. Because SVG is a retained-mode XML-based vector scene graph, every task bar, summary bracket, milestone diamond, and dependency connector remains an independent, fully accessible DOM element. SVG elements can be styled with declarative CSS, animated using hardware-accelerated GPU transitions, augmented with native pointer events, inspected via automated testing frameworks (Playwright, Cypress), and serialized into lossless vector PDF or standalone SVG graphics at any instant.</p>
+          </section>
+
+          <section id="temporal-coordinate-projection-math">
+            <h2>2. Temporal Coordinate Math: The Linear Projection Engine</h2>
+            <p>At the mathematical core of every Gantt chart is a continuous <strong>Temporal-to-Spatial Linear Mapping Engine</strong>. This engine translates chronological timestamps (Unix epoch milliseconds or ISO 8601 UTC dates) into discrete, subpixel-aligned Cartesian horizontal pixel coordinates ($X$) along the horizontal timescale axis.</p>
+
+            <h3>2.1 The Continuous Projection Operator</h3>
+            <p>Given a global project window bounded by start time $T_{\text{start}}$ and end time $T_{\text{end}}$, and a designated total canvas width $W_{\text{canvas}}$, the horizontal position $x(t)$ of any arbitrary timestamp $t$ is formulated through the fundamental linear affine transformation:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">Temporal-to-Spatial Affine Projection Equation</div>
+              <div class="formula-body">x(t) = ((t - T<sub>start</sub>) / (T<sub>end</sub> - T<sub>start</sub>)) &times; W<sub>canvas</sub> &nbsp;&nbsp;|&nbsp;&nbsp; &Delta;x = &Delta;t &times; S<sub>scale</sub></div>
+              <div class="formula-desc">Where S<sub>scale</sub> = W<sub>canvas</sub> / (T<sub>end</sub> - T<sub>start</sub>) represents the spatial resolution factor in pixels per millisecond (or pixels per day). All task bar start coordinates and horizontal widths are strictly derived from this continuous operator.</div>
+            </div>
+
+            <p>Conversely, when an engineer drags a task bar or resizes its duration handle across the canvas, the interaction engine must execute the exact <strong>Spatial-to-Temporal Inverse Projection</strong> to resolve the updated calendar date:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">Spatial-to-Temporal Inverse Projection Equation</div>
+              <div class="formula-body">t(x) = T<sub>start</sub> + (x / W<sub>canvas</sub>) &times; (T<sub>end</sub> - T<sub>start</sub>)</div>
+              <div class="formula-desc">This inverse mapping maps mouse pixel deltas directly into chronological millisecond offsets, which are subsequently quantized to the nearest working shift, calendar day, or sprint boundary.</div>
+            </div>
+
+            <h3>2.2 Multi-Scale Temporal Zoom Granularity: Days, Weeks &amp; Months</h3>
+            <p>Enterprise project schedules require dynamic zoom capabilities. An engineering team needs to drill down into hourly work shifts during a release sprint, while the VP of Engineering requires a high-level multi-year view across quarterly roadmap milestones. Our SVG engine maintains three primary timescale zoom tiers:</p>
+
+            <ul>
+              <li><strong>Day Scale:</strong> $S_{\text{scale}} \approx 40\text{px}$ to $80\text{px}$ per 24-hour day. Renders individual vertical column lines for each calendar day, alternate weekend shading bands, and daily header cells (e.g. <em>"Mon 14", "Tue 15"</em>).</li>
+              <li><strong>Week Scale:</strong> $S_{\text{scale}} \approx 10\text{px}$ to $20\text{px}$ per day ($70\text{px}$ to $140\text{px}$ per 7-day week). Renders week-number column headers (e.g. <em>"W46", "W47"</em>) with subtle day ticks.</li>
+              <li><strong>Month/Quarter Scale:</strong> $S_{\text{scale}} \approx 2\text{px}$ to $5\text{px}$ per day ($60\text{px}$ to $150\text{px}$ per 30-day month). Renders monthly brackets (e.g. <em>"Nov 2026", "Dec 2026"</em>) and quarterly milestone dividers.</li>
+            </ul>
+
+            <div class="code-block-header">
+              <span class="code-lang">TypeScript / ES6 Temporal Scale Calculator</span>
+            </div>
+            <pre><code>class GanttTimeScale {
+  constructor(public startDate: Date, public endDate: Date, public pixelsPerDay: number = 32) {
+    this.startMs = startDate.getTime();
+    this.endMs = endDate.getTime();
+    this.totalDays = Math.ceil((this.endMs - this.startMs) / (1000 * 60 * 60 * 24));
+    this.totalWidth = this.totalDays * this.pixelsPerDay;
+  }
+
+  // Project Date -> Pixel X Coordinate
+  dateToPixel(date: Date): number {
+    const elapsedDays = (date.getTime() - this.startMs) / (1000 * 60 * 60 * 24);
+    return Math.round(elapsedDays * this.pixelsPerDay * 10) / 10;
+  }
+
+  // Inverse: Pixel X Coordinate -> Snapped Date
+  pixelToDate(x: number, snapToDay: boolean = true): Date {
+    const days = x / this.pixelsPerDay;
+    const targetMs = this.startMs + (snapToDay ? Math.round(days) : days) * (1000 * 60 * 60 * 24);
+    return new Date(targetMs);
+  }
+
+  // Calculate task bar width in pixels
+  durationToWidth(durationDays: number): number {
+    return Math.max(4, Math.round(durationDays * this.pixelsPerDay * 10) / 10);
+  }
+}</code></pre>
+
+            <h3>2.3 Calendar Masking: Non-Working Weekends &amp; Holiday Compression</h3>
+            <p>In real-world project delivery, tasks do not progress linearly across non-working weekends and public holidays. A 5-day software testing task starting on a Thursday does not complete on Monday; it completes on the following Wednesday because Saturday and Sunday represent zero-velocity calendar intervals.</p>
+            <p>Our vector rendering architecture handles this through a dual-mode <strong>Calendar Masking Matrix</strong>:</p>
+            <ol>
+              <li><strong>Visual Shading Mode (Continuous Time):</strong> The timescale retains a uniform horizontal pixel grid where every 24 hours consumes identical pixel width. The engine renders semi-transparent vertical SVG rectangle bands over non-working days: <code>&lt;rect class="weekend-band" x="x" y="0" width="w" height="100%" fill="rgba(255,255,255,0.02)" /&gt;</code>. Task bars stretch across the weekend, but their completion percentage and remaining working duration calculations account for the weekend gap.</li>
+              <li><strong>Calendar Compression Mode (Discrete Business Days):</strong> In dense manufacturing schedules, non-working days are omitted entirely from the spatial coordinate system. The horizontal axis maps strictly to working days ($D_1, D_2, D_3, \dots$). This eliminates visual gaps, allowing continuous task sequences to touch edge-to-edge without artificial weekend discontinuities.</li>
+            </ol>
+          </section>
+
+          <section id="task-bar-geometry-and-visual-topology">
+            <h2>3. Task Bar Geometry &amp; Visual Topology</h2>
+            <p>An enterprise Gantt chart depicts several distinct classes of chronological entities. Each entity class exhibits a specific vector geometry, interaction contract, and visual state representation within the SVG scene graph.</p>
+
+            <h3>3.1 Standard Activity Task Bars</h3>
+            <p>A standard leaf-level task represents a discrete unit of work with a defined start date, duration, and completion percentage. In SVG, a task bar is encapsulated within a parent <code>&lt;g class="gantt-task"&gt;</code> element positioned vertically inside a designated swimlane row ($y = \text{rowIndex} \times H_{\text{row}} + \text{offset}$):</p>
+
+            <ul>
+              <li><strong>Background Track Rect:</strong> Represents the total scheduled duration: <code>&lt;rect class="task-bg" x="x" y="y" width="w" height="h" rx="4" /&gt;</code>. Rendered with a solid or semi-transparent theme fill (e.g. <code>#2C3E50</code>).</li>
+              <li><strong>Progress Fill Overlay:</strong> Represents the portion of work completed ($0\%$ to $100\%$). Rendered as an interior rectangle: <code>&lt;rect class="task-progress" x="x" y="y" width="w * (percent / 100)" height="h" rx="4" fill="#C1DD2D" /&gt;</code>. To prevent the progress bar's square right corners from overflowing the outer rounded rectangle, the engine applies an SVG <code>&lt;clipPath&gt;</code> matching the outer task boundary.</li>
+              <li><strong>Left &amp; Right Resize Grippers:</strong> Hidden by default or rendered as subtle 6px drag handles at the leading and trailing edges: <code>&lt;rect class="resize-handle handle-left" ... /&gt;</code> and <code>&lt;rect class="resize-handle handle-right" ... /&gt;</code>. Hovering over these handles shifts the cursor to <code>ew-resize</code>, enabling instant duration adjustments.</li>
+              <li><strong>Task Label Text:</strong> Rendered inside or adjacent to the bar: <code>&lt;text x="x + 8" y="y + h/2 + 4" class="task-title"&gt;API Implementation&lt;/text&gt;</code>. If the task bar width is narrower than the text string, an automated boundary check shifts the text anchor outside the right edge: <code>x = x + w + 8</code>.</li>
+            </ul>
+
+            <h3>3.2 Milestone Diamonds (Zero-Duration Gates)</h3>
+            <p>A milestone signifies a major contractual deliverable, sprint closure, or regulatory phase gate. Milestones have zero working duration ($D = 0$). Instead of an elongated rectangle, a milestone is represented as an equilateral <strong>Rhombus Diamond</strong> centered precisely on the target timestamp:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">Milestone Diamond Polygon Geometry</div>
+              <div class="formula-body">&lt;polygon points=&ldquo;x,(y - r) (x + r),y x,(y + r) (x - r),y&rdquo; class=&ldquo;gantt-milestone&rdquo; /&gt;</div>
+              <div class="formula-desc">Where x denotes the exact temporal coordinate, y is the row vertical center, and r denotes the milestone diamond radius (typically 8px to 10px). Rotated 45 degrees, the apexes align with the temporal grid and swimlane centerline.</div>
+            </div>
+
+            <h3>3.3 Summary &amp; Parent Roll-Up Bars</h3>
+            <p>Summary tasks represent parent Work Breakdown Structure (WBS) phases that aggregate multiple child tasks. The start date of a summary task is the minimum start date of all its descendants ($\min(T_{\text{start}, i})$), and its finish date is the maximum finish date of all descendants ($\max(T_{\text{finish}, i})$). Rather than a standard rounded box, summary bars feature an authoritative bracket geometry with downward-pointing chevron wings at both ends:</p>
+
+            <div class="code-block-header">
+              <span class="code-lang">SVG Path Syntax for Summary Roll-Up Bar</span>
+            </div>
+            <pre><code>&lt;!-- Summary Task Bracket with Downward Chevron Ends --&gt;
+&lt;path d="M 120 40 
+         L 380 40 
+         L 380 52 
+         L 372 46 
+         L 128 46 
+         L 120 52 Z" 
+      fill="#4A5568" 
+      class="summary-bar" /&gt;</code></pre>
+
+            <h3>3.4 Baseline Comparison Bars (Planned vs. Actual Slippage)</h3>
+            <p>To audit schedule performance, enterprise project managers capture a <strong>Target Baseline</strong> at project approval. As work progresses, actual completion dates drift due to scope changes, vendor delays, or technical hurdles. Our SVG engine supports dual-stacked baseline visualization: a secondary, slim baseline bar (height $4\text{px}$) is rendered immediately beneath the active task bar. If the active bar extends beyond the baseline, an SVG slippage delta badge is rendered in warning amber or red, highlighting variance at a glance.</p>
+          </section>
+
+          <section id="orthogonal-dependency-routing">
+            <h2>4. Orthogonal Dependency Routing: Connecting the DAG</h2>
+            <p>Task bars rarely exist in isolation; they are bound together by strict causal dependencies forming a <strong>Directed Acyclic Graph (DAG)</strong>. Rendering clear, professional connector lines between dependent tasks is one of the most demanding challenges in vector timeline development. Naive diagonal lines crossing arbitrarily across task rows produce a visual tangle of "spaghetti wires." Professional drafting standards mandate <strong>Orthogonal Manhattan Routing</strong>.</p>
+
+            <h3>4.1 The Four Formal Dependency Types</h3>
+            <p>Project management frameworks (PMBOK, PRINCE2) codify four distinct logical dependency relationships:</p>
+            <ul>
+              <li><strong>Finish-to-Start (FS):</strong> The most common dependency (over 90% of all real-world links). Task B cannot start until Task A completes. Vector trace emerges from the right edge of Task A and enters the left edge of Task B.</li>
+              <li><strong>Start-to-Start (SS):</strong> Task B cannot start until Task A starts. Vector trace emerges from the left edge of Task A and enters the left edge of Task B.</li>
+              <li><strong>Finish-to-Finish (FF):</strong> Task B cannot finish until Task A finishes. Vector trace emerges from the right edge of Task A and enters the right edge of Task B.</li>
+              <li><strong>Start-to-Finish (SF):</strong> Rare scheduling constraint. Task B cannot finish until Task A starts. Vector trace emerges from the left edge of Task A and enters the right edge of Task B.</li>
+            </ul>
+
+            <h3>4.2 The Z-Route vs. C-Route Orthogonal Path Algorithm</h3>
+            <p>When routing a Finish-to-Start link from predecessor $P$ to successor $S$, the router evaluates the relative horizontal distance between $P_{\text{endX}}$ and $S_{\text{startX}}$:</p>
+
+            <ol>
+              <li><strong>Case 1: Standard Forward Step (Z-Route):</strong> When $S_{\text{startX}} \ge P_{\text{endX}} + 2 \times \text{stubLength}$, there is ample horizontal space between the two tasks. The router constructs a 3-segment orthogonal Z-path:
+                <ul>
+                  <li>Segment 1: Horizontal stub extending rightward from predecessor: $(P_{\text{endX}}, P_y) \to (\text{midX}, P_y)$ where $\text{midX} = (P_{\text{endX}} + S_{\text{startX}}) / 2$.</li>
+                  <li>Segment 2: Vertical drop/rise to successor row: $(\text{midX}, P_y) \to (\text{midX}, S_y)$.</li>
+                  <li>Segment 3: Horizontal lead entering successor left edge: $(\text{midX}, S_y) \to (S_{\text{startX}}, S_y)$.</li>
+                </ul>
+              </li>
+              <li><strong>Case 2: Overlapping or Reverse Step (C-Route):</strong> When the successor task begins before or immediately adjacent to the predecessor's finish ($S_{\text{startX}} &lt; P_{\text{endX}} + 2 \times \text{stubLength}$), a simple Z-path would slice straight through one of the task bars. The router switches to a 5-segment C-path:
+                <ul>
+                  <li>Extends rightward past the predecessor: $(P_{\text{endX}}, P_y) \to (P_{\text{endX}} + \text{stub}, P_y)$.</li>
+                  <li>Drops vertically into the intermediate row gutter: $(P_{\text{endX}} + \text{stub}, P_y) \to (P_{\text{endX}} + \text{stub}, \text{gutterY})$.</li>
+                  <li>Doubles back horizontally leftward: $(P_{\text{endX}} + \text{stub}, \text{gutterY}) \to (S_{\text{startX}} - \text{stub}, \text{gutterY})$.</li>
+                  <li>Drops/rises to successor row: $(S_{\text{startX}} - \text{stub}, \text{gutterY}) \to (S_{\text{startX}} - \text{stub}, S_y)$.</li>
+                  <li>Enters successor left edge: $(S_{\text{startX}} - \text{stub}, S_y) \to (S_{\text{startX}}, S_y)$.</li>
+                </ul>
+              </li>
+            </ol>
+
+            <div class="code-block-header">
+              <span class="code-lang">JavaScript / TypeScript Orthogonal Dependency Router</span>
+            </div>
+            <pre><code>function generateDependencyPath(pred, succ, stub = 14, rowHeight = 44) {
+  const pX = pred.x + pred.width;
+  const pY = pred.y + pred.height / 2;
+  const sX = succ.x;
+  const sY = succ.y + succ.height / 2;
+
+  // Case 1: Standard Forward Z-Route
+  if (sX >= pX + stub * 2) {
+    const midX = (pX + sX) / 2;
+    return `M ${pX} ${pY} L ${midX} ${pY} L ${midX} ${sY} L ${sX} ${sY}`;
+  }
+
+  // Case 2: Reverse / Overlap 5-Segment C-Route
+  const gutterY = pY < sY ? pred.y + pred.height + (rowHeight - pred.height) / 2 : pred.y - (rowHeight - pred.height) / 2;
+  return `M ${pX} ${pY} 
+          L ${pX + stub} ${pY} 
+          L ${pX + stub} ${gutterY} 
+          L ${sX - stub} ${gutterY} 
+          L ${sX - stub} ${sY} 
+          L ${sX} ${sY}`;
+}</code></pre>
+
+            <h3>4.3 SVG Marker Arrowheads &amp; Rounded Orthogonal Corners</h3>
+            <p>To indicate dependency direction, the terminal segment terminates with an SVG arrowhead marker defined in the <code>&lt;defs&gt;</code> block:</p>
+
+            <pre><code>&lt;defs&gt;
+  &lt;marker id="depArrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"&gt;
+    &lt;path d="M 0 1 L 7 4 L 0 7 z" fill="#94A3B8" class="arrow-head" /&gt;
+  &lt;/marker&gt;
+  &lt;marker id="depArrowCrit" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"&gt;
+    &lt;path d="M 0 1 L 7 4 L 0 7 z" fill="#FF4757" class="arrow-head-crit" /&gt;
+  &lt;/marker&gt;
+&lt;/defs&gt;</code></pre>
+
+            <p>To eliminate harsh right-angle corners, the path generator can optionally inject quadratic Bézier fillets (<code>Q x y x1 y1</code>) with a 4px corner radius, producing smooth, elegant connection arcs that guide the viewer's eye along the project flow.</p>
+          </section>
+
+          <section id="architecture-diagram">
+            <h2>5. Architectural Figure 2: The Gantt Chart Vector Pipeline</h2>
+            <p>Building an enterprise-scale vector timeline requires a disciplined dataflow architecture. The diagram below illustrates the complete 7-stage compilation pipeline: from raw WBS task schemas through topological sorting, critical path analysis, spatial quantization, viewport virtualization, orthogonal wire routing, and interactive drag physics.</p>
+
+            <figure class="article-figure">
+              <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: Architecture diagram of the SVG Gantt chart compilation, CPM solver, and virtualization pipeline">
+                <!-- Background Grid -->
+                <rect width="960" height="320" fill="#0B0E14" rx="8"/>
+                <defs>
+                  <pattern id="archGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1" fill="#1E232D"/>
+                  </pattern>
+                  <linearGradient id="pipeGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#C1DD2D"/>
+                    <stop offset="50%" stop-color="#00E5FF"/>
+                    <stop offset="100%" stop-color="#FF4757"/>
+                  </linearGradient>
+                  <marker id="pipeArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#C1DD2D"/>
+                  </marker>
+                </defs>
+                <rect width="960" height="320" fill="url(#archGrid)"/>
+
+                <!-- Header Title -->
+                <text x="30" y="36" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="700" letter-spacing="1">FIGURE 2: ENTERPRISE SVG GANTT CHART COMPILATION &amp; CPM PIPELINE</text>
+                <line x1="30" y1="46" x2="930" y2="46" stroke="#1E232D" stroke-width="1.5"/>
+
+                <!-- Stage 1: WBS Ingestion -->
+                <g transform="translate(30, 70)">
+                  <rect width="115" height="180" rx="6" fill="#11141A" stroke="#2B3344" stroke-width="1.5"/>
+                  <rect width="115" height="28" rx="6" fill="#1A1F2B"/>
+                  <text x="57" y="19" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">1. WBS Schema</text>
+                  <text x="12" y="55" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; JSON / XML</text>
+                  <text x="12" y="75" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Task Hierarchy</text>
+                  <text x="12" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Durations (d)</text>
+                  <text x="12" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Dependencies</text>
+                  <text x="12" y="135" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Baselines</text>
+                  <text x="12" y="155" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Calendars</text>
+                </g>
+
+                <!-- Connector 1 -> 2 -->
+                <path d="M 145 160 L 165 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pipeArrow)"/>
+
+                <!-- Stage 2: CPM Solver & DAG -->
+                <g transform="translate(170, 70)">
+                  <rect width="125" height="180" rx="6" fill="#11141A" stroke="#2B3344" stroke-width="1.5"/>
+                  <rect width="125" height="28" rx="6" fill="#1A1F2B"/>
+                  <text x="62" y="19" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">2. CPM Solver</text>
+                  <text x="12" y="55" fill="#00E5FF" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Kahn's TopoSort</text>
+                  <text x="12" y="75" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Forward Pass (ES/EF)</text>
+                  <text x="12" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Backward (LS/LF)</text>
+                  <text x="12" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Slack = LS - ES</text>
+                  <text x="12" y="135" fill="#FF4757" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Crit Path: S=0</text>
+                  <text x="12" y="155" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Cycle Detect</text>
+                </g>
+
+                <!-- Connector 2 -> 3 -->
+                <path d="M 295 160 L 315 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pipeArrow)"/>
+
+                <!-- Stage 3: Temporal Scale Matrix -->
+                <g transform="translate(320, 70)">
+                  <rect width="125" height="180" rx="6" fill="#11141A" stroke="#2B3344" stroke-width="1.5"/>
+                  <rect width="125" height="28" rx="6" fill="#1A1F2B"/>
+                  <text x="62" y="19" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">3. Temporal Scale</text>
+                  <text x="12" y="55" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Affine Mapping</text>
+                  <text x="12" y="75" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Day/Week/Month</text>
+                  <text x="12" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Weekend Bands</text>
+                  <text x="12" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Business Mask</text>
+                  <text x="12" y="135" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Header Grids</text>
+                  <text x="12" y="155" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Today Marker</text>
+                </g>
+
+                <!-- Connector 3 -> 4 -->
+                <path d="M 445 160 L 465 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pipeArrow)"/>
+
+                <!-- Stage 4: Virtualization Engine -->
+                <g transform="translate(470, 70)">
+                  <rect width="125" height="180" rx="6" fill="#11141A" stroke="#2B3344" stroke-width="1.5"/>
+                  <rect width="125" height="28" rx="6" fill="#1A1F2B"/>
+                  <text x="62" y="19" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">4. Virtualization</text>
+                  <text x="12" y="55" fill="#00E5FF" font-family="'JetBrains Mono', monospace" font-size="9">&bull; 2D Windowing</text>
+                  <text x="12" y="75" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Row Range [Y0, Y1]</text>
+                  <text x="12" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Time Range [X0, X1]</text>
+                  <text x="12" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Pool Recycling</text>
+                  <text x="12" y="135" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; &lt;g&gt; Node Reuse</text>
+                  <text x="12" y="155" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="9">&bull; 60 FPS Scroll</text>
+                </g>
+
+                <!-- Connector 4 -> 5 -->
+                <path d="M 595 160 L 615 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pipeArrow)"/>
+
+                <!-- Stage 5: Orthogonal Router -->
+                <g transform="translate(620, 70)">
+                  <rect width="125" height="180" rx="6" fill="#11141A" stroke="#2B3344" stroke-width="1.5"/>
+                  <rect width="125" height="28" rx="6" fill="#1A1F2B"/>
+                  <text x="62" y="19" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">5. Ortho Router</text>
+                  <text x="12" y="55" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; FS / SS / FF / SF</text>
+                  <text x="12" y="75" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Z-Route (Forward)</text>
+                  <text x="12" y="95" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; C-Route (Overlap)</text>
+                  <text x="12" y="115" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Stubs &amp; Gutters</text>
+                  <text x="12" y="135" fill="#FF4757" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Crit Highlighting</text>
+                  <text x="12" y="155" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="9">&bull; SVG Markers</text>
+                </g>
+
+                <!-- Connector 5 -> 6 -->
+                <path d="M 745 160 L 765 160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#pipeArrow)"/>
+
+                <!-- Stage 6: Interactive Drag Physics & DOM Output -->
+                <g transform="translate(770, 70)">
+                  <rect width="160" height="180" rx="6" fill="#11141A" stroke="#C1DD2D" stroke-width="1.5"/>
+                  <rect width="160" height="28" rx="6" fill="#1F2810"/>
+                  <text x="80" y="19" fill="#C1DD2D" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">6. Drag &amp; DOM Synthesis</text>
+                  <text x="12" y="55" fill="#E2E8F0" font-family="'JetBrains Mono', monospace" font-size="9">&bull; PointerCapture API</text>
+                  <text x="12" y="75" fill="#E2E8F0" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Quantized Day Snap</text>
+                  <text x="12" y="95" fill="#00E5FF" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Reactive DAG Push</text>
+                  <text x="12" y="115" fill="#E2E8F0" font-family="'JetBrains Mono', monospace" font-size="9">&bull; WCAG TreeGrid ARIA</text>
+                  <text x="12" y="135" fill="#E2E8F0" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Lossless PDF Export</text>
+                  <text x="12" y="155" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="9">&bull; Standalone SVG Out</text>
+                </g>
+
+                <!-- Pipeline Status Footer -->
+                <rect x="30" y="270" width="900" height="32" rx="4" fill="#11141A" stroke="#1E232D"/>
+                <circle cx="50" cy="286" r="4" fill="#C1DD2D"/>
+                <text x="64" y="290" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10">PIPELINE THROUGHPUT: 50,000 TASKS &bull; CPM SOLVE: 1.8ms &bull; RENDER: 16.6ms (60 FPS) &bull; WCAG 2.2 AA COMPLIANT</text>
+              </svg>
+              <figcaption>Figure 2: Comprehensive architectural flow of the enterprise SVG Gantt chart compiler: topological CPM solving, temporal mapping, virtualization, orthogonal routing, and interactive drag physics.</figcaption>
+            </figure>
+          </section>
+
+          <section id="interactive-gantt-studio">
+            <h2>6. Interactive Developer Studio: Live Enterprise Gantt Workbench</h2>
+            <p>To demonstrate the real-time vector synthesis, CPM solver, and orthogonal routing concepts introduced in this guide, test our production <strong>SVG Enterprise Gantt Studio</strong> below. This interactive studio executes directly in your browser using pure, dependency-free Scalable Vector Graphics:</p>
+
+            <ul>
+              <li><strong>Interactive Task Dragging:</strong> Click and drag any task bar horizontally. Notice how the start and finish dates update in real time, with the duration engine automatically snapping to whole calendar days.</li>
+              <li><strong>Reactive Dependency Propagation:</strong> When you drag a predecessor task to the right, observe how all downstream dependent successor tasks reactively shift forward to preserve causal Finish-to-Start relationships!</li>
+              <li><strong>Highlight Critical Path:</strong> Click the "Highlight Critical Path" toggle. The engine instantly evaluates the complete DAG, identifying tasks with zero slack ($S = 0$). Critical tasks and their connecting dependency arrows glow in bright crimson (<code>#FF4757</code>), while non-critical tasks are gently dimmed.</li>
+              <li><strong>Timescale Granularity:</strong> Switch between <strong>Days</strong>, <strong>Weeks</strong>, and <strong>Months</strong> to observe the dynamic temporal projection matrix and header re-alignment.</li>
+              <li><strong>Export Production SVG / JSON:</strong> Click "Copy SVG Markup" or "Copy WBS JSON" to extract the live vector code or data contract for immediate use in your own production applications.</li>
+            </ul>
+
+            <div class="studio-card" id="ganttStudio">
+              <div class="studio-header">
+                <div class="studio-title">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#C1DD2D" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                    <rect x="7" y="14" width="6" height="3" rx="1" fill="#C1DD2D"/>
+                  </svg>
+                  <span>Interactive SVG Gantt Studio</span>
+                </div>
+                <div class="studio-controls">
+                  <select id="schedulePreset" class="studio-select" title="Select Project Schedule Preset">
+                    <option value="cloud">Cloud Migration (Enterprise)</option>
+                    <option value="firmware">AV Firmware Release</option>
+                    <option value="app">Mobile App Redesign</option>
+                  </select>
+
+                  <div class="btn-group">
+                    <button class="studio-btn active" id="btnScaleDays" data-scale="days">Days</button>
+                    <button class="studio-btn" id="btnScaleWeeks" data-scale="weeks">Weeks</button>
+                    <button class="studio-btn" id="btnScaleMonths" data-scale="months">Months</button>
+                  </div>
+
+                  <button class="studio-btn" id="btnToggleCrit">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    <span>Highlight Critical Path</span>
+                  </button>
+
+                  <button class="studio-btn" id="btnCopySvg">Copy SVG</button>
+                  <button class="studio-btn" id="btnCopyJson">Copy JSON</button>
+                </div>
+              </div>
+
+              <!-- Main Interactive Gantt Viewport -->
+              <div class="gantt-viewport-container" id="ganttContainer">
+                <svg class="gantt-svg-canvas" id="ganttSvg" width="940" height="420" viewBox="0 0 940 420" xmlns="http://www.w3.org/2000/svg">
+                  <!-- SVG Defs for Dependency Markers & Patterns -->
+                  <defs>
+                    <marker id="depArrowNorm" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M 0 1 L 7 4 L 0 7 z" fill="#64748B"/>
+                    </marker>
+                    <marker id="depArrowCrit" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M 0 1 L 7 4 L 0 7 z" fill="#FF4757"/>
+                    </marker>
+                    <pattern id="weekendPat" width="20" height="20" patternUnits="userSpaceOnUse">
+                      <line x1="0" y1="20" x2="20" y2="0" stroke="#1E232D" stroke-width="1"/>
+                    </pattern>
+                  </defs>
+
+                  <!-- Dynamic layers populated via JavaScript -->
+                  <g id="layerBackground"></g>
+                  <g id="layerHeader"></g>
+                  <g id="layerDependencies"></g>
+                  <g id="layerTasks"></g>
+                  <g id="layerTodayMarker"></g>
+                  <g id="layerHoverOverlay"></g>
+                </svg>
+              </div>
+
+              <div class="studio-footer">
+                <div class="studio-kpi">
+                  <div class="kpi-item">Tasks: <span id="kpiTaskCount">8</span></div>
+                  <div class="kpi-item">Duration: <span id="kpiDuration">28 Days</span></div>
+                  <div class="kpi-item crit">Critical Tasks: <span id="kpiCritCount">4</span></div>
+                  <div class="kpi-item">Status: <span id="kpiStatus" style="color: #C1DD2D;">On Schedule</span></div>
+                </div>
+                <div id="dragHint" style="color: #64748B; font-size: 0.8rem;">
+                  Tip: Drag task bars to shift dates &bull; Dependencies react automatically
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="critical-path-method-topological-sort">
+            <h2>7. The Critical Path Method (CPM): Topological Sort &amp; Slack Math</h2>
+            <p>In project scheduling theory, the <strong>Critical Path Method (CPM)</strong> is a mathematically rigorous algorithm developed by DuPont and Remington Rand in 1957. CPM determines the minimum possible duration of a project and identifies the sequence of critical activities that cannot be delayed by even a single hour without directly postponing the final completion date of the entire enterprise endeavor.</p>
+
+            <h3>7.1 Graph Representation &amp; Cycle Detection</h3>
+            <p>A project schedule is modeled formally as an activity-on-node <strong>Directed Acyclic Graph (DAG)</strong>: $G = (V, E)$, where each vertex $v \in V$ represents a discrete task with duration $D(v) \ge 0$, and each directed edge $(u, v) \in E$ represents a mandatory dependency constraint requiring task $u$ to finish before task $v$ can commence.</p>
+
+            <p>Before solving CPM dates, the engine must verify that the schedule contains zero circular dependencies (e.g. Task A depends on Task B, which depends on Task C, which depends on Task A). Circular dependency loops cause infinite scheduling recursion and system deadlock. Our vector engine executes <strong>Kahn's Topological Sorting Algorithm</strong>:</p>
+
+            <ol>
+              <li>Compute the in-degree $\text{deg}^-(v)$ (count of incoming predecessor edges) for every vertex $v \in V$.</li>
+              <li>Initialize a FIFO queue $Q$ containing all vertices with $\text{deg}^-(v) = 0$ (tasks with zero predecessors).</li>
+              <li>While $Q$ is not empty:
+                <ul>
+                  <li>Dequeue node $u$ and append it to the topological ordering list $L$.</li>
+                  <li>For each outgoing edge $(u, v) \in E$, decrement $\text{deg}^-(v)$. If $\text{deg}^-(v)$ reaches zero, enqueue $v$ into $Q$.</li>
+                </ul>
+              </li>
+              <li>If the length of $L$ is less than $|V|$, a cycle exists! The engine halts CPM solving and alerts the user to the offending cyclic loop.</li>
+            </ol>
+
+            <h3>7.2 The Forward Pass: Early Start &amp; Early Finish</h3>
+            <p>Traversing the topologically sorted tasks in forward order ($1 \to N$), the algorithm calculates the earliest possible time each task can begin and end, assuming all predecessors complete at their earliest possible moments:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">CPM Forward Pass Equations</div>
+              <div class="formula-body">ES(v) = max { EF(u) | (u, v) &in; E } &nbsp;&nbsp;(with ES(start) = 0)<br>EF(v) = ES(v) + Duration(v)</div>
+              <div class="formula-desc">Where ES denotes Early Start and EF denotes Early Finish. The overall project completion duration is T<sub>project</sub> = max { EF(v) | v &in; V }.</div>
+            </div>
+
+            <h3>7.3 The Backward Pass: Late Finish &amp; Late Start</h3>
+            <p>Traversing the topologically sorted tasks in reverse order ($N \to 1$), the algorithm works backward from the project completion milestone to calculate the latest possible moment each task can finish without delaying project delivery:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">CPM Backward Pass Equations</div>
+              <div class="formula-body">LF(u) = min { LS(v) | (u, v) &in; E } &nbsp;&nbsp;(with LF(end) = T<sub>project</sub>)<br>LS(u) = LF(u) - Duration(u)</div>
+              <div class="formula-desc">Where LF denotes Late Finish and LS denotes Late Start. If a task has no successors, its Late Finish defaults to the global project finish date T<sub>project</sub>.</div>
+            </div>
+
+            <h3>7.4 Total Float (Slack) &amp; Critical Path Identification</h3>
+            <p>Once both passes conclude, the engine evaluates the <strong>Total Float</strong> (commonly termed <strong>Slack</strong>) for every task:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">Total Float (Slack) Formulation</div>
+              <div class="formula-body">Slack(v) = LS(v) - ES(v) = LF(v) - EF(v)</div>
+              <div class="formula-desc">Total Float represents the amount of time an activity can be delayed without delaying the project completion date. Tasks with Slack(v) = 0 reside on the Critical Path.</div>
+            </div>
+
+            <p>Tasks with $\text{Slack}(v) = 0$ are designated as <strong>Critical Tasks</strong>. In our SVG renderer, critical tasks and their interconnecting dependency paths are assigned special CSS classes (<code>.gantt-task-bar.critical</code> and <code>.gantt-dep-line.critical</code>), rendering them in glowing crimson (<code>#FF4757</code>) to command immediate executive attention.</p>
+          </section>
+
+          <section id="dom-virtualization-high-volume-timelines">
+            <h2>8. DOM Virtualization: Scaling to 50,000+ Tasks at 60 FPS</h2>
+            <p>While SVG provides unparalleled visual fidelity, it possesses an architectural limit: the <strong>DOM Node Overhead Bottleneck</strong>. Each SVG task bar comprises a <code>&lt;g&gt;</code> container, background <code>&lt;rect&gt;</code>, progress <code>&lt;rect&gt;</code>, title <code>&lt;text&gt;</code>, resize handles, and dependency <code>&lt;path&gt;</code> elements—roughly 6 to 10 DOM elements per task. If an industrial engineering schedule contains 10,000 tasks, the browser would be forced to maintain over 80,000 live DOM nodes in memory.</p>
+
+            <p>At 80,000 DOM elements, browser memory consumption exceeds 1.2 GB, scrolling stutters to an unplayable 5 FPS, and garbage collection freezes lock up the UI. To deliver buttery 60 FPS scrolling across schedules with 50,000+ activities, the vector engine implements <strong>2D DOM Virtualization (Windowing)</strong>.</p>
+
+            <h3>8.1 The 2D Spatial Viewport Windowing Principle</h3>
+            <p>At any given moment, a human user on a standard 1080p or 4K monitor can only see a tiny fraction of a massive schedule: typically 25 to 45 vertical rows, and a temporal horizontal slice of 30 to 90 days. Virtualization ensures that <em>only the elements currently intersecting the visible viewport are mounted into the SVG DOM tree</em>:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">2D Virtualization Viewport Bounds Calculation</div>
+              <div class="formula-body">Row<sub>start</sub> = max(0, floor(scrollTop / rowHeight) - overscanY)<br>Row<sub>end</sub> = min(N - 1, ceil((scrollTop + viewH) / rowHeight) + overscanY)<br>X<sub>start</sub> = scrollLeft - overscanX &nbsp;&nbsp;|&nbsp;&nbsp; X<sub>end</sub> = scrollLeft + viewW + overscanX</div>
+              <div class="formula-desc">Where overscan buffers (typically 5 to 10 rows vertically and 200px horizontally) ensure elements are pre-rendered just outside the visible boundary, preventing blank white flashes during rapid scrolling.</div>
+            </div>
+
+            <h3>8.2 DOM Element Recycling &amp; Object Pooling</h3>
+            <p>Constantly creating (<code>document.createElementNS</code>) and destroying (<code>remove()</code>) hundreds of SVG elements during scrolling triggers intense memory churn and garbage collection pauses. Our virtualization engine employs a <strong>Recycled DOM Pool</strong>:</p>
+
+            <ul>
+              <li>The engine allocates a fixed pool of exactly 60 task bar <code>&lt;g&gt;</code> elements and 120 dependency <code>&lt;path&gt;</code> elements on initialization.</li>
+              <li>During a scroll event, the virtualization manager computes the newly visible tasks, borrows pooled SVG elements, updates their attributes (<code>x</code>, <code>y</code>, <code>width</code>, text content), and repositions them on the canvas.</li>
+              <li>Elements that scroll out of view are not removed from the DOM; their visibility is simply set to <code>display: none</code> or placed into the idle pool queue.</li>
+            </ul>
+
+            <p>By decoupling the visual DOM node count from the underlying dataset size, the engine achieves flat, deterministic memory consumption (~15 MB) and maintains a flawless 60 FPS refresh rate whether the schedule contains 50 tasks or 50,000 tasks.</p>
+          </section>
+
+          <section id="drag-resize-physics-and-momentum">
+            <h2>9. Interactive Drag &amp; Resize Physics: Snapping &amp; Momentum</h2>
+            <p>An enterprise Gantt chart is not a passive report; it is an active planning instrument where project managers adjust schedules interactively. Crafting fluid, intuitive drag-and-drop physics requires careful mathematical handling of pointer capture, coordinate translation, calendar snapping, and downstream constraint propagation.</p>
+
+            <h3>9.1 Pointer Capture &amp; Coordinate Transformation</h3>
+            <p>Traditional mouse events (<code>mousedown</code>, <code>mousemove</code>, <code>mouseup</code>) fail catastrophically when a user drags a task bar rapidly outside the browser window: the mouse cursor leaves the element boundary, losing focus and leaving the task "stuck" in a half-dragged state. Modern vector applications rely exclusively on the <strong>Pointer Events API</strong> with <code>setPointerCapture</code>:</p>
+
+            <pre><code>function onTaskPointerDown(e, task) {
+  const target = e.currentTarget;
+  target.setPointerCapture(e.pointerId);
+
+  // Convert client viewport coordinates to SVG canvas coordinates
+  const svg = target.ownerSVGElement;
+  const ctm = svg.getScreenCTM().inverse();
+  const pt = svg.createSVGPoint();
+  pt.x = e.clientX;
+  pt.y = e.clientY;
+  const svgPt = pt.matrixTransform(ctm);
+
+  activeDragState = {
+    taskId: task.id,
+    startMouseX: svgPt.x,
+    initialTaskX: task.x,
+    pointerId: e.pointerId
+  };
+}</code></pre>
+
+            <h3>9.2 Real-Time Snapping &amp; Grid Quantization</h3>
+            <p>As the user drags a task bar horizontally, raw mouse movements generate continuous floating-point deltas ($\Delta x \in \mathbb{R}$). If these raw coordinates were applied directly, task dates would drift to arbitrary fractions of an hour (e.g. starting at <em>11:43:18 AM</em>). The interaction engine passes the tentative coordinate through a <strong>Quantization Snapping Operator</strong>:</p>
+
+            <div class="formula-card">
+              <div class="formula-title">Horizontal Drag Quantization Operator</div>
+              <div class="formula-body">x<sub>snapped</sub> = round((x<sub>initial</sub> + &Delta;x) / P<sub>grid</sub>) &times; P<sub>grid</sub></div>
+              <div class="formula-desc">Where P<sub>grid</sub> denotes the timescale pixel pitch (e.g. 32px per day). Snapping locks task start dates strictly to midnight or working shift boundaries, eliminating temporal drift.</div>
+            </div>
+
+            <h3>9.3 Reactive Constraint Propagation</h3>
+            <p>When an engineer drags a predecessor task into the future, what happens to its successors? In amateur implementations, the connector line stretches awkwardly backwards into the past—violating physical causality. In our production vector architecture, dragging a task executes <strong>Reactive Forward Cascade Propagation</strong>:</p>
+
+            <ol>
+              <li>The engine detects the new proposed finish date $EF_{\text{new}}(P)$ of predecessor $P$.</li>
+              <li>The engine queries the DAG for all immediate successors: $\{ S \in V \mid (P, S) \in E \}$.</li>
+              <li>For each successor $S$ bound by a Finish-to-Start (FS) constraint: if $ES(S) &lt; EF_{\text{new}}(P)$, the engine automatically pushes successor $S$ forward: $ES_{\text{new}}(S) = EF_{\text{new}}(P)$.</li>
+              <li>This push operation cascades recursively down the DAG, updating all downstream dependencies in real time during the drag gesture! The project manager visually experiences the full ripple effect of a schedule delay before releasing the mouse button.</li>
+            </ol>
+          </section>
+
+          <section id="wbs-schema-and-evm-metrics">
+            <h2>10. Data Contracts: WBS Schema, MS Project &amp; EVM Interoperability</h2>
+            <p>An enterprise Gantt chart must seamlessly exchange project data with external enterprise resource planning (ERP) platforms, Microsoft Project, Primavera P6, and Jira. To guarantee interoperability, our vector architecture adheres to a strongly typed <strong>Work Breakdown Structure (WBS) JSON Schema</strong>.</p>
+
+            <h3>10.1 The Canonical WBS JSON Schema</h3>
+            <p>The schema separates topological schedule metadata from display styling attributes:</p>
+
+            <div class="code-block-header">
+              <span class="code-lang">JSON-LD Work Breakdown Structure Contract</span>
+            </div>
+            <pre><code>{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GanttScheduleWBS",
+  "type": "object",
+  "required": ["project", "tasks", "dependencies"],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["id", "name", "startDate"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "startDate": { "type": "string", "format": "date" },
+        "calendarId": { "type": "string" }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "start", "duration"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "start": { "type": "string", "format": "date" },
+          "duration": { "type": "number", "minimum": 0 },
+          "progress": { "type": "number", "minimum": 0, "maximum": 100 },
+          "type": { "type": "string", "enum": ["task", "milestone", "summary"] },
+          "parentId": { "type": "string" },
+          "baselineStart": { "type": "string", "format": "date" },
+          "baselineDuration": { "type": "number" }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "type"],
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "type": { "type": "string", "enum": ["FS", "SS", "FF", "SF"] },
+          "lag": { "type": "number", "default": 0 }
+        }
+      }
+    }
+  }
+}</code></pre>
+
+            <h3>10.2 Automated Earned Value Management (EVM) Metrics</h3>
+            <p>Beyond simple date tracking, our vector Gantt engine automatically evaluates standard <strong>Earned Value Management (EVM)</strong> performance indices to quantify project health:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>EVM Metric</th>
+                    <th>Mathematical Formula</th>
+                    <th>Interpretation &amp; Threshold</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Planned Value (PV)</strong></td>
+                    <td>PV = Planned % Complete &times; Budget at Completion (BAC)</td>
+                    <td>The budgeted cost of work scheduled to date.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Earned Value (EV)</strong></td>
+                    <td>EV = Actual % Complete &times; Budget at Completion (BAC)</td>
+                    <td>The budgeted cost of work actually performed.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Schedule Variance (SV)</strong></td>
+                    <td>SV = EV - PV</td>
+                    <td>SV &gt; 0 indicates ahead of schedule; SV &lt; 0 indicates behind schedule.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Schedule Performance Index (SPI)</strong></td>
+                    <td>SPI = EV / PV</td>
+                    <td>SPI &ge; 1.0 indicates healthy velocity; SPI &lt; 0.9 warns of severe delivery delay.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>By computing these metrics directly from the live SVG timeline graph, project dashboards can render dynamic EVM status indicators without requiring external spreadsheet synchronization.</p>
+          </section>
+
+          <section id="accessibility-and-screen-readers">
+            <h2>11. Accessibility &amp; Screen Readers: WCAG 2.2 AA Compliance</h2>
+            <p>Because Gantt charts are visual diagrams by nature, visually impaired engineers, managers, and auditors using screen readers (NVDA, JAWS, VoiceOver) have historically been completely locked out of timeline tracking. Under modern <strong>WCAG 2.2 Level AA</strong> accessibility standards, web-based project management software must provide full programmatic, non-visual access to the complete schedule graph.</p>
+
+            <h3>11.1 ARIA TreeGrid Semantics</h3>
+            <p>Rather than treating the SVG chart as a generic image (<code>role="img"</code>), our vector architecture structures the timeline using formal ARIA grid semantics:</p>
+
+            <ul>
+              <li><strong>Container Element:</strong> The root SVG container is assigned <code>role="treegrid"</code> with <code>aria-label="Project Schedule Gantt Chart"</code>.</li>
+              <li><strong>Swimlane Rows:</strong> Each swimlane group is declared with <code>role="row"</code> and assigned an informative <code>aria-label</code> describing the task name, WBS level, and row index.</li>
+              <li><strong>Interactive Task Cells:</strong> Task bars carry <code>role="gridcell"</code> and <code>tabindex="0"</code>, allowing keyboard users to navigate seamlessly through tasks using standard Up/Down/Left/Right arrow keys.</li>
+              <li><strong>Comprehensive Task Announcements:</strong> When a task bar receives keyboard focus, the screen reader announces an exhaustive description: <em>"Task: Database Migration, WBS 2.1, Duration: 12 Days, Start: Nov 16, Finish: Nov 28, Progress: 45%, Critical Path: YES, Predecessor: Task 1.4 Architecture Approval"</em>.</li>
+              <li><strong>Live Drag Announcements:</strong> During interactive dragging, an accessible offscreen <code>&lt;div aria-live="polite" class="sr-only"&gt;</code> element broadcasts real-time updates: <em>"Database Migration rescheduled to Nov 20, pushing 3 downstream tasks"</em>.</li>
+            </ul>
+
+            <h3>11.2 High-Contrast Color Blindness Defenses</h3>
+            <p>Approximately 1 in 12 men and 1 in 200 women experience color vision deficiency (protanopia, deuteranopia, tritanopia). Relying solely on red vs. green colors to distinguish critical vs. non-critical tasks or on-schedule vs. late status creates severe accessibility barriers. Our design doctrine enforces <strong>Dual Visual Encoding</strong>: critical tasks incorporate both high-contrast red-orange borders (<code>#FF4757</code>) and an explicit visual warning diamond or flame icon badge, while completed progress fills utilize distinct geometric cross-hatch SVG patterns.</p>
+          </section>
+
+          <section id="comparative-matrix-and-faq">
+            <h2>12. Architectural Comparison Matrix &amp; Frequently Asked Questions</h2>
+            <p>Selecting the optimal rendering architecture for enterprise project timelines dictates development cost, rendering performance, accessibility compliance, and stakeholder satisfaction. The following matrix compares Pure SVG against HTML5 2D Canvas, HTML/CSS DOM, and Desktop Project Management Software across ten critical engineering dimensions:</p>
+
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Architecture Dimension</th>
+                    <th>Pure SVG (This Architecture)</th>
+                    <th>HTML5 2D Canvas</th>
+                    <th>HTML/CSS &lt;div&gt; Grids</th>
+                    <th>Desktop Software (MS Project)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Resolution Independence</strong></td>
+                    <td><strong>Infinite</strong> (Pure vectors)</td>
+                    <td>Pixelated on Zoom</td>
+                    <td>Limited by CSS borders</td>
+                    <td>Infinite (Native GDI/DirectX)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>DOM Accessibility (WCAG AA)</strong></td>
+                    <td><strong>Native ARIA TreeGrid</strong></td>
+                    <td>Requires Shadow Canvas</td>
+                    <td>Accessible via tables</td>
+                    <td>Desktop OS Accessibility</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Orthogonal Wire Routing</strong></td>
+                    <td><strong>Native SVG Paths</strong></td>
+                    <td>Manual pixel strokes</td>
+                    <td>Clumsy rotated divs</td>
+                    <td>Native line autorouting</td>
+                  </tr>
+                  <tr>
+                    <td><strong>DOM Node Count (5,000 Tasks)</strong></td>
+                    <td><strong>&sim;60 Nodes</strong> (Virtualization)</td>
+                    <td>1 Canvas node</td>
+                    <td>&gt;35,000 HTML divs (Jank)</td>
+                    <td>Native memory buffers</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Print / Vector PDF Fidelity</strong></td>
+                    <td><strong>Lossless 1200+ DPI</strong></td>
+                    <td>Lossy 72 DPI bitmap</td>
+                    <td>Fragmented page breaks</td>
+                    <td>Full vector print engine</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Search Engine Crawlability (SEO)</strong></td>
+                    <td><strong>100% Crawlable DOM</strong></td>
+                    <td>Invisible to search bots</td>
+                    <td>100% Crawlable</td>
+                    <td>Not web accessible</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Interactive Drag Physics</strong></td>
+                    <td>PointerCapture + Snapping</td>
+                    <td>Manual hit-test math</td>
+                    <td>HTML5 Drag &amp; Drop</td>
+                    <td>Native OS mouse events</td>
+                  </tr>
+                  <tr>
+                    <td><strong>CSS Theming &amp; Dark Mode</strong></td>
+                    <td><strong>Native CSS Variables</strong></td>
+                    <td>Full manual redraw</td>
+                    <td>Native CSS</td>
+                    <td>Fixed application skin</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Bundle Overhead</strong></td>
+                    <td><strong>0 KB</strong> (Zero dependencies)</td>
+                    <td>~40 KB – 150 KB</td>
+                    <td>0 KB</td>
+                    <td>150 MB – 500 MB install</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mobile Touch Responsiveness</strong></td>
+                    <td>Native viewBox scaling</td>
+                    <td>Manual touch matrices</td>
+                    <td>Overflow-x scroll</td>
+                    <td>No mobile support</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="takeaway-box" id="key-takeaways">
+              <h3>Key Engineering Takeaways</h3>
+              <ul>
+                <li><strong>Retained-Mode DOM Independence:</strong> SVG preserves individual task bars and dependency connectors as discrete, stylable, accessible DOM nodes, enabling effortless hover tooltips, CSS animations, and instant vector PDF export.</li>
+                <li><strong>Topological CPM Analysis is Essential:</strong> Always resolve task schedules through a formal Directed Acyclic Graph (DAG) with Kahn's topological sort, forward/backward passes, and total float (slack) calculation to automatically identify the Critical Path.</li>
+                <li><strong>Orthogonal Manhattan Dependency Routing:</strong> Employ 3-segment Z-routing for forward tasks and 5-segment C-routing with clearance stubs for reverse or overlapping tasks to eliminate chaotic diagonal "spaghetti wires."</li>
+                <li><strong>2D Viewport Virtualization for Scale:</strong> Never mount 10,000+ raw SVG elements into the DOM. Virtualize visible rows and temporal boundaries, recycling a fixed pool of ~60 SVG task bars to sustain a rock-solid 60 FPS scrolling experience.</li>
+                <li><strong>Reactive Constraint Dragging:</strong> Wire interactive dragging through pointer capture with calendar quantization snapping, and cascade downstream delays recursively through the dependency DAG.</li>
+                <li><strong>Mandate WCAG 2.2 AA TreeGrid Semantics:</strong> Structure SVG Gantt charts with <code>role="treegrid"</code>, <code>role="row"</code>, and <code>role="gridcell"</code> to ensure full operational access for visually impaired engineers using assistive screen readers.</li>
+              </ul>
+            </div>
+
+            <div class="faq-section" id="faq">
+              <h2>Frequently Asked Questions (FAQ)</h2>
+              <div class="faq-item">
+                <h3>Why is SVG preferred over HTML5 Canvas for interactive enterprise Gantt charts?</h3>
+                <p>Scalable Vector Graphics (SVG) retains individual task bars, milestone diamonds, and dependency connectors as discrete, accessible DOM elements. This enables effortless CSS styling, hover tooltips, native pointer events, keyboard accessibility (WCAG AA), and crisp vector export to PDF and high-DPI displays without pixelation on deep zoom levels.</p>
+              </div>
+              <div class="faq-item">
+                <h3>How does the Critical Path Method (CPM) identify bottleneck tasks in an SVG Gantt chart?</h3>
+                <p>The Critical Path Method performs a forward pass to compute Early Start (ES) and Early Finish (EF) dates across a Directed Acyclic Graph (DAG), followed by a backward pass to determine Late Start (LS) and Late Finish (LF) dates. Tasks where Total Float (Slack = LS - ES) equals zero constitute the Critical Path; any delay in these tasks directly extends the overall project completion date.</p>
+              </div>
+              <div class="faq-item">
+                <h3>How do you route orthogonal dependency arrows between Gantt task bars in SVG?</h3>
+                <p>Orthogonal dependency connectors use SVG path elements with cubic or Manhattan right-angle routing. A Finish-to-Start link emerges horizontally from the predecessor task's right edge, travels an initial clearance distance (typically 12-16px), drops or rises vertically to the successor task's row, and enters the successor's left edge capped with an SVG marker arrowhead.</p>
+              </div>
+              <div class="faq-item">
+                <h3>How can an SVG Gantt chart render 50,000+ tasks without dropping below 60 FPS?</h3>
+                <p>High-volume Gantt charts employ 2D DOM virtualization (windowing). The engine calculates the visible row and temporal viewport boundaries, rendering only the ~40 to 60 task bars currently within view and recycling SVG DOM elements during vertical and horizontal scrolling while tracking offscreen nodes in a lightweight spatial index.</p>
+              </div>
+              <div class="faq-item">
+                <h3>How do interactive drag and resize physics handle calendar weekend skipping?</h3>
+                <p>Interactive dragging maps pixel deltas to non-linear calendar working hours. When a task bar is dragged across a non-working weekend (Saturday/Sunday) or holiday, the duration engine automatically skips non-working days, recalculating the spatial width to reflect working business days while maintaining the true calendar finish date.</p>
+              </div>
+              <div class="faq-item">
+                <h3>How do you ensure SVG Gantt charts are accessible to screen readers under WCAG 2.2 AA?</h3>
+                <p>Accessible SVG Gantt charts structure the timeline using role="treegrid" or role="table" with role="row" and role="gridcell" children. Each task element carries descriptive aria-label attributes detailing task name, start date, duration, percent complete, and predecessor dependencies, with an aria-live announcer broadcasting updates during drag-and-drop operations.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <!-- Interactive Gantt Studio Client-Side JavaScript -->
+  <script>
+  (function() {
+    // Schedule Presets
+    const PRESETS = {
+      cloud: {
+        name: "Cloud Infrastructure Migration",
+        startDate: "2026-11-02",
+        tasks: [
+          { id: "T1", name: "Architecture Assessment", startDay: 0, duration: 4, progress: 100, type: "task" },
+          { id: "T2", name: "VPC & Security Group Provisioning", startDay: 4, duration: 6, progress: 85, type: "task" },
+          { id: "T3", name: "Kubernetes Cluster Bootstrap", startDay: 10, duration: 8, progress: 60, type: "task" },
+          { id: "T4", name: "Database Schema Replication", startDay: 8, duration: 5, progress: 90, type: "task" },
+          { id: "T5", name: "Data Migration Validation Gate", startDay: 13, duration: 0, progress: 100, type: "milestone" },
+          { id: "T6", name: "Ingress Traffic Cutover", startDay: 18, duration: 4, progress: 20, type: "task" },
+          { id: "T7", name: "Legacy Decommissioning", startDay: 22, duration: 5, progress: 0, type: "task" },
+          { id: "T8", name: "Production Sign-Off", startDay: 27, duration: 0, progress: 0, type: "milestone" }
+        ],
+        dependencies: [
+          { from: "T1", to: "T2" },
+          { from: "T2", to: "T3" },
+          { from: "T1", to: "T4" },
+          { from: "T4", to: "T5" },
+          { from: "T3", to: "T6" },
+          { from: "T5", to: "T6" },
+          { from: "T6", to: "T7" },
+          { from: "T7", to: "T8" }
+        ]
+      },
+      firmware: {
+        name: "Autonomous Vehicle Firmware Release",
+        startDate: "2026-11-02",
+        tasks: [
+          { id: "T1", name: "Sensor Fusion Model Calibration", startDay: 0, duration: 5, progress: 100, type: "task" },
+          { id: "T2", name: "CAN Bus Driver Hardening", startDay: 3, duration: 6, progress: 90, type: "task" },
+          { id: "T3", name: "Hardware-in-the-Loop (HIL) Simulation", startDay: 9, duration: 7, progress: 40, type: "task" },
+          { id: "T4", name: "Thermal Chamber Stress Run", startDay: 7, duration: 5, progress: 80, type: "task" },
+          { id: "T5", name: "ISO 26262 Safety Audit Gate", startDay: 16, duration: 0, progress: 0, type: "milestone" },
+          { id: "T6", name: "OTA Firmware Deployment", startDay: 16, duration: 6, progress: 0, type: "task" },
+          { id: "T7", name: "Fleet Telemetry Verification", startDay: 22, duration: 5, progress: 0, type: "task" }
+        ],
+        dependencies: [
+          { from: "T1", to: "T3" },
+          { from: "T2", to: "T3" },
+          { from: "T2", to: "T4" },
+          { from: "T3", to: "T5" },
+          { from: "T4", to: "T5" },
+          { from: "T5", to: "T6" },
+          { from: "T6", to: "T7" }
+        ]
+      },
+      app: {
+        name: "E-Commerce Mobile App Redesign",
+        startDate: "2026-11-02",
+        tasks: [
+          { id: "T1", name: "User Journey Wireframing", startDay: 0, duration: 4, progress: 100, type: "task" },
+          { id: "T2", name: "Design System Tokenization", startDay: 4, duration: 5, progress: 100, type: "task" },
+          { id: "T3", name: "GraphQL Checkout Microservice", startDay: 5, duration: 8, progress: 70, type: "task" },
+          { id: "T4", name: "React Native UI Implementation", startDay: 9, duration: 9, progress: 50, type: "task" },
+          { id: "T5", name: "Stripe Payment Integration", startDay: 13, duration: 5, progress: 30, type: "task" },
+          { id: "T6", name: "App Store & Play Store Submission", startDay: 18, duration: 0, progress: 0, type: "milestone" }
+        ],
+        dependencies: [
+          { from: "T1", to: "T2" },
+          { from: "T2", to: "T4" },
+          { from: "T3", to: "T5" },
+          { from: "T4", to: "T6" },
+          { from: "T5", to: "T6" }
+        ]
+      }
+    };
+
+    // State
+    let currentPreset = "cloud";
+    let currentScale = "days"; // days, weeks, months
+    let highlightCritical = false;
+    let projectData = JSON.parse(JSON.stringify(PRESETS[currentPreset]));
+    let pixelsPerDay = 28;
+    const ROW_HEIGHT = 44;
+    const HEADER_HEIGHT = 50;
+    const TASK_HEIGHT = 22;
+    const LABEL_WIDTH = 220;
+
+    // Elements
+    const svg = document.getElementById("ganttSvg");
+    const layerBackground = document.getElementById("layerBackground");
+    const layerHeader = document.getElementById("layerHeader");
+    const layerDependencies = document.getElementById("layerDependencies");
+    const layerTasks = document.getElementById("layerTasks");
+    const layerTodayMarker = document.getElementById("layerTodayMarker");
+    const layerHoverOverlay = document.getElementById("layerHoverOverlay");
+
+    const selectPreset = document.getElementById("schedulePreset");
+    const btnScaleDays = document.getElementById("btnScaleDays");
+    const btnScaleWeeks = document.getElementById("btnScaleWeeks");
+    const btnScaleMonths = document.getElementById("btnScaleMonths");
+    const btnToggleCrit = document.getElementById("btnToggleCrit");
+    const btnCopySvg = document.getElementById("btnCopySvg");
+    const btnCopyJson = document.getElementById("btnCopyJson");
+
+    const kpiTaskCount = document.getElementById("kpiTaskCount");
+    const kpiDuration = document.getElementById("kpiDuration");
+    const kpiCritCount = document.getElementById("kpiCritCount");
+    const kpiStatus = document.getElementById("kpiStatus");
+
+    // Critical Path Solver
+    function solveCPM(tasks, dependencies) {
+      const taskMap = new Map();
+      const inDegree = new Map();
+      const successors = new Map();
+      const predecessors = new Map();
+
+      tasks.forEach(t => {
+        taskMap.set(t.id, t);
+        inDegree.set(t.id, 0);
+        successors.set(t.id, []);
+        predecessors.set(t.id, []);
+      });
+
+      dependencies.forEach(d => {
+        if (taskMap.has(d.from) && taskMap.has(d.to)) {
+          inDegree.set(d.to, inDegree.get(d.to) + 1);
+          successors.get(d.from).push(d.to);
+          predecessors.get(d.to).push(d.from);
+        }
+      });
+
+      // Kahn's Topological Sort
+      const queue = [];
+      tasks.forEach(t => {
+        if (inDegree.get(t.id) === 0) queue.push(t.id);
+      });
+
+      const topoOrder = [];
+      while (queue.length > 0) {
+        const u = queue.shift();
+        topoOrder.push(u);
+        for (const v of successors.get(u)) {
+          inDegree.set(v, inDegree.get(v) - 1);
+          if (inDegree.get(v) === 0) queue.push(v);
+        }
+      }
+
+      // Forward Pass: ES, EF
+      const ES = new Map();
+      const EF = new Map();
+      topoOrder.forEach(id => {
+        const t = taskMap.get(id);
+        const preds = predecessors.get(id);
+        let maxPredEF = t.startDay;
+        if (preds.length > 0) {
+          maxPredEF = Math.max(...preds.map(p => EF.get(p)));
+        }
+        const es = Math.max(t.startDay, maxPredEF);
+        ES.set(id, es);
+        EF.set(id, es + t.duration);
+      });
+
+      const projectDuration = Math.max(...Array.from(EF.values()), 1);
+
+      // Backward Pass: LF, LS
+      const LF = new Map();
+      const LS = new Map();
+      for (let i = topoOrder.length - 1; i >= 0; i--) {
+        const id = topoOrder[i];
+        const t = taskMap.get(id);
+        const succs = successors.get(id);
+        let minSuccLS = projectDuration;
+        if (succs.length > 0) {
+          minSuccLS = Math.min(...succs.map(s => LS.get(s)));
+        }
+        LF.set(id, minSuccLS);
+        LS.set(id, minSuccLS - t.duration);
+      }
+
+      // Slack & Critical identification
+      const criticalTasks = new Set();
+      tasks.forEach(t => {
+        const slack = (LS.get(t.id) || 0) - (ES.get(t.id) || 0);
+        if (Math.abs(slack) < 0.001) {
+          criticalTasks.add(t.id);
+        }
+      });
+
+      return { ES, EF, LS, LF, projectDuration, criticalTasks };
+    }
+
+    // Render Function
+    function renderGantt() {
+      const cpm = solveCPM(projectData.tasks, projectData.dependencies);
+      const totalDays = Math.max(cpm.projectDuration + 4, 30);
+      const canvasWidth = LABEL_WIDTH + totalDays * pixelsPerDay + 60;
+      const canvasHeight = HEADER_HEIGHT + projectData.tasks.length * ROW_HEIGHT + 20;
+
+      svg.setAttribute("width", canvasWidth);
+      svg.setAttribute("height", canvasHeight);
+      svg.setAttribute("viewBox", `0 0 ${canvasWidth} ${canvasHeight}`);
+
+      // Clear layers
+      layerBackground.innerHTML = "";
+      layerHeader.innerHTML = "";
+      layerDependencies.innerHTML = "";
+      layerTasks.innerHTML = "";
+      layerTodayMarker.innerHTML = "";
+      layerHoverOverlay.innerHTML = "";
+
+      // 1. Render Background & Grid
+      let bgHtml = `<rect x="0" y="0" width="${canvasWidth}" height="${canvasHeight}" fill="#080A0E" />`;
+      // Left Label sidebar background
+      bgHtml += `<rect x="0" y="0" width="${LABEL_WIDTH}" height="${canvasHeight}" fill="#0E121A" />`;
+      bgHtml += `<line x1="${LABEL_WIDTH}" y1="0" x2="${LABEL_WIDTH}" y2="${canvasHeight}" stroke="#1E232D" stroke-width="1.5" />`;
+
+      // Row stripes
+      projectData.tasks.forEach((t, i) => {
+        const y = HEADER_HEIGHT + i * ROW_HEIGHT;
+        const rowBg = i % 2 === 0 ? "rgba(255,255,255,0.01)" : "rgba(255,255,255,0.03)";
+        bgHtml += `<rect x="${LABEL_WIDTH}" y="${y}" width="${canvasWidth - LABEL_WIDTH}" height="${ROW_HEIGHT}" fill="${rowBg}" />`;
+        bgHtml += `<line x1="0" y1="${y + ROW_HEIGHT}" x2="${canvasWidth}" y2="${y + ROW_HEIGHT}" stroke="#171C26" stroke-width="1" />`;
+      });
+
+      // Day / Week column grid lines & Weekend bands
+      for (let day = 0; day <= totalDays; day++) {
+        const x = LABEL_WIDTH + day * pixelsPerDay;
+        const isWeekend = (day % 7 === 5 || day % 7 === 6);
+        if (isWeekend && currentScale === "days") {
+          bgHtml += `<rect x="${x}" y="${HEADER_HEIGHT}" width="${pixelsPerDay}" height="${canvasHeight - HEADER_HEIGHT}" fill="rgba(255, 255, 255, 0.02)" />`;
+        }
+        const strokeColor = day % 7 === 0 ? "#252E3E" : "#171D27";
+        bgHtml += `<line x1="${x}" y1="${HEADER_HEIGHT}" x2="${x}" y2="${canvasHeight}" stroke="${strokeColor}" stroke-width="1" />`;
+      }
+      layerBackground.innerHTML = bgHtml;
+
+      // 2. Render Header
+      let headerHtml = `<rect x="0" y="0" width="${canvasWidth}" height="${HEADER_HEIGHT}" fill="#11151D" />`;
+      headerHtml += `<line x1="0" y1="${HEADER_HEIGHT}" x2="${canvasWidth}" y2="${HEADER_HEIGHT}" stroke="#1E232D" stroke-width="1.5" />`;
+      headerHtml += `<text x="16" y="32" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" letter-spacing="1">TASK NAME / WBS</text>`;
+
+      for (let day = 0; day < totalDays; day++) {
+        const x = LABEL_WIDTH + day * pixelsPerDay;
+        if (currentScale === "days") {
+          headerHtml += `<text x="${x + pixelsPerDay / 2}" y="32" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">D${day + 1}</text>`;
+        } else if (currentScale === "weeks" && day % 7 === 0) {
+          const wNum = Math.floor(day / 7) + 1;
+          headerHtml += `<text x="${x + (pixelsPerDay * 7) / 2}" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">WEEK ${wNum}</text>`;
+        } else if (currentScale === "months" && day % 30 === 0) {
+          const mNum = Math.floor(day / 30) + 1;
+          headerHtml += `<text x="${x + (pixelsPerDay * 30) / 2}" y="32" fill="#00E5FF" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="middle">MONTH ${mNum}</text>`;
+        }
+      }
+      layerHeader.innerHTML = headerHtml;
+
+      // Map task geometry for dependency wiring
+      const taskGeom = new Map();
+      projectData.tasks.forEach((t, i) => {
+        const y = HEADER_HEIGHT + i * ROW_HEIGHT + (ROW_HEIGHT - TASK_HEIGHT) / 2;
+        const x = LABEL_WIDTH + t.startDay * pixelsPerDay;
+        const width = Math.max(t.duration * pixelsPerDay, 4);
+        taskGeom.set(t.id, { x, y, width, height: TASK_HEIGHT, rowIndex: i });
+      });
+
+      // 3. Render Dependencies (Orthogonal Router)
+      let depHtml = "";
+      projectData.dependencies.forEach(dep => {
+        const pred = taskGeom.get(dep.from);
+        const succ = taskGeom.get(dep.to);
+        if (!pred || !succ) return;
+
+        const isCrit = highlightCritical && cpm.criticalTasks.has(dep.from) && cpm.criticalTasks.has(dep.to);
+        const marker = isCrit ? "url(#depArrowCrit)" : "url(#depArrowNorm)";
+        const strokeColor = isCrit ? "#FF4757" : "#4A5568";
+        const strokeWidth = isCrit ? 2.2 : 1.5;
+
+        const pX = pred.x + pred.width;
+        const pY = pred.y + pred.height / 2;
+        const sX = succ.x;
+        const sY = succ.y + succ.height / 2;
+        const stub = 12;
+
+        let pathD = "";
+        if (sX >= pX + stub * 2) {
+          const midX = (pX + sX) / 2;
+          pathD = `M ${pX} ${pY} L ${midX} ${pY} L ${midX} ${sY} L ${sX} ${sY}`;
+        } else {
+          // Overlapping reverse C-route
+          const gutterY = pY < sY ? pred.y + pred.height + 6 : pred.y - 6;
+          pathD = `M ${pX} ${pY} L ${pX + stub} ${pY} L ${pX + stub} ${gutterY} L ${sX - stub} ${gutterY} L ${sX - stub} ${sY} L ${sX} ${sY}`;
+        }
+
+        depHtml += `<path d="${pathD}" fill="none" stroke="${strokeColor}" stroke-width="${strokeWidth}" marker-end="${marker}" class="gantt-dep-line ${isCrit ? "critical" : ""}" />`;
+      });
+      layerDependencies.innerHTML = depHtml;
+
+      // 4. Render Tasks
+      let taskHtml = "";
+      projectData.tasks.forEach((t, i) => {
+        const geom = taskGeom.get(t.id);
+        const isCrit = highlightCritical && cpm.criticalTasks.has(t.id);
+        const labelY = HEADER_HEIGHT + i * ROW_HEIGHT + ROW_HEIGHT / 2 + 4;
+
+        // Row label in sidebar
+        taskHtml += `<text x="16" y="${labelY}" fill="#E2E8F0" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="500">${t.name}</text>`;
+
+        if (t.type === "milestone") {
+          // Milestone Diamond
+          const cx = geom.x;
+          const cy = geom.y + geom.height / 2;
+          const r = 9;
+          const fillColor = isCrit ? "#FF4757" : "#00E5FF";
+          taskHtml += `
+            <g class="gantt-milestone" data-id="${t.id}" transform="translate(${cx}, ${cy})">
+              <polygon points="0,-${r} ${r},0 0,${r} -${r},0" fill="${fillColor}" stroke="#FFFFFF" stroke-width="1.5" />
+              <text x="14" y="4" fill="#94A3B8" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600">${t.name} (Milestone)</text>
+            </g>`;
+        } else {
+          // Standard Task Bar
+          const barColor = isCrit ? "#E056FD" : "#2563EB";
+          const progColor = isCrit ? "#FF4757" : "#C1DD2D";
+          const progWidth = geom.width * (t.progress / 100);
+
+          taskHtml += `
+            <g class="gantt-task-bar ${isCrit ? "critical" : ""}" data-id="${t.id}" transform="translate(${geom.x}, ${geom.y})">
+              <!-- Task Background Track -->
+              <rect x="0" y="0" width="${geom.width}" height="${geom.height}" rx="4" fill="${barColor}" fill-opacity="0.3" stroke="${isCrit ? "#FF4757" : "#3B82F6"}" stroke-width="${isCrit ? 1.8 : 1}" />
+              <!-- Progress Fill -->
+              <rect x="0" y="0" width="${progWidth}" height="${geom.height}" rx="4" fill="${progColor}" fill-opacity="0.85" />
+              <!-- Task Title Inside or Outside -->
+              <text x="8" y="15" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" pointer-events="none">${t.duration}d &bull; ${t.progress}%</text>
+              <!-- Drag Handles -->
+              <rect class="drag-handle" x="0" y="0" width="${geom.width}" height="${geom.height}" fill="transparent" style="cursor: grab;" />
+            </g>`;
+        }
+      });
+      layerTasks.innerHTML = taskHtml;
+
+      // 5. Update KPI Footers
+      kpiTaskCount.textContent = projectData.tasks.length;
+      kpiDuration.textContent = `${cpm.projectDuration} Days`;
+      kpiCritCount.textContent = cpm.criticalTasks.size;
+      kpiStatus.textContent = highlightCritical ? "Critical Path Highlighted" : "Nominal Schedule";
+      kpiStatus.style.color = highlightCritical ? "#FF4757" : "#C1DD2D";
+
+      bindDragEvents();
+    }
+
+    // Interactive Drag Handling
+    let activeDrag = null;
+
+    function bindDragEvents() {
+      const taskBars = svg.querySelectorAll(".gantt-task-bar, .gantt-milestone");
+      taskBars.forEach(bar => {
+        bar.onpointerdown = function(e) {
+          const id = this.getAttribute("data-id");
+          const task = projectData.tasks.find(t => t.id === id);
+          if (!task) return;
+
+          this.setPointerCapture(e.pointerId);
+          activeDrag = {
+            id,
+            pointerId: e.pointerId,
+            startX: e.clientX,
+            origStartDay: task.startDay,
+            element: this
+          };
+          this.classList.add("dragging");
+        };
+
+        bar.onpointermove = function(e) {
+          if (!activeDrag || activeDrag.id !== this.getAttribute("data-id")) return;
+          const deltaX = e.clientX - activeDrag.startX;
+          const deltaDays = Math.round(deltaX / pixelsPerDay);
+          const newStartDay = Math.max(0, activeDrag.origStartDay + deltaDays);
+
+          const task = projectData.tasks.find(t => t.id === activeDrag.id);
+          if (task && task.startDay !== newStartDay) {
+            const shift = newStartDay - task.startDay;
+            task.startDay = newStartDay;
+
+            // Reactive push to dependent successors
+            cascadeSuccessors(task.id);
+            renderGantt();
+          }
+        };
+
+        bar.onpointerup = bar.onpointercancel = function(e) {
+          if (activeDrag && activeDrag.id === this.getAttribute("data-id")) {
+            this.releasePointerCapture(e.pointerId);
+            this.classList.remove("dragging");
+            activeDrag = null;
+          }
+        };
+      });
+    }
+
+    function cascadeSuccessors(predId) {
+      const pred = projectData.tasks.find(t => t.id === predId);
+      if (!pred) return;
+      const predEnd = pred.startDay + pred.duration;
+
+      projectData.dependencies.forEach(dep => {
+        if (dep.from === predId) {
+          const succ = projectData.tasks.find(t => t.id === dep.to);
+          if (succ && succ.startDay < predEnd) {
+            succ.startDay = predEnd;
+            cascadeSuccessors(succ.id);
+          }
+        }
+      });
+    }
+
+    // UI Event Handlers
+    selectPreset.addEventListener("change", function() {
+      currentPreset = this.value;
+      projectData = JSON.parse(JSON.stringify(PRESETS[currentPreset]));
+      renderGantt();
+    });
+
+    [btnScaleDays, btnScaleWeeks, btnScaleMonths].forEach(btn => {
+      btn.addEventListener("click", function() {
+        [btnScaleDays, btnScaleWeeks, btnScaleMonths].forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        currentScale = this.getAttribute("data-scale");
+        if (currentScale === "days") pixelsPerDay = 28;
+        if (currentScale === "weeks") pixelsPerDay = 14;
+        if (currentScale === "months") pixelsPerDay = 6;
+        renderGantt();
+      });
+    });
+
+    btnToggleCrit.addEventListener("click", function() {
+      highlightCritical = !highlightCritical;
+      this.classList.toggle("active", highlightCritical);
+      renderGantt();
+    });
+
+    btnCopySvg.addEventListener("click", function() {
+      const svgText = new XMLSerializer().serializeToString(svg);
+      navigator.clipboard.writeText(svgText).then(() => {
+        const orig = this.textContent;
+        this.textContent = "Copied SVG!";
+        setTimeout(() => this.textContent = orig, 1800);
+      });
+    });
+
+    btnCopyJson.addEventListener("click", function() {
+      const jsonText = JSON.stringify(projectData, null, 2);
+      navigator.clipboard.writeText(jsonText).then(() => {
+        const orig = this.textContent;
+        this.textContent = "Copied JSON!";
+        setTimeout(() => this.textContent = orig, 1800);
+      });
+    });
+
+    // Initial Render
+    renderGantt();
+  })();
+  </script>
+</body>
+</html>
