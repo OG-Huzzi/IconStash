@@ -1,11 +1,6 @@
 import os
-import re
 
-out_dir = r"D:\Project IconStash\IconStash\articles\svg-audio-visualizers-and-frequency-waveforms-guide"
-os.makedirs(out_dir, exist_ok=True)
-out_file = os.path.join(out_dir, "index.html")
-
-content = """<!DOCTYPE html>
+content = r'''<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -509,7 +504,7 @@ content = """<!DOCTYPE html>
           <div class="formula-card">
             <div class="formula-title">Canvas Backing Store Memory Consumption</div>
             <div class="formula-body">
-              RAM_{Canvas} = Width &times; Height &times; 4 &times; (devicePixelRatio)^2 	ext{ bytes}
+              RAM<sub>Canvas</sub> = Width &times; Height &times; 4 &times; (devicePixelRatio)&sup2; bytes
             </div>
             <div class="formula-desc">For a 1200&times;600 audio visualizer on a 3x Retina display, this equals 3600 &times; 1800 &times; 4 = 25,920,000 bytes (nearly 26 MB of raw GPU VRAM) for a single UI component!</div>
           </div>
@@ -584,27 +579,27 @@ async function initWebAudioPipeline(mediaElement) {
           <p>Selecting the optimal <code>fftSize</code> is a critical design tradeoff. A large <code>fftSize</code> (e.g., 2048) provides sharp frequency resolution (ideal for scientific acoustic analysis and pinpoint musical tuning), but introduces temporal latency because the algorithm requires more acoustic samples over time before calculating the transform. For snappy, beat-reactive visualizers, an <code>fftSize</code> between 128 and 512 delivers instantaneous optical response with zero perceptible lag.</p>
 
           <h3>The Mathematics of Fast Fourier Transform: Cooley-Tukey Radix-2</h3>
-          <p>To truly master audio visualization, frontend engineers must understand the mathematical mechanics operating beneath the <code>AnalyserNode</code>. The Discrete Fourier Transform (DFT) converts $N$ sequential discrete time-domain audio samples $x[n]$ into $N$ complex frequency coefficients $X[k]$ through the summation:</p>
+          <p>To truly master audio visualization, frontend engineers must understand the mathematical mechanics operating beneath the <code>AnalyserNode</code>. The Discrete Fourier Transform (DFT) converts <em>N</em> sequential discrete time-domain audio samples <em>x</em>[<em>n</em>] into <em>N</em> complex frequency coefficients <em>X</em>[<em>k</em>] through the summation:</p>
 
           <div class="formula-card">
             <div class="formula-title">Discrete Fourier Transform (DFT) Definition</div>
             <div class="formula-body">
-              X[k] = &sum;_{n=0}^{N-1} x[n] &times; e^{-j 2&pi; k n / N} \quad 	ext{for } k = 0, 1, \dots, N-1
+              X[k] = &sum;<sub>n=0</sub><sup>N&minus;1</sup> x[n] &times; e<sup>&minus;j 2&pi; k n / N</sup> &nbsp;&nbsp; for k = 0, 1, &hellip;, N&minus;1
             </div>
-            <div class="formula-desc">Where $j = \sqrt{-1}$ is the imaginary unit, $n$ represents the discrete time sample index, and $k$ represents the frequency bin index.</div>
+            <div class="formula-desc">Where <em>j</em> = &radic;(&minus;1) is the imaginary unit, <em>n</em> represents the discrete time sample index, and <em>k</em> represents the frequency bin index.</div>
           </div>
 
-          <p>Computing this summation directly requires $N^2$ complex multiplications. For a modest window size of $N = 2048$, this demands over 4.19 million operations per audio block, which would overwhelm modern CPUs when executed 60 times per second. The <strong>Cooley-Tukey Radix-2 Decimation-in-Time (DIT)</strong> algorithm revolutionizes this calculation by recursively partitioning the input sequence into even-indexed samples $x[2m]$ and odd-indexed samples $x[2m + 1]$:</p>
+          <p>Computing this summation directly requires <em>N</em><sup>2</sup> complex multiplications. For a modest window size of <em>N</em> = 2048, this demands over 4.19 million operations per audio block, which would overwhelm modern CPUs when executed 60 times per second. The <strong>Cooley-Tukey Radix-2 Decimation-in-Time (DIT)</strong> algorithm revolutionizes this calculation by recursively partitioning the input sequence into even-indexed samples <em>x</em>[2<em>m</em>] and odd-indexed samples <em>x</em>[2<em>m</em> + 1]:</p>
 
           <div class="formula-card">
             <div class="formula-title">Cooley-Tukey Radix-2 Decomposition</div>
             <div class="formula-body">
-              X[k] = E[k] + W_N^k \cdot O[k] \quad 	ext{and} \quad X[k + N/2] = E[k] - W_N^k \cdot O[k]
+              X[k] = E[k] + W<sub>N</sub><sup>k</sup> &times; O[k] &nbsp;&nbsp; and &nbsp;&nbsp; X[k + N/2] = E[k] &minus; W<sub>N</sub><sup>k</sup> &times; O[k]
             </div>
-            <div class="formula-desc">Where $W_N^k = e^{-j 2\pi k / N}$ represents the complex 'twiddle factor' rotation, and $E[k]$ and $O[k]$ are the $N/2$-point transforms of the even and odd sub-sequences.</div>
+            <div class="formula-desc">Where <em>W</em><sub><em>N</em></sub><sup><em>k</em></sup> = <em>e</em><sup>&minus;<em>j</em>2&pi;<em>k</em>/<em>N</em></sup> represents the complex 'twiddle factor' rotation, and <em>E</em>[<em>k</em>] and <em>O</em>[<em>k</em>] are the <em>N</em>/2-point transforms of the even and odd sub-sequences.</div>
           </div>
 
-          <p>This recursive butterfly architecture slashes computational complexity from $O(N^2)$ down to $O(N \log_2 N)$. For $N = 2048$, the operation count plummets from 4,194,304 calculations to just 22,528 calculations—a 186-fold performance gain! Because this algorithm runs natively inside the browser engine's C++ audio pipeline, frequency spectrum extraction executes in mere microseconds.</p>
+          <p>This recursive butterfly architecture slashes computational complexity from <em>O</em>(<em>N</em><sup>2</sup>) down to <em>O</em>(<em>N</em> log<sub>2</sub> <em>N</em>). For <em>N</em> = 2048, the operation count plummets from 4,194,304 calculations to just 22,528 calculations—a 186-fold performance gain! Because this algorithm runs natively inside the browser engine's C++ audio pipeline, frequency spectrum extraction executes in mere microseconds.</p>
 
           <h3>Spectral Leakage and Windowing Functions: The Blackman Window</h3>
           <p>A critical acoustic phenomenon encountered when transforming real-time audio is <strong>spectral leakage</strong>. The FFT assumes that the sampled time-domain window repeats infinitely in time. However, audio waveforms rarely start and end at exact zero crossings across arbitrary block boundaries. These abrupt discontinuities at the start and end of the sample buffer act as high-frequency impulse steps, causing acoustic energy from a pure single frequency to spill over into dozens of adjacent frequency bins.</p>
@@ -613,9 +608,9 @@ async function initWebAudioPipeline(mediaElement) {
           <div class="formula-card">
             <div class="formula-title">Blackman Windowing Equation</div>
             <div class="formula-body">
-              w[n] = 0.42 - 0.5 \cos\left(rac{2\pi n}{N-1}ight) + 0.08 \cos\left(rac{4\pi n}{N-1}ight)
+              w[n] = 0.42 &minus; 0.5 &times; cos(2&pi; n / (N&minus;1)) + 0.08 &times; cos(4&pi; n / (N&minus;1))
             </div>
-            <div class="formula-desc">Where $n \in [0, N-1]$ represents the sample index. The Blackman window provides exceptional sidelobe suppression (-58 dB), preventing spurious harmonic artifacts from polluting the SVG visualization.</div>
+            <div class="formula-desc">Where <em>n</em> &isin; [0, <em>N</em>&minus;1] represents the sample index. The Blackman window provides exceptional sidelobe suppression (-58 dB), preventing spurious harmonic artifacts from polluting the SVG visualization.</div>
           </div>
 
           <h3>AudioWorklet vs. Main Thread Processing</h3>
@@ -670,23 +665,23 @@ async function initWebAudioPipeline(mediaElement) {
           </div>
 
           <h3>The Decibel Scale and Logarithmic Perception of Sound</h3>
-          <p>The human auditory system does not perceive acoustic energy linearly. According to the <strong>Weber-Fechner Law</strong>, the subjective sensation of loudness scales logarithmically with physical sound wave intensity. Acoustic pressure spans an immense dynamic range: from the threshold of human hearing at $20	ext{ \mu Pa}$ ($0	ext{ dB SPL}$) to a deafening jet engine at $200	ext{ Pa}$ ($140	ext{ dB SPL}$)—a factor of ten million to one!</p>
-          <p>To translate linear acoustic pressure amplitudes $A$ into decibels (dB), acoustic engineers use the logarithmic decibel formula:</p>
+          <p>The human auditory system does not perceive acoustic energy linearly. According to the <strong>Weber-Fechner Law</strong>, the subjective sensation of loudness scales logarithmically with physical sound wave intensity. Acoustic pressure spans an immense dynamic range: from the threshold of human hearing at <em>20 &mu;Pa</em> (<em>0 dB SPL</em>) to a deafening jet engine at <em>200 Pa</em> (<em>140 dB SPL</em>)—a factor of ten million to one!</p>
+          <p>To translate linear acoustic pressure amplitudes <em>A</em> into decibels (dB), acoustic engineers use the logarithmic decibel formula:</p>
 
           <div class="formula-card">
             <div class="formula-title">Acoustic Decibel Conversion Formula</div>
             <div class="formula-body">
-              	ext{dB} = 20 	imes \log_{10}\left(rac{A}{A_{	ext{ref}}}ight)
+              dB = 20 &times; log<sub>10</sub>(A / A<sub>ref</sub>)
             </div>
-            <div class="formula-desc">Where $A_{	ext{ref}}$ is the full-scale reference level (0 dBFS). In digital audio, all signal amplitudes are expressed as negative decibels below full scale (0 dBFS represents digital clipping).</div>
+            <div class="formula-desc">Where <em>A</em><sub>ref</sub> is the full-scale reference level (0 dBFS). In digital audio, all signal amplitudes are expressed as negative decibels below full scale (0 dBFS represents digital clipping).</div>
           </div>
 
-          <p>The Web Audio API <code>AnalyserNode</code> incorporates built-in decibel mapping governed by two key attributes: <code>minDecibels</code> (defaulting to $-100	ext{ dB}$) and <code>maxDecibels</code> (defaulting to $-30	ext{ dB}$). When <code>getByteFrequencyData()</code> is called, the C++ engine maps decibel values within this range linearly onto unsigned 8-bit integers from 0 to 255:</p>
+          <p>The Web Audio API <code>AnalyserNode</code> incorporates built-in decibel mapping governed by two key attributes: <code>minDecibels</code> (defaulting to <em>-100 dB</em>) and <code>maxDecibels</code> (defaulting to <em>-30 dB</em>). When <code>getByteFrequencyData()</code> is called, the C++ engine maps decibel values within this range linearly onto unsigned 8-bit integers from 0 to 255:</p>
 
           <div class="formula-card">
             <div class="formula-title">Web Audio Byte Frequency Normalization</div>
             <div class="formula-body">
-              	ext{ByteValue} = 255 	imes \left( rac{	ext{dB} - 	ext{minDecibels}}{	ext{maxDecibels} - 	ext{minDecibels}} ight)
+              ByteValue = 255 &times; ((dB &minus; minDecibels) / (maxDecibels &minus; minDecibels))
             </div>
             <div class="formula-desc">Signals quieter than minDecibels clamp to 0, while signals louder than maxDecibels clamp to 255. Adjusting these thresholds lets you fine-tune visual sensitivity for quiet speech or loud club music.</div>
           </div>
@@ -723,21 +718,21 @@ function normalizeFrequency(byteVal) {
           <div class="formula-card">
             <div class="formula-title">Audio Spline Tangent Control Handle Derivation</div>
             <div class="formula-body">
-              CP_{1.x} = P_i.x + (P_{i+1}.x - P_{i-1}.x) / 6<br>
-              CP_{1.y} = P_i.y + (P_{i+1}.y - P_{i-1}.y) / 6<br>
-              CP_{2.x} = P_{i+1}.x - (P_{i+2}.x - P_i.x) / 6<br>
-              CP_{2.y} = P_{i+1}.y - (P_{i+2}.y - P_i.y) / 6
+              CP<sub>1.x</sub> = P<sub>i</sub>.x + (P<sub>i+1</sub>.x &minus; P<sub>i-1</sub>.x) / 6<br>
+              CP<sub>1.y</sub> = P<sub>i</sub>.y + (P<sub>i+1</sub>.y &minus; P<sub>i-1</sub>.y) / 6<br>
+              CP<sub>2.x</sub> = P<sub>i+1</sub>.x &minus; (P<sub>i+2</sub>.x &minus; P<sub>i</sub>.x) / 6<br>
+              CP<sub>2.y</sub> = P<sub>i+1</sub>.y &minus; (P<sub>i+2</sub>.y &minus; P<sub>i</sub>.y) / 6
             </div>
             <div class="formula-desc">Where adjacent control handles guarantee that curve segments meet with identical first derivatives, eliminating sharp angular bends across the audio waveform.</div>
           </div>
 
           <h3>Centripetal vs. Uniform Catmull-Rom Parameterization</h3>
-          <p>In standard uniform Catmull-Rom splines, knot intervals are assumed to be uniform ($\Delta t = 1$). While uniform splines are computationally cheap, they exhibit dangerous mathematical artifacts when applied to dynamic audio signals: during abrupt audio transients (such as a sharp kick drum transient or percussive snare strike), uniform splines suffer from <strong>overshoot</strong> and can produce self-intersecting loops or sharp cusps.</p>
-          <p>To eliminate loops and cusps, high-precision visualizers utilize <strong>centripetal Catmull-Rom splines</strong>, where parameter knot spacing $\Delta t_i$ is proportional to the square root of Euclidean distance between knots: $\Delta t_i = \|P_{i+1} - P_i\|^{0.5}$. Centripetal parameterization mathematically guarantees that the interpolated curve stays tightly bound within the convex hull of its control points, preventing unsightly vector pinching even during explosive volume surges.</p>
+          <p>In standard uniform Catmull-Rom splines, knot intervals are assumed to be uniform (&Delta;<em>t</em> = 1). While uniform splines are computationally cheap, they exhibit dangerous mathematical artifacts when applied to dynamic audio signals: during abrupt audio transients (such as a sharp kick drum transient or percussive snare strike), uniform splines suffer from <strong>overshoot</strong> and can produce self-intersecting loops or sharp cusps.</p>
+          <p>To eliminate loops and cusps, high-precision visualizers utilize <strong>centripetal Catmull-Rom splines</strong>, where parameter knot spacing &Delta;<em>t</em><sub><em>i</em></sub> is proportional to the square root of Euclidean distance between knots: &Delta;<em>t</em><sub><em>i</em></sub> = ||<em>P</em><sub><em>i</em>+1</sub> &minus; <em>P</em><sub><em>i</em></sub>||<sup>0.5</sup>|&Delta;<em>t</em><sub><em>i</em></sub> = ||<em>P</em><sub><em>i</em>+1</sub> &minus; <em>P</em><sub><em>i</em></sub>||<sup>0.5</sup>. Centripetal parameterization mathematically guarantees that the interpolated curve stays tightly bound within the convex hull of its control points, preventing unsightly vector pinching even during explosive volume surges.</p>
 
           <h3>Vector Topology, Closed Winding Rules, and Zero-Crossing Inversion</h3>
           <p>When rendering a mirrored envelope in SVG, managing the vector winding topology is essential for correct visual rendering. When the waveform is filled with an SVG linear gradient, the SVG rasterizer applies the <code>fill-rule</code> property (which defaults to <code>nonzero</code>). If the upper envelope and lower envelope ever intersect—which can happen if noise algorithms or rounding errors push the lower contour above the upper contour during silent periods—the path winding can invert, creating transparent holes or fill artifacts in the shape.</p>
-          <p>To guarantee complete mathematical integrity, our algorithm enforces strict boundary clamping: the minimum amplitude offset is clamped to a positive value $\epsilon \ge 1.0	ext{ px}$. This ensures that even during total silence, the upper and lower contours never touch or cross each other, preserving a clean, razor-thin baseline ribbon that communicates active system readiness to the user.</p>
+          <p>To guarantee complete mathematical integrity, our algorithm enforces strict boundary clamping: the minimum amplitude offset is clamped to a positive value <em>&epsilon;</em> &ge; 1.0 px. This ensures that even during total silence, the upper and lower contours never touch or cross each other, preserving a clean, razor-thin baseline ribbon that communicates active system readiness to the user.</p>
 
           <h3>Constructing Mirrored Stereo Envelopes (SoundCloud / Podcast Style)</h3>
           <p>The iconic audio visualizer style made famous by SoundCloud, WhatsApp voice notes, and modern podcast players features a <strong>mirrored symmetrical envelope</strong>: the upper contour rises with audio energy while a symmetrical lower contour mirrors the movement downward around a central baseline.</p>
@@ -1043,7 +1038,7 @@ function normalizeFrequency(byteVal) {
                       <button type="button" class="copy-btn" id="copyAudioCodeBtn">Copy Code</button>
                     </div>
                   </div>
-                  <pre class="code-output-area" id="audioCodeOutput">Click "Play Audio Stream" or switch presets to generate real-time vector code...</pre>
+                  <pre class="code-output-area" id="audioCodeOutput">Click "Play Audio Stream" or switch presets to generate real-time vector code.</pre>
                 </div>
               </div>
             </div>
@@ -1055,13 +1050,13 @@ function normalizeFrequency(byteVal) {
           <p>While horizontal waveforms excel for linear scrubber bars, music players and voice AI interfaces frequently call for <strong>circular radial visualizers</strong>—such as Apple Siri's pulsating aura, Google Gemini's audio sphere, or circular vinyl record equalizers.</p>
 
           <h3>Deriving Polar-to-Cartesian Coordinates</h3>
-          <p>To project linear FFT frequency bins around a circular perimeter, we apply polar trigonometry. For an array of N frequency samples distributed around a circle of base radius $R_{\text{base}}$ centered at $(c_x, c_y)$:</p>
+          <p>To project linear FFT frequency bins around a circular perimeter, we apply polar trigonometry. For an array of N frequency samples distributed around a circle of base radius <em>R</em><sub>base</sub> centered at (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>):</p>
 
           <div class="formula-card">
             <div class="formula-title">Polar to Cartesian Audio Vector Mapping</div>
             <div class="formula-body">
               &theta;_i = i &times; (2&pi; / N) - &pi;/2<br>
-              r_i = R_{base} + (A_i / 255.0) &times; MaxExtrusion<br>
+              r<sub>i</sub> = R<sub>base</sub> + (A<sub>i</sub> / 255.0) &times; MaxExtrusion<br>
               x_i = c_x + r_i &times; cos(&theta;_i)<br>
               y_i = c_y + r_i &times; sin(&theta;_i)
             </div>
@@ -1105,7 +1100,7 @@ function normalizeFrequency(byteVal) {
   return d;
 }</code></pre>
 
-          <p>Because circular loops have no terminal boundaries, wrapping control handle lookups modulo $N$ ensures that the curve closes seamlessly back into itself at 360 degrees without any angular seams or visible joint kinks. For more advanced arc and circle mathematics, consult our definitive guide to <a href="/articles/svg-path-arc-commands-math-guide/">SVG path arc commands and math</a>.</p>
+          <p>Because circular loops have no terminal boundaries, wrapping control handle lookups modulo <em>N</em> ensures that the curve closes seamlessly back into itself at 360 degrees without any angular seams or visible joint kinks. For more advanced arc and circle mathematics, consult our definitive guide to <a href="/articles/svg-path-arc-commands-math-guide/">SVG path arc commands and math</a>.</p>
         </section>
 
         <section id="performance-dom-architecture">
@@ -1133,7 +1128,7 @@ function normalizeFrequency(byteVal) {
           <p>To understand why mutating a single SVG path is so dramatically faster than updating individual DOM elements, one must examine the 5 sequential phases of the browser rendering engine (Blink, WebKit, and Gecko):</p>
           <ol>
             <li><strong>Recalculate Style:</strong> The browser parses CSS rules and resolves computed styles for all dirty elements in the DOM tree.</li>
-            <li><strong>Layout (Reflow):</strong> The engine calculates physical geometric coordinates (width, height, top, left) for every element, establishing box model hierarchies. Layout is computationally expensive ($O(N)$ across affected subtree nodes).</li>
+            <li><strong>Layout (Reflow):</strong> The engine calculates physical geometric coordinates (width, height, top, left) for every element, establishing box model hierarchies. Layout is computationally expensive (<em>O</em>(<em>N</em>) across affected subtree nodes).</li>
             <li><strong>Update Layer Tree:</strong> Stacking contexts and compositor layers are evaluated to build the compositing hierarchy.</li>
             <li><strong>Paint (Rasterization):</strong> The browser converts layout geometry into low-level graphics draw calls (drawRect, drawPath, drawText) organized into display lists.</li>
             <li><strong>Composite:</strong> Display lists are rasterized on GPU threads and blended onto physical screen buffers.</li>
@@ -1153,7 +1148,7 @@ function normalizeFrequency(byteVal) {
           <p>One of the most thrilling advantages of SVG over standard HTML5 Canvas is native support for declarative vector filter primitives. By dynamically binding audio frequency metrics to SVG filter parameters, developers can create mesmerizing audio-reactive visual effects directly in the browser.</p>
 
           <h3>Sub-Bass Bloom via feGaussianBlur</h3>
-          <p>Low-frequency sub-bass energy ($20\text{ Hz} - 100\text{ Hz}$) can modulate the <code>stdDeviation</code> attribute of an <code>feGaussianBlur</code> filter. On heavy bass drops and kick drum hits, the entire waveform emits an explosive neon bloom before smoothly decaying back to sharp focus during quieter passages:</p>
+          <p>Low-frequency sub-bass energy (<em>20 Hz &ndash; 100 Hz</em>) can modulate the <code>stdDeviation</code> attribute of an <code>feGaussianBlur</code> filter. On heavy bass drops and kick drum hits, the entire waveform emits an explosive neon bloom before smoothly decaying back to sharp focus during quieter passages:</p>
 
           <pre><code>// Modulating SVG Blur Filter Based on Sub-Bass Energy
 const blurNode = document.querySelector('#audioGlowFilter feGaussianBlur');
@@ -1392,6 +1387,7 @@ function calculateAdaptiveAmplitude(rawAmplitude) {
       let osc2 = null;
       let gainNode = null;
       let simPhase = 0;
+      let smoothedBuffer = null;
 
       // Color scheme palettes
       const palettes = {
@@ -1467,9 +1463,9 @@ function calculateAdaptiveAmplitude(rawAmplitude) {
         }
       }
 
-      // Generate synthetic frequency buffer simulating live music
+      // Generate synthetic frequency buffer simulating live music with authentic AnalyserNode smoothing
       function getSyntheticFrequencyData(bandCount, phase) {
-        const data = new Uint8Array(bandCount);
+        const rawData = new Uint8Array(bandCount);
         const ampMult = parseFloat(ampSlider.value);
         let maxEnergy = 0;
 
@@ -1486,7 +1482,22 @@ function calculateAdaptiveAmplitude(rawAmplitude) {
           energy = Math.max(0, Math.min(1, energy));
           if (energy > maxEnergy) maxEnergy = energy;
 
-          data[i] = Math.round(energy * 255);
+          rawData[i] = Math.round(energy * 255);
+        }
+
+        // Authentic Web Audio AnalyserNode.smoothingTimeConstant emulation
+        const smooth = parseFloat(smoothSlider.value);
+        if (!smoothedBuffer || smoothedBuffer.length !== bandCount) {
+          smoothedBuffer = new Float32Array(rawData);
+        } else {
+          for (let i = 0; i < bandCount; i++) {
+            smoothedBuffer[i] = smoothedBuffer[i] * smooth + rawData[i] * (1.0 - smooth);
+          }
+        }
+
+        const data = new Uint8Array(bandCount);
+        for (let i = 0; i < bandCount; i++) {
+          data[i] = Math.round(smoothedBuffer[i]);
         }
 
         statPeak.textContent = (maxEnergy > 0 ? (20 * Math.log10(maxEnergy)).toFixed(1) : '-90.0') + ' dB';
@@ -1660,29 +1671,29 @@ function calculateAdaptiveAmplitude(rawAmplitude) {
         const bands = bandsSlider.value;
 
         if (currentTab === 'svg') {
-          codeOutput.textContent = '<!-- High-Performance Reactive SVG Audio Visualizer -->\\n' +
-            '<svg viewBox="0 0 600 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">\\n' +
-            '  <defs>\\n' +
-            '    <linearGradient id="audioGrad" x1="0%" y1="0%" x2="100%" y2="100%">\\n' +
-            '      <stop offset="0%" stop-color="#38BDF8"/>\\n' +
-            '      <stop offset="100%" stop-color="#C1DD2D"/>\\n' +
-            '    </linearGradient>\\n' +
-            '  </defs>\\n' +
-            '  <!-- Single Persistent Vector Path Recycled via setAttribute("d") -->\\n' +
-            '  <path id="audioWave" fill="url(#audioGrad)" stroke="#C1DD2D" stroke-width="2" d="..." />\\n' +
+          codeOutput.textContent = '<!-- High-Performance Reactive SVG Audio Visualizer -->\n' +
+            '<svg viewBox="0 0 600 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">\n' +
+            '  <defs>\n' +
+            '    <linearGradient id="audioGrad" x1="0%" y1="0%" x2="100%" y2="100%">\n' +
+            '      <stop offset="0%" stop-color="#38BDF8"/>\n' +
+            '      <stop offset="100%" stop-color="#C1DD2D"/>\n' +
+            '    </linearGradient>\n' +
+            '  </defs>\n' +
+            '  <!-- Single Persistent Vector Path Recycled via setAttribute("d") -->\n' +
+            '  <path id="audioWave" fill="url(#audioGrad)" stroke="#C1DD2D" stroke-width="2" d="M 0 180 Q 150 120 300 180 T 600 180" />\n' +
             '</svg>';
         } else {
-          codeOutput.textContent = '// Web Audio API 60 FPS Render Loop\\n' +
-            'const audioCtx = new AudioContext();\\n' +
-            'const analyser = audioCtx.createAnalyser();\\n' +
-            'analyser.fftSize = ' + (parseInt(bands, 10) * 2) + ';\\n' +
-            'const buffer = new Uint8Array(analyser.frequencyBinCount);\\n' +
-            'const pathNode = document.getElementById("audioWave");\\n\\n' +
-            'function render() {\\n' +
-            '  requestAnimationFrame(render);\\n' +
-            '  analyser.getByteFrequencyData(buffer);\\n' +
-            '  pathNode.setAttribute("d", generateSplineD(buffer));\\n' +
-            '}\\n' +
+          codeOutput.textContent = '// Web Audio API 60 FPS Render Loop\n' +
+            'const audioCtx = new AudioContext();\n' +
+            'const analyser = audioCtx.createAnalyser();\n' +
+            'analyser.fftSize = ' + (parseInt(bands, 10) * 2) + ';\n' +
+            'const buffer = new Uint8Array(analyser.frequencyBinCount);\n' +
+            'const pathNode = document.getElementById("audioWave");\n\n' +
+            'function render() {\n' +
+            '  requestAnimationFrame(render);\n' +
+            '  analyser.getByteFrequencyData(buffer);\n' +
+            '  pathNode.setAttribute("d", generateSplineD(buffer));\n' +
+            '}\n' +
             'render();';
         }
       }
@@ -1740,24 +1751,31 @@ function calculateAdaptiveAmplitude(rawAmplitude) {
       styleSelect.addEventListener('change', function() {
         document.getElementById('audioStyleVal').textContent = styleSelect.options[styleSelect.selectedIndex].text.split(' (')[0];
         updateCodeOutput();
+        if (!isPlaying) renderFrame();
       });
 
       bandsSlider.addEventListener('input', function() {
         document.getElementById('audioBandsVal').textContent = bandsSlider.value + ' Bands';
+        smoothedBuffer = null;
         updateCodeOutput();
+        if (!isPlaying) renderFrame();
       });
 
       smoothSlider.addEventListener('input', function() {
         document.getElementById('audioSmoothVal').textContent = smoothSlider.value;
+        updateCodeOutput();
+        if (!isPlaying) renderFrame();
       });
 
       ampSlider.addEventListener('input', function() {
         document.getElementById('audioAmpVal').textContent = ampSlider.value + 'x';
+        if (!isPlaying) renderFrame();
       });
 
       colorSelect.addEventListener('change', function() {
         document.getElementById('audioColorVal').textContent = colorSelect.options[colorSelect.selectedIndex].text.split(' (')[0];
         updatePalette();
+        if (!isPlaying) renderFrame();
       });
 
       tabSvg.addEventListener('click', function() {
@@ -1811,9 +1829,13 @@ function calculateAdaptiveAmplitude(rawAmplitude) {
     })();
   </script>
 </body>
-</html>"""
+</html>'''
+
+out_dir = r"D:\Project IconStash\IconStash\articles\svg-audio-visualizers-and-frequency-waveforms-guide"
+os.makedirs(out_dir, exist_ok=True)
+out_file = os.path.join(out_dir, "index.html")
 
 with open(out_file, "w", encoding="utf-8") as f:
     f.write(content)
 
-print(f"Successfully generated {out_file} ({len(content)} bytes)")
+print("Successfully generated " + out_file)

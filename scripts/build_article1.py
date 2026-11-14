@@ -1,17 +1,12 @@
 import os
-import re
 
-out_dir = r"D:\Project IconStash\IconStash\articles\svg-signature-pad-and-smooth-vector-drawing-guide"
-os.makedirs(out_dir, exist_ok=True)
-out_file = os.path.join(out_dir, "index.html")
-
-content = """<!DOCTYPE html>
+content = r'''<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mastering SVG Signature Pads &amp; Smooth Vector Ink: Bezier Splines, Pressure Dynamics &amp; High-Precision Export Guide (2026) | IconStash</title>
-  <meta name="description" content="Master SVG signature pads: PointerEvents, Catmull-Rom to cubic Bézier spline smoothing, pressure dynamics, path serialization, and production export studio.">
+  <meta name="description" content="Build responsive, accessible SVG signature pads. Master Bezier splines, pressure dynamics, 120 FPS pointer events, and lossless vector path export.">
   <meta name="keywords" content="svg signature pad, smooth vector drawing javascript, catmull-rom to bezier svg, pointer events pressure svg, digital signature vector export, svg handwriting smoothing, chaikin algorithm svg, electronic signature pad web">
   <meta property="og:title" content="Mastering SVG Signature Pads &amp; Smooth Vector Ink: Bezier Splines, Pressure Dynamics &amp; High-Precision Export Guide (2026)">
   <meta property="og:description" content="Master SVG signature pads: PointerEvents, Catmull-Rom to cubic Bézier spline smoothing, pressure dynamics, path serialization, and production export studio.">
@@ -32,7 +27,7 @@ content = """<!DOCTYPE html>
   <meta property="article:tag" content="Frontend Engineering">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Mastering SVG Signature Pads &amp; Smooth Vector Ink: Bezier Splines, Pressure Dynamics &amp; High-Precision Export Guide (2026)">
-  <meta name="twitter:description" content="Master SVG signature pads: PointerEvents, Catmull-Rom to cubic Bézier spline smoothing, pressure dynamics, path serialization, and production export studio.">
+  <meta name="twitter:description" content="Build responsive, accessible SVG signature pads. Master Bezier splines, pressure dynamics, 120 FPS pointer events, and lossless vector path export.">
   <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-signature-pad-and-smooth-vector-drawing-guide.jpg">
   <link rel="canonical" href="https://iconstash.io/articles/svg-signature-pad-and-smooth-vector-drawing-guide/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -46,7 +41,7 @@ content = """<!DOCTYPE html>
       "@context": "https://schema.org",
       "@type": "TechArticle",
       "headline": "Mastering SVG Signature Pads & Smooth Vector Ink: Bezier Splines, Pressure Dynamics & High-Precision Export Guide (2026)",
-      "description": "Master SVG signature pads: PointerEvents, Catmull-Rom to cubic Bézier spline smoothing, pressure dynamics, path serialization, and production export studio.",
+      "description": "Master SVG signature pads: PointerEvents, Catmull-Rom to cubic Bézier smoothing, pressure dynamics, path serialization, and production export studio.",
       "image": "https://iconstash.io/assets/articles/svg-signature-pad-and-smooth-vector-drawing-guide.jpg",
       "author": {
         "@type": "Person",
@@ -602,8 +597,8 @@ svgCanvas.addEventListener('pointerup', (e) =&gt; {
           <div class="formula-card">
             <div class="formula-title">Midpoint Quadratic Bézier Formulation</div>
             <div class="formula-body">
-              M_i = ((x_i + x_{i+1}) / 2, (y_i + y_{i+1}) / 2)<br>
-              SVG Command Segment: Q (x_i, y_i) to (M_{i.x}, M_{i.y})
+              M<sub>i</sub> = ((x<sub>i</sub> + x<sub>i+1</sub>) / 2, (y<sub>i</sub> + y<sub>i+1</sub>) / 2)<br>
+              SVG Command Segment: Q (x<sub>i</sub>, y<sub>i</sub>) to (M<sub>i.x</sub>, M<sub>i.y</sub>)
             </div>
             <div class="formula-desc">Each quadratic Bézier curve smoothly bridges the midpoint of the previous segment to the midpoint of the current segment, anchoring control handles at the original recorded stylus coordinates.</div>
           </div>
@@ -686,10 +681,10 @@ svgCanvas.addEventListener('pointerup', (e) =&gt; {
           <div class="formula-card">
             <div class="formula-title">Velocity-Dependent Stroke Taper Equation</div>
             <div class="formula-body">
-              v = &radic;((x_i - x_{i-1})&sup2; + (y_i - y_{i-1})&sup2;) / &Delta;t<br>
-              w = w_{min} + (w_{max} - w_{min}) &times; exp(-k &times; v)
+              v = &radic;((x<sub>i</sub> - x<sub>i&minus;1</sub>)&sup2; + (y<sub>i</sub> - y<sub>i&minus;1</sub>)&sup2;) / &Delta;t<br>
+              w = w<sub>min</sub> + (w<sub>max</sub> &minus; w<sub>min</sub>) &times; exp(&minus;k &times; v)
             </div>
-            <div class="formula-desc">Where v is the Euclidean pixel speed, &Delta;t is elapsed milliseconds, k is the velocity sensitivity damping constant, and w is the computed stroke width clamped between w_min and w_max.</div>
+            <div class="formula-desc">Where v is the Euclidean pixel speed, &Delta;t is elapsed milliseconds, k is the velocity sensitivity damping constant, and w is the computed stroke width clamped between w<sub>min</sub> and w<sub>max</sub>.</div>
           </div>
 
           <pre><code>class DynamicStrokeModel {
@@ -1027,7 +1022,8 @@ function perpendicularDistance(p, lineStart, lineEnd) {
     &lt;/signatureAudit&gt;
   &lt;/metadata&gt;
   &lt;g fill="none" stroke="${metadata.color || '#000000'}" stroke-linecap="round" stroke-linejoin="round"&gt;
-    ${strokeCollection.map(s =&gt; `&lt;path d="${catmullRomToCubicBezier(s)}" stroke-width="${metadata.width || 2.5}" /&gt;`).join('\n    ')}
+    ${strokeCollection.map(s =&gt; `&lt;path d="${catmullRomToCubicBezier(s)}" stroke-width="${metadata.width || 2.5}" /&gt;`).join('
+    ')}
   &lt;/g&gt;
 &lt;/svg&gt;`;
 }</code></pre>
@@ -1351,6 +1347,7 @@ async function embedSvgSignatureInPdf(existingPdfBytes, svgString, x, y, scale =
         const algo = algoSelect.value;
         const baseWidth = parseFloat(widthSlider.value);
         const tension = parseFloat(smoothSlider.value);
+        const taper = parseFloat(taperSlider.value);
         const color = strokeSelect.value;
 
         let totalRawPts = 0;
@@ -1360,16 +1357,59 @@ async function embedSvgSignatureInPdf(existingPdfBytes, svgString, x, y, scale =
           totalRawPts += stroke.length;
           const simplified = simplifyRDP(stroke, 0.8);
           totalCompPts += simplified.length;
-          const d = strokeToPathD(simplified, algo, tension);
-          if (d) {
-            const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            p.setAttribute('d', d);
-            p.setAttribute('fill', 'none');
-            p.setAttribute('stroke', color);
-            p.setAttribute('stroke-width', baseWidth.toString());
-            p.setAttribute('stroke-linecap', 'round');
-            p.setAttribute('stroke-linejoin', 'round');
-            pathsGroup.appendChild(p);
+
+          if (taper > 0 && simplified.length > 1) {
+            // Render dynamic hydrodynamic tapered segments
+            for (let i = 0; i < simplified.length - 1; i++) {
+              const p1 = simplified[i];
+              const p2 = simplified[i + 1];
+              const dt = Math.max(1, (p2.time - p1.time) || 16);
+              const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+              const vel = dist / dt;
+              const press = (p2.pressure !== undefined && p2.pressure > 0) ? p2.pressure : 0.5;
+              const velFactor = Math.exp(-taper * vel * 0.35);
+              const pressFactor = 0.55 + press * taper * 0.9;
+              const segWidth = Math.max(0.6, Number((baseWidth * velFactor * pressFactor).toFixed(2)));
+
+              let segD;
+              if (algo === 'catmull' && simplified.length >= 4) {
+                const p0 = i > 0 ? simplified[i - 1] : p1;
+                const p3 = i < simplified.length - 2 ? simplified[i + 2] : p2;
+                const factor = 6 * tension;
+                const cp1x = Number((p1.x + (p2.x - p0.x) / factor).toFixed(1));
+                const cp1y = Number((p1.y + (p2.y - p0.y) / factor).toFixed(1));
+                const cp2x = Number((p2.x - (p3.x - p1.x) / factor).toFixed(1));
+                const cp2y = Number((p2.y - (p3.y - p1.y) / factor).toFixed(1));
+                segD = 'M ' + p1.x + ' ' + p1.y + ' C ' + cp1x + ' ' + cp1y + ', ' + cp2x + ' ' + cp2y + ', ' + p2.x + ' ' + p2.y;
+              } else if (algo === 'midpoint' && i > 0 && i < simplified.length - 1) {
+                const mx = ((p1.x + p2.x) / 2).toFixed(1);
+                const my = ((p1.y + p2.y) / 2).toFixed(1);
+                segD = 'M ' + p1.x + ' ' + p1.y + ' Q ' + p1.x + ' ' + p1.y + ', ' + mx + ' ' + my;
+              } else {
+                segD = 'M ' + p1.x + ' ' + p1.y + ' L ' + p2.x + ' ' + p2.y;
+              }
+
+              const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+              p.setAttribute('d', segD);
+              p.setAttribute('fill', 'none');
+              p.setAttribute('stroke', color);
+              p.setAttribute('stroke-width', segWidth.toString());
+              p.setAttribute('stroke-linecap', 'round');
+              p.setAttribute('stroke-linejoin', 'round');
+              pathsGroup.appendChild(p);
+            }
+          } else {
+            const d = strokeToPathD(simplified, algo, tension);
+            if (d) {
+              const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+              p.setAttribute('d', d);
+              p.setAttribute('fill', 'none');
+              p.setAttribute('stroke', color);
+              p.setAttribute('stroke-width', baseWidth.toString());
+              p.setAttribute('stroke-linecap', 'round');
+              p.setAttribute('stroke-linejoin', 'round');
+              pathsGroup.appendChild(p);
+            }
           }
         });
 
@@ -1400,33 +1440,81 @@ async function embedSvgSignatureInPdf(existingPdfBytes, svgString, x, y, scale =
         const algo = algoSelect.value;
         const baseWidth = parseFloat(widthSlider.value);
         const tension = parseFloat(smoothSlider.value);
+        const taper = parseFloat(taperSlider.value);
         const color = strokeSelect.value;
 
         if (strokes.length === 0) {
-          codeOutput.textContent = 'Draw on the canvas or click "Generate Sample" to generate production vector code...';
+          codeOutput.textContent = 'Draw on the canvas or click "Generate Sample" to generate production vector code.';
           statBytes.textContent = '0 B';
           return;
         }
 
-        const pathDataList = strokes.map(s => {
-          const simplified = simplifyRDP(s, 0.8);
-          return strokeToPathD(simplified, algo, tension);
-        }).filter(Boolean);
-
         let outputText = '';
-        if (currentTab === 'path') {
-          outputText = pathDataList.map(d => '<path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="' + baseWidth + '" stroke-linecap="round" stroke-linejoin="round" />').join('\\n');
-        } else if (currentTab === 'doc') {
-          outputText = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360">\\n' +
-            '  <g fill="none" stroke="' + color + '" stroke-width="' + baseWidth + '" stroke-linecap="round" stroke-linejoin="round">\\n' +
-            pathDataList.map(d => '    <path d="' + d + '" />').join('\\n') + '\\n' +
-            '  </g>\\n' +
-            '</svg>';
-        } else if (currentTab === 'base64') {
-          const rawSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360"><g fill="none" stroke="' + color + '" stroke-width="' + baseWidth + '" stroke-linecap="round" stroke-linejoin="round">' +
-            pathDataList.map(d => '<path d="' + d + '"/>').join('') + '</g></svg>';
-          const b64 = (typeof btoa !== 'undefined') ? btoa(rawSvg) : '';
-          outputText = 'data:image/svg+xml;base64,' + b64;
+        if (taper > 0) {
+          const segments = [];
+          strokes.forEach(stroke => {
+            const simplified = simplifyRDP(stroke, 0.8);
+            for (let i = 0; i < simplified.length - 1; i++) {
+              const p1 = simplified[i];
+              const p2 = simplified[i + 1];
+              const dt = Math.max(1, (p2.time - p1.time) || 16);
+              const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+              const vel = dist / dt;
+              const press = (p2.pressure !== undefined && p2.pressure > 0) ? p2.pressure : 0.5;
+              const velFactor = Math.exp(-taper * vel * 0.35);
+              const pressFactor = 0.55 + press * taper * 0.9;
+              const segWidth = Math.max(0.6, Number((baseWidth * velFactor * pressFactor).toFixed(2)));
+              let segD;
+              if (algo === 'catmull' && simplified.length >= 4) {
+                const p0 = i > 0 ? simplified[i - 1] : p1;
+                const p3 = i < simplified.length - 2 ? simplified[i + 2] : p2;
+                const factor = 6 * tension;
+                const cp1x = Number((p1.x + (p2.x - p0.x) / factor).toFixed(1));
+                const cp1y = Number((p1.y + (p2.y - p0.y) / factor).toFixed(1));
+                const cp2x = Number((p2.x - (p3.x - p1.x) / factor).toFixed(1));
+                const cp2y = Number((p2.y - (p3.y - p1.y) / factor).toFixed(1));
+                segD = 'M ' + p1.x + ' ' + p1.y + ' C ' + cp1x + ' ' + cp1y + ', ' + cp2x + ' ' + cp2y + ', ' + p2.x + ' ' + p2.y;
+              } else {
+                segD = 'M ' + p1.x + ' ' + p1.y + ' L ' + p2.x + ' ' + p2.y;
+              }
+              segments.push({ d: segD, width: segWidth });
+            }
+          });
+
+          if (currentTab === 'path') {
+            outputText = segments.map(s => '<path d="' + s.d + '" fill="none" stroke="' + color + '" stroke-width="' + s.width + '" stroke-linecap="round" stroke-linejoin="round" />').join('\n');
+          } else if (currentTab === 'doc') {
+            outputText = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360">\n' +
+              '  <g fill="none" stroke="' + color + '" stroke-linecap="round" stroke-linejoin="round">\n' +
+              segments.map(s => '    <path d="' + s.d + '" stroke-width="' + s.width + '" />').join('\n') + '\n' +
+              '  </g>\n' +
+              '</svg>';
+          } else if (currentTab === 'base64') {
+            const rawSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360"><g fill="none" stroke="' + color + '" stroke-linecap="round" stroke-linejoin="round">' +
+              segments.map(s => '<path d="' + s.d + '" stroke-width="' + s.width + '"/>').join('') + '</g></svg>';
+            const b64 = (typeof btoa !== 'undefined') ? btoa(encodeURIComponent(rawSvg).replace(/%([0-9A-F]{2})/g, (m, p) => String.fromCharCode('0x' + p))) : '';
+            outputText = 'data:image/svg+xml;base64,' + b64;
+          }
+        } else {
+          const pathDataList = strokes.map(s => {
+            const simplified = simplifyRDP(s, 0.8);
+            return strokeToPathD(simplified, algo, tension);
+          }).filter(Boolean);
+
+          if (currentTab === 'path') {
+            outputText = pathDataList.map(d => '<path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="' + baseWidth + '" stroke-linecap="round" stroke-linejoin="round" />').join('\n');
+          } else if (currentTab === 'doc') {
+            outputText = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360">\n' +
+              '  <g fill="none" stroke="' + color + '" stroke-width="' + baseWidth + '" stroke-linecap="round" stroke-linejoin="round">\n' +
+              pathDataList.map(d => '    <path d="' + d + '" />').join('\n') + '\n' +
+              '  </g>\n' +
+              '</svg>';
+          } else if (currentTab === 'base64') {
+            const rawSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360"><g fill="none" stroke="' + color + '" stroke-width="' + baseWidth + '" stroke-linecap="round" stroke-linejoin="round">' +
+              pathDataList.map(d => '<path d="' + d + '"/>').join('') + '</g></svg>';
+            const b64 = (typeof btoa !== 'undefined') ? btoa(encodeURIComponent(rawSvg).replace(/%([0-9A-F]{2})/g, (m, p) => String.fromCharCode('0x' + p))) : '';
+            outputText = 'data:image/svg+xml;base64,' + b64;
+          }
         }
 
         codeOutput.textContent = outputText;
@@ -1596,9 +1684,13 @@ async function embedSvgSignatureInPdf(existingPdfBytes, svgString, x, y, scale =
     })();
   </script>
 </body>
-</html>"""
+</html>'''
+
+out_dir = r"D:\Project IconStash\IconStash\articles\svg-signature-pad-and-smooth-vector-drawing-guide"
+os.makedirs(out_dir, exist_ok=True)
+out_file = os.path.join(out_dir, "index.html")
 
 with open(out_file, "w", encoding="utf-8") as f:
     f.write(content)
 
-print(f"Successfully generated {out_file} ({len(content)} bytes)")
+print("Successfully generated " + out_file)

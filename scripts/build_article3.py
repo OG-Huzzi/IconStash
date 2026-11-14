@@ -1,13 +1,12 @@
 import os
-import re
 
 html_content = r'''<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Architecting SVG Radial Menus &amp; Circular Navigation Wheels: Arc Trigonometry, Spring Physics &amp; Accessible UI Guide (2026)</title>
-  <meta name="description" content="Architect responsive, accessible SVG radial menus and circular navigation wheels. Master polar trigonometry, annular wedge paths, spring physics, and roving tabindex.">
+  <meta name="description" content="Architect responsive, accessible SVG radial menus and action wheels. Master polar trigonometry, annular wedge paths, spring physics, and roving tabindex.">
   <link rel="canonical" href="https://iconstash.io/articles/svg-radial-menus-and-circular-navigation-guide/">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="author" content="Jouni Flemming">
@@ -30,7 +29,7 @@ html_content = r'''<!DOCTYPE html>
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Architecting SVG Radial Menus &amp; Circular Navigation Wheels: Arc Trigonometry, Spring Physics &amp; Accessible UI Guide (2026)">
-  <meta name="twitter:description" content="Architect responsive, accessible SVG radial menus and circular navigation wheels. Master polar trigonometry, annular wedge paths, spring physics, and roving tabindex.">
+  <meta name="twitter:description" content="Architect responsive, accessible SVG radial menus and action wheels. Master polar trigonometry, annular wedge paths, spring physics, and roving tabindex.">
   <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-radial-menus-and-circular-navigation-guide.jpg">
 
   <!-- JSON-LD Structured Data -->
@@ -40,7 +39,7 @@ html_content = r'''<!DOCTYPE html>
       "@context": "https://schema.org",
       "@type": "TechArticle",
       "headline": "Architecting SVG Radial Menus & Circular Navigation Wheels: Arc Trigonometry, Spring Physics & Accessible UI Guide (2026)",
-      "description": "Architect responsive, accessible SVG radial menus and circular navigation wheels. Master polar trigonometry, annular wedge paths, spring physics, and roving tabindex.",
+      "description": "Architect responsive, accessible SVG radial menus and action wheels. Master polar trigonometry, annular wedge paths, spring physics, and roving tabindex.",
       "inLanguage": "en-US",
       "mainEntityOfPage": {
         "@type": "WebPage",
@@ -356,6 +355,76 @@ html_content = r'''<!DOCTYPE html>
     .site-footer { border-top: 1px solid var(--border-subtle); padding: 40px 24px; text-align: center; font-size: 14px; color: var(--text-faint); margin-top: 60px; background: var(--bg-card); }
     .site-footer a { color: var(--text-muted); }
     .site-footer a:hover { color: var(--accent-color); }
+  
+    @media (max-width: 768px) {
+      .site-header nav a:not(.header-cta) { display: none; }
+      .site-header nav { gap: 12px; }
+    }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sidebar-title { color: #525252; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .generated-code-box { background: #FAFAFA; border-color: #E4E4E7; }
+    html[data-theme="light"] .code-box-head { background: #F4F4F5; border-bottom-color: #E4E4E7; color: #525252; }
+    html[data-theme="light"] .code-output-area { background: #FFFFFF; color: #1F2937; }
+    html[data-theme="light"] .copy-btn { background: #F0F4D8; border-color: #D2ED3E; color: #4D6300; }
+    html[data-theme="light"] .copy-btn:hover { background: #4D6300; color: #FFF; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+
   </style>
 </head>
 <body>
@@ -390,10 +459,10 @@ html_content = r'''<!DOCTYPE html>
         <header class="article-header">
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/">Home</a>
-            <span>/</span>
+            <span class="sep">/</span>
             <a href="/articles/">Articles</a>
-            <span>/</span>
-            <span>Radial Menus Guide</span>
+            <span class="sep">/</span>
+            <span class="current" aria-current="page">Radial Menus Guide</span>
           </nav>
           
           <h1 class="article-title">Architecting SVG Radial Menus &amp; Circular Navigation Wheels: Arc Trigonometry, Spring Physics &amp; Accessible UI Guide (2026)</h1>
@@ -428,23 +497,23 @@ html_content = r'''<!DOCTYPE html>
             <p>To understand why radial menus consistently outperform traditional linear dropdown menus in quantitative usability benchmarks, one must examine the fundamental governing law of human motor movement in human-computer interaction: <strong>Fitts's Law</strong>.</p>
 
             <h3>Fitts's Law and Linear Menu Deficiencies</h3>
-            <p>Formulated by psychologist Paul Fitts in 1954, Fitts's Law models the time $T$ required for a human limb, mouse cursor, or stylus to rapidly move to a target area. It is expressed mathematically as:</p>
+            <p>Formulated by psychologist Paul Fitts in 1954, Fitts's Law models the time <em>T</em> required for a human limb, mouse cursor, or stylus to rapidly move to a target area. It is expressed mathematically as:</p>
 
             <div class="formula-card">
               <div class="formula-title">Fitts's Law Target Acquisition Equation</div>
               <div class="formula-body">
-                T = a + b \times \log_2\left( \frac{2D}{W} \right) = a + b \times \text{ID}
+                T = a + b &times; log<sub>2</sub>(2D / W) = a + b &times; ID
               </div>
-              <div class="formula-desc">Where $D$ represents the physical distance from starting cursor position to the target center, $W$ represents the target's width along the axis of motion, $a$ and $b$ are empirical constants, and $\text{ID}$ is the 'Index of Difficulty' measured in bits.</div>
+              <div class="formula-desc">Where <em>D</em> represents the physical distance from starting cursor position to the target center, <em>W</em> represents the target's width along the axis of motion, <em>a</em> and <em>b</em> are empirical constants, and ID is the 'Index of Difficulty' measured in bits.</div>
             </div>
 
-            <p>Consider a standard linear context menu containing 8 items stacked vertically. When the user right-clicks, their cursor sits at item 1 (distance $D \approx 10\text{ px}$). However, selecting item 8 requires traversing down the entire menu stack ($D \approx 280\text{ px}$). The Index of Difficulty escalates logarithmically with each additional item, meaning that actions placed at the bottom of a linear menu take up to <strong>300% longer to acquire</strong> than actions at the top. Furthermore, narrow linear button heights ($W \approx 32\text{ px}$) demand high fine-motor targeting precision; moving slightly too fast causes the cursor to overshoot or slip off the menu boundary, prematurely dismissing the dropdown.</p>
+            <p>Consider a standard linear context menu containing 8 items stacked vertically. When the user right-clicks, their cursor sits at item 1 (distance <em>D</em> &approx; 10 px). However, selecting item 8 requires traversing down the entire menu stack (<em>D</em> &approx; 280 px). The Index of Difficulty escalates logarithmically with each additional item, meaning that actions placed at the bottom of a linear menu take up to <strong>300% longer to acquire</strong> than actions at the top. Furthermore, narrow linear button heights (<em>W</em> &approx; 32 px) demand high fine-motor targeting precision; moving slightly too fast causes the cursor to overshoot or slip off the menu boundary, prematurely dismissing the dropdown.</p>
 
             <h3>Radial Menus: Constant Distance and Infinite Angular Target Width</h3>
-            <p>A radial menu completely eradicates this motor penalty. In an $N$-slice radial menu:</p>
+            <p>A radial menu completely eradicates this motor penalty. In an <em>N</em>-slice radial menu:</p>
             <ul>
-              <li><strong>Equal Distance to All Targets ($D = R$):</strong> Every single action wedge is positioned at an identical radial distance $R$ from the initial click or touch origin. The Index of Difficulty is completely uniform across every option in the menu. No command is penalized for being 'at the bottom'.</li>
-              <li><strong>Infinite Angular Outer Width ($W \to \infty$):</strong> In a directional marking menu, the target wedge projects outward radially from the center. As the user sweeps the cursor outward, the effective target width expands continuously. If mouse capture is utilized, the user can flick their pointer outward by 500 pixels in a given angle, and the cursor remains locked within that wedge's angular cone—effectively making the target width infinite!</li>
+              <li><strong>Equal Distance to All Targets (<em>D</em> = <em>R</em>):</strong> Every single action wedge is positioned at an identical radial distance <em>R</em> from the initial click or touch origin. The Index of Difficulty is completely uniform across every option in the menu. No command is penalized for being 'at the bottom'.</li>
+              <li><strong>Infinite Angular Outer Width (<em>W</em> &rarr; &infin;):</strong> In a directional marking menu, the target wedge projects outward radially from the center. As the user sweeps the cursor outward, the effective target width expands continuously. If mouse capture is utilized, the user can flick their pointer outward by 500 pixels in a given angle, and the cursor remains locked within that wedge's angular cone—effectively making the target width infinite!</li>
               <li><strong>Muscle Memory and Marking Gestures:</strong> Because each command corresponds to a distinct geometric angle (e.g., 'Delete' is always directly Up, 'Save' is always Right, 'Undo' is always Left), experienced users transition from visual scanning to <em>ballistic muscle memory</em>. Users can trigger commands in under 150 milliseconds through rapid directional flick gestures without even waiting for the menu graphic to render.</li>
             </ul>
 
@@ -459,19 +528,19 @@ html_content = r'''<!DOCTYPE html>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>Target Distance ($D$)</strong></td>
-                    <td>Variable ($10\text{ px}$ to $350+\text{ px}$)</td>
-                    <td><strong>Constant ($R$)</strong> for all items</td>
+                    <td><strong>Target Distance (<em>D</em>)</strong></td>
+                    <td>Variable (10 px to 350+ px)</td>
+                    <td><strong>Constant (<em>R</em>)</strong> for all items</td>
                   </tr>
                   <tr>
-                    <td><strong>Mean Acquisition Time ($T$)</strong></td>
-                    <td>$650\text{ ms} - 1,200\text{ ms}$</td>
-                    <td><strong>$220\text{ ms} - 380\text{ ms}$ (60% faster)</strong></td>
+                    <td><strong>Mean Acquisition Time (<em>T</em>)</strong></td>
+                    <td>650 ms &ndash; 1,200 ms</td>
+                    <td><strong>220 ms &ndash; 380 ms (60% faster)</strong></td>
                   </tr>
                   <tr>
                     <td><strong>Overshoot Error Rate</strong></td>
-                    <td>$8.4\%$ (cursor slips off edges)</td>
-                    <td><strong>$1.2\%$ (bound within angular sectors)</strong></td>
+                    <td>8.4% (cursor slips off edges)</td>
+                    <td><strong>1.2% (bound within angular sectors)</strong></td>
                   </tr>
                   <tr>
                     <td><strong>Touchscreen Usability</strong></td>
@@ -489,7 +558,7 @@ html_content = r'''<!DOCTYPE html>
 
             <h3>Marking Menus, Muscle Memory, and the Accot-Zhai Steering Law</h3>
             <p>The academic foundation of radial menu engineering was established by Gordon Kurtenbach and William Buxton in their landmark research at the University of Toronto. Kurtenbach demonstrated that radial menus facilitate a seamless cognitive transition from <strong>novice behavior</strong> to <strong>expert behavior</strong> within a single interface.</p>
-            <p>When a novice encounters a radial menu, they hesitate for approximately 300 to 500 milliseconds, visually reading sector labels and icons before clicking an option. However, because each command is irrevocably bound to an invariant angular heading (e.g., 'Save' is always $90^\circ$ East, 'Undo' is always $270^\circ$ West), the human motor cortex rapidly encodes these directional trajectories into procedural muscle memory. Within 10 to 20 repetitions, users transition into 'expert mode': they press the trigger key, flick the cursor or stylus in the desired angle, and release in an open-loop ballistic gesture taking less than 120 milliseconds—frequently before the visual menu graphic has even completed its opening transition!</p>
+            <p>When a novice encounters a radial menu, they hesitate for approximately 300 to 500 milliseconds, visually reading sector labels and icons before clicking an option. However, because each command is irrevocably bound to an invariant angular heading (e.g., 'Save' is always 90&deg; East, 'Undo' is always 270&deg; West), the human motor cortex rapidly encodes these directional trajectories into procedural muscle memory. Within 10 to 20 repetitions, users transition into 'expert mode': they press the trigger key, flick the cursor or stylus in the desired angle, and release in an open-loop ballistic gesture taking less than 120 milliseconds—frequently before the visual menu graphic has even completed its opening transition!</p>
 
             <h3>The Accot-Zhai Steering Law in Hierarchical Menus</h3>
             <p>The superiority of radial menus becomes even more pronounced when navigating multi-level submenus. In traditional linear dropdowns, selecting a nested submenu item requires moving the mouse through a narrow rectilinear 'steering tunnel'. According to the <strong>Accot-Zhai Steering Law</strong> (an extension of Fitts's Law for continuous trajectory tasks):</p>
@@ -497,9 +566,9 @@ html_content = r'''<!DOCTYPE html>
             <div class="formula-card">
               <div class="formula-title">Accot-Zhai Steering Law Equation</div>
               <div class="formula-body">
-                T_{	ext{steering}} = a + b \int_{C} rac{ds}{W(s)}
+                T<sub>steering</sub> = a + b &int;<sub>C</sub> (ds / W(s))
               </div>
-              <div class="formula-desc">Where $C$ is the straight trajectory path, $s$ is path length, and $W(s)$ is tunnel width. If the user drifts outside the narrow linear tunnel, the submenu collapses instantly, creating profound user frustration.</div>
+              <div class="formula-desc">Where <em>C</em> is the straight trajectory path, <em>s</em> is path length, and <em>W</em>(<em>s</em>) is tunnel width. If the user drifts outside the narrow linear tunnel, the submenu collapses instantly, creating profound user frustration.</div>
             </div>
 
             <p>In contrast, hierarchical radial menus (compound marking menus) replace steering tunnels with <strong>inflection angles</strong>. An expert user executes an 'inflected flick' (such as flicking North-East to select 'Brush', then immediately flicking South to select 'Size 12') in a single continuous stroke. Studies show that compound marking menus reduce nested selection errors by over 82% compared to cascading linear menus.</p>
@@ -509,33 +578,33 @@ html_content = r'''<!DOCTYPE html>
 
           <section id="polar-vs-cartesian-coordinates">
             <h2>2. Polar Coordinates vs. Cartesian Coordinates: The Trigonometric Foundation</h2>
-            <p>Standard web layout operates exclusively within the 2D <strong>Cartesian coordinate system</strong>: an orthogonal grid defined by horizontal abscissa ($X$) and vertical ordinate ($Y$), with the origin $(0, 0)$ located at the top-left corner of the viewport.</p>
-            <p>Circular geometry, however, is fundamentally non-linear. Calculating the boundary points of circular arcs, annular rings, and pie wedges in Cartesian space requires converting between Cartesian coordinates $(x, y)$ and <strong>polar coordinates</strong> $(r, \theta)$—where $r$ represents the radial distance from a central anchor pole, and $\theta$ represents the angular displacement around the pole.</p>
+            <p>Standard web layout operates exclusively within the 2D <strong>Cartesian coordinate system</strong>: an orthogonal grid defined by horizontal abscissa (<em>X</em>) and vertical ordinate (<em>Y</em>), with the origin <em>(0, 0)</em> located at the top-left corner of the viewport.</p>
+            <p>Circular geometry, however, is fundamentally non-linear. Calculating the boundary points of circular arcs, annular rings, and pie wedges in Cartesian space requires converting between Cartesian coordinates <em>(x, y)</em> and <strong>polar coordinates</strong> <em>(r, &theta;)</em>—where <em>r</em> represents the radial distance from a central anchor pole, and &theta; represents the angular displacement around the pole.</p>
 
             <h3>The Polar-to-Cartesian Transformation</h3>
-            <p>Given a central hub point $(c_x, c_y)$, a radius $r$, and an angle $\theta$ (measured in radians, where $\theta_{\text{rad}} = \theta_{\text{deg}} \times \frac{\pi}{180}$):</p>
+            <p>Given a central hub point (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>), a radius <em>r</em>, and an angle &theta; (measured in radians, where <em>&theta;</em><sub>rad</sub> = <em>&theta;</em><sub>deg</sub> &times; &pi; / 180):</p>
 
             <div class="formula-card">
               <div class="formula-title">Polar to Cartesian Coordinate Conversion</div>
               <div class="formula-body">
-                x = c_x + r \times \cos(\theta)<br>
-                y = c_y + r \times \sin(\theta)
+                x = c<sub>x</sub> + r &times; cos(&theta;)<br>
+                y = c<sub>y</sub> + r &times; sin(&theta;)
               </div>
-              <div class="formula-desc">Where $c_x$ and $c_y$ define the center pole of the circular menu, and $\cos$ and $\sin$ project radial distances along the orthogonal axes.</div>
+              <div class="formula-desc">Where <em>c<sub>x</sub></em> and <em>c<sub>y</sub></em> define the center pole of the circular menu, and <em>cos</em> and <em>sin</em> project radial distances along the orthogonal axes.</div>
             </div>
 
             <h3>Handling the SVG Coordinate Inversion (Y-Axis Downward)</h3>
             <p>In standard academic mathematics, the Cartesian Y-axis points upward, and angles rotate counter-clockwise from the positive X-axis (3 o'clock). In web browsers and SVG viewports, <strong>the Y-axis is inverted and points downward</strong>. Consequently, increasing positive angles rotate <strong>clockwise</strong> across the screen.</p>
-            <p>Furthermore, human intuition expects the primary 'first' action of a circular menu to sit at the top (12 o'clock), not at the right (3 o'clock). To orient $0^\circ$ at the 12 o'clock zenith, we apply an angular phase offset of $-\frac{\pi}{2}$ (or $-90^\circ$):</p>
+            <p>Furthermore, human intuition expects the primary 'first' action of a circular menu to sit at the top (12 o'clock), not at the right (3 o'clock). To orient 0&deg; at the 12 o'clock zenith, we apply an angular phase offset of <em>-&pi; / 2</em> (or &minus;90&deg;):</p>
 
             <div class="formula-card">
               <div class="formula-title">Zenith-Oriented Polar Conversion (12 o'Clock Origin)</div>
               <div class="formula-body">
-                \theta_{\text{adjusted}} = \theta - \frac{\pi}{2} = \theta - 90^\circ<br>
-                x = c_x + r \times \cos\left(\theta - \frac{\pi}{2}\right) = c_x + r \times \sin(\theta)<br>
-                y = c_y + r \times \sin\left(\theta - \frac{\pi}{2}\right) = c_y - r \times \cos(\theta)
+                &theta;<sub>adjusted</sub> = &theta; &minus; &pi;/2 = &theta; &minus; 90&deg;<br>
+                x = c<sub>x</sub> + r &times; cos(&theta; &minus; &pi;/2) = c<sub>x</sub> + r &times; sin(&theta;)<br>
+                y = c<sub>y</sub> + r &times; sin(&theta; &minus; &pi;/2) = c<sub>y</sub> &minus; r &times; cos(&theta;)
               </div>
-              <div class="formula-desc">This rotation places $\theta = 0^\circ$ squarely at the top vertical axis, advancing clockwise as $\theta$ increases.</div>
+              <div class="formula-desc">This rotation places <em>&theta;</em> = 0&deg; squarely at the top vertical axis, advancing clockwise as <em>&theta;</em> increases.</div>
             </div>
 
             <pre><code>// Production Polar to Cartesian Point Utility
@@ -551,40 +620,40 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 
           <section id="annular-sector-mathematics">
             <h2>3. Annular Sector Mathematics: Outer Arcs, Inner Arcs &amp; Chamfered Wedges</h2>
-            <p>A simple pie slice (like a slice of pizza) converges to a sharp point at the center pole $(c_x, c_y)$. However, in production UI engineering, sharp center points create acute ergonomic hazards: when multiple slices converge at the center, the target area near the center becomes infinitesimally narrow, leading to accidental misclicks when the cursor hovers near the origin.</p>
-            <p>To eliminate this issue, professional radial menus utilize <strong>annular sectors</strong> (donut wedges). An annular sector is bounded by two concentric circles: an <strong>inner radius ($r$)</strong> that leaves a comfortable circular center hub for a 'Close' or 'Back' button, and an <strong>outer radius ($R$)</strong> that defines the menu's reach.</p>
+            <p>A simple pie slice (like a slice of pizza) converges to a sharp point at the center pole (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>). However, in production UI engineering, sharp center points create acute ergonomic hazards: when multiple slices converge at the center, the target area near the center becomes infinitesimally narrow, leading to accidental misclicks when the cursor hovers near the origin.</p>
+            <p>To eliminate this issue, professional radial menus utilize <strong>annular sectors</strong> (donut wedges). An annular sector is bounded by two concentric circles: an <strong>inner radius (<em>r</em>)</strong> that leaves a comfortable circular center hub for a 'Close' or 'Back' button, and an <strong>outer radius (<em>R</em>)</strong> that defines the menu's reach.</p>
 
             <h3>The Four Boundary Vertices of an Annular Sector</h3>
-            <p>Every annular wedge spanning from start angle $\theta_1$ to end angle $\theta_2$ is defined by exactly four boundary corner points:</p>
+            <p>Every annular wedge spanning from start angle &theta;<sub>1</sub> to end angle &theta;<sub>2</sub> is defined by exactly four boundary corner points:</p>
             <ol>
-              <li><strong>Outer Start Vertex ($P_1$):</strong> Point at outer radius $R$ and angle $\theta_1$: <code>polarToCartesian(cx, cy, R, theta1)</code></li>
-              <li><strong>Outer End Vertex ($P_2$):</strong> Point at outer radius $R$ and angle $\theta_2$: <code>polarToCartesian(cx, cy, R, theta2)</code></li>
-              <li><strong>Inner End Vertex ($P_3$):</strong> Point at inner radius $r$ and angle $\theta_2$: <code>polarToCartesian(cx, cy, r, theta2)</code></li>
-              <li><strong>Inner Start Vertex ($P_4$):</strong> Point at inner radius $r$ and angle $\theta_1$: <code>polarToCartesian(cx, cy, r, theta1)</code></li>
+              <li><strong>Outer Start Vertex (<em>P</em><sub>1</sub>):</strong> Point at outer radius <em>R</em> and angle &theta;<sub>1</sub>: <code>polarToCartesian(cx, cy, R, theta1)</code></li>
+              <li><strong>Outer End Vertex (<em>P</em><sub>2</sub>):</strong> Point at outer radius <em>R</em> and angle &theta;<sub>2</sub>: <code>polarToCartesian(cx, cy, R, theta2)</code></li>
+              <li><strong>Inner End Vertex (<em>P</em><sub>3</sub>):</strong> Point at inner radius <em>r</em> and angle &theta;<sub>2</sub>: <code>polarToCartesian(cx, cy, r, theta2)</code></li>
+              <li><strong>Inner Start Vertex (<em>P</em><sub>4</sub>):</strong> Point at inner radius <em>r</em> and angle &theta;<sub>1</sub>: <code>polarToCartesian(cx, cy, r, theta1)</code></li>
             </ol>
 
             <h3>Calculating Angular Padding and Inter-Sector Gaps</h3>
-            <p>To provide clear visual separation between adjacent actions, designers introduce an angular gap (e.g., $2^\circ$ to $4^\circ$) between slices. If the total angular width of each slice is $\Delta\theta = \frac{360^\circ}{N}$, and the desired angular padding gap is $G$, the effective rendered wedge spans from:</p>
+            <p>To provide clear visual separation between adjacent actions, designers introduce an angular gap (e.g., 2&deg; to 4&deg;) between slices. If the total angular width of each slice is &Delta;<em>&theta;</em> = 360&deg; / <em>N</em>, and the desired angular padding gap is <em>G</em>, the effective rendered wedge spans from:</p>
 
             <div class="formula-card">
               <div class="formula-title">Angular Gap Padding Derivation</div>
               <div class="formula-body">
-                \theta_{\text{start}, i} = i \times \Delta\theta + \frac{G}{2}<br>
-                \theta_{\text{end}, i} = (i + 1) \times \Delta\theta - \frac{G}{2}
+                &theta;<sub>start, i</sub> = i &times; &Delta;&theta; + G/2<br>
+                &theta;<sub>end, i</sub> = (i + 1) &times; &Delta;&theta; &minus; G/2
               </div>
-              <div class="formula-desc">Where $i \in [0, N-1]$ is the zero-based sector index, and $G$ is the symmetric angular gap in degrees.</div>
+              <div class="formula-desc">Where <em>i</em> &isin; [0, <em>N</em>&minus;1] is the zero-based sector index, and <em>G</em> is the symmetric angular gap in degrees.</div>
             </div>
 
             <h3>Engineering Rounded Chamfers &amp; Fillet Arcs on Annular Wedges</h3>
-            <p>In high-end visual design systems (such as Apple VisionOS or modern dashboard widgets), hard sharp corners on annular wedges feel aggressive. Designers often request <strong>rounded corner fillets</strong> on each wedge boundary. Constructing rounded corners on an annular wedge requires calculating tangent circles at each of the four vertices ($P_1, P_2, P_3, P_4$).</p>
-            <p>For a desired corner fillet radius $ho$, the fillet arc must tangentially blend the straight radial line segment with the concentric circular arc. This shifts the effective radial boundaries inward and outward by $ho$, requiring an angular fillet offset:</p>
+            <p>In high-end visual design systems (such as Apple VisionOS or modern dashboard widgets), hard sharp corners on annular wedges feel aggressive. Designers often request <strong>rounded corner fillets</strong> on each wedge boundary. Constructing rounded corners on an annular wedge requires calculating tangent circles at each of the four vertices (<em>P_1, P_2, P_3, P_4</em>).</p>
+            <p>For a desired corner fillet radius <em>r<sub>fillet</sub></em>, the fillet arc must tangentially blend the straight radial line segment with the concentric circular arc. This shifts the effective radial boundaries inward and outward by <em>r<sub>fillet</sub></em>, requiring an angular fillet offset:</p>
 
             <div class="formula-card">
               <div class="formula-title">Annular Fillet Angular Offset Derivation</div>
               <div class="formula-body">
-                \Delta\phi_{	ext{outer}} = rcsin\left(rac{ho}{R - ho}ight) \quad 	ext{and} \quad \Delta\phi_{	ext{inner}} = rcsin\left(rac{ho}{r + ho}ight)
+                &Delta;&phi;<sub>outer</sub> = arcsin(r<sub>fillet</sub> / (R &minus; r<sub>fillet</sub>)) &nbsp;&nbsp; and &nbsp;&nbsp; &Delta;&phi;<sub>inner</sub> = arcsin(r<sub>fillet</sub> / (r + r<sub>fillet</sub>))
               </div>
-              <div class="formula-desc">Where $ho$ is the fillet corner radius, $R$ is the outer radius, and $r$ is the inner radius. The straight radial edges shorten, and small circular arc commands (<code>A ho ho ...</code>) are inserted at each vertex.</div>
+              <div class="formula-desc">Where <em>r<sub>fillet</sub></em> is the fillet corner radius, <em>R</em> is the outer radius, and <em>r</em> is the inner radius. The straight radial edges shorten, and small circular arc commands (<code>A r_fillet r_fillet ...</code>) are inserted at each vertex.</div>
             </div>
 
             <p>By implementing corner fillet math, the resulting SVG paths feature silky-smooth pebble contours that render with impeccable clarity and sophisticated tactile appeal.</p>
@@ -600,9 +669,9 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
             <p>The standard arc command takes seven parameters:</p>
             <pre><code>A rx ry x-axis-rotation large-arc-flag sweep-flag x y</code></pre>
             <ul>
-              <li><strong><code>rx ry</code>:</strong> The horizontal and vertical radii of the ellipse. For circular radial menus, both radii are identical ($rx = ry = R$ for outer arcs, $rx = ry = r$ for inner arcs).</li>
+              <li><strong><code>rx ry</code>:</strong> The horizontal and vertical radii of the ellipse. For circular radial menus, both radii are identical (<em>rx = ry = R</em> for outer arcs, <em>rx = ry = r</em> for inner arcs).</li>
               <li><strong><code>x-axis-rotation</code>:</strong> Rotation of the ellipse in degrees relative to the X-axis. For circles, this is always <code>0</code>.</li>
-              <li><strong><code>large-arc-flag</code>:</strong> A boolean flag (<code>0</code> or <code>1</code>). If the angular span $\Delta\theta \le 180^\circ$ ($\pi$ radians), <code>large-arc-flag = 0</code>. If the angular span exceeds $180^\circ$ ($\Delta\theta > 180^\circ$), <code>large-arc-flag = 1</code>. In typical menus with 3 or more slices, the span is always $\le 120^\circ$, so this flag is almost universally <code>0</code>.</li>
+              <li><strong><code>large-arc-flag</code>:</strong> A boolean flag (<code>0</code> or <code>1</code>). If the angular span &Delta;&theta; &le; 180&deg; (<em>&pi;</em> radians), <code>large-arc-flag = 0</code>. If the angular span exceeds 180&deg; (&Delta;&theta; &gt; 180&deg;), <code>large-arc-flag = 1</code>. In typical menus with 3 or more slices, the span is always &le; 120&deg;, so this flag is almost universally <code>0</code>.</li>
               <li><strong><code>sweep-flag</code>:</strong> Determines the arc drawing direction. Setting <code>sweep-flag = 1</code> draws the arc in the <strong>positive angular direction (clockwise)</strong>. Setting <code>sweep-flag = 0</code> draws the arc in the <strong>negative angular direction (counter-clockwise)</strong>.</li>
               <li><strong><code>x y</code>:</strong> The target termination coordinates of the arc.</li>
             </ul>
@@ -614,7 +683,7 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
               <li><code>A R R 0 largeArc 1 P2.x P2.y</code>: Sweep outer arc clockwise to outer end vertex.</li>
               <li><code>L P3.x P3.y</code>: Draw a straight radial line inward to the inner end vertex.</li>
               <li><code>A r r 0 largeArc 0 P4.x P4.y</code>: Sweep inner arc counter-clockwise back to inner start vertex.</li>
-              <li><code>Z</code>: Close path back to $P_1$, completing the watertight vector polygon.</li>
+              <li><code>Z</code>: Close path back to <em>P</em><sub>1</sub>, completing the watertight vector polygon.</li>
             </ol>
 
             <pre><code>// Production Annular Sector SVG Path Generator
@@ -871,7 +940,7 @@ function createAnnularWedgePath(cx, cy, innerRadius, outerRadius, startAngle, en
                         <button type="button" class="copy-btn" id="copyRadialCodeBtn">Copy Code</button>
                       </div>
                     </div>
-                    <pre class="code-output-area" id="radialCodeOutput">Click "Toggle Open / Close" or adjust sliders to inspect mathematical vector code...</pre>
+                    <pre class="code-output-area" id="radialCodeOutput">Click "Toggle Open / Close" or adjust sliders to inspect mathematical vector code.</pre>
                   </div>
                 </div>
               </div>
@@ -888,14 +957,14 @@ function createAnnularWedgePath(cx, cy, innerRadius, outerRadius, startAngle, en
             <div class="formula-card">
               <div class="formula-title">Damped Harmonic Oscillator Equation of Motion</div>
               <div class="formula-body">
-                F = m \times a = -k \times (x - x_{\text{target}}) - c \times v<br>
-                a = \frac{d^2 x}{dt^2} = -\frac{k}{m} \times (x - x_{\text{target}}) - \frac{c}{m} \times v
+                F = m &times; a = &minus;k &times; (x &minus; x<sub>target</sub>) &minus; c &times; v<br>
+                a = d<sup>2</sup>x / dt<sup>2</sup> = &minus;(k / m) &times; (x &minus; x<sub>target</sub>) &minus; (c / m) &times; v
               </div>
-              <div class="formula-desc">Where $x$ is current position (e.g. radial scale factor from 0.0 to 1.0), $x_{\text{target}}$ is resting equilibrium (1.0 for open, 0.0 for closed), $k$ is spring stiffness (tension), $c$ is damping coefficient (friction), and $m$ is object mass.</div>
+              <div class="formula-desc">Where <em>x</em> is current position (e.g. radial scale factor from 0.0 to 1.0), <em>x</em><sub>target</sub> is resting equilibrium (1.0 for open, 0.0 for closed), <em>k</em> is spring stiffness (tension), <em>c</em> is damping coefficient (friction), and <em>m</em> is object mass.</div>
             </div>
 
             <h3>Runge-Kutta 4th Order (RK4) Numerical Integration</h3>
-            <p>While naive Euler integration ($x_{t+dt} = x_t + v \cdot dt$) accumulates catastrophic mathematical error and can explode into infinite oscillation when $dt$ fluctuates, the <strong>Runge-Kutta 4th Order (RK4) method</strong> samples acceleration at four distinct sub-step intervals ($k_1, k_2, k_3, k_4$), providing unconditional numerical stability across 60 Hz, 120 Hz, and variable refresh rate screens:</p>
+            <p>While naive Euler integration (<em>x</em><sub>t+&Delta;t</sub> = <em>x</em><sub>t</sub> + <em>v</em> &times; &Delta;<em>t</em>) accumulates catastrophic mathematical error and can explode into infinite oscillation when &Delta;<em>t</em> fluctuates, the <strong>Runge-Kutta 4th Order (RK4) method</strong> samples acceleration at four distinct sub-step intervals (<em>k</em><sub>1</sub>, <em>k</em><sub>2</sub>, <em>k</em><sub>3</sub>, <em>k</em><sub>4</sub>), providing unconditional numerical stability across 60 Hz, 120 Hz, and variable refresh rate screens:</p>
 
             <pre><code>// Production RK4 Spring Simulation Engine
 class SpringSolver {
@@ -942,7 +1011,7 @@ class SpringSolver {
 }</code></pre>
 
             <h3>Radial Fan-Out Staggering</h3>
-            <p>Rather than expanding all wedges simultaneously like a static diaphragm, high-end radial menus introduce an <strong>angular propagation delay</strong>: wedge $i$ begins its spring expansion $\tau_i = i \times 24\text{ ms}$ after wedge 0. This produces an organic clockwise cascading fan-out motion that delights the human eye and reinforces directional spatial memory.</p>
+            <p>Rather than expanding all wedges simultaneously like a static diaphragm, high-end radial menus introduce an <strong>angular propagation delay</strong>: wedge <em>i</em> begins its spring expansion &tau;<sub><em>i</em></sub> = <em>i</em> &times; 24 ms after wedge 0. This produces an organic clockwise cascading fan-out motion that delights the human eye and reinforces directional spatial memory.</p>
           </section>
 
           <section id="keyboard-accessibility-wcag">
@@ -1014,24 +1083,24 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
             <p>To deliver instantaneous touch tracking and marking gestures, frontend engineers implement <strong>polar raycasting</strong> directly on the parent container's <code>pointermove</code> stream.</p>
 
             <h3>Converting Pointer Coordinates to Polar Vectors</h3>
-            <p>Given the menu center pole $(c_x, c_y)$ and the touch event client coordinates $(x_{\text{ptr}}, y_{\text{ptr}})$:</p>
+            <p>Given the menu center pole (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>) and the touch event client coordinates (<em>x</em><sub>ptr</sub>, <em>y</em><sub>ptr</sub>):</p>
 
             <div class="formula-card">
               <div class="formula-title">Cartesian to Polar Raycasting Formula</div>
               <div class="formula-body">
-                \Delta x = x_{\text{ptr}} - c_x \quad \text{and} \quad \Delta y = y_{\text{ptr}} - c_y<br>
-                r_{\text{current}} = \sqrt{\Delta x^2 + \Delta y^2}<br>
-                \theta_{\text{raw}} = \text{atan2}(\Delta y, \Delta x) \times \frac{180}{\pi}
+                &Delta;x = x<sub>ptr</sub> &minus; c<sub>x</sub> &nbsp;&nbsp; and &nbsp;&nbsp; &Delta;y = y<sub>ptr</sub> &minus; c<sub>y</sub><br>
+                r<sub>current</sub> = &radic;(&Delta;x<sup>2</sup> + &Delta;y<sup>2</sup>)<br>
+                &theta;<sub>raw</sub> = atan2(&Delta;y, &Delta;x) &times; 180 / &pi;
               </div>
-              <div class="formula-desc">Where $r_{\text{current}}$ is Euclidean distance, and $\text{atan2}$ computes the signed angle in degrees from $-180^\circ$ to $+180^\circ$.</div>
+              <div class="formula-desc">Where <em>r</em><sub>current</sub> is Euclidean distance, and <em>atan2</em> computes the signed angle in degrees from &minus;180&deg; to +180&deg;.</div>
             </div>
 
             <h3>Deadzone and Boundary Classification</h3>
             <p>With radius and angle in hand, spatial sector classification requires three rapid boolean checks:</p>
             <ol>
-              <li><strong>Center Hub Deadzone:</strong> If $r_{\text{current}} &lt; r_{\text{inner}}$, the pointer is resting inside the center hub (triggering no sector highlight or activating the central 'Cancel' zone).</li>
-              <li><strong>Outer Threshold Exceeded:</strong> If $r_{\text{current}} > R_{\text{outer}} + \text{tolerance}$, the user has dragged outside the menu boundary.</li>
-              <li><strong>Active Wedge Calculation:</strong> Normalize the angle to the range $[0^\circ, 360^\circ)$ relative to 12 o'clock:
+              <li><strong>Center Hub Deadzone:</strong> If <em>r</em><sub>current</sub> &lt; <em>r</em><sub>inner</sub>, the pointer is resting inside the center hub (triggering no sector highlight or activating the central 'Cancel' zone).</li>
+              <li><strong>Outer Threshold Exceeded:</strong> If <em>r</em><sub>current</sub> &gt; <em>R</em><sub>outer</sub> + tolerance, the user has dragged outside the menu boundary.</li>
+              <li><strong>Active Wedge Calculation:</strong> Normalize the angle to the range [0&deg;, 360&deg;) relative to 12 o'clock:
                 <code>normalizedAngle = (thetaRaw + 90 + 360) % 360</code>. The active sector index is simply:
                 <code>activeSector = Math.floor(normalizedAngle / (360 / N))</code>.
               </li>
@@ -1104,20 +1173,20 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
             <h3>Screen Edge Detection and Origin Clamping</h3>
             <p>If the user right-clicks or long-presses near the perimeter of the browser viewport, a fixed-radius radial menu would overflow the screen edge, clipping half of the available options outside the visible window. Production systems solve this via <strong>boundary clamping and adaptive partial arcs</strong>:</p>
             <ul>
-              <li><strong>Origin Clamping:</strong> Check if $x_{\text{click}} - R_{\text{outer}} &lt; \text{padding}$. If true, shift the menu center pole inward: $c_x = R_{\text{outer}} + \text{padding}$. Repeat for top, right, and bottom edges.</li>
-              <li><strong>Hemispherical Slicing:</strong> If an action wheel is docked against a screen border, calculate a <strong>semicircular ($180^\circ$) or quadrant ($90^\circ$) menu</strong>. The sector angle becomes $\Delta\theta = \frac{180^\circ}{N}$, and the menu cleanly fans out into the open viewport space without needing to translate the origin away from the user's cursor.</li>
+              <li><strong>Origin Clamping:</strong> Check if <em>x</em><sub>click</sub> &minus; <em>R</em><sub>outer</sub> &lt; padding. If true, shift the menu center pole inward: <em>c<sub>x</sub></em> = <em>R</em><sub>outer</sub> + padding. Repeat for top, right, and bottom edges.</li>
+              <li><strong>Hemispherical Slicing:</strong> If an action wheel is docked against a screen border, calculate a <strong>semicircular (180&deg;) or quadrant (90&deg;) menu</strong>. The sector angle becomes &Delta;<em>&theta;</em> = 180&deg; / <em>N</em>, and the menu cleanly fans out into the open viewport space without needing to translate the origin away from the user's cursor.</li>
             </ul>
 
             <h3>Multi-Level Cascading Submenus (Concentric Rings)</h3>
-            <p>For complex command hierarchies (such as selecting a tool, then selecting its brush size or color palette), radial menus scale via <strong>concentric outer rings</strong>. When the user hovers over Sector $A$, an outer secondary ring of annular wedges deploys around the perimeter from $R_{\text{outer}}$ to $R_{\text{sub}}$, visually connecting the child options to their parent wedge.</p>
+            <p>For complex command hierarchies (such as selecting a tool, then selecting its brush size or color palette), radial menus scale via <strong>concentric outer rings</strong>. When the user hovers over Sector <em>A</em>, an outer secondary ring of annular wedges deploys around the perimeter from <em>R</em><sub>outer</sub> to <em>R</em><sub>sub</sub>, visually connecting the child options to their parent wedge.</p>
           </section>
 
           <section id="key-takeaways">
             <div class="takeaway-box">
               <h3>Architectural Takeaways &amp; Production Checklist</h3>
               <ul>
-                <li><strong>Harness Fitts's Law:</strong> Radial menus provide constant acquisition time ($D = R$) and infinite angular target width, outperforming linear dropdowns by up to 60%.</li>
-                <li><strong>Apply Zenith Phase Offset:</strong> Subtract $90^\circ$ ($-\pi/2$) in polar conversion so sector 0 originates at the 12 o'clock apex.</li>
+                <li><strong>Harness Fitts's Law:</strong> Radial menus provide constant acquisition time (<em>D</em> = <em>R</em>) and infinite angular target width, outperforming linear dropdowns by up to 60%.</li>
+                <li><strong>Apply Zenith Phase Offset:</strong> Subtract 90&deg; (<em>-&pi;/2</em>) in polar conversion so sector 0 originates at the 12 o'clock apex.</li>
                 <li><strong>Use Watertight Annular Paths:</strong> Construct wedges using <code>M &rarr; A (outer) &rarr; L &rarr; A (inner) &rarr; Z</code> with matching large-arc and sweep flags.</li>
                 <li><strong>Simulate Spring Dynamics:</strong> Integrate damped harmonic oscillators with an RK4 solver for organic physical deployment.</li>
                 <li><strong>Enforce WCAG 2.2 AA Accessibility:</strong> Implement WAI-ARIA <code>role="menu"</code>, <code>role="menuitem"</code>, roving <code>tabindex</code>, and circular arrow key navigation.</li>
@@ -1560,4 +1629,4 @@ target_file = os.path.join(target_dir, "index.html")
 with open(target_file, "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print(f"Successfully generated {target_file} ({len(html_content)} bytes)")
+print("Successfully generated " + target_file)

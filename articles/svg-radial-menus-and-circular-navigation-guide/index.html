@@ -532,13 +532,13 @@
                   </tr>
                   <tr>
                     <td><strong>Mean Acquisition Time (<em>T</em>)</strong></td>
-                    <td><em>650 ms} - 1,200 ms</em></td>
-                    <td><strong><em>220 ms} - 380 ms</em> (60% faster)</strong></td>
+                    <td>650 ms &ndash; 1,200 ms</td>
+                    <td><strong>220 ms &ndash; 380 ms (60% faster)</strong></td>
                   </tr>
                   <tr>
                     <td><strong>Overshoot Error Rate</strong></td>
-                    <td><em>8.4\%</em> (cursor slips off edges)</td>
-                    <td><strong><em>1.2\%</em> (bound within angular sectors)</strong></td>
+                    <td>8.4% (cursor slips off edges)</td>
+                    <td><strong>1.2% (bound within angular sectors)</strong></td>
                   </tr>
                   <tr>
                     <td><strong>Touchscreen Usability</strong></td>
@@ -564,7 +564,7 @@
             <div class="formula-card">
               <div class="formula-title">Accot-Zhai Steering Law Equation</div>
               <div class="formula-body">
-                T_{	ext{steering}} = a + b &int;_{C} rac{ds}{W(s)}
+                T<sub>steering</sub> = a + b &int;<sub>C</sub> (ds / W(s))
               </div>
               <div class="formula-desc">Where <em>C</em> is the straight trajectory path, <em>s</em> is path length, and <em>W</em>(<em>s</em>) is tunnel width. If the user drifts outside the narrow linear tunnel, the submenu collapses instantly, creating profound user frustration.</div>
             </div>
@@ -580,7 +580,7 @@
             <p>Circular geometry, however, is fundamentally non-linear. Calculating the boundary points of circular arcs, annular rings, and pie wedges in Cartesian space requires converting between Cartesian coordinates <em>(x, y)</em> and <strong>polar coordinates</strong> <em>(r, &theta;)</em>—where <em>r</em> represents the radial distance from a central anchor pole, and &theta; represents the angular displacement around the pole.</p>
 
             <h3>The Polar-to-Cartesian Transformation</h3>
-            <p>Given a central hub point (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>), a radius <em>r</em>, and an angle &theta; (measured in radians, where <em>&theta;_{rad}} = &theta;_{deg}} &times; &pi; / 180</em>):</p>
+            <p>Given a central hub point (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>), a radius <em>r</em>, and an angle &theta; (measured in radians, where <em>&theta;</em><sub>rad</sub> = <em>&theta;</em><sub>deg</sub> &times; &pi; / 180):</p>
 
             <div class="formula-card">
               <div class="formula-title">Polar to Cartesian Coordinate Conversion</div>
@@ -588,7 +588,7 @@
                 x = c<sub>x</sub> + r &times; cos(&theta;)<br>
                 y = c<sub>y</sub> + r &times; sin(&theta;)
               </div>
-              <div class="formula-desc">Where <em>c_x</em> and <em>c_y</em> define the center pole of the circular menu, and <em>\cos</em> and <em>\sin</em> project radial distances along the orthogonal axes.</div>
+              <div class="formula-desc">Where <em>c<sub>x</sub></em> and <em>c<sub>y</sub></em> define the center pole of the circular menu, and <em>cos</em> and <em>sin</em> project radial distances along the orthogonal axes.</div>
             </div>
 
             <h3>Handling the SVG Coordinate Inversion (Y-Axis Downward)</h3>
@@ -602,7 +602,7 @@
                 x = c<sub>x</sub> + r &times; cos(&theta; &minus; &pi;/2) = c<sub>x</sub> + r &times; sin(&theta;)<br>
                 y = c<sub>y</sub> + r &times; sin(&theta; &minus; &pi;/2) = c<sub>y</sub> &minus; r &times; cos(&theta;)
               </div>
-              <div class="formula-desc">This rotation places <em>&theta; = 0^\circ</em> squarely at the top vertical axis, advancing clockwise as &theta; increases.</div>
+              <div class="formula-desc">This rotation places <em>&theta;</em> = 0&deg; squarely at the top vertical axis, advancing clockwise as <em>&theta;</em> increases.</div>
             </div>
 
             <pre><code>// Production Polar to Cartesian Point Utility
@@ -631,7 +631,7 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
             </ol>
 
             <h3>Calculating Angular Padding and Inter-Sector Gaps</h3>
-            <p>To provide clear visual separation between adjacent actions, designers introduce an angular gap (e.g., 2&deg; to 4&deg;) between slices. If the total angular width of each slice is <em>&Delta;&theta; = 360^\circ / N</em>, and the desired angular padding gap is <em>G</em>, the effective rendered wedge spans from:</p>
+            <p>To provide clear visual separation between adjacent actions, designers introduce an angular gap (e.g., 2&deg; to 4&deg;) between slices. If the total angular width of each slice is &Delta;<em>&theta;</em> = 360&deg; / <em>N</em>, and the desired angular padding gap is <em>G</em>, the effective rendered wedge spans from:</p>
 
             <div class="formula-card">
               <div class="formula-title">Angular Gap Padding Derivation</div>
@@ -639,30 +639,19 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
                 &theta;<sub>start, i</sub> = i &times; &Delta;&theta; + G/2<br>
                 &theta;<sub>end, i</sub> = (i + 1) &times; &Delta;&theta; &minus; G/2
               </div>
-              <div class="formula-desc">Where <em>i \in [0, N-1]</em> is the zero-based sector index, and <em>G</em> is the symmetric angular gap in degrees.</div>
+              <div class="formula-desc">Where <em>i</em> &isin; [0, <em>N</em>&minus;1] is the zero-based sector index, and <em>G</em> is the symmetric angular gap in degrees.</div>
             </div>
 
             <h3>Engineering Rounded Chamfers &amp; Fillet Arcs on Annular Wedges</h3>
             <p>In high-end visual design systems (such as Apple VisionOS or modern dashboard widgets), hard sharp corners on annular wedges feel aggressive. Designers often request <strong>rounded corner fillets</strong> on each wedge boundary. Constructing rounded corners on an annular wedge requires calculating tangent circles at each of the four vertices (<em>P_1, P_2, P_3, P_4</em>).</p>
-            <p>For a desired corner fillet radius $
-ho<em>, the fillet arc must tangentially blend the straight radial line segment with the concentric circular arc. This shifts the effective radial boundaries inward and outward by </em>
-ho$, requiring an angular fillet offset:</p>
+            <p>For a desired corner fillet radius <em>r<sub>fillet</sub></em>, the fillet arc must tangentially blend the straight radial line segment with the concentric circular arc. This shifts the effective radial boundaries inward and outward by <em>r<sub>fillet</sub></em>, requiring an angular fillet offset:</p>
 
             <div class="formula-card">
               <div class="formula-title">Annular Fillet Angular Offset Derivation</div>
               <div class="formula-body">
-                &Delta;&phi;_{	ext{outer}} = rcsin&le;ft(rac{
-ho}{R - 
-ho}
-ight) &nbsp;&nbsp; 	ext{and} &nbsp;&nbsp; &Delta;&phi;_{	ext{inner}} = rcsin&le;ft(rac{
-ho}{r + 
-ho}
-ight)
+                &Delta;&phi;<sub>outer</sub> = arcsin(r<sub>fillet</sub> / (R &minus; r<sub>fillet</sub>)) &nbsp;&nbsp; and &nbsp;&nbsp; &Delta;&phi;<sub>inner</sub> = arcsin(r<sub>fillet</sub> / (r + r<sub>fillet</sub>))
               </div>
-              <div class="formula-desc">Where $
-ho$ is the fillet corner radius, <em>R</em> is the outer radius, and <em>r</em> is the inner radius. The straight radial edges shorten, and small circular arc commands (<code>A 
-ho 
-ho ...</code>) are inserted at each vertex.</div>
+              <div class="formula-desc">Where <em>r<sub>fillet</sub></em> is the fillet corner radius, <em>R</em> is the outer radius, and <em>r</em> is the inner radius. The straight radial edges shorten, and small circular arc commands (<code>A r_fillet r_fillet ...</code>) are inserted at each vertex.</div>
             </div>
 
             <p>By implementing corner fillet math, the resulting SVG paths feature silky-smooth pebble contours that render with impeccable clarity and sophisticated tactile appeal.</p>
@@ -708,10 +697,10 @@ function createAnnularWedgePath(cx, cy, innerRadius, outerRadius, startAngle, en
 
   // Construct continuous vector path string
   return [
-    `M <em>{p1.x} </em>{p1.y}`,
-    `A <em>{outerRadius} </em>{outerRadius} 0 <em>{largeArcFlag} 1 </em>{p2.x} ${p2.y}`,
-    `L <em>{p3.x} </em>{p3.y}`,
-    `A <em>{innerRadius} </em>{innerRadius} 0 <em>{largeArcFlag} 0 </em>{p4.x} ${p4.y}`,
+    `M ${p1.x} ${p1.y}`,
+    `A ${outerRadius} ${outerRadius} 0 ${largeArcFlag} 1 ${p2.x} ${p2.y}`,
+    `L ${p3.x} ${p3.y}`,
+    `A ${innerRadius} ${innerRadius} 0 ${largeArcFlag} 0 ${p4.x} ${p4.y}`,
     'Z'
   ].join(' ');
 }</code></pre>
@@ -973,7 +962,7 @@ function createAnnularWedgePath(cx, cy, innerRadius, outerRadius, startAngle, en
             </div>
 
             <h3>Runge-Kutta 4th Order (RK4) Numerical Integration</h3>
-            <p>While naive Euler integration (<em>x_{t+dt} = x_t + v \cdot dt</em>) accumulates catastrophic mathematical error and can explode into infinite oscillation when <em>dt</em> fluctuates, the <strong>Runge-Kutta 4th Order (RK4) method</strong> samples acceleration at four distinct sub-step intervals (<em>k_1, k_2, k_3, k_4</em>), providing unconditional numerical stability across 60 Hz, 120 Hz, and variable refresh rate screens:</p>
+            <p>While naive Euler integration (<em>x</em><sub>t+&Delta;t</sub> = <em>x</em><sub>t</sub> + <em>v</em> &times; &Delta;<em>t</em>) accumulates catastrophic mathematical error and can explode into infinite oscillation when &Delta;<em>t</em> fluctuates, the <strong>Runge-Kutta 4th Order (RK4) method</strong> samples acceleration at four distinct sub-step intervals (<em>k</em><sub>1</sub>, <em>k</em><sub>2</sub>, <em>k</em><sub>3</sub>, <em>k</em><sub>4</sub>), providing unconditional numerical stability across 60 Hz, 120 Hz, and variable refresh rate screens:</p>
 
             <pre><code>// Production RK4 Spring Simulation Engine
 class SpringSolver {
@@ -1092,7 +1081,7 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
             <p>To deliver instantaneous touch tracking and marking gestures, frontend engineers implement <strong>polar raycasting</strong> directly on the parent container's <code>pointermove</code> stream.</p>
 
             <h3>Converting Pointer Coordinates to Polar Vectors</h3>
-            <p>Given the menu center pole (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>) and the touch event client coordinates <em>(x_{ptr}}, y_{ptr}})</em>:</p>
+            <p>Given the menu center pole (<em>c<sub>x</sub></em>, <em>c<sub>y</sub></em>) and the touch event client coordinates (<em>x</em><sub>ptr</sub>, <em>y</em><sub>ptr</sub>):</p>
 
             <div class="formula-card">
               <div class="formula-title">Cartesian to Polar Raycasting Formula</div>
@@ -1107,7 +1096,7 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
             <h3>Deadzone and Boundary Classification</h3>
             <p>With radius and angle in hand, spatial sector classification requires three rapid boolean checks:</p>
             <ol>
-              <li><strong>Center Hub Deadzone:</strong> If <em>r_{current}} &lt; r_{inner}</em>, the pointer is resting inside the center hub (triggering no sector highlight or activating the central 'Cancel' zone).</li>
+              <li><strong>Center Hub Deadzone:</strong> If <em>r</em><sub>current</sub> &lt; <em>r</em><sub>inner</sub>, the pointer is resting inside the center hub (triggering no sector highlight or activating the central 'Cancel' zone).</li>
               <li><strong>Outer Threshold Exceeded:</strong> If <em>r</em><sub>current</sub> &gt; <em>R</em><sub>outer</sub> + tolerance, the user has dragged outside the menu boundary.</li>
               <li><strong>Active Wedge Calculation:</strong> Normalize the angle to the range [0&deg;, 360&deg;) relative to 12 o'clock:
                 <code>normalizedAngle = (thetaRaw + 90 + 360) % 360</code>. The active sector index is simply:
@@ -1182,8 +1171,8 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
             <h3>Screen Edge Detection and Origin Clamping</h3>
             <p>If the user right-clicks or long-presses near the perimeter of the browser viewport, a fixed-radius radial menu would overflow the screen edge, clipping half of the available options outside the visible window. Production systems solve this via <strong>boundary clamping and adaptive partial arcs</strong>:</p>
             <ul>
-              <li><strong>Origin Clamping:</strong> Check if <em>x_{click}} - R_{outer}} &lt; padding</em>. If true, shift the menu center pole inward: <em>c<sub>x</sub></em> = <em>R</em><sub>outer</sub> + padding. Repeat for top, right, and bottom edges.</li>
-              <li><strong>Hemispherical Slicing:</strong> If an action wheel is docked against a screen border, calculate a <strong>semicircular (180&deg;) or quadrant (90&deg;) menu</strong>. The sector angle becomes <em>&Delta;&theta; = 180^\circ / N</em>, and the menu cleanly fans out into the open viewport space without needing to translate the origin away from the user's cursor.</li>
+              <li><strong>Origin Clamping:</strong> Check if <em>x</em><sub>click</sub> &minus; <em>R</em><sub>outer</sub> &lt; padding. If true, shift the menu center pole inward: <em>c<sub>x</sub></em> = <em>R</em><sub>outer</sub> + padding. Repeat for top, right, and bottom edges.</li>
+              <li><strong>Hemispherical Slicing:</strong> If an action wheel is docked against a screen border, calculate a <strong>semicircular (180&deg;) or quadrant (90&deg;) menu</strong>. The sector angle becomes &Delta;<em>&theta;</em> = 180&deg; / <em>N</em>, and the menu cleanly fans out into the open viewport space without needing to translate the origin away from the user's cursor.</li>
             </ul>
 
             <h3>Multi-Level Cascading Submenus (Concentric Rings)</h3>
@@ -1379,10 +1368,10 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
         const largeArc = (endAngle - startAngle) > 180 ? 1 : 0;
 
         return [
-          `M <em>{p1.x} </em>{p1.y}`,
-          `A <em>{outerR} </em>{outerR} 0 <em>{largeArc} 1 </em>{p2.x} ${p2.y}`,
-          `L <em>{p3.x} </em>{p3.y}`,
-          `A <em>{innerR} </em>{innerR} 0 <em>{largeArc} 0 </em>{p4.x} ${p4.y}`,
+          `M ${p1.x} ${p1.y}`,
+          `A ${outerR} ${outerR} 0 ${largeArc} 1 ${p2.x} ${p2.y}`,
+          `L ${p3.x} ${p3.y}`,
+          `A ${innerR} ${innerR} 0 ${largeArc} 0 ${p4.x} ${p4.y}`,
           'Z'
         ].join(' ');
       }
@@ -1403,7 +1392,7 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
         const deltaTheta = 360 / count;
         statDeltaTheta.textContent = deltaTheta.toFixed(1) + '°';
         statOuterLen.textContent = ((deltaTheta / 360) * 2 * Math.PI * outerR).toFixed(1) + ' px';
-        statActiveSector.textContent = `Sector <em>{activeIndex + 1} (</em>{sectorLabels[activeIndex % sectorLabels.length]})`;
+        statActiveSector.textContent = `Sector ${activeIndex + 1} (${sectorLabels[activeIndex % sectorLabels.length]})`;
         statA11y.textContent = isOpen ? `Expanded (tabindex=0 on #${activeIndex + 1})` : 'Collapsed (hidden)';
 
         sectorsGroup.innerHTML = '';
@@ -1512,10 +1501,10 @@ function handleRadialKeydown(event, sectors, currentIndex, closeMenuCallback) {
 `  const p3 = { x: cx + innerR * Math.cos(toRad(endAngle)), y: cy + innerR * Math.sin(toRad(endAngle)) };\n` +
 `  const p4 = { x: cx + innerR * Math.cos(toRad(startAngle)), y: cy + innerR * Math.sin(toRad(startAngle)) };\n` +
 `  const largeArc = (endAngle - startAngle) > 180 ? 1 : 0;\n` +
-`  return \`M \<em>{p1.x.toFixed(2)} \</em>{p1.y.toFixed(2)} \` +\n` +
-`         \`A \<em>{outerR} \</em>{outerR} 0 \<em>{largeArc} 1 \</em>{p2.x.toFixed(2)} \${p2.y.toFixed(2)} \` +\n` +
-`         \`L \<em>{p3.x.toFixed(2)} \</em>{p3.y.toFixed(2)} \` +\n` +
-`         \`A \<em>{innerR} \</em>{innerR} 0 \<em>{largeArc} 0 \</em>{p4.x.toFixed(2)} \${p4.y.toFixed(2)} Z\`;\n` +
+`  return \`M \${p1.x.toFixed(2)} \${p1.y.toFixed(2)} \` +\n` +
+`         \`A \${outerR} \${outerR} 0 \${largeArc} 1 \${p2.x.toFixed(2)} \${p2.y.toFixed(2)} \` +\n` +
+`         \`L \${p3.x.toFixed(2)} \${p3.y.toFixed(2)} \` +\n` +
+`         \`A \${innerR} \${innerR} 0 \${largeArc} 0 \${p4.x.toFixed(2)} \${p4.y.toFixed(2)} Z\`;\n` +
 `}`;
         }
       }

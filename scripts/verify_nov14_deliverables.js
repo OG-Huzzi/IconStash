@@ -214,6 +214,7 @@ for (const item of deliverables) {
     foundAppScript = true;
     assert(!scriptCode.includes("+'\\n'") && !scriptCode.includes("+'\\\\n'"), 'Interactive code generator avoids double-escaped literal newline strings');
     assert(!scriptCode.includes("+\"...\"") && !scriptCode.includes("+'...'") && !scriptCode.includes("...' />") && !scriptCode.includes("...';"), 'Interactive code generator avoids placeholder ellipsis truncations');
+    assert(!scriptCode.includes('<em>') && !scriptCode.includes('\\<em>') && !scriptCode.includes('<em>{'), 'Client-side script in ' + item.slug + ' avoids corrupted em tags');
 
     let syntaxValid = false;
     try {
@@ -230,11 +231,14 @@ for (const item of deliverables) {
   const articleLinks = (content.match(/href="\/articles\/[^"]+"/g) || []).filter(h => h !== 'href="/articles/"' && !h.includes(item.slug));
   assert(articleLinks.length >= 3, `Article contains >= 3 contextual internal links to related guides (found ${articleLinks.length})`);
 
-  // 16. No raw unrendered LaTeX math delimiters
+  // 16. No raw unrendered LaTeX math delimiters or control characters
   const strippedProse = content.replace(/<(pre|code|script|svg|style)[\s\S]*?<\/\1>/gi, '');
   const latexMatches = [...strippedProse.matchAll(/(\$[^$\n]+\$)/g)].map(m => m[1]);
   assert(latexMatches.length === 0, `No unrendered raw LaTeX math delimiters ($...$) found in ${item.slug} (found: ${JSON.stringify(latexMatches)})`);
-  assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx') && !content.includes('\\epsilon'), `No unrendered LaTeX math keywords found in ${item.slug}`);
+  assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx') && !content.includes('\\epsilon') && !content.includes('\\frac') && !content.includes('\\log') && !content.includes('\\cos') && !content.includes('\\sin') && !content.includes('\\text') && !content.includes('&le;ft('), `No unrendered LaTeX math keywords found in ${item.slug}`);
+  assert(!content.includes('<em>{') && !content.includes('\\<em>'), `No mangled template literal tokens (<em>{) found in ${item.slug}`);
+  const hasBadCtrl = [...content].some(ch => [0x07, 0x0c, 0x0b].includes(ch.charCodeAt(0)));
+  assert(!hasBadCtrl, `No non-standard ASCII control bytes (0x07, 0x0C) in ${item.slug}`);
 
   // 17. Viewport responsiveness tag
   assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
@@ -309,12 +313,17 @@ for (const item of deliverables) {
   // 23. Code block HTML escaping
   const codeBlocks = [...content.matchAll(/<code>([\s\S]*?)<\/code>/gi)];
   let unescapedTagsCount = 0;
+  let codeCorruptions = 0;
   for (const cb of codeBlocks) {
     const rawCode = cb[1];
     const tags = rawCode.match(/<(g|polygon|text|rect|circle|path)[^>]*>/gi) || [];
     unescapedTagsCount += tags.length;
+    if (rawCode.includes('<em>') || rawCode.includes('&lt;em&gt;')) {
+      codeCorruptions++;
+    }
   }
   assert(unescapedTagsCount === 0, `All code blocks in ${item.slug} properly HTML escaped (found ${unescapedTagsCount} raw unescaped tags)`);
+  assert(codeCorruptions === 0, `All code blocks in ${item.slug} free of corrupted em tags (found ${codeCorruptions})`);
 
   // 24. Form Control Label Accessibility
   const formControls = [...content.matchAll(/<(input|select|textarea)[^>]*id=["']([^"']+)["'][^>]*>/gi)].map(m => m[2]);
