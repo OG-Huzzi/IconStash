@@ -3742,3 +3742,38 @@ summary:focus-visible,
   .api-strip-text { white-space: normal; line-height: 1.4; }
   .api-strip-cta { display: none; }
 }
+
+/* House banner rendered inside the leaderboard ad slot (stands in for the ad). */
+.ad-slot.has-api-banner {
+  display: block;
+  flex: 0 0 auto;
+  height: auto;
+  min-height: 0;
+  border: 0;
+  background: none;
+  margin: 0;
+}
+.api-strip-ad {
+  width: 100%;
+  min-height: 72px;
+  justify-content: center;
+  gap: 14px;
+  margin: 0;
+  padding: 16px 22px;
+  border-color: rgba(193, 221, 45, 0.34);
+  background:
+    radial-gradient(120% 160% at 0% 50%, rgba(193, 221, 45, 0.16), transparent 62%),
+    rgba(0, 0, 0, 0.18);
+}
+[data-theme="light"] .api-strip-ad { background: rgba(193, 221, 45, 0.10); }
+.api-strip-ad .api-strip-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+.api-strip-ad .api-strip-icon svg { width: 20px; height: 20px; }
+.api-strip-ad .api-strip-text { font-size: 14px; }
+.api-strip-ad .api-strip-cta { font-size: 12px; }
+@media (max-width: 640px) {
+  .api-strip-ad { justify-content: flex-start; min-height: 64px; padding: 12px 14px; }
+}
