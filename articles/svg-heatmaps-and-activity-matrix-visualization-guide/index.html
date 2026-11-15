@@ -34,135 +34,133 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Structured Data: TechArticle -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "Mastering SVG Heatmaps & Activity Matrices: GitHub-Style Contribution Graphs, Quantile Palettes & Analytics Guide (2026)",
-    "description": "Comprehensive engineering guide to building high-performance, responsive vector calendar heatmaps and activity matrices in pure SVG. Covers ISO 8601 temporal projection, quantile vs linear color scaling, cell gap ratios, interactive popover tooltips, and WCAG 2.2 AA accessibility.",
-    "url": "https://iconstash.io/articles/svg-heatmaps-and-activity-matrix-visualization-guide/",
-    "image": "https://iconstash.io/assets/articles/svg-heatmaps-and-activity-matrix-visualization-guide.jpg",
-    "datePublished": "2026-11-15",
-    "dateModified": "2026-11-15",
-    "author": {
-      "@type": "Person",
-      "name": "Jouni Flemming",
-      "url": "https://iconstash.io/about/",
-      "worksFor": {
+    <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Heatmaps & Activity Matrices: GitHub-Style Contribution Graphs, Quantile Palettes & Analytics Guide (2026)",
+      "description": "Build responsive SVG heatmaps and calendar activity matrices. Master GitHub-style grids, ISO week math, quantile color scales, and interactive tooltip UX.",
+      "image": "https://iconstash.io/assets/articles/svg-heatmaps-and-activity-matrix-visualization-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
         "@type": "Organization",
-        "name": "Great Software Company",
-        "url": "https://greatsoftwarecompany.com"
-      }
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-15",
+      "dateModified": "2026-11-15",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-heatmaps-and-activity-matrix-visualization-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 5200,
+      "articleSection": "Vector Graphics & Calendar Engineering",
+      "keywords": [
+        "svg heatmap",
+        "github contribution graph svg",
+        "calendar heatmap javascript",
+        "activity matrix vector",
+        "quantile color scale svg",
+        "streak tracking engine",
+        "svg data grid"
+      ]
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Great Software Company",
-      "url": "https://greatsoftwarecompany.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://iconstash.io/assets/icons/icon-512x512.png"
-      }
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Heatmaps Guide",
+          "item": "https://iconstash.io/articles/svg-heatmaps-and-activity-matrix-visualization-guide/"
+        }
+      ]
     },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://iconstash.io/articles/svg-heatmaps-and-activity-matrix-visualization-guide/"
-    },
-    "keywords": [
-      "svg heatmap",
-      "github contribution graph svg",
-      "calendar heatmap javascript",
-      "activity matrix vector",
-      "quantile color scales svg",
-      "temporal data visualization web"
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://iconstash.io/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Articles",
-        "item": "https://iconstash.io/articles/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "SVG Heatmaps Guide",
-        "item": "https://iconstash.io/articles/svg-heatmaps-and-activity-matrix-visualization-guide/"
-      }
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Why are SVG calendar heatmaps preferred over HTML table or Canvas implementations?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Scalable Vector Graphics (SVG) provides the ideal balance between DOM ergonomics and rendering performance. Unlike heavy HTML tables that require hundreds of nested div, tr, and td tags with massive CSS box-model overhead, SVG renders 365 calendar days using lightweight rect elements within a single coordinate container. Furthermore, unlike HTML5 Canvas, SVG preserves the identity of each calendar day, enabling direct CSS pseudo-class hover effects, keyboard focus traversal, screen-reader ARIA labeling, and lossless vector export."
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why build calendar heatmaps in pure SVG rather than HTML tables or Canvas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Scalable Vector Graphics (SVG) allows 365 daily cells, month headers, and day labels to be rendered inside a single responsive vector coordinate box with subpixel precision. Unlike HTML tables which bloat the DOM with complex nested tags and flexbox calculations, SVG preserves crisp vector geometry, facilitates hardware-accelerated tooltip hover reticles, supports CSS theme overrides, and prints losslessly at 600 DPI in annual PDF developer reports."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does ISO 8601 calendar projection map 365 days into a 7x52 matrix?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In ISO 8601, weeks begin on Monday (day index 0) and end on Sunday (day index 6). For any given calendar day offset k from the start of the 52-week trailing window, the row coordinate is R = (D0_day + k) mod 7 and the column coordinate is C = floor((D0_day + k) / 7), where D0_day is the day-of-week index of the initiation date. Each cell is positioned at x = padLeft + C * (cellSize + gap) and y = padTop + R * (cellSize + gap)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is non-zero quantile binning superior to linear color normalization for user activity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Human developer and fitness activity follows a power-law distribution where inactive zero-event days dominate and rare spike days create extreme statistical outliers. A naive linear scale leaves 95% of active days in the faintest tier. Non-zero quantile binning calculates percentiles (25th, 50th, 75th) strictly among days with count greater than 0, guaranteeing balanced visual variance across light, medium, and high activity tiers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is continuous user activity streak calculation computed efficiently?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A chronological scan through the sorted timestamp array tracks the current running streak. When an active day is encountered, the current streak increments and the maximum streak record updates. Encountering a zero-event day resets the running streak to 0, operating in optimal O(N) time and O(1) auxiliary memory."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you achieve zero-lag tooltip performance across 365+ interactive SVG cells?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Instead of binding individual mouseenter and mouseleave listeners to hundreds of distinct DOM nodes, a single delegated pointermove listener on the parent SVG container extracts cell date and count attributes via event.target.closest('rect'). A single floating HUD tooltip transforms via GPU translate3d() without causing layout thrashing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you ensure SVG heatmaps comply with WCAG 2.2 AA accessibility standards?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The root SVG receives role='graphics-document' with an informative aria-label summarizing total events, active days, and streaks. Each cell receives role='graphics-symbol', an accessible aria-label with the formatted date and event tally, and full keyboard tab-navigation with visible focus rings."
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you project 365 calendar days into a 52-week horizontal SVG grid?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The temporal projection uses ISO 8601 day-of-week and week-of-year calculations. For an active date D, the row index corresponds to its day of the week: row = (D.getDay() + 6) % 7 for Monday starts, or row = D.getDay() for Sunday starts. The column index is the number of full calendar weeks elapsed since the start of the 365-day range: col = Math.floor((dayOfYear + firstDayOffset) / 7). Coordinates are then evaluated as x = col * (cellSize + gap) and y = row * (cellSize + gap)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between Linear and Quantile color scaling in activity heatmaps?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Linear color scaling maps cell numeric values evenly across color bins: bin = Math.floor((val - min) / (max - min) * 4). In software engineering telemetry where a single outlier day might contain 80 commits while most days have 1 to 3 commits, linear scaling causes 95% of active days to fall into the lowest pale green bin. Quantile scaling sorts all positive non-zero activity values and calculates distribution percentiles (e.g. 25th, 50th, 75th), ensuring an aesthetically balanced and informative visual contrast across normal, busy, and peak days."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you position month labels accurately above the calendar columns in SVG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Month labels are positioned by iterating through all calendar days and detecting the first occurrence of each month. When day.getDate() === 1 (or the first day in the dataset for that month), the column index of that day is recorded: col = Math.floor(dayIndex / 7). An SVG text element is rendered at x = X_pad + col * (cellSize + gap) with text-anchor='start'. To prevent overlapping labels when a month spans fewer than 3 full columns, subsequent label collision thresholds are enforced."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you implement accessible keyboard navigation on an SVG activity heatmap?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Accessible SVG heatmaps declare role='grid' on the container, role='row' on weekday groups, and role='gridcell' on individual rect elements. Each cell receives a descriptive aria-label, such as aria-label='24 contributions on Wednesday, November 11, 2026'. Using roving tabindex (setting tabindex='0' on the active cell and '-1' on all others), users navigate effortlessly across days and weeks using ArrowUp, ArrowDown, ArrowLeft, and ArrowRight keys."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can multi-year or high-density hourly heatmaps be optimized in SVG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "For high-density matrices (e.g. 8,760 hourly cells per year or 5-year multi-year displays), rendering thousands of discrete rect elements can increase memory consumption. Optimization strategies include batching all cells of the same color tier into single compound path elements using 'M x y h W v H h -W Z', applying CSS containment (contain: strict), and utilizing SVG <use> symbol cloning for identical cell geometry."
-        }
-      }
-    ]
-  }
+      ]
+    }
+  ]
   </script>
 
   <style>
@@ -281,32 +279,84 @@
 
     /* Sidebar / Sticky TOC */
     .article-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
-    .sidebar-widget { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 20px; }
-    .widget-title { font-size: 14px; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; border-bottom: 1px solid #222; padding-bottom: 8px; }
-    .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-    .toc-list li a { color: #888; font-size: 13.5px; transition: color 150ms ease; display: block; line-height: 1.4; }
-    .toc-list li a:hover { color: #C1DD2D; }
-    .resource-card { background: #161616; border: 1px solid #2A2A2A; border-radius: 6px; padding: 12px; margin-top: 10px; font-size: 13px; }
-    .resource-card a { font-weight: 600; color: #C1DD2D; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
 
-    /* Light Theme Overrides */
-    html[data-theme="light"] body { background: #F8F9FA; color: #212529; }
-    html[data-theme="light"] .site-header { background: rgba(248,249,250,0.92); border-bottom-color: #E9ECEF; }
-    html[data-theme="light"] .site-header .logo { color: #111; }
-    html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3, html[data-theme="light"] h4 { color: #111; }
-    html[data-theme="light"] p, html[data-theme="light"] li { color: #495057; }
-    html[data-theme="light"] .featured-summary { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .featured-summary p { color: #212529; }
-    html[data-theme="light"] pre { background: #F1F3F5; border-color: #E9ECEF; color: #212529; }
-    html[data-theme="light"] code { background: #E9ECEF; color: #4D6300; }
-    html[data-theme="light"] .interactive-sandbox { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .preview-stage-container { background: #F8FAFC; border-color: #CBD5E1; }
-    html[data-theme="light"] .sidebar-widget { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .stats-readout-box { background: #F1F5F9; border-color: #E2E8F0; }
-    html[data-theme="light"] .code-preview-pane { background: #1E293B; color: #F8FAFC; }
-    html[data-theme="light"] th { background: #E9ECEF; color: #111; border-bottom-color: #DEE2E6; }
-    html[data-theme="light"] td { border-bottom-color: #E9ECEF; color: #495057; }
-    html[data-theme="light"] .formula-card { background: #F8F9FA; border-color: #DEE2E6; }
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
   </style>
 </head>
 <body>
@@ -329,13 +379,13 @@
     </nav>
   </header>
 
-  <div class="page-container">
+  <main class="page-container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">IconStash</a>
       <span class="sep">/</span>
       <a href="/articles/">Articles</a>
       <span class="sep">/</span>
-      <span class="current">Mastering SVG Heatmaps &amp; Activity Matrices</span>
+      <span class="current" aria-current="page">Mastering SVG Heatmaps &amp; Activity Matrices</span>
     </nav>
 
     <header class="article-hero">
@@ -372,7 +422,7 @@
 
         <section id="introduction-heatmap-paradigm">
           <h2>1. Introduction: The Rise of Temporal Density Visualizations in Modern UI</h2>
-          <p>In modern software engineering, telemetry analysis, DevOps monitoring, and quantified self-tracking, developers and end users are inundated with immense volumes of time-series event data. A cloud infrastructure cluster generates millions of CPU load metrics every second; a modern distributed software team registers thousands of pull requests, commits, and code review comments each month; a personal productivity platform tracks habits across hundreds of consecutive days. When software architects attempt to display this data using conventional line charts or bar graphs, the interface quickly collapses into an illegible tangle of overlapping strokes or an interminable horizontal scrolling list.</p>
+          <p>In modern software engineering, telemetry analysis, DevOps monitoring, and quantified self-tracking, developers and end users are inundated with immense volumes of time-series event data. A cloud infrastructure cluster generates millions of CPU load metrics every second; a modern distributed software team registers thousands of pull requests, commits, and code review comments each month; a personal productivity platform tracks habits across hundreds of consecutive days. When software architects attempt to display this data using conventional line charts or bar graphs, the interface quickly collapses into an illegible tangle of overlapping strokes or an interminable horizontal scrolling list. For high-frequency financial time-series, compare our architecture guide on <a href="/articles/svg-candlestick-charts-and-financial-visualization-guide/">SVG candlestick charts and financial visualizations</a>.</p>
 
           <p>The calendar heatmap—initially conceptualized in academic information visualization literature and catapulted into mainstream software culture by GitHub's iconic user profile contribution graph—solves this problem with mathematical elegance. By decomposing time into a discrete two-dimensional matrix where columns represent calendar weeks and rows represent days of the week, a full 365-day annual timeline can be compressed into a compact, beautiful widget that fits effortlessly on a standard laptop display or executive dashboard. At a single glance, users can immediately identify seasonal velocity trends, prolonged productive streaks, weekend quiet periods, sudden activity spikes, and multi-week lulls.</p>
 
@@ -383,7 +433,7 @@
             <li><strong>Scalable Vector Graphics (SVG):</strong> SVG provides the definitive, industry-standard solution. In an SVG heatmap, each day cell is rendered as a clean, hardware-accelerated <code>&lt;rect&gt;</code> element mapped to exact Cartesian coordinates within a unified <code>viewBox</code>. The browser treats the entire matrix as a single graphic, offloading rendering directly to the GPU compositor thread. Most importantly, SVG preserves full DOM inspectability: cells can be styled via CSS variables, inspected via native pointer events, focused via keyboard tab navigation, and assigned rich ARIA metadata, while remaining infinitely scalable for high-DPI retina monitors and vector print datasheets.</li>
           </ul>
 
-          <p>In this comprehensive engineering guide, we dissect the mathematical foundations, color theory, algorithmic optimizations, and accessibility architectures required to build production-grade SVG calendar heatmaps and activity matrices from first principles.</p>
+          <p>In this comprehensive engineering guide, we dissect the mathematical foundations, color theory, algorithmic optimizations, and accessibility architectures required to build production-grade SVG calendar heatmaps and activity matrices from first principles. Similar to the spatial mapping principles detailed in our deep dives on <a href="/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/">SVG tree diagrams and tidy hierarchies</a> and <a href="/articles/svg-gantt-charts-and-project-timelines-guide/">SVG Gantt charts and project timelines</a>, calendar matrix projection requires rigid geometric boundary math.</p>
         </section>
 
         <section id="calendar-grid-topology-math">
@@ -391,9 +441,9 @@
           <p>Constructing a calendar heatmap requires mapping a continuous sequence of 365 (or 366 in leap years) chronological calendar days onto a discrete two-dimensional grid consisting of 7 vertical rows and 52 to 53 horizontal columns. While this layout appears deceptively simple on the surface, implementing the underlying date arithmetic requires rigorous handling of calendar quirks, day-of-week indexing offsets, and month boundary coordinates.</p>
 
           <h3>2.1 The 7&times;53 Matrix Coordinate System</h3>
-          <p>Let $D_0$ represent the anchor initiation date of the calendar heatmap (typically exactly one calendar year prior to today's date, or January 1st of the target year). For any arbitrary date $D_k$ occurring $k$ days after $D_0$, we must compute its exact column index $C(k)$ and row index $R(k)$ within the grid.</p>
+          <p>Let <em>D</em><sub>0</sub> represent the anchor initiation date of the calendar heatmap (typically exactly one calendar year prior to today's date, or January 1st of the target year). For any arbitrary date <em>D<sub>k</sub></em> occurring <em>k</em> days after <em>D</em><sub>0</sub>, we must compute its exact column index <em>C</em>(<em>k</em>) and row index <em>R</em>(<em>k</em>) within the grid.</p>
 
-          <p>In Western business and developer applications conforming to the international <strong>ISO 8601</strong> standard, the calendar week commences on <strong>Monday</strong> ($d_{\text{iso}} = 0$) and concludes on <strong>Sunday</strong> ($d_{\text{iso}} = 6$). Conversely, standard US calendar conventions treat <strong>Sunday</strong> as the initial day of the week ($d_{\text{us}} = 0$). To ensure our vector engine supports both conventions cleanly, we define a day-offset shift parameter $S_{\text{start}} \in \{0, 1\}$, where $S_{\text{start}} = 1$ denotes a Monday start and $S_{\text{start}} = 0$ denotes a Sunday start.</p>
+          <p>In Western business and developer applications conforming to the international <strong>ISO 8601</strong> standard, the calendar week commences on <strong>Monday</strong> (<em>d</em><sub>iso</sub> = 0) and concludes on <strong>Sunday</strong> (<em>d</em><sub>iso</sub> = 6). Conversely, standard US calendar conventions treat <strong>Sunday</strong> as the initial day of the week (<em>d</em><sub>us</sub> = 0). To ensure our vector engine supports both conventions cleanly, we define a day-offset shift parameter <em>S</em><sub>start</sub> &isin; {0, 1}, where <em>S</em><sub>start</sub> = 1 denotes a Monday start and <em>S</em><sub>start</sub> = 0 denotes a Sunday start.</p>
 
           <div class="formula-card">
             <div class="formula-title">Day-of-Week Row Index Formulation</div>
@@ -401,7 +451,7 @@
             <div class="formula-desc">Maps JavaScript's native 0 (Sunday) through 6 (Saturday) into a normalized row index from 0 (top row) to 6 (bottom row).</div>
           </div>
 
-          <p>Computing the horizontal column index $C(k)$ is slightly more involved because the initial date $D_0$ rarely falls on the very first day of a week. If $D_0$ is a Wednesday, the first column must display empty or transparent placeholders for Monday and Tuesday, placing $D_0$ on row 2. To preserve strict chronological alignment across all 52 weeks, the column index is formulated by accumulating the initial day offset:</p>
+          <p>Computing the horizontal column index <em>C</em>(<em>k</em>) is slightly more involved because the initial date <em>D</em><sub>0</sub> rarely falls on the very first day of a week. If <em>D</em><sub>0</sub> is a Wednesday, the first column must display empty or transparent placeholders for Monday and Tuesday, placing <em>D</em><sub>0</sub> on row 2. To preserve strict chronological alignment across all 52 weeks, the column index is formulated by accumulating the initial day offset:</p>
 
           <div class="formula-card">
             <div class="formula-title">Horizontal Week Column Index Equation</div>
@@ -409,7 +459,7 @@
             <div class="formula-desc">Where k is the integer day offset from the anchor start date D_0, and R(D_0) is the day-of-week row index of the anchor date.</div>
           </div>
 
-          <p>Once the discrete matrix indices $(C, R)$ are determined, they are projected into continuous SVG viewport pixel space using the cell side length $S_{\text{cell}}$ (typically 10px to 14px) and inter-cell gap spacing $G_{\text{cell}}$ (typically 2px to 4px):</p>
+          <p>Once the discrete matrix indices (<em>C</em>, <em>R</em>) are determined, they are projected into continuous SVG viewport pixel space using the cell side length <em>S</em><sub>cell</sub> (typically 10px to 14px) and inter-cell gap spacing <em>G</em><sub>cell</sub> (typically 2px to 4px):</p>
 
           <div class="formula-card">
             <div class="formula-title">Cell Pixel Coordinate Equations</div>
@@ -455,7 +505,7 @@ function computeMonthHeaderPositions(calendarDays, cellSize = 11, cellGap = 3, x
           <p>The visual efficacy of an activity heatmap depends fundamentally on its color scaling algorithm. The human visual cortex perceives data through contrast differences. If the mapping between numeric activity counts and fill colors is mathematically flawed, the entire visualization fails to communicate meaningful insight.</p>
 
           <h3>3.1 The Failure of Linear Interpolation (The Power-Law Trap)</h3>
-          <p>A common beginner mistake is applying linear color interpolation between the minimum value ($0$) and the maximum value ($V_{\text{max}}$):</p>
+          <p>A common beginner mistake is applying linear color interpolation between the minimum value (0) and the maximum value (<em>V</em><sub>max</sub>):</p>
 
           <div class="formula-card">
             <div class="formula-title">Naive Linear Color Indexing (Anti-Pattern)</div>
@@ -463,7 +513,7 @@ function computeMonthHeaderPositions(calendarDays, cellSize = 11, cellGap = 3, x
             <div class="formula-desc">Produces severe visualization failure when data exhibits a heavy-tailed, Pareto, or log-normal distribution.</div>
           </div>
 
-          <p>Consider real-world software development metrics: on typical active days, an engineer might make 1 to 4 commits. However, on one extraordinary day during a major release merge or code migration, the engineer might push 65 commits ($V_{\text{max}} = 65$). Under naive linear scaling:</p>
+          <p>Consider real-world software development metrics: on typical active days, an engineer might make 1 to 4 commits. However, on one extraordinary day during a major release merge or code migration, the engineer might push 65 commits (<em>V</em><sub>max</sub> = 65). Under naive linear scaling:</p>
           <ul>
             <li>Tier 0 (Empty): 0 commits (Dark Charcoal #161B22)</li>
             <li>Tier 1: 1 to 16 commits (Pale Emerald #0E4429)</li>
@@ -495,7 +545,7 @@ function getQuantileColorTier(value, thresholds, palette) {
 }</code></pre>
 
           <h3>3.3 Perceptual Color Scales: GitHub Emerald, Turbo, Viridis &amp; Solar Amber</h3>
-          <p>To ensure universal accessibility for users with color vision deficiencies (protanopia, deuteranopia, tritanopia), color scales must maintain monotonically increasing luminance ($L^*$) in perceptual color spaces like CIELAB or Oklab. When a color scale increases in luminance as activity rises, colorblind users can immediately distinguish intensity even without perceiving hue.</p>
+          <p>To ensure universal accessibility for users with color vision deficiencies (protanopia, deuteranopia, tritanopia), color scales must maintain monotonically increasing luminance (<em>L</em>*) in perceptual color spaces like CIELAB or Oklab. When a color scale increases in luminance as activity rises, colorblind users can immediately distinguish intensity even without perceiving hue.</p>
 
           <div class="table-container">
             <table>
@@ -552,7 +602,7 @@ function getQuantileColorTier(value, thresholds, palette) {
           <p>Having defined the coordinate projection mathematics and color quantization rules, we translate the matrix into declarative SVG markup. A modern calendar heatmap SVG canvas features three distinct visual layers:</p>
           <ol>
             <li><strong>Header &amp; Axis Label Layer:</strong> Horizontal text elements displaying month names, and vertical text elements marking Monday, Wednesday, and Friday.</li>
-            <li><strong>Matrix Cell Layer:</strong> The 365+ individual calendar day <code>&lt;rect&gt;</code> elements, configured with subtle corner radii ($R=2\text{px}$) and subpixel coordinate snapping.</li>
+            <li><strong>Matrix Cell Layer:</strong> The 365+ individual calendar day <code>&lt;rect&gt;</code> elements, configured with subtle corner radii (<em>R</em> = 2px) and subpixel coordinate snapping.</li>
             <li><strong>Legend &amp; Metric Footer Layer:</strong> Summary metadata indicating total annual contributions, active streak counts, and a color legend showing the progression from "Less" to "More".</li>
           </ol>
 
@@ -610,7 +660,7 @@ function getQuantileColorTier(value, thresholds, palette) {
 &lt;/svg&gt;</code></pre>
 
           <h3>4.1 CSS Pseudo-Classes &amp; Cell Hover Dynamics</h3>
-          <p>Because SVG rect elements participate in the browser's CSS cascading style system, we can achieve high-fidelity micro-interactions with pure CSS. Applying a subtle stroke border and scale transform on hover creates an engaging interactive feel with zero JavaScript overhead:</p>
+          <p>Because SVG rect elements participate in the browser's CSS cascading style system, we can achieve high-fidelity micro-interactions with pure CSS. Applying a subtle stroke border and scale transform on hover creates an engaging interactive feel with zero JavaScript overhead. As explored in our benchmark on <a href="/articles/how-to-optimize-svg-icons-for-web-performance/">optimizing SVG performance for production web applications</a>, native vector elements eliminate heavyweight canvas runtime overhead:</p>
 
           <pre><code>/* Pure CSS Interactive Cell Styling */
 .day-cell {
@@ -640,7 +690,7 @@ function getQuantileColorTier(value, thresholds, palette) {
           <h3>5.1 The Continuous Streak Calculation Algorithm</h3>
           <p>Streak tracking is one of the most psychologically engaging aspects of calendar heatmaps. The engine evaluates two streak metrics:</p>
           <ol>
-            <li><strong>Current Active Streak:</strong> The number of consecutive days with activity ($V > 0$) ending on today's date (or yesterday's date if today has not yet registered events).</li>
+            <li><strong>Current Active Streak:</strong> The number of consecutive days with activity (<em>V</em> &gt; 0) ending on today's date (or yesterday's date if today has not yet registered events).</li>
             <li><strong>Longest Historical Streak:</strong> The maximum unbroken run of consecutive active days recorded anywhere within the 365-day dataset.</li>
           </ol>
 
@@ -916,10 +966,10 @@ function calculateStreaks(calendarDays) {
         </section>
 
         <section id="hourly-and-multi-dimensional-matrices">
-          <h2>8. Hourly &amp; Multi-Dimensional Activity Matrices: 24&times;7 Server Punchcards</h2>
+          <h2>9. Hourly &amp; Multi-Dimensional Activity Matrices: 24&times;7 Server Punchcards</h2>
           <p>While the 52-week calendar grid is ideal for high-level longitudinal analysis, engineering teams frequently require micro-temporal density analysis to diagnose system performance and operational bottlenecks. A prominent variant of the activity matrix is the <strong>24&times;7 Punchcard Matrix</strong>, which maps the 24 hours of the day along the horizontal X-axis and the 7 days of the week along the vertical Y-axis. This produces a 168-cell matrix that illuminates intraday circadian rhythms, automated cron job resource spikes, global user traffic waves, and incident frequency distributions.</p>
 
-          <p>In SVG, constructing an hourly punchcard matrix utilizes a similar coordinate projection to the calendar heatmap, but with circular or pill-shaped glyphs where both color intensity and element radius encode magnitude. By scaling the radius $R_{\text{cell}}$ of each circle proportionally to the square root of activity ($\sqrt{V}$), the visual area of the circle scales linearly with data magnitude, preventing large values from visually dominating the matrix.</p>
+          <p>In SVG, constructing an hourly punchcard matrix utilizes a similar coordinate projection to the calendar heatmap, but with circular or pill-shaped glyphs where both color intensity and element radius encode magnitude. By scaling the radius <em>R</em><sub>cell</sub> of each circle proportionally to the square root of activity (&radic;<em>V</em>), the visual area of the circle scales linearly with data magnitude, preventing large values from visually dominating the matrix.</p>
 
           <div class="formula-card">
             <div class="formula-title">Perceptual Area-Proportional Radius Formulation</div>
@@ -931,7 +981,7 @@ function calculateStreaks(calendarDays) {
         </section>
 
         <section id="continuous-vs-stepped-quantization">
-          <h2>9. Continuous Color Gradients vs. Stepped Perceptual Bins: Avoiding Mach Bands</h2>
+          <h2>10. Continuous Color Gradients vs. Stepped Perceptual Bins: Avoiding Mach Bands</h2>
           <p>When designing data visualizations, graphic designers often advocate for continuous linear color gradients, arguing that continuous gradients preserve subtle data nuances. However, in human perceptual psychology and information visualization theory, continuous color gradients on discrete matrix cells are widely recognized as an anti-pattern due to a neurological optical illusion known as <strong>Mach Bands</strong>.</p>
 
           <p>The human visual cortex employs lateral inhibition in the retina to enhance edge detection and contrast boundaries. When adjacent cells display smoothly varying shades of continuous color, the brain artificially exaggerates the contrast at the boundary between them, causing uniform regions to appear subtly concave or scalloped. Consequently, an observer cannot accurately compare two non-adjacent cells in a continuous gradient heatmap without experiencing perceptual distortion.</p>
@@ -940,7 +990,7 @@ function calculateStreaks(calendarDays) {
         </section>
 
         <section id="dynamic-svg-badge-generation">
-          <h2>10. Automated SVG Badge Generation for Readmes &amp; Portfolios</h2>
+          <h2>11. Automated SVG Badge Generation for Readmes &amp; Portfolios</h2>
           <p>One of the most popular applications of SVG activity heatmaps is dynamic GitHub profile badges and embedded project telemetry. Developers love showcasing live contribution streaks, code test coverage matrices, and deployment status grids directly inside their project README.md files.</p>
 
           <p>To deliver an SVG heatmap dynamically over HTTP, backend services (such as serverless Edge workers or Node.js microservices) must serialize the SVG DOM tree into a standalone, self-contained XML string and serve it with appropriate HTTP caching headers:</p>
@@ -968,7 +1018,7 @@ export async function handleStreakBadgeRequest(request) {
         </section>
 
         <section id="multi-year-and-performance">
-          <h2>11. Multi-Year Scaling, DOM Optimization &amp; Subsetting</h2>
+          <h2>12. Multi-Year Scaling, DOM Optimization &amp; Subsetting</h2>
           <p>While an individual year's calendar heatmap contains 365 cells, enterprise analytics platforms often require multi-year historical profiles spanning 5 to 10 years of developer contributions, or dense hourly matrices containing 8,760 cells per year. In these data-dense configurations, unoptimized SVG DOM trees can cause memory pressure if handled naively.</p>
 
           <h3>11.1 Compound Path Merging for High-Density Matrices</h3>
@@ -985,7 +1035,7 @@ export async function handleStreakBadgeRequest(request) {
         </section>
 
         <section id="accessibility-and-screen-readers">
-          <h2>12. Accessibility, WCAG 2.2 AA Compliance &amp; Keyboard Navigation</h2>
+          <h2>13. Accessibility, WCAG 2.2 AA Compliance &amp; Keyboard Navigation</h2>
           <p>Enterprise compliance mandates that all data visualizations provide equitable access for individuals using assistive technologies. Canvas-based heatmaps almost universally fail accessibility audits because they lack semantic structure. Native SVG, by contrast, supports comprehensive WAI-ARIA grid ergonomics:</p>
 
           <pre><code>&lt;!-- Fully Accessible WAI-ARIA SVG Calendar Grid --&gt;
@@ -1003,7 +1053,7 @@ export async function handleStreakBadgeRequest(request) {
         </section>
 
         <section id="faq-section" class="faq-block">
-          <h2>13. Frequently Asked Questions</h2>
+          <h2>14. Frequently Asked Questions</h2>
           <div class="faq-item">
             <h3 class="faq-question">Why are SVG calendar heatmaps preferred over HTML table or Canvas implementations?</h3>
             <div class="faq-answer">Scalable Vector Graphics (SVG) provides the ideal balance between DOM ergonomics and rendering performance. Unlike heavy HTML tables that require hundreds of nested div, tr, and td tags with massive CSS box-model overhead, SVG renders 365 calendar days using lightweight rect elements within a single coordinate container. Furthermore, unlike HTML5 Canvas, SVG preserves the identity of each calendar day, enabling direct CSS pseudo-class hover effects, keyboard focus traversal, screen-reader ARIA labeling, and lossless vector export.</div>
@@ -1031,35 +1081,33 @@ export async function handleStreakBadgeRequest(request) {
         </section>
       </article>
 
-      <aside class="article-sidebar">
-        <div class="sidebar-widget">
-          <div class="widget-title">Table of Contents</div>
-          <ul class="toc-list">
-            <li><a href="#introduction-heatmap-paradigm">1. The Heatmap Paradigm</a></li>
-            <li><a href="#calendar-grid-topology-math">2. Calendar Grid Topology</a></li>
-            <li><a href="#color-quantization-palettes">3. Color Quantization</a></li>
-            <li><a href="#declarative-svg-primitives">4. Declarative SVG Primitives</a></li>
-            <li><a href="#interactive-tooltips-and-streaks">5. Zero-Lag Tooltips</a></li>
-            <li><a href="#architectural-pipeline-diagram">6. Architectural Pipeline</a></li>
-            <li><a href="#interactive-heatmap-studio">7. Interactive Developer Studio</a></li>
-            <li><a href="#hourly-and-multi-dimensional-matrices">8. Hourly &amp; Multi-Dimensional</a></li>
-            <li><a href="#continuous-vs-stepped-quantization">9. Gradients vs Bins</a></li>
-            <li><a href="#dynamic-svg-badge-generation">10. Dynamic SVG Badges</a></li>
-            <li><a href="#multi-year-and-performance">11. Multi-Year Scaling</a></li>
-            <li><a href="#accessibility-and-screen-readers">12. Accessibility &amp; WCAG</a></li>
-            <li><a href="#faq-section">13. Frequently Asked Questions</a></li>
-          </ul>
+            <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#introduction-heatmap-paradigm">1. Temporal Density in UI</a></li>
+              <li><a href="#calendar-grid-topology-math">2. ISO 8601 Calendar Math</a></li>
+              <li><a href="#color-quantization-palettes">3. Color Quantization &amp; Palettes</a></li>
+              <li><a href="#declarative-svg-primitives">4. Declarative SVG Primitives</a></li>
+              <li><a href="#interactive-tooltips-and-streaks">5. Tooltips &amp; Streak Engine</a></li>
+              <li><a href="#architectural-pipeline-diagram">6. Architectural Pipeline</a></li>
+              <li><a href="#interactive-heatmap-studio">7. Interactive Developer Studio</a></li>
+              <li><a href="#timezone-and-temporal-normalization">8. Timezone Normalization</a></li>
+              <li><a href="#hourly-and-multi-dimensional-matrices">9. Hourly 24x7 Punchcard Matrices</a></li>
+              <li><a href="#continuous-vs-stepped-quantization">10. Continuous vs Stepped Bins</a></li>
+              <li><a href="#dynamic-svg-badge-generation">11. Automated Badge Generation</a></li>
+              <li><a href="#multi-year-and-performance">12. Multi-Year Scaling &amp; DOM</a></li>
+              <li><a href="#accessibility-and-screen-readers">13. Accessibility &amp; WCAG AA</a></li>
+              <li><a href="#faq-section">14. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
         </div>
 
-        <div class="sidebar-widget">
-          <div class="widget-title">Engineering Specs</div>
-          <div class="resource-card">
-            <strong>Author:</strong> Jouni Flemming<br>
-            <strong>Organization:</strong> Great Software Company<br>
-            <strong>Standard:</strong> ISO 8601 / W3C SVG 2.0<br>
-            <strong>Quantiles:</strong> Q1, Q2, Q3 Non-Zero<br>
-            <strong>Published:</strong> Nov 15, 2026
-          </div>
+        <div class="cta-sidebar-box">
+          <h4>Need Production Icons?</h4>
+          <p>Access over 134,000+ optimized vector icons, customizable stroke weights, and instant React/SVG export.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search Free Icons</a>
         </div>
       </aside>
     </div>
@@ -1298,7 +1346,7 @@ export async function handleStreakBadgeRequest(request) {
 
         // Update Code Snippet Preview
         if (codePreview) {
-          const sample = `<svg viewBox="0 0 ${totalW} ${totalH}" xmlns="http://www.w3.org/2000/svg">\n  <!-- 365 Calendar Days Matrix -->\n  <rect x="34" y="28" width="${cellSize}" height="${cellSize}" rx="${cellRadius}" fill="${palette.tier3}"/>\n  <rect x="34" y="42" width="${cellSize}" height="${cellSize}" rx="${cellRadius}" fill="${palette.tier1}"/>\n  ...\n</svg>`;
+          const sample = `<svg viewBox="0 0 ${totalW} ${totalH}" xmlns="http://www.w3.org/2000/svg">\n  <!-- Generated Heatmap Matrix -->\n  <rect x="34" y="28" width="${cellSize}" height="${cellSize}" rx="${cellRadius}" fill="${palette.tier3}"/>\n  <rect x="34" y="42" width="${cellSize}" height="${cellSize}" rx="${cellRadius}" fill="${palette.tier1}"/>\n</svg>`;
           codePreview.textContent = sample;
         }
       }
@@ -1343,15 +1391,39 @@ export async function handleStreakBadgeRequest(request) {
         });
       }
 
+      function copyToClipboard(text, onSuccess) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+            execCommandFallback(text, onSuccess);
+          });
+        } else {
+          execCommandFallback(text, onSuccess);
+        }
+      }
+
+      function execCommandFallback(text, onSuccess) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          if (onSuccess) onSuccess();
+        } catch (err) {
+          alert('Copied SVG markup to clipboard');
+        }
+        document.body.removeChild(ta);
+      }
+
       if (btnCopy) {
         btnCopy.addEventListener('click', () => {
           if (canvas) {
-            navigator.clipboard.writeText(canvas.outerHTML).then(() => {
+            copyToClipboard(canvas.outerHTML, () => {
               const orig = btnCopy.textContent;
               btnCopy.textContent = 'Copied to Clipboard!';
               setTimeout(() => { btnCopy.textContent = orig; }, 1800);
-            }).catch(() => {
-              alert('Copied SVG markup');
             });
           }
         });

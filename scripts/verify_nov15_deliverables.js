@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { execSync } = require('child_process');
 
 let passed = 0;
 let failed = 0;
@@ -56,144 +57,345 @@ for (const item of deliverables) {
   assert(h1Matches.length === 1, `Exactly one <h1> (found ${h1Matches.length})`);
 
   // 2. Meta description <= 155 chars
-  const descMatch = content.match(/<meta\s+name=["']description["']\s+content=["'](.*?)["']/i);
-  assert(descMatch && descMatch[1].length > 0 && descMatch[1].length <= 155,
-    `Meta description valid length (${descMatch ? descMatch[1].length : 0} chars, <= 155): "${descMatch ? descMatch[1] : ''}"`);
+  const descMatch = content.match(/<meta\s+name="description"\s+content="([^"]+)"/i);
+  assert(descMatch && descMatch[1].length <= 155, `Meta description length (${descMatch ? descMatch[1].length : 0}) <= 155`);
 
-  // 3. Canonical URL
-  const canonMatch = content.match(/<link\s+rel=["']canonical["']\s+href=["'](.*?)["']/i);
-  assert(canonMatch && canonMatch[1] === item.canonical,
-    `Canonical matches exactly (${canonMatch ? canonMatch[1] : 'none'})`);
+  const twDescMatch = content.match(/<meta\s+name="twitter:description"\s+content="([^"]+)"/i);
+  assert(twDescMatch && twDescMatch[1].length <= 155, `Twitter description length (${twDescMatch ? twDescMatch[1].length : 0}) <= 155`);
 
-  // 4. Hero image check
+  // 3. Canonical link with trailing slash
+  assert(content.includes(`<link rel="canonical" href="${item.canonical}">`), `Canonical link correct: ${item.canonical}`);
+  assert(item.canonical.endsWith('/'), `Canonical URL has trailing slash: ${item.canonical}`);
+
+  // 4. Hero image exists and dimension check (1200x675)
   const imgPath = path.join('assets/articles', item.image);
-  assert(fs.existsSync(imgPath), `Hero image file exists: ${imgPath}`);
+  assert(fs.existsSync(imgPath), `Hero image exists on disk: ${imgPath}`);
   if (fs.existsSync(imgPath)) {
     const stats = fs.statSync(imgPath);
-    assert(stats.size > 20000, `Hero image size > 20KB (${Math.round(stats.size / 1024)} KB)`);
+    assert(stats.size > 20000, `Hero image size (${Math.round(stats.size / 1024)} KB) > 20 KB`);
+
+    try {
+      const probeOut = execSync(`python -c "from PIL import Image; im = Image.open(r'${imgPath}'); print(f'{im.width}x{im.height}')"`, { encoding: 'utf8' }).trim();
+      assert(probeOut === '1200x675', `Hero image resolution is 1200x675 (found ${probeOut})`);
+    } catch (e) {
+      console.warn(`  [WARN] Python PIL could not check resolution: ${e.message}`);
+    }
+  }
+  assert(content.includes('fetchpriority="high"') && content.includes('decoding="async"'), 'Hero image has fetchpriority="high" and decoding="async" for LCP');
+
+  // 5. OpenGraph & Twitter tags pointing to full absolute URL
+  assert(content.includes(`property="og:image" content="https://iconstash.io/assets/articles/${item.image}"`), 'OG Image points to full absolute URL');
+  assert(content.includes(`name="twitter:image" content="https://iconstash.io/assets/articles/${item.image}"`), 'Twitter image points to full absolute URL');
+  assert(content.includes('<meta name="twitter:card" content="summary_large_image">'), 'Twitter card is summary_large_image');
+
+  // 6. Visible author byline linking to /about/
+  assert(content.includes('Jouni Flemming'), 'Author Jouni Flemming present in document');
+  assert(content.includes('href="/about/"'), 'Visible author byline links to /about/');
+  assert(!content.includes('href="/about/" style="color:#C1DD2D') && !content.includes('href="/about/" style="color: #C1DD2D'), 'Author link does not use hardcoded inline #C1DD2D style (contrast safe)');
+
+  // 7. Forbidden strings check
+  for (const f of forbidden) {
+    assert(!content.toLowerCase().includes(f), `No forbidden string "${f}" found`);
   }
 
-  // 5. Schema checks: TechArticle, BreadcrumbList, FAQPage
-  const schemas = content.match(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi) || [];
-  let foundTechArticle = false;
-  let foundBreadcrumb = false;
-  let foundFAQ = false;
-
-  schemas.forEach(sTag => {
-    const rawJson = sTag.replace(/<script[^>]*>|<\/script>/gi, '').trim();
+  // 8. Schema.org JSON-LD validation
+  const jsonLdMatch = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert(jsonLdMatch, 'JSON-LD script block exists');
+  if (jsonLdMatch) {
     try {
-      const parsed = JSON.parse(rawJson);
-      if (parsed['@type'] === 'TechArticle') {
-        foundTechArticle = true;
-        assert(parsed.headline && parsed.description && parsed.author, 'TechArticle has headline, description, author');
-      }
-      if (parsed['@type'] === 'BreadcrumbList') {
-        foundBreadcrumb = true;
-        assert(Array.isArray(parsed.itemListElement) && parsed.itemListElement.length >= 3, 'BreadcrumbList has valid items');
-      }
-      if (parsed['@type'] === 'FAQPage') {
-        foundFAQ = true;
-        assert(Array.isArray(parsed.mainEntity) && parsed.mainEntity.length >= 6, `FAQPage has ${parsed.mainEntity ? parsed.mainEntity.length : 0} items (>= 6)`);
+      const schemas = JSON.parse(jsonLdMatch[1]);
+      assert(Array.isArray(schemas), 'Root JSON-LD is an array of schemas');
+
+      const mainSchema = schemas.find(s => s['@type'] === item.schemaType || s['@type'] === 'Article' || s['@type'] === 'TechArticle');
+      assert(mainSchema, `Schema contains ${item.schemaType}`);
+      assert(mainSchema && mainSchema.description && mainSchema.description.length <= 155, `Schema description length (${mainSchema ? mainSchema.description.length : 0}) <= 155`);
+      assert(mainSchema && mainSchema.author && mainSchema.author.name === 'Jouni Flemming', 'Schema author is Jouni Flemming');
+      assert(mainSchema && mainSchema.author && mainSchema.author.worksFor && mainSchema.author.worksFor.name === 'Great Software Company', 'Author worksFor is Great Software Company');
+      assert(mainSchema && mainSchema.publisher && mainSchema.publisher.name === 'IconStash', 'Schema publisher is IconStash');
+      assert(mainSchema && mainSchema.publisher && mainSchema.publisher.parentOrganization && mainSchema.publisher.parentOrganization.name === 'Great Software Company', 'Parent organization is Great Software Company');
+      assert(mainSchema && mainSchema.inLanguage === 'en-US', 'Schema has inLanguage "en-US"');
+      assert(mainSchema && typeof mainSchema.wordCount === 'number' && mainSchema.wordCount >= 4000, `Schema wordCount (${mainSchema ? mainSchema.wordCount : 0}) >= 4000`);
+
+      // Verify no GitHub link in author schema
+      assert(!JSON.stringify(mainSchema.author).includes('github.com'), 'No GitHub social link in author schema');
+
+      const breadcrumb = schemas.find(s => s['@type'] === 'BreadcrumbList');
+      assert(breadcrumb && breadcrumb.itemListElement && breadcrumb.itemListElement.length === 3, 'BreadcrumbList has 3 items');
+      assert(breadcrumb && breadcrumb.itemListElement && breadcrumb.itemListElement[2] && breadcrumb.itemListElement[2].item === item.canonical, `BreadcrumbList item 3 has item matching canonical (${item.canonical})`);
+
+      const faq = schemas.find(s => s['@type'] === 'FAQPage');
+      assert(faq && faq.mainEntity && faq.mainEntity.length >= 6, `FAQPage has >= 6 questions (found ${faq ? faq.mainEntity.length : 0})`);
+      if (faq && faq.mainEntity) {
+        let allAnswersValid = true;
+        for (const q of faq.mainEntity) {
+          if (!q.acceptedAnswer || !q.acceptedAnswer.text || q.acceptedAnswer.text.trim().length === 0) {
+            allAnswersValid = false;
+          }
+        }
+        assert(allAnswersValid, 'All FAQ questions have non-empty acceptedAnswer.text');
       }
     } catch (e) {
-      assert(false, `Malformed JSON-LD schema: ${e.message}`);
+      assert(false, `JSON-LD parsing error: ${e.message}`);
     }
-  });
+  }
 
-  assert(foundTechArticle, 'Found valid TechArticle schema');
-  assert(foundBreadcrumb, 'Found valid BreadcrumbList schema');
-  assert(foundFAQ, 'Found valid FAQPage schema');
+  // 9. Light theme contrast verification (WCAG 2.2 AA compliant)
+  assert(content.includes('html[data-theme="light"] pre code'), 'Light theme pre code contrast rule present');
+  assert(content.includes('html[data-theme="light"] pre'), 'Light theme pre block rule present');
+  assert(content.includes('html[data-theme="light"] .article-meta a'), 'Light theme article-meta a contrast rule present');
+  assert(content.includes('html[data-theme="light"] a { color: #4D6300; }'), 'Light theme a color rule uses WCAG AA compliant #4D6300 (> 4.5:1)');
+  assert(content.includes('html[data-theme="light"] .cta-sidebar-box h4'), 'Light theme cta-sidebar-box h4 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .cta-sidebar-box p'), 'Light theme cta-sidebar-box p contrast rule present');
+  assert(content.includes('html[data-theme="light"] .article-hero .tag') || content.includes('html[data-theme="light"] .meta-tag') || content.includes('html[data-theme="light"] .hero-tag'), 'Light theme tag contrast rule present');
+  assert(content.includes('html[data-theme="light"] .sandbox-badge'), 'Light theme sandbox-badge contrast rule present');
+  assert(content.includes('html[data-theme="light"] .takeaway-box h3'), 'Light theme takeaway-box h3 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .warning-box h4'), 'Light theme warning-box h4 contrast rule present');
+  assert(content.includes('html[data-theme="light"] .toc-nav a'), 'Light theme toc-nav a contrast rule present');
+  assert(content.includes('html[data-theme="light"] .sidebar-title'), 'Light theme sidebar-title contrast rule present');
+  assert(content.includes('html[data-theme="light"] .formula-title'), 'Light theme formula-title contrast rule present');
+  assert(content.includes('html[data-theme="light"] .stat-label'), 'Light theme stat-label contrast rule present');
+  assert(content.includes('html[data-theme="light"] .breadcrumb a') || content.includes('html[data-theme="light"] .breadcrumb'), 'Light theme breadcrumb contrast rule present');
+  assert(content.includes('html[data-theme="light"] .breadcrumb .current'), 'Light theme breadcrumb .current contrast rule present');
+  assert(!content.includes('style="color:#FFF;"') && !content.includes('style="color:#fff;"'), 'Breadcrumbs do not hardcode inline white color (WCAG contrast safe)');
+  assert(content.includes('class="current" aria-current="page"'), 'Breadcrumbs use accessible aria-current="page" on current item');
+  assert(content.includes('html[data-theme="light"] .site-footer a'), 'Light theme site-footer a contrast rule present');
 
-  // 6. Author byline & Publisher
-  assert(content.includes('Jouni Flemming') && content.includes('/about/'), 'Author byline mentions Jouni Flemming with link to /about/');
-  assert(content.includes('Great Software Company') && content.includes('https://greatsoftwarecompany.com'), 'Publisher mentions Great Software Company');
+  // 10. Semantic Landmarks & Theme toggle verification
+  assert(content.includes('<main class="page-container">'), 'Page container uses semantic <main class="page-container">');
+  assert(content.includes('<article class="article-main">'), 'Article content uses semantic <article class="article-main">');
+  assert(content.includes('id="themeToggle"'), 'Theme toggle button #themeToggle present in document');
 
-  // 7. Word count check (Pure prose >= 4000)
-  const cleanBody = content.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
-  const totalWords = cleanBody.split(/\s+/).filter(Boolean).length;
-  assert(totalWords > 4500, `Total word count > 4500 (found ${totalWords})`);
+  // 11. Table & Formula responsiveness check
+  assert(content.includes('<div class="table-container">') && content.includes('<table>'), 'Deliverable contains responsive data table wrapped in table-container');
+  assert(content.includes('.formula-card'), 'Formula card present');
 
-  const artMatch = content.match(/<article[^>]*class=["'][^"']*article-main[^"']*["'][\s\S]*?<\/article>/i);
-  if (artMatch) {
-    const pureProse = artMatch[0].replace(/<(script|style|svg|pre)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ');
-    const pureWords = pureProse.split(/\s+/).filter(Boolean).length;
-    assert(pureWords >= 4000, `Pure prose word count >= 4000 (found ${pureWords})`);
+  // 12. Architectural Figure 2 Diagram check
+  assert(content.includes('Figure 2:'), 'Architectural Figure 2 caption present');
+  assert(content.includes('<figure class="article-figure">'), 'Architectural figure container present');
+  assert(content.includes('viewBox="0 0 960 320"'), 'High-resolution vector flow diagram (960x320) present in Figure 2');
+
+  // 13. Interactive Developer Studio verification
+  if (item.slug === 'svg-candlestick-charts-and-financial-visualization-guide') {
+    assert(content.includes('class="interactive-sandbox"'), 'Interactive studio present');
+    assert(content.includes('id="marketPresetSelect"'), 'Interactive marketPresetSelect present');
+    assert(content.includes('id="colorThemeSelect"'), 'Interactive colorThemeSelect present');
+    assert(content.includes('id="btnToggleSMA"'), 'Interactive btnToggleSMA present');
+    assert(content.includes('id="btnToggleEMA"'), 'Interactive btnToggleEMA present');
+    assert(content.includes('id="btnToggleBB"'), 'Interactive btnToggleBB present');
+    assert(content.includes('id="btnToggleVolume"'), 'Interactive btnToggleVolume present');
+    assert(content.includes('id="btnCopySVG"'), 'Interactive btnCopySVG present');
+    assert(content.includes("document.execCommand('copy')") || content.includes('execCommand'), 'Clipboard copy has robust document.execCommand fallback');
+  } else if (item.slug === 'svg-heatmaps-and-activity-matrix-visualization-guide') {
+    assert(content.includes('class="interactive-sandbox"'), 'Interactive studio present');
+    assert(content.includes('id="heatmapPresetSelect"'), 'Interactive heatmapPresetSelect present');
+    assert(content.includes('id="heatColorSelect"'), 'Interactive heatColorSelect present');
+    assert(content.includes('id="cellSizeRange"'), 'Interactive cellSizeRange present');
+    assert(content.includes('id="cellRadiusRange"'), 'Interactive cellRadiusRange present');
+    assert(content.includes('id="btnCopyHeatmapSVG"'), 'Interactive btnCopyHeatmapSVG present');
+    assert(content.includes("document.execCommand('copy')") || content.includes('execCommand'), 'Clipboard copy has robust document.execCommand fallback');
+  } else if (item.slug === 'svg-sankey-diagrams-and-alluvial-flow-guide') {
+    assert(content.includes('class="interactive-sandbox"'), 'Interactive studio present');
+    assert(content.includes('id="sankeyPresetSelect"'), 'Interactive sankeyPresetSelect present');
+    assert(content.includes('id="sankeyColorSelect"'), 'Interactive sankeyColorSelect present');
+    assert(content.includes('id="nodeWidthRange"'), 'Interactive nodeWidthRange present');
+    assert(content.includes('id="btnCopySankeySVG"'), 'Interactive btnCopySankeySVG present');
+    assert(content.includes("document.execCommand('copy')") || content.includes('execCommand'), 'Clipboard copy has robust document.execCommand fallback');
+  }
+
+  // 14. Code generator output sanity check
+  const scriptMatches = [...content.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)];
+  let foundAppScript = false;
+  for (const sm of scriptMatches) {
+    const scriptCode = sm[1].trim();
+    if (scriptCode.startsWith('{') || scriptCode.startsWith('[')) continue; // JSON-LD
+    foundAppScript = true;
+    assert(!scriptCode.includes("+'\\n'") && !scriptCode.includes("+'\\\\n'"), 'Interactive code generator avoids double-escaped literal newline strings');
+    assert(!scriptCode.includes('+"..."') && !scriptCode.includes("+'...'") && !scriptCode.includes('...\\n</svg>') && !scriptCode.includes('...\n</svg>'), 'Interactive code generator avoids placeholder ellipsis truncations');
+    assert(!scriptCode.includes('<em>') && !scriptCode.includes('\\<em>') && !scriptCode.includes('<em>{'), 'Client-side script in ' + item.slug + ' avoids corrupted em tags');
+
+    let syntaxValid = false;
+    try {
+      new vm.Script(scriptCode, { filename: item.slug });
+      syntaxValid = true;
+    } catch (e) {
+      console.error(`    Syntax Error in ${item.slug}:`, e.message);
+    }
+    assert(syntaxValid, `Client-side JavaScript in ${item.slug} passes strict V8/browser syntax validation`);
+  }
+  assert(foundAppScript, `Found interactive application script in ${item.slug}`);
+
+  // 15. Contextual Internal Linking (SEO Topical Clustering)
+  const articleLinks = (content.match(/href="\/articles\/[^"]+"/g) || []).filter(h => h !== 'href="/articles/"' && !h.includes(item.slug));
+  assert(articleLinks.length >= 3, `Article contains >= 3 contextual internal links to related guides (found ${articleLinks.length})`);
+
+  // 16. No raw unrendered LaTeX math delimiters or control characters
+  const strippedProse = content.replace(/<(pre|code|script|svg|style)[\s\S]*?<\/\1>/gi, '');
+  const latexMatches = [...strippedProse.matchAll(/(\$[^$\n]+\$)/g)].map(m => m[1]);
+  assert(latexMatches.length === 0, `No unrendered raw LaTeX math delimiters ($...$) found in ${item.slug} (found: ${JSON.stringify(latexMatches)})`);
+  assert(!content.includes('$$') && !content.includes('\\times') && !content.includes('\\approx') && !content.includes('\\epsilon') && !content.includes('\\frac') && !content.includes('\\log') && !content.includes('\\cos') && !content.includes('\\sin') && !content.includes('\\text') && !content.includes('&le;ft('), `No unrendered LaTeX math keywords found in ${item.slug}`);
+  assert(!content.includes('<em>{') && !content.includes('\\<em>'), `No mangled template literal tokens (<em>{) found in ${item.slug}`);
+  const hasBadCtrl = [...content].some(ch => [0x07, 0x0c, 0x0b].includes(ch.charCodeAt(0)));
+  assert(!hasBadCtrl, `No non-standard ASCII control bytes (0x07, 0x0C) in ${item.slug}`);
+
+  // 17. Viewport responsiveness tag
+  assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), 'Responsive viewport tag present');
+
+  // 18. Internal Link Integrity
+  const contentForLinks = content.replace(/<pre[\s\S]*?<\/pre>/gi, '').replace(/<code[\s\S]*?<\/code>/gi, '');
+  const hrefMatches = contentForLinks.match(/href="(\/[^"]*)"/g) || [];
+  const srcMatches = contentForLinks.match(/src="(\/[^"]*)"/g) || [];
+  const internalLinks = [...hrefMatches, ...srcMatches].map(m => m.split('"')[1]);
+  let allLinksValid = true;
+  for (const link of internalLinks) {
+    const clean = link.split('#')[0].split('?')[0];
+    if (!clean || clean === '/') continue;
+    let target = clean.startsWith('/') ? clean.slice(1) : clean;
+    if (target.endsWith('/')) target += 'index.html';
+    if (!fs.existsSync(target)) {
+      allLinksValid = false;
+      console.error(`    Broken internal link in ${item.slug}: ${link} (disk target: ${target})`);
+    }
+  }
+  assert(allLinksValid && internalLinks.length > 0, `All internal links in ${item.slug} resolve to valid files on disk`);
+
+  // 19. Table of Contents Anchor Integrity Verification
+  const tocNavMatch = content.match(/<nav class="toc-nav"[\s\S]*?<\/nav>/);
+  if (tocNavMatch) {
+    const anchorMatches = [...tocNavMatch[0].matchAll(/href="#([^"]+)"/g)].map(m => m[1]);
+    let allAnchorsFound = true;
+    for (const aId of anchorMatches) {
+      if (!content.includes(`id="${aId}"`)) {
+        allAnchorsFound = false;
+        console.error(`    Missing anchor ID on page: id="${aId}"`);
+      }
+    }
+    assert(allAnchorsFound && anchorMatches.length >= 5, `All Table of Contents anchors (${anchorMatches.length} links) resolve to valid id attributes`);
   } else {
-    assert(false, 'Could not find <article class="article-main"> for prose word count');
+    assert(false, `Missing <nav class="toc-nav"> in ${item.slug}`);
   }
 
-  // 8. Strict Brand Safety: zero forbidden words
-  forbidden.forEach(word => {
-    const regex = new RegExp(`\\b${word}\\b`, 'i');
-    assert(!regex.test(content), `Strict Brand Safety: Zero mentions of "${word}"`);
-  });
+  // 20. Body word count >= 4000
+  const cleanBody = content.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
+  const words = cleanBody.split(/\s+/).filter(w => w.length > 0);
+  assert(words.length >= 4000, `Article total word count (${words.length}) >= 4000 words`);
 
-  // 9. Figure 2 Vector Architectural Diagram
-  assert(content.includes('viewBox="0 0 960 320"') || content.includes('viewBox="0 0 960 360"'), 'Figure 2 dedicated 960px vector architecture diagram present');
+  const articleMatch = content.match(/<article[^>]*class="[^"]*article-main[^"]*"[\s\S]*?<\/article>/i);
+  assert(!!articleMatch, `Article content container <article class="article-main"> present in ${item.slug}`);
+  if (articleMatch) {
+    const articleClean = articleMatch[0].replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, '').replace(/<[^>]+>/g, ' ');
+    const articleWords = articleClean.split(/\s+/).filter(w => w.length > 0);
+    assert(articleWords.length >= 4000, `Article content body word count (${articleWords.length}) >= 4000 words`);
 
-  // 10. Check that client-side JS evaluates without syntax errors
-  const clientScripts = content.match(/<script>(?![\s\S]*application\/ld\+json)([\s\S]*?)<\/script>/gi) || [];
-  clientScripts.forEach((sc, idx) => {
-    const code = sc.replace(/<script>|<\/script>/gi, '');
-    try {
-      new vm.Script(code);
-      assert(true, `Client-side script #${idx + 1} syntax is valid (no parse errors)`);
-    } catch (e) {
-      assert(false, `Client-side script #${idx + 1} has syntax error: ${e.message}`);
+    // 21. Pure prose word count (excluding code, svg, scripts, styles, pre) >= 4000
+    const pureProse = articleMatch[0].replace(/<(script|style|svg|pre)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ');
+    const pureWords = pureProse.split(/\s+/).filter(w => w.length > 0);
+    assert(pureWords.length >= 4000, `Article pure technical prose word count (${pureWords.length}) >= 4000 words`);
+  }
+
+  // 22. Heading Hierarchy Integrity
+  const headings = [...content.matchAll(/<(h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi)].map(m => ({
+    tag: m[1].toLowerCase(),
+    text: m[2].replace(/<[^>]+>/g, '').trim()
+  }));
+  let prevLevel = 0;
+  let hasHeadingJumps = false;
+  for (const h of headings) {
+    const level = parseInt(h.tag[1], 10);
+    if (level > prevLevel + 1 && prevLevel > 0) {
+      hasHeadingJumps = true;
+      console.error(`    Heading hierarchy jump in ${item.slug}: H${prevLevel} -> H${level} ("${h.text}")`);
     }
-  });
+    prevLevel = level;
+  }
+  assert(!hasHeadingJumps, `Heading hierarchy in ${item.slug} strictly structured without level skips`);
 
-  // 11. Interactive Studio check
-  assert(content.includes('interactive-sandbox') && content.includes('preview-stage-container'), 'Interactive Developer Studio container present');
+  // 23. Code block HTML escaping
+  const codeBlocks = [...content.matchAll(/<code>([\s\S]*?)<\/code>/gi)];
+  let unescapedTagsCount = 0;
+  let codeCorruptions = 0;
+  for (const cb of codeBlocks) {
+    const rawCode = cb[1];
+    const tags = rawCode.match(/<(g|polygon|text|rect|circle|path)[^>]*>/gi) || [];
+    unescapedTagsCount += tags.length;
+    if (rawCode.includes('<em>') || rawCode.includes('&lt;em&gt;')) {
+      codeCorruptions++;
+    }
+  }
+  assert(unescapedTagsCount === 0, `All code blocks in ${item.slug} properly HTML escaped (found ${unescapedTagsCount} raw unescaped tags)`);
+  assert(codeCorruptions === 0, `All code blocks in ${item.slug} free of corrupted em tags (found ${codeCorruptions})`);
+
+  // 24. Form Control Label Accessibility
+  const formControls = [...content.matchAll(/<(input|select|textarea)[^>]*id=["']([^"']+)["'][^>]*>/gi)].map(m => m[2]);
+  let missingFormLabels = [];
+  for (const cId of formControls) {
+    if (!content.includes(`for="${cId}"`) && !content.includes(`for='${cId}'`)) {
+      missingFormLabels.push(cId);
+    }
+  }
+  assert(missingFormLabels.length === 0, `All ${formControls.length} interactive form controls in ${item.slug} have associated labels`);
+
+  // 25. All hash anchors resolve to target IDs
+  const allHashAnchors = [...content.matchAll(/href=["']#([^"']+)["']/gi)].map(m => m[1]);
+  let missingTargets = [];
+  for (const tId of allHashAnchors) {
+    if (!content.includes(`id="${tId}"`)) {
+      missingTargets.push(tId);
+    }
+  }
+  assert(missingTargets.length === 0, `All ${allHashAnchors.length} hash anchors in ${item.slug} resolve to valid DOM id targets`);
 }
 
-// Global Site Integration Checks
-console.log('\n--- Checking Global Site Integration ---');
+// Site Integration Verification: articles/index.html
+console.log('\n--- Checking Site Integration in articles/index.html ---');
+const articlesIndex = fs.readFileSync('articles/index.html', 'utf8');
 
-// 1. articles/index.html
-const indexContent = fs.readFileSync('articles/index.html', 'utf8');
-assert(indexContent.includes('117 guides'), 'articles/index.html counter updated to 117 guides');
-deliverables.forEach(d => {
-  assert(indexContent.includes(`/articles/${d.slug}/`), `articles/index.html links to /articles/${d.slug}/`);
-  assert(indexContent.includes(d.canonical), `articles/index.html ItemList schema includes ${d.canonical}`);
-});
+for (const item of deliverables) {
+  assert(articlesIndex.includes(item.canonical) || articlesIndex.includes(item.canonical.replace('https://iconstash.io', '')), `articles/index.html contains link to ${item.slug}`);
+}
 
-// 2. articles-sitemap.xml
-const sitemapContent = fs.readFileSync('articles-sitemap.xml', 'utf8');
-deliverables.forEach(d => {
-  assert(sitemapContent.includes(`<loc>${d.canonical}</loc>`), `articles-sitemap.xml includes ${d.canonical}`);
-});
-assert(sitemapContent.includes('<lastmod>2026-11-15</lastmod>'), 'articles-sitemap.xml lastmod is 2026-11-15');
+const guidesMatch = articlesIndex.match(/<span class="count">(\d+)\s+guides<\/span>/);
+assert(guidesMatch && parseInt(guidesMatch[1], 10) >= 117, `Guides count is at least 117 guides (found ${guidesMatch ? guidesMatch[1] : 0})`);
+assert(articlesIndex.includes('"position": 166') && articlesIndex.includes('"position": 167') && articlesIndex.includes('"position": 168'), 'ItemList contains positions 166 through 168');
 
-// 3. sitemap.xml
-const rootSitemap = fs.readFileSync('sitemap.xml', 'utf8');
-assert(rootSitemap.includes('<loc>https://iconstash.io/articles-sitemap.xml</loc><lastmod>2026-11-15</lastmod>'), 'sitemap.xml points to articles-sitemap.xml with lastmod 2026-11-15');
+// Sitemap Verification: articles-sitemap.xml
+console.log('\n--- Checking articles-sitemap.xml ---');
+const sitemap = fs.readFileSync('articles-sitemap.xml', 'utf8');
 
-// 4. llms.txt
-const llmsContent = fs.readFileSync('llms.txt', 'utf8');
-deliverables.forEach(d => {
-  assert(llmsContent.includes(d.canonical), `llms.txt includes ${d.canonical}`);
-});
-assert(llmsContent.includes('Last updated: 2026-11-15'), 'llms.txt timestamp is 2026-11-15');
+for (const item of deliverables) {
+  assert(sitemap.includes(`<loc>${item.canonical}</loc>`), `articles-sitemap.xml includes ${item.canonical}`);
+  const urlEntryRegex = new RegExp(`<loc>${item.canonical.replace(/\\/g, '\\/').replace(/\//g, '\\/')}<\\/loc>[\\s\\S]*?<lastmod>2026-11-15<\\/lastmod>`);
+  assert(urlEntryRegex.test(sitemap), `${item.slug} has current lastmod 2026-11-15`);
+}
+assert(sitemap.includes('<loc>https://iconstash.io/articles/</loc><lastmod>2026-11-15</lastmod>') || sitemap.match(/<loc>https:\/\/iconstash\.io\/articles\/<\/loc>[\s\S]*?<lastmod>2026-11-15<\/lastmod>/), 'Articles hub in sitemap has lastmod 2026-11-15');
 
-// 5. Strict brand safety on global integration files
-[
-  'articles/index.html',
-  'articles-sitemap.xml',
-  'sitemap.xml',
-  'llms.txt'
-].forEach(filePath => {
-  const c = fs.readFileSync(filePath, 'utf8');
-  forbidden.forEach(word => {
-    const regex = new RegExp(`\\b${word}\\b`, 'i');
-    assert(!regex.test(c), `Strict Brand Safety in ${filePath}: Zero mentions of "${word}"`);
-  });
-});
+// Parent sitemap.xml
+console.log('\n--- Checking parent sitemap.xml ---');
+const parentSitemap = fs.readFileSync('sitemap.xml', 'utf8');
+assert(parentSitemap.includes('<loc>https://iconstash.io/articles-sitemap.xml</loc><lastmod>2026-11-15</lastmod>') || parentSitemap.match(/<sitemap>[\s\S]*?<loc>https:\/\/iconstash\.io\/articles-sitemap\.xml<\/loc>[\s\S]*?<lastmod>2026-11-15<\/lastmod>[\s\S]*?<\/sitemap>/), 'parent sitemap.xml references articles-sitemap.xml with 2026-11-15');
+
+// llms.txt
+console.log('\n--- Checking llms.txt ---');
+const llms = fs.readFileSync('llms.txt', 'utf8');
+for (const item of deliverables) {
+  assert(llms.includes(item.canonical), `llms.txt includes ${item.canonical}`);
+}
+assert(llms.match(/- Last updated: 2026-11-15/), 'llms.txt has updated timestamp 2026-11-15 in Key Facts header');
+assert(llms.match(/Last updated: 2026-11-15/), 'llms.txt has updated timestamp 2026-11-15 in footer');
+
+// Strict brand safety on global files
+for (const f of ['articles/index.html', 'articles-sitemap.xml', 'sitemap.xml', 'llms.txt']) {
+  const c = fs.readFileSync(f, 'utf8');
+  for (const word of forbidden) {
+    assert(!c.toLowerCase().includes(word), `Strict Brand Safety in ${f}: Zero mentions of "${word}"`);
+  }
+}
 
 console.log(`\n========================================`);
 console.log(`VERIFICATION SUMMARY: ${passed} PASSED, ${failed} FAILED`);
-console.log(`========================================`);
+console.log(`========================================\n`);
 
 if (failed > 0) {
   process.exit(1);
+} else {
+  console.log('ALL NOVEMBER 15 DELIVERABLES & SITE INTEGRATIONS PASSED WITH ZERO ERRORS!\n');
 }

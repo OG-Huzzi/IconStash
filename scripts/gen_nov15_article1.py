@@ -1,5 +1,4 @@
 import os
-import re
 
 slug = "svg-candlestick-charts-and-financial-visualization-guide"
 target_dir = os.path.join(r"D:\Project IconStash\IconStash\articles", slug)
@@ -42,136 +41,133 @@ html_content = r'''<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Structured Data: TechArticle -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "Mastering SVG Candlestick Charts & Financial Visualizations: OHLC Bars, Technical Indicators & Trading Engine Guide (2026)",
-    "description": "Comprehensive engineering guide to building high-performance, responsive vector financial candlestick charts in pure SVG. Covers OHLC bar geometry, SMA and EMA overlay curves, Bollinger Bands envelopes, volume histograms, crosshair telemetry, and pure vector export.",
-    "url": "https://iconstash.io/articles/svg-candlestick-charts-and-financial-visualization-guide/",
-    "image": "https://iconstash.io/assets/articles/svg-candlestick-charts-and-financial-visualization-guide.jpg",
-    "datePublished": "2026-11-15",
-    "dateModified": "2026-11-15",
-    "author": {
-      "@type": "Person",
-      "name": "Jouni Flemming",
-      "url": "https://iconstash.io/about/",
-      "worksFor": {
+      <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Candlestick Charts & Financial Visualizations: OHLC Bars, Technical Indicators & Trading Engine Guide (2026)",
+      "description": "Build responsive SVG candlestick charts. Master OHLC rendering, SMA/EMA overlays, crosshair hover inspection, high-DPI scaling, and pure vector export.",
+      "image": "https://iconstash.io/assets/articles/svg-candlestick-charts-and-financial-visualization-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
         "@type": "Organization",
-        "name": "Great Software Company",
-        "url": "https://greatsoftwarecompany.com"
-      }
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-15",
+      "dateModified": "2026-11-15",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-candlestick-charts-and-financial-visualization-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 5100,
+      "articleSection": "Vector Graphics & Financial Engineering",
+      "keywords": [
+        "svg candlestick chart",
+        "stock chart svg javascript",
+        "ohlc vector chart",
+        "financial chart web",
+        "moving average indicator svg",
+        "bollinger bands vector",
+        "volume histogram svg"
+      ]
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Great Software Company",
-      "url": "https://greatsoftwarecompany.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://iconstash.io/assets/icons/icon-512x512.png"
-      }
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Candlestick Charts Guide",
+          "item": "https://iconstash.io/articles/svg-candlestick-charts-and-financial-visualization-guide/"
+        }
+      ]
     },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://iconstash.io/articles/svg-candlestick-charts-and-financial-visualization-guide/"
-    },
-    "keywords": [
-      "svg candlestick chart",
-      "stock chart svg javascript",
-      "ohlc vector chart",
-      "financial chart web",
-      "moving average indicator svg",
-      "bollinger bands vector",
-      "volume histogram svg"
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://iconstash.io/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Articles",
-        "item": "https://iconstash.io/articles/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "SVG Candlestick Charts Guide",
-        "item": "https://iconstash.io/articles/svg-candlestick-charts-and-financial-visualization-guide/"
-      }
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Why build financial candlestick charts in pure SVG rather than HTML5 Canvas?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Scalable Vector Graphics (SVG) maintains infinite resolution independence, allowing financial reports, equity research documents, and executive dashboards to be zoomed or printed at 600 DPI without pixelation. Crucially, SVG preserves the document object model (DOM) identity of individual price bars, technical indicators, and price thresholds. This enables declarative CSS styling, screen reader accessibility under WCAG 2.2 AA, semantic DOM event binding without complex raycasting math, and seamless vector export into PDF prospectus sheets."
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why build financial candlestick charts in pure SVG rather than HTML5 Canvas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Scalable Vector Graphics (SVG) maintains infinite resolution independence, allowing financial reports, equity research documents, and executive dashboards to be zoomed or printed at 600 DPI without pixelation. Crucially, SVG preserves the document object model (DOM) identity of individual price bars, technical indicators, and price thresholds. This enables declarative CSS styling, screen reader accessibility under WCAG 2.2 AA, semantic DOM event binding without complex raycasting math, and seamless vector export into PDF prospectus sheets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you calculate the pixel coordinates for OHLC candlestick wicks and bodies in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a price range between P_min and P_max mapped to a plot area of height H with padding top Y_pad, the vertical pixel coordinate of price P is computed as: y(P) = Y_pad + (P_max - P) / (P_max - P_min) * (H - 2 * Y_pad). The upper wick is drawn from y(High) to y(max(Open, Close)), the real body is drawn as a rectangle from y(max(Open, Close)) with height |y(Open) - y(Close)|, and the lower wick extends from y(min(Open, Close)) to y(Low)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you render smooth Moving Average (SMA/EMA) indicator curves in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After computing the sliding window average across N periods, each continuous indicator point (x_i, y_i) is assembled into an SVG path string using the 'M' (moveto) command followed by consecutive 'L' (lineto) or cubic Bézier 'C' smoothing commands. Setting fill='none', stroke-width='2', and vector-effect='non-scaling-stroke' ensures the indicator curve renders with constant optical weight regardless of canvas zoom."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does crosshair tracking and tooltip inspection work without degrading chart frame rates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To achieve 120 FPS performance, pointer movement is tracked on an invisible overlay rect using PointerEvents. Coordinates are quantized to the nearest candlestick slot index using O(1) floor division: index = Math.floor((pointerX - leftPadding) / candleSlotWidth). The crosshair horizontal line, vertical line, price axis tag, and time badge update via transform: translate3d() on GPU-accelerated SVG g elements, avoiding expensive DOM re-renders."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you render shaded volatility bands like Bollinger Bands in pure SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bollinger Bands are constructed by evaluating the standard deviation sigma over an N-period window. The upper band (SMA + k*sigma) and lower band (SMA - k*sigma) are synthesized into a single closed SVG polygon or path element. The path traces the upper band from left to right using 'M x0 y0 L ...', connects vertically to the lower band endpoint, and traces the lower band backwards from right to left before closing with 'Z', styled with semi-transparent fill like rgba(193, 221, 45, 0.08)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can large historical financial datasets (thousands of bars) be optimized in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For datasets exceeding 1,000 candles, individual rect and line elements can cause DOM bloat. High-performance SVG trading engines batch all bullish bodies into a single compound path 'd' attribute, all bearish bodies into a second path, and all wicks into a third path. Additionally, level-of-detail (LOD) decimation algorithms like Largest Triangle Three Buckets (LTTB) downsample off-screen or zoomed-out data while preserving critical market price peaks and troughs."
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you calculate the pixel coordinates for OHLC candlestick wicks and bodies in SVG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "For a price range between P_min and P_max mapped to a plot area of height H with padding top Y_pad, the vertical pixel coordinate of price P is computed as: y(P) = Y_pad + (P_max - P) / (P_max - P_min) * (H - 2 * Y_pad). The upper wick is drawn from y(High) to y(max(Open, Close)), the real body is drawn as a rectangle from y(max(Open, Close)) with height |y(Open) - y(Close)|, and the lower wick extends from y(min(Open, Close)) to y(Low)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you render smooth Moving Average (SMA/EMA) indicator curves in SVG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "After computing the sliding window average across N periods, each continuous indicator point (x_i, y_i) is assembled into an SVG path string using the 'M' (moveto) command followed by consecutive 'L' (lineto) or cubic Bézier 'C' smoothing commands. Setting fill='none', stroke-width='2', and vector-effect='non-scaling-stroke' ensures the indicator curve renders with constant optical weight regardless of canvas zoom."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does crosshair tracking and tooltip inspection work without degrading chart frame rates?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "To achieve 120 FPS performance, pointer movement is tracked on an invisible overlay rect using PointerEvents. Coordinates are quantized to the nearest candlestick slot index using O(1) floor division: index = Math.floor((pointerX - leftPadding) / candleSlotWidth). The crosshair horizontal line, vertical line, price axis tag, and time badge update via transform: translate3d() on GPU-accelerated SVG g elements, avoiding expensive DOM re-renders."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you render shaded volatility bands like Bollinger Bands in pure SVG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Bollinger Bands are constructed by evaluating the standard deviation sigma over an N-period window. The upper band (SMA + k*sigma) and lower band (SMA - k*sigma) are synthesized into a single closed SVG polygon or path element. The path traces the upper band from left to right using 'M x0 y0 L ...', connects vertically to the lower band endpoint, and traces the lower band backwards from right to left before closing with 'Z', styled with semi-transparent fill like rgba(193, 221, 45, 0.08)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can large historical financial datasets (thousands of bars) be optimized in SVG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "For datasets exceeding 1,000 candles, individual rect and line elements can cause DOM bloat. High-performance SVG trading engines batch all bullish bodies into a single compound path 'd' attribute, all bearish bodies into a second path, and all wicks into a third path. Additionally, level-of-detail (LOD) decimation algorithms like Largest Triangle Three Buckets (LTTB) downsample off-screen or zoomed-out data while preserving critical market price peaks and troughs."
-        }
-      }
-    ]
-  }
+      ]
+    }
+  ]
   </script>
 
   <style>
@@ -292,32 +288,84 @@ html_content = r'''<!DOCTYPE html>
 
     /* Sidebar / Sticky TOC */
     .article-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
-    .sidebar-widget { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 20px; }
-    .widget-title { font-size: 14px; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; border-bottom: 1px solid #222; padding-bottom: 8px; }
-    .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-    .toc-list li a { color: #888; font-size: 13.5px; transition: color 150ms ease; display: block; line-height: 1.4; }
-    .toc-list li a:hover { color: #C1DD2D; }
-    .resource-card { background: #161616; border: 1px solid #2A2A2A; border-radius: 6px; padding: 12px; margin-top: 10px; font-size: 13px; }
-    .resource-card a { font-weight: 600; color: #C1DD2D; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
 
-    /* Light Theme Overrides */
-    html[data-theme="light"] body { background: #F8F9FA; color: #212529; }
-    html[data-theme="light"] .site-header { background: rgba(248,249,250,0.92); border-bottom-color: #E9ECEF; }
-    html[data-theme="light"] .site-header .logo { color: #111; }
-    html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3, html[data-theme="light"] h4 { color: #111; }
-    html[data-theme="light"] p, html[data-theme="light"] li { color: #495057; }
-    html[data-theme="light"] .featured-summary { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .featured-summary p { color: #212529; }
-    html[data-theme="light"] pre { background: #F1F3F5; border-color: #E9ECEF; color: #212529; }
-    html[data-theme="light"] code { background: #E9ECEF; color: #4D6300; }
-    html[data-theme="light"] .interactive-sandbox { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .preview-stage-container { background: #F8FAFC; border-color: #CBD5E1; }
-    html[data-theme="light"] .sidebar-widget { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .stats-readout-box { background: #F1F5F9; border-color: #E2E8F0; }
-    html[data-theme="light"] .code-preview-pane { background: #1E293B; color: #F8FAFC; }
-    html[data-theme="light"] th { background: #E9ECEF; color: #111; border-bottom-color: #DEE2E6; }
-    html[data-theme="light"] td { border-bottom-color: #E9ECEF; color: #495057; }
-    html[data-theme="light"] .formula-card { background: #F8F9FA; border-color: #DEE2E6; }
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
   </style>
 </head>
 <body>
@@ -340,13 +388,13 @@ html_content = r'''<!DOCTYPE html>
     </nav>
   </header>
 
-  <div class="page-container">
+  <main class="page-container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">IconStash</a>
       <span class="sep">/</span>
       <a href="/articles/">Articles</a>
       <span class="sep">/</span>
-      <span class="current">Mastering SVG Candlestick Charts &amp; Financial Visualizations</span>
+      <span class="current" aria-current="page">Mastering SVG Candlestick Charts &amp; Financial Visualizations</span>
     </nav>
 
     <header class="article-hero">
@@ -395,7 +443,52 @@ html_content = r'''<!DOCTYPE html>
             <li><strong>Declarative CSS Theming &amp; Design Token Integration:</strong> Institutional fintech platforms must seamlessly support multi-tenant theming, light/dark modes, high-contrast trading modes, and custom corporate color tokens. With Canvas, switching from a dark trading floor theme to a printable white-background theme requires a complete, costly procedural repaint of the entire coordinate space. In SVG, themes are manipulated instantaneously via standard CSS variables and stylesheet overrides without altering a single byte of underlying chart state.</li>
           </ul>
 
-          <p>Scalable Vector Graphics (SVG) represents the optimal, mathematically rigorous medium for modern interactive financial charts. Every candle body, shadow wick, exponential moving average spline, and horizontal support/resistance line is maintained as a persistent, inspectable, styleable vector element. By combining modern coordinate projection math with strategic DOM batching techniques, SVG trading charts comfortably deliver fluid 60 FPS and 120 FPS frame rates on modern displays while providing unmatched resolution independence, declarative design integration, and deep enterprise interoperability.</p>
+          <p>          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architectural Feature</th>
+                  <th>HTML5 Canvas (Immediate Raster)</th>
+                  <th>Generic D3.js (Naive SVG)</th>
+                  <th>IconStash High-Performance Vector Architecture</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Resolution &amp; Printing</strong></td>
+                  <td>Fixed pixel grid; blur on 600 DPI PDF export</td>
+                  <td>Infinite vector scaling; DOM bloat over 500 bars</td>
+                  <td>Infinite vector scalability with zero blur at any DPI</td>
+                </tr>
+                <tr>
+                  <td><strong>DOM Overhead (1,000 bars)</strong></td>
+                  <td>0 DOM nodes (flat raster pixel buffer)</td>
+                  <td>3,000+ distinct DOM nodes (causes layout thrash)</td>
+                  <td>4 batched compound path elements (sub-millisecond render)</td>
+                </tr>
+                <tr>
+                  <td><strong>Crosshair Latency</strong></td>
+                  <td>Manual raycasting required; CPU intensive</td>
+                  <td>DOM event binding lag under continuous mousemove</td>
+                  <td>Hardware-accelerated GPU translate3d() at 120 FPS</td>
+                </tr>
+                <tr>
+                  <td><strong>Dynamic CSS Theming</strong></td>
+                  <td>Requires complete imperative canvas repaint</td>
+                  <td>Inline SVG presentation attribute overrides</td>
+                  <td>Declarative CSS variables with instant dark/light switching</td>
+                </tr>
+                <tr>
+                  <td><strong>Accessibility (WCAG 2.2 AA)</strong></td>
+                  <td>Inaccessible black box to screen readers</td>
+                  <td>Basic title elements without structured ARIA</td>
+                  <td>Comprehensive role="graphics-document" &amp; live price tables</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Scalable Vector Graphics (SVG) represents the optimal, mathematically rigorous medium for modern interactive financial charts. Every candle body, shadow wick, exponential moving average spline, and horizontal support/resistance line is maintained as a persistent, inspectable, styleable vector element. By combining modern coordinate projection math with strategic DOM batching techniques, SVG trading charts comfortably deliver fluid 60 FPS and 120 FPS frame rates on modern displays while providing unmatched resolution independence, declarative design integration, and deep enterprise interoperability. Explore our architectural guide on <a href="/articles/svg-coordinate-systems-and-transformations-guide/">SVG coordinate systems and transformations</a> to understand how infinite vector scaling functions at the viewport matrix level.</p>
         </section>
 
         <section id="ohlc-anatomy-and-math">
@@ -405,16 +498,16 @@ html_content = r'''<!DOCTYPE html>
           <h3>2.1 The Four Pillars of Candlestick Geometry</h3>
           <p>Each candlestick represents price activity over a predefined temporal epoch—such as 1 minute, 1 hour, 1 day, or 1 week. Within that interval, four discrete price points are recorded:</p>
           <ol>
-            <li><strong>Open ($P_{\text{open}}$):</strong> The price executed at the precise initiation timestamp of the interval.</li>
-            <li><strong>High ($P_{\text{high}}$):</strong> The absolute highest price transaction recorded during the entire interval.</li>
-            <li><strong>Low ($P_{\text{low}}$):</strong> The absolute lowest price transaction recorded during the entire interval.</li>
-            <li><strong>Close ($P_{\text{close}}$):</strong> The final price executed immediately prior to interval expiration.</li>
+            <li><strong>Open (<em>P</em><sub>open</sub>):</strong> The price executed at the precise initiation timestamp of the interval.</li>
+            <li><strong>High (<em>P</em><sub>high</sub>):</strong> The absolute highest price transaction recorded during the entire interval.</li>
+            <li><strong>Low (<em>P</em><sub>low</sub>):</strong> The absolute lowest price transaction recorded during the entire interval.</li>
+            <li><strong>Close (<em>P</em><sub>close</sub>):</strong> The final price executed immediately prior to interval expiration.</li>
           </ol>
 
           <p>From these four values, the candlestick is synthesized into two distinct graphical components:</p>
           <ul>
-            <li><strong>The Real Body (Rectangular Span):</strong> The colored rectangular box that spans the absolute vertical distance between the Open and Close prices. If $P_{\text{close}} \ge P_{\text{open}}$, the session is classified as <strong>Bullish</strong> (buying pressure dominated, closing higher than it opened), traditionally rendered in vibrant emerald green (#10B981) or crisp neon lime (#C1DD2D). Conversely, if $P_{\text{close}} < P_{\text{open}}$, the session is <strong>Bearish</strong> (selling pressure dominated), rendered in vivid crimson (#EF4444) or deep coral red. When $P_{\text{close}} = P_{\text{open}}$, the body collapses into a razor-thin 1px horizontal line, known in Japanese technical analysis as a <em>Doji</em>, signifying complete market equilibrium and indecision.</li>
-            <li><strong>The Shadow Wicks (Upper &amp; Lower Extremities):</strong> Slender vertical lines extending outward from the top and bottom of the real body to represent the extreme price excursions of the session. The <strong>Upper Wick</strong> extends from the maximum of the open and close ($\max(P_{\text{open}}, P_{\text{close}})$) up to the session High ($P_{\text{high}}$). The <strong>Lower Wick</strong> extends from the minimum of the open and close ($\min(P_{\text{open}}, P_{\text{close}})$) down to the session Low ($P_{\text{low}}$).</li>
+            <li><strong>The Real Body (Rectangular Span):</strong> The colored rectangular box that spans the absolute vertical distance between the Open and Close prices. If <em>P</em><sub>close</sub> &ge; <em>P</em><sub>open</sub>, the session is classified as <strong>Bullish</strong> (buying pressure dominated, closing higher than it opened), traditionally rendered in vibrant emerald green (#10B981) or crisp neon lime (#C1DD2D). Conversely, if <em>P</em><sub>close</sub> &lt; <em>P</em><sub>open</sub>, the session is <strong>Bearish</strong> (selling pressure dominated), rendered in vivid crimson (#EF4444) or deep coral red. When <em>P</em><sub>close</sub> = <em>P</em><sub>open</sub>, the body collapses into a razor-thin 1px horizontal line, known in Japanese technical analysis as a <em>Doji</em>, signifying complete market equilibrium and indecision.</li>
+            <li><strong>The Shadow Wicks (Upper &amp; Lower Extremities):</strong> Slender vertical lines extending outward from the top and bottom of the real body to represent the extreme price excursions of the session. The <strong>Upper Wick</strong> extends from the maximum of the open and close (max(<em>P</em><sub>open</sub>, <em>P</em><sub>close</sub>)) up to the session High (<em>P</em><sub>high</sub>). The <strong>Lower Wick</strong> extends from the minimum of the open and close (min(<em>P</em><sub>open</sub>, <em>P</em><sub>close</sub>)) down to the session Low (<em>P</em><sub>low</sub>).</li>
           </ul>
 
           <div class="formula-card">
@@ -424,7 +517,7 @@ html_content = r'''<!DOCTYPE html>
           </div>
 
           <h3>2.2 Continuous-to-Discrete Pixel Coordinate Transformation</h3>
-          <p>A financial chart defines a two-dimensional Cartesian plane where the horizontal X-axis represents chronological time and the vertical Y-axis represents monetary price. Because SVG viewport coordinate space places the origin $(0,0)$ at the <em>top-left</em> corner with Y increasing <em>downward</em>, standard Cartesian financial math must be inverted:</p>
+          <p>A financial chart defines a two-dimensional Cartesian plane where the horizontal X-axis represents chronological time and the vertical Y-axis represents monetary price. Because SVG viewport coordinate space places the origin (0,0) at the <em>top-left</em> corner with Y increasing <em>downward</em>, standard Cartesian financial math must be inverted:</p>
 
           <div class="formula-card">
             <div class="formula-title">Vertical Price to Pixel Transformation Equation</div>
@@ -433,7 +526,7 @@ html_content = r'''<!DOCTYPE html>
           </div>
 
           <h3>2.3 Logarithmic vs. Linear Vertical Price Scaling</h3>
-          <p>While arithmetic linear price scaling is suitable for short intraday timeframes where price fluctuations remain within a modest 2% to 5% band, visualizing multi-year macro trends or volatile crypto assets requires <strong>Logarithmic (Semi-Log) Scaling</strong>. In linear scaling, an absolute price move from $10 to $20 (a 100% gain) occupies the exact same vertical pixel height as a move from $100 to $110 (a 10% gain). This severely misrepresents relative capital appreciation and rate-of-return dynamics over prolonged investment horizons.</p>
+          <p>While arithmetic linear price scaling is suitable for short intraday timeframes where price fluctuations remain within a modest 2% to 5% band, visualizing multi-year macro trends or volatile crypto assets requires <strong>Logarithmic (Semi-Log) Scaling</strong>. In linear scaling, an absolute price move from 10 USD to 20 USD (a 100% gain) occupies the exact same vertical pixel height as a move from 100 USD to 110 USD (a 10% gain). This severely misrepresents relative capital appreciation and rate-of-return dynamics over prolonged investment horizons.</p>
 
           <p>In a logarithmic SVG coordinate projection, vertical pixel coordinates are mapped using the natural logarithm of price values:</p>
 
@@ -445,9 +538,9 @@ html_content = r'''<!DOCTYPE html>
 
           <p>By implementing both linear and logarithmic projection modes in the SVG transformation pipeline, trading engines allow users to toggle between tactical short-term price precision and macro-strategic trend analysis with a single declarative configuration switch.</p>
 
-          <p>Let us analyze the mathematical implications of this equation. When price $P = P_{\text{max}}$, the term $(P_{\text{max}} - P)$ evaluates to zero, yielding $Y(P) = Y_{\text{pad}}$, which positions the highest price point at the top of the chart canvas. When $P = P_{\text{min}}$, the fraction equals $1.0$, mapping $Y(P) = H - Y_{\text{pad}}$, positioning the lowest price at the bottom edge. This linear transformation guarantees that the dynamic range of the price action automatically scales to fill 100% of the available vertical viewport without clipping.</p>
+          <p>Let us analyze the mathematical implications of this equation. When price <em>P</em> = <em>P</em><sub>max</sub>, the term (<em>P</em><sub>max</sub> - <em>P</em>) evaluates to zero, yielding <em>Y</em>(<em>P</em>) = <em>Y</em><sub>pad</sub>, which positions the highest price point at the top of the chart canvas. When <em>P</em> = <em>P</em><sub>min</sub>, the fraction equals 1.0, mapping <em>Y</em>(<em>P</em>) = <em>H</em> - <em>Y</em><sub>pad</sub>, positioning the lowest price at the bottom edge. This linear transformation guarantees that the dynamic range of the price action automatically scales to fill 100% of the available vertical viewport without clipping.</p>
 
-          <p>Similarly, on the horizontal temporal axis, each candlestick is allocated a discrete slot width $W_{\text{slot}}$ within the plot width $W_{\text{plot}}$. To prevent adjacent candle bodies from merging into a solid unreadable block of color, the real body width $W_{\text{body}}$ is calculated using a fractional occupancy ratio (typically $70\%$ to $80\%$ of slot width), leaving a balanced inter-candle gap $G$:</p>
+          <p>For developers looking to integrate complementary high-frequency telemetry, such as real-time audio or market volatility pulses, review our guide to <a href="/articles/svg-audio-visualizers-and-frequency-waveforms-guide/">SVG audio visualizers and frequency waveforms</a>. Similarly, on the horizontal temporal axis, each candlestick is allocated a discrete slot width <em>W</em><sub>slot</sub> within the plot width <em>W</em><sub>plot</sub>. To prevent adjacent candle bodies from merging into a solid unreadable block of color, the real body width <em>W</em><sub>body</sub> is calculated using a fractional occupancy ratio (typically 70% to 80% of slot width), leaving a balanced inter-candle gap <em>G</em>:</p>
 
           <div class="formula-card">
             <div class="formula-title">Horizontal Temporal Slot Coordinate Equations</div>
@@ -455,12 +548,12 @@ html_content = r'''<!DOCTYPE html>
             <div class="formula-desc">Where i represents the 0-indexed sequential candle position in chronological order, and N_candles is the total number of candles in the active viewport window.</div>
           </div>
 
-          <p>To eliminate blurry anti-aliasing artifacts on high-resolution screens, every computed wick coordinate and body rectangle must be snapped to clean subpixel boundaries. In SVG, a 1px stroke centered at integer coordinate $X$ spills across half-pixel boundaries from $X-0.5$ to $X+0.5$, causing the browser to render a fuzzy 2px wide gray line. By applying <code>Math.floor(x) + 0.5</code> or configuring <code>shape-rendering="crispEdges"</code> on wick path groups, lines render with tack-sharp single-pixel clarity across all monitor resolutions.</p>
+          <p>To eliminate blurry anti-aliasing artifacts on high-resolution screens, every computed wick coordinate and body rectangle must be snapped to clean subpixel boundaries. In SVG, a 1px stroke centered at integer coordinate <em>X</em> spills across half-pixel boundaries from <em>X</em> - 0.5 to <em>X</em> + 0.5, causing the browser to render a fuzzy 2px wide gray line. By applying <code>Math.floor(x) + 0.5</code> or configuring <code>shape-rendering="crispEdges"</code> on wick path groups, lines render with tack-sharp single-pixel clarity across all monitor resolutions.</p>
         </section>
 
         <section id="svg-rendering-primitives">
           <h2>3. Declarative SVG Primitives: Assembling Bars, Wicks &amp; Grids</h2>
-          <p>With our mathematical coordinate transformations established, we can implement the actual declarative SVG markup structure. A naive approach might construct each candlestick from three distinct SVG elements: an upper <code>&lt;line&gt;</code>, a lower <code>&lt;line&gt;</code>, and a central <code>&lt;rect&gt;</code>. However, this creates $3N$ separate DOM elements for $N$ price candles, introducing unnecessary DOM tree overhead.</p>
+          <p>With our mathematical coordinate transformations established, we can implement the actual declarative SVG markup structure. A naive approach might construct each candlestick from three distinct SVG elements: an upper <code>&lt;line&gt;</code>, a lower <code>&lt;line&gt;</code>, and a central <code>&lt;rect&gt;</code>. However, this creates 3<em>N</em> separate DOM elements for <em>N</em> price candles, introducing unnecessary DOM tree overhead.</p>
 
           <p>A far more elegant, high-performance strategy combines the entire wick assembly into a single continuous vertical line passing straight through the body from High to Low, overlaid by the body rectangle. Even better, we can express each candle's entire geometry using standard SVG path syntax or instanced SVG symbol definitions:</p>
 
@@ -484,7 +577,7 @@ html_content = r'''<!DOCTYPE html>
 &lt;/g&gt;</code></pre>
 
           <h3>3.1 Background Price Grid &amp; Dynamic Axis Ticks</h3>
-          <p>A professional financial chart requires a legible, subtle Cartesian reference grid. The grid consists of horizontal price lines (isobars) spaced at round human-readable increments (e.g. $10, $50, $100) and vertical time dividers marking session boundaries, days, or calendar months.</p>
+          <p>A professional financial chart requires a legible, subtle Cartesian reference grid. The grid consists of horizontal price lines (isobars) spaced at round human-readable increments (such as 10, 50, or 100 USD increments) and vertical time dividers marking session boundaries, days, or calendar months.</p>
 
           <p>Using SVG, horizontal grid lines are rendered using crisp <code>&lt;line&gt;</code> elements with subtle opacity, accompanied by right-aligned <code>&lt;text&gt;</code> labels on the price scale:</p>
 
@@ -503,7 +596,7 @@ html_content = r'''<!DOCTYPE html>
   &lt;text x="908" y="304"&gt;$107.50&lt;/text&gt;
 &lt;/g&gt;</code></pre>
 
-          <p>To compute optimal, pleasing tick intervals dynamically regardless of market price levels, our engine implements an algorithmic <strong>Nice Number Algorithm</strong> based on powers of 10 and modular subdivisions into {1, 2, 2.5, 5}. This prevents ugly tick values like $114.7382 from cluttering the price axis, guaranteeing clean numbers like $115.00, $120.00, and $125.00.</p>
+          <p>To compute optimal, pleasing tick intervals dynamically regardless of market price levels, our engine implements an algorithmic <strong>Nice Number Algorithm</strong> based on powers of 10 and modular subdivisions into {1, 2, 2.5, 5}. This prevents ugly tick values like $114.7382 from cluttering the price axis, guaranteeing clean numbers like 115.00, 120.00, and 125.00 USD.</p>
         </section>
 
         <section id="technical-indicators-geometry">
@@ -511,7 +604,7 @@ html_content = r'''<!DOCTYPE html>
           <p>Candlestick charts rarely exist in isolation. Professional quantitative traders and institutional portfolio managers rely heavily on secondary mathematical overlays—most notably trend-following moving averages, volatility envelopes, and trading volume distributions. In SVG, these complex mathematical constructs translate directly into smooth continuous paths and shaded vector polygons.</p>
 
           <h3>4.1 Simple Moving Average (SMA) &amp; Exponential Moving Average (EMA)</h3>
-          <p>The <strong>Simple Moving Average (SMA)</strong> calculates the unweighted arithmetic mean of the closing price over a rolling window of $K$ periods. For period $t$:</p>
+          <p>The <strong>Simple Moving Average (SMA)</strong> calculates the unweighted arithmetic mean of the closing price over a rolling window of <em>K</em> periods. For period <em>t</em>:</p>
 
           <div class="formula-card">
             <div class="formula-title">Simple Moving Average Formula</div>
@@ -519,7 +612,7 @@ html_content = r'''<!DOCTYPE html>
             <div class="formula-desc">Smooths out high-frequency market noise to reveal underlying directional trend momentum.</div>
           </div>
 
-          <p>While the SMA gives equal weight to all $K$ historical days, the <strong>Exponential Moving Average (EMA)</strong> applies exponentially decreasing weights to older data, reacting significantly faster to sudden market breakouts or reversals. The EMA is formulated recursively:</p>
+          <p>While the SMA gives equal weight to all <em>K</em> historical days, the <strong>Exponential Moving Average (EMA)</strong> applies exponentially decreasing weights to older data, reacting significantly faster to sudden market breakouts or reversals. The EMA is formulated recursively:</p>
 
           <div class="formula-card">
             <div class="formula-title">Exponential Moving Average Recursive Formulation</div>
@@ -527,7 +620,7 @@ html_content = r'''<!DOCTYPE html>
             <div class="formula-desc">Where &alpha; represents the smoothing multiplier constant for a window of K periods. For K=20, &alpha; &approx; 0.0952; for K=50, &alpha; &approx; 0.0392.</div>
           </div>
 
-          <p>To render these continuous moving average series in SVG, each calculated $(x_i, y_i)$ coordinate pair is chained into a single SVG <code>&lt;path&gt;</code> string using the <code>M</code> (MoveTo) command followed by consecutive <code>L</code> (LineTo) commands. For maximum visual appeal, cubic Bézier spline interpolation (via Catmull-Rom or Cardinal splines) can replace linear segments with smooth curves:</p>
+          <p>To render these continuous moving average series in SVG, each calculated (<em>x<sub>i</sub></em>, <em>y<sub>i</sub></em>) coordinate pair is chained into a single SVG <code>&lt;path&gt;</code> string using the <code>M</code> (MoveTo) command followed by consecutive <code>L</code> (LineTo) commands. For maximum visual appeal, cubic Bézier spline interpolation (via Catmull-Rom or Cardinal splines) can replace linear segments with smooth curves:</p>
 
           <pre><code>// Programmatic Synthesis of SVG Moving Average Spline
 function generateSMAPath(candles, period = 20, getX, getY) {
@@ -553,8 +646,8 @@ function generateSMAPath(candles, period = 20, getX, getY) {
           <p>Developed by John Bollinger, <strong>Bollinger Bands</strong> establish a statistical volatility envelope around a moving average. The indicator consists of three components:</p>
           <ol>
             <li><strong>Middle Band:</strong> A standard 20-period SMA.</li>
-            <li><strong>Upper Band:</strong> Middle Band plus $k$ times the 20-period rolling sample standard deviation ($\sigma$): $\text{Upper} = \text{SMA}_{20} + k \cdot \sigma$.</li>
-            <li><strong>Lower Band:</strong> Middle Band minus $k$ times the 20-period rolling standard deviation: $\text{Lower} = \text{SMA}_{20} - k \cdot \sigma$. (Typically $k = 2.0$, encompassing approximately $95.4\%$ of standard normally distributed price action).</li>
+            <li><strong>Upper Band:</strong> Middle Band plus <em>k</em> times the 20-period rolling sample standard deviation (<em>&sigma;</em>): Upper = SMA<sub>20</sub> + <em>k</em> &times; <em>&sigma;</em>.</li>
+            <li><strong>Lower Band:</strong> Middle Band minus <em>k</em> times the 20-period rolling standard deviation: Lower = SMA<sub>20</sub> - <em>k</em> &times; <em>&sigma;</em>. (Typically <em>k</em> = 2.0, encompassing approximately 95.4% of standard normally distributed price action).</li>
           </ol>
 
           <p>In SVG, rendering the filled volatility channel between the upper and lower bands requires a single closed path polygon. The path traces the Upper Band from left to right, drops vertically to the Lower Band's final coordinate, traces the Lower Band backwards from right to left, and closes with <code>Z</code>:</p>
@@ -573,7 +666,7 @@ function generateSMAPath(candles, period = 20, getX, getY) {
           <h3>4.3 Volume Histogram Subplot with Dynamic Color Linking</h3>
           <p>Trading volume represents the fuel driving market trends. An upward price surge on negligible volume signals a false breakout, whereas high volume confirms institutional conviction. A high-grade financial chart integrates a synchronized volume histogram along the bottom 20% to 25% of the chart canvas.</p>
 
-          <p>Each volume bar is rendered as an SVG <code>&lt;rect&gt;</code> sharing the exact horizontal center $X_{\text{center}}(i)$ and body width $W_{\text{body}}$ of its corresponding price candlestick. The height of the bar scales proportionally to the maximum volume recorded across the visible window:</p>
+          <p>Each volume bar is rendered as an SVG <code>&lt;rect&gt;</code> sharing the exact horizontal center <em>X</em><sub>center</sub>(<em>i</em>) and body width <em>W</em><sub>body</sub> of its corresponding price candlestick. The height of the bar scales proportionally to the maximum volume recorded across the visible window:</p>
 
           <div class="formula-card">
             <div class="formula-title">Volume Bar Height Transformation</div>
@@ -593,7 +686,7 @@ function generateSMAPath(candles, period = 20, getX, getY) {
 &lt;rect id="chartPointerCapture" width="100%" height="100%" 
       fill="transparent" style="cursor: crosshair; pointer-events: all;" /&gt;</code></pre>
 
-          <p>When a <code>pointermove</code> event fires, the handler extracts the cursor's local coordinates relative to the SVG container via <code>event.offsetX</code> (or <code>getBoundingClientRect()</code>). Snapping to the nearest candle is achieved via an $O(1)$ constant-time calculation:</p>
+          <p>When a <code>pointermove</code> event fires, the handler extracts the cursor's local coordinates relative to the SVG container via <code>event.offsetX</code> (or <code>getBoundingClientRect()</code>). Snapping to the nearest candle is achieved via an <em>O</em>(1) constant-time calculation:</p>
 
           <div class="formula-card">
             <div class="formula-title">Constant-Time Candle Index Quantization</div>
@@ -616,7 +709,7 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
 
   // 3. Update dynamic price axis badge
   const priceAtCursor = calculatePriceFromY(pointerY);
-  priceBadgeText.textContent = `$${priceAtCursor.toFixed(2)}`;
+  priceBadgeText.textContent = '$' + priceAtCursor.toFixed(2);
   priceBadgeGroup.setAttribute('transform', `translate(905, ${pointerY - 10})`);
 
   // 4. Update dynamic date badge on X-axis
@@ -861,9 +954,9 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
           <p>By collapsing thousands of DOM nodes into three native vector paths, the browser's internal C++ layout tree is reduced by <strong>99.9%</strong>. Style resolution, bounding-box hit calculation, and GPU paint batching operate at near-instantaneous speeds, completely matching immediate-mode canvas performance while preserving pristine vector scalability.</p>
 
           <h3>8.2 Level-of-Detail (LOD) Downsampling: The LTTB Algorithm</h3>
-          <p>When an investor zooms out to view a 5-year multi-thousand-bar history of an asset, the physical width of a single day's candle collapses to less than a single screen pixel ($W_{\text{slot}} < 1\text{px}$). Rendering subpixel candles that overlap identically wastes CPU cycles and produces visual moiré interference.</p>
+          <p>When an investor zooms out to view a 5-year multi-thousand-bar history of an asset, the physical width of a single day's candle collapses to less than a single screen pixel (<em>W</em><sub>slot</sub> &lt; 1px). Rendering subpixel candles that overlap identically wastes CPU cycles and produces visual moiré interference.</p>
 
-          <p>To solve this, professional vector trading platforms implement the <strong>Largest Triangle Three Buckets (LTTB)</strong> downsampling algorithm. Unlike naive decimation (which merely samples every $k$-th point and misses critical price spikes), LTTB divides the dataset into equal temporal buckets and selects the point that maximizes the triangular area formed with the previous and subsequent buckets. This guarantees that all major local highs, lows, and volatility spikes are preserved with 100% visual fidelity while reducing the active rendering dataset down to exactly the number of physical horizontal pixels available on the display.</p>
+          <p>To solve this, professional vector trading platforms implement the <strong>Largest Triangle Three Buckets (LTTB)</strong> downsampling algorithm. Unlike naive decimation (which merely samples every <em>k</em>-th point and misses critical price spikes), LTTB divides the dataset into equal temporal buckets and selects the point that maximizes the triangular area formed with the previous and subsequent buckets. This guarantees that all major local highs, lows, and volatility spikes are preserved with 100% visual fidelity while reducing the active rendering dataset down to exactly the number of physical horizontal pixels available on the display.</p>
         </section>
 
         <section id="accessibility-and-compliance">
@@ -915,37 +1008,34 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
           </div>
           <div class="faq-item">
             <h3 class="faq-question">How can large historical financial datasets (thousands of bars) be optimized in SVG?</h3>
-            <div class="faq-answer">For datasets exceeding 1,000 candles, individual rect and line elements can cause DOM bloat. High-performance SVG trading engines batch all bullish bodies into a single compound path 'd' attribute, all bearish bodies into a second path, and all wicks into a third path. Additionally, level-of-detail (LOD) decimation algorithms like Largest Triangle Three Buckets (LTTB) downsample off-screen or zoomed-out data while preserving critical market price peaks and troughs.</div>
+            <div class="faq-answer">For datasets exceeding 1,000 candles, individual rect and line elements can cause DOM bloat. Similar to techniques explored in our benchmark on <a href="/articles/how-to-optimize-svg-icons-for-web-performance/">optimizing SVG icons and vector performance</a> and <a href="/articles/svg-gantt-charts-and-project-timelines-guide/">SVG Gantt charts and project timelines</a>, high-performance vector charting requires disciplined element batching. High-performance SVG trading engines batch all bullish bodies into a single compound path 'd' attribute, all bearish bodies into a second path, and all wicks into a third path. Additionally, level-of-detail (LOD) decimation algorithms like Largest Triangle Three Buckets (LTTB) downsample off-screen or zoomed-out data while preserving critical market price peaks and troughs.</div>
           </div>
         </section>
       </article>
 
-      <aside class="article-sidebar">
-        <div class="sidebar-widget">
-          <div class="widget-title">Table of Contents</div>
-          <ul class="toc-list">
-            <li><a href="#introduction-fintech-imperative">1. The Vector Imperative</a></li>
-            <li><a href="#ohlc-anatomy-and-math">2. OHLC Anatomy &amp; Math</a></li>
-            <li><a href="#svg-rendering-primitives">3. Declarative SVG Primitives</a></li>
-            <li><a href="#technical-indicators-geometry">4. Technical Indicators Geometry</a></li>
-            <li><a href="#interactive-crosshairs-and-telemetry">5. Interactive Crosshairs</a></li>
-            <li><a href="#architectural-pipeline-diagram">6. Architectural Pipeline</a></li>
-            <li><a href="#interactive-trading-studio">7. Interactive Developer Studio</a></li>
-            <li><a href="#performance-optimization">8. Performance Optimization</a></li>
-            <li><a href="#accessibility-and-compliance">9. Accessibility &amp; Compliance</a></li>
-            <li><a href="#faq-section">10. Frequently Asked Questions</a></li>
-          </ul>
+            <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#introduction-fintech-imperative">1. The Vector Imperative</a></li>
+              <li><a href="#ohlc-anatomy-and-math">2. OHLC Anatomy &amp; Math</a></li>
+              <li><a href="#svg-rendering-primitives">3. Declarative SVG Primitives</a></li>
+              <li><a href="#technical-indicators-geometry">4. Technical Indicators Geometry</a></li>
+              <li><a href="#interactive-crosshairs-and-telemetry">5. Interactive Crosshairs</a></li>
+              <li><a href="#architectural-pipeline-diagram">6. Architectural Pipeline</a></li>
+              <li><a href="#interactive-trading-studio">7. Interactive Developer Studio</a></li>
+              <li><a href="#performance-optimization">8. Performance Optimization</a></li>
+              <li><a href="#accessibility-and-compliance">9. Accessibility &amp; Compliance</a></li>
+              <li><a href="#faq-section">10. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
         </div>
 
-        <div class="sidebar-widget">
-          <div class="widget-title">Engineering Specs</div>
-          <div class="resource-card">
-            <strong>Author:</strong> Jouni Flemming<br>
-            <strong>Organization:</strong> Great Software Company<br>
-            <strong>Standard:</strong> SVG 2.0 / W3C WAI-ARIA<br>
-            <strong>Target Speed:</strong> 120 FPS Crosshairs<br>
-            <strong>Published:</strong> Nov 15, 2026
-          </div>
+        <div class="cta-sidebar-box">
+          <h4>Need Production Icons?</h4>
+          <p>Access over 134,000+ optimized vector icons, customizable stroke weights, and instant React/SVG export.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search Free Icons</a>
         </div>
       </aside>
     </div>
@@ -1090,7 +1180,7 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
         for (let i = 0; i <= 4; i++) {
           const tickPrice = minPrice + (priceRange / 4) * i;
           const yPos = getY(tickPrice);
-          const priceLabel = currentPreset === 'crypto' || currentPreset === 'sp500' ? `$${tickPrice.toFixed(0)}` : currentPreset === 'tech_breakout' ? `$${tickPrice.toFixed(2)}` : tickPrice.toFixed(4);
+          const priceLabel = currentPreset === 'crypto' || currentPreset === 'sp500' ? '$' + tickPrice.toFixed(0) : currentPreset === 'tech_breakout' ? '$' + tickPrice.toFixed(2) : tickPrice.toFixed(4);
           svg += `
             <line x1="${config.padLeft}" y1="${yPos}" x2="${config.width - config.padRight}" y2="${yPos}" />
             <text x="${config.width - config.padRight + 6}" y="${yPos + 4}" font-family="'JetBrains Mono', monospace" font-size="10.5" fill="#666">${priceLabel}</text>
@@ -1238,7 +1328,7 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
 
             // Compute Price at cursor
             const curPrice = maxPrice - ((mouseY - config.padTop) / plotH) * (maxPrice - minPrice);
-            const fmtPrice = currentPreset === 'crypto' || currentPreset === 'sp500' ? `$${curPrice.toFixed(0)}` : `$${curPrice.toFixed(2)}`;
+            const fmtPrice = currentPreset === 'crypto' || currentPreset === 'sp500' ? '$' + curPrice.toFixed(0) : '$' + curPrice.toFixed(2);
             priceText.textContent = fmtPrice;
             priceTag.setAttribute('transform', `translate(${config.width - config.padRight + 4}, ${mouseY - 10})`);
 
@@ -1246,11 +1336,11 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
             timeTag.setAttribute('transform', `translate(${candleX - 32}, ${config.height - config.padBottom + 4})`);
 
             // Update HUD
-            if (hudOpen) hudOpen.textContent = `$${candle.open.toFixed(2)}`;
-            if (hudHigh) hudHigh.textContent = `$${candle.high.toFixed(2)}`;
-            if (hudLow) hudLow.textContent = `$${candle.low.toFixed(2)}`;
+            if (hudOpen) hudOpen.textContent = '$' + candle.open.toFixed(2);
+            if (hudHigh) hudHigh.textContent = '$' + candle.high.toFixed(2);
+            if (hudLow) hudLow.textContent = '$' + candle.low.toFixed(2);
             if (hudClose) {
-              hudClose.textContent = `$${candle.close.toFixed(2)}`;
+              hudClose.textContent = '$' + candle.close.toFixed(2);
               hudClose.className = 'stat-val ' + (candle.close >= candle.open ? 'bullish' : 'bearish');
             }
           });
@@ -1262,7 +1352,7 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
 
         // Update code snippet preview
         if (codePreview) {
-          const sample = `<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg">\n  <!-- Candlesticks: ${marketData.length} bars -->\n  <line x1="${getX(0).toFixed(1)}" y1="${getY(marketData[0].high).toFixed(1)}" x2="${getX(0).toFixed(1)}" y2="${getY(marketData[0].low).toFixed(1)}" stroke="${bullColor}" stroke-width="1.5"/>\n  <rect x="${(getX(0)-bodyW/2).toFixed(1)}" y="${getY(marketData[0].close).toFixed(1)}" width="${bodyW.toFixed(1)}" height="12.0" fill="${bullColor}"/>\n  ...\n</svg>`;
+          const sample = `<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg">\n  <!-- Generated Candlestick Visualizer -->\n  <line x1="${getX(0).toFixed(1)}" y1="${getY(marketData[0].high).toFixed(1)}" x2="${getX(0).toFixed(1)}" y2="${getY(marketData[0].low).toFixed(1)}" stroke="${bullColor}" stroke-width="1.5"/>\n  <rect x="${(getX(0)-bodyW/2).toFixed(1)}" y="${getY(marketData[0].close).toFixed(1)}" width="${bodyW.toFixed(1)}" height="12.0" fill="${bullColor}"/>\n</svg>`;
           codePreview.textContent = sample;
         }
       }
@@ -1309,15 +1399,39 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
         });
       }
 
+      function copyToClipboard(text, onSuccess) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+            execCommandFallback(text, onSuccess);
+          });
+        } else {
+          execCommandFallback(text, onSuccess);
+        }
+      }
+
+      function execCommandFallback(text, onSuccess) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          if (onSuccess) onSuccess();
+        } catch (err) {
+          alert('Copied SVG markup to clipboard');
+        }
+        document.body.removeChild(ta);
+      }
+
       if (btnCopySVG) {
         btnCopySVG.addEventListener('click', () => {
           if (canvas) {
-            navigator.clipboard.writeText(canvas.outerHTML).then(() => {
+            copyToClipboard(canvas.outerHTML, () => {
               const orig = btnCopySVG.textContent;
               btnCopySVG.textContent = 'Copied to Clipboard!';
               setTimeout(() => { btnCopySVG.textContent = orig; }, 1800);
-            }).catch(() => {
-              alert('Copied SVG markup');
             });
           }
         });
@@ -1334,4 +1448,4 @@ function updateCrosshair(pointerX, pointerY, candle, slotCenterX) {
 with open(target_file, "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print(f"Generated {target_file}")
+print(f"Generated {target_file} ({len(html_content)} bytes)")

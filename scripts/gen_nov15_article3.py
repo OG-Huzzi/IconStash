@@ -1,5 +1,4 @@
 import os
-import re
 
 slug = "svg-sankey-diagrams-and-alluvial-flow-guide"
 target_dir = os.path.join(r"D:\Project IconStash\IconStash\articles", slug)
@@ -42,135 +41,133 @@ html_content = r'''<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Structured Data: TechArticle -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "TechArticle",
-    "headline": "Mastering SVG Sankey Diagrams & Alluvial Flow: Node Stratification, Cubic Ribbon Splines & Budget Graph Guide (2026)",
-    "description": "Comprehensive engineering guide to building high-performance, responsive vector Sankey and alluvial flow diagrams in pure SVG. Covers DAG node stratification, Gauss-Seidel relaxation algorithms, cubic Bézier ribbon geometry, flow conservation math, and interactive hover inspection.",
-    "url": "https://iconstash.io/articles/svg-sankey-diagrams-and-alluvial-flow-guide/",
-    "image": "https://iconstash.io/assets/articles/svg-sankey-diagrams-and-alluvial-flow-guide.jpg",
-    "datePublished": "2026-11-15",
-    "dateModified": "2026-11-15",
-    "author": {
-      "@type": "Person",
-      "name": "Jouni Flemming",
-      "url": "https://iconstash.io/about/",
-      "worksFor": {
+    <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Sankey Diagrams & Alluvial Flow: Node Stratification, Cubic Ribbon Splines & Budget Graph Guide (2026)",
+      "description": "Build responsive SVG Sankey diagrams. Master node stratification, iterative relaxation algorithms, cubic Bézier ribbon math, and interactive flow styling.",
+      "image": "https://iconstash.io/assets/articles/svg-sankey-diagrams-and-alluvial-flow-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
         "@type": "Organization",
-        "name": "Great Software Company",
-        "url": "https://greatsoftwarecompany.com"
-      }
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-15",
+      "dateModified": "2026-11-15",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-sankey-diagrams-and-alluvial-flow-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4500,
+      "articleSection": "Vector Graphics & Flow Systems",
+      "keywords": [
+        "svg sankey diagram",
+        "alluvial flow diagram svg",
+        "sankey chart javascript",
+        "cubic bezier ribbon svg",
+        "flow conservation visualization",
+        "budget flow diagram",
+        "dag layout vector"
+      ]
     },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Great Software Company",
-      "url": "https://greatsoftwarecompany.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://iconstash.io/assets/icons/icon-512x512.png"
-      }
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Sankey Diagrams Guide",
+          "item": "https://iconstash.io/articles/svg-sankey-diagrams-and-alluvial-flow-guide/"
+        }
+      ]
     },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://iconstash.io/articles/svg-sankey-diagrams-and-alluvial-flow-guide/"
-    },
-    "keywords": [
-      "svg sankey diagram",
-      "sankey chart javascript svg",
-      "alluvial diagram vector",
-      "cubic bezier ribbon svg",
-      "flow diagram web",
-      "node relaxation algorithm"
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://iconstash.io/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Articles",
-        "item": "https://iconstash.io/articles/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "SVG Sankey Diagrams Guide",
-        "item": "https://iconstash.io/articles/svg-sankey-diagrams-and-alluvial-flow-guide/"
-      }
-    ]
-  }
-  </script>
-
-  <!-- Structured Data: FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Why build Sankey and alluvial diagrams in pure SVG rather than HTML5 Canvas?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Scalable Vector Graphics (SVG) maintains infinite resolution independence, allowing intricate multi-stage flow diagrams to scale flawlessly from small responsive mobile screens up to multi-monitor operations displays and high-resolution print deliverables without pixelation. Most importantly, SVG preserves the distinct identity of every node and link ribbon as discrete DOM elements. This enables native CSS hover state highlighting, gradient fills matching source-to-target nodes, screen reader accessibility under WCAG 2.2 AA, and programmatic vector export."
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why build Sankey diagrams in pure SVG rather than HTML5 Canvas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sankey diagrams rely on distinct flow ribbons and rectilinear nodes where users expect hover tooltips, click inspections, dynamic recoloring, and lossless vector scaling. SVG maintains the full DOM identity of each flow ribbon, allowing declarative CSS styling, smooth cubic Bézier stroke-dashoffset animations, screen reader accessibility under WCAG 2.2 AA, and flawless vector PDF export."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does topological node stratification organize layers in a DAG Sankey diagram?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a Directed Acyclic Graph (DAG), longest-path layer assignment traverses nodes in topological order. Source nodes with zero incoming links are assigned Layer 0. For each downstream node, its layer is defined as L(v) = max(L(u) + 1) across all incoming predecessors u. This assigns every node to a discrete column across the horizontal viewport."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Gauss-Seidel iterative relaxation resolve ribbon crossings?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Gauss-Seidel relaxation performs alternating forward and backward passes across node layers. In each sweep, a node's target vertical position is computed as the weighted barycenter (average center-of-mass) of its connected neighbors. Overlapping nodes are pushed apart by collision resolution algorithms to maintain mandatory vertical gap spacing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What mathematical formula constructs the dual cubic Bézier ribbon geometry in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Sankey ribbon is defined by four boundary points: source top (x0, y0_top), target top (x1, y1_top), target bottom (x1, y1_bottom), and source bottom (x0, y0_bottom). The upper curve uses control handles at midpoints (x0 + dx/2, y0_top) and (x1 - dx/2, y1_top). The path connects vertically to y1_bottom, traces the lower curve backwards with reversed control points, and closes with 'Z'."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Kirchhoff flow conservation apply to nodes in a Sankey diagram?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kirchhoff flow balance requires that for every intermediate node, total incoming volume equals total outgoing volume. In real-world enterprise applications where drop-offs or conversions occur, residual difference nodes ('System Loss' or 'Pipeline Attrition') model unbalanced energy or revenue leakage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are hardware-accelerated animated flow streams achieved in SVG ribbons?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Flow animations can be rendered by superimposing a semi-transparent stroke along the ribbon's centerline with stroke-dasharray and animating stroke-dashoffset via CSS keyframes. This hardware-accelerated technique produces liquid pulse animations at 120 FPS without manipulating JavaScript coordinate frames."
+          }
         }
-      },
-      {
-        "@type": "Question",
-        "name": "How is the cubic Bézier ribbon geometry constructed between two Sankey nodes in SVG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A Sankey flow ribbon is constructed as a closed SVG path with four interconnected boundaries: 1) A top cubic Bézier curve tracing from (x0, y0_top) to (x1, y1_top) with horizontal control points at midpoint x_mid = (x0 + x1) / 2; 2) A vertical line dropping along the target node edge to (x1, y1_bottom); 3) A bottom cubic Bézier curve tracing backwards from (x1, y1_bottom) to (x0, y0_bottom); 4) A vertical line closing back up along the source node edge with 'Z'."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does node stratification and topological layer assignment work in a Sankey DAG?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "In a Directed Acyclic Graph (DAG), each node is assigned to a horizontal column (depth tier). The engine calculates the longest path from source nodes to each target node using topological sorting: depth(node) = max([depth(parent) + 1 for parent in incoming_nodes]). Nodes with no incoming links reside in column 0, while terminal sink nodes reside in the final column. Nodes can then be justified to the left, right, or centered across the canvas width."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do iterative relaxation algorithms minimize link crossings in complex Sankey diagrams?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Iterative relaxation algorithms (such as Gauss-Seidel relaxation) sweep repeatedly back and forth through the columns. During each iteration, a node's vertical Y coordinate is adjusted toward the weighted barycenter of its connected upstream or downstream neighbors: Y_target = sum(Y_neighbor * Link_Weight) / sum(Link_Weight). The engine then resolves vertical collisions between adjacent nodes in the same column to enforce minimum padding gaps, drastically reducing ribbon crossings."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you enforce Kirchhoff-style conservation of flow when data inputs and outputs do not match?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Ideal physical Sankey diagrams adhere strictly to flow conservation: sum(Inflow) = sum(Outflow) at every intermediate node. However, in real-world business datasets like sales conversion funnels, customers drop off at each stage. High-grade SVG engines handle this by computing the residual difference: Residual = Inflow - Outflow. If positive, the residual is either rendered as an explicit downward 'Drop-off / Loss' ribbon or the node height is sized to the maximum of incoming and outgoing totals, with link ribbons anchored proportionally along the node edge."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do you animate dynamic flow movement along SVG Sankey ribbons without lag?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "To visualize active fluid flow, energy transmission, or network bandwidth, an auxiliary dashed overlay stroke path is placed along the centerline of the ribbon. By animating the CSS stroke-dashoffset property using GPU-composited CSS keyframes (e.g. @keyframes flowRun { to { stroke-dashoffset: -32; } }), moving flow pulses travel continuously along the ribbons at 60 FPS with zero JavaScript runtime execution overhead."
-        }
-      }
-    ]
-  }
+      ]
+    }
+  ]
   </script>
 
   <style>
@@ -304,32 +301,84 @@ html_content = r'''<!DOCTYPE html>
 
     /* Sidebar / Sticky TOC */
     .article-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
-    .sidebar-widget { background: #121212; border: 1px solid #222; border-radius: 10px; padding: 20px; }
-    .widget-title { font-size: 14px; font-weight: 800; color: #FFF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; border-bottom: 1px solid #222; padding-bottom: 8px; }
-    .toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-    .toc-list li a { color: #888; font-size: 13.5px; transition: color 150ms ease; display: block; line-height: 1.4; }
-    .toc-list li a:hover { color: #C1DD2D; }
-    .resource-card { background: #161616; border: 1px solid #2A2A2A; border-radius: 6px; padding: 12px; margin-top: 10px; font-size: 13px; }
-    .resource-card a { font-weight: 600; color: #C1DD2D; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+    .sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 16px; }
+    .toc-nav ol { list-style: none; margin: 0; padding: 0; }
+    .toc-nav li { margin-bottom: 10px; font-size: 14px; }
+    .toc-nav a { color: #A3A3A3; display: block; line-height: 1.5; }
+    .toc-nav a:hover { color: #C1DD2D; }
 
-    /* Light Theme Overrides */
-    html[data-theme="light"] body { background: #F8F9FA; color: #212529; }
-    html[data-theme="light"] .site-header { background: rgba(248,249,250,0.92); border-bottom-color: #E9ECEF; }
-    html[data-theme="light"] .site-header .logo { color: #111; }
-    html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3, html[data-theme="light"] h4 { color: #111; }
-    html[data-theme="light"] p, html[data-theme="light"] li { color: #495057; }
-    html[data-theme="light"] .featured-summary { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .featured-summary p { color: #212529; }
-    html[data-theme="light"] pre { background: #F1F3F5; border-color: #E9ECEF; color: #212529; }
-    html[data-theme="light"] code { background: #E9ECEF; color: #4D6300; }
-    html[data-theme="light"] .interactive-sandbox { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .preview-stage-container { background: #F8FAFC; border-color: #CBD5E1; }
-    html[data-theme="light"] .sidebar-widget { background: #FFF; border-color: #DEE2E6; }
-    html[data-theme="light"] .stats-readout-box { background: #F1F5F9; border-color: #E2E8F0; }
-    html[data-theme="light"] .code-preview-pane { background: #1E293B; color: #F8FAFC; }
-    html[data-theme="light"] th { background: #E9ECEF; color: #111; border-bottom-color: #DEE2E6; }
-    html[data-theme="light"] td { border-bottom-color: #E9ECEF; color: #495057; }
-    html[data-theme="light"] .formula-card { background: #F8F9FA; border-color: #DEE2E6; }
+    .cta-sidebar-box { background: linear-gradient(145deg, #181E07 0%, #0F1205 100%); border: 1px solid rgba(193,221,45,0.3); border-radius: 12px; padding: 24px; text-align: center; }
+    .cta-sidebar-box h4 { font-size: 18px; font-weight: 800; color: #FFF; margin-bottom: 8px; }
+    .cta-sidebar-box p { font-size: 13.5px; color: #AAA; line-height: 1.5; margin-bottom: 16px; }
+    .cta-sidebar-btn { display: inline-block; width: 100%; background: #C1DD2D; color: #0A0A0A; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 6px; transition: all 150ms ease; }
+    .cta-sidebar-btn:hover { background: #D2ED3E; transform: translateY(-1px); }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(193,221,45,0.06) 0%, rgba(193,221,45,0.02) 100%); border: 1px solid rgba(193,221,45,0.2); border-radius: 12px; padding: 28px; margin: 40px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 18px; font-weight: 800; margin-bottom: 16px; margin-top: 0; }
+    .warning-box { background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); border-left: 4px solid #EF4444; border-radius: 8px; padding: 18px 22px; margin: 24px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
   </style>
 </head>
 <body>
@@ -352,13 +401,13 @@ html_content = r'''<!DOCTYPE html>
     </nav>
   </header>
 
-  <div class="page-container">
+  <main class="page-container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">IconStash</a>
       <span class="sep">/</span>
       <a href="/articles/">Articles</a>
       <span class="sep">/</span>
-      <span class="current">Mastering SVG Sankey Diagrams &amp; Alluvial Flow</span>
+      <span class="current" aria-current="page">Mastering SVG Sankey Diagrams &amp; Alluvial Flow</span>
     </nav>
 
     <header class="article-hero">
@@ -383,7 +432,7 @@ html_content = r'''<!DOCTYPE html>
             <li><strong>Directed Acyclic Graph (DAG) Stratification:</strong> Formulating topological ranking algorithms to assign flow nodes into discrete horizontal columns (depth tiers) with cycle detection and alignment modes.</li>
             <li><strong>Iterative Relaxation &amp; Crossing Minimization:</strong> Implementing Gauss-Seidel barycentric relaxation algorithms to resolve vertical node collisions and untangle spaghetti link ribbons.</li>
             <li><strong>Cubic Bézier Ribbon Geometry:</strong> Constructing seamless dual-spline vector path polygons connecting source and target nodes with smooth horizontal tangent control points.</li>
-            <li><strong>Kirchhoff Flow Conservation Laws:</strong> Enforcing volume balance ($\sum \text{Inflow} = \sum \text{Outflow}$) while managing drop-off leakage, unallocated residuals, and multi-tier cascades.</li>
+            <li><strong>Kirchhoff Flow Conservation Laws:</strong> Enforcing volume balance (&Sigma; Inflow = &Sigma; Outflow) while managing drop-off leakage, unallocated residuals, and multi-tier cascades.</li>
             <li><strong>Hardware-Accelerated Interaction &amp; Telemetry:</strong> Engineering zero-lag ribbon hover highlighting, live data tooltips, animated stream pulses via CSS stroke-dashoffset, and pure SVG export.</li>
           </ul>
         </div>
@@ -395,7 +444,7 @@ html_content = r'''<!DOCTYPE html>
 
         <section id="introduction-flow-imperative">
           <h2>1. Introduction: The Visual Conservation of Flow in Modern Architecture</h2>
-          <p>In data-driven enterprise engineering, financial auditing, sustainability science, and distributed cloud computing, systems are fundamentally governed by laws of conservation: money flows into an organization and is distributed across payroll, infrastructure, and taxation; electrical energy flows from generation stations through transmission grids to industrial consumers; website visitors arrive at marketing landing pages and filter through onboarding funnels toward conversion or abandonment. Understanding how volume distributes, fragments, consolidates, and dissipates across multi-stage pipelines is crucial for strategic decision-making.</p>
+          <p>In data-driven enterprise engineering, financial auditing, sustainability science, and distributed cloud computing, systems are fundamentally governed by laws of conservation: money flows into an organization and is distributed across payroll, infrastructure, and taxation; electrical energy flows from generation stations through transmission grids to industrial consumers; website visitors arrive at marketing landing pages and filter through onboarding funnels toward conversion or abandonment. Understanding how volume distributes, fragments, consolidates, and dissipates across multi-stage pipelines is crucial for strategic decision-making. For quantitative financial time-series architectures, see our companion guide on <a href="/articles/svg-candlestick-charts-and-financial-visualization-guide/">SVG candlestick charts and financial visualizations</a>.</p>
 
           <p>Standard data visualization tools—such as bar charts, line graphs, and pie charts—fail catastrophically when tasked with representing relational multi-stage flows. A pie chart can display the breakdown of a cloud infrastructure bill at a single point in time, but it cannot show which specific microservices triggered the cost surge, how database queries routed across caching tiers, or where network egress fees accumulated. Similarly, node-link flowcharts convey logical topology but completely omit quantitative volume: a thin configuration link looks identical to a high-bandwidth 100 Gbps network trunk.</p>
 
@@ -408,24 +457,69 @@ html_content = r'''<!DOCTYPE html>
             <li><strong>Scalable Vector Graphics (SVG):</strong> SVG is the natural, mathematically rigorous medium for Sankey diagrams. In SVG, every node is an accessible <code>&lt;rect&gt;</code>, and every flowing ribbon is a declarative <code>&lt;path&gt;</code> with smooth cubic Bézier curves. SVG paths natively support two-point linear gradients that transition smoothly from the source node's brand color to the target node's color. Furthermore, SVG elements support direct CSS pseudo-class styling, event delegation, screen reader accessibility labels, and lossless export into high-DPI vector PDF reports.</li>
           </ul>
 
-          <p>In this comprehensive architectural guide, we construct a production-grade, dependency-free SVG Sankey flow engine from mathematical first principles.</p>
+          <p>          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architectural Dimension</th>
+                  <th>HTML5 Canvas / WebGL</th>
+                  <th>Traditional D3 Sankey</th>
+                  <th>IconStash Hardware-Accelerated SVG Architecture</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Geometry Pipeline</strong></td>
+                  <td>Rasterized pixel approximation; no curve inspection</td>
+                  <td>Dual cubic Bézier splines rendered as individual paths</td>
+                  <td>Continuous cubic Bézier ribbons with GPU path acceleration</td>
+                </tr>
+                <tr>
+                  <td><strong>Interactive Dragging</strong></td>
+                  <td>Manual bounding-box collision math in JavaScript</td>
+                  <td>Full-scene DOM rebuilding during drag events</td>
+                  <td>PointerEvent coordinate capture with O(1) ribbon redraw</td>
+                </tr>
+                <tr>
+                  <td><strong>Streamline Animations</strong></td>
+                  <td>Procedural pixel particle simulators (high CPU load)</td>
+                  <td>requestAnimationFrame loop updating SVG attributes</td>
+                  <td>CSS hardware-accelerated stroke-dashoffset at 120 FPS</td>
+                </tr>
+                <tr>
+                  <td><strong>WCAG 2.2 AA Compliance</strong></td>
+                  <td>Zero DOM accessibility; invisible to screen readers</td>
+                  <td>Basic SVG text labels without relational semantics</td>
+                  <td>Semantic flow narration tables &amp; ARIA relationship tokens</td>
+                </tr>
+                <tr>
+                  <td><strong>Datasheet PDF Export</strong></td>
+                  <td>300 DPI raster blur in annual financial disclosures</td>
+                  <td>Complex multi-step canvas raster bridge</td>
+                  <td>Lossless vector PDF reproduction for investor prospectuses</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>In this comprehensive architectural guide, we construct a production-grade, dependency-free SVG Sankey flow engine from mathematical first principles. Similar to the topological routing explored in our engineering guide on <a href="/articles/svg-circuit-diagrams-and-schematic-visualization-guide/">SVG circuit diagrams and electrical schematics</a>, node stratification and ribbon crossings demand rigorous algorithmic untangling.</p>
         </section>
 
         <section id="dag-topology-and-stratification">
           <h2>2. Directed Acyclic Graph (DAG) Topology &amp; Node Stratification</h2>
-          <p>At its mathematical core, a Sankey diagram represents a weighted <strong>Directed Acyclic Graph (DAG)</strong>, denoted as $G = (V, E)$, where $V$ represents the set of nodes (entities) and $E$ represents the set of directed links with positive weights $W(u, v) > 0$. Before any visual coordinates can be assigned, the graph must undergo topological analysis to eliminate cycles and stratify nodes into ordered horizontal columns.</p>
+          <p>At its mathematical core, a Sankey diagram represents a weighted <strong>Directed Acyclic Graph (DAG)</strong>, denoted as <em>G</em> = (<em>V</em>, <em>E</em>), where <em>V</em> represents the set of nodes (entities) and <em>E</em> represents the set of directed links with positive weights <em>W</em>(<em>u</em>, <em>v</em>) &gt; 0. Before any visual coordinates can be assigned, the graph must undergo topological analysis to eliminate cycles and stratify nodes into ordered horizontal columns.</p>
 
           <h3>2.1 Cycle Detection &amp; Resolution</h3>
-          <p>Pure Sankey diagrams assume a unidirectional progression of flow from left to right (upstream to downstream). If the dataset contains cyclical dependencies (e.g. Node A $\to$ Node B $\to$ Node C $\to$ Node A), a standard left-to-right layout algorithm enters an infinite loop or produces backwards-pointing ribbons that collide chaotically with forward flows.</p>
+          <p>Pure Sankey diagrams assume a unidirectional progression of flow from left to right (upstream to downstream). If the dataset contains cyclical dependencies (e.g. Node A &rarr; Node B &rarr; Node C &rarr; Node A), a standard left-to-right layout algorithm enters an infinite loop or produces backwards-pointing ribbons that collide chaotically with forward flows. As with the hierarchical graph traversals analyzed in our architectural breakdown of <a href="/articles/svg-tree-diagrams-and-hierarchical-visualization-guide/">SVG tree diagrams and hierarchical layouts</a> and <a href="/articles/svg-coordinate-systems-and-transformations-guide/">SVG coordinate systems and transformations</a>, directed graph traversal and cycle resolution form the backbone of vector layout engines.</p>
 
           <p>Our engine executes a <strong>Depth-First Search (DFS) Cycle Detection Pass</strong> using three-color node marking (White = unvisited, Gray = currently evaluating in recursion stack, Black = fully visited). If a back-edge pointing to a currently active Gray node is detected, the cycle is resolved by either:</p>
           <ol>
             <li><strong>Back-Edge Reversal:</strong> Temporarily inverting the direction of the offending link for layout computation purposes, marking it with a distinctive return ribbon styling.</li>
-            <li><strong>Virtual Node Duplication:</strong> Splitting the cyclical node into an initial source node ($A_{\text{in}}$) and a terminal feedback node ($A_{\text{out}}$), preserving strict left-to-right DAG monotonicity.</li>
+            <li><strong>Virtual Node Duplication:</strong> Splitting the cyclical node into an initial source node (<em>A</em><sub>in</sub>) and a terminal feedback node (<em>A</em><sub>out</sub>), preserving strict left-to-right DAG monotonicity.</li>
           </ol>
 
           <h3>2.2 Node Stratification (Layer Assignment)</h3>
-          <p>Once acyclicity is guaranteed, every node $v \in V$ must be assigned a discrete horizontal layer index $L(v) \in \{0, 1, 2, \dots, L_{\text{max}}\}$. The layer index determines which vertical column the node occupies on the canvas.</p>
+          <p>Once acyclicity is guaranteed, every node <em>v</em> &isin; <em>V</em> must be assigned a discrete horizontal layer index <em>L</em>(<em>v</em>) &isin; {0, 1, 2, &hellip;, <em>L</em><sub>max</sub>}. The layer index determines which vertical column the node occupies on the canvas.</p>
 
           <p>The standard architectural approach uses the <strong>Longest Path Layering Algorithm</strong>:</p>
 
@@ -438,7 +532,7 @@ html_content = r'''<!DOCTYPE html>
           <h3>2.3 Kahn's Topological Sort Algorithm for DAG Validation</h3>
           <p>To compute the longest path ordering systematically without risking runtime stack overflows on large graphs, our engine implements <strong>Kahn's Algorithm</strong> for topological sorting. The algorithm maintains an in-degree counter for every node in the graph. Nodes with zero in-degree are pushed into an evaluation queue. As each node is dequeued, it is appended to the topological sequence, and the in-degree of all its downstream target nodes is decremented. If a target node's in-degree reaches zero, it enters the queue.</p>
 
-          <p>If the final topological sequence contains fewer nodes than the total graph vertex count $|V|$, a cyclical dependency exists. Kahn's algorithm isolates the exact subset of cyclical nodes, allowing the engine to execute targeted back-edge reversal without corrupting the broader graph hierarchy.</p>
+          <p>If the final topological sequence contains fewer nodes than the total graph vertex count |<em>V</em>|, a cyclical dependency exists. Kahn's algorithm isolates the exact subset of cyclical nodes, allowing the engine to execute targeted back-edge reversal without corrupting the broader graph hierarchy.</p>
 
           <h3>2.4 Dynamic Viewport Resizing &amp; Responsive Vector Preservation</h3>
           <p>A critical engineering advantage of rendering Sankey diagrams in native SVG is responsive adaptation. Unlike canvas implementations that require complete procedural recreation upon window resize, an SVG Sankey diagram leverages the declarative <code>viewBox="0 0 740 400"</code> coordinate system coupled with CSS fluid widths: <code>width: 100%; height: auto;</code>.</p>
@@ -448,8 +542,8 @@ html_content = r'''<!DOCTYPE html>
           <p>To optimize aesthetic balance, our engine supports three distinct column alignment strategies:</p>
           <ul>
             <li><strong>Left-Aligned (Default):</strong> Pushes every node as far to the left as possible according to the Longest Path rule.</li>
-            <li><strong>Right-Aligned (Sink-Anchored):</strong> Terminal sink nodes with no outgoing links are aligned to the rightmost column ($L_{\text{max}}$), and intermediate nodes are shifted rightward to shorten terminal ribbons.</li>
-            <li><strong>Justified (Edge-Balanced):</strong> Source nodes anchor to column 0, sink nodes anchor to $L_{\text{max}}$, and intermediate nodes are spaced evenly across internal columns.</li>
+            <li><strong>Right-Aligned (Sink-Anchored):</strong> Terminal sink nodes with no outgoing links are aligned to the rightmost column (<em>L</em><sub>max</sub>), and intermediate nodes are shifted rightward to shorten terminal ribbons.</li>
+            <li><strong>Justified (Edge-Balanced):</strong> Source nodes anchor to column 0, sink nodes anchor to <em>L</em><sub>max</sub>, and intermediate nodes are spaced evenly across internal columns.</li>
           </ul>
 
           <div class="formula-card">
@@ -461,7 +555,7 @@ html_content = r'''<!DOCTYPE html>
 
         <section id="relaxation-and-crossing-minimization">
           <h2>3. Iterative Relaxation Algorithms: Gauss-Seidel Barycenter Untangling</h2>
-          <p>While assigning nodes to horizontal columns is straightforward, determining the optimal vertical ($Y$) order and spacing of nodes within each column is a mathematically challenging problem. In computer science and graph drawing literature, minimizing link crossings in a multi-layered graph is known to be an <strong>NP-hard problem</strong>.</p>
+          <p>While assigning nodes to horizontal columns is straightforward, determining the optimal vertical (<em>Y</em>) order and spacing of nodes within each column is a mathematically challenging problem. In computer science and graph drawing literature, minimizing link crossings in a multi-layered graph is known to be an <strong>NP-hard problem</strong>.</p>
 
           <p>If nodes within a column are ordered arbitrarily, link ribbons will cross over one another repeatedly, resulting in an unreadable visual tangle. To untangle these crossings and produce clean, publication-grade flows, our engine implements an <strong>Iterative Gauss-Seidel Barycentric Relaxation Algorithm</strong>.</p>
 
@@ -476,9 +570,9 @@ html_content = r'''<!DOCTYPE html>
 
           <p>The relaxation engine executes multiple iterative sweeps (typically 24 to 32 passes):</p>
           <ol>
-            <li><strong>Forward Sweep (Left to Right):</strong> For columns $L = 1$ to $L_{\text{max}}$, update each node's position toward the barycenter of its upstream source neighbors.</li>
-            <li><strong>Vertical Collision Resolution:</strong> Sort nodes within the column by their new tentative $Y$ coordinates. Scan from top to bottom, shifting overlapping nodes downward to enforce a mandatory vertical padding gap $G_{\text{node}}$ (typically 10px to 16px). If the column extends past the bottom canvas boundary, scan from bottom to top and shift nodes upward.</li>
-            <li><strong>Backward Sweep (Right to Left):</strong> For columns $L = L_{\text{max}} - 1$ down to 0, update each node's position toward the barycenter of its downstream target neighbors, followed by collision resolution.</li>
+            <li><strong>Forward Sweep (Left to Right):</strong> For columns <em>L</em> = 1 to <em>L</em><sub>max</sub>, update each node's position toward the barycenter of its upstream source neighbors.</li>
+            <li><strong>Vertical Collision Resolution:</strong> Sort nodes within the column by their new tentative <em>Y</em> coordinates. Scan from top to bottom, shifting overlapping nodes downward to enforce a mandatory vertical padding gap <em>G</em><sub>node</sub> (typically 10px to 16px). If the column extends past the bottom canvas boundary, scan from bottom to top and shift nodes upward.</li>
+            <li><strong>Backward Sweep (Right to Left):</strong> For columns <em>L</em> = <em>L</em><sub>max</sub> - 1 down to 0, update each node's position toward the barycenter of its downstream target neighbors, followed by collision resolution.</li>
           </ol>
 
           <p>With each alternating sweep, link crossings decrease exponentially, and ribbons settle into smooth, parallel trajectories that communicate flow hierarchy with optimal clarity.</p>
@@ -491,10 +585,10 @@ html_content = r'''<!DOCTYPE html>
           <h3>4.1 The Four-Point Boundary Formula</h3>
           <p>A Sankey ribbon is not a single line; it is a closed two-dimensional polygon bounded by four distinct coordinate edges:</p>
           <ol>
-            <li><strong>Top Forward Curve:</strong> A cubic Bézier curve traveling from the source anchor $(x_0, y_{0,\text{top}})$ to the target anchor $(x_1, y_{1,\text{top}})$.</li>
-            <li><strong>Target Vertical Edge:</strong> A straight vertical line dropping along the target node edge from $y_{1,\text{top}}$ to $y_{1,\text{bottom}} = y_{1,\text{top}} + H_{\text{link}}$.</li>
-            <li><strong>Bottom Reverse Curve:</strong> A cubic Bézier curve traveling backwards from the target anchor $(x_1, y_{1,\text{bottom}})$ back to the source anchor $(x_0, y_{0,\text{bottom}})$.</li>
-            <li><strong>Source Vertical Edge:</strong> A straight vertical line rising along the source node edge back to $(x_0, y_{0,\text{top}})$, closed via <code>Z</code>.</li>
+            <li><strong>Top Forward Curve:</strong> A cubic Bézier curve traveling from the source anchor (<em>x</em><sub>0</sub>, <em>y</em><sub>0,top</sub>) to the target anchor (<em>x</em><sub>1</sub>, <em>y</em><sub>1,top</sub>).</li>
+            <li><strong>Target Vertical Edge:</strong> A straight vertical line dropping along the target node edge from <em>y</em><sub>1,top</sub> to <em>y</em><sub>1,bottom</sub> = <em>y</em><sub>1,top</sub> + <em>H</em><sub>link</sub>.</li>
+            <li><strong>Bottom Reverse Curve:</strong> A cubic Bézier curve traveling backwards from the target anchor (<em>x</em><sub>1</sub>, <em>y</em><sub>1,bottom</sub>) back to the source anchor (<em>x</em><sub>0</sub>, <em>y</em><sub>0,bottom</sub>).</li>
+            <li><strong>Source Vertical Edge:</strong> A straight vertical line rising along the source node edge back to (<em>x</em><sub>0</sub>, <em>y</em><sub>0,top</sub>), closed via <code>Z</code>.</li>
           </ol>
 
           <div class="formula-card">
@@ -522,7 +616,7 @@ function generateSankeyRibbonPath(x0, y0Top, x1, y1Top, linkHeight, curvature = 
 }</code></pre>
 
           <h3>4.2 Two-Point Dynamic Linear Gradients</h3>
-          <p>To enhance visual comprehension, each link ribbon should visually convey the conceptual transition between source and target entities. In SVG, this is achieved by synthesizing a unique <code>&lt;linearGradient&gt;</code> element in the SVG <code>&lt;defs&gt;</code> container for every active link, configuring <code>gradientUnits="userSpaceOnUse"</code> spanning from $x_0$ to $x_1$:</p>
+          <p>To enhance visual comprehension, each link ribbon should visually convey the conceptual transition between source and target entities. In SVG, this is achieved by synthesizing a unique <code>&lt;linearGradient&gt;</code> element in the SVG <code>&lt;defs&gt;</code> container for every active link, configuring <code>gradientUnits="userSpaceOnUse"</code> spanning from <em>x</em><sub>0</sub> to <em>x</em><sub>1</sub>:</p>
 
           <pre><code>&lt;!-- Dynamic Ribbon Color Gradient --&gt;
 &lt;defs&gt;
@@ -538,12 +632,12 @@ function generateSankeyRibbonPath(x0, y0Top, x1, y1Top, linkHeight, curvature = 
 
         <section id="flow-conservation-and-balancing">
           <h2>5. Kirchhoff Flow Conservation &amp; Drop-Off Residual Handling</h2>
-          <p>In classical thermodynamic and mechanical engineering applications, Sankey diagrams strictly observe <strong>Kirchhoff's Conservation Laws</strong>: energy can neither be created nor destroyed, meaning the total inflow into any intermediate node must equal the total outflow precisely ($\sum V_{\text{in}} = \sum V_{\text{out}}$).</p>
+          <p>In classical thermodynamic and mechanical engineering applications, Sankey diagrams strictly observe <strong>Kirchhoff's Conservation Laws</strong>: energy can neither be created nor destroyed, meaning the total inflow into any intermediate node must equal the total outflow precisely (&Sigma; <em>V</em><sub>in</sub> = &Sigma; <em>V</em><sub>out</sub>).</p>
 
           <p>However, in modern software engineering, sales marketing funnels, and corporate budget analysis, real-world data frequently exhibits imbalances:</p>
           <ul>
             <li><strong>Funnel Drop-Off (Leaking Funnels):</strong> In an e-commerce checkout funnel, 100,000 users visit the product page, but only 24,000 proceed to cart, and 8,000 complete purchase. The remaining 76,000 users drop off at stage 1.</li>
-            <li><strong>Infrastructure Overhead &amp; Cloud Waste:</strong> An enterprise allocates $100,000 in monthly compute budget, but only $72,000 maps to active customer tenant workloads, with $28,000 lost to idle capacity and unallocated reserved instances.</li>
+            <li><strong>Infrastructure Overhead &amp; Cloud Waste:</strong> An enterprise allocates 100,000 USD in monthly compute budget, but only 72,000 USD maps to active customer tenant workloads, with 28,000 USD lost to idle capacity and unallocated reserved instances.</li>
           </ul>
 
           <div class="formula-card">
@@ -680,7 +774,7 @@ function generateSankeyRibbonPath(x0, y0Top, x1, y1Top, linkHeight, curvature = 
           <p>Experiment with the workbench using the following interactive controls:</p>
           <ul>
             <li><strong>Select Flow Topology Preset:</strong> Switch between four real-world data systems: <em>Cloud Infrastructure Cost</em> (compute, database, and egress spending), <em>SaaS Conversion Funnel</em> (visitor drop-off across marketing stages), <em>Global Renewable Energy Grid</em> (generation to consumption transmission), and <em>Personal Household Cashflow</em> (gross income to taxes, housing, and investments).</li>
-            <li><strong>Adjust Ribbon Curvature:</strong> Use the interactive slider to tune the cubic Bézier curvature factor $\alpha$ from 0.1 (sharp angular transitions) to 0.9 (deep dramatic S-curves), watching the SVG path definitions recalculate instantaneously.</li>
+            <li><strong>Adjust Ribbon Curvature:</strong> Use the interactive slider to tune the cubic Bézier curvature factor <em>&alpha;</em> from 0.1 (sharp angular transitions) to 0.9 (deep dramatic S-curves), watching the SVG path definitions recalculate instantaneously.</li>
             <li><strong>Select Color Palette:</strong> Switch between four accessible palettes: <em>Cyberpunk Neon</em>, <em>Corporate FinTech Slate</em>, <em>Botanical Green</em>, and <em>Solar Amber</em>.</li>
             <li><strong>Interactive Ribbon Inspection:</strong> Hover your mouse or tap any flowing ribbon. The inspection HUD displays the source entity, target entity, absolute volume, and percentage share of total flow.</li>
             <li><strong>Export Vector Assets:</strong> Click "Copy SVG Markup" to copy the standalone SVG element directly to your clipboard, ready for inclusion in executive slide decks or vector dashboards.</li>
@@ -775,7 +869,7 @@ function generateSankeyRibbonPath(x0, y0Top, x1, y1Top, linkHeight, curvature = 
           <h2>8. Interactive Node Dragging &amp; Real-Time Path Recalculation</h2>
           <p>While algorithmic barycentric relaxation provides an optimal baseline layout, human domain experts frequently need to reposition nodes to align with organizational reporting structures, project hierarchies, or presentation aesthetics. A production-grade SVG Sankey engine must support fluid, 60 FPS drag-and-drop repositioning.</p>
 
-          <p>When an engineer initiates a drag event on an SVG node <code>&lt;rect&gt;</code>, the engine constrains movement to the vertical Y-axis, keeping the node anchored strictly within its assigned topological column. As the node translates vertically, recomputing the entire graph layout from scratch is an anti-pattern that introduces perceptible lag. Instead, the engine executes localized $O(K)$ updates, where $K$ is the number of links directly connected to the active node.</p>
+          <p>When an engineer initiates a drag event on an SVG node <code>&lt;rect&gt;</code>, the engine constrains movement to the vertical Y-axis, keeping the node anchored strictly within its assigned topological column. As the node translates vertically, recomputing the entire graph layout from scratch is an anti-pattern that introduces perceptible lag. Instead, the engine executes localized <em>O</em>(<em>K</em>) updates, where <em>K</em> is the number of links directly connected to the active node.</p>
 
           <div class="formula-card">
             <div class="formula-title">Localized Ribbon Recalculation on Drag</div>
@@ -833,7 +927,7 @@ function exportSankeyToStandaloneSVG(svgElement) {
 
           <p>To preserve visual legibility and maintain 60 FPS rendering performance, high-grade vector flow engines employ <strong>Adaptive Link Bundling</strong> and <strong>Threshold Culling</strong>:</p>
           <ul>
-            <li><strong>Minimum Flow Threshold Culling:</strong> In dense systems, the bottom 80% of links often represent less than 2% of total cumulative flow (e.g. tiny stray telemetry pings). The engine filters out links below a configurable significance threshold (such as $\text{Link\_Val} < 0.005 \times \text{Total\_Flow}$), aggregating them into a single semi-transparent grey "Other / Miscellaneous" ribbon. This eliminates 75% of visual clutter without discarding aggregate mass.</li>
+            <li><strong>Minimum Flow Threshold Culling:</strong> In dense systems, the bottom 80% of links often represent less than 2% of total cumulative flow (e.g. tiny stray telemetry pings). The engine filters out links below a configurable significance threshold (such as Link_Val &lt; 0.005 &times; Total_Flow), aggregating them into a single semi-transparent grey "Other / Miscellaneous" ribbon. This eliminates 75% of visual clutter without discarding aggregate mass.</li>
             <li><strong>Hierarchical Node Aggregation:</strong> When nodes in a layer share identical parents and children, they are collapsed into an expandable composite group node (e.g. "Microservices Pool [8 pods]"), allowing viewers to drill down into sub-flows on demand.</li>
           </ul>
         </section>
@@ -902,36 +996,33 @@ function exportSankeyToStandaloneSVG(svgElement) {
         </section>
       </article>
 
-      <aside class="article-sidebar">
-        <div class="sidebar-widget">
-          <div class="widget-title">Table of Contents</div>
-          <ul class="toc-list">
-            <li><a href="#introduction-flow-imperative">1. Visual Conservation of Flow</a></li>
-            <li><a href="#dag-topology-and-stratification">2. DAG Topology &amp; Layers</a></li>
-            <li><a href="#relaxation-and-crossing-minimization">3. Gauss-Seidel Relaxation</a></li>
-            <li><a href="#cubic-bezier-ribbon-geometry">4. Cubic Ribbon Geometry</a></li>
-            <li><a href="#flow-conservation-and-balancing">5. Kirchhoff Flow Conservation</a></li>
-            <li><a href="#architectural-pipeline-diagram">6. Architectural Pipeline</a></li>
-            <li><a href="#interactive-sankey-studio">7. Interactive Developer Studio</a></li>
-            <li><a href="#interactive-node-dragging">8. Interactive Node Dragging</a></li>
-            <li><a href="#alluvial-vs-sankey-distinctions">9. Alluvial vs. Sankey</a></li>
-            <li><a href="#enterprise-pdf-and-datasheet-export">10. Vector PDF Export</a></li>
-            <li><a href="#large-scale-graph-optimization">11. Dense Graph Optimization</a></li>
-            <li><a href="#animated-flow-particles">12. Animated Stream Dashes</a></li>
-            <li><a href="#accessibility-and-screen-readers">13. Accessibility &amp; WCAG</a></li>
-            <li><a href="#faq-section">14. Frequently Asked Questions</a></li>
-          </ul>
+            <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <ol>
+              <li><a href="#introduction-flow-imperative">1. Visual Conservation of Flow</a></li>
+              <li><a href="#dag-topology-and-stratification">2. DAG Topology &amp; Stratification</a></li>
+              <li><a href="#relaxation-and-crossing-minimization">3. Gauss-Seidel Relaxation</a></li>
+              <li><a href="#cubic-bezier-ribbon-geometry">4. Cubic Bézier Ribbon Geometry</a></li>
+              <li><a href="#flow-conservation-and-balancing">5. Kirchhoff Flow Conservation</a></li>
+              <li><a href="#architectural-pipeline-diagram">6. Architectural Pipeline</a></li>
+              <li><a href="#interactive-sankey-studio">7. Interactive Developer Studio</a></li>
+              <li><a href="#interactive-node-dragging">8. Interactive Node Dragging</a></li>
+              <li><a href="#alluvial-vs-sankey-distinctions">9. Alluvial vs Sankey</a></li>
+              <li><a href="#enterprise-pdf-and-datasheet-export">10. Vector Datasheet Export</a></li>
+              <li><a href="#large-scale-graph-optimization">11. Performance Optimization</a></li>
+              <li><a href="#animated-flow-particles">12. Animated Flow Particles</a></li>
+              <li><a href="#accessibility-and-screen-readers">13. Accessibility &amp; WCAG AA</a></li>
+              <li><a href="#faq-section">14. Frequently Asked Questions</a></li>
+            </ol>
+          </nav>
         </div>
 
-        <div class="sidebar-widget">
-          <div class="widget-title">Engineering Specs</div>
-          <div class="resource-card">
-            <strong>Author:</strong> Jouni Flemming<br>
-            <strong>Organization:</strong> Great Software Company<br>
-            <strong>Standard:</strong> Directed Acyclic Graph (DAG)<br>
-            <strong>Spline Math:</strong> Dual-Cubic Bézier (C)<br>
-            <strong>Published:</strong> Nov 15, 2026
-          </div>
+        <div class="cta-sidebar-box">
+          <h4>Need Production Icons?</h4>
+          <p>Access over 134,000+ optimized vector icons, customizable stroke weights, and instant React/SVG export.</p>
+          <a href="/#/" class="cta-sidebar-btn">Search Free Icons</a>
         </div>
       </aside>
     </div>
@@ -1121,7 +1212,7 @@ function exportSankeyToStandaloneSVG(svgElement) {
 
         // Compute HUD Metrics
         let totalFlow = topo.nodes.filter(n => n.col === 0).reduce((sum, n) => sum + n.val, 0);
-        if (hudVolume) hudVolume.textContent = topo.unit === '$' ? `$${totalFlow.toLocaleString()}` : `${totalFlow.toLocaleString()} ${topo.unit}`.trim();
+        if (hudVolume) hudVolume.textContent = topo.unit === '$' ? ('$' + totalFlow.toLocaleString()) : `${totalFlow.toLocaleString()} ${topo.unit}`.trim();
         if (hudNodes) hudNodes.textContent = `${topo.nodes.length} Nodes`;
         if (hudLinks) hudLinks.textContent = `${topo.links.length} Ribbons`;
 
@@ -1169,7 +1260,7 @@ function exportSankeyToStandaloneSVG(svgElement) {
 
           const centerPath = `M ${x0.toFixed(1)} ${(y0Top + linkH / 2).toFixed(1)} C ${cp1x.toFixed(1)} ${(y0Top + linkH / 2).toFixed(1)}, ${cp2x.toFixed(1)} ${(y1Top + linkH / 2).toFixed(1)}, ${x1.toFixed(1)} ${(y1Top + linkH / 2).toFixed(1)}`;
 
-          const valFmt = topo.unit === '$' ? `$${l.val.toLocaleString()}` : `${l.val.toLocaleString()} ${topo.unit}`;
+          const valFmt = topo.unit === '$' ? ('$' + l.val.toLocaleString()) : `${l.val.toLocaleString()} ${topo.unit}`;
 
           svg += `
             <g class="sankey-ribbon-group" data-src="${src.name}" data-tgt="${tgt.name}" data-val="${valFmt}">
@@ -1183,7 +1274,7 @@ function exportSankeyToStandaloneSVG(svgElement) {
         // Render Nodes (Rectangles + Labels)
         svg += `<g class="sankey-nodes-layer">`;
         nodeMap.forEach(n => {
-          const valFmt = topo.unit === '$' ? `$${n.val.toLocaleString()}` : `${n.val.toLocaleString()} ${topo.unit}`;
+          const valFmt = topo.unit === '$' ? ('$' + n.val.toLocaleString()) : `${n.val.toLocaleString()} ${topo.unit}`;
           const isLeft = n.x < width / 2;
           const textAnchor = isLeft ? 'start' : 'end';
           const textX = isLeft ? n.x + nodeWidth + 8 : n.x - 8;
@@ -1222,7 +1313,7 @@ function exportSankeyToStandaloneSVG(svgElement) {
 
         // Update Code Preview Snippet
         if (codePreview) {
-          const sample = `<svg viewBox="0 0 740 400" xmlns="http://www.w3.org/2000/svg">\n  <!-- Sankey Ribbon Path -->\n  <path d="M 60.0 120.0 C 180.0 120.0, 180.0 160.0, 300.0 160.0 L ... Z"\n        fill="url(#linkGrad_0)" fill-opacity="0.6"/>\n  <!-- Rect Node -->\n  <rect x="60" y="80" width="${nodeWidth}" height="140" rx="3" fill="${colors[0]}"/>\n  ...\n</svg>`;
+          const sample = `<svg viewBox="0 0 740 400" xmlns="http://www.w3.org/2000/svg">\n  <!-- Generated Sankey Flow Ribbon -->\n  <path d="M 60.0 120.0 C 180.0 120.0, 180.0 160.0, 300.0 160.0 L 300.0 200.0 C 180.0 200.0, 180.0 160.0, 60.0 160.0 Z"\n        fill="url(#linkGrad_0)" fill-opacity="0.6"/>\n  <!-- Rect Node -->\n  <rect x="60" y="80" width="${nodeWidth}" height="140" rx="3" fill="${colors[0]}"/>\n</svg>`;
           codePreview.textContent = sample;
         }
       }
@@ -1268,15 +1359,39 @@ function exportSankeyToStandaloneSVG(svgElement) {
         });
       }
 
+      function copyToClipboard(text, onSuccess) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+            execCommandFallback(text, onSuccess);
+          });
+        } else {
+          execCommandFallback(text, onSuccess);
+        }
+      }
+
+      function execCommandFallback(text, onSuccess) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          if (onSuccess) onSuccess();
+        } catch (err) {
+          alert('Copied SVG markup to clipboard');
+        }
+        document.body.removeChild(ta);
+      }
+
       if (btnCopy) {
         btnCopy.addEventListener('click', () => {
           if (canvas) {
-            navigator.clipboard.writeText(canvas.outerHTML).then(() => {
+            copyToClipboard(canvas.outerHTML, () => {
               const orig = btnCopy.textContent;
               btnCopy.textContent = 'Copied to Clipboard!';
               setTimeout(() => { btnCopy.textContent = orig; }, 1800);
-            }).catch(() => {
-              alert('Copied SVG markup');
             });
           }
         });
@@ -1293,4 +1408,4 @@ function exportSankeyToStandaloneSVG(svgElement) {
 with open(target_file, "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print(f"Generated {target_file}")
+print(f"Generated {target_file} ({len(html_content)} bytes)")
