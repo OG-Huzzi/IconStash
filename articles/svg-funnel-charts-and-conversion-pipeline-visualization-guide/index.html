@@ -123,7 +123,7 @@
           "name": "How do you calculate the Cartesian coordinates for symmetric trapezoidal funnel stages in SVG?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "For stage i with normalized volume v_i and subsequent volume v_(i+1), top half-width is topW = (maxWidth * (v_i / v_0)) / 2, and bottom half-width is botW = (maxWidth * (v_(i+1) / v_0)) / 2. Given centerline cx and vertical bounds yTop and yBot, the four polygon vertices evaluate to: P1 = (cx - topW, yTop), P2 = (cx + topW, yTop), P3 = (cx + botW, yBot), and P4 = (cx - botW, yBot)."
+            "text": "For stage i with normalized volume v<sub>i</sub> and subsequent volume v<sub>i+1</sub>, top half-width is topW = (maxWidth &times; (v<sub>i</sub> / v<sub>0</sub>)) / 2, and bottom half-width is botW = (maxWidth &times; (v<sub>i+1</sub> / v<sub>0</sub>)) / 2. Given centerline cx and vertical bounds yTop and yBot, the four polygon vertices evaluate to: P1 = (cx - topW, yTop), P2 = (cx + topW, yTop), P3 = (cx + botW, yBot), and P4 = (cx - botW, yBot)."
           }
         },
         {
@@ -139,7 +139,7 @@
           "name": "How are step-to-step conversion and drop-off rates mathematically computed in funnel analytics?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Step-to-step conversion rate measures the retention from the immediately preceding stage: CR_step = (v_i / v_(i-1)) * 100%. Conversely, the drop-off percentage measures user attrition: DropOff_step = ((v_(i-1) - v_i) / v_(i-1)) * 100%. The overall terminal conversion rate evaluates the final converted volume against the root baseline: CR_overall = (v_(final) / v_0) * 100%."
+            "text": "Step-to-step conversion rate measures the retention from the immediately preceding stage: CR(i) = (v[i] / v[i-1]) × 100%. Conversely, the drop-off percentage measures user attrition: DropOff(i) = ((v[i-1] − v[i]) / v[i-1]) × 100%. The overall terminal conversion rate evaluates the final converted volume against the root baseline: CR_total = (v[final] / v[0]) × 100%."
           }
         },
         {
@@ -147,7 +147,7 @@
           "name": "How do you automatically highlight the primary bottleneck stage in an SVG conversion funnel?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The rendering engine iterates through all adjacent stage transitions to compute both absolute volume loss (v_(i-1) - v_i) and relative percentage drop-off. The transition with the highest loss is flagged as the bottleneck. The engine injects high-contrast warning badges, pulsating accent strokes, and contextual callout badges on that specific stage to immediately focus executive attention on optimization opportunities."
+            "text": "The rendering engine iterates through all adjacent stage transitions to compute both absolute volume loss (v<sub>i&minus;1</sub> &minus; v<sub>i</sub>) and relative percentage drop-off. The transition with the highest loss is flagged as the bottleneck. The engine injects high-contrast warning badges, pulsating accent strokes, and contextual callout badges on that specific stage to immediately focus executive attention on optimization opportunities."
           }
         },
         {
@@ -503,12 +503,12 @@
           <h3>2.1 Normalization and Boundary Width Scaling</h3>
           <p>Let an ordered sequence of M conversion stages be defined by quantitative volumes <code>V = [v_0, v_1, v_2, ..., v_{M-1}]</code>, where <code>v_0</code> represents the root baseline volume (100% of incoming users or leads). Let <code>W_{max}</code> represent the maximum allowable pixel width of the funnel at the top opening, bounded by the SVG canvas width and lateral margins allocated for drop-off telemetry badges.</p>
 
-          <p>For any stage i (where 0 &le; i &lt; M), its normalized volume fraction is <code>u_i = v_i / v_0</code> (where 0.0 &le; u_i &le; 1.0). The corresponding top boundary width of stage i is <code>w_{top} = W_{max} &times; u_i</code>. If stage i connects continuously to subsequent stage i + 1, the bottom boundary width of stage i must taper to match the top boundary of stage i + 1: <code>w_{bot} = W_{max} &times; u_{i+1}</code>. (For the terminal stage M - 1, the bottom boundary can either taper to a designated minimum spout width or maintain a rectilinear block shape).</p>
+          <p>For any stage i (where 0 &le; i &lt; M), its normalized volume fraction is <code>u_i = v_i / v_0</code> (where 0.0 &le; u<sub>i</sub> &le; 1.0). The corresponding top boundary width of stage i is <code>w_{top} = W_{max} &times; u_i</code>. If stage i connects continuously to subsequent stage i + 1, the bottom boundary width of stage i must taper to match the top boundary of stage i + 1: <code>w_{bot} = W_{max} &times; u_{i+1}</code>. (For the terminal stage M - 1, the bottom boundary can either taper to a designated minimum spout width or maintain a rectilinear block shape).</p>
 
           <div class="formula-card">
             <div class="formula-title">Symmetric Trapezoid Vertex Transformation</div>
-            <div class="formula-body">x_1 = c_x - w_{top} / 2, &emsp; y_1 = y_{top}<br>x_2 = c_x + w_{top} / 2, &emsp; y_2 = y_{top}<br>x_3 = c_x + w_{bot} / 2, &emsp; y_3 = y_{bot}<br>x_4 = c_x - w_{bot} / 2, &emsp; y_4 = y_{bot}</div>
-            <div class="formula-desc">Where c_x represents the horizontal centerline of the canvas (c_x = W_{canvas} / 2), y_{top} and y_{bot} define the vertical span of the stage, and w_{top} and w_{bot} denote the top and bottom widths.</div>
+            <div class="formula-body">x<sub>1</sub> = c<sub>x</sub> &minus; w<sub>top</sub> / 2, &emsp; y<sub>1</sub> = y<sub>top</sub><br>x<sub>2</sub> = c<sub>x</sub> + w<sub>top</sub> / 2, &emsp; y<sub>2</sub> = y<sub>top</sub><br>x<sub>3</sub> = c<sub>x</sub> + w<sub>bot</sub> / 2, &emsp; y<sub>3</sub> = y<sub>bot</sub><br>x<sub>4</sub> = c<sub>x</sub> &minus; w<sub>bot</sub> / 2, &emsp; y<sub>4</sub> = y<sub>bot</sub></div>
+            <div class="formula-desc">Where c<sub>x</sub> represents the horizontal centerline of the canvas (c<sub>x</sub> = W<sub>canvas</sub> / 2), y<sub>top</sub> and y<sub>bot</sub> define the vertical span of the stage, and w<sub>top</sub> and w<sub>bot</sub> denote the top and bottom widths.</div>
           </div>
 
           <p>In SVG syntax, these four calculated vertices are serialized directly into an SVG <code>&lt;polygon&gt;</code> element:</p>
@@ -527,19 +527,19 @@
 
           <div class="formula-card">
             <div class="formula-title">Logarithmic Width Compression for High-Attrition Funnels</div>
-            <div class="formula-body">w(v) = W_{min} + (W_{max} - W_{min}) &times; [ (log_{10}(v) - log_{10}(v_{min})) / (log_{10}(v_0) - log_{10}(v_{min})) ]</div>
-            <div class="formula-desc">Where W_{min} represents an enforced minimum display width (typically 48px to 64px), ensuring every stage remains substantial enough to render legible text labels, percentage badges, and accessible focus rings.</div>
+            <div class="formula-body">w(v) = W<sub>min</sub> + (W<sub>max</sub> &minus; W<sub>min</sub>) &times; [ (log<sub>10</sub>(v) &minus; log<sub>10</sub>(v<sub>min</sub>)) / (log<sub>10</sub>(v<sub>0</sub>) &minus; log<sub>10</sub>(v<sub>min</sub>)) ]</div>
+            <div class="formula-desc">Where W<sub>min</sub> represents an enforced minimum display width (typically 48px to 64px), ensuring every stage remains substantial enough to render legible text labels, percentage badges, and accessible focus rings.</div>
           </div>
 
-          <p>By enforcing a minimum threshold <code>W_{min}</code>, even micro-conversion terminal steps remain fully interactive while the overall geometric taper communicates the steepness of the drop-off.</p>
+          <p>By enforcing a minimum threshold <code>W<sub>min</sub></code>, even micro-conversion terminal steps remain fully interactive while the overall geometric taper communicates the steepness of the drop-off.</p>
 
           <h3>2.3 Conversion &amp; Retention Delta Equations</h3>
           <p>A funnel chart does not merely display static volumes; its primary analytical utility lies in measuring the rate of transfer between adjacent stages. In data analytics and growth engineering, two distinct mathematical metrics are evaluated at every boundary:</p>
 
           <div class="formula-card">
             <div class="formula-title">Step-to-Step Conversion &amp; Drop-Off Delta Calculus</div>
-            <div class="formula-body">CR_{step}(i) = [ v_i / v_{i-1} ] &times; 100%<br>DropOff_{step}(i) = [ (v_{i-1} - v_i) / v_{i-1} ] &times; 100% = 100% - CR_{step}(i)<br>CR_{overall}(i) = [ v_i / v_0 ] &times; 100%</div>
-            <div class="formula-desc">Where v_{i-1} is the predecessor volume, v_i is the current stage volume, and v_0 is the root baseline. CR_{step} evaluates immediate transition efficiency, while CR_{overall} measures cumulative retention from the initial funnel entry.</div>
+            <div class="formula-body">CR<sub>step</sub>(i) = [ v<sub>i</sub> / v<sub>i&minus;1</sub> ] &times; 100%<br>DropOff<sub>step</sub>(i) = [ (v<sub>i&minus;1</sub> &minus; v<sub>i</sub>) / v<sub>i&minus;1</sub> ] &times; 100% = 100% &minus; CR<sub>step</sub>(i)<br>CR<sub>overall</sub>(i) = [ v<sub>i</sub> / v<sub>0</sub> ] &times; 100%</div>
+            <div class="formula-desc">Where v<sub>i&minus;1</sub> is the predecessor volume, v<sub>i</sub> is the current stage volume, and v<sub>0</sub> is the root baseline. CR<sub>step</sub> evaluates immediate transition efficiency, while CR<sub>overall</sub> measures cumulative retention from the initial funnel entry.</div>
           </div>
 
           <p>Consider a practical SaaS engineering example: a cloud hosting onboarding funnel tracking 5 stages: Landing Visitors (100,000), Account Signups (42,000), Project Created (18,000), Credit Card Verified (5,400), and Paid Production Cluster Launched (3,240). The step conversion rates evaluate to: Signups = 42.0%, Project Created = 42.9%, Credit Card = 30.0%, and Paid Cluster = 60.0%. Here, the Credit Card step represents a massive 70.0% drop-off (12,600 dropped users), instantly exposing the primary product onboarding friction point. For further mathematical foundations in path rendering, review our guide on <a href="/articles/svg-bezier-curves-and-path-math-guide/">SVG Bézier curves and path math</a>.</p>
@@ -547,7 +547,7 @@
           <h3>2.4 Statistical Significance Testing &amp; A/B Variant Comparison</h3>
           <p>When engineering teams run conversion rate optimization (CRO) experiments, comparing two competing funnel variants (e.g., Variant A with a multi-page form versus Variant B with an accordion single-page checkout) requires statistical rigor. Simply observing that Variant B produced a 4.2% higher checkout completion rate is insufficient; growth engineers must determine whether that difference is statistically significant or merely the result of stochastic sampling variance.</p>
 
-          <p>For each conversion step transition from volume n_1 with x_1 conversions to volume n_2 with x_2 conversions, the pooled proportion p is computed as <code>p = (x_1 + x_2) / (n_1 + n_2)</code>. The standard error SE of the difference between the two proportions evaluates to <code>SE = &radic;[ p &times; (1 - p) &times; (1/n_1 + 1/n_2) ]</code>. The resulting two-tailed Z-score is <code>Z = (p_1 - p_2) / SE</code>.</p>
+          <p>For each conversion step transition from volume n<sub>1</sub> with x<sub>1</sub> conversions to volume n<sub>2</sub> with x<sub>2</sub> conversions, the pooled proportion p is computed as <code>p = (x_1 + x_2) / (n_1 + n_2)</code>. The standard error SE of the difference between the two proportions evaluates to <code>SE = &radic;[ p &times; (1 - p) &times; (1/n_1 + 1/n_2) ]</code>. The resulting two-tailed Z-score is <code>Z = (p_1 - p_2) / SE</code>.</p>
 
           <p>In our enterprise SVG funnel architecture, when comparative A/B datasets are ingested, the engine automatically calculates the Z-score for every stage transition. If <code>|Z| &ge; 2.576</code> (corresponding to 99% statistical confidence, p &lt; 0.01), a victory beacon or warning delta icon is rendered beside the variant, preventing engineering teams from prematurely deploying unproven user flows.</p>
 
@@ -562,11 +562,11 @@
 
           <div class="formula-card">
             <div class="formula-title">Continuous Cubic Bézier Funnel Neck Formulation</div>
-            <div class="formula-body">Left Edge: C (x_1, y_{top} + k &times; &Delta;y), &ensp; (x_4, y_{bot} - k &times; &Delta;y), &ensp; (x_4, y_{bot})<br>Right Edge: C (x_3, y_{bot} - k &times; &Delta;y), &ensp; (x_2, y_{top} + k &times; &Delta;y), &ensp; (x_2, y_{top})</div>
-            <div class="formula-desc">Where &Delta;y = y_{bot} - y_{top}, and k represents the vertical curvature factor (typically k = 0.5 for a natural S-curve). Setting horizontal control coordinates equal to their respective endpoints guarantees 100% vertical tangency (dy/dx = &infin;) at stage boundaries.</div>
+            <div class="formula-body">Left Edge: C (x<sub>1</sub>, y<sub>top</sub> + k &times; &Delta;y), &ensp; (x<sub>4</sub>, y<sub>bot</sub> &minus; k &times; &Delta;y), &ensp; (x<sub>4</sub>, y<sub>bot</sub>)<br>Right Edge: C (x<sub>3</sub>, y<sub>bot</sub> &minus; k &times; &Delta;y), &ensp; (x<sub>2</sub>, y<sub>top</sub> + k &times; &Delta;y), &ensp; (x<sub>2</sub>, y<sub>top</sub>)</div>
+            <div class="formula-desc">Where &Delta;y = y<sub>bot</sub> &minus; y<sub>top</sub>, and k represents the vertical curvature factor (typically k = 0.5 for a natural S-curve). Setting horizontal control coordinates equal to their respective endpoints guarantees 100% vertical tangency (dy/dx = &infin;) at stage boundaries.</div>
           </div>
 
-          <p>By enforcing vertical tangency at the junction between stage i and stage i + 1, the slope of the curve matches zero horizontal deviation at the seam. When the bottom of stage i meets the top of stage i + 1, the transition is C^1 continuous (first-derivative continuous), eliminating any sharp corner, kink, or visual discontinuity. In SVG path syntax, this fluid stage is synthesized as:</p>
+          <p>By enforcing vertical tangency at the junction between stage i and stage i + 1, the slope of the curve matches zero horizontal deviation at the seam. When the bottom of stage i meets the top of stage i + 1, the transition is C<sup>1</sup> continuous (first-derivative continuous), eliminating any sharp corner, kink, or visual discontinuity. In SVG path syntax, this fluid stage is synthesized as:</p>
           <pre><code>&lt;path
   d="M 150 40 L 450 40 C 450 75, 405 75, 405 110 L 195 110 C 195 75, 150 75, 150 40 Z"
   fill="url(#smoothFunnelGrad)"
@@ -580,10 +580,10 @@
           <p>While vertical top-to-bottom funnels leverage the physical gravity metaphor, wide desktop analytics consoles often benefit from horizontal left-to-right funnels. In a horizontal funnel, stages advance from left to right along the X-axis, with stage volume mapped to vertical height <code>h_{stage}</code> rather than horizontal width.</p>
           <p>The mathematical transformation simply swaps coordinates: the centerline becomes <code>c_y = H_{canvas} / 2</code>, and top/bottom edges become symmetrical upper and lower bounds: <code>y_{upper} = c_y - h/2</code> and <code>y_{lower} = c_y + h/2</code>. The cubic Bézier control points enforce horizontal tangency (<code>dx/dy = &infin;</code>), creating a streamlined horizontal wind-tunnel aesthetic that aligns perfectly with Western reading order.</p>
         
-          <h3>3.3 Mathematical Formulation of C^2 Continuous Cubic Splines</h3>
-          <p>While C^1 continuity ensures that curve slopes match at stage seams, achieving C^2 continuity (second-derivative curvature continuity) eliminates subtle optical rate-of-change acceleration jumps that can be detected on high-DPI displays. In C^2 splines, the rate of change of the tangent vector is identical on both sides of the boundary.</p>
+          <h3>3.3 Mathematical Formulation of C<sup>2</sup> Continuous Cubic Splines</h3>
+          <p>While C<sup>1</sup> continuity ensures that curve slopes match at stage seams, achieving C<sup>2</sup> continuity (second-derivative curvature continuity) eliminates subtle optical rate-of-change acceleration jumps that can be detected on high-DPI displays. In C<sup>2</sup> splines, the rate of change of the tangent vector is identical on both sides of the boundary.</p>
 
-          <p>To enforce C^2 continuity across sequential funnel stages, the vertical inflection coordinates are adjusted by solving a tridiagonal matrix equation across adjacent stage control points. However, in practical web browser rendering, the perceptual difference between C^1 dual-cubic Bézier curves and full C^2 natural splines is less than 0.2 pixels across a standard 600px canvas. Consequently, the C^1 dual-cubic formulation provides the optimal mathematical balance between visual elegance and lightning-fast analytical computation, requiring zero matrix factorization at runtime.</p>
+          <p>To enforce C<sup>2</sup> continuity across sequential funnel stages, the vertical inflection coordinates are adjusted by solving a tridiagonal matrix equation across adjacent stage control points. However, in practical web browser rendering, the perceptual difference between C<sup>1</sup> dual-cubic Bézier curves and full C<sup>2</sup> natural splines is less than 0.2 pixels across a standard 600px canvas. Consequently, the C<sup>1</sup> dual-cubic formulation provides the optimal mathematical balance between visual elegance and lightning-fast analytical computation, requiring zero matrix factorization at runtime.</p>
 
         </section>
 
@@ -640,7 +640,7 @@
               <text x="14" y="94" fill="#818CF8" font-family="'JetBrains Mono', monospace" font-size="10.5">C cp1x cp1y, cp2x cp2y, x3 y3</text>
               <text x="14" y="120" fill="#FFF" font-family="'Inter', sans-serif" font-size="11.5" font-weight="600">Vertical Tangency:</text>
               <text x="14" y="138" fill="#CCC" font-family="'Inter', sans-serif" font-size="11">k = 0.5 curvature multiplier</text>
-              <text x="14" y="156" fill="#CCC" font-family="'Inter', sans-serif" font-size="11">C^1 smooth stage boundary</text>
+              <text x="14" y="156" fill="#CCC" font-family="'Inter', sans-serif" font-size="11">C&#185; smooth stage boundary</text>
               <text x="14" y="174" fill="#777" font-family="'Inter', sans-serif" font-size="10.5">Zero seam artifacts</text>
             </g>
 
@@ -755,7 +755,7 @@
             </div>
 
             <div class="preview-stage-container">
-              <svg id="funnelStudioCanvas" class="funnel-svg-canvas" viewBox="0 0 600 440" width="600" height="440" role="img" aria-label="Interactive SVG Conversion Funnel Preview">
+              <svg id="funnelStudioCanvas" class="funnel-svg-canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 440" width="600" height="440" role="img" aria-label="Interactive SVG Conversion Funnel Preview">
                 <!-- Rendered dynamically via JavaScript -->
               </svg>
             </div>
@@ -1075,7 +1075,7 @@ class SVGFunnelChart {
           <h3>Architectural Takeaways &amp; Engineering Checklist</h3>
           <ul>
             <li><strong>Symmetric Centerline Invariant:</strong> Always derive stage coordinates relative to a constant horizontal centerline <code>c_x</code> to maintain optical symmetry.</li>
-            <li><strong>C^1 Tangency on Curved Necks:</strong> Set cubic Bézier control points with identical X-coordinates to their respective endpoints to guarantee vertical tangency at stage seams.</li>
+            <li><strong>C<sup>1</sup> Tangency on Curved Necks:</strong> Set cubic Bézier control points with identical X-coordinates to their respective endpoints to guarantee vertical tangency at stage seams.</li>
             <li><strong>Automated Bottleneck Telemetry:</strong> Automatically calculate both volume loss and percentage drop-off to highlight the primary pipeline attrition hurdle.</li>
             <li><strong>WCAG 2.2 AA Contrast Guard:</strong> Remap vibrant cyan and lime hues to deep navy and forest olive in light mode to preserve strict 4.5:1 text contrast.</li>
             <li><strong>Zero-Dependency Lightweight Bundle:</strong> Deploy pure native SVG to achieve sub-2ms initial render speeds without incurring third-party bundle bloat.</li>
@@ -1092,7 +1092,7 @@ class SVGFunnelChart {
 
           <div class="faq-item">
             <div class="faq-question">How do you calculate the Cartesian coordinates for symmetric trapezoidal funnel stages in SVG?</div>
-            <div class="faq-answer">For stage i with normalized volume v_i and subsequent volume v_(i+1), top half-width is topW = (maxWidth * (v_i / v_0)) / 2, and bottom half-width is botW = (maxWidth * (v_(i+1) / v_0)) / 2. Given centerline cx and vertical bounds yTop and yBot, the four polygon vertices evaluate to: P1 = (cx - topW, yTop), P2 = (cx + topW, yTop), P3 = (cx + botW, yBot), and P4 = (cx - botW, yBot).</div>
+            <div class="faq-answer">For stage i with normalized volume v<sub>i</sub> and subsequent volume v<sub>i+1</sub>, top half-width is topW = (maxWidth &times; (v<sub>i</sub> / v<sub>0</sub>)) / 2, and bottom half-width is botW = (maxWidth &times; (v<sub>i+1</sub> / v<sub>0</sub>)) / 2. Given centerline cx and vertical bounds yTop and yBot, the four polygon vertices evaluate to: P1 = (cx - topW, yTop), P2 = (cx + topW, yTop), P3 = (cx + botW, yBot), and P4 = (cx - botW, yBot).</div>
           </div>
 
           <div class="faq-item">
@@ -1102,12 +1102,12 @@ class SVGFunnelChart {
 
           <div class="faq-item">
             <div class="faq-question">How are step-to-step conversion and drop-off rates mathematically computed in funnel analytics?</div>
-            <div class="faq-answer">Step-to-step conversion rate measures the retention from the immediately preceding stage: CR_step = (v_i / v_(i-1)) * 100%. Conversely, the drop-off percentage measures user attrition: DropOff_step = ((v_(i-1) - v_i) / v_(i-1)) * 100%. The overall terminal conversion rate evaluates the final converted volume against the root baseline: CR_overall = (v_(final) / v_0) * 100%.</div>
+            <div class="faq-answer">Step-to-step conversion rate measures the retention from the immediately preceding stage: CR<sub>step</sub>(i) = (v<sub>i</sub> / v<sub>i&minus;1</sub>) &times; 100%. Conversely, the drop-off percentage measures user attrition: DropOff<sub>step</sub>(i) = ((v<sub>i&minus;1</sub> &minus; v<sub>i</sub>) / v<sub>i&minus;1</sub>) &times; 100%. The overall terminal conversion rate evaluates the final converted volume against the root baseline: CR<sub>overall</sub> = (v<sub>final</sub> / v<sub>0</sub>) &times; 100%.</div>
           </div>
 
           <div class="faq-item">
             <div class="faq-question">How do you automatically highlight the primary bottleneck stage in an SVG conversion funnel?</div>
-            <div class="faq-answer">The rendering engine iterates through all adjacent stage transitions to compute both absolute volume loss (v_(i-1) - v_i) and relative percentage drop-off. The transition with the highest loss is flagged as the bottleneck. The engine injects high-contrast warning badges, pulsating accent strokes, and contextual callout badges on that specific stage to immediately focus executive attention on optimization opportunities.</div>
+            <div class="faq-answer">The rendering engine iterates through all adjacent stage transitions to compute both absolute volume loss (v<sub>i&minus;1</sub> &minus; v<sub>i</sub>) and relative percentage drop-off. The transition with the highest loss is flagged as the bottleneck. The engine injects high-contrast warning badges, pulsating accent strokes, and contextual callout badges on that specific stage to immediately focus executive attention on optimization opportunities.</div>
           </div>
 
           <div class="faq-item">
@@ -1216,6 +1216,17 @@ class SVGFunnelChart {
       const statTopDropoff = document.getElementById('statTopDropoff');
       const statTerminalVolume = document.getElementById('statTerminalVolume');
 
+            function calculateLuminance(hexColor) {
+        if (!hexColor.startsWith('#')) return 0.5;
+        let hex = hexColor.replace('#', '');
+        if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+        const r = parseInt(hex.substring(0, 2), 16) / 255;
+        const g = parseInt(hex.substring(2, 4), 16) / 255;
+        const b = parseInt(hex.substring(4, 6), 16) / 255;
+        const a = [r, g, b].map(v => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)));
+        return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+      }
+
       function renderStudio() {
         if (!svgCanvas) return;
         const active = presets[presetSelect.value] || presets.saas;
@@ -1305,6 +1316,12 @@ class SVGFunnelChart {
           }
 
           // Labels
+          const lum = calculateLuminance(fillCol);
+          const cWhite = 1.05 / (lum + 0.05);
+          const cBlack = (lum + 0.05) / 0.053;
+          const titleColor = cBlack >= cWhite ? '#0A0A0A' : '#FFFFFF';
+          const valColor = cBlack >= cWhite ? '#1E1E1E' : 'rgba(255,255,255,0.92)';
+
           const titleTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
           titleTxt.setAttribute('x', cx);
           titleTxt.setAttribute('y', yTop + stageH / 2 - 5);
@@ -1312,7 +1329,7 @@ class SVGFunnelChart {
           titleTxt.setAttribute('font-family', "'Inter', sans-serif");
           titleTxt.setAttribute('font-size', '12px');
           titleTxt.setAttribute('font-weight', '700');
-          titleTxt.setAttribute('fill', '#FFFFFF');
+          titleTxt.setAttribute('fill', titleColor);
           titleTxt.textContent = cur.name;
           g.appendChild(titleTxt);
 
@@ -1322,7 +1339,7 @@ class SVGFunnelChart {
           valTxt.setAttribute('text-anchor', 'middle');
           valTxt.setAttribute('font-family', "'JetBrains Mono', monospace");
           valTxt.setAttribute('font-size', '11px');
-          valTxt.setAttribute('fill', 'rgba(255,255,255,0.85)');
+          valTxt.setAttribute('fill', valColor);
           valTxt.textContent = `${cur.value.toLocaleString()} (${((cur.value / rootVal) * 100).toFixed(1)}%)`;
           g.appendChild(valTxt);
 
@@ -1378,7 +1395,8 @@ class SVGFunnelChart {
       gapRange.addEventListener('input', renderStudio);
 
       btnCopyFunnelSVG.addEventListener('click', () => {
-        const svgSource = svgCanvas.outerHTML;
+        let svgSource = svgCanvas.outerHTML;
+        if (!svgSource.includes('xmlns=')) { svgSource = svgSource.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" '); }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(svgSource).then(() => {
             const originalText = btnCopyFunnelSVG.innerHTML;

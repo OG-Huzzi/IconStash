@@ -509,8 +509,8 @@
 
           <div class="formula-card">
             <div class="formula-title">Worst Aspect Ratio Equation in Squarified Row Layout</div>
-            <div class="formula-body">WorstRatio(R, s) = max_{r &isin; R} [ max( (s^2 &times; r) / s_row^2, s_row^2 / (s^2 &times; r) ) ]</div>
-            <div class="formula-desc">Where s is the length of the shorter side of the remaining bounding container, R is the list of areas in the current candidate row, s_row is the sum of areas in R, and r spans all individual item areas.</div>
+            <div class="formula-body">WorstRatio(R, s) = max<sub>r &isin; R</sub> [ max( (s&sup2; &times; r) / s<sub>row</sub>&sup2;, s<sub>row</sub>&sup2; / (s&sup2; &times; r) ) ]</div>
+            <div class="formula-desc">Where s is the length of the shorter side of the remaining bounding container, R is the list of areas in the current candidate row, s<sub>row</sub> is the sum of areas in R, and r spans all individual item areas.</div>
           </div>
 
           <h3>2.3 Step-by-Step Squarified Execution Flow</h3>
@@ -530,9 +530,9 @@
           <h3>2.4 Mathematical Proof of Aspect Ratio Invariance and Scale Normalization</h3>
           <p>A critical mathematical characteristic of the squarified algorithm is scale invariance. If the quantitative values of all nodes in a dataset are multiplied by an arbitrary scalar factor &lambda; &gt; 0, the normalized area proportions remain strictly identical: <code>area_i = (&lambda; &times; v_i) / &sum; (&lambda; &times; v_k) = v_i / &sum; v_k</code>. Consequently, the sequence of row packing decisions, optimal row flushes, and aspect ratios produced by the Bruls algorithm is invariant under scalar scaling.</p>
 
-          <p>Furthermore, consider the behavior of the worst aspect ratio function <code>WorstRatio(R, s)</code> as successive rectangles are added to a row. When a row contains a single rectangle with area r_1, its aspect ratio is simply <code>max(s_row^2 / (s^2 &times; r_1), (s^2 &times; r_1) / s_row^2)</code>, which reduces to <code>max(r_1 / s^2, s^2 / r_1)</code>. Because the items were pre-sorted descending (v_0 &ge; v_1 &ge; ... &ge; v_n), adding the second item r_2 increases the total row breadth <code>w_row = (r_1 + r_2) / s</code>. If r_1 was significantly smaller than s^2, increasing w_row pulls the individual rectangle dimensions closer to square proportions, driving the worst aspect ratio downward toward 1.0.</p>
+          <p>Furthermore, consider the behavior of the worst aspect ratio function <code>WorstRatio(R, s)</code> as successive rectangles are added to a row. When a row contains a single rectangle with area r<sub>1</sub>, its aspect ratio is simply <code>max(s_row^2 / (s^2 &times; r_1), (s^2 &times; r_1) / s_row^2)</code>, which reduces to <code>max(r_1 / s^2, s^2 / r_1)</code>. Because the items were pre-sorted descending (v<sub>0</sub> &ge; v<sub>1</sub> &ge; ... &ge; v<sub>n</sub>), adding the second item r<sub>2</sub> increases the total row breadth <code>w_row = (r_1 + r_2) / s</code>. If r<sub>1</sub> was significantly smaller than s&sup2;, increasing w<sub>row</sub> pulls the individual rectangle dimensions closer to square proportions, driving the worst aspect ratio downward toward 1.0.</p>
 
-          <p>However, once the accumulated row sum s_row exceeds the threshold where the shortest side of the first rectangle exceeds the breadth of the row, subsequent items will begin to stretch into increasingly elongated horizontal strips. The worst aspect ratio reaches a local minimum and begins to climb monotonically. By detecting this inflection point—the exact moment where <code>WorstRatio(R &cup; {next}) &gt; WorstRatio(R)</code>—the greedy algorithm guarantees that each flushed row captures the local mathematical optimum without requiring exhaustive exponential combinatorial search.</p>
+          <p>However, once the accumulated row sum s<sub>row</sub> exceeds the threshold where the shortest side of the first rectangle exceeds the breadth of the row, subsequent items will begin to stretch into increasingly elongated horizontal strips. The worst aspect ratio reaches a local minimum and begins to climb monotonically. By detecting this inflection point—the exact moment where <code>WorstRatio(R &cup; {next}) &gt; WorstRatio(R)</code>—the greedy algorithm guarantees that each flushed row captures the local mathematical optimum without requiring exhaustive exponential combinatorial search.</p>
 
           <h3>2.5 Comparison with Strip, Pivot, and Voronoi Tiling Topologies</h3>
           <p>While the squarified layout represents the gold standard for general-purpose hierarchical part-to-whole visualization, computer science literature has introduced several alternative tiling topologies designed for specialized constraints:</p>
@@ -707,7 +707,7 @@ const childBounds = {
           <p>When mapping continuous numerical values (such as equity percentage gain/loss) to colors, naive linear interpolation (e.g., mapping -10% to +10% directly between red and green) fails when extreme outliers exist. If one volatile biotech stock jumps +80%, a linear scale flattens all normal stocks (+1% to +3%) into muddy gray tones. To prevent outlier distortion:</p>
           <ul>
             <li><strong>Diverging Sigmoid Compression:</strong> Pass percentage returns through a hyperbolic tangent or clamped sigmoid curve, mapping &plusmn;3% to the primary visual inflection points.</li>
-            <li><strong>Non-Zero Quantile Percentile Binning:</strong> Partition observed values into 5 discrete quantile bins (P_10, P_30, P_50, P_70, P_90), guaranteeing an even, balanced distribution of visual color accents across the canvas.</li>
+            <li><strong>Non-Zero Quantile Percentile Binning:</strong> Partition observed values into 5 discrete quantile bins (P<sub>10</sub>, P<sub>30</sub>, P<sub>50</sub>, P<sub>70</sub>, P<sub>90</sub>), guaranteeing an even, balanced distribution of visual color accents across the canvas.</li>
             <li><strong>Color-Blind Safe Palette Mapping:</strong> Red-green color blindness (deuteranopia and protanopia) affects approximately 8% of men and 0.5% of women globally. In institutional financial interfaces, relying exclusively on red and green hues violates modern accessibility standards. Production treemaps must incorporate dual visual cues—such as pairing directional arrow glyphs (&uarr; / &darr;) or plus/minus prefixes with color, or offering an alternate blue-to-orange color-blind safe palette mode.</li>
           </ul>
 
@@ -717,8 +717,8 @@ const childBounds = {
 
           <div class="formula-card">
             <div class="formula-title">W3C Relative Luminance &amp; Text Color Switch</div>
-            <div class="formula-body">L = 0.2126 &times; R_srgb + 0.7152 &times; G_srgb + 0.0722 &times; B_srgb<br>TextColor = (L &gt; 0.45) ? #0A0A0A : #FFFFFF</div>
-            <div class="formula-desc">Where R_srgb, G_srgb, and B_srgb denote gamma-expanded linear color channels. If the background tile is bright (L &gt; 0.45), text automatically renders in deep obsidian (#0A0A0A); otherwise, it renders in pure white (#FFFFFF), preserving strict WCAG AA contrast.</div>
+            <div class="formula-body">L = 0.2126 &times; R<sub>sRGB</sub> + 0.7152 &times; G<sub>sRGB</sub> + 0.0722 &times; B<sub>sRGB</sub><br>TextColor = (L &gt; 0.45) ? #0A0A0A : #FFFFFF</div>
+            <div class="formula-desc">Where R<sub>sRGB</sub>, G<sub>sRGB</sub>, and B<sub>sRGB</sub> denote gamma-expanded linear color channels. If the background tile is bright (L &gt; 0.45), text automatically renders in deep obsidian (#0A0A0A); otherwise, it renders in pure white (#FFFFFF), preserving strict WCAG AA contrast.</div>
           </div>
         </section>
 
@@ -776,7 +776,7 @@ const childBounds = {
                 <a id="crumbRoot">Global Root</a>
                 <span id="crumbSubPath"></span>
               </div>
-              <svg id="treemapStudioCanvas" class="treemap-svg-canvas" viewBox="0 0 680 440" width="680" height="440" role="img" aria-label="Interactive SVG Squarified Treemap Preview">
+              <svg id="treemapStudioCanvas" class="treemap-svg-canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 440" width="680" height="440" role="img" aria-label="Interactive SVG Squarified Treemap Preview">
                 <!-- Rendered dynamically via JavaScript -->
               </svg>
             </div>
@@ -1442,6 +1442,13 @@ class SVGSquarifiedTreemap {
 
           rect.addEventListener('mouseenter', () => { rect.style.opacity = '0.85'; });
           rect.addEventListener('mouseleave', () => { rect.style.opacity = '1.0'; });
+          rect.addEventListener('click', () => {
+            const padX = Math.max(0, x - 10);
+            const padY = Math.max(0, y - 10);
+            const padW = Math.min(680 - padX, w + 20);
+            const padH = Math.min(440 - padY, h + 20);
+            svgCanvas.setAttribute('viewBox', `${padX} ${padY} ${padW} ${padH}`);
+          });
 
           g.appendChild(rect);
 
@@ -1451,8 +1458,10 @@ class SVGSquarifiedTreemap {
             textG.style.pointerEvents = 'none';
 
             const lum = calculateLuminance(fillCol);
-            const textColor = lum > 0.45 ? '#0A0A0A' : '#FFFFFF';
-            const subColor = lum > 0.45 ? '#262626' : 'rgba(255,255,255,0.78)';
+            const cWhite = 1.05 / (lum + 0.05);
+            const cBlack = (lum + 0.05) / 0.053;
+            const textColor = cBlack >= cWhite ? '#0A0A0A' : '#FFFFFF';
+            const subColor = cBlack >= cWhite ? '#262626' : 'rgba(255,255,255,0.85)';
 
             const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             title.setAttribute('x', x + 8);
@@ -1497,7 +1506,8 @@ class SVGSquarifiedTreemap {
       });
 
       btnCopyTreemapSVG.addEventListener('click', () => {
-        const svgSource = svgCanvas.outerHTML;
+        let svgSource = svgCanvas.outerHTML;
+        if (!svgSource.includes('xmlns=')) { svgSource = svgSource.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" '); }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(svgSource).then(() => {
             const originalText = btnCopyTreemapSVG.innerHTML;

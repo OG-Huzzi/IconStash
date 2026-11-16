@@ -169,6 +169,15 @@ for (const item of deliverables) {
   assert(content.includes('<div class="table-container">') && content.includes('<table>'), 'Deliverable contains responsive data table wrapped in table-container');
   assert(content.includes('.formula-card'), 'Formula card present');
 
+  // Formula clean typography: no raw underscores or LaTeX delimiters in formula bodies
+  const formulaBodies = [...content.matchAll(/<div class="formula-body">([\s\S]*?)<\/div>/gi)].map(m => m[1]);
+  let rawFormulaUnderscores = 0;
+  for (const fb of formulaBodies) {
+    const rawMatches = fb.match(/\b[a-zA-Z]+_[a-zA-Z0-9]+\b/g) || [];
+    rawFormulaUnderscores += rawMatches.length;
+  }
+  assert(rawFormulaUnderscores === 0, `All formula cards in ${item.slug} have clean HTML entities without raw underscores (found ${rawFormulaUnderscores})`);
+
   // 12. Architectural Figure 2 Diagram check
   assert(content.includes('Figure 2:'), 'Architectural Figure 2 caption present');
   assert(content.includes('<figure class="article-figure">'), 'Architectural figure container present');
@@ -182,6 +191,8 @@ for (const item of deliverables) {
     assert(content.includes('id="radarFillModeSelect"'), 'Interactive radarFillModeSelect present');
     assert(content.includes('id="nodeRadiusRange"'), 'Interactive nodeRadiusRange present');
     assert(content.includes('id="btnCopyRadarSVG"'), 'Interactive btnCopyRadarSVG present');
+    assert(content.includes('xmlns="http://www.w3.org/2000/svg"'), 'Studio canvas has valid SVG XML namespace');
+    assert(content.includes('.radar-axis-label'), 'Studio contains theme-aware axis label contrast styling');
     assert(content.includes("document.execCommand('copy')") || content.includes('execCommand'), 'Clipboard copy has robust document.execCommand fallback');
   } else if (item.slug === 'svg-treemaps-and-hierarchical-space-filling-visualization-guide') {
     assert(content.includes('class="interactive-sandbox"'), 'Interactive studio present');
@@ -189,7 +200,10 @@ for (const item of deliverables) {
     assert(content.includes('id="tilingAlgorithmSelect"'), 'Interactive tilingAlgorithmSelect present');
     assert(content.includes('id="treemapColorSelect"'), 'Interactive treemapColorSelect present');
     assert(content.includes('id="rectPaddingRange"'), 'Interactive rectPaddingRange present');
+    assert(content.includes('id="btnResetZoom"'), 'Interactive btnResetZoom present');
     assert(content.includes('id="btnCopyTreemapSVG"'), 'Interactive btnCopyTreemapSVG present');
+    assert(content.includes('xmlns="http://www.w3.org/2000/svg"'), 'Studio canvas has valid SVG XML namespace');
+    assert(content.includes("svgCanvas.setAttribute('viewBox'"), 'Treemap studio supports interactive drill-down zoom clicking');
     assert(content.includes("document.execCommand('copy')") || content.includes('execCommand'), 'Clipboard copy has robust document.execCommand fallback');
   } else if (item.slug === 'svg-funnel-charts-and-conversion-pipeline-visualization-guide') {
     assert(content.includes('class="interactive-sandbox"'), 'Interactive studio present');
@@ -198,6 +212,8 @@ for (const item of deliverables) {
     assert(content.includes('id="funnelColorSelect"'), 'Interactive funnelColorSelect present');
     assert(content.includes('id="stageGapRange"'), 'Interactive stageGapRange present');
     assert(content.includes('id="btnCopyFunnelSVG"'), 'Interactive btnCopyFunnelSVG present');
+    assert(content.includes('xmlns="http://www.w3.org/2000/svg"'), 'Studio canvas has valid SVG XML namespace');
+    assert(content.includes('calculateLuminance'), 'Funnel studio features dynamic luminance contrast text switching');
     assert(content.includes("document.execCommand('copy')") || content.includes('execCommand'), 'Clipboard copy has robust document.execCommand fallback');
   }
 
