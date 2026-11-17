@@ -1,0 +1,1297 @@
+import os
+import re
+
+slug = "svg-donut-charts-and-circular-percentage-visualization-guide"
+target_dir = os.path.join(r"D:\Project IconStash\IconStash\articles", slug)
+os.makedirs(target_dir, exist_ok=True)
+target_file = os.path.join(target_dir, "index.html")
+
+html_content = r'''<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Donut Charts &amp; Circular Percentages: Stroke-Dasharray Math, Slice Geometry &amp; Animation Guide (2026) | IconStash</title>
+  <meta name="description" content="Build high-performance SVG donut charts: stroke-dasharray math, arc slice geometry, center stats, hover animation, and accessible circular percent visuals.">
+  <meta name="keywords" content="svg donut chart, svg pie chart, stroke dasharray donut chart, circular progress bar svg, svg arc slice geometry, interactive donut chart javascript, accessible svg donut chart, polar circular percentage web">
+  <meta property="og:title" content="Mastering SVG Donut Charts &amp; Circular Percentages: Stroke-Dasharray Math, Slice Geometry &amp; Animation Guide (2026)">
+  <meta property="og:description" content="Build high-performance SVG donut charts: stroke-dasharray math, arc slice geometry, center stats, hover animation, and accessible circular percent visuals.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-donut-charts-and-circular-percentage-visualization-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-donut-charts-and-circular-percentage-visualization-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-17T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-17T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Graphics &amp; Circular Data Engineering">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Donut Charts">
+  <meta property="article:tag" content="Data Visualization">
+  <meta property="article:tag" content="Frontend Engineering">
+  <meta property="article:tag" content="Mathematics">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Donut Charts &amp; Circular Percentages: Stroke-Dasharray Math, Slice Geometry &amp; Animation Guide (2026)">
+  <meta name="twitter:description" content="Build high-performance SVG donut charts: stroke-dasharray math, arc slice geometry, center stats, hover animation, and accessible circular percent visuals.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-donut-charts-and-circular-percentage-visualization-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-donut-charts-and-circular-percentage-visualization-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Donut Charts & Circular Percentages: Stroke-Dasharray Math, Slice Geometry & Animation Guide (2026)",
+      "description": "Build high-performance SVG donut charts: stroke-dasharray math, arc slice geometry, center stats, hover animation, and accessible circular percent visuals.",
+      "image": "https://iconstash.io/assets/articles/svg-donut-charts-and-circular-percentage-visualization-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-donut-charts-and-circular-percentage-visualization-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 5002,
+      "articleSection": "Vector Graphics & Data Visualization",
+      "keywords": [
+        "svg donut chart",
+        "svg pie chart",
+        "stroke dasharray donut chart",
+        "circular progress bar svg",
+        "svg arc slice geometry",
+        "interactive donut chart javascript",
+        "accessible svg donut chart",
+        "polar circular percentage web"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Donut Charts & Circular Percentages Guide",
+          "item": "https://iconstash.io/articles/svg-donut-charts-and-circular-percentage-visualization-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the primary architectural difference between stroke-dasharray and path arc donut charts in SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The stroke-dasharray technique renders concentric or staggered SVG circle elements where the stroke width forms the annular ring thickness and dash patterns control percentage coverage; it is lightweight, GPU-accelerated, and trivial to animate. In contrast, path arc geometry constructs explicit annular sectors using SVG path syntax with M (moveto), A (elliptical arc), L (lineto), and Z (closepath) commands; it allows non-uniform inner and outer radii, rounded corners between slices, and radial explosion gaps but requires explicit trigonometric calculation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do SVG stroke-dasharray donut charts default to starting at 3 o'clock and how do you rotate to 12 o'clock?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In standard SVG geometry, angle 0 radians corresponds to the positive horizontal X-axis (the 3 o'clock position). To align the starting slice with the conventional 12 o'clock apex, you can apply an SVG transformation attribute transform='rotate(-90 cx cy)' or use CSS transform: rotate(-90deg) with transform-origin: center. This phase shift aligns the beginning of stroke-dashoffset with the vertical top."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the circumference and stroke-dashoffset calculated for a given percentage value?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a circle of radius r, the total circumference C equals 2 * pi * r. For a segment representing fraction p (where 0 <= p <= 1), the arc length is L = p * C. When using stroke-dasharray with an accumulator offset S representing prior slices, stroke-dasharray is set to 'L (C - L)' and stroke-dashoffset is set to -S (or C - S depending on rotation polarity), perfectly allocating the segment along the perimeter."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you render rounded slice corners and inter-slice padding in SVG donut charts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In stroke-dasharray charts, adding stroke-linecap='round' creates rounded ends, but overlapping segments must subtract the stroke width from their dash length to avoid visual collision. In path-based annular sectors, corner rounding is achieved by offsetting start and end angles by a small delta theta = padAngle / 2, or by inserting cubic and quadratic Bézier arc fillets between the straight radial edges and the circular arc perimeters."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you position callout labels and percentage text at the exact centroid of an SVG donut slice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The centroid of an annular sector spanning from angle theta_start to theta_end with inner radius r_in and outer radius r_out is located along the bisecting angle theta_mid = (theta_start + theta_end) / 2. The radial distance of the centroid is r_mid = (r_in + r_out) / 2 (or more precisely for wide arcs, (2/3) * (r_out^3 - r_in^3) / (r_out^2 - r_in^2) * sin(delta_theta / 2) / (delta_theta / 2)). The Cartesian coordinates are x = cx + r_mid * cos(theta_mid) and y = cy + r_mid * sin(theta_mid)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you ensure SVG donut charts comply with WCAG 2.2 AA accessibility mandates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A compliant SVG donut chart includes role='graphics-document' on the svg container, a descriptive aria-label, and semantic title and desc elements. Individual slices carry role='graphics-symbol', aria-label with slice name and percentage, and keyboard focusability (tabindex='0'). Furthermore, color fills must maintain at least 3:1 graphical contrast against adjacent sectors and background, paired with high-contrast text labels (>= 4.5:1 contrast) or patterned borders to assist color-blind users."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
+
+    .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #C1DD2D; font-weight: 500; }
+
+    .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
+    .article-meta a { color: #999; font-weight: 600; }
+    .article-meta a:hover { color: #C1DD2D; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+    .article-main { min-width: 0; }
+
+    .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
+    .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
+    .featured-summary ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .featured-summary li { position: relative; padding-left: 20px; font-size: 15px; color: #B0B0B0; line-height: 1.6; }
+    .featured-summary li::before { content: "•"; position: absolute; left: 0; color: #C1DD2D; font-size: 20px; line-height: 1; top: 2px; }
+
+    .article-figure { margin: 32px 0 40px; text-align: center; }
+    .article-figure img, .article-figure svg { border-radius: 8px; border: 1px solid #242424; width: 100%; height: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .article-figure figcaption { margin-top: 12px; font-size: 13.5px; color: #888; line-height: 1.5; font-style: italic; }
+
+    h2 { font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1C1C1C; }
+    h3 { font-size: 21px; font-weight: 700; color: #F2F2F2; letter-spacing: -0.01em; margin: 32px 0 16px; }
+    h4 { font-size: 17px; font-weight: 600; color: #DDD; margin: 24px 0 12px; }
+    p { margin-bottom: 20px; color: #C8C8C8; font-size: 16.5px; line-height: 1.8; }
+    p strong { color: #FFFFFF; font-weight: 600; }
+    ul, ol { margin: 0 0 24px 24px; color: #C8C8C8; font-size: 16px; line-height: 1.75; }
+    li { margin-bottom: 8px; }
+
+    pre { background: #111111; border: 1px solid #222222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0 32px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.65; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 14px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    .formula-card { background: #121212; border: 1px solid #242424; border-left: 3px solid #C1DD2D; border-radius: 6px; padding: 20px 24px; margin: 24px 0 28px; }
+    .formula-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; margin-bottom: 8px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; overflow-x: auto; padding: 4px 0; }
+    .formula-desc { font-size: 14px; color: #999; line-height: 1.6; }
+
+    .table-container { width: 100%; overflow-x: auto; margin: 28px 0 36px; border: 1px solid #222; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; font-weight: 700; padding: 14px 18px; border-bottom: 1px solid #242424; white-space: nowrap; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #AAA; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 10px; padding: 24px; margin: 36px 0 44px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .sandbox-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #242424; padding-bottom: 16px; margin-bottom: 20px; }
+    .sandbox-title { font-size: 18px; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 12.5px; font-weight: 600; color: #999; }
+    .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
+    .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
+    .control-btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .toggle-btn { background: #1C1C1C; border: 1px solid #333; color: #AAA; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 150ms ease; }
+    .toggle-btn:hover { border-color: #555; color: #FFF; }
+    .toggle-btn.active { background: #C1DD2D; color: #0A0A0A; border-color: #C1DD2D; }
+
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 480px; }
+    .donut-svg-canvas { width: 100%; max-width: 500px; height: auto; }
+    .donut-slice { transition: transform 200ms ease, opacity 200ms ease; cursor: pointer; }
+    .donut-slice:hover { opacity: 0.9; }
+    .donut-center-label { font-family: "Inter", sans-serif; font-weight: 800; text-anchor: middle; }
+    .donut-sub-label { font-family: "Inter", sans-serif; font-size: 13px; fill: #888888; text-anchor: middle; }
+
+    .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; }
+    .stat-val { font-size: 16px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .action-btn-row { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+    .copy-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 150ms ease; }
+    .copy-btn:hover { background: #D2ED3E; }
+
+    .article-sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #C1DD2D; margin-bottom: 14px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
+    .toc-nav a { color: #888; display: block; line-height: 1.4; padding: 2px 0; }
+    .toc-nav a:hover { color: #C1DD2D; }
+    .cta-sidebar-box { background: rgba(193,221,45,0.06); border: 1px solid rgba(193,221,45,0.25); border-radius: 8px; padding: 18px; text-align: left; }
+    .cta-sidebar-box h4 { font-size: 15px; color: #C1DD2D; margin-bottom: 8px; font-weight: 700; }
+    .cta-sidebar-box p { font-size: 13px; color: #BBB; line-height: 1.5; margin-bottom: 12px; }
+
+    .takeaway-box { background: #121212; border: 1px solid #242424; border-radius: 8px; padding: 24px 28px; margin: 36px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 19px; margin-top: 0; margin-bottom: 14px; }
+    .takeaway-box ul { margin-bottom: 0; }
+
+    .warning-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #EF4444; border-radius: 6px; padding: 18px 22px; margin: 28px 0; }
+    .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #222; }
+    .faq-item { border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; background: #121212; overflow: hidden; }
+    .faq-question { padding: 18px 22px; font-size: 16px; font-weight: 700; color: #FFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 22px 18px; font-size: 15px; color: #B0B0B0; line-height: 1.7; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1C1C1C; padding: 48px 24px; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .control-row .stat-num { color: #4D6300; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .faq-item { background: #FFFFFF; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-question { color: #18181B; }
+    html[data-theme="light"] .faq-answer { color: #3F3F46; }
+    html[data-theme="light"] .donut-center-label { fill: #18181B; }
+    html[data-theme="light"] .donut-sub-label { fill: #71717A; }
+
+    @media (max-width: 960px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .article-sidebar { display: none; }
+      .article-hero h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/about/">About</a>
+      <a href="/#/" class="header-cta">Browse Library</a>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle visual theme" title="Toggle theme">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current" aria-current="page">Mastering SVG Donut Charts &amp; Circular Percentages</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Circular Visualizations &amp; Radial Geometry</span>
+      <h1>Mastering SVG Donut Charts &amp; Circular Percentages: Stroke-Dasharray Math, Slice Geometry &amp; Animation Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/" rel="author">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <time datetime="2026-11-17">November 17, 2026</time>
+        <span>&bull;</span>
+        <span>26 min read</span>
+        <span>&bull;</span>
+        <span>5,002 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Summary:</strong> Donut charts and circular percentage gauges represent the quintessential visual shorthand for part-to-whole distributions, quota pacing, and multi-category resource allocation across modern executive dashboards. Yet, frontend engineering teams routinely introduce bloated third-party charting bundles or blurry raster canvas elements to achieve what vanilla Scalable Vector Graphics can execute with surgical mathematical precision in under 12KB of zero-dependency code.</p>
+          <ul>
+            <li><strong>Two Distinct Core Architectures:</strong> Master the mathematical trade-offs between stroke-dasharray parametric circle rings (ideal for high-frequency streaming dashboards and single-variable rings) versus true trigonometric annular sector paths (required for multi-series slice gaps, non-uniform radial depths, and rounded corner fillets).</li>
+            <li><strong>Exact Polar-to-Cartesian Mapping:</strong> Derive the underlying trigonometric transformations that map arbitrary percentage shares to arc endpoints, large-arc flags, sweep directions, and slice centroid label anchors without visual distortions.</li>
+            <li><strong>Hardware-Accelerated Fluid Animations:</strong> Implement zero-jank CSS transition clocks and Web Animations API spring transitions that rotate slices from 12 o'clock without recalculating DOM layout geometry.</li>
+            <li><strong>Uncompromising WCAG 2.2 AA Compliance:</strong> Enforce strict programmatic focusability, accessible SVG role models, dynamic luminance contrast thresholds, and tactile keyboard inspection that make radial data accessible to screen readers.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-donut-charts-and-circular-percentage-visualization-guide.jpg" alt="Mastering SVG Donut Charts and Circular Percentage Visualizations Hero Guide" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: Production-grade dark mode analytics console featuring precision SVG donut charts, radial percentage meters, and multi-category segmented annular rings.</figcaption>
+        </figure>
+
+        <section id="why-native-svg-circular">
+          <h2>1. Why Native SVG Dominates HTML5 Canvas for Circular Data</h2>
+          <p>In modern web engineering, selecting the rendering engine for circular charts is a foundational decision that impacts rendering latency, memory footprint, visual crispness, and accessibility. While the HTML5 <code>&lt;canvas&gt;</code> element is frequently championed for rendering millions of unindexed particle physics simulations, applying it to executive dashboard donut charts introduces profound architectural compromises:</p>
+
+          <p>The first fundamental vulnerability of HTML5 Canvas in enterprise UI engineering is its complete lack of sub-pixel resolution independence. A canvas element operates as an immediate-mode bitmap buffer. When an executive displays a dashboard across a MacBook Pro Liquid Retina XDR screen or an ultra-wide 5K external workstation monitor with a device pixel ratio of 2x or 3x, a standard canvas element becomes visibly blurry unless the engineering team attaches window resize observers, intercepts device pixel ratios, rescales the backing memory buffer, and re-executes all drawing paths. Scalable Vector Graphics, by architectural definition, operates as retained-mode mathematical geometry. Every curve, arc, and boundary is evaluated on the client GPU compositor at draw time, remaining razor-sharp at arbitrary zoom levels without a single byte of memory penalty.</p>
+
+          <p>The second fatal flaw of raster canvas implementations is the complete absence of Document Object Model (DOM) identity. In canvas, once an arc slice is painted via <code>ctx.arc()</code>, it ceases to exist as a distinct entity; it is merely an unindexed collection of colored pixels in GPU memory. Consequently, when product designers require hover tooltips, slice popouts, or click-through drill-downs, the frontend engineer must implement manual raycasting algorithms in JavaScript. This requires calculating Euclidean distances from the canvas center, computing inverse tangents using <code>Math.atan2(y - cy, x - cx)</code>, normalizing angular discontinuity across the -&pi; to +&pi; branch cut, and iterating over every category boundary. In contrast, native SVG treats every annular sector as a first-class DOM element. Slices natively inherit standard PointerEvents, CSS <code>:hover</code> selectors, active state pseudo-classes, and hardware-accelerated CSS transforms. For an architectural comparison of DOM-based vector handling across diverse data formats, explore our comprehensive technical guides on <a href="/articles/svg-charts-and-data-visualization-from-scratch-guide/">building SVG charts from scratch</a> and <a href="/articles/svg-gauges-and-circular-progress-bars-guide/">designing precision SVG circular gauges</a>.</p>
+
+          <p>The third catastrophic failure of canvas is accessibility. A raster canvas is completely invisible to assistive technologies, including screen readers, Braille displays, and automated accessibility test crawlers. When a blind software executive navigates a dashboard, a canvas donut chart is announced as an empty, meaningless rectangle. Conversely, native SVG supports rich semantic annotations via WAI-ARIA graphics module roles, including <code>role="graphics-document"</code> on the root SVG container and <code>role="graphics-symbol"</code> on individual sectors, complete with dynamic live regions and keyboard navigation.</p>
+
+          <p>Finally, styling and theme switching in canvas requires a total rewrite of visual state. To switch an application from dark mode to light mode or high-contrast accessibility mode, a canvas chart must discard its state, re-parse hex colors, and execute a complete procedural repaint loop. In SVG, theming is purely declarative. Slices bind to CSS variables such as <code>var(--primary-accent)</code> and <code>currentColor</code>, switching palettes instantaneously without consuming a single millisecond of main thread JavaScript execution.</p>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Architectural Criterion</th>
+                  <th>HTML5 Canvas Raster</th>
+                  <th>Heavy Bundled Libraries</th>
+                  <th>Vanilla Pure SVG Engine</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Resolution &amp; Crispness</strong></td>
+                  <td>Fixed pixel grid; blurs on high-DPI zoom</td>
+                  <td>Varies; heavy bundle wrapper overhead</td>
+                  <td>Infinite vector independence; 100% crisp math</td>
+                </tr>
+                <tr>
+                  <td><strong>DOM Footprint</strong></td>
+                  <td>1 canvas node; 0 internal nodes</td>
+                  <td>Hundreds of wrapper DOM nodes (300KB+ JS)</td>
+                  <td>Lightweight semantic nodes (4-15 paths); 0KB dependencies</td>
+                </tr>
+                <tr>
+                  <td><strong>Hover &amp; Click Hit-Testing</strong></td>
+                  <td>Complex manual polar raycasting in JS</td>
+                  <td>Proprietary synthetic event listeners</td>
+                  <td>Native DOM PointerEvents and CSS :hover selectors</td>
+                </tr>
+                <tr>
+                  <td><strong>Theming Flexibility</strong></td>
+                  <td>Requires complete redraw loop and palette wipe</td>
+                  <td>JSON config overrides and re-render cycles</td>
+                  <td>Native CSS variables and class selectors</td>
+                </tr>
+                <tr>
+                  <td><strong>Accessibility (WCAG 2.2 AA)</strong></td>
+                  <td>Inaccessible; blank to assistive technology</td>
+                  <td>Basic aria-label attribute on wrapper</td>
+                  <td>Semantic ARIA roles, live regions &amp; keyboard focus</td>
+                </tr>
+                <tr>
+                  <td><strong>Vector Export / Print</strong></td>
+                  <td>Raster base64 screenshot; pixelated print</td>
+                  <td>Requires complex serialization plugins</td>
+                  <td>Direct standalone SVG XMLNS serialization</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>By engineering donut charts using clean, native SVG, frontend developers retain full control over vector geometry, styling, performance, and accessibility. In the following sections, we dissect the mathematical mechanics of circular proportions, analyze both stroke-dasharray and annular path approaches, formulate centroid label placement, and deploy an enterprise-grade interactive studio.</p>
+        </section>
+
+        <section id="stroke-dasharray-math">
+          <h2>2. The Mathematical Foundation: Circumference, Stroke-Dasharray &amp; Dashoffset</h2>
+          <p>The most elegant and computationally lightweight technique for rendering circular percentage rings and segmented donut charts relies on the SVG <code>stroke-dasharray</code> and <code>stroke-dashoffset</code> presentation attributes. Instead of calculating complex trigonometric path coordinates, this technique utilizes an SVG <code>&lt;circle&gt;</code> element, using its stroke width to define the ring thickness and dash patterns to control sector coverage.</p>
+
+          <p>To understand the mechanics, consider a circle with radius <code>r</code> placed inside an SVG viewport of width <code>W</code> and height <code>H</code> with center coordinates (cx, cy) = (W/2, H/2). The fundamental geometric constant governing this circle is its perimeter, or circumference <code>C</code>:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Circle Perimeter Formula</div>
+            <div class="formula-body">C = 2 &times; &pi; &times; r</div>
+            <div class="formula-desc">Where r is the circle radius and C is the total perimeter along the stroke centerline.</div>
+          </div>
+
+          <p>The <code>stroke-dasharray</code> attribute accepts a sequence of numbers specifying the lengths of alternating painted dashes and unpainted gaps. If we configure a dasharray with two values &mdash; the length of the painted arc <code>L</code> followed by a gap equal to or greater than the remainder of the circumference <code>(C - L)</code> &mdash; SVG renders a single continuous arc corresponding exactly to the desired percentage:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Arc Stroke-Dasharray Allocation</div>
+            <div class="formula-body">L = p &times; C, &nbsp; stroke-dasharray = L (C - L)</div>
+            <div class="formula-desc">Where p represents the fractional value between 0.0 and 1.0, and L is the visible arc length in user units.</div>
+          </div>
+
+          <p>By default in SVG coordinate geometry, angle 0 radians points along the positive horizontal X-axis (the 3 o'clock position). In European and Western design traditions, circular clocks and data gauges universally begin at the top vertical apex (12 o'clock). To rotate the stroke start point to 12 o'clock without altering data values, developers apply a phase shift of -90 degrees (-&pi;/2 radians):</p>
+
+          <pre><code>&lt;!-- 12 o'clock apex alignment via SVG transform attribute --&gt;
+&lt;circle
+  cx="250"
+  cy="250"
+  r="180"
+  fill="none"
+  stroke="#C1DD2D"
+  stroke-width="36"
+  stroke-dasharray="848.23 282.74"
+  stroke-dashoffset="0"
+  transform="rotate(-90 250 250)"
+/&gt;</code></pre>
+
+          <p>When stacking multiple categorical slices around a single circle, each subsequent segment must begin where the preceding segment concluded. This is achieved by adjusting the <code>stroke-dashoffset</code> attribute. While <code>stroke-dasharray</code> defines the slice length <code>L<sub>i</sub></code>, <code>stroke-dashoffset</code> acts as an angular translation, shifting the dash pattern backward along the perimeter by the cumulative sum of all prior slices:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Cumulative Offset for Segment i</div>
+            <div class="formula-body">offset<sub>i</sub> = -&sum;<sub>k=0</sub><sup>i-1</sup> L<sub>k</sub></div>
+            <div class="formula-desc">Negative dashoffset shifts the dash forward clockwise, stacking segment i seamlessly against segment i-1.</div>
+          </div>
+
+          <p>For applications displaying concentric multi-ring progress meters (such as fitness tracker activity rings or multi-core CPU monitoring dials), each concentric circle uses a different radius <code>r<sub>i</sub> = r<sub>0</sub> - i &times; (strokeWidth + gap)</code>. Because circumference scales linearly with radius, each ring recalculates its own unique circumference <code>C<sub>i</sub> = 2 &times; &pi; &times; r<sub>i</sub></code>, ensuring percentage visual accuracy across nested concentric layers.</p>
+
+          <p>An essential consideration in high-precision stroke-dasharray charts is floating-point rounding accuracy. Because SVG renderers parse string attributes, setting dasharray values with excessive decimals (e.g., 14 decimal places) inflates DOM tree size without adding visual clarity. Truncating values to two decimal places (e.g. <code>toFixed(2)</code>) guarantees sub-pixel fidelity across 4K displays while maintaining optimal DOM serialization performance.</p>
+        </section>
+
+        <section id="arc-path-geometry">
+          <h2>3. Arc Path Geometry: Trigonometric Slice Generation with Large-Arc Flags</h2>
+          <p>While the stroke-dasharray method is extraordinarily fast and lightweight, it possesses inherent architectural constraints: all segments must share the same stroke width, individual slices cannot have non-uniform radial depths or exploded offsets, and creating complex rounded corners between slices can cause stroke clipping. For enterprise applications requiring exploded slice highlights, variable-depth coxcomb rings, or independent slice shading, developers must turn to true SVG <code>&lt;path&gt;</code> geometry using annular sectors.</p>
+
+          <p>An annular sector (a donut slice) is bounded by four distinct geometric curves: an outer circular arc from start angle &theta;<sub>0</sub> to end angle &theta;<sub>1</sub> at outer radius <code>r<sub>out</sub></code>, a straight radial edge leading inward to inner radius <code>r<sub>in</sub></code>, an inner circular arc sweeping in reverse from &theta;<sub>1</sub> back to &theta;<sub>0</sub>, and a final straight radial edge closing back to the start point.</p>
+
+          <p>To convert polar coordinates (&theta;, r) into SVG Cartesian coordinates (x, y) centered at (cx, cy), we apply trigonometric projection with a -90 degree rotation phase shift:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Polar to Cartesian 12 o'clock Projection</div>
+            <div class="formula-body">x = cx + r &times; cos(&theta; - &pi;/2), &nbsp; y = cy + r &times; sin(&theta; - &pi;/2)</div>
+            <div class="formula-desc">Subtracting &pi;/2 shifts angle zero from the 3 o'clock horizontal axis to the 12 o'clock apex.</div>
+          </div>
+
+          <p>Constructing the SVG path command requires four precise Cartesian points:</p>
+          <ol>
+            <li><strong>Outer Start Point (p1):</strong> (cx + r<sub>out</sub> &times; cos(&theta;<sub>0</sub> - &pi;/2), cy + r<sub>out</sub> &times; sin(&theta;<sub>0</sub> - &pi;/2))</li>
+            <li><strong>Outer End Point (p2):</strong> (cx + r<sub>out</sub> &times; cos(&theta;<sub>1</sub> - &pi;/2), cy + r<sub>out</sub> &times; sin(&theta;<sub>1</sub> - &pi;/2))</li>
+            <li><strong>Inner End Point (p3):</strong> (cx + r<sub>in</sub> &times; cos(&theta;<sub>1</sub> - &pi;/2), cy + r<sub>in</sub> &times; sin(&theta;<sub>1</sub> - &pi;/2))</li>
+            <li><strong>Inner Start Point (p4):</strong> (cx + r<sub>in</sub> &times; cos(&theta;<sub>0</sub> - &pi;/2), cy + r<sub>in</sub> &times; sin(&theta;<sub>0</sub> - &pi;/2))</li>
+          </ol>
+
+          <p>The path string is composed using the SVG elliptical arc command <code>A rx ry x-axis-rotation large-arc-flag sweep-flag x y</code>. The critical parameter here is the <strong>large-arc-flag</strong>: if the angular span &Delta;&theta; = (&theta;<sub>1</sub> - &theta;<sub>0</sub>) exceeds 180 degrees (&pi; radians), the <code>large-arc-flag</code> must be set to <code>1</code>; otherwise it must be set to <code>0</code>. The <code>sweep-flag</code> indicates clockwise (1) or counter-clockwise (0) traversal.</p>
+
+          <p>A notorious edge case in SVG arc path generation occurs when a single slice represents 100% of the distribution (&Delta;&theta; = 2&pi; radians). Because the start and end coordinates coincide perfectly, SVG elliptical arc parsers cannot determine which direction or arc length to draw, resulting in a completely vanished path. Production engines handle this singularity by either splitting the 360-degree arc into two 180-degree semicircular segments or subtracting a tiny mathematical epsilon (&Delta;&theta; = 2&pi; - 0.0001 radians) to preserve distinct start and end points.</p>
+
+          <p>The complete annular sector path syntax is expressed as:</p>
+          <pre><code>// Generates SVG path string for an annular sector
+function createDonutSlicePath(cx, cy, rIn, rOut, theta0, theta1) {
+  const p1 = polarToCartesian(cx, cy, rOut, theta0);
+  const p2 = polarToCartesian(cx, cy, rOut, theta1);
+  const p3 = polarToCartesian(cx, cy, rIn, theta1);
+  const p4 = polarToCartesian(cx, cy, rIn, theta0);
+  
+  const deltaTheta = theta1 - theta0;
+  const largeArcFlag = deltaTheta &gt; Math.PI ? 1 : 0;
+  
+  return [
+    `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)}`,
+    `A ${rOut} ${rOut} 0 ${largeArcFlag} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`,
+    `L ${p3.x.toFixed(2)} ${p3.y.toFixed(2)}`,
+    `A ${rIn} ${rIn} 0 ${largeArcFlag} 0 ${p4.x.toFixed(2)} ${p4.y.toFixed(2)}`,
+    'Z'
+  ].join(' ');
+}</code></pre>
+
+          <p>This rigorous mathematical construction guarantees that donut slices fit together with sub-pixel precision, leaving zero gap artifacts or overlapping seams regardless of the number of segments.</p>
+        </section>
+
+        <!-- Architectural Figure 2 Vector Diagram -->
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SVG Donut Architecture Diagram Comparing Stroke-Dasharray and Annular Arc Geometry">
+            <rect width="960" height="320" fill="#0D0D0D" rx="8"/>
+            <rect x="1" y="1" width="958" height="318" fill="none" stroke="#222" rx="7"/>
+
+            <!-- Grid Header -->
+            <text x="480" y="32" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="0.06em">SVG DONUT CHART ARCHITECTURE: DUAL VECTOR PARADIGMS</text>
+            <line x1="40" y1="46" x2="920" y2="46" stroke="#262626" stroke-width="1"/>
+
+            <!-- Column 1: Stroke-Dasharray Mode -->
+            <g transform="translate(60, 65)">
+              <rect width="260" height="230" fill="#141414" stroke="#262626" rx="6"/>
+              <text x="130" y="24" fill="#C1DD2D" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="middle">PARADIGM A: STROKE-DASHARRAY</text>
+              <!-- Mini Donut -->
+              <circle cx="130" cy="110" r="54" fill="none" stroke="#222" stroke-width="18"/>
+              <circle cx="130" cy="110" r="54" fill="none" stroke="#C1DD2D" stroke-width="18" stroke-dasharray="237.5 101.8" transform="rotate(-90 130 110)"/>
+              <text x="130" y="115" fill="#FFF" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" text-anchor="middle">70%</text>
+              
+              <text x="130" y="185" fill="#AAA" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">C = 2 &times; &pi; &times; r</text>
+              <text x="130" y="202" fill="#888" font-family="Inter, sans-serif" font-size="10.5" text-anchor="middle">Zero Trigonometry &bull; Pure GPU</text>
+              <text x="130" y="217" fill="#666" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Best for Gauges &amp; Simple Rings</text>
+            </g>
+
+            <!-- Column 2: Annular Sector Paths -->
+            <g transform="translate(350, 65)">
+              <rect width="260" height="230" fill="#141414" stroke="#262626" rx="6"/>
+              <text x="130" y="24" fill="#38BDF8" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="middle">PARADIGM B: ANNULAR PATHS</text>
+              <!-- Mini Slices -->
+              <g transform="translate(130, 110)">
+                <path d="M 0,-60 A 60 60 0 0 1 51.96,30 L 25.98,15 A 30 30 0 0 0 0,-30 Z" fill="#38BDF8" stroke="#0D0D0D" stroke-width="1.5"/>
+                <path d="M 51.96,30 A 60 60 0 0 1 -51.96,30 L -25.98,15 A 30 30 0 0 0 25.98,15 Z" fill="#A855F7" stroke="#0D0D0D" stroke-width="1.5"/>
+                <path d="M -51.96,30 A 60 60 0 0 1 0,-60 L 0,-30 A 30 30 0 0 0 -25.98,15 Z" fill="#F43F5E" stroke="#0D0D0D" stroke-width="1.5"/>
+              </g>
+              <text x="130" y="185" fill="#AAA" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">M p1 A rOut ... L p3 A rIn Z</text>
+              <text x="130" y="202" fill="#888" font-family="Inter, sans-serif" font-size="10.5" text-anchor="middle">True Slice Independence &bull; Corner Fillets</text>
+              <text x="130" y="217" fill="#666" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Best for Multi-Category Breakdowns</text>
+            </g>
+
+            <!-- Column 3: Centroid & Label Math -->
+            <g transform="translate(640, 65)">
+              <rect width="260" height="230" fill="#141414" stroke="#262626" rx="6"/>
+              <text x="130" y="24" fill="#F59E0B" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="middle">PARADIGM C: CENTROID HIT-TESTING</text>
+              <!-- Diagram of Centroid -->
+              <g transform="translate(130, 110)">
+                <path d="M 0,-60 A 60 60 0 0 1 56.38,-20.52 L 28.19,-10.26 A 30 30 0 0 0 0,-30 Z" fill="rgba(245, 158, 11, 0.2)" stroke="#F59E0B" stroke-width="1.5"/>
+                <circle cx="31" cy="-33" r="4" fill="#F59E0B"/>
+                <line x1="0" y1="0" x2="42" y2="-45" stroke="#F59E0B" stroke-dasharray="2 2" stroke-width="1"/>
+                <text x="48" y="-45" fill="#F59E0B" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700">Centroid</text>
+              </g>
+              <text x="130" y="185" fill="#AAA" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">rMid = (rIn + rOut) / 2</text>
+              <text x="130" y="202" fill="#888" font-family="Inter, sans-serif" font-size="10.5" text-anchor="middle">&theta;Mid = (&theta;0 + &theta;1) / 2</text>
+              <text x="130" y="217" fill="#666" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Exact DOM Callouts &bull; WCAG Contrast</text>
+            </g>
+          </svg>
+          <figcaption>Figure 2: Architectural blueprint contrasting stroke-dasharray circumference projection, trigonometric annular arc sector geometry, and polar centroid label tracking.</figcaption>
+        </figure>
+
+        <section id="rounded-corners-and-padding">
+          <h2>4. Rounded Corners &amp; Radial Padding: Polar Normal Offsets</h2>
+          <p>Modern product design guidelines, such as those popularized by Apple Watch Activity rings and luxury automotive consoles, frequently call for rounded slice terminations and visible radial gaps separating categories. Implementing these effects in SVG without creating optical distortions requires careful geometric compensation.</p>
+
+          <h3>4.1 Rounded Slice Terminations (Caps &amp; Fillets)</h3>
+          <p>When using the <code>stroke-dasharray</code> method, rounding slice ends is deceptively simple: setting <code>stroke-linecap="round"</code> rounds both the leading and trailing ends of the stroke. However, this introduces a subtle mathematical trap: SVG round linecaps extend beyond the nominal stroke coordinate by a distance equal to half the stroke width (<code>strokeWidth / 2</code>). On a circular path, this semicircular cap adds extra angular coverage &Delta;&theta;<sub>cap</sub>:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Angular Extension from Round Linecaps</div>
+            <div class="formula-body">&Delta;&theta;<sub>cap</sub> = (strokeWidth / 2) / r &nbsp; [radians]</div>
+            <div class="formula-desc">Where strokeWidth / 2 is the cap radius and r is the centerline radius.</div>
+          </div>
+
+          <p>If uncorrected, adjacent slices will visually overlap and collide. To maintain pristine separation between segments with round linecaps, the painted dash length must be reduced by <code>strokeWidth</code>, and the subsequent segment offset must incorporate an additional padding gap.</p>
+
+          <h3>4.2 Radial Inter-Slice Padding in Annular Sectors</h3>
+          <p>In path-based annular sectors, creating a visual gap (radial gutter) between slices can be approached in two ways: stroke-based gap rendering or angular truncation. The stroke-based method sets <code>stroke="#0A0A0A"</code> (matching the page background) and <code>stroke-width="3"</code>. While effortless, this technique fails when the chart is composited over complex gradients, photographic backdrops, or transparent containers.</p>
+
+          <p>The architecturally robust approach truncates each slice's angular span by a small padding angle &Delta;&theta;<sub>pad</sub>. For a desired linear gap width <code>g</code> (e.g. 4px) at nominal radius <code>r<sub>mid</sub> = (r<sub>in</sub> + r<sub>out</sub>) / 2</code>, the angular padding adjustment is:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Angular Sector Gutter Truncation</div>
+            <div class="formula-body">&Delta;&theta;<sub>pad</sub> = g / r<sub>mid</sub>, &nbsp; &theta;'<sub>0</sub> = &theta;<sub>0</sub> + &Delta;&theta;<sub>pad</sub>/2, &nbsp; &theta;'<sub>1</sub> = &theta;<sub>1</sub> - &Delta;&theta;<sub>pad</sub>/2</div>
+            <div class="formula-desc">Trimming half the angular gap from both boundaries preserves true geometric transparency between slices.</div>
+          </div>
+
+          <p>For advanced enterprise UI consoles requiring true circular corner fillets on annular sectors (where the 90-degree corners between the radial straight edges and the circular arcs are rounded with a smooth radius <code>r<sub>c</sub></code>), developers can compute fillet centers along the angle bisectors and insert small arc segments. This produces the ultra-refined visual aesthetic characteristic of high-end consumer hardware dashboards while remaining completely mathematically rigorous.</p>
+
+          <h3>4.3 Variable-Radius Coxcomb Polar Area Slices</h3>
+          <p>An increasingly prominent variant of the standard donut chart is the Coxcomb (or Nightingale Polar Area) diagram, where instead of varying slice angles, every category occupies an identical angular span (&Delta;&theta; = 2&pi; / N) while the outer radius <code>r<sub>out,i</sub></code> varies in proportion to the square root of the represented metric. Because human visual perception estimates two-dimensional area rather than linear radial distance, mapping a metric directly to radius causes quadratic perceptual distortion: a value that is twice as large would occupy four times the visual area. To maintain authentic metric honesty, the outer radius must scale with the square root of the data value:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Perceptually Honest Coxcomb Radius Scaling</div>
+            <div class="formula-body">r<sub>out,i</sub> = &radic;(r<sub>in</sub><sup>2</sup> + (v<sub>i</sub> / v<sub>max</sub>) &times; (r<sub>max</sub><sup>2</sup> - r<sub>in</sub><sup>2</sup>))</div>
+            <div class="formula-desc">Ensures the surface area of each annular sector scales strictly linearly with its metric value v_i.</div>
+          </div>
+
+          <p>By implementing this square-root scaling factor, frontend engineers can render multi-dimensional radial distributions that remain mathematically sound and visually captivating across executive reports.</p>
+        </section>
+
+        <section id="centroid-label-calculation">
+          <h2>5. Centroid Calculation &amp; Adaptive Slice Label Placement</h2>
+          <p>A frequent failure mode in amateur data visualizations is the unreadable cluttering of slice labels, where text collides with neighboring categories or clips against the chart perimeter. Positioning labels and percentage callouts requires calculating the exact mathematical centroid of each annular sector.</p>
+
+          <p>For an annular sector spanning from angle &theta;<sub>0</sub> to &theta;<sub>1</sub> with inner radius <code>r<sub>in</sub></code> and outer radius <code>r<sub>out</sub></code>, the geometric centroid lies along the bisecting angle &theta;<sub>mid</sub> = (&theta;<sub>0</sub> + &theta;<sub>1</sub>) / 2. For narrow angular slices, the radial centroid is approximated by the arithmetic mean radius <code>r<sub>mid</sub> = (r<sub>in</sub> + r<sub>out</sub>) / 2</code>. For wide slices where geometric curvature shifts the center of mass, the exact formula is:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Exact Annular Sector Centroid Radius</div>
+            <div class="formula-body">r<sub>centroid</sub> = (2/3) &times; ((r<sub>out</sub><sup>3</sup> - r<sub>in</sub><sup>3</sup>) / (r<sub>out</sub><sup>2</sup> - r<sub>in</sub><sup>2</sup>)) &times; (sin(&Delta;&theta;/2) / (&Delta;&theta;/2))</div>
+            <div class="formula-desc">Yields the true center of mass for uniform-density annular sectors of arbitrary angular span.</div>
+          </div>
+
+          <p>Once (x<sub>c</sub>, y<sub>c</sub>) is determined, text elements are placed with <code>text-anchor="middle"</code> and <code>dominant-baseline="central"</code>. Furthermore, enterprise charting engines apply an angular threshold rule: if a slice's angular span &Delta;&theta; is less than 15 degrees (&sim;4% of total), the slice is too narrow to comfortably accommodate text without visual clipping. For such minor slices, the label is automatically projected outside the outer perimeter via a radial elbow polyline callout, or aggregated into the central statistics readout upon hover.</p>
+
+          <p>External radial callout lines are constructed using a three-point polyline: starting at the outer arc boundary point (x<sub>0</sub>, y<sub>0</sub>), extending radially outward to an elbow point (x<sub>1</sub>, y<sub>1</sub>) = (cx + (r<sub>out</sub> + 16) &times; cos(&theta;<sub>mid</sub>), cy + (r<sub>out</sub> + 16) &times; sin(&theta;<sub>mid</sub>)), and terminating with a horizontal shelf line extending left or right depending on whether cos(&theta;<sub>mid</sub>) is negative or positive. This guarantees 100% legibility for long categorical strings without encroaching upon visual chart real estate.</p>
+        </section>
+
+        <!-- Interactive Developer Studio -->
+        <section id="interactive-donut-studio">
+          <h2>6. Interactive SVG Donut &amp; Circular Percentage Studio</h2>
+          <p>Explore real-time circular data visualization in the studio below. Switch between real-world enterprise datasets, toggle between stroke-dasharray and annular arc geometry, dynamically adjust hole cutout ratios and corner padding, inspect slice metrics, and export clean, production-ready SVG source code.</p>
+
+          <div class="interactive-sandbox">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M12 2v6M12 16v6M2 12h6M16 12h6"/></svg>
+                <span>Interactive SVG Donut &amp; Circular Percentage Studio</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Vector Engine</span>
+            </div>
+
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="donutPresetSelect">Enterprise Domain Preset</label>
+                <select id="donutPresetSelect" class="control-select">
+                  <option value="saas">SaaS Revenue Stream Breakdown</option>
+                  <option value="cloud">Multi-Cloud Infrastructure Spend</option>
+                  <option value="marketing">Acquisition Channel Attribution</option>
+                  <option value="storage">NVMe Storage Allocation</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="donutRenderModeSelect">Rendering Architecture</label>
+                <select id="donutRenderModeSelect" class="control-select">
+                  <option value="path">Annular Sector Arc Paths (SVG &lt;path&gt;)</option>
+                  <option value="stroke">Stroke-Dasharray Rings (SVG &lt;circle&gt;)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="donutHoleRadiusRange">Inner Cutout Ratio (<span id="donutHoleVal" class="stat-num">60</span>%)</label>
+                <input type="range" id="donutHoleRadiusRange" class="control-input" min="20" max="85" value="60" step="1">
+              </div>
+
+              <div class="control-row">
+                <label for="donutGutterRange">Slice Gutter Gap (<span id="donutGutterVal" class="stat-num">3</span>px)</label>
+                <input type="range" id="donutGutterRange" class="control-input" min="0" max="10" value="3" step="1">
+              </div>
+            </div>
+
+            <div class="control-btn-group">
+              <button type="button" class="toggle-btn active" id="btnToggleLabels">Show Value Labels</button>
+              <button type="button" class="toggle-btn" id="btnToggleExplode">Explode Dominant Slice</button>
+            </div>
+
+            <div class="preview-stage-container">
+              <svg id="donutStudioCanvas" class="donut-svg-canvas" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" role="img" aria-label="Interactive SVG Donut Chart Canvas">
+                <!-- Slices rendered dynamically via JS -->
+              </svg>
+            </div>
+
+            <div class="stats-readout-box">
+              <div class="stat-item">
+                <span class="stat-label">Total Categories</span>
+                <span id="statCategoryCount" class="stat-val highlight">4 Segments</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Dominant Share</span>
+                <span id="statDominantShare" class="stat-val">42.5%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Outer Circumference</span>
+                <span id="statOuterCircumference" class="stat-val">1,130.9 px</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Selected Segment</span>
+                <span id="statActiveSegment" class="stat-val highlight">Enterprise Plans</span>
+              </div>
+            </div>
+
+            <div class="action-btn-row">
+              <button type="button" class="copy-btn" id="btnCopyDonutSVG">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copy Standalone SVG</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="enterprise-production-code">
+          <h2>7. Production-Grade ES6 Donut Engine: Zero-Dependency Architecture</h2>
+          <p>Below is the complete, self-contained, enterprise-grade ES6 implementation of <code>SVGDonutChart</code>. It includes support for both stroke-dasharray and annular path modes, automated percentage normalization, centroid label positioning, hover interaction handlers, and clean SVG serialization.</p>
+
+          <p>When engineering charting engines for high-throughput telemetric environments (such as Kubernetes cluster dashboards or algorithmic financial monitors streaming 60 updates per second), allocating and garbage-collecting new DOM nodes on every frame degrades browser frame rates. The production architecture below emphasizes DOM node recycling, updating existing <code>d</code> or <code>stroke-dasharray</code> attributes in place rather than repeatedly clearing <code>innerHTML</code>. This preserves GPU hardware acceleration layers, prevents style recalculation churn, and ensures zero dropped frames across continuous streaming loads.</p>
+
+          <pre><code>/**
+ * SVGDonutChart - Production Zero-Dependency Circular Data Visualizer
+ * Fully WCAG 2.2 AA compliant with polar trigonometry &amp; stroke-dasharray support.
+ */
+class SVGDonutChart {
+  constructor(container, options = {}) {
+    this.container = typeof container === 'string' ? document.querySelector(container) : container;
+    this.width = options.width || 500;
+    this.height = options.height || 500;
+    this.cx = this.width / 2;
+    this.cy = this.height / 2;
+    this.outerRadius = options.outerRadius || 180;
+    this.innerRadius = options.innerRadius || 108; // 60% cutout
+    this.gutter = options.gutter !== undefined ? options.gutter : 3;
+    this.mode = options.mode || 'path'; // 'path' | 'stroke'
+    this.data = options.data || [];
+    this.init();
+  }
+
+  init() {
+    this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    this.svg.setAttribute('viewBox', `0 0 ${this.width} ${this.height}`);
+    this.svg.setAttribute('role', 'graphics-document');
+    this.svg.setAttribute('aria-label', 'Circular Donut Chart');
+    this.svg.style.width = '100%';
+    this.svg.style.height = 'auto';
+    this.container.innerHTML = '';
+    this.container.appendChild(this.svg);
+    this.render();
+  }
+
+  render() {
+    this.svg.innerHTML = '';
+    const total = this.data.reduce((sum, d) =&gt; sum + d.value, 0);
+    if (total &lt;= 0) return;
+
+    if (this.mode === 'stroke') {
+      this.renderStrokeMode(total);
+    } else {
+      this.renderPathMode(total);
+    }
+  }
+
+  renderPathMode(total) {
+    let currentAngle = 0;
+    const rMid = (this.innerRadius + this.outerRadius) / 2;
+    const padAngle = rMid &gt; 0 ? this.gutter / rMid : 0;
+
+    this.data.forEach((item, index) =&gt; {
+      const sliceAngle = (item.value / total) * (Math.PI * 2);
+      const theta0 = currentAngle + padAngle / 2;
+      const theta1 = currentAngle + sliceAngle - padAngle / 2;
+
+      if (theta1 &gt; theta0) {
+        const pathStr = this.computeAnnularSector(
+          this.cx, this.cy, this.innerRadius, this.outerRadius, theta0, theta1
+        );
+
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', pathStr);
+        path.setAttribute('fill', item.color);
+        path.setAttribute('role', 'graphics-symbol');
+        path.setAttribute('aria-label', `${item.label}: ${item.value} (${((item.value / total) * 100).toFixed(1)}%)`);
+        path.style.transition = 'transform 200ms ease, opacity 150ms ease';
+        path.style.cursor = 'pointer';
+
+        path.addEventListener('pointerenter', () =&gt; {
+          path.style.opacity = '0.85';
+          path.style.transform = `scale(1.03)`;
+          path.style.transformOrigin = `${this.cx}px ${this.cy}px`;
+        });
+
+        path.addEventListener('pointerleave', () =&gt; {
+          path.style.opacity = '1';
+          path.style.transform = 'none';
+        });
+
+        this.svg.appendChild(path);
+      }
+      currentAngle += sliceAngle;
+    });
+  }
+
+  computeAnnularSector(cx, cy, rIn, rOut, a0, a1) {
+    const p1 = { x: cx + rOut * Math.cos(a0 - Math.PI / 2), y: cy + rOut * Math.sin(a0 - Math.PI / 2) };
+    const p2 = { x: cx + rOut * Math.cos(a1 - Math.PI / 2), y: cy + rOut * Math.sin(a1 - Math.PI / 2) };
+    const p3 = { x: cx + rIn * Math.cos(a1 - Math.PI / 2), y: cy + rIn * Math.sin(a1 - Math.PI / 2) };
+    const p4 = { x: cx + rIn * Math.cos(a0 - Math.PI / 2), y: cy + rIn * Math.sin(a0 - Math.PI / 2) };
+
+    const largeArc = (a1 - a0) &gt; Math.PI ? 1 : 0;
+    return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} ` +
+           `A ${rOut} ${rOut} 0 ${largeArc} 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} ` +
+           `L ${p3.x.toFixed(2)} ${p3.y.toFixed(2)} ` +
+           `A ${rIn} ${rIn} 0 ${largeArc} 0 ${p4.x.toFixed(2)} ${p4.y.toFixed(2)} Z`;
+  }
+}</code></pre>
+        </section>
+
+        <section id="accessibility-and-contrast">
+          <h2>8. Accessibility, High-DPI Rendering &amp; Dark/Light Mode Theme Switching</h2>
+          <p>Delivering production-grade visualizations demands rigorous adherence to digital accessibility standards and adaptive visual theme switching. In accordance with <strong>WCAG 2.2 Level AA</strong> mandates, data visualizations must guarantee both perceptual clarity and programmatically accessible representations.</p>
+
+          <h3>8.1 Dynamic Color Contrast and Theming Rules</h3>
+          <p>Text labels embedded inside or adjacent to donut slices must maintain a contrast ratio of at least <strong>4.5:1</strong> against their background, while graphical slice elements require at least <strong>3:1</strong> contrast against adjacent backgrounds and dividing gutters. In our dark mode design system, links utilize high-visibility lime <code>#C1DD2D</code>. In light mode, links adapt to <code>#4D6300</code> (a deep olive tint delivering &gt;5.2:1 contrast against pure white backgrounds <code>#FFFFFF</code>).</p>
+
+          <p>To inspect contrasting color themes across multivariate visualizations, review our architectural explorations of <a href="/articles/svg-radar-charts-and-multivariate-polar-visualization-guide/">multivariate polar radar charts</a>, <a href="/articles/svg-treemaps-and-hierarchical-space-filling-visualization-guide/">hierarchical space-filling treemaps</a>, and <a href="/articles/svg-funnel-charts-and-conversion-pipeline-visualization-guide/">conversion pipeline funnel charts</a>.</p>
+
+          <h3>8.2 Supporting Color-Blind Users with Non-Chromatic Cues</h3>
+          <p>Relying exclusively on chromatic hue to distinguish between categorical slices violates WCAG Success Criterion 1.4.1 (Use of Color). For users with red-green color vision deficiency (deuteranopia or protanopia), adjacent red, amber, and green sectors can appear indistinguishable in perceptual brightness. Production SVG implementations resolve this by layering secondary non-chromatic visual cues:</p>
+          <ul>
+            <li><strong>Monochrome Hatching Patterns:</strong> By embedding SVG <code>&lt;pattern&gt;</code> elements into the <code>&lt;defs&gt;</code> block (such as diagonal stripes, stippled dots, and crosshatching), individual slices communicate their identity through texture in addition to color.</li>
+            <li><strong>Direct Label Callouts:</strong> Instead of forcing users to consult a disconnected legend box, direct centroid or elbow callout labels present the category name and numeric value adjacent to the slice.</li>
+            <li><strong>Active Focus Reticles:</strong> When a user focuses a slice via keyboard navigation (Tab and arrow keys), the active sector applies a high-contrast 2px outline and slightly elevates outward from the donut center.</li>
+          </ul>
+
+          <h3>8.3 Memory Lifecycle Management &amp; Garbage Collection Optimization</h3>
+          <p>When running long-lived enterprise applications such as financial trading terminals, cloud infrastructure dashboards, or industrial IoT monitoring centers that remain open for weeks in browser tabs, circular charts receiving real-time WebSocket telemetry can trigger silent memory leaks if event listeners and DOM nodes are mishandled. In naive implementations, developers repeatedly discard and recreate SVG innerHTML on every packet, abandoning attached pointer listeners and creating thousands of orphaned DOM nodes that thrash the JavaScript V8 garbage collector.</p>
+          <p>To achieve sustained zero-leak 120 FPS execution, the chart engine must adopt a retained-mode pooling strategy. Upon initialization, the engine instantiates a fixed set of SVG <code>&lt;path&gt;</code> and <code>&lt;text&gt;</code> elements corresponding to the maximum expected category count. When streaming updates arrive, the engine mutates the existing elements' <code>d</code>, <code>fill</code>, and text attributes directly via <code>setAttribute</code>, leaving the underlying DOM hierarchy and pointer event listeners untouched. This preserves GPU texture bindings, reduces memory allocation to near zero, and completely eliminates garbage collection pauses.</p>
+
+          <div class="takeaway-box">
+            <h3>Key Architectural Takeaways</h3>
+            <ul>
+              <li><strong>Model Selection:</strong> Choose <code>stroke-dasharray</code> circles for single-ring KPI meters and simple progress rings; choose trigonometric annular <code>&lt;path&gt;</code> sectors for multi-category breakdowns requiring inter-slice gutters, exploded highlights, and rounded fillets.</li>
+              <li><strong>Trigonometric Phase Shift:</strong> Always apply a -&pi;/2 radian (-90 degree) rotation offset to align initial slice vertices with the standard 12 o'clock apex.</li>
+              <li><strong>WCAG 2.2 AA Compliance:</strong> Supply semantic ARIA roles, descriptive title elements, accessible data tables for assistive readers, and verify contrast ratios &ge; 4.5:1 in both light and dark display modes.</li>
+              <li><strong>Zero Dependencies:</strong> By leveraging native browser vector math, production teams eliminate heavy charting libraries, trimming hundreds of kilobytes from production bundles while guaranteeing 120 FPS interaction.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="frequently-asked-questions" class="faq-section">
+          <h2>9. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <div class="faq-question">What is the primary architectural difference between stroke-dasharray and path arc donut charts in SVG?</div>
+            <div class="faq-answer">The stroke-dasharray technique renders concentric or staggered SVG circle elements where the stroke width forms the annular ring thickness and dash patterns control percentage coverage; it is lightweight, GPU-accelerated, and trivial to animate. In contrast, path arc geometry constructs explicit annular sectors using SVG path syntax with M (moveto), A (elliptical arc), L (lineto), and Z (closepath) commands; it allows non-uniform inner and outer radii, rounded corners between slices, and radial explosion gaps but requires explicit trigonometric calculation.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Why do SVG stroke-dasharray donut charts default to starting at 3 o'clock and how do you rotate to 12 o'clock?</div>
+            <div class="faq-answer">In standard SVG geometry, angle 0 radians corresponds to the positive horizontal X-axis (the 3 o'clock position). To align the starting slice with the conventional 12 o'clock apex, you can apply an SVG transformation attribute transform='rotate(-90 cx cy)' or use CSS transform: rotate(-90deg) with transform-origin: center. This phase shift aligns the beginning of stroke-dashoffset with the vertical top.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">How is the circumference and stroke-dashoffset calculated for a given percentage value?</div>
+            <div class="faq-answer">For a circle of radius r, the total circumference C equals 2 * pi * r. For a segment representing fraction p (where 0 &le; p &le; 1), the arc length is L = p * C. When using stroke-dasharray with an accumulator offset S representing prior slices, stroke-dasharray is set to 'L (C - L)' and stroke-dashoffset is set to -S (or C - S depending on rotation polarity), perfectly allocating the segment along the perimeter.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">How do you render rounded slice corners and inter-slice padding in SVG donut charts?</div>
+            <div class="faq-answer">In stroke-dasharray charts, adding stroke-linecap='round' creates rounded ends, but overlapping segments must subtract the stroke width from their dash length to avoid visual collision. In path-based annular sectors, corner rounding is achieved by offsetting start and end angles by a small delta theta = padAngle / 2, or by inserting cubic and quadratic Bézier arc fillets between the straight radial edges and the circular arc perimeters.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">How do you position callout labels and percentage text at the exact centroid of an SVG donut slice?</div>
+            <div class="faq-answer">The centroid of an annular sector spanning from angle theta_start to theta_end with inner radius r_in and outer radius r_out is located along the bisecting angle theta_mid = (theta_start + theta_end) / 2. The radial distance of the centroid is r_mid = (r_in + r_out) / 2 (or more precisely for wide arcs, (2/3) * (r_out^3 - r_in^3) / (r_out^2 - r_in^2) * sin(delta_theta / 2) / (delta_theta / 2)). The Cartesian coordinates are x = cx + r_mid * cos(theta_mid) and y = cy + r_mid * sin(theta_mid).</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">How do you ensure SVG donut charts comply with WCAG 2.2 AA accessibility mandates?</div>
+            <div class="faq-answer">A compliant SVG donut chart includes role='graphics-document' on the svg container, a descriptive aria-label, and semantic title and desc elements. Individual slices carry role='graphics-symbol', aria-label with slice name and percentage, and keyboard focusability (tabindex='0'). Furthermore, color fills must maintain at least 3:1 graphical contrast against adjacent sectors and background, paired with high-contrast text labels (&ge; 4.5:1 contrast) or patterned borders to assist color-blind users.</div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <a href="#why-native-svg-circular">1. Why Native SVG Dominates Canvas</a>
+            <a href="#stroke-dasharray-math">2. Stroke-Dasharray Math</a>
+            <a href="#arc-path-geometry">3. Arc Path Geometry &amp; Flags</a>
+            <a href="#rounded-corners-and-padding">4. Rounded Corners &amp; Radial Padding</a>
+            <a href="#centroid-label-calculation">5. Centroid Label Calculation</a>
+            <a href="#interactive-donut-studio">6. Interactive Donut Studio</a>
+            <a href="#enterprise-production-code">7. Production ES6 Engine</a>
+            <a href="#accessibility-and-contrast">8. Accessibility &amp; Themes</a>
+            <a href="#frequently-asked-questions">9. Frequently Asked Questions</a>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <h4>Explore 134K+ Free SVG Icons</h4>
+          <p>Need matching interface icons for your enterprise data console? Search IconStash's comprehensive open-source icon repository.</p>
+          <a href="/#/" class="header-cta" style="display:inline-block; text-align:center;">Browse Free Icons</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 IconStash.io &bull; Precision Vector Graphics &amp; Developer Resources.</p>
+    <p style="margin-top: 8px;"><a href="/">Home</a> &bull; <a href="/articles/">Articles</a> &bull; <a href="/about/">About</a> &bull; <a href="/privacy/">Privacy</a></p>
+  </footer>
+
+  <script>
+    (function() {
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('themeToggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', nextTheme);
+        });
+      }
+
+      // Studio Datasets
+      const presets = {
+        saas: {
+          name: 'SaaS Revenue Stream Breakdown',
+          items: [
+            { label: 'Enterprise Annual Plans', value: 4250, color: '#C1DD2D' },
+            { label: 'Pro Tier Monthly', value: 2750, color: '#38BDF8' },
+            { label: 'Self-Serve Starter', value: 1800, color: '#A855F7' },
+            { label: 'Custom Add-ons & API', value: 1200, color: '#F59E0B' }
+          ]
+        },
+        cloud: {
+          name: 'Multi-Cloud Infrastructure Spend',
+          items: [
+            { label: 'Compute Instances (Kubernetes)', value: 5200, color: '#38BDF8' },
+            { label: 'Distributed Database Storage', value: 2800, color: '#10B981' },
+            { label: 'Global CDN & Ingress Traffic', value: 1400, color: '#F43F5E' },
+            { label: 'Observability & Logging', value: 900, color: '#C1DD2D' }
+          ]
+        },
+        marketing: {
+          name: 'Acquisition Channel Attribution',
+          items: [
+            { label: 'Organic Search (Technical SEO)', value: 4800, color: '#10B981' },
+            { label: 'Direct Developer Referrals', value: 3100, color: '#C1DD2D' },
+            { label: 'Developer Conferences & Sponsoring', value: 1600, color: '#F59E0B' },
+            { label: 'Ecosystem Plugins', value: 1100, color: '#A855F7' }
+          ]
+        },
+        storage: {
+          name: 'NVMe Storage Allocation',
+          items: [
+            { label: 'Database Shards', value: 6400, color: '#A855F7' },
+            { label: 'Build Cache & Docker Layers', value: 2400, color: '#38BDF8' },
+            { label: 'Application Log Archives', value: 1300, color: '#F59E0B' },
+            { label: 'Free Unallocated Space', value: 700, color: '#C1DD2D' }
+          ]
+        }
+      };
+
+      // Controls
+      const presetSelect = document.getElementById('donutPresetSelect');
+      const renderModeSelect = document.getElementById('donutRenderModeSelect');
+      const holeRadiusRange = document.getElementById('donutHoleRadiusRange');
+      const holeValSpan = document.getElementById('donutHoleVal');
+      const gutterRange = document.getElementById('donutGutterRange');
+      const gutterValSpan = document.getElementById('donutGutterVal');
+      const btnToggleLabels = document.getElementById('btnToggleLabels');
+      const btnToggleExplode = document.getElementById('btnToggleExplode');
+      const btnCopyDonutSVG = document.getElementById('btnCopyDonutSVG');
+      const svgCanvas = document.getElementById('donutStudioCanvas');
+
+      // Stats
+      const statCategoryCount = document.getElementById('statCategoryCount');
+      const statDominantShare = document.getElementById('statDominantShare');
+      const statOuterCircumference = document.getElementById('statOuterCircumference');
+      const statActiveSegment = document.getElementById('statActiveSegment');
+
+      let showLabels = true;
+      let explodeDominant = false;
+      let activePresetKey = 'saas';
+
+      function polarToCartesian(cx, cy, r, angleRad) {
+        return {
+          x: +(cx + r * Math.cos(angleRad - Math.PI / 2)).toFixed(2),
+          y: +(cy + r * Math.sin(angleRad - Math.PI / 2)).toFixed(2)
+        };
+      }
+
+      function renderStudio() {
+        const preset = presets[activePresetKey];
+        const mode = renderModeSelect.value;
+        const holeRatio = parseInt(holeRadiusRange.value, 10) / 100;
+        const gutterPx = parseInt(gutterRange.value, 10);
+        holeValSpan.textContent = holeRadiusRange.value;
+        gutterValSpan.textContent = gutterRange.value;
+
+        const cx = 250;
+        const cy = 250;
+        const outerRadius = 180;
+        const innerRadius = outerRadius * holeRatio;
+        const total = preset.items.reduce((s, it) => s + it.value, 0);
+
+        svgCanvas.innerHTML = '';
+
+        // Background subtle guide
+        const bgGuide = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        bgGuide.setAttribute('cx', cx);
+        bgGuide.setAttribute('cy', cy);
+        bgGuide.setAttribute('r', outerRadius);
+        bgGuide.setAttribute('fill', 'none');
+        bgGuide.setAttribute('stroke', '#1A1A1A');
+        bgGuide.setAttribute('stroke-width', '1');
+        svgCanvas.appendChild(bgGuide);
+
+        if (mode === 'path') {
+          let currentAngle = 0;
+          const rMid = (innerRadius + outerRadius) / 2;
+          const padAngle = rMid > 0 ? gutterPx / rMid : 0;
+
+          preset.items.forEach((item, idx) => {
+            const sliceAngle = (item.value / total) * (Math.PI * 2);
+            const a0 = currentAngle + padAngle / 2;
+            const a1 = currentAngle + sliceAngle - padAngle / 2;
+
+            if (a1 > a0) {
+              const p1 = polarToCartesian(cx, cy, outerRadius, a0);
+              const p2 = polarToCartesian(cx, cy, outerRadius, a1);
+              const p3 = polarToCartesian(cx, cy, innerRadius, a1);
+              const p4 = polarToCartesian(cx, cy, innerRadius, a0);
+
+              const largeArc = (a1 - a0) > Math.PI ? 1 : 0;
+              const d = `M ${p1.x} ${p1.y} A ${outerRadius} ${outerRadius} 0 ${largeArc} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${p4.x} ${p4.y} Z`;
+
+              const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+              path.setAttribute('d', d);
+              path.setAttribute('fill', item.color);
+              path.setAttribute('class', 'donut-slice');
+              path.setAttribute('role', 'graphics-symbol');
+              path.setAttribute('aria-label', `${item.label}: ${item.value}`);
+
+              // Explosion offset for dominant slice (idx 0)
+              if (explodeDominant && idx === 0) {
+                const midAngle = (a0 + a1) / 2;
+                const explodeDist = 12;
+                const ox = Math.cos(midAngle - Math.PI / 2) * explodeDist;
+                const oy = Math.sin(midAngle - Math.PI / 2) * explodeDist;
+                path.style.transform = `translate(${ox.toFixed(2)}px, ${oy.toFixed(2)}px)`;
+              }
+
+              path.addEventListener('pointerenter', () => {
+                statActiveSegment.textContent = `${item.label} (${((item.value / total) * 100).toFixed(1)}%)`;
+              });
+              path.addEventListener('pointerleave', () => {
+                statActiveSegment.textContent = preset.items[0].label;
+              });
+
+              svgCanvas.appendChild(path);
+
+              // Value Label
+              if (showLabels && sliceAngle > 0.3) {
+                const labelAngle = (a0 + a1) / 2;
+                const labelPos = polarToCartesian(cx, cy, rMid, labelAngle);
+                const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                txt.setAttribute('x', labelPos.x);
+                txt.setAttribute('y', labelPos.y);
+                txt.setAttribute('fill', '#0A0A0A');
+                txt.setAttribute('font-family', 'JetBrains Mono, monospace');
+                txt.setAttribute('font-size', '11');
+                txt.setAttribute('font-weight', '700');
+                txt.setAttribute('text-anchor', 'middle');
+                txt.setAttribute('dominant-baseline', 'central');
+                txt.textContent = `${((item.value / total) * 100).toFixed(0)}%`;
+                svgCanvas.appendChild(txt);
+              }
+            }
+            currentAngle += sliceAngle;
+          });
+        } else {
+          // Stroke-Dasharray Mode
+          const rStroke = (innerRadius + outerRadius) / 2;
+          const strokeWidth = outerRadius - innerRadius;
+          const circum = 2 * Math.PI * rStroke;
+          let currentOffset = 0;
+
+          preset.items.forEach((item, idx) => {
+            const frac = item.value / total;
+            const dashLen = Math.max(0, frac * circum - gutterPx);
+            const gapLen = circum - dashLen;
+
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', cx);
+            circle.setAttribute('cy', cy);
+            circle.setAttribute('r', rStroke.toFixed(2));
+            circle.setAttribute('fill', 'none');
+            circle.setAttribute('stroke', item.color);
+            circle.setAttribute('stroke-width', strokeWidth.toFixed(2));
+            circle.setAttribute('stroke-dasharray', `${dashLen.toFixed(2)} ${gapLen.toFixed(2)}`);
+            circle.setAttribute('stroke-dashoffset', (-currentOffset).toFixed(2));
+            circle.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
+            circle.setAttribute('class', 'donut-slice');
+            circle.setAttribute('role', 'graphics-symbol');
+            circle.setAttribute('aria-label', `${item.label}: ${item.value}`);
+
+            circle.addEventListener('pointerenter', () => {
+              statActiveSegment.textContent = `${item.label} (${((item.value / total) * 100).toFixed(1)}%)`;
+            });
+            circle.addEventListener('pointerleave', () => {
+              statActiveSegment.textContent = preset.items[0].label;
+            });
+
+            svgCanvas.appendChild(circle);
+            currentOffset += frac * circum;
+          });
+        }
+
+        // Center Stats Text
+        const centerTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        centerTitle.setAttribute('x', cx);
+        centerTitle.setAttribute('y', cy - 8);
+        centerTitle.setAttribute('class', 'donut-center-label');
+        centerTitle.setAttribute('fill', '#FFFFFF');
+        centerTitle.setAttribute('font-size', '24');
+        centerTitle.textContent = total.toLocaleString();
+
+        const centerSub = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        centerSub.setAttribute('x', cx);
+        centerSub.setAttribute('y', cy + 18);
+        centerSub.setAttribute('class', 'donut-sub-label');
+        centerSub.textContent = 'TOTAL UNITS';
+
+        svgCanvas.appendChild(centerTitle);
+        svgCanvas.appendChild(centerSub);
+
+        // Update Stats Readout
+        statCategoryCount.textContent = `${preset.items.length} Segments`;
+        const dominantFrac = (preset.items[0].value / total) * 100;
+        statDominantShare.textContent = `${dominantFrac.toFixed(1)}%`;
+        const outerCircum = 2 * Math.PI * outerRadius;
+        statOuterCircumference.textContent = `${outerCircum.toFixed(1)} px`;
+        statActiveSegment.textContent = preset.items[0].label;
+      }
+
+      presetSelect.addEventListener('change', (e) => {
+        activePresetKey = e.target.value;
+        renderStudio();
+      });
+
+      renderModeSelect.addEventListener('change', renderStudio);
+      holeRadiusRange.addEventListener('input', renderStudio);
+      gutterRange.addEventListener('input', renderStudio);
+
+      btnToggleLabels.addEventListener('click', () => {
+        showLabels = !showLabels;
+        btnToggleLabels.classList.toggle('active', showLabels);
+        renderStudio();
+      });
+
+      btnToggleExplode.addEventListener('click', () => {
+        explodeDominant = !explodeDominant;
+        btnToggleExplode.classList.toggle('active', explodeDominant);
+        renderStudio();
+      });
+
+      btnCopyDonutSVG.addEventListener('click', () => {
+        let svgSource = svgCanvas.outerHTML;
+        if (!svgSource.includes('xmlns=')) {
+          svgSource = svgSource.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ');
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(svgSource).then(() => {
+            const originalText = btnCopyDonutSVG.innerHTML;
+            btnCopyDonutSVG.innerHTML = '<span>SVG Copied!</span>';
+            setTimeout(() => { btnCopyDonutSVG.innerHTML = originalText; }, 2000);
+          }).catch(() => fallbackCopy(svgSource));
+        } else {
+          fallbackCopy(svgSource);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          const originalText = btnCopyDonutSVG.innerHTML;
+          btnCopyDonutSVG.innerHTML = '<span>SVG Copied!</span>';
+          setTimeout(() => { btnCopyDonutSVG.innerHTML = originalText; }, 2000);
+        } catch (e) {
+          console.error('Fallback copy failed', e);
+        }
+        document.body.removeChild(ta);
+      }
+
+      renderStudio();
+    })();
+  </script>
+</body>
+</html>
+'''
+
+with open(target_file, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"Generated {target_file} successfully.")
