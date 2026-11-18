@@ -249,6 +249,7 @@
     .map-svg-canvas { width: 100%; max-width: 820px; height: auto; }
     .map-region { transition: fill 200ms ease, stroke-width 150ms ease, opacity 150ms ease; cursor: pointer; }
     .map-region:hover { stroke: #FFFFFF !important; stroke-width: 2.5px !important; opacity: 0.95; }
+    .map-svg-canvas[data-hover-mode="dark"] .map-region:hover { stroke: #000000 !important; stroke-width: 3px !important; opacity: 0.9; }
 
     .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
     .stat-item { display: flex; flex-direction: column; }
@@ -1101,6 +1102,7 @@ export class SvgChoroplethEngine {
 
         // Render SVG Elements
         liveSvg.innerHTML = '';
+        liveSvg.setAttribute('data-hover-mode', hoverMode);
 
         // Background
         const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");

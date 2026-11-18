@@ -245,10 +245,11 @@
     .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
     .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
 
-    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 520px; user-select: none; }
-    .network-svg-canvas { width: 100%; max-width: 820px; height: auto; cursor: grab; }
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 520px; user-select: none; touch-action: none; }
+    .network-svg-canvas { width: 100%; max-width: 820px; height: auto; cursor: grab; touch-action: none; }
     .network-svg-canvas:active { cursor: grabbing; }
-    .network-node { cursor: pointer; transition: stroke-width 150ms ease; }
+    .network-node { cursor: grab; transition: stroke-width 150ms ease; touch-action: none; }
+    .network-node:active { cursor: grabbing; }
     .network-node:hover { stroke-width: 3px !important; stroke: #C1DD2D !important; }
     .network-edge { stroke-linecap: round; transition: stroke-opacity 150ms ease; }
 
@@ -1121,6 +1122,10 @@ export class SvgForceSimulation {
       }
 
       function rebuildGraph() {
+        if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
         const preset = presetSelect ? presetSelect.value : 'mesh';
         const nodeCount = nodesSlider ? parseInt(nodesSlider.value, 10) : 24;
         const graph = generateGraphData(preset, nodeCount);
@@ -1144,6 +1149,7 @@ export class SvgForceSimulation {
         if (statDensity) statDensity.textContent = density;
 
         renderBaseSvg();
+        reheat(1.0);
       }
 
       function renderBaseSvg() {
@@ -1196,6 +1202,7 @@ export class SvgForceSimulation {
           path.setAttribute("stroke-width", "1.5");
           path.setAttribute("fill", "none");
           path.setAttribute("marker-end", "url(#net-arrow)");
+          l.domPath = path;
           edgeG.appendChild(path);
         });
 
@@ -1230,14 +1237,26 @@ export class SvgForceSimulation {
           text.setAttribute("dy", String(n.radius + 12));
           text.textContent = n.id;
 
+          n.circleEl = circle;
+          n.textEl = text;
+
           g.appendChild(circle);
           g.appendChild(text);
 
-          // Drag Events
+          // Drag & Touch Events with pointercancel support
+          const handlePointerUp = (e) => {
+            if (draggedNode === n) {
+              try { circle.releasePointerCapture(e.pointerId); } catch (_) {}
+              n.fx = null;
+              n.fy = null;
+              draggedNode = null;
+            }
+          };
+
           circle.addEventListener('pointerdown', (e) => {
             draggedNode = n;
-            circle.setPointerCapture(e.pointerId);
-            alpha = 0.35; // Reheat
+            try { circle.setPointerCapture(e.pointerId); } catch (_) {}
+            reheat(0.35);
             const pt = getSvgCoords(e.clientX, e.clientY);
             n.fx = pt.x;
             n.fy = pt.y;
@@ -1249,18 +1268,12 @@ export class SvgForceSimulation {
               const pt = getSvgCoords(e.clientX, e.clientY);
               n.fx = pt.x;
               n.fy = pt.y;
-              alpha = 0.35; // Keep warm
+              reheat(0.35);
             }
           });
 
-          circle.addEventListener('pointerup', (e) => {
-            if (draggedNode === n) {
-              circle.releasePointerCapture(e.pointerId);
-              n.fx = null;
-              n.fy = null;
-              draggedNode = null;
-            }
-          });
+          circle.addEventListener('pointerup', handlePointerUp);
+          circle.addEventListener('pointercancel', handlePointerUp);
 
           nodeG.appendChild(g);
         });
@@ -1358,83 +1371,93 @@ export class SvgForceSimulation {
           alpha *= 0.985;
           if (statAlpha) statAlpha.textContent = alpha.toFixed(3);
           if (statStatus) statStatus.textContent = alpha > 0.02 ? 'Simulating' : 'Converged';
+
+          // Update DOM positions
+          links.forEach((l, idx) => {
+            const path = l.domPath || document.getElementById(`edge-${idx}`);
+            if (!path || !l.sourceNode || !l.targetNode) return;
+            const u = l.sourceNode;
+            const v = l.targetNode;
+
+            if (edgeStyle === 'curved') {
+              const mx = (u.x + v.x) / 2;
+              const my = (u.y + v.y) / 2;
+              const dx = v.x - u.x;
+              const dy = v.y - u.y;
+              const len = Math.sqrt(dx * dx + dy * dy) || 1;
+              const nx = -dy / len;
+              const ny = dx / len;
+              const offset = (idx % 2 === 0 ? 1 : -1) * 16;
+              const cxPt = mx + nx * offset;
+              const cyPt = my + ny * offset;
+
+              // Trim end to land on target boundary
+              const endX = v.x - (dx / len) * (v.radius + 4);
+              const endY = v.y - (dy / len) * (v.radius + 4);
+
+              path.setAttribute("d", `M ${u.x.toFixed(1)} ${u.y.toFixed(1)} Q ${cxPt.toFixed(1)} ${cyPt.toFixed(1)} ${endX.toFixed(1)} ${endY.toFixed(1)}`);
+            } else {
+              const dx = v.x - u.x;
+              const dy = v.y - u.y;
+              const len = Math.sqrt(dx * dx + dy * dy) || 1;
+              const endX = v.x - (dx / len) * (v.radius + 4);
+              const endY = v.y - (dy / len) * (v.radius + 4);
+
+              path.setAttribute("d", `M ${u.x.toFixed(1)} ${u.y.toFixed(1)} L ${endX.toFixed(1)} ${endY.toFixed(1)}`);
+            }
+          });
+
+          nodes.forEach((n) => {
+            const circle = n.circleEl || document.getElementById(`node-${n.id}`);
+            const text = n.textEl || document.getElementById(`node-lbl-${n.id}`);
+            if (circle) {
+              circle.setAttribute("cx", n.x.toFixed(1));
+              circle.setAttribute("cy", n.y.toFixed(1));
+            }
+            if (text) {
+              text.setAttribute("x", n.x.toFixed(1));
+              text.setAttribute("y", n.y.toFixed(1));
+            }
+          });
+
+          animId = requestAnimationFrame(physicsStep);
+        } else {
+          alpha = 0;
+          if (statAlpha) statAlpha.textContent = '0.000';
+          if (statStatus) statStatus.textContent = 'Converged';
+          animId = null;
         }
-
-        // Update DOM positions
-        links.forEach((l, idx) => {
-          const path = document.getElementById(`edge-${idx}`);
-          if (!path || !l.sourceNode || !l.targetNode) return;
-          const u = l.sourceNode;
-          const v = l.targetNode;
-
-          if (edgeStyle === 'curved') {
-            const mx = (u.x + v.x) / 2;
-            const my = (u.y + v.y) / 2;
-            const dx = v.x - u.x;
-            const dy = v.y - u.y;
-            const len = Math.sqrt(dx * dx + dy * dy) || 1;
-            const nx = -dy / len;
-            const ny = dx / len;
-            const offset = (idx % 2 === 0 ? 1 : -1) * 16;
-            const cxPt = mx + nx * offset;
-            const cyPt = my + ny * offset;
-
-            // Trim end to land on target boundary
-            const endX = v.x - (dx / len) * (v.radius + 4);
-            const endY = v.y - (dy / len) * (v.radius + 4);
-
-            path.setAttribute("d", `M ${u.x.toFixed(1)} ${u.y.toFixed(1)} Q ${cxPt.toFixed(1)} ${cyPt.toFixed(1)} ${endX.toFixed(1)} ${endY.toFixed(1)}`);
-          } else {
-            const dx = v.x - u.x;
-            const dy = v.y - u.y;
-            const len = Math.sqrt(dx * dx + dy * dy) || 1;
-            const endX = v.x - (dx / len) * (v.radius + 4);
-            const endY = v.y - (dy / len) * (v.radius + 4);
-
-            path.setAttribute("d", `M ${u.x.toFixed(1)} ${u.y.toFixed(1)} L ${endX.toFixed(1)} ${endY.toFixed(1)}`);
-          }
-        });
-
-        nodes.forEach((n) => {
-          const circle = document.getElementById(`node-${n.id}`);
-          const text = document.getElementById(`node-lbl-${n.id}`);
-          if (circle) {
-            circle.setAttribute("cx", n.x.toFixed(1));
-            circle.setAttribute("cy", n.y.toFixed(1));
-          }
-          if (text) {
-            text.setAttribute("x", n.x.toFixed(1));
-            text.setAttribute("y", n.y.toFixed(1));
-          }
-        });
-
-        animId = requestAnimationFrame(physicsStep);
       }
 
-      function reheat() {
-        alpha = 0.35;
+      function reheat(temp = 0.35) {
+        alpha = Math.max(alpha, temp);
+        if (statStatus && alpha > 0.02) statStatus.textContent = 'Simulating';
+        if (!animId) {
+          animId = requestAnimationFrame(physicsStep);
+        }
       }
 
       // Event Listeners
-      if (presetSelect) presetSelect.addEventListener('change', () => { rebuildGraph(); reheat(); });
+      if (presetSelect) presetSelect.addEventListener('change', () => { rebuildGraph(); });
       if (nodesSlider) nodesSlider.addEventListener('input', () => {
         if (nodesVal) nodesVal.textContent = nodesSlider.value;
         rebuildGraph();
-        reheat();
       });
       if (chargeSlider) chargeSlider.addEventListener('input', () => {
         if (chargeVal) chargeVal.textContent = chargeSlider.value;
-        reheat();
+        reheat(0.35);
       });
       if (linkSlider) linkSlider.addEventListener('input', () => {
         if (linkVal) linkVal.textContent = linkSlider.value;
-        reheat();
+        reheat(0.35);
       });
       if (gravitySlider) gravitySlider.addEventListener('input', () => {
         if (gravityVal) gravityVal.textContent = gravitySlider.value;
-        reheat();
+        reheat(0.35);
       });
-      if (edgeStyleSelect) edgeStyleSelect.addEventListener('change', reheat);
+      if (edgeStyleSelect) edgeStyleSelect.addEventListener('change', () => {
+        reheat(0.2);
+      });
 
       // Clipboard export with execCommand fallback
       function fallbackCopy(text) {

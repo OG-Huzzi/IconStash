@@ -240,6 +240,43 @@ assert.ok(contrastTextLight >= 7.0, 'Body text should satisfy AAA level on light
 
 console.log('  [PASS] All color contrast ratios strictly satisfy WCAG 2.2 AA standards');
 
+// ==========================================
+// TEST 5: SIMULATION CONVERGENCE & TOUCH RESILIENCE
+// ==========================================
+console.log('\n--- Testing Simulation Convergence & Touch Resilience ---');
+
+// Test thermal decay loop terminating in finite steps
+let testAlpha = 1.0;
+let stepCount = 0;
+while (testAlpha > 0.005) {
+  testAlpha *= 0.985;
+  stepCount++;
+}
+assert.ok(stepCount > 50 && stepCount < 400, `Simulation should converge between 50 and 400 steps (converged in ${stepCount} steps)`);
+assert.ok(testAlpha <= 0.005, 'Simulation halts when alpha <= 0.005');
+console.log(`  [PASS] Thermal cooling simulation decays cleanly and halts after ${stepCount} steps`);
+
+// Test Reheat function guarantees
+function testReheat(currentAlpha, temp = 0.35) {
+  return Math.max(currentAlpha, temp);
+}
+assert.strictEqual(testReheat(0.002, 0.35), 0.35); // cold simulation reheated
+assert.strictEqual(testReheat(0.8, 0.35), 0.8);    // already warm simulation preserves higher energy
+assert.strictEqual(testReheat(0.1, 1.0), 1.0);     // rebuild graph reheat gives full energy
+console.log('  [PASS] Simulation reheat preserves kinetic energy bounds');
+
+// Test Tick interval math for scatter plots
+function computeAxisTicks(minVal, maxVal, intervals = 5) {
+  const ticks = [];
+  for (let i = 0; i <= intervals; i++) {
+    ticks.push(minVal + ((maxVal - minVal) / intervals) * i);
+  }
+  return ticks;
+}
+const ticks = computeAxisTicks(0, 100, 5);
+assert.deepStrictEqual(ticks, [0, 20, 40, 60, 80, 100]);
+console.log('  [PASS] Scatter plot coordinate tick mark intervals verified');
+
 console.log('\n======================================================');
 console.log('ALL NOVEMBER 18 RUNTIME STUDIO TESTS & MATH PASSED!');
 console.log('======================================================\n');

@@ -1252,6 +1252,32 @@ export class SvgScatterEngine {
           hl.setAttribute("x2", width - pad.right);
           hl.setAttribute("y2", gy.toFixed(1));
           gridG.appendChild(hl);
+
+          // X tick label
+          const valX = minX + ((maxX - minX) / 5) * i;
+          const tx = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          tx.setAttribute("x", gx.toFixed(1));
+          tx.setAttribute("y", (height - pad.bottom + 16).toFixed(1));
+          tx.setAttribute("fill", "#666666");
+          tx.setAttribute("font-family", "JetBrains Mono, monospace");
+          tx.setAttribute("font-size", "10");
+          tx.setAttribute("text-anchor", "middle");
+          tx.setAttribute("stroke", "none");
+          tx.textContent = valX.toFixed(0);
+          gridG.appendChild(tx);
+
+          // Y tick label
+          const valY = maxY - ((maxY - minY) / 5) * i;
+          const ty = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          ty.setAttribute("x", (pad.left - 8).toFixed(1));
+          ty.setAttribute("y", (gy + 3).toFixed(1));
+          ty.setAttribute("fill", "#666666");
+          ty.setAttribute("font-family", "JetBrains Mono, monospace");
+          ty.setAttribute("font-size", "10");
+          ty.setAttribute("text-anchor", "end");
+          ty.setAttribute("stroke", "none");
+          ty.textContent = valY.toFixed(0);
+          gridG.appendChild(ty);
         }
         liveSvg.appendChild(gridG);
 
