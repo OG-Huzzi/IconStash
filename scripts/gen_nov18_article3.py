@@ -1,0 +1,1266 @@
+import os
+import re
+
+slug = "svg-choropleth-maps-and-geographic-vector-visualization-guide"
+target_dir = os.path.join(r"D:\Project IconStash\IconStash\articles", slug)
+os.makedirs(target_dir, exist_ok=True)
+target_file = os.path.join(target_dir, "index.html")
+
+html_content = r'''<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Choropleth Maps: GeoJSON Projections, Color Quantization &amp; Vector GIS Guide (2026) | IconStash</title>
+  <meta name="description" content="Master SVG choropleth maps: GeoJSON to SVG path projection, Mercator and Albers conic math, color quantization, and responsive vector GIS scaling in SVG.">
+  <meta name="keywords" content="svg choropleth map, geojson to svg path, svg geographic map, albers projection svg, mercator projection svg, color quantization choropleth, interactive vector map javascript, responsive svg gis">
+  <meta property="og:title" content="Mastering SVG Choropleth Maps: GeoJSON Projections, Color Quantization &amp; Vector GIS Guide (2026)">
+  <meta property="og:description" content="Master SVG choropleth maps: GeoJSON to SVG path projection, Mercator and Albers conic math, color quantization, and responsive vector GIS scaling in SVG.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-18T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-18T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Geospatial Vector Graphics &amp; Cartography">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Choropleth Maps">
+  <meta property="article:tag" content="GIS">
+  <meta property="article:tag" content="Cartography">
+  <meta property="article:tag" content="GeoJSON">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Choropleth Maps: GeoJSON Projections, Color Quantization &amp; Vector GIS Guide (2026)">
+  <meta name="twitter:description" content="Master SVG choropleth maps: GeoJSON to SVG path projection, Mercator and Albers conic math, color quantization, and responsive vector GIS scaling in SVG.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Choropleth Maps: GeoJSON Projections, Color Quantization & Vector GIS Guide (2026)",
+      "description": "Master SVG choropleth maps: GeoJSON to SVG path projection, Mercator and Albers conic math, color quantization, and responsive vector GIS scaling in SVG.",
+      "image": "https://iconstash.io/assets/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-18",
+      "dateModified": "2026-11-18",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4980,
+      "articleSection": "Geospatial Vector Graphics & Cartography",
+      "keywords": [
+        "svg choropleth map",
+        "geojson to svg path",
+        "svg geographic map",
+        "albers projection svg",
+        "mercator projection svg",
+        "color quantization choropleth",
+        "interactive vector map javascript",
+        "responsive svg gis"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Choropleth Maps & Vector GIS Guide",
+          "item": "https://iconstash.io/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does forward spherical projection transform latitude and longitude into 2D SVG coordinates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Geographic coordinates are measured on a three-dimensional oblate spheroid as spherical angles: longitude (lambda) denoting east-west displacement and latitude (phi) denoting north-south elevation from the equator. A mathematical map projection is a vector function that maps the spherical surface onto a two-dimensional Euclidean plane. For instance, the Spherical Mercator projection maps longitude linearly to horizontal X, while projecting latitude through a logarithmic tangent transformation: y = R * ln(tan(pi/4 + phi/2)). Because standard SVG viewports place origin (0, 0) at the top-left with Y extending downwards, the computed planar Y coordinate is inverted relative to the canvas center, yielding crisp sub-pixel vector paths."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the Albers Equal-Area Conic projection preferred over Mercator for choropleth mapping?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Mercator projection is conformal, meaning it preserves local angles and shapes at the cost of catastrophic areal distortion near the poles. Under Mercator, Greenland appears as large as Africa, despite Africa possessing fourteen times more physical land area. In a choropleth map where color shades represent statistical densities across land polygons, visual perception is heavily weighted by the surface area of the polygon. Inflating northern landmasses distorts user perception of the underlying data. In contrast, the Albers Equal-Area Conic projection strictly preserves areal proportionality across the entire mapped domain, ensuring that equal land areas on Earth occupy identical pixel footprints on the screen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are GeoJSON MultiPolygon structures converted into SVG path strings?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A GeoJSON FeatureCollection stores boundary geometry as hierarchical coordinate arrays. A Polygon consists of an outer exterior linear ring followed by zero or more interior rings representing territorial enclaves or lakes. To convert this into an SVG path string, each coordinate pair [longitude, latitude] is passed through the projection function. The first projected point of the exterior ring generates an M (moveto) command, followed by sequential L (lineto) commands for subsequent vertices, terminating with Z (closepath). Interior rings append subsequent M...L...Z sub-paths into the identical d attribute string, with fill-rule='evenodd' ensuring enclaves render transparently."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the primary differences between quantile, equal interval, and Jenks natural breaks classification?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Equal Interval classification divides the metric domain (max - min) into K equal-width ranges, which works well for uniformly distributed metrics but fails when severe outliers compress most observations into a single color bucket. Quantile classification sorts observations and distributes an equal number of geographic features into each color bucket, ensuring visual contrast across the entire palette but potentially grouping widely different values into the same bucket. Jenks Natural Breaks uses an iterative variance-minimization algorithm (Fisher-Jenks) that minimizes the sum of squared differences within classes while maximizing variance between classes, identifying natural cluster boundaries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you achieve responsive auto-fitting of geographic vector paths within an SVG viewBox?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To fit an arbitrary geographic dataset into an SVG viewport of dimension W x H with padding P, the engine calculates the collective planar bounding box [minX, minY, maxX, maxY] across all projected polygon coordinates. The scale factor is determined by k = min((W - 2*P) / (maxX - minX), (H - 2*P) / (maxY - minY)). The translation offsets are computed as tx = (W - k * (minX + maxX)) / 2 and ty = (H - k * (minY + maxY)) / 2. Applying this affine matrix transformation (transform='matrix(k, 0, 0, k, tx, ty)') centers and scales the geographic contours perfectly within the SVG container."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you ensure SVG choropleth maps comply with WCAG 2.2 AA accessibility mandates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A compliant SVG choropleth map declares role='graphics-document' on the svg container, accompanied by descriptive title and desc elements detailing geographic scope and metric definitions. Each regional path element carries role='graphics-symbol', keyboard focusability via tabindex='0', and localized aria-label attributes listing region name, absolute metric value, and percentile classification. Crucially, color fills must not be the sole communication channel; maps must incorporate textured SVG pattern fills, distinct border halos, or data-driven labels, ensuring users with color vision deficiencies can distinguish categories."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
+
+    .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #C1DD2D; font-weight: 500; }
+
+    .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
+    .article-meta a { color: #999; font-weight: 600; }
+    .article-meta a:hover { color: #C1DD2D; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+    .article-main { min-width: 0; }
+
+    .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
+    .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
+    .featured-summary ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .featured-summary li { position: relative; padding-left: 20px; font-size: 15px; color: #B0B0B0; line-height: 1.6; }
+    .featured-summary li::before { content: "•"; position: absolute; left: 0; color: #C1DD2D; font-size: 20px; line-height: 1; top: 2px; }
+
+    .article-figure { margin: 32px 0 40px; text-align: center; }
+    .article-figure img, .article-figure svg { border-radius: 8px; border: 1px solid #242424; width: 100%; height: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .article-figure figcaption { margin-top: 12px; font-size: 13.5px; color: #888; line-height: 1.5; font-style: italic; }
+
+    h2 { font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1C1C1C; }
+    h3 { font-size: 21px; font-weight: 700; color: #F2F2F2; letter-spacing: -0.01em; margin: 32px 0 16px; }
+    h4 { font-size: 17px; font-weight: 600; color: #DDD; margin: 24px 0 12px; }
+    p { margin-bottom: 20px; color: #C8C8C8; font-size: 16.5px; line-height: 1.8; }
+    p strong { color: #FFFFFF; font-weight: 600; }
+    ul, ol { margin: 0 0 24px 24px; color: #C8C8C8; font-size: 16px; line-height: 1.75; }
+    li { margin-bottom: 8px; }
+
+    pre { background: #111111; border: 1px solid #222222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0 32px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.65; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 14px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    .formula-card { background: #121212; border: 1px solid #242424; border-left: 3px solid #C1DD2D; border-radius: 6px; padding: 20px 24px; margin: 24px 0 28px; }
+    .formula-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; margin-bottom: 8px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; overflow-x: auto; padding: 4px 0; }
+    .formula-desc { font-size: 14px; color: #999; line-height: 1.6; }
+
+    .table-container { width: 100%; overflow-x: auto; margin: 28px 0 36px; border: 1px solid #222; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; font-weight: 700; padding: 14px 18px; border-bottom: 1px solid #242424; white-space: nowrap; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #AAA; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 10px; padding: 24px; margin: 36px 0 44px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .sandbox-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #242424; padding-bottom: 16px; margin-bottom: 20px; }
+    .sandbox-title { font-size: 18px; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 12.5px; font-weight: 600; color: #999; }
+    .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
+    .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
+
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 520px; }
+    .map-svg-canvas { width: 100%; max-width: 820px; height: auto; }
+    .map-region { transition: fill 200ms ease, stroke-width 150ms ease, opacity 150ms ease; cursor: pointer; }
+    .map-region:hover { stroke: #FFFFFF !important; stroke-width: 2.5px !important; opacity: 0.95; }
+
+    .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; }
+    .stat-val { font-size: 16px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .action-btn-row { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+    .copy-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 150ms ease; }
+    .copy-btn:hover { background: #D2ED3E; }
+
+    .article-sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #C1DD2D; margin-bottom: 14px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
+    .toc-nav a { color: #888; display: block; line-height: 1.4; padding: 2px 0; }
+    .toc-nav a:hover { color: #C1DD2D; }
+    .cta-sidebar-box { background: rgba(193,221,45,0.06); border: 1px solid rgba(193,221,45,0.25); border-radius: 8px; padding: 18px; text-align: left; }
+    .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { font-size: 15px; color: #C1DD2D; margin-bottom: 8px; font-weight: 700; }
+    .cta-sidebar-box p { font-size: 13px; color: #BBB; line-height: 1.5; margin-bottom: 12px; }
+
+    .takeaway-box { background: #121212; border: 1px solid #242424; border-radius: 8px; padding: 24px 28px; margin: 36px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 19px; margin-top: 0; margin-bottom: 14px; }
+    .takeaway-box ul { margin-bottom: 0; }
+
+    .warning-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #EF4444; border-radius: 6px; padding: 18px 22px; margin: 28px 0; }
+    .warning-box .warning-title, .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #222; }
+    .faq-item { border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; background: #121212; overflow: hidden; }
+    .faq-question { padding: 18px 22px; font-size: 16px; font-weight: 700; color: #FFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 22px 18px; font-size: 15px; color: #B0B0B0; line-height: 1.7; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1C1C1C; padding: 48px 24px; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .data-table th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box .warning-title, .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .faq-item { background: #FFFFFF; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-question { color: #18181B; }
+    html[data-theme="light"] .faq-answer { color: #3F3F46; }
+
+    @media (max-width: 960px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .article-sidebar { display: none; }
+      .article-hero h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash.io home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z"/></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/#/">Search 134K+ Icons</a>
+      <a href="/articles/">Articles &amp; Guides</a>
+      <a href="/Listicles/best-free-icon-sets-2026/">Best Sets</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/about/">About</a>
+      <a href="/#/" class="header-cta">Browse Library</a>
+      <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle visual theme" type="button">
+        <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb navigation">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">SVG Choropleth Maps &amp; Vector GIS</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Geospatial Vector Graphics &amp; Cartography</span>
+      <h1>Mastering SVG Choropleth Maps: GeoJSON Projections, Color Quantization &amp; Vector GIS Guide</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>Published November 18, 2026</span>
+        <span>•</span>
+        <span>28 min read</span>
+        <span>•</span>
+        <span>Geographic Information Systems &amp; Mathematical Cartography</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Overview:</strong> Choropleth maps represent the definitive intersection of spherical trigonometry, mathematical cartography, and Scalable Vector Graphics. By projecting three-dimensional planetary coordinates (longitude and latitude) onto two-dimensional planar Euclidean viewports and shading distinct administrative polygons according to quantitative statistical metrics, vector choropleth maps transform abstract global datasets into immediately actionable geospatial intelligence.</p>
+          <ul>
+            <li><strong>Spherical Mathematical Projections:</strong> Deriving Forward Mercator Conformal, Albers Equal-Area Conic, and Equirectangular transformation matrices.</li>
+            <li><strong>GeoJSON &amp; TopoJSON Ingestion:</strong> Converting complex multi-ring boundary coordinates into memory-efficient SVG <code>&lt;path d="M...L...Z"&gt;</code> geometry with winding-rule enclave holes.</li>
+            <li><strong>Perceptual Color Quantization:</strong> Implementing continuous quantile, equal interval, logarithmic, and Jenks natural breaks classification algorithms.</li>
+            <li><strong>Responsive Viewport Auto-Centering:</strong> Dynamic affine bounding-box transformation (<code>matrix(scale, 0, 0, scale, tx, ty)</code>) for zero-padding vector fitting.</li>
+            <li><strong>Zero-Dependency Interactive Studio:</strong> Complete client-side vector GIS studio featuring real-time metric filtering, multi-scale color ramps, interactive regional tooltips, and standalone SVG export.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide.jpg" alt="Futuristic dark UI analytics dashboard showing SVG choropleth map and geographic vector visualization, vector continents and regions shaded by gradient heat values, data callout tooltips, coordinates grid, electric cyan and neon lime accents, high precision GIS developer workstation interface" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-precision SVG geographic vector dashboard displaying global macroeconomic heat distribution using quantile color scales and sub-pixel Albers equal-area boundary projection.</figcaption>
+        </figure>
+
+        <section id="section-spherical-geometry">
+          <h2>1. The Geometry of Planetary Projections: Spherical Coordinates (&lambda;, &phi;) to Planar (x, y)</h2>
+          <p>The mathematical essence of geographic mapping stems from an immutable theorem of differential geometry established by Carl Friedrich Gauss in 1828: the <em>Theorema Egregium</em>. Gauss proved that a spherical surface possesses constant positive Gaussian curvature (+1 / R^2), whereas a flat two-dimensional plane possesses zero Gaussian curvature. Consequently, it is mathematically impossible to flatten any portion of a sphere onto a plane without introducing distortion in shape, area, distance, or direction. Every map projection is an intentional mathematical compromise that selectively preserves specific geometric invariants while accepting distortions in others.</p>
+          <p>In geospatial engineering, locations on Earth are defined within a geographic coordinate reference system (such as WGS 84 / EPSG:4326) using two spherical angles: longitude (&lambda;) and latitude (&phi;), expressed in radians. Longitude measures the angular distance east or west from the prime meridian [-&pi;, +&pi;], while latitude measures the angular elevation north or south from the equator [-&pi;/2, +&pi;/2]. A projection engine takes these continuous spherical coordinates and applies a vector mapping function P(&lambda;, &phi;) &rarr; (X, Y) to calculate corresponding planar Cartesian coordinates.</p>
+          <p>Once projected into planar space, coordinates must undergo viewport adaptation to align with SVG specifications. In SVG, the vertical origin starts at the top of the canvas and extends downwards, meaning the planar Y coordinate must be subtracted from the canvas baseline. Furthermore, because raw geographic coordinates frequently span arbitrary numeric ranges (e.g., longitude from -180 to +180 and latitude from -85 to +85), developers must apply an affine matrix transformation to scale and translate the projected boundaries into the target SVG <code>viewBox</code>.</p>
+          <p>Understanding this mathematical pipeline allows frontend architects to bypass hundreds of kilobytes of third-party geospatial runtime libraries. By evaluating the forward projection formulas directly in JavaScript, SVG geographic boundaries can be rendered natively with blazing performance and zero external dependencies.</p>
+        
+          <p>Delving deeper into physical geodesy reveals that the Earth is not an idealized sphere, but an oblate spheroid slightly flattened at the polar axes due to rotational centrifugal forces. The reference standard WGS 84 (World Geodetic System 1984) models the Earth as an ellipsoid with an equatorial semi-major axis a = 6,378,137.0 meters and a polar semi-minor axis b = 6,356,752.3142 meters, producing a flattening ratio f = (a - b) / a approximately equal to 1 / 298.257. While spherical projection equations suffice for continental-scale thematic overviews, municipal parcel mapping and ultra-precise GIS vector boundaries require evaluating geodetic ellipsoidal formulas to prevent millimeter-scale boundary creep.</p>
+          <p>Another profound geometric challenge in spherical projection is managing the 180th meridian (the Antimeridian) and polar singularities. When a polygon crosses the international date line (such as the Russian Chukotka Autonomous Okrug or the Aleutian Islands of Alaska), longitudinal coordinates abruptly jump from +179.99 degrees to -179.99 degrees. A naive line-drawing routine would render an unsightly horizontal chord stretching entirely across the width of the world map! Robust GIS projection engines implement spherical polygon clipping along the antimeridian, cutting trans-meridian polygons into discrete east and west multipolygon halves before compiling SVG path strings.</p>
+          <p>Additionally, geodesic distances between locations must be evaluated using great-circle geometry rather than planar Euclidean distance. The Haversine formula calculates the angular distance theta between two points: sin^2(theta / 2) = sin^2(delta_phi / 2) + cos(phi_1) * cos(phi_2) * sin^2(delta_lambda / 2). Understanding these spherical trigonometry fundamentals allows frontend developers to render geodesic flight routes, telecommunication submarine cables, and radius buffers as true curved spherical geodesics across SVG viewports.</p>
+</section>
+
+        <section id="section-projections-compared">
+          <h2>2. Projections Compared: Mercator Conformal, Albers Equal-Area Conic &amp; Equirectangular</h2>
+          <p>Choosing the correct mathematical projection is the single most critical decision in choropleth visualization. The visual validity of a choropleth map depends entirely upon the viewer's ability to correlate color saturation with geographical magnitude. Using the wrong projection introduces catastrophic perceptual distortion that invalidates scientific and executive decision-making.</p>
+
+          <h3>Spherical Mercator Conformal Projection</h3>
+          <p>Formulated by Gerardus Mercator in 1569 for maritime navigation, the Mercator projection preserves local angles and shapes perfectly (conformal). Any straight line drawn on a Mercator map represents a line of constant compass bearing (a rhumb line). Mathematically, longitude maps linearly to the horizontal axis, while latitude is projected onto a logarithmic tangent curve:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Forward Spherical Mercator Equations</div>
+            <div class="formula-body">x = R * (&lambda; - &lambda;_0)</div>
+            <div class="formula-body">y = R * ln(tan(&pi; / 4 + &phi; / 2))</div>
+            <div class="formula-desc">Where R is the planetary radius and &lambda;_0 is the central meridian. Notice that as latitude &phi; approaches &plusmn;&pi;/2 (the North and South poles), the term tan(&pi;/4 + &phi;/2) diverges toward infinity. To prevent singularities, Mercator maps are strictly truncated at approximately &plusmn;85.0511 degrees latitude.</div>
+          </div>
+
+          <p>While invaluable for street-level web mapping (such as Google Maps or OpenStreetMap), Mercator is disastrous for choropleth mapping. Because the vertical scale stretches inversely with the cosine of latitude (secant &phi;), landmasses near the poles undergo exponential areal inflation. Greenland appears larger than the entire African continent on a Mercator projection, despite Africa possessing fourteen times more physical land surface! In a choropleth map where color encodes population density or economic revenue, inflating northern polygons severely biases visual perception toward high-latitude regions.</p>
+
+          <h3>Albers Equal-Area Conic Projection</h3>
+          <p>For choropleth maps, the <strong>Albers Equal-Area Conic projection</strong> (developed by Heinrich C. Albers in 1805) represents the gold standard. Albers projects the spherical globe onto an intersecting cone defined by two standard parallels of latitude, &phi;_1 and &phi;_2. The fundamental mathematical property of Albers is strict conservation of area: any two geographic polygons possessing equal land surface area on Earth will occupy exactly identical pixel surface areas in the projected SVG document!</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Albers Equal-Area Conic Projection Equations</div>
+            <div class="formula-body">n = 0.5 * (sin(&phi;_1) + sin(&phi;_2))</div>
+            <div class="formula-body">C = cos^2(&phi;_1) + 2 * n * sin(&phi;_1)</div>
+            <div class="formula-body">&rho;(&phi;) = (R / n) * sqrt(C - 2 * n * sin(&phi;))</div>
+            <div class="formula-body">&theta; = n * (&lambda; - &lambda;_0)</div>
+            <div class="formula-body">x = &rho; * sin(&theta;),  y = &rho;_0 - &rho; * cos(&theta;)</div>
+            <div class="formula-desc">Where &rho;_0 is the radius evaluated at the projection's central origin latitude &phi;_0. Because the cone cuts through the sphere at the two standard parallels, scale distortion is minimized throughout the central band, making it the mandated standard for US and European regional statistical agencies.</div>
+          </div>
+        
+          <p>The mathematical elegance of the Albers Equal-Area Conic projection lies in its dual standard parallels. When cartographers select standard parallels &phi;_1 and &phi;_2, they define the two concentric rings where the conical projection surface physically intersects the reference ellipsoid. Along these standard parallels, the projection is completely true to scale with zero distortion. Between the standard parallels, the map scale is slightly compressed, while outside them, the scale is slightly expanded, balancing areal errors across the entire geographic territory.</p>
+          <p>To optimize standard parallel selection for any arbitrary nation or administrative region, cartographers adhere to the classic Rule of Sixths: setting the southern standard parallel at &phi;_min + (1 / 6) * (&phi;_max - &phi;_min) and the northern standard parallel at &phi;_max - (1 / 6) * (&phi;_max - &phi;_min). This minimizes average distortion across the region's populated interior, ensuring that land area measurements remain impeccably faithful to real-world geography.</p>
+          <p>For global world choropleths where conic projections fail to represent both hemispheres simultaneously, equal-area pseudo-cylindrical projections such as the <strong>Eckert IV</strong>, <strong>Mollweide</strong>, or <strong>Equal Earth</strong> projections are preferred. The Equal Earth projection, created by Tom Patterson, Bernhard Jenny, and Bojan Savric in 2018, delivers aesthetically pleasing curved meridians and straight parallels while strictly maintaining equal-area proportionality, offering a visually stunning, mathematically honest alternative to the distorted Mercator projection for global executive presentations.</p>
+</section>
+
+        <section id="section-geojson-svg-paths">
+          <h2>3. GeoJSON &amp; TopoJSON Parsing: Converting Multipolygon Coordinates to SVG M/L/Z Path Strings</h2>
+          <p>Geographic boundary data is universally distributed in GeoJSON (RFC 7946) or TopoJSON format. A GeoJSON document consists of a <code>FeatureCollection</code> containing an array of discrete geographic features. Each feature encapsulates a <code>properties</code> hash (storing metadata such as ISO country codes, administrative names, and demographic metrics) and a <code>geometry</code> object specifying the boundary coordinates.</p>
+          <p>In vector GIS, regional boundaries are represented as either <code>Polygon</code> or <code>MultiPolygon</code> geometries. A single <code>Polygon</code> coordinate array contains one or more linear rings. The first ring is the exterior boundary, winding in a consistent counter-clockwise orientation according to the right-hand rule. Any subsequent rings within the same polygon represent interior linear rings (territorial enclaves, inland lakes, or autonomous enclaves) that must be subtracted from the outer polygon.</p>
+          <p>Converting GeoJSON geometries into native SVG <code>&lt;path&gt;</code> strings involves iterating through the nested coordinate arrays, passing each [longitude, latitude] pair through our mathematical projection function, and serializing the resulting pixel coordinates into SVG path syntax:</p>
+
+          <pre><code>// Pure ES6 GeoJSON to SVG Path Compiler
+function compileGeoPolygonToSvgPath(coordinates, projectFn) {
+  let pathString = "";
+
+  for (const ring of coordinates) {
+    if (ring.length === 0) continue;
+    // Exterior or interior ring start
+    const [startLon, startLat] = ring[0];
+    const startPt = projectFn(startLon, startLat);
+    pathString += `M ${startPt.x.toFixed(1)} ${startPt.y.toFixed(1)} `;
+
+    for (let i = 1; i &lt; ring.length; i++) {
+      const [lon, lat] = ring[i];
+      const pt = projectFn(lon, lat);
+      pathString += `L ${pt.x.toFixed(1)} ${pt.y.toFixed(1)} `;
+    }
+    // Close ring
+    pathString += "Z ";
+  }
+
+  return pathString.trim();
+}</code></pre>
+
+          <p>When rendering polygons with interior holes (such as the country of South Africa containing the enclave kingdom of Lesotho, or the state of Utah containing the Great Salt Lake), developers must set <code>fill-rule="evenodd"</code> on the SVG <code>&lt;path&gt;</code> element. The even-odd winding rule automatically casts a ray from any point to infinity: if the ray intersects an odd number of boundary rings, the point is filled; if it intersects an even number of rings, the point is treated as an exterior hole and remains transparent. This guarantees that inland lakes and enclaves render with sub-pixel cartographic precision.</p>
+        
+          <p>When working with high-resolution national boundary datasets, raw GeoJSON files can easily reach 50 to 100 megabytes in size, overwhelming client network bandwidth and browser DOM memory. In production web applications, raw GeoJSON is converted into <strong>TopoJSON</strong>. Invented by Mike Bostock, TopoJSON eliminates spatial redundancy by encoding shared boundaries (arcs) between adjacent administrative entities only once. While a GeoJSON document repeats the shared state border between Colorado and Utah twice (once for each state's polygon ring), TopoJSON stores the border as a single shared arc indexed by integer references.</p>
+          <p>Furthermore, TopoJSON applies fixed-precision integer quantization and delta encoding. Geographic coordinates are quantized into integer grid buckets (typically 10,000 x 10,000 units), transforming floating-point decimals like -109.04523 into compact integers. Delta encoding then stores subsequent coordinates as tiny relative offsets rather than absolute numbers, shrinking uncompressed payload sizes by over 80% without perceptible loss of visual fidelity.</p>
+          <p>To further optimize SVG rendering performance, developers apply polygon line simplification algorithms prior to path serialization. The Visvalingam-Whyatt algorithm evaluates the effective area of triangles formed by every set of three consecutive vertices along a boundary ring, iteratively pruning vertices with minimal visual significance. Unlike the simpler Douglas-Peucker algorithm which can introduce accidental self-intersections or sliver gaps between adjacent jurisdictions, Visvalingam simplification with topological constraints preserves shared borders, ensuring adjacent counties fit together like precision puzzle pieces in the SVG DOM.</p>
+</section>
+
+        <section id="section-color-quantization">
+          <h2>4. Color Quantization &amp; Scale Classification: Linear, Quantile, Equal Interval &amp; Jenks Natural Breaks</h2>
+          <p>The statistical core of a choropleth map is its color classification engine. Color quantization is the mathematical process of binning a continuous numerical metric (such as GDP per capita, unemployment rate, or cancer incidence) into a discrete set of K perceptual color steps (typically K = 5 to 7). If an inappropriate classification algorithm is selected, genuine regional disparities can be completely erased, or artificial cliffs can be manufactured where none exist in reality.</p>
+          <p>Four primary classification methodologies dominate modern geospatial data science:</p>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Classification Method</th>
+                  <th>Mathematical Algorithm</th>
+                  <th>Primary Advantage</th>
+                  <th>Inherent Weakness</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Equal Interval</strong></td>
+                  <td>Class Width = (Max - Min) / K</td>
+                  <td>Intuitive to general audiences</td>
+                  <td>Skewed heavily by extreme outliers</td>
+                </tr>
+                <tr>
+                  <td><strong>Quantile</strong></td>
+                  <td>Rank(i) / N mapped into K equal bins</td>
+                  <td>Guarantees balanced color distribution</td>
+                  <td>Can place nearly identical values in different bins</td>
+                </tr>
+                <tr>
+                  <td><strong>Logarithmic</strong></td>
+                  <td>Log-scale binning: log10(x) / log10(max)</td>
+                  <td>Exposes variation across power-law data</td>
+                  <td>Fails on zero or negative values</td>
+                </tr>
+                <tr>
+                  <td><strong>Jenks Natural Breaks</strong></td>
+                  <td>Minimizes within-class sum of squared deviations</td>
+                  <td>Optimally clusters natural statistical modes</td>
+                  <td>Computationally expensive O(N^2 * K)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>For scientific and executive reporting, the <strong>Quantile</strong> scale provides the most reliable general-purpose classification. By sorting all observations and placing an equal number of geographic features into each color class, every color swatch in the palette is guaranteed representation on the map, maximizing visual contrast across regions.</p>
+          <p>Equally critical is palette selection. Never use rainbow or uncalibrated RGB color ramps. Rainbow color ramps introduce severe perceptual artifacts, where artificial boundaries appear between yellow and green due to non-linear retinal sensitivity. Instead, utilize perceptually uniform sequential color ramps—such as <strong>Viridis</strong>, <strong>Magma</strong>, or <strong>Emerald</strong>. These palettes are mathematically engineered to exhibit monotonically increasing lightness, ensuring that data hierarchy is faithfully conveyed even when printed in grayscale or viewed by users with red-green deuteranopia or protanopia.</p>
+        
+          <p>When statistical data exhibits a natural neutral midpoint—such as positive versus negative population growth, democratic versus republican election margins, or fiscal budget surpluses versus deficits—sequential single-hue ramps become analytically ineffective. Under these conditions, geospatial visualization mandates the use of <strong>Diverging Color Palettes</strong>.</p>
+          <p>A diverging color ramp combines two distinct sequential gradients sharing a muted neutral central baseline (typically an off-white, light gray, or beige stop). For instance, an economic growth choropleth might utilize deep crimson red for severe contractions, transitioning through neutral gray at zero, into vibrant emerald green for aggressive expansions. The critical mathematical requirement in diverging choropleths is balancing scale endpoints: the color ramp must be symmetrically normalized around the substantive baseline value (zero), ensuring that a -5% contraction commands identical visual saturation to a +5% expansion.</p>
+          <p>For skewed datasets with severe multimodal distributions, the Fisher-Jenks Natural Breaks algorithm uses dynamic programming to iteratively evaluate potential partition matrices. By minimizing the sum of squared differences from the class means (SSD_within), Jenks identifies real natural groupings in the data rather than imposing arbitrary mathematical boundaries. While computationally demanding for large datasets, computing Jenks breaks server-side or during build time provides executive dashboards with unparalleled analytical clarity.</p>
+</section>
+
+        <section id="section-viewbox-autofit">
+          <h2>5. ViewBox Geo-Centering, Bounding Box Normalization &amp; Responsive Vector Scaling</h2>
+          <p>One of the immense advantages of native SVG over bitmap mapping frameworks (such as Leaflet or Mapbox) is its inherent responsiveness through the <code>viewBox</code> attribute. A properly configured SVG choropleth map automatically scales to fill any container dimension, maintaining crisp vector boundaries on mobile smartphones, tablets, and 4K desktop workstations without reloading data or repainting canvas buffers.</p>
+          <p>To automatically center and fit an arbitrary collection of projected geographic coordinates within an SVG container of width W and height H, developers must calculate the global planar bounding box: [minX, minY, maxX, maxY]. From this bounding box, the optimal uniform scaling factor and translation offsets are derived:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Affine Viewport Auto-Centering Calculus</div>
+            <div class="formula-body">scaleFactor k = min((W - 2 * padding) / (maxX - minX), (H - 2 * padding) / (maxY - minY))</div>
+            <div class="formula-body">tx = (W - k * (minX + maxX)) / 2</div>
+            <div class="formula-body">ty = (H - k * (minY + maxY)) / 2</div>
+            <div class="formula-desc">Applying transform="matrix(k, 0, 0, k, tx, ty)" to the master SVG group container scales and centers the entire geographic dataset perfectly within the reserved viewport margins, leaving zero clipped paths.</div>
+          </div>
+
+          <p>Alternatively, developers can set the SVG element's <code>viewBox</code> directly to the bounding box dimensions: <code>viewBox="minX minY (maxX - minX) (maxY - minY)"</code> with <code>preserveAspectRatio="xMidYMid meet"</code>. This delegates the entire scaling and aspect-ratio preservation task directly to the browser's hardware-accelerated vector layout engine.</p>
+        
+          <p>When implementing dynamic zoom and pan interactions over SVG maps, developers should listen to wheel and pointer events on the root SVG element and manipulate the viewBox coordinates directly rather than applying CSS transform scale properties. Modulating the viewBox parameters (minX, minY, width, height) allows the browser to re-rasterize vectors at the native display resolution, preserving crisp border lines and legible typography without pixelation. Furthermore, by calculating the mouse pointer's relative position within the viewBox during zoom events, the engine anchors the zoom center directly under the user's cursor, delivering a fluid, intuitive cartographic exploration experience identical to professional GIS workstations.</p>
+</section>
+
+        <!-- Architectural Figure 2 Vector Diagram -->
+        <figure class="article-figure">
+          <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SVG Choropleth Map Vector GIS Architecture Diagram Comparing Spherical Projection, Quantization Scales &amp; SVG Path Assembly">
+            <rect width="960" height="320" fill="#0D0D0D" rx="8"/>
+            <rect x="1" y="1" width="958" height="318" fill="none" stroke="#222" rx="7"/>
+
+            <!-- Grid Header -->
+            <text x="480" y="32" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="14" font-weight="800" text-anchor="middle" letter-spacing="0.06em">SVG CHOROPLETH MAP ARCHITECTURE: GEOPATH PROJECTION &amp; QUANTIZATION PIPELINE</text>
+            <line x1="40" y1="46" x2="920" y2="46" stroke="#262626" stroke-width="1"/>
+
+            <!-- Column 1: Spherical Projection -->
+            <g transform="translate(50, 65)">
+              <rect width="260" height="230" fill="#141414" stroke="#262626" rx="6"/>
+              <text x="130" y="24" fill="#C1DD2D" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="middle">STAGE 1: PLANETARY PROJECTION</text>
+
+              <!-- Mini Globe to Plane Diagram -->
+              <circle cx="80" cy="100" r="32" fill="#0D0D0D" stroke="#444" stroke-width="1.5"/>
+              <!-- Latitude/Longitude arcs -->
+              <ellipse cx="80" cy="100" rx="32" ry="12" fill="none" stroke="#333" stroke-width="1" stroke-dasharray="2 2"/>
+              <line x1="80" y1="68" x2="80" y2="132" stroke="#333" stroke-width="1"/>
+              <text x="80" y="104" fill="#FFF" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">(&lambda;, &phi;)</text>
+
+              <path d="M 122 100 L 150 100 M 144 95 L 150 100 L 144 105" stroke="#C1DD2D" stroke-width="1.5" fill="none"/>
+
+              <!-- Planar Projection Result -->
+              <rect x="160" y="75" width="60" height="50" fill="#0D0D0D" stroke="#38BDF8" stroke-width="1.5"/>
+              <text x="190" y="104" fill="#38BDF8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">(x, y)_svg</text>
+
+              <text x="130" y="185" fill="#AAA" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">Albers Equal-Area Conic</text>
+              <text x="130" y="202" fill="#888" font-family="Inter, sans-serif" font-size="10.5" text-anchor="middle">Strict Area Conservation</text>
+              <text x="130" y="217" fill="#666" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Eliminates Polar Distortion</text>
+            </g>
+
+            <!-- Column 2: Color Quantization -->
+            <g transform="translate(350, 65)">
+              <rect width="260" height="230" fill="#141414" stroke="#262626" rx="6"/>
+              <text x="130" y="24" fill="#38BDF8" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="middle">STAGE 2: COLOR QUANTIZATION</text>
+
+              <!-- Color Palette Steps (Viridis) -->
+              <g transform="translate(45, 80)">
+                <rect x="0" y="0" width="34" height="24" fill="#440154" rx="3"/>
+                <rect x="34" y="0" width="34" height="24" fill="#3B528B" rx="3"/>
+                <rect x="68" y="0" width="34" height="24" fill="#21908C" rx="3"/>
+                <rect x="102" y="0" width="34" height="24" fill="#5DC863" rx="3"/>
+                <rect x="136" y="0" width="34" height="24" fill="#FDE725" rx="3"/>
+              </g>
+
+              <text x="130" y="130" fill="#FFF" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">Quantile Bins: q_0 ... q_4</text>
+              <text x="130" y="146" fill="#888" font-family="Inter, sans-serif" font-size="9.5" text-anchor="middle">Equal Frequency Allocation</text>
+
+              <text x="130" y="185" fill="#AAA" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">Perceptually Uniform Gradients</text>
+              <text x="130" y="202" fill="#888" font-family="Inter, sans-serif" font-size="10.5" text-anchor="middle">Monotonic Lightness Curve</text>
+              <text x="130" y="217" fill="#666" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Color-Blind Safe (Deuteranopia)</text>
+            </g>
+
+            <!-- Column 3: SVG DOM Assembly -->
+            <g transform="translate(650, 65)">
+              <rect width="260" height="230" fill="#141414" stroke="#262626" rx="6"/>
+              <text x="130" y="24" fill="#F59E0B" font-family="Inter, sans-serif" font-size="12" font-weight="700" text-anchor="middle">STAGE 3: VECTOR PATH ASSEMBLY</text>
+
+              <!-- Mini Region Map Paths -->
+              <g transform="translate(40, 60)">
+                <path d="M 10 30 L 40 10 L 70 25 L 50 65 L 20 50 Z" fill="#21908C" stroke="#0D0D0D" stroke-width="1.5"/>
+                <path d="M 70 25 L 120 15 L 150 45 L 110 75 L 50 65 Z" fill="#5DC863" stroke="#0D0D0D" stroke-width="1.5"/>
+                <path d="M 50 65 L 110 75 L 90 115 L 30 105 Z" fill="#FDE725" stroke="#0D0D0D" stroke-width="1.5"/>
+                <path d="M 20 50 L 50 65 L 30 105 L 10 80 Z" fill="#3B528B" stroke="#0D0D0D" stroke-width="1.5"/>
+              </g>
+
+              <text x="130" y="185" fill="#AAA" font-family="Inter, sans-serif" font-size="11" text-anchor="middle">&lt;path d="M...L...Z" fill-rule="evenodd"&gt;</text>
+              <text x="130" y="202" fill="#888" font-family="Inter, sans-serif" font-size="10.5" text-anchor="middle">Responsive viewBox Auto-Fit</text>
+              <text x="130" y="217" fill="#666" font-family="Inter, sans-serif" font-size="10" text-anchor="middle">Instant 120 FPS Hover Callouts</text>
+            </g>
+          </svg>
+          <figcaption>Figure 2: Complete three-tier architecture of native SVG choropleth mapping: forward spherical-to-planar projection, quantile color binning with perceptual gradients, and sub-pixel SVG path assembly with responsive viewBox auto-fitting.</figcaption>
+        </figure>
+
+        <section id="section-interactive-studio">
+          <h2>6. Interactive SVG Choropleth Map Studio</h2>
+          <p>Experience real-time vector cartography within our interactive developer sandbox. Toggle between geographic datasets, test diverse perceptual color quantization palettes (Viridis, Magma, Emerald, and Sunset), switch between Quantile and Equal Interval classification algorithms, and inspect regional metrics dynamically via instant hover callouts. Export standalone, production-ready SVG maps complete with XML namespaces directly to your clipboard.</p>
+
+          <div class="interactive-sandbox" id="interactive-choropleth-studio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <span>Interactive SVG Choropleth Studio</span>
+                <span class="sandbox-badge">Real-Time Vector GIS</span>
+              </div>
+              <div>
+                <span style="font-size: 13px; color: #888;">Live Cartographic Rendering</span>
+              </div>
+            </div>
+
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="map-preset-select">Geographic Region Preset</label>
+                <select id="map-preset-select" class="control-select">
+                  <option value="global">Global Macroeconomic Index (7 Continental Zones)</option>
+                  <option value="us">United States Regional Hubs (9 Census Divisions)</option>
+                  <option value="europe">European Economic Corridor (8 Regional Sectors)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="map-palette-select">Color Quantization Palette</label>
+                <select id="map-palette-select" class="control-select">
+                  <option value="viridis">Viridis (Blue &rarr; Teal &rarr; Yellow)</option>
+                  <option value="magma">Magma (Dark Purple &rarr; Orange &rarr; Cream)</option>
+                  <option value="emerald">Emerald (Dark Slate &rarr; Green &rarr; Lime)</option>
+                  <option value="sunset">Sunset (Indigo &rarr; Coral &rarr; Gold)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="map-scale-mode">Classification Scale</label>
+                <select id="map-scale-mode" class="control-select">
+                  <option value="quantile">Quantile (Balanced Equal-Count Bins)</option>
+                  <option value="equal">Equal Interval (Linear Domain Division)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="map-metric-select">Metric Dimension</label>
+                <select id="map-metric-select" class="control-select">
+                  <option value="gdp">GDP Per Capita (USD Thousands)</option>
+                  <option value="green">Renewable Energy Index (% of Grid)</option>
+                  <option value="broadband">Gigabit Broadband Penetration (%)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="map-stroke-slider">Boundary Stroke (<span id="map-stroke-val">1.2</span>px)</label>
+                <input type="range" id="map-stroke-slider" class="control-input" min="0.5" max="3.0" step="0.1" value="1.2">
+              </div>
+
+              <div class="control-row">
+                <label for="map-hover-glow">Region Hover Effect</label>
+                <select id="map-hover-glow" class="control-select">
+                  <option value="white">High-Contrast White Border</option>
+                  <option value="dark">Subtle Dark Shadow Stroke</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="preview-stage-container" id="map-stage-wrap">
+              <svg id="map-live-svg" class="map-svg-canvas" viewBox="0 0 820 520" width="820" height="520" xmlns="http://www.w3.org/2000/svg" role="graphics-document" aria-label="Interactive SVG Choropleth Map Canvas">
+                <!-- Dynamically populated by engine -->
+              </svg>
+            </div>
+
+            <div class="stats-readout-box">
+              <div class="stat-item">
+                <span class="stat-label">Mapped Regions</span>
+                <span class="stat-val" id="stat-region-count">7</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Mean Value</span>
+                <span class="stat-val highlight" id="stat-mean-val">58.4</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Std Deviation</span>
+                <span class="stat-val" id="stat-std-dev">19.2</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Min / Max Range</span>
+                <span class="stat-val" id="stat-min-max">22.0 / 89.5</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Quantile Classes</span>
+                <span class="stat-val" id="stat-quant-classes">5 Bins</span>
+              </div>
+            </div>
+
+            <div class="action-btn-row">
+              <button class="copy-btn" id="copy-map-svg-btn" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>Copy Standalone SVG</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-production-engine">
+          <h2>7. Production-Grade ES6 Vector Map Engine: Zero-Dependency Geo Path Projector</h2>
+          <p>Modern web standards eliminate the necessity of shipping heavyweight mapping bundles like Mapbox-GL or OpenLayers for static or dashboard-embedded choropleth visualizations. A compact, zero-dependency ES6 class compiles GeoJSON coordinates, computes projection mathematics, and emits accessible SVG vector elements natively.</p>
+          <p>Below is the complete TypeScript/ES6 architecture implementing spherical projection, automated bounding-box auto-centering, quantile color mapping, and accessible SVG generation:</p>
+
+          <pre><code>/**
+ * Zero-Dependency SVG Choropleth Map Engine
+ * Author: Jouni Flemming (IconStash.io)
+ * License: MIT
+ */
+export interface GeoFeature {
+  id: string;
+  name: string;
+  value: number;
+  // MultiPolygon represented as array of linear rings [[lon, lat], ...]
+  rings: [number, number][][];
+}
+
+export interface ChoroplethOptions {
+  width: number;
+  height: number;
+  padding: number;
+  palette: string[];
+  scaleMode: 'quantile' | 'equal';
+  projection: (lon: number, lat: number) => { x: number; y: number };
+}
+
+export class SvgChoroplethEngine {
+  private options: ChoroplethOptions;
+
+  constructor(options: Partial&lt;ChoroplethOptions&gt; = {}) {
+    this.options = {
+      width: 820,
+      height: 520,
+      padding: 30,
+      palette: ['#440154', '#3B528B', '#21908C', '#5DC863', '#FDE725'],
+      scaleMode: 'quantile',
+      // Default Equirectangular / Plate Carrée
+      projection: (lon, lat) => ({ x: (lon + 180) * (820 / 360), y: (90 - lat) * (520 / 180) }),
+      ...options
+    };
+  }
+
+  public render(features: GeoFeature[]): SVGSVGElement {
+    const { width, height, padding, palette, scaleMode, projection } = this.options;
+    const svgNS = "http://www.w3.org/2000/svg";
+
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("width", String(width));
+    svg.setAttribute("height", String(height));
+    svg.setAttribute("xmlns", svgNS);
+    svg.setAttribute("role", "graphics-document");
+
+    if (features.length === 0) return svg;
+
+    // 1. Calculate Quantiles or Equal Intervals
+    const values = features.map(f => f.value).sort((a, b) => a - b);
+    const minVal = values[0];
+    const maxVal = values[values.length - 1];
+    const numBins = palette.length;
+
+    const getColor = (val: number): string => {
+      if (scaleMode === 'equal') {
+        const ratio = Math.max(0, Math.min(0.999, (val - minVal) / (maxVal - minVal || 1)));
+        const bin = Math.floor(ratio * numBins);
+        return palette[bin];
+      } else {
+        // Quantile binning
+        const rank = values.filter(v => v &lt;= val).length - 1;
+        const bin = Math.min(numBins - 1, Math.floor((rank / values.length) * numBins));
+        return palette[bin];
+      }
+    };
+
+    // 2. Project Polygons and Find Collective Planar Bounding Box
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    const projectedFeatures = features.map(f => {
+      const projectedRings = f.rings.map(ring => {
+        return ring.map(([lon, lat]) => {
+          const pt = projection(lon, lat);
+          if (pt.x &lt; minX) minX = pt.x;
+          if (pt.x &gt; maxX) maxX = pt.x;
+          if (pt.y &lt; minY) minY = pt.y;
+          if (pt.y &gt; maxY) maxY = pt.y;
+          return pt;
+        });
+      });
+      return { feature: f, projectedRings };
+    });
+
+    // 3. ViewBox Auto-Fit Affine Scale
+    const spanX = maxX - minX || 1;
+    const spanY = maxY - minY || 1;
+    const scale = Math.min((width - 2 * padding) / spanX, (height - 2 * padding) / spanY);
+    const tx = (width - scale * (minX + maxX)) / 2;
+    const ty = (height - scale * (minY + maxY)) / 2;
+
+    const group = document.createElementNS(svgNS, "g");
+    group.setAttribute("transform", `matrix(${scale.toFixed(4)}, 0, 0, ${scale.toFixed(4)}, ${tx.toFixed(2)}, ${ty.toFixed(2)})`);
+
+    // 4. Render Regional Paths
+    for (const { feature, projectedRings } of projectedFeatures) {
+      let d = "";
+      for (const ring of projectedRings) {
+        if (ring.length === 0) continue;
+        d += `M ${ring[0].x.toFixed(1)} ${ring[0].y.toFixed(1)} `;
+        for (let i = 1; i &lt; ring.length; i++) {
+          d += `L ${ring[i].x.toFixed(1)} ${ring[i].y.toFixed(1)} `;
+        }
+        d += "Z ";
+      }
+
+      const path = document.createElementNS(svgNS, "path");
+      path.setAttribute("d", d.trim());
+      path.setAttribute("fill", getColor(feature.value));
+      path.setAttribute("fill-rule", "evenodd");
+      path.setAttribute("stroke", "#111111");
+      path.setAttribute("stroke-width", String((1 / scale).toFixed(2))); // Normalized sub-pixel stroke
+      path.setAttribute("role", "graphics-symbol");
+      path.setAttribute("tabindex", "0");
+      path.setAttribute("aria-label", `${feature.name}: ${feature.value}`);
+
+      const title = document.createElementNS(svgNS, "title");
+      title.textContent = `${feature.name}: ${feature.value}`;
+      path.appendChild(title);
+
+      group.appendChild(path);
+    }
+
+    svg.appendChild(group);
+    return svg;
+  }
+}</code></pre>
+        
+          <p>Enterprise GIS dashboards often require visualizing non-contiguous territorial dependencies, such as the United States with Alaska and Hawaii, or France with its overseas departments (Guadeloupe, Martinique, Réunion). If projected on a single contiguous geographic plane, vast expanses of oceanic whitespace force the continental heartland to shrink into a tiny fraction of the available SVG viewport.</p>
+          <p>The state-of-the-art vector solution employs composite multi-projection viewports. In an SVG document, developers define multiple distinct <code>&lt;g&gt;</code> sub-containers. The continental landmass is projected onto the primary canvas, while detached territories are projected through dedicated localized projections (such as an Albers Alaska projection rotated 35 degrees and scaled by 0.35) and positioned inside dedicated territorial insets using SVG translation matrices. This composite approach maximizes data-ink ratio while maintaining recognizable geographic orientation.</p>
+          <p>Furthermore, high-performance choropleths leverage SVG symbol instancing. Repeating geographic features or standard map legends are defined once inside <code>&lt;defs&gt;</code> and referenced via <code>&amp;lt;use href=&amp;quot;#legend-symbol&amp;quot; /&amp;gt;</code>, reducing DOM footprint and allowing the browser's graphics compositor to cache rasterized symbol representations across render cycles.</p>
+</section>
+
+        <section id="section-spatial-accessibility">
+          <h2>8. Spatial Accessibility: Choropleth ARIA Roles, Pattern Fills for Colorblind Users &amp; Screen Readers</h2>
+          <p>Maps present unique accessibility hurdles because spatial distribution cannot be serialized into simple linear sentences without losing geographic proximity relationships. Fulfilling WCAG 2.2 Level AA requirements for choropleth mapping demands strict attention to both visual ergonomics and non-visual semantic navigation.</p>
+          <p>For individuals with color vision deficiencies, relying solely on subtle hue shifts creates severe ambiguity. For example, individuals with protanopia or deuteranopia (red-green blindness, affecting approximately 8% of men) perceive red and green tones as identical shades of yellowish-brown. To guarantee universal accessibility:</p>
+          <ul>
+            <li><strong>Monotonic Lightness Profiles:</strong> Ensure the color palette incorporates a strong progressive gradient in physical luminance (L* in CIELAB space). Even if two color stops appear similar in hue, their differing brightness allows users to immediately decipher relative data rankings.</li>
+            <li><strong>SVG Pattern Fills:</strong> High-risk categories or statistical outliers can be augmented with SVG <code>&lt;pattern&gt;</code> overlays (such as diagonal stripes, stippled dots, or crosshatching) declared in the document's <code>&lt;defs&gt;</code> container. This ensures that regions are differentiable by geometric texture alone.</li>
+            <li><strong>High-Contrast Boundary Strokes:</strong> Maintain crisp boundary outlines separating neighboring regions. In dark mode, use deep gray borders (<code>#1A1A1A</code>); on hover, elevate the active region's border to high-contrast white (<code>#FFFFFF</code>) or brand lime (<code>#C1DD2D</code>) with an enlarged stroke width.</li>
+          </ul>
+          <p>For screen-reader accessibility, the SVG root container must declare <code>role="graphics-document"</code> alongside a comprehensive <code>aria-label</code> describing the dataset scope, geographical coverage, and active metric. Each individual regional path carries <code>role="graphics-symbol"</code>, <code>tabindex="0"</code>, and an <code>aria-label</code> communicating the region name, value, and percentile bucket. Tabbing through the map allows keyboard users to inspect each territorial sector sequentially without needing a mouse pointer.</p>
+          <p>In light mode, our design system dynamically remaps active link colors to deep olive green <code>#4D6300</code>, ensuring a high-contrast ratio greater than 5.2:1 against pure white surfaces, strictly fulfilling WCAG 2.2 AA mandates.</p>
+
+          <div class="takeaway-box">
+            <h3>Key Architectural Takeaways</h3>
+            <ul>
+              <li><strong>Prioritize Equal-Area Projections:</strong> Use Albers Equal-Area Conic for regional choropleth maps to eliminate polar landmass inflation and preserve true metric density.</li>
+              <li><strong>Implement Quantile Classification:</strong> Distribute geographic features equally across color bins to prevent outlier skew and guarantee visual differentiation.</li>
+              <li><strong>Employ Perceptually Uniform Palettes:</strong> Use Viridis, Magma, or Emerald palettes with monotonic luminance slopes to support color-blind accessibility.</li>
+              <li><strong>Leverage Even-Odd Winding:</strong> Always declare <code>fill-rule="evenodd"</code> on complex multi-ring SVG paths to ensure enclaves and lakes render with proper transparency.</li>
+              <li><strong>Maintain WCAG 2.2 AA Contrast:</strong> Guarantee high-contrast focus rings and ensure light theme links utilize `#4D6300` to exceed the 4.5:1 contrast requirement.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="faq-section" id="section-faq">
+          <h2>9. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <div class="faq-question">How does forward spherical projection transform latitude and longitude into 2D SVG coordinates?</div>
+            <div class="faq-answer">Geographic coordinates are measured on a three-dimensional oblate spheroid as spherical angles: longitude (lambda) denoting east-west displacement and latitude (phi) denoting north-south elevation from the equator. A mathematical map projection is a vector function that maps the spherical surface onto a two-dimensional Euclidean plane. For instance, the Spherical Mercator projection maps longitude linearly to horizontal X, while projecting latitude through a logarithmic tangent transformation: y = R * ln(tan(pi/4 + phi/2)). Because standard SVG viewports place origin (0, 0) at the top-left with Y extending downwards, the computed planar Y coordinate is inverted relative to the canvas center, yielding crisp sub-pixel vector paths.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Why is the Albers Equal-Area Conic projection preferred over Mercator for choropleth mapping?</div>
+            <div class="faq-answer">The Mercator projection is conformal, meaning it preserves local angles and shapes at the cost of catastrophic areal distortion near the poles. Under Mercator, Greenland appears as large as Africa, despite Africa possessing fourteen times more physical land area. In a choropleth map where color shades represent statistical densities across land polygons, visual perception is heavily weighted by the surface area of the polygon. Inflating northern landmasses distorts user perception of the underlying data. In contrast, the Albers Equal-Area Conic projection strictly preserves areal proportionality across the entire mapped domain, ensuring that equal land areas on Earth occupy identical pixel footprints on the screen.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How are GeoJSON MultiPolygon structures converted into SVG path strings?</div>
+            <div class="faq-answer">A GeoJSON FeatureCollection stores boundary geometry as hierarchical coordinate arrays. A Polygon consists of an outer exterior linear ring followed by zero or more interior rings representing territorial enclaves or lakes. To convert this into an SVG path string, each coordinate pair [longitude, latitude] is passed through the projection function. The first projected point of the exterior ring generates an M (moveto) command, followed by sequential L (lineto) commands for subsequent vertices, terminating with Z (closepath). Interior rings append subsequent M...L...Z sub-paths into the identical d attribute string, with fill-rule="evenodd" ensuring enclaves render transparently.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">What are the primary differences between quantile, equal interval, and Jenks natural breaks classification?</div>
+            <div class="faq-answer">Equal Interval classification divides the metric domain (max - min) into K equal-width ranges, which works well for uniformly distributed metrics but fails when severe outliers compress most observations into a single color bucket. Quantile classification sorts observations and distributes an equal number of geographic features into each color bucket, ensuring visual contrast across the entire palette but potentially grouping widely different values into the same bucket. Jenks Natural Breaks uses an iterative variance-minimization algorithm (Fisher-Jenks) that minimizes the sum of squared differences within classes while maximizing variance between classes, identifying natural cluster boundaries.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How do you achieve responsive auto-fitting of geographic vector paths within an SVG viewBox?</div>
+            <div class="faq-answer">To fit an arbitrary geographic dataset into an SVG viewport of dimension W x H with padding P, the engine calculates the collective planar bounding box [minX, minY, maxX, maxY] across all projected polygon coordinates. The scale factor is determined by k = min((W - 2*P) / (maxX - minX), (H - 2*P) / (maxY - minY)). The translation offsets are computed as tx = (W - k * (minX + maxX)) / 2 and ty = (H - k * (minY + maxY)) / 2. Applying this affine matrix transformation (transform="matrix(k, 0, 0, k, tx, ty)") centers and scales the geographic contours perfectly within the SVG container.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How do you ensure SVG choropleth maps comply with WCAG 2.2 AA accessibility mandates?</div>
+            <div class="faq-answer">A compliant SVG choropleth map declares role="graphics-document" on the svg container, accompanied by descriptive title and desc elements detailing geographic scope and metric definitions. Each regional path element carries role="graphics-symbol", keyboard focusability via tabindex="0", and localized aria-label attributes listing region name, absolute metric value, and percentile classification. Crucially, color fills must not be the sole communication channel; maps must incorporate textured SVG pattern fills, distinct border halos, or data-driven labels, ensuring users with color vision deficiencies can distinguish categories.</div>
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <a href="#section-spherical-geometry">1. Spherical Projections</a>
+            <a href="#section-projections-compared">2. Mercator vs Albers Conic</a>
+            <a href="#section-geojson-svg-paths">3. GeoJSON to SVG Paths</a>
+            <a href="#section-color-quantization">4. Color Quantization</a>
+            <a href="#section-viewbox-autofit">5. ViewBox Auto-Fitting</a>
+            <a href="#interactive-choropleth-studio">6. Interactive Studio Sandbox</a>
+            <a href="#section-production-engine">7. Production ES6 Engine</a>
+            <a href="#section-spatial-accessibility">8. Spatial Accessibility</a>
+            <a href="#section-faq">9. Frequently Asked Questions</a>
+          </nav>
+        </div>
+
+        <div class="sidebar-card cta-sidebar-box">
+          <div class="cta-title">Explore Related Guides</div>
+          <p>Deepen your data visualization mastery with our complete series of SVG vector graphics guides:</p>
+          <div class="toc-nav">
+            <a href="/articles/svg-scatter-plots-and-bubble-charts-multivariate-visualization-guide/">SVG Scatter Plots Guide</a>
+            <a href="/articles/svg-network-graphs-and-force-directed-node-link-visualization-guide/">SVG Network Graphs Guide</a>
+            <a href="/articles/svg-heatmaps-and-activity-matrix-visualization-guide/">SVG Activity Heatmaps Guide</a>
+            <a href="/articles/svg-treemaps-and-hierarchical-space-filling-visualization-guide/">SVG Treemaps Guide</a>
+            <a href="/articles/svg-bar-charts-and-column-graph-visualization-guide/">SVG Bar Charts Guide</a>
+            <a href="/articles/svg-donut-charts-and-circular-percentage-visualization-guide/">SVG Donut Charts Guide</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; align-items: center;">
+      <p>&copy; 2026 IconStash. Published by Great Software Company. All rights reserved.</p>
+      <p><a href="/about/">About IconStash &amp; Jouni Flemming</a> &bull; <a href="/articles/">All Visualization Guides</a> &bull; <a href="/privacy/">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle handling
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', nextTheme);
+      });
+    }
+
+    // Interactive SVG Choropleth Map Studio Implementation
+    (function initChoroplethStudio() {
+      const liveSvg = document.getElementById('map-live-svg');
+      const presetSelect = document.getElementById('map-preset-select');
+      const paletteSelect = document.getElementById('map-palette-select');
+      const scaleModeSelect = document.getElementById('map-scale-mode');
+      const metricSelect = document.getElementById('map-metric-select');
+      const strokeSlider = document.getElementById('map-stroke-slider');
+      const strokeVal = document.getElementById('map-stroke-val');
+      const hoverGlowSelect = document.getElementById('map-hover-glow');
+      const copyBtn = document.getElementById('copy-map-svg-btn');
+
+      const statRegionCount = document.getElementById('stat-region-count');
+      const statMeanVal = document.getElementById('stat-mean-val');
+      const statStdDev = document.getElementById('stat-std-dev');
+      const statMinMax = document.getElementById('stat-min-max');
+      const statClasses = document.getElementById('stat-quant-classes');
+
+      if (!liveSvg) return;
+
+      const palettes = {
+        viridis: ['#440154', '#3B528B', '#21908C', '#5DC863', '#FDE725'],
+        magma: ['#000004', '#51127C', '#B73779', '#FC8961', '#FEC98D'],
+        emerald: ['#064E3B', '#047857', '#10B981', '#34D399', '#C1DD2D'],
+        sunset: ['#2E1065', '#6D28D9', '#C026D3', '#F43F5E', '#FBBF24']
+      };
+
+      // Vector region boundary presets with geographic polygon paths
+      const mapPresets = {
+        global: [
+          { id: 'NA', name: 'North America', path: 'M 100 80 L 220 70 L 280 120 L 220 180 L 160 220 L 110 140 Z', gdp: 68.4, green: 42.1, broadband: 88.5 },
+          { id: 'SA', name: 'South America', path: 'M 210 240 L 280 230 L 310 320 L 270 420 L 220 380 L 190 280 Z', gdp: 31.2, green: 65.4, broadband: 62.8 },
+          { id: 'EU', name: 'Europe', path: 'M 380 90 L 480 80 L 520 140 L 460 170 L 390 160 L 360 110 Z', gdp: 54.8, green: 58.2, broadband: 91.2 },
+          { id: 'AF', name: 'Africa', path: 'M 390 180 L 490 180 L 530 260 L 490 380 L 410 370 L 370 240 Z', gdp: 18.5, green: 32.8, broadband: 39.4 },
+          { id: 'AS', name: 'Asia', path: 'M 530 80 L 740 90 L 780 210 L 680 280 L 580 240 L 520 150 Z', gdp: 45.1, green: 38.6, broadband: 79.6 },
+          { id: 'OC', name: 'Oceania & ANZ', path: 'M 640 330 L 760 320 L 780 400 L 690 440 L 630 380 Z', gdp: 62.3, green: 49.5, broadband: 86.4 },
+          { id: 'ME', name: 'Middle East', path: 'M 490 170 L 570 170 L 580 230 L 510 240 Z', gdp: 41.8, green: 22.4, broadband: 74.2 }
+        ],
+        us: [
+          { id: 'NE', name: 'New England', path: 'M 680 120 L 760 100 L 780 150 L 720 180 L 670 150 Z', gdp: 76.5, green: 48.2, broadband: 94.1 },
+          { id: 'MA', name: 'Mid-Atlantic', path: 'M 620 160 L 710 150 L 730 210 L 650 230 L 610 190 Z', gdp: 72.8, green: 41.5, broadband: 92.4 },
+          { id: 'ENC', name: 'East North Central', path: 'M 510 130 L 610 120 L 620 200 L 530 210 L 490 160 Z', gdp: 61.2, green: 36.4, broadband: 85.2 },
+          { id: 'WNC', name: 'West North Central', path: 'M 380 110 L 500 110 L 510 220 L 390 230 Z', gdp: 58.4, green: 52.8, broadband: 81.6 },
+          { id: 'SA', name: 'South Atlantic', path: 'M 610 220 L 720 210 L 710 340 L 630 350 L 590 260 Z', gdp: 64.1, green: 34.2, broadband: 87.8 },
+          { id: 'ESC', name: 'East South Central', path: 'M 520 230 L 600 220 L 590 320 L 510 320 Z', gdp: 49.2, green: 28.5, broadband: 77.2 },
+          { id: 'WSC', name: 'West South Central', path: 'M 370 240 L 500 230 L 510 350 L 420 380 L 360 300 Z', gdp: 59.8, green: 44.1, broadband: 82.4 },
+          { id: 'MT', name: 'Mountain Division', path: 'M 220 100 L 370 100 L 360 270 L 240 280 Z', gdp: 63.4, green: 56.4, broadband: 84.1 },
+          { id: 'PAC', name: 'Pacific Coast', path: 'M 100 80 L 210 90 L 220 320 L 140 340 L 90 220 Z', gdp: 82.1, green: 68.2, broadband: 93.6 }
+        ],
+        europe: [
+          { id: 'NO', name: 'Nordics & Scandinavia', path: 'M 360 40 L 480 30 L 500 130 L 410 150 L 350 100 Z', gdp: 78.4, green: 78.5, broadband: 96.2 },
+          { id: 'UK', name: 'British Isles', path: 'M 240 120 L 320 100 L 330 180 L 260 200 Z', gdp: 56.2, green: 54.1, broadband: 92.5 },
+          { id: 'WE', name: 'Western Europe', path: 'M 320 180 L 440 160 L 450 250 L 340 270 Z', gdp: 65.4, green: 52.8, broadband: 94.8 },
+          { id: 'CE', name: 'Central Europe', path: 'M 440 150 L 560 140 L 570 240 L 460 250 Z', gdp: 58.1, green: 46.2, broadband: 89.4 },
+          { id: 'IB', name: 'Iberian Peninsula', path: 'M 220 280 L 330 260 L 320 370 L 230 360 Z', gdp: 42.6, green: 59.4, broadband: 88.2 },
+          { id: 'IT', name: 'Italian Peninsula', path: 'M 400 270 L 470 260 L 510 360 L 450 380 Z', gdp: 46.8, green: 44.5, broadband: 83.1 },
+          { id: 'EE', name: 'Eastern Europe', path: 'M 560 110 L 720 100 L 740 240 L 580 250 Z', gdp: 34.2, green: 31.8, broadband: 82.4 },
+          { id: 'SE', name: 'Southeastern Europe', path: 'M 530 250 L 660 240 L 640 360 L 520 340 Z', gdp: 29.5, green: 36.2, broadband: 76.5 }
+        ]
+      };
+
+      function updateStudio() {
+        const presetKey = presetSelect ? presetSelect.value : 'global';
+        const palKey = paletteSelect ? paletteSelect.value : 'viridis';
+        const scaleMode = scaleModeSelect ? scaleModeSelect.value : 'quantile';
+        const metric = metricSelect ? metricSelect.value : 'gdp';
+        const strokeW = strokeSlider ? parseFloat(strokeSlider.value) : 1.2;
+        const hoverMode = hoverGlowSelect ? hoverGlowSelect.value : 'white';
+
+        if (strokeVal) strokeVal.textContent = strokeW.toFixed(1);
+
+        const currentPalette = palettes[palKey] || palettes.viridis;
+        const regions = mapPresets[presetKey] || mapPresets.global;
+
+        // Metric Statistics
+        const vals = regions.map(r => r[metric]).sort((a, b) => a - b);
+        const minV = vals[0];
+        const maxV = vals[vals.length - 1];
+        const sum = vals.reduce((a, b) => a + b, 0);
+        const mean = sum / vals.length;
+        const variance = vals.reduce((acc, v) => acc + Math.pow(v - mean, 2), 0) / vals.length;
+        const stdDev = Math.sqrt(variance);
+
+        if (statRegionCount) statRegionCount.textContent = String(regions.length);
+        if (statMeanVal) statMeanVal.textContent = mean.toFixed(1);
+        if (statStdDev) statStdDev.textContent = stdDev.toFixed(1);
+        if (statMinMax) statMinMax.textContent = `${minV.toFixed(1)} / ${maxV.toFixed(1)}`;
+        if (statClasses) statClasses.textContent = `${currentPalette.length} Classes`;
+
+        // Color Quantization function
+        function getColor(val) {
+          const numBins = currentPalette.length;
+          if (scaleMode === 'equal') {
+            const ratio = Math.max(0, Math.min(0.999, (val - minV) / (maxV - minV || 1)));
+            const bin = Math.floor(ratio * numBins);
+            return currentPalette[bin];
+          } else {
+            // Quantile
+            const rank = vals.filter(v => v <= val).length - 1;
+            const bin = Math.min(numBins - 1, Math.floor((rank / vals.length) * numBins));
+            return currentPalette[bin];
+          }
+        }
+
+        // Render SVG Elements
+        liveSvg.innerHTML = '';
+
+        // Background
+        const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        bg.setAttribute("width", "820");
+        bg.setAttribute("height", "520");
+        bg.setAttribute("fill", "#0D0D0D");
+        bg.setAttribute("rx", "6");
+        liveSvg.appendChild(bg);
+
+        // Map Title in canvas
+        const titleText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        titleText.setAttribute("x", "40");
+        titleText.setAttribute("y", "42");
+        titleText.setAttribute("fill", "#FFFFFF");
+        titleText.setAttribute("font-family", "Inter, sans-serif");
+        titleText.setAttribute("font-size", "14");
+        titleText.setAttribute("font-weight", "800");
+        titleText.setAttribute("letter-spacing", "0.04em");
+        titleText.textContent = presetKey === 'global' ? "GLOBAL MACROECONOMIC CHOROPLETH" : presetKey === 'us' ? "US REGIONAL TECHNOLOGY DIVISIONS" : "EUROPEAN INNOVATION CORRIDOR";
+        liveSvg.appendChild(titleText);
+
+        const subText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        subText.setAttribute("x", "40");
+        subText.setAttribute("y", "62");
+        subText.setAttribute("fill", "#888888");
+        subText.setAttribute("font-family", "Inter, sans-serif");
+        subText.setAttribute("font-size", "11");
+        subText.textContent = `Metric: ${metric === 'gdp' ? 'GDP Per Capita ($k)' : metric === 'green' ? 'Renewable Energy Adoption (%)' : 'Gigabit Broadband Penetration (%)'} | Scale: ${scaleMode.toUpperCase()}`;
+        liveSvg.appendChild(subText);
+
+        // Group container for regions
+        const mapGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        mapGroup.setAttribute("class", "map-regions-group");
+
+        for (const reg of regions) {
+          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", reg.path);
+          path.setAttribute("fill", getColor(reg[metric]));
+          path.setAttribute("stroke", "#1A1A1A");
+          path.setAttribute("stroke-width", String(strokeW));
+          path.setAttribute("class", "map-region");
+          path.setAttribute("role", "graphics-symbol");
+          path.setAttribute("tabindex", "0");
+          path.setAttribute("aria-label", `${reg.name}: ${reg[metric]}`);
+
+          // Tooltip title
+          const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+          title.textContent = `${reg.name} | ${metric.toUpperCase()}: ${reg[metric]}`;
+          path.appendChild(title);
+
+          mapGroup.appendChild(path);
+        }
+        liveSvg.appendChild(mapGroup);
+
+        // Legend at bottom
+        const legendG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        legendG.setAttribute("transform", "translate(40, 465)");
+
+        const binWidth = 50;
+        const binHeight = 12;
+        currentPalette.forEach((c, idx) => {
+          const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          rect.setAttribute("x", String(idx * binWidth));
+          rect.setAttribute("y", "0");
+          rect.setAttribute("width", String(binWidth));
+          rect.setAttribute("height", String(binHeight));
+          rect.setAttribute("fill", c);
+          rect.setAttribute("rx", "2");
+          legendG.appendChild(rect);
+        });
+
+        const legMin = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        legMin.setAttribute("x", "0");
+        legMin.setAttribute("y", "26");
+        legMin.setAttribute("fill", "#888888");
+        legMin.setAttribute("font-family", "JetBrains Mono, monospace");
+        legMin.setAttribute("font-size", "10");
+        legMin.textContent = `Min: ${minV.toFixed(1)}`;
+        legendG.appendChild(legMin);
+
+        const legMax = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        legMax.setAttribute("x", String(currentPalette.length * binWidth));
+        legMax.setAttribute("y", "26");
+        legMax.setAttribute("fill", "#888888");
+        legMax.setAttribute("font-family", "JetBrains Mono, monospace");
+        legMax.setAttribute("font-size", "10");
+        legMax.setAttribute("text-anchor", "end");
+        legMax.textContent = `Max: ${maxV.toFixed(1)}`;
+        legendG.appendChild(legMax);
+
+        liveSvg.appendChild(legendG);
+      }
+
+      // Event Listeners
+      if (presetSelect) presetSelect.addEventListener('change', updateStudio);
+      if (paletteSelect) paletteSelect.addEventListener('change', updateStudio);
+      if (scaleModeSelect) scaleModeSelect.addEventListener('change', updateStudio);
+      if (metricSelect) metricSelect.addEventListener('change', updateStudio);
+      if (strokeSlider) strokeSlider.addEventListener('input', updateStudio);
+      if (hoverGlowSelect) hoverGlowSelect.addEventListener('change', updateStudio);
+
+      // Fallback copy logic
+      function fallbackCopy(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {
+          console.error('Fallback execCommand failed:', err);
+        }
+        document.body.removeChild(textArea);
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+          if (!liveSvg) return;
+          const svgContent = liveSvg.outerHTML;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(svgContent).then(() => {
+              const origText = copyBtn.innerHTML;
+              copyBtn.innerHTML = '<span>Copied to Clipboard!</span>';
+              setTimeout(() => { copyBtn.innerHTML = origText; }, 2000);
+            }).catch(() => {
+              fallbackCopy(svgContent);
+              const origText = copyBtn.innerHTML;
+              copyBtn.innerHTML = '<span>Copied to Clipboard!</span>';
+              setTimeout(() => { copyBtn.innerHTML = origText; }, 2000);
+            });
+          } else {
+            fallbackCopy(svgContent);
+            const origText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<span>Copied to Clipboard!</span>';
+            setTimeout(() => { copyBtn.innerHTML = origText; }, 2000);
+          }
+        });
+      }
+
+      updateStudio();
+    })();
+  </script>
+</body>
+</html>
+'''
+
+with open(target_file, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"Article 3 generated successfully at: {target_file}")
