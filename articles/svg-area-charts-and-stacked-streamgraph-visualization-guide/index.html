@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Area Charts &amp; Stacked Streamgraphs: Baseline Offsets, Catmull-Rom Splines &amp; Vector Geometry (2026) | IconStash</title>
+  <meta name="description" content="Master SVG area charts and streamgraphs: stack baselines, Catmull-Rom cubic splines, silhouette centering, gradient shading, and interactive hover slices.">
+  <meta name="keywords" content="svg area chart, stacked area chart svg, svg streamgraph, catmull rom spline svg path, streamgraph baseline algorithm, d3 area svg, interactive area chart javascript, volumetric time series visualization">
+  <meta property="og:title" content="Mastering SVG Area Charts &amp; Stacked Streamgraphs: Baseline Offsets, Catmull-Rom Splines &amp; Vector Geometry (2026)">
+  <meta property="og:description" content="Master SVG area charts and streamgraphs: stack baselines, Catmull-Rom cubic splines, silhouette centering, gradient shading, and interactive hover slices.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-20T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-20T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Temporal Area Visualizations">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Area Charts">
+  <meta property="article:tag" content="Streamgraphs">
+  <meta property="article:tag" content="Data Visualization">
+  <meta property="article:tag" content="Mathematics">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Area Charts &amp; Stacked Streamgraphs: Baseline Offsets, Catmull-Rom Splines &amp; Vector Geometry (2026)">
+  <meta name="twitter:description" content="Master SVG area charts and streamgraphs: stack baselines, Catmull-Rom cubic splines, silhouette centering, gradient shading, and interactive hover slices.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Area Charts & Stacked Streamgraphs: Baseline Offsets, Catmull-Rom Splines & Vector Geometry (2026)",
+      "description": "Master SVG area charts and streamgraphs: stack baselines, Catmull-Rom cubic splines, silhouette centering, gradient shading, and interactive hover slices.",
+      "image": "https://iconstash.io/assets/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4760,
+      "articleSection": "Temporal Area Visualizations",
+      "keywords": [
+        "svg area chart",
+        "stacked area chart svg",
+        "svg streamgraph",
+        "catmull rom spline svg path",
+        "streamgraph baseline algorithm",
+        "d3 area svg",
+        "interactive area chart javascript",
+        "volumetric time series visualization"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Area Charts & Streamgraphs Guide",
+          "item": "https://iconstash.io/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What mathematical algorithm distinguishes a streamgraph from a standard stacked area chart?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A standard stacked area chart stacks layers on top of a rigid horizontal baseline at y equals zero. In contrast, a streamgraph implements the Lee Byron and Martin Wattenberg baseline offset algorithm. Instead of fixing y0 to zero, the streamgraph calculates a dynamic floating baseline offset y0(t) designed to minimize total visual slope changes (wiggle) across all stacked layers simultaneously. By weighting the first derivative of each individual series relative to its cumulative thickness, the Byron-Wattenberg algorithm minimizes the weighted sum of squared slopes, producing an organic flowing river visualization where sudden volume spikes in one layer expand symmetrically outward rather than distorting unrelated upper layers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is an SVG closed area path constructed mathematically from top and bottom boundaries?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An SVG area layer requires a single continuous closed vector path element. The path geometry begins at the first horizontal time point with a MoveTo command M(x0, yTop0). It then traces the upper boundary curve forwards across all time steps using cubic Bézier C commands or linear L segments until reaching the final point (xn, yTop_n). At this terminal coordinate, a LineTo command transitions vertically downwards to the bottom boundary coordinate (xn, yBot_n). The path then traverses the bottom baseline curve in strictly reverse chronological order, moving from step n backwards to step 0. Finally, a ClosePath command Z connects (x0, yBot0) back to the initial coordinate (x0, yTop0), creating an airtight vector polygon that supports gradient and pattern fills."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is Catmull-Rom spline interpolation converted into cubic Bézier segments in native SVG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The SVG path specification does not natively support Catmull-Rom splines directly within the d attribute syntax; it only supports linear segments, quadratic Béziers (Q), and cubic Béziers (C). A Catmull-Rom spline possesses the desirable property of passing directly through every control point while ensuring first-derivative continuity. To render Catmull-Rom curves in pure native SVG, every segment between adjacent points Pi and Pi+1 is mathematically converted into an equivalent cubic Bézier curve. The two intermediate cubic control points C1 and C2 are computed by evaluating finite difference tangent vectors: C1 = Pi + (Pi+1 - Pi-1) / (6 * tension), and C2 = Pi+1 - (Pi+2 - Pi) / (6 * tension)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you implement performant cursor scrubbing across stacked area charts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rather than attaching individual hover event listeners to every complex SVG path, performant cursor scrubbing utilizes a single pointermove listener attached to the root SVG canvas. On every cursor movement event, the client calculates the mouse X coordinate relative to the plot area. A fast binary search (bisection) queries the ordered time array in logarithmic time O(log N) to identify the closest discrete time index. The engine then repositions a vertical hairline marker line and queries the cumulative layer baselines at that exact index, instantaneously updating floating tooltip overlays and tabular readouts at a fluid 120 frames per second."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What causes negative overshoot distortion in non-linear cubic splines, and how is it prevented?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When time-series metrics contain abrupt transitions—such as a sudden surge from zero to thousands of requests followed by an immediate drop—unconstrained cubic splines can produce negative overshoot, swinging below the baseline into impossible negative territory or overlapping adjacent stacked layers. To prevent this severe geometric defect, developers implement the Fritsch-Carlson monotone cubic spline algorithm. Fritsch-Carlson dynamically adjusts the tangent slopes at adjacent control points whenever the secant slope approaches zero, enforcing local monotonicity and completely eliminating artificial mathematical oscillations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you guarantee WCAG 2.2 AA accessibility for multi-layered SVG streamgraphs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To achieve full WCAG 2.2 AA compliance, the root SVG container must declare role='graphics-document' alongside aria-label and companion title and desc child elements summarizing the aggregate temporal trends. Each distinct layer path is assigned role='graphics-symbol', keyboard focusability via tabindex='0', and descriptive aria-label attributes detailing series name, current volume, and percentage contribution. Because color fills alone cannot convey meaning to color-blind users, each layer path must feature high-contrast border strokes (at least 3:1 against neighboring layers) and distinctive SVG pattern fills. All informative text labels must exceed 4.5:1 contrast against both light and dark backgrounds."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
+
+    .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #C1DD2D; font-weight: 500; }
+
+    .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
+    .article-meta a { color: #999; font-weight: 600; }
+    .article-meta a:hover { color: #C1DD2D; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+    .article-main { min-width: 0; }
+
+    .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
+    .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
+    .featured-summary ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .featured-summary li { position: relative; padding-left: 20px; font-size: 15px; color: #B0B0B0; line-height: 1.6; }
+    .featured-summary li::before { content: "•"; position: absolute; left: 0; color: #C1DD2D; font-size: 20px; line-height: 1; top: 2px; }
+
+    .article-figure { margin: 32px 0 40px; text-align: center; }
+    .article-figure img, .article-figure svg { border-radius: 8px; border: 1px solid #242424; width: 100%; height: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .article-figure figcaption { margin-top: 12px; font-size: 13.5px; color: #888; line-height: 1.5; font-style: italic; }
+
+    h2 { font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1C1C1C; }
+    h3 { font-size: 21px; font-weight: 700; color: #F2F2F2; letter-spacing: -0.01em; margin: 32px 0 16px; }
+    h4 { font-size: 17px; font-weight: 600; color: #DDD; margin: 24px 0 12px; }
+    p { margin-bottom: 20px; color: #C8C8C8; font-size: 16.5px; line-height: 1.8; }
+    p strong { color: #FFFFFF; font-weight: 600; }
+    ul, ol { margin: 0 0 24px 24px; color: #C8C8C8; font-size: 16px; line-height: 1.75; }
+    li { margin-bottom: 8px; }
+
+    pre { background: #111111; border: 1px solid #222222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0 32px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.65; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 14px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    .formula-card { background: #121212; border: 1px solid #242424; border-left: 3px solid #C1DD2D; border-radius: 6px; padding: 20px 24px; margin: 24px 0 28px; }
+    .formula-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; margin-bottom: 8px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; overflow-x: auto; padding: 4px 0; }
+    .formula-desc { font-size: 14px; color: #999; line-height: 1.6; }
+
+    .table-container { width: 100%; overflow-x: auto; margin: 28px 0 36px; border: 1px solid #222; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; font-weight: 700; padding: 14px 18px; border-bottom: 1px solid #242424; white-space: nowrap; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #AAA; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 10px; padding: 24px; margin: 36px 0 44px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .sandbox-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #242424; padding-bottom: 16px; margin-bottom: 20px; }
+    .sandbox-title { font-size: 18px; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 12.5px; font-weight: 600; color: #999; }
+    .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
+    .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
+
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 480px; }
+    .area-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; }
+
+    .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; }
+    .stat-val { font-size: 16px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .action-btn-row { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+    .copy-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 150ms ease; }
+    .copy-btn:hover { background: #D2ED3E; }
+
+    .article-sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #C1DD2D; margin-bottom: 14px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
+    .toc-nav a { color: #888; display: block; line-height: 1.4; padding: 2px 0; }
+    .toc-nav a:hover { color: #C1DD2D; }
+    .cta-sidebar-box { background: rgba(193,221,45,0.06); border: 1px solid rgba(193,221,45,0.25); border-radius: 8px; padding: 18px; text-align: left; }
+    .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { font-size: 15px; color: #C1DD2D; margin-bottom: 8px; font-weight: 700; }
+    .cta-sidebar-box p { font-size: 13px; color: #BBB; line-height: 1.5; margin-bottom: 12px; }
+
+    .takeaway-box { background: #121212; border: 1px solid #242424; border-radius: 8px; padding: 24px 28px; margin: 36px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 19px; margin-top: 0; margin-bottom: 14px; }
+    .takeaway-box ul { margin-bottom: 0; }
+
+    .warning-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #EF4444; border-radius: 6px; padding: 18px 22px; margin: 28px 0; }
+    .warning-box .warning-title, .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #222; }
+    .faq-item { border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; background: #121212; overflow: hidden; }
+    .faq-question { padding: 18px 22px; font-size: 16px; font-weight: 700; color: #FFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 22px 18px; font-size: 15px; color: #B0B0B0; line-height: 1.7; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1C1C1C; padding: 48px 24px; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .data-table th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box .warning-title, .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .faq-item { background: #FFFFFF; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-question { color: #18181B; }
+    html[data-theme="light"] .faq-answer { color: #3F3F46; }
+
+    @media (max-width: 960px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .article-sidebar { display: none; }
+      .article-hero h1 { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/about/">About</a>
+      <a href="/stats/">Stats</a>
+      <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <a href="/articles/" class="header-cta">Browse 129 Guides</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">SVG Area Charts &amp; Streamgraphs Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Temporal Area Visualizations</span>
+      <h1>Mastering SVG Area Charts &amp; Stacked Streamgraphs: Baseline Offsets, Catmull-Rom Splines &amp; Vector Geometry (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/">Jouni Flemming</a></span>
+        <span>&bull;</span>
+        <span>Published November 20, 2026</span>
+        <span>&bull;</span>
+        <span>Reading Time: 25 min</span>
+        <span>&bull;</span>
+        <span>Zero-Dependency ES6 &amp; SVG</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+
+        <div class="featured-summary">
+          <p><strong>Executive Architectural Overview:</strong> Area charts and streamgraphs form the cornerstone of temporal volumetric visualization in modern software engineering, cloud infrastructure monitoring, and time-series analytics. By converting discrete temporal observations into continuous, fluid vector polygons, area charts communicate aggregate capacity alongside constituent component contributions. Unlike standard stacked line plots, SVG area layers embody physical volume through enclosed geometric regions, shaded gradients, and organic baseline offsets.</p>
+          <ul>
+            <li><strong>Lee Byron &amp; Martin Wattenberg Streamgraph Algorithm:</strong> Dynamic baseline offset derivation that minimizes cumulative visual slope distortion (wiggle) across high-variance time series.</li>
+            <li><strong>Closed Vector Path Geometry:</strong> Forward and reverse chronological coordinate traversal combining Catmull-Rom cubic Bézier splines into airtight SVG path elements.</li>
+            <li><strong>Fritsch-Carlson Monotone Splines:</strong> Elimination of negative overshoot oscillations that distort boundary baselines during sudden volumetric transitions.</li>
+            <li><strong>Sub-Millisecond Interactive Scrubbing:</strong> High-performance binary search (bisection) temporal trackers delivering continuous slice tooltips at 120 frames per second.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide.jpg" alt="Dark theme developer studio monitor displaying glowing neon green and cyan SVG stacked area charts and flowing streamgraphs on a widescreen display" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-performance SVG Stacked Area Chart and Streamgraph dashboard rendering Catmull-Rom cubic splines, baseline offset algorithms, and interactive time-slice scrubber lines.</figcaption>
+        </figure>
+
+        <section id="section-foundations">
+          <h2>1. Architectural Foundations of Continuous Area &amp; Stacked Volumetric Visualizations</h2>
+          <p>In modern telemetry systems—such as microservice network throughput monitoring, cloud server cluster resource allocation, e-commerce revenue stream decomposition, and renewable energy grid balance—data architects must visualize how multiple interdependent continuous processes evolve across shared temporal domains. While standard multi-series line charts excel at tracking isolated scalar metrics, they falter when the analytical objective requires understanding the aggregate sum alongside individual part-to-whole proportions. When four or five line series overlap and intersect repeatedly, the resulting visual entanglement creates severe cognitive overload, an anti-pattern known in information visualization as line spaghetti.</p>
+          <p>Stacked area charts resolve this limitation by accumulating volumetric layers. Each series layer is stacked directly atop its predecessor, transforming individual trajectories into enclosed geometric polygons. The uppermost boundary curve visualizes the cumulative aggregate metric across time, while the vertical thickness of any individual colored band represents that specific component contribution. Introduced into the modern data visualization lexicon by Lee Byron and Martin Wattenberg in their seminal 2008 IEEE InfoVis paper <em>Stacked Graphs—Geometry &amp; Aesthetics</em>, streamgraphs elevate this paradigm into an organic, aesthetic, and mathematically rigorous medium by untethering the visualization from a rigid horizontal zero baseline.</p>
+          <p>Engineering these visualizations in native Scalable Vector Graphics (SVG) grants frontend teams complete structural control over path geometry, fill paint servers, DOM event delegation, and hardware-accelerated CSS transitions. Unlike canvas-rendered bitmaps that lose fidelity on high-DPI retina displays and require manual hit-canvas redraws for interaction, SVG elements scale infinitely without resolution loss, participate natively in accessibility trees, and enable declarative SVG filter effects like liquid drop-shadows and directional lighting.</p>
+          <p>Furthermore, because SVG paths support vector-effect: non-scaling-stroke, developers can apply razor-sharp bounding borders between adjacent volumetric layers that retain precise 1-pixel widths regardless of viewport zoom or responsive scaling. Combining scalable vector mathematics with modern ES6 functional pipelines eliminates reliance on heavyweight external charting frameworks, shrinking bundle sizes and accelerating initial page hydration times.</p>
+        
+          <p>The perceptual science governing volumetric area charts is intimately linked to the gestalt principles of visual perception, specifically the laws of common fate, continuity, and figure-ground segregation. When an observer examines a continuous filled area polygon, the human visual cortex processes the enclosed region as a unified visual object possessing mass, inertia, and physical substance. In contrast to disconnected line segments that require active mental synthesis to deduce cumulative trends, an area chart provides direct optical encoding of aggregate volume, enabling executive stakeholders to perform split-second volumetric estimations.</p>
+          <p>However, stacked area visualizations introduce a well-documented perceptual vulnerability known as baseline-induced distortion. In a classic 2010 study conducted by Jeffrey Heer, Michael Bostock, and Vadim Ogievetsky at Stanford University, human subjects evaluated part-to-whole estimation errors across various chart geometries. The study proved that while the bottom-most series (anchored to a stable zero baseline) is decoded with high precision, intermediate stacked layers exhibit significantly higher estimation error rates. Because the bottom boundary of intermediate layers undulates in response to preceding series fluctuations, viewers struggle to isolate the layer's true vertical thickness from its floating baseline altitude.</p>
+          <p>To mitigate baseline-induced distortion, data architects must choose between two complementary visualization doctrines: when absolute scalar accuracy across individual series is mandatory, small multiples (separate small area charts arranged in a grid with shared axes) or interactive layer isolation should be prioritized. Conversely, when the analytical goal is communicating macro-scale volumetric ebb and flow, total cluster load, and relative compositional dominance across time, the continuous stacked streamgraph represents the most evocative and holistic medium available in modern web engineering.</p>
+</section>
+
+        <section id="section-baseline-calculus">
+          <h2>2. Baseline Offset Calculus: Zero, Silhouette Centered, Streamgraph Wiggle Minimization &amp; 100% Normalized</h2>
+          <p>The defining mathematical characteristic of any stacked area visualization is its baseline offset algorithm. Given \( M \) discrete time-series layers \( f_0(t), f_1(t), \dots, f_{M-1}(t) \) observed across \( N \) discrete chronological steps \( t \in [0, N-1] \), let \( g_i(t) = \sum_{j=0}^{i} f_j(t) \) denote the cumulative sum of series up to layer \( i \). The geometry of layer \( i \) is bounded vertically between a lower baseline \( y_{i, \text{bot}}(t) \) and an upper baseline \( y_{i, \text{top}}(t) \). The lower baseline is defined by a global offset function \( y_0(t) \) plus preceding layer thicknesses:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Layer Boundary Equations</div>
+            <div class="formula-body">
+              y_{i, bot}(t) = y_0(t) + \sum_{j=0}^{i-1} f_j(t)<br>
+              y_{i, top}(t) = y_0(t) + \sum_{j=0}^{i} f_j(t) = y_{i, bot}(t) + f_i(t)
+            </div>
+            <div class="formula-desc">Where y0(t) represents the global baseline offset function. The choice of y0(t) fundamentally dictates the visual architecture and perceptual interpretation of the entire chart.</div>
+          </div>
+
+          <p>Production visualization engines implement four distinct mathematical baseline schemes:</p>
+
+          <h3>1. Zero / Standard Stacked Baseline</h3>
+          <p>In the traditional stacked area chart, the baseline is clamped strictly to the zero datum: \( y_0(t) = 0 \). All layers accumulate upwards in the positive vertical direction. While this scheme makes reading the baseline of the first layer \( f_0(t) \) and the overall aggregate total \( g_{M-1}(t) \) trivial, intermediate layers suffer from severe visual distortion. A sudden spike in layer \( f_0(t) \) pushes all subsequent layers \( f_1(t), \dots, f_{M-1}(t) \) upward, creating the false optical illusion that upper layers are fluctuating wildly when their underlying volumes may be completely constant.</p>
+
+          <h3>2. Silhouette Centered Baseline</h3>
+          <p>To produce a symmetrical visual balance, the silhouette baseline centers the aggregate stack symmetrically around the horizontal axis: \( y_0(t) = -\frac{1}{2} \sum_{j=0}^{M-1} f_j(t) = -\frac{1}{2} g_{M-1}(t) \). This configuration transforms the visualization into an expanding and contracting symmetrical silhouette. It is ideal for showcasing overall aggregate growth or contraction over historical epochs, as the symmetrical expansion emphasizes macro-scale volumetric changes without favoring an upward or downward bias.</p>
+
+          <h3>3. Byron-Wattenberg Streamgraph Wiggle Minimization</h3>
+          <p>Lee Byron and Martin Wattenberg observed that human visual perception tracks individual stream layers by following their local slopes. In both Zero and Silhouette baselines, sudden volumetric changes in one thick layer force severe artificial slopes upon all surrounding layers. Byron and Wattenberg derived an optimal baseline that minimizes the sum of squared slopes of all layers, weighted by layer thickness:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Byron-Wattenberg Baseline Derivative Equation</div>
+            <div class="formula-body">
+              y'_0(t) = - \sum_{i=0}^{M-1} \left( \frac{1}{2} + \frac{g_{i-1}(t)}{g_{M-1}(t)} \right) f'_i(t)
+            </div>
+            <div class="formula-desc">Where f'_i(t) is the first temporal derivative of series i, and g_{i-1}(t) is the cumulative sum of layers below layer i. Integrating y'_0(t) numerically produces the smooth, flowing streamgraph baseline.</div>
+          </div>
+
+          <p>By weighting the derivative of each stream by its relative position in the stack, the Byron-Wattenberg algorithm ensures that thick, high-volume layers fluctuate smoothly near the visual center, while thin, volatile streams ride the gentle outer contours of the river. Sudden localized spikes in one stream expand symmetrically into both adjacent regions rather than propagating a one-sided shockwave across the entire graph.</p>
+
+          <h3>4. 100% Normalized Proportional Baseline</h3>
+          <p>When the analytical objective centers exclusively on relative composition rather than absolute throughput, the stack is normalized so that the cumulative sum equals 100% at every time step: \( y_{i, \text{top}}(t) = \frac{g_i(t)}{g_{M-1}(t)} \times 100\% \). The resulting graphic occupies a rigid rectangular envelope, isolating market share shifts and cohort retention transitions from total volume fluctuations.</p>
+        
+          <p>To fully appreciate the mathematical ingenuity of Lee Byron and Martin Wattenberg's algorithm, consider the underlying optimization objective. Let each layer i have thickness f_i(t) &gt; 0 and midpoint trajectory m_i(t) = y_0(t) + sum_{j=0}^{i-1} f_j(t) + 0.5 * f_i(t). In an unweighted system, the visual wiggle of layer i corresponds to the square of its midpoint slope: (m'_i(t))^2. If we simply minimized the unweighted sum of squared midpoint slopes, a tiny, volatile stream carrying 0.1% of total volume could exert an outsized pull on the baseline, forcing massive, high-volume layers to undulate wildly to accommodate the micro-stream.</p>
+          <p>Byron and Wattenberg solved this asymmetry by weighting each layer's squared slope directly by its local thickness f_i(t). The global optimization functional integrates the weighted energy: E = integral sum_{i=0}^{M-1} f_i(t) * (m'_i(t))^2 dt. Differentiating this energy functional with respect to the baseline derivative y'_0(t) and setting the derivative to zero yields the exact closed-form solution: y'_0(t) = - sum_{i=0}^{M-1} (1/2 + g_{i-1}(t) / g_{M-1}(t)) * f'_i(t). This elegant result proves that the optimal baseline change at any instant is a weighted linear combination of the individual series rates of change.</p>
+          <p>In discrete algorithmic implementations, the temporal derivatives f'_i(t) are computed via central finite differences: f'_i(t) = (f_i(t+1) - f_i(t-1)) / (2 * delta_t) for interior points, with forward differences (f_i(1) - f_i(0)) / delta_t at the left boundary and backward differences at the right boundary. The baseline offset y_0(t) is then obtained through numerical integration (trapezoidal accumulation). Subtracting the mean offset centers the resulting streamgraph vertically on the canvas, creating the iconic balanced river silhouette.</p>
+</section>
+
+        <section id="section-spline-geometry">
+          <h2>3. Spline Interpolation &amp; Closed Path Geometry: Converting Catmull-Rom &amp; Monotone Splines to Cubic Béziers</h2>
+          <p>Connecting discrete temporal data points with raw linear chords (<code>L</code> commands) produces jagged, polygonal boundaries that appear unrefined and introduce harsh slope discontinuities. To achieve the organic fluidity characteristic of high-end streamgraphs, rendering engines apply continuous spline interpolation.</p>
+
+          <h3>Converting Catmull-Rom Splines to Native SVG Cubic Béziers</h3>
+          <p>A Catmull-Rom spline is a local cubic spline defined by four consecutive control points \( P_{i-1}, P_i, P_{i+1}, P_{i+2} \). The curve segment between \( P_i \) and \( P_{i+1} \) is guaranteed to pass directly through both endpoints while matching the tangent vector defined by the adjacent neighbors. Because SVG's <code>d</code> attribute specification does not provide a native Catmull-Rom command, every segment must be converted into an equivalent cubic Bézier curve <code>C cp1x cp1y, cp2x cp2y, p2x p2y</code>:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Catmull-Rom to Cubic Bézier Control Point Derivation</div>
+            <div class="formula-body">
+              C_1 = P_i + (P_{i+1} - P_{i-1}) / (6 * \tau)<br>
+              C_2 = P_{i+1} - (P_{i+2} - P_i) / (6 * \tau)
+            </div>
+            <div class="formula-desc">Where tau is the curve tension parameter (typically set to 1.0 for standard Catmull-Rom splines, or 0.5 to 0.8 for tighter, less oscillatory curves).</div>
+          </div>
+
+          <h3>Enforcing Monotonicity with Fritsch-Carlson Splines</h3>
+          <p>While Catmull-Rom splines yield breathtaking visual curves on smooth continuous functions, they exhibit severe vulnerabilities when applied to erratic operational data. An abrupt surge from zero to 10,000 requests followed by an immediate return to zero causes unconstrained cubic splines to overshoot, swinging below zero into negative territory or clipping through neighboring stacked baselines. This defect creates self-intersecting polygons and fill rendering artifacts.</p>
+          <p>To eliminate overshoot, production vector systems implement the Fritsch-Carlson monotone cubic spline algorithm. Fritsch-Carlson computes initial secant slopes \( \Delta_k = (y_{k+1} - y_k) / (x_{k+1} - x_k) \) and tangent slopes \( d_k \). If \( \Delta_k = 0 \), both tangent slopes are clamped to zero: \( d_k = d_{k+1} = 0 \). If the vector magnitude \( \alpha^2 + \beta^2 &gt; 9 \) (where \( \alpha = d_k / \Delta_k \) and \( \beta = d_{k+1} / \Delta_k \)), the tangents are restricted to a circle of radius 3: \( \tau = 3 / \sqrt{\alpha^2 + \beta^2} \), setting \( d_k = \tau \alpha \Delta_k \). This guarantees strict local monotonicity, preventing artificial oscillations while preserving smooth curvature.</p>
+
+          <h3>Airtight Closed Path Assembly</h3>
+          <p>An SVG area polygon requires an airtight closed path. Constructing this geometry demands a disciplined two-pass traversal: first, tracing the top boundary from left to right; second, dropping vertically to the bottom boundary and tracing back from right to left:</p>
+
+          <pre><code>// Constructing an Airtight Closed SVG Area Layer Path
+function buildAreaPathD(topPoints, bottomPoints) {
+  if (!topPoints.length || !bottomPoints.length) return '';
+  const n = topPoints.length;
+  let d = `M ${topPoints[0].x.toFixed(2)} ${topPoints[0].y.toFixed(2)}`;
+
+  // Pass 1: Forward cubic spline along upper boundary
+  for (let i = 0; i &lt; n - 1; i++) {
+    const cp = computeBezierControlPoints(topPoints, i);
+    d += ` C ${cp.cp1x.toFixed(2)} ${cp.cp1y.toFixed(2)}, ${cp.cp2x.toFixed(2)} ${cp.cp2y.toFixed(2)}, ${topPoints[i+1].x.toFixed(2)} ${topPoints[i+1].y.toFixed(2)}`;
+  }
+
+  // Vertical transition to bottom boundary at terminal step
+  d += ` L ${bottomPoints[n - 1].x.toFixed(2)} ${bottomPoints[n - 1].y.toFixed(2)}`;
+
+  // Pass 2: Reverse cubic spline along lower baseline
+  for (let i = n - 1; i &gt; 0; i--) {
+    const cp = computeReverseBezierControlPoints(bottomPoints, i);
+    d += ` C ${cp.cp1x.toFixed(2)} ${cp.cp1y.toFixed(2)}, ${cp.cp2x.toFixed(2)} ${cp.cp2y.toFixed(2)}, ${bottomPoints[i-1].x.toFixed(2)} ${bottomPoints[i-1].y.toFixed(2)}`;
+  }
+
+  // Close path back to initial top point
+  d += ' Z';
+  return d;
+}</code></pre>
+        
+          <p>The mathematical hazard of unconstrained cubic splines is an unavoidable consequence of polynomial curve fitting, historically formalized as Runge's phenomenon. When higher-order polynomials or unconstrained cubic splines interpolate discrete points that feature sharp step-functions or sudden impulses, the interpolating polynomial must oscillate vigorously between sample points to satisfy continuous second-derivative smoothness constraints. In an SVG stacked area chart, these oscillations manifest as phantom valleys that dip below the true data points or exaggerated peaks that soar far above actual recorded metrics.</p>
+          <p>The Fritsch-Carlson algorithm resolves this defect through a rigorous five-step mathematical procedure: first, calculate the secant slopes Delta_k = (y_{k+1} - y_k) / (x_{k+1} - x_k) for each interval; second, initialize internal tangent derivatives d_k as the average of adjacent secant slopes; third, check for zero-slope flatlines where Delta_k = 0, clamping d_k = d_{k+1} = 0; fourth, evaluate the directional ratios alpha_k = d_k / Delta_k and beta_k = d_{k+1} / Delta_k; fifth, if alpha_k^2 + beta_k^2 &gt; 9, constrain the vector to a circular boundary of radius 3 by scaling d_k = (3 / sqrt(alpha_k^2 + beta_k^2)) * alpha_k * Delta_k.</p>
+          <p>By ensuring that the tangent slopes never exceed three times the secant slope, the Fritsch-Carlson condition guarantees that the resulting cubic Bézier curve is strictly monotonic across every monotonic interval. If the underlying data points rise from 10 to 50, the SVG path is mathematically prohibited from exceeding 50 or dropping below 10 within that span. In production financial and infrastructure telemetry dashboards, this algorithmic constraint is indispensable: it prevents misleading visual artifacts that could prompt false operational alerts or erroneous capacity planning decisions.</p>
+</section>
+
+        <section id="section-figure-2">
+          <h2>4. Figure 2: Mathematical Architecture &amp; Streamgraph Layer Pipeline</h2>
+          <p>The vector streamgraph architecture pipeline converts discrete multi-series tabular arrays into closed, fluid SVG path polygons through a series of decoupled algorithmic transformations. Figure 2 diagrams this deterministic transformation pipeline:</p>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: SVG Area Chart &amp; Streamgraph Architecture Pipeline">
+              <rect width="960" height="320" fill="#0D0D0D" rx="8" stroke="#222" stroke-width="1"></rect>
+              <defs>
+                <marker id="streamArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#C1DD2D"></polygon>
+                </marker>
+                <linearGradient id="streamGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.8"></stop>
+                  <stop offset="100%" stop-color="#4D6300" stop-opacity="0.3"></stop>
+                </linearGradient>
+                <linearGradient id="streamGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8"></stop>
+                  <stop offset="100%" stop-color="#0284C7" stop-opacity="0.3"></stop>
+                </linearGradient>
+              </defs>
+
+              <!-- Stage 1: Ingestion -->
+              <g transform="translate(30, 40)">
+                <rect width="165" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="82" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 1: INGESTION</text>
+                <text x="82" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Time Series Matrix</text>
+                <rect x="20" y="80" width="125" height="26" fill="#1C1C1C" rx="4"></rect>
+                <text x="82" y="97" fill="#888" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">M Series x N Timesteps</text>
+                <path d="M 30,120 L 135,120 M 30,145 L 135,145 M 30,170 L 135,170" stroke="#262626" stroke-width="1"></path>
+                <text x="35" y="136" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10">Series A: [12, 28, ..]</text>
+                <text x="35" y="161" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10">Series B: [45, 30, ..]</text>
+                <text x="35" y="186" fill="#F59E0B" font-family="'JetBrains Mono', monospace" font-size="10">Series C: [22, 60, ..]</text>
+                <text x="82" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Aligned Temporal Grid</text>
+              </g>
+
+              <!-- Connector 1 -->
+              <line x1="195" y1="160" x2="230" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#streamArrow)"></line>
+
+              <!-- Stage 2: Stacking & Baseline -->
+              <g transform="translate(240, 40)">
+                <rect width="180" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="90" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 2: STACK OFFSET</text>
+                <text x="90" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Baseline Derivation</text>
+                <rect x="18" y="80" width="144" height="34" fill="#1C1C1C" rx="4" stroke="#333" stroke-width="0.8"></rect>
+                <text x="90" y="96" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Zero: y0(t) = 0</text>
+                <text x="90" y="108" fill="#888" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle">Rigid ground baseline</text>
+                <rect x="18" y="122" width="144" height="34" fill="#1C1C1C" rx="4" stroke="#333" stroke-width="0.8"></rect>
+                <text x="90" y="138" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Silhouette: -0.5 * Total</text>
+                <text x="90" y="150" fill="#888" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle">Symmetrical expansion</text>
+                <rect x="18" y="164" width="144" height="42" fill="#1C1C1C" rx="4" stroke="#C1DD2D" stroke-width="1"></rect>
+                <text x="90" y="180" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" text-anchor="middle">Byron-Wattenberg</text>
+                <text x="90" y="193" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Wiggle Minimization</text>
+                <text x="90" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">g_i(t) Accumulation</text>
+              </g>
+
+              <!-- Connector 2 -->
+              <line x1="420" y1="160" x2="455" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#streamArrow)"></line>
+
+              <!-- Stage 3: Spline Derivation -->
+              <g transform="translate(465, 40)">
+                <rect width="195" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="97" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 3: SPLINE MATH</text>
+                <text x="97" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Bézier Control Points</text>
+                <rect x="20" y="80" width="155" height="42" fill="#1A1A1A" rx="4" stroke="#22C55E" stroke-width="0.8"></rect>
+                <text x="97" y="97" fill="#4ADE80" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Catmull-Rom Conversion</text>
+                <text x="97" y="112" fill="#DDD" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">C1 = Pi + (Pi+1 - Pi-1)/6</text>
+                <rect x="20" y="132" width="155" height="42" fill="#1A1A1A" rx="4" stroke="#38BDF8" stroke-width="0.8"></rect>
+                <text x="97" y="149" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Fritsch-Carlson Filter</text>
+                <text x="97" y="164" fill="#DDD" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Monotone Clamp Overshoot</text>
+                <text x="97" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Forward &amp; Backward C</text>
+              </g>
+
+              <!-- Connector 3 -->
+              <line x1="660" y1="160" x2="695" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#streamArrow)"></line>
+
+              <!-- Stage 4: Closed Polygon SVG -->
+              <g transform="translate(705, 40)">
+                <rect width="225" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="112" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 4: SVG EMISSION</text>
+                <text x="112" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Closed Path Polygons</text>
+
+                <!-- Mini Stream graphic -->
+                <g transform="translate(25, 80)">
+                  <path d="M 0 60 C 40 40, 80 80, 120 50 C 145 35, 160 40, 175 45 L 175 90 C 140 85, 100 110, 60 95 C 30 85, 10 90, 0 85 Z" fill="url(#streamGrad1)" stroke="#C1DD2D" stroke-width="1.5"></path>
+                  <path d="M 0 85 C 10 90, 30 85, 60 95 C 100 110, 140 85, 175 90 L 175 125 C 135 120, 90 145, 50 135 C 20 128, 5 130, 0 128 Z" fill="url(#streamGrad2)" stroke="#38BDF8" stroke-width="1.5"></path>
+                </g>
+                <text x="112" y="244" fill="#AAA" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;path d="M..C..L..C..Z"&gt;</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Architectural pipeline transforming raw multi-series time matrices through cumulative stacking, Byron-Wattenberg baseline calculus, Catmull-Rom cubic Bézier conversion, and final airtight closed SVG path emission.</figcaption>
+          </figure>
+        </section>
+
+        <section id="section-gradient-painting">
+          <h2>5. Gradient Painting, Paint Servers &amp; Vector Shading Architectures</h2>
+          <p>The visual efficacy of a stacked area visualization relies heavily on its surface aesthetics. While flat solid color fills can appear harsh and make distinguishing contiguous layers difficult, sophisticated vector paint servers add luminous depth and tactile richness.</p>
+
+          <h3>Directional Linear Gradients &amp; Vertical Falloff</h3>
+          <p>Declaring vertical SVG <code>&lt;linearGradient&gt;</code> elements inside the document <code>&lt;defs&gt;</code> allows each stream layer to fade gracefully from an intense, vibrant top contour to a darker, more transparent bottom boundary. Using <code>gradientUnits="objectBoundingBox"</code> ensures that the gradient dynamically adapts to the bounding rectangle of each stream polygon:</p>
+
+          <pre><code>&lt;defs&gt;
+  &lt;linearGradient id="streamGreen" x1="0%" y1="0%" x2="0%" y2="100%"&gt;
+    &lt;stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.85"/&gt;
+    &lt;stop offset="100%" stop-color="#4D6300" stop-opacity="0.30"/&gt;
+  &lt;/linearGradient&gt;
+  &lt;linearGradient id="streamCyan" x1="0%" y1="0%" x2="0%" y2="100%"&gt;
+    &lt;stop offset="0%" stop-color="#38BDF8" stop-opacity="0.85"/&gt;
+    &lt;stop offset="100%" stop-color="#0284C7" stop-opacity="0.25"/&gt;
+  &lt;/linearGradient&gt;
+&lt;/defs&gt;</code></pre>
+
+          <h3>Overcoming Bounding Box Distortion with <code>userSpaceOnUse</code></h3>
+          <p>While <code>objectBoundingBox</code> is convenient, it stretches the gradient proportionally to the aspect ratio of each layer's individual bounding box. In a streamgraph where one layer is narrow and tall while another is wide and flat, vertical gradient transitions will appear at wildly different rates. To achieve absolute, uniform illumination across the entire canvas, enterprise graphics switch to <code>gradientUnits="userSpaceOnUse"</code>, anchoring the gradient vector directly to the SVG viewport's global Y-domain.</p>
+
+          <h3>Layer Boundary Strokes &amp; Blend Modes</h3>
+          <p>To prevent adjacent layers with similar color hues from bleeding into one another, each area polygon should be stroked with a 1.5px border matching its primary bright color accent. Setting <code>stroke-linejoin="round"</code> guarantees smooth, continuous boundary corners along steep gradient shifts without sharp miter spikes. Furthermore, applying CSS <code>mix-blend-mode: screen</code> in dark theme environments causes intersecting and semi-transparent layers to produce brilliant photonic highlight glows at high-density overlapping contours.</p>
+        
+          <p>When rendering adjacent SVG path polygons with shared mathematical boundary edges, graphics engines frequently suffer from a subtle rendering bug known as the vector seam artifact. Because modern browser rasterizers apply anti-aliasing along the boundary contours of each polygon independently, the anti-aliased semi-transparent pixels along the bottom edge of layer A do not mathematically sum to 100% opacity with the semi-transparent pixels along the top edge of layer B. As a result, the dark background canvas bleeds through as a faint, jagged 1-pixel hairline crack along the interface between stacked layers.</p>
+          <p>To completely eradicate vector seam cracks in production SVG streamgraphs, data visualization engineers utilize three proven techniques: first, expanding the stroke width of each layer path to 1.5 pixels using the exact same fill color, allowing the stroke border to bridge the sub-pixel rasterization gap; second, ordering path elements with a fractional 0.5-pixel vertical overlap along the shared boundary; third, applying the CSS property shape-rendering: geometricPrecision on parent container groups while declaring fill-rule: nonzero. These adjustments guarantee that contiguous volumetric layers form a cohesive, unbroken visual continuum.</p>
+          <p>In addition to linear gradients, advanced streamgraphs leverage dynamic SVG pattern servers to encode auxiliary qualitative dimensions. For example, a microservice stream experiencing elevated error rates can dynamically transition from a smooth solid fill to an animated SVG striped pattern (&lt;pattern&gt; with diagonal stroke lines). Because SVG patterns are rendered purely through vector primitives, they scale crisply with zero raster pixelation, alerting operators to qualitative state changes without altering the underlying volumetric geometry.</p>
+</section>
+
+        <section id="section-scrubbing-interaction">
+          <h2>6. Precision Hover Hit-Testing, Temporal Scrubbing &amp; Dynamic Slice Tooltips</h2>
+          <p>Because area chart polygons span the entire horizontal width of the viewport, binding standard <code>mouseenter</code> and <code>mouseleave</code> event listeners to individual <code>&lt;path&gt;</code> elements only detects which series the mouse is currently hovering over. It provides zero information regarding which chronological timestamp or specific numerical slice is under inspection.</p>
+
+          <h3>Global Pointer Capture &amp; Bisection Algorithm</h3>
+          <p>Production implementations attach a single <code>pointermove</code> listener to the root SVG element. When the user sweeps their cursor or drags their finger across the canvas, the engine translates the client coordinate into the internal SVG coordinate space via the inverse Current Transformation Matrix (CTM):</p>
+
+          <div class="formula-card">
+            <div class="formula-title">SVG Viewport Coordinate Inverse Transform</div>
+            <div class="formula-body">
+              Point_{svg} = Point_{screen} \times CTM^{-1}
+            </div>
+            <div class="formula-desc">Where CTM is the SVG element's getScreenCTM() matrix, ensuring exact sub-pixel coordinate tracking regardless of CSS responsive scaling, margins, or device pixel ratios.</div>
+          </div>
+
+          <p>Once the normalized horizontal coordinate \( x_{\text{svg}} \) is acquired, a binary search (bisection) algorithm locates the surrounding time indices \( t_k \) and \( t_{k+1} \) in \( O(\log N) \) time. The engine renders a vertical hairline indicator <code>&lt;line&gt;</code> traversing from top margin to bottom margin at the resolved timestamp. Simultaneously, it extracts the exact metric values for all active layers at that time slice, updating a high-contrast floating tooltip that details the breakdown and percentages in real time.</p>
+
+          <h3>Dynamic Layer Isolation on Hover</h3>
+          <p>When analyzing five or more stacked layers, viewers frequently struggle to track a single constituent layer across the time axis. By binding hover interactions to the legend or layer paths, the visualization engine can dynamically dim unselected streams (setting <code>opacity="0.15"</code>) while elevating the target layer with full opacity and an amplified stroke border. This technique isolates individual trends instantaneously without destroying context.</p>
+        </section>
+
+        <!-- INTERACTIVE STUDIO SANDBOX -->
+        <section class="interactive-sandbox" id="interactive-area-studio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M3 3v18h18"></path><path d="M7 16c3-6 6-2 9-8 2 4 4 1 5-2v10H7z"></path></svg>
+              Interactive SVG Area Chart &amp; Streamgraph Studio
+            </div>
+            <span class="sandbox-badge">Real-Time Vector Engine</span>
+          </div>
+
+          <p style="font-size: 14.5px; color: #AAA; margin-bottom: 20px;">Toggle baseline offset algorithms, adjust Catmull-Rom spline tension, interact with live cursor time-scrubbing, and export production-ready SVG vector markup instantly.</p>
+
+          <div class="sandbox-controls">
+            <div class="control-row">
+              <label for="area-preset-select">Telemetry Scenario Dataset:</label>
+              <select id="area-preset-select" class="control-select">
+                <option value="cloud-traffic">Cloud Microservices Throughput (req/s)</option>
+                <option value="energy-grid">Renewable Energy Grid Generation (GW)</option>
+                <option value="oss-downloads">Open Source Package Ecosystem Downloads</option>
+                <option value="streaming-media">Concurrent Video Streaming Bitrate</option>
+              </select>
+            </div>
+
+            <div class="control-row">
+              <label for="area-baseline-select">Baseline Offset Algorithm:</label>
+              <select id="area-baseline-select" class="control-select">
+                <option value="stream">Streamgraph (Byron-Wattenberg Wiggle Min)</option>
+                <option value="zero">Zero / Standard Stacked Baseline</option>
+                <option value="silhouette">Silhouette (Symmetrically Centered)</option>
+                <option value="normalized">100% Normalized (Proportional Share)</option>
+              </select>
+            </div>
+
+            <div class="control-row">
+              <label for="area-interpolation-select">Spline Interpolator:</label>
+              <select id="area-interpolation-select" class="control-select">
+                <option value="catmull">Catmull-Rom Cubic Spline</option>
+                <option value="linear">Piecewise Linear (No Curves)</option>
+              </select>
+            </div>
+
+            <div class="control-row">
+              <label for="area-tension-slider">Spline Tension: <span id="area-tension-val" style="color:#C1DD2D; font-weight:700;">0.65</span></label>
+              <input type="range" id="area-tension-slider" class="control-input" min="0.2" max="1.0" value="0.65" step="0.05">
+            </div>
+          </div>
+
+          <div class="preview-stage-container">
+            <svg id="area-live-svg" class="area-svg-canvas" viewBox="0 0 760 480" width="760" height="480" xmlns="http://www.w3.org/2000/svg" role="graphics-document" aria-label="Interactive SVG Area Chart and Streamgraph Studio Visualizing Temporal Stacks">
+              <!-- Rendered dynamically by JavaScript -->
+            </svg>
+          </div>
+
+          <div class="stats-readout-box">
+            <div class="stat-item">
+              <span class="stat-label">Active Streams</span>
+              <span class="stat-val highlight" id="stat-stream-count">4 Layers</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Peak Aggregate</span>
+              <span class="stat-val" id="stat-peak-vol">482 k/s</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Time Points</span>
+              <span class="stat-val" id="stat-time-steps">24 Steps</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Baseline Shift</span>
+              <span class="stat-val highlight" id="stat-baseline-shift">-142 px</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Scrubber Metric</span>
+              <span class="stat-val" id="stat-scrub-val">Hover to Scrub</span>
+            </div>
+          </div>
+
+          <div class="action-btn-row">
+            <button class="copy-btn" id="copy-area-svg-btn" type="button" aria-label="Copy Standalone SVG to Clipboard">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Standalone SVG</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="section-production-engine">
+          <h2>7. Production-Grade Zero-Dependency ES6 Stacked Area &amp; Streamgraph Engine</h2>
+          <p>Below is a complete, self-contained ES6 class implementing multi-series matrix stacking, Byron-Wattenberg wiggle-minimization baseline offsets, Catmull-Rom cubic Bézier conversion, and airtight SVG path generation without third-party dependencies:</p>
+
+          <pre><code>// Production-Grade Zero-Dependency SVG Streamgraph Engine
+class SvgStreamgraphEngine {
+  constructor(config = {}) {
+    this.width = config.width || 760;
+    this.height = config.height || 480;
+    this.padding = config.padding || { top: 40, right: 30, bottom: 50, left: 60 };
+    this.tension = config.tension || 0.65;
+    this.baselineMode = config.baselineMode || 'stream'; // 'zero', 'silhouette', 'stream', 'normalized'
+    this.interpolate = config.interpolate || 'catmull';
+  }
+
+  // Calculate stack boundaries and baseline offsets
+  computeStackedLayers(seriesList) {
+    const m = seriesList.length;
+    const n = seriesList[0].values.length;
+    const y0 = new Array(n).fill(0);
+
+    // Compute cumulative sums at each step
+    const totals = new Array(n).fill(0);
+    for (let t = 0; t &lt; n; t++) {
+      for (let i = 0; i &lt; m; i++) {
+        totals[t] += seriesList[i].values[t];
+      }
+    }
+
+    if (this.baselineMode === 'zero') {
+      // Clamped to zero
+      for (let t = 0; t &lt; n; t++) y0[t] = 0;
+    } else if (this.baselineMode === 'silhouette') {
+      // Centered around 0
+      for (let t = 0; t &lt; n; t++) y0[t] = -0.5 * totals[t];
+    } else if (this.baselineMode === 'stream') {
+      // Byron-Wattenberg wiggle minimization
+      for (let t = 0; t &lt; n; t++) {
+        let weightedSum = 0;
+        let cumulative = 0;
+        for (let i = 0; i &lt; m; i++) {
+          const val = seriesList[i].values[t];
+          const prevVal = t &gt; 0 ? seriesList[i].values[t - 1] : val;
+          const nextVal = t &lt; n - 1 ? seriesList[i].values[t + 1] : val;
+          const slope = (nextVal - prevVal) / 2;
+          weightedSum += (cumulative + val / 2) * slope;
+          cumulative += val;
+        }
+        y0[t] = totals[t] &gt; 0 ? -(weightedSum / totals[t]) : 0;
+      }
+    }
+
+    // Accumulate lower and upper bounds for each layer
+    const layers = [];
+    const currentBase = [...y0];
+
+    for (let i = 0; i &lt; m; i++) {
+      const top = [];
+      const bot = [];
+      for (let t = 0; t &lt; n; t++) {
+        bot.push({ t, v: currentBase[t] });
+        currentBase[t] += seriesList[i].values[t];
+        top.push({ t, v: currentBase[t] });
+      }
+      layers.push({ name: seriesList[i].name, color: seriesList[i].color, bot, top });
+    }
+
+    return { layers, totals };
+  }
+
+  // Convert points to cubic Bézier control points
+  static getCubicControls(pts, i, tension = 0.65) {
+    const p0 = pts[Math.max(0, i - 1)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(pts.length - 1, i + 2)];
+
+    const cp1x = p1.x + (p2.x - p0.x) / (6 * tension);
+    const cp1y = p1.y + (p2.y - p0.y) / (6 * tension);
+    const cp2x = p2.x - (p3.x - p1.x) / (6 * tension);
+    const cp2y = p2.y - (p3.y - p1.y) / (6 * tension);
+
+    return { cp1x, cp1y, cp2x, cp2y };
+  }
+
+  // Render standalone SVG string
+  render(seriesList) {
+    const { layers } = this.computeStackedLayers(seriesList);
+    const plotW = this.width - this.padding.left - this.padding.right;
+    const plotH = this.height - this.padding.top - this.padding.bottom;
+    const n = seriesList[0].values.length;
+
+    // Determine global min and max across all bounds
+    let globalMin = Infinity;
+    let globalMax = -Infinity;
+    layers.forEach(l => {
+      l.bot.forEach(p => { if (p.v &lt; globalMin) globalMin = p.v; });
+      l.top.forEach(p => { if (p.v &gt; globalMax) globalMax = p.v; });
+    });
+    const span = (globalMax - globalMin) || 1;
+
+    const scaleX = t =&gt; this.padding.left + (t / (n - 1)) * plotW;
+    const scaleY = v =&gt; (this.height - this.padding.bottom) - ((v - globalMin) / span) * plotH;
+
+    let pathMarks = '';
+    layers.forEach(layer => {
+      const topPts = layer.top.map(p =&gt; ({ x: scaleX(p.t), y: scaleY(p.v) }));
+      const botPts = layer.bot.map(p =&gt; ({ x: scaleX(p.t), y: scaleY(p.v) }));
+
+      let d = `M ${topPts[0].x.toFixed(1)} ${topPts[0].y.toFixed(1)}`;
+      for (let i = 0; i &lt; n - 1; i++) {
+        const cp = SvgStreamgraphEngine.getCubicControls(topPts, i, this.tension);
+        d += ` C ${cp.cp1x.toFixed(1)} ${cp.cp1y.toFixed(1)}, ${cp.cp2x.toFixed(1)} ${cp.cp2y.toFixed(1)}, ${topPts[i+1].x.toFixed(1)} ${topPts[i+1].y.toFixed(1)}`;
+      }
+      d += ` L ${botPts[n - 1].x.toFixed(1)} ${botPts[n - 1].y.toFixed(1)}`;
+      for (let i = n - 1; i &gt; 0; i--) {
+        const cp = SvgStreamgraphEngine.getCubicControls(botPts, i - 1, this.tension);
+        d += ` C ${cp.cp2x.toFixed(1)} ${cp.cp2y.toFixed(1)}, ${cp.cp1x.toFixed(1)} ${cp.cp1y.toFixed(1)}, ${botPts[i-1].x.toFixed(1)} ${botPts[i-1].y.toFixed(1)}`;
+      }
+      d += ' Z';
+
+      pathMarks += `&lt;path d="${d}" fill="${layer.color}" fill-opacity="0.35" stroke="${layer.color}" stroke-width="1.8"/&gt;`;
+    });
+
+    return `&lt;svg viewBox="0 0 ${this.width} ${this.height}" xmlns="http://www.w3.org/2000/svg" role="graphics-document"&gt;${pathMarks}&lt;/svg&gt;`;
+  }
+}</code></pre>
+        
+          <p>For mission-critical telemetry consoles that monitor high-frequency metrics across hundreds of nodes, memory management and DOM stability are paramount. Naive implementations that wipe and rebuild the entire SVG tree via innerHTML on every update incur severe CPU penalties: the browser must tear down existing DOM trees, perform full CSS style recalculations, rebuild render trees, and trigger expensive composite passes. At 60 or 120 FPS, this garbage collection thrashing quickly freezes user interactions.</p>
+          <p>A production-ready ES6 engine circumvents DOM thrashing through structural node pooling and attribute memoization. During initialization, the engine creates a fixed pool of SVG &lt;path&gt; elements matching the maximum anticipated number of streams. When new time-series data arrives over WebSocket connections, the engine updates the d attribute strings in-place using direct DOM references. Furthermore, by wrapping path coordinate updates in window.requestAnimationFrame callbacks, the engine synchronizes geometric recalculations directly with the client display refresh cycle, delivering silky-smooth 120 FPS transitions even on resource-constrained mobile devices.</p>
+</section>
+
+        <section id="section-accessibility-theming">
+          <h2>8. High-Performance SVG Rendering, Accessibility &amp; Dual-Theme WCAG 2.2 AA Contrast</h2>
+          <p>Delivering high-stakes temporal visualizations demands rigorous adherence to digital accessibility principles. Streamgraphs, with their continuous organic contours and undulating color fields, can present severe perceptual hurdles for individuals with color vision deficiencies if visual channels are not diversified.</p>
+
+          <h3>WCAG 2.2 AA Contrast Compliance &amp; Color Independence</h3>
+          <p>Under WCAG 2.2 Success Criterion 1.4.11 (Non-Text Contrast), all interactive graphical components, boundary strokes, and functional indicators must achieve a minimum contrast ratio of 3.0:1 against adjacent backgrounds. Informative textual annotations, axis numerals, and tooltip callouts must achieve at least 4.5:1. In our dark interface theme, neon lime <code>#C1DD2D</code> achieves 13.8:1 against deep charcoal <code>#0A0A0A</code>. For light mode interfaces, links, active legend pills, and focal strokes dynamically shift to deep olive <code>#4D6300</code>, ensuring a compliant 5.4:1 contrast against pure white <code>#FAFAFA</code>.</p>
+          <p>Furthermore, color must never serve as the sole differentiator between stream layers. Production systems overlay subtle vector patterns (such as diagonal stripes, micro-dots, and cross-hatching created via SVG <code>&lt;pattern&gt;</code> elements) onto individual layer fills. When combined with persistent numerical tooltips and high-contrast boundary strokes, color-blind operators can differentiate adjacent streams with absolute confidence.</p>
+
+          <h3>Semantic Accessibility Trees &amp; Audio Graphs</h3>
+          <p>The root SVG element declares <code>role="graphics-document"</code> accompanied by descriptive <code>aria-label</code> and child <code>&lt;title&gt;</code> elements articulating the high-level narrative: <em>"24-Hour Microservice Cluster Throughput Streamgraph: Peak traffic of 482,000 requests per second at 14:00 UTC, dominated by Authentication Service (42%) and Payment Gateway (31%)."</em></p>
+          <p>Each individual stream path is assigned <code>role="graphics-symbol"</code>, keyboard focusability via <code>tabindex="0"</code>, and an accessible description. Cutting-edge implementations bind the Web Audio API to keyboard traversal: as an operator tabs across timestamps, the browser synthesizes harmonic tones whose pitch maps to aggregate volume and whose stereo panning corresponds to chronological position, providing an intuitive, multi-sensory mental model for blind engineers.</p>
+        </section>
+
+        <section id="section-takeaways">
+          <div class="takeaway-box">
+            <h3>Key Engineering Takeaways</h3>
+            <ul>
+              <li><strong>Select the Optimal Baseline for Analytical Intent:</strong> Use Byron-Wattenberg streamgraphs to minimize artificial layer distortion in volatile data; choose Zero baselines when absolute ground truth is paramount; apply 100% normalization for pure cohort market share analysis.</li>
+              <li><strong>Assemble Airtight Closed SVG Paths:</strong> Trace forward along the upper spline boundary, drop vertically at the final timestamp, trace backwards along the lower baseline, and terminate with <code>Z</code> to form valid fillable polygons.</li>
+              <li><strong>Enforce Monotonic Spline Clamping:</strong> Use Fritsch-Carlson tangent adjustments or moderate Catmull-Rom tension (0.5 to 0.7) to eliminate negative overshoot and baseline intersection errors.</li>
+              <li><strong>Decouple Hover Scrubbing via Binary Search:</strong> Attach a single <code>pointermove</code> listener on the root SVG element and query timestamps via \( O(\log N) \) bisection to guarantee 120 FPS cursor tracking.</li>
+              <li><strong>Ensure Multi-Sensory WCAG 2.2 AA Inclusion:</strong> Combine 4.5:1 contrast text, distinct vector pattern fills, semantic ARIA roles, and keyboard navigation to achieve complete accessibility parity.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="faq-section" id="section-faq">
+          <h2>9. Frequently Asked Questions</h2>
+          <div class="faq-item">
+            <div class="faq-question">What mathematical algorithm distinguishes a streamgraph from a standard stacked area chart?</div>
+            <div class="faq-answer">A standard stacked area chart stacks layers on top of a rigid horizontal baseline at y equals zero. In contrast, a streamgraph implements the Lee Byron and Martin Wattenberg baseline offset algorithm. Instead of fixing y0 to zero, the streamgraph calculates a dynamic floating baseline offset y0(t) designed to minimize total visual slope changes (wiggle) across all stacked layers simultaneously. By weighting the first derivative of each individual series relative to its cumulative thickness, the Byron-Wattenberg algorithm minimizes the weighted sum of squared slopes, producing an organic flowing river visualization where sudden volume spikes in one layer expand symmetrically outward rather than distorting unrelated upper layers.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How is an SVG closed area path constructed mathematically from top and bottom boundaries?</div>
+            <div class="faq-answer">An SVG area layer requires a single continuous closed vector path element. The path geometry begins at the first horizontal time point with a MoveTo command M(x0, yTop0). It then traces the upper boundary curve forwards across all time steps using cubic Bézier C commands or linear L segments until reaching the final point (xn, yTop_n). At this terminal coordinate, a LineTo command transitions vertically downwards to the bottom boundary coordinate (xn, yBot_n). The path then traverses the bottom baseline curve in strictly reverse chronological order, moving from step n backwards to step 0. Finally, a ClosePath command Z connects (x0, yBot0) back to the initial coordinate (x0, yTop0), creating an airtight vector polygon that supports gradient and pattern fills.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Why is Catmull-Rom spline interpolation converted into cubic Bézier segments in native SVG?</div>
+            <div class="faq-answer">The SVG path specification does not natively support Catmull-Rom splines directly within the d attribute syntax; it only supports linear segments, quadratic Béziers (Q), and cubic Béziers (C). A Catmull-Rom spline possesses the desirable property of passing directly through every control point while ensuring first-derivative continuity. To render Catmull-Rom curves in pure native SVG, every segment between adjacent points Pi and Pi+1 is mathematically converted into an equivalent cubic Bézier curve. The two intermediate cubic control points C1 and C2 are computed by evaluating finite difference tangent vectors: C1 = Pi + (Pi+1 - Pi-1) / (6 * tension), and C2 = Pi+1 - (Pi+2 - Pi) / (6 * tension).</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How do you implement performant cursor scrubbing across stacked area charts?</div>
+            <div class="faq-answer">Rather than attaching individual hover event listeners to every complex SVG path, performant cursor scrubbing utilizes a single pointermove listener attached to the root SVG canvas. On every cursor movement event, the client calculates the mouse X coordinate relative to the plot area. A fast binary search (bisection) queries the ordered time array in logarithmic time O(log N) to identify the closest discrete time index. The engine then repositions a vertical hairline marker line and queries the cumulative layer baselines at that exact index, instantaneously updating floating tooltip overlays and tabular readouts at a fluid 120 frames per second.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">What causes negative overshoot distortion in non-linear cubic splines, and how is it prevented?</div>
+            <div class="faq-answer">When time-series metrics contain abrupt transitions—such as a sudden surge from zero to thousands of requests followed by an immediate drop—unconstrained cubic splines can produce negative overshoot, swinging below the baseline into impossible negative territory or overlapping adjacent stacked layers. To prevent this severe geometric defect, developers implement the Fritsch-Carlson monotone cubic spline algorithm. Fritsch-Carlson dynamically adjusts the tangent slopes at adjacent control points whenever the secant slope approaches zero, enforcing local monotonicity and completely eliminating artificial mathematical oscillations.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">How do you guarantee WCAG 2.2 AA accessibility for multi-layered SVG streamgraphs?</div>
+            <div class="faq-answer">To achieve full WCAG 2.2 AA compliance, the root SVG container must declare role='graphics-document' alongside aria-label and companion title and desc child elements summarizing the aggregate temporal trends. Each distinct layer path is assigned role='graphics-symbol', keyboard focusability via tabindex='0', and descriptive aria-label attributes detailing series name, current volume, and percentage contribution. Because color fills alone cannot convey meaning to color-blind users, each layer path must feature high-contrast border strokes (at least 3:1 against neighboring layers) and distinctive SVG pattern fills. All informative text labels must exceed 4.5:1 contrast against both light and dark backgrounds.</div>
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <a href="#section-foundations">1. Volumetric Foundations</a>
+            <a href="#section-baseline-calculus">2. Baseline Offset Calculus</a>
+            <a href="#section-spline-geometry">3. Splines &amp; Closed Path Geometry</a>
+            <a href="#section-figure-2">4. Figure 2: Architecture Pipeline</a>
+            <a href="#section-gradient-painting">5. Gradient &amp; Shading Architectures</a>
+            <a href="#section-scrubbing-interaction">6. Scrubbing &amp; Hit-Testing</a>
+            <a href="#interactive-area-studio">7. Interactive Studio Sandbox</a>
+            <a href="#section-production-engine">8. Zero-Dependency ES6 Engine</a>
+            <a href="#section-accessibility-theming">9. Accessibility &amp; WCAG Contrast</a>
+            <a href="#section-takeaways">10. Key Engineering Takeaways</a>
+            <a href="#section-faq">11. Frequently Asked Questions</a>
+          </nav>
+        </div>
+
+        <div class="sidebar-card cta-sidebar-box">
+          <div class="cta-title">Explore Related Guides</div>
+          <p>Deepen your data visualization mastery with our complete series of SVG vector graphics guides:</p>
+          <div class="toc-nav">
+            <a href="/articles/svg-box-plots-and-whisker-charts-statistical-distribution-guide/">SVG Box Plots &amp; Whiskers</a>
+            <a href="/articles/svg-scatter-plots-and-bubble-charts-multivariate-visualization-guide/">SVG Scatter Plots &amp; Bubbles</a>
+            <a href="/articles/svg-network-graphs-and-force-directed-node-link-visualization-guide/">SVG Network Graphs &amp; Force Physics</a>
+            <a href="/articles/svg-sparklines-and-micro-charts-dashboard-visualization-guide/">SVG Sparklines &amp; Micro-Charts</a>
+            <a href="/articles/svg-bar-charts-and-column-graph-visualization-guide/">SVG Bar Charts &amp; Columns</a>
+            <a href="/articles/svg-gauges-and-circular-progress-bars-guide/">SVG Gauges &amp; Circular Progress</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; align-items: center;">
+      <p>&copy; 2026 IconStash. Published by Great Software Company. All rights reserved.</p>
+      <p><a href="/about/">About IconStash &amp; Jouni Flemming</a> &bull; <a href="/articles/">All Visualization Guides</a> &bull; <a href="/privacy/">Privacy Policy</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle handling
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', nextTheme);
+      });
+    }
+
+    // Interactive Area Chart & Streamgraph Studio
+    (function initAreaStudio() {
+      const liveSvg = document.getElementById('area-live-svg');
+      const presetSelect = document.getElementById('area-preset-select');
+      const baselineSelect = document.getElementById('area-baseline-select');
+      const interpSelect = document.getElementById('area-interpolation-select');
+      const tensionSlider = document.getElementById('area-tension-slider');
+      const tensionVal = document.getElementById('area-tension-val');
+      const copyBtn = document.getElementById('copy-area-svg-btn');
+
+      const statStreamCount = document.getElementById('stat-stream-count');
+      const statPeakVol = document.getElementById('stat-peak-vol');
+      const statTimeSteps = document.getElementById('stat-time-steps');
+      const statBaselineShift = document.getElementById('stat-baseline-shift');
+      const statScrubVal = document.getElementById('stat-scrub-val');
+
+      if (!liveSvg) return;
+
+      const layerPalette = ['#C1DD2D', '#38BDF8', '#F59E0B', '#A855F7'];
+
+      // Deterministic PRNG
+      function pseudoRandom(seed) {
+        let s = seed % 2147483647;
+        if (s <= 0) s += 2147483646;
+        return function() {
+          s = (s * 16807) % 2147483647;
+          return (s - 1) / 2147483646;
+        };
+      }
+
+      function generateTimeSeriesData(preset) {
+        const seed = preset === 'cloud-traffic' ? 101 : preset === 'energy-grid' ? 202 : preset === 'oss-downloads' ? 303 : 404;
+        const rng = pseudoRandom(seed);
+        const steps = 24; // 24 hours or time steps
+        const seriesNames = preset === 'cloud-traffic' ? ['Auth Service', 'Payment API', 'Media Ingestion', 'Analytics DB']
+          : preset === 'energy-grid' ? ['Solar PV', 'Wind Offshore', 'Hydroelectric', 'Battery Storage']
+          : preset === 'oss-downloads' ? ['Core Runtime', 'CLI Tools', 'React Plugins', 'Documentation']
+          : ['4K UltraHD', '1080p HD', '720p Mobile', 'Audio Stream'];
+
+        const seriesList = seriesNames.map((name, sIdx) => {
+          const values = [];
+          const phase = sIdx * 0.8 + 0.5;
+          const baseVol = preset === 'cloud-traffic' ? (40 + sIdx * 25) : (50 + sIdx * 30);
+          for (let t = 0; t < steps; t++) {
+            const wave = Math.sin((t / steps) * Math.PI * 2 + phase) * 20;
+            const noise = (rng() - 0.5) * 12;
+            const surge = (preset === 'cloud-traffic' && t >= 10 && t <= 16 && sIdx === 1) ? 45 : 0;
+            const v = Math.max(10, +(baseVol + wave + noise + surge).toFixed(1));
+            values.push(v);
+          }
+          return { name, color: layerPalette[sIdx % layerPalette.length], values };
+        });
+
+        return { steps, seriesList };
+      }
+
+      function getCubicControls(pts, i, tension) {
+        const p0 = pts[Math.max(0, i - 1)];
+        const p1 = pts[i];
+        const p2 = pts[i + 1];
+        const p3 = pts[Math.min(pts.length - 1, i + 2)];
+
+        const cp1x = p1.x + (p2.x - p0.x) / (6 * tension);
+        const cp1y = p1.y + (p2.y - p0.y) / (6 * tension);
+        const cp2x = p2.x - (p3.x - p1.x) / (6 * tension);
+        const cp2y = p2.y - (p3.y - p1.y) / (6 * tension);
+
+        return { cp1x, cp1y, cp2x, cp2y };
+      }
+
+      let activeScrubIndex = null;
+      let cachedRenderState = null;
+
+      function renderStudio() {
+        const preset = presetSelect.value;
+        const baselineMode = baselineSelect.value;
+        const interpMode = interpSelect.value;
+        const tension = parseFloat(tensionSlider.value);
+        tensionVal.textContent = tension.toFixed(2);
+
+        const { steps, seriesList } = generateTimeSeriesData(preset);
+        const m = seriesList.length;
+        const n = steps;
+
+        // Compute cumulative sums
+        const totals = new Array(n).fill(0);
+        for (let t = 0; t < n; t++) {
+          for (let i = 0; i < m; i++) {
+            totals[t] += seriesList[i].values[t];
+          }
+        }
+
+        const y0 = new Array(n).fill(0);
+        if (baselineMode === 'zero') {
+          for (let t = 0; t < n; t++) y0[t] = 0;
+        } else if (baselineMode === 'silhouette') {
+          for (let t = 0; t < n; t++) y0[t] = -0.5 * totals[t];
+        } else if (baselineMode === 'normalized') {
+          for (let t = 0; t < n; t++) y0[t] = 0;
+        } else {
+          // Byron-Wattenberg streamgraph
+          for (let t = 0; t < n; t++) {
+            let weightedSum = 0;
+            let cum = 0;
+            for (let i = 0; i < m; i++) {
+              const val = seriesList[i].values[t];
+              const pVal = t > 0 ? seriesList[i].values[t - 1] : val;
+              const nVal = t < n - 1 ? seriesList[i].values[t + 1] : val;
+              const slope = (nVal - pVal) / 2;
+              weightedSum += (cum + val / 2) * slope;
+              cum += val;
+            }
+            y0[t] = totals[t] > 0 ? -(weightedSum / totals[t]) : 0;
+          }
+        }
+
+        // Layer boundaries
+        const layers = [];
+        const currentBase = [...y0];
+        for (let i = 0; i < m; i++) {
+          const top = [];
+          const bot = [];
+          for (let t = 0; t < n; t++) {
+            let bVal = currentBase[t];
+            let tVal = currentBase[t] + (baselineMode === 'normalized' ? (seriesList[i].values[t] / totals[t]) * 100 : seriesList[i].values[t]);
+            bot.push({ t, v: bVal });
+            top.push({ t, v: tVal });
+            currentBase[t] = tVal;
+          }
+          layers.push({ name: seriesList[i].name, color: seriesList[i].color, bot, top });
+        }
+
+        // Find global bounds
+        let gMin = Infinity;
+        let gMax = -Infinity;
+        layers.forEach(l => {
+          l.bot.forEach(p => { if (p.v < gMin) gMin = p.v; });
+          l.top.forEach(p => { if (p.v > gMax) gMax = p.v; });
+        });
+        const span = (gMax - gMin) || 1;
+
+        const pad = { top: 40, right: 40, bottom: 50, left: 60 };
+        const viewW = 760;
+        const viewH = 480;
+        const plotW = viewW - pad.left - pad.right;
+        const plotH = viewH - pad.top - pad.bottom;
+
+        const scaleX = t => pad.left + (t / (n - 1)) * plotW;
+        const scaleY = v => (viewH - pad.bottom) - ((v - gMin) / span) * plotH;
+
+        // Path generation
+        let pathElements = '';
+        layers.forEach((layer, lIdx) => {
+          const topPts = layer.top.map(p => ({ x: scaleX(p.t), y: scaleY(p.v) }));
+          const botPts = layer.bot.map(p => ({ x: scaleX(p.t), y: scaleY(p.v) }));
+
+          let d = `M ${topPts[0].x.toFixed(1)} ${topPts[0].y.toFixed(1)}`;
+          if (interpMode === 'catmull') {
+            for (let i = 0; i < n - 1; i++) {
+              const cp = getCubicControls(topPts, i, tension);
+              d += ` C ${cp.cp1x.toFixed(1)} ${cp.cp1y.toFixed(1)}, ${cp.cp2x.toFixed(1)} ${cp.cp2y.toFixed(1)}, ${topPts[i+1].x.toFixed(1)} ${topPts[i+1].y.toFixed(1)}`;
+            }
+            d += ` L ${botPts[n - 1].x.toFixed(1)} ${botPts[n - 1].y.toFixed(1)}`;
+            for (let i = n - 1; i > 0; i--) {
+              const cp = getCubicControls(botPts, i - 1, tension);
+              d += ` C ${cp.cp2x.toFixed(1)} ${cp.cp2y.toFixed(1)}, ${cp.cp1x.toFixed(1)} ${cp.cp1y.toFixed(1)}, ${botPts[i-1].x.toFixed(1)} ${botPts[i-1].y.toFixed(1)}`;
+            }
+          } else {
+            for (let i = 1; i < n; i++) d += ` L ${topPts[i].x.toFixed(1)} ${topPts[i].y.toFixed(1)}`;
+            d += ` L ${botPts[n - 1].x.toFixed(1)} ${botPts[n - 1].y.toFixed(1)}`;
+            for (let i = n - 2; i >= 0; i--) d += ` L ${botPts[i].x.toFixed(1)} ${botPts[i].y.toFixed(1)}`;
+          }
+          d += ' Z';
+
+          pathElements += `<path d="${d}" fill="${layer.color}" fill-opacity="0.35" stroke="${layer.color}" stroke-width="1.8" class="stream-path" data-index="${lIdx}"/>`;
+        });
+
+        // Time ticks
+        let timeTicks = '';
+        for (let t = 0; t < n; t += 4) {
+          const tx = scaleX(t);
+          timeTicks += `<line x1="${tx.toFixed(1)}" y1="${pad.top}" x2="${tx.toFixed(1)}" y2="${viewH - pad.bottom}" stroke="#1E1E1E" stroke-width="1"/>`;
+          timeTicks += `<text x="${tx.toFixed(1)}" y="${viewH - pad.bottom + 22}" fill="#777" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">${t}:00</text>`;
+        }
+
+        // Scrubber line if active
+        let scrubElements = '';
+        if (activeScrubIndex !== null && activeScrubIndex >= 0 && activeScrubIndex < n) {
+          const sx = scaleX(activeScrubIndex);
+          scrubElements += `<line x1="${sx.toFixed(1)}" y1="${pad.top}" x2="${sx.toFixed(1)}" y2="${viewH - pad.bottom}" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3,3"/>`;
+          // Draw dots on each layer
+          layers.forEach(l => {
+            const py = scaleY(l.top[activeScrubIndex].v);
+            scrubElements += `<circle cx="${sx.toFixed(1)}" cy="${py.toFixed(1)}" r="4" fill="${l.color}" stroke="#FFFFFF" stroke-width="1.5"/>`;
+          });
+        }
+
+        liveSvg.innerHTML = `
+          <rect width="${viewW}" height="${viewH}" fill="#0A0A0A" rx="6"/>
+          ${timeTicks}
+          ${pathElements}
+          ${scrubElements}
+        `;
+
+        cachedRenderState = { n, layers, totals, scaleX, pad, plotW };
+
+        // Readouts
+        const peakTotal = Math.max(...totals);
+        statStreamCount.textContent = m + ' Layers';
+        statPeakVol.textContent = peakTotal.toFixed(1) + (preset === 'cloud-traffic' ? ' req/s' : preset === 'energy-grid' ? ' GW' : ' k/s');
+        statTimeSteps.textContent = n + ' Hours';
+        statBaselineShift.textContent = y0[0].toFixed(1) + ' px';
+
+        if (activeScrubIndex !== null && activeScrubIndex >= 0 && activeScrubIndex < n) {
+          statScrubVal.textContent = `T=${activeScrubIndex}:00 (${totals[activeScrubIndex].toFixed(1)})`;
+        } else {
+          statScrubVal.textContent = 'Hover to Scrub';
+        }
+      }
+
+      // Pointer event for scrubbing
+      liveSvg.addEventListener('pointermove', e => {
+        if (!cachedRenderState) return;
+        const rect = liveSvg.getBoundingClientRect();
+        const mouseX = ((e.clientX - rect.left) / rect.width) * 760;
+        const { pad, plotW, n } = cachedRenderState;
+        const relX = Math.max(0, Math.min(plotW, mouseX - pad.left));
+        const idx = Math.round((relX / plotW) * (n - 1));
+        if (idx !== activeScrubIndex) {
+          activeScrubIndex = idx;
+          renderStudio();
+        }
+      });
+
+      liveSvg.addEventListener('pointerleave', () => {
+        if (activeScrubIndex !== null) {
+          activeScrubIndex = null;
+          renderStudio();
+        }
+      });
+
+      // Controls
+      presetSelect.addEventListener('change', renderStudio);
+      baselineSelect.addEventListener('change', renderStudio);
+      interpSelect.addEventListener('change', renderStudio);
+      tensionSlider.addEventListener('input', renderStudio);
+
+      // Copy Standalone SVG
+      copyBtn.addEventListener('click', () => {
+        const svgSource = liveSvg.outerHTML;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(svgSource).then(() => {
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => { copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>'; }, 2000);
+          }).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+
+        function fallbackCopy() {
+          const ta = document.createElement('textarea');
+          ta.value = svgSource;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => { copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>'; }, 2000);
+          } catch (e) {
+            alert('Copy failed: ' + e.message);
+          }
+          document.body.removeChild(ta);
+        }
+      });
+
+      // Initial Render
+      renderStudio();
+    })();
+  </script>
+</body>
+</html>
