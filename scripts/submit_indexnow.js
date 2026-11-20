@@ -5,9 +5,9 @@ const payload = JSON.stringify({
   key: 'e11c5bc79c6d4824bb883b2723c0fa6a',
   keyLocation: 'https://iconstash.io/e11c5bc79c6d4824bb883b2723c0fa6a.txt',
   urlList: [
-    'https://iconstash.io/articles/svg-scatter-plots-and-bubble-charts-multivariate-visualization-guide/',
-    'https://iconstash.io/articles/svg-network-graphs-and-force-directed-node-link-visualization-guide/',
-    'https://iconstash.io/articles/svg-choropleth-maps-and-geographic-vector-visualization-guide/'
+    'https://iconstash.io/articles/svg-box-plots-and-whisker-charts-statistical-distribution-guide/',
+    'https://iconstash.io/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide/',
+    'https://iconstash.io/articles/svg-parallel-coordinates-and-multivariate-axis-visualization-guide/'
   ]
 });
 
