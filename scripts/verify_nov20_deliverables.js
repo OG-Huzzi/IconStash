@@ -215,6 +215,28 @@ for (const item of deliverables) {
     }
   }
   assert(missingTargets.length === 0, `All ${allHashAnchors.length} hash anchors in ${item.slug} resolve to valid DOM id targets`);
+
+  // 18. Touch handling & touch-action: none compliance
+  assert(content.includes('.preview-stage-container') && content.includes('touch-action: none'), `touch-action: none is declared on canvas/container in ${item.slug}`);
+  assert(content.includes('user-select: none'), `user-select: none is declared on interactive container in ${item.slug}`);
+
+  // 19. Pointer capture and pointercancel event handling
+  assert(content.includes('setPointerCapture'), `setPointerCapture is implemented for robust drag tracking in ${item.slug}`);
+  assert(content.includes('pointercancel'), `pointercancel event handling is implemented for gesture recovery in ${item.slug}`);
+
+  // 20. XML validity of inline SVGs (no undefined entities like &le; or &plusmn;)
+  const noScriptContent = content.replace(/<script[\s\S]*?<\/script>/gi, '');
+  const inlineSvgs = [...noScriptContent.matchAll(/<svg[\s\S]*?<\/svg>/gi)].map(m => m[0]);
+  let xmlErrors = [];
+  const xmlEntities = new Set(['amp', 'lt', 'gt', 'quot', 'apos']);
+  for (const svg of inlineSvgs) {
+    const entityMatches = [...svg.matchAll(/&([a-zA-Z0-9]+);/g)].map(m => m[1]);
+    const badEntities = entityMatches.filter(e => !xmlEntities.has(e));
+    if (badEntities.length > 0) {
+      xmlErrors.push(`Found undefined XML entities: [${badEntities.join(', ')}]`);
+    }
+  }
+  assert(xmlErrors.length === 0, `All ${inlineSvgs.length} inline SVGs have valid XML entity encoding in ${item.slug} (errors: ${xmlErrors.join('; ') || 'none'})`);
 }
 
 // Site Integration Verification: articles/index.html

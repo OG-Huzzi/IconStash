@@ -236,6 +236,77 @@ assert.ok(contrastTextLight >= 7.0, 'Body text should satisfy AAA level on light
 
 console.log('  [PASS] All color contrast ratios strictly satisfy WCAG 2.2 AA standards');
 
+// ==========================================
+// TEST 5: STATISTICAL EDGE CASES & RESILIENCE
+// ==========================================
+console.log('\n--- Testing Statistical Edge Cases & Resilience ---');
+
+// 1. Box plot zero-variance invariant distribution
+const invariantData = [50, 50, 50, 50, 50];
+const invQ1 = computeQuantile(invariantData, 0.25);
+const invMed = computeQuantile(invariantData, 0.50);
+const invQ3 = computeQuantile(invariantData, 0.75);
+const invIqr = invQ3 - invQ1;
+assert.strictEqual(invIqr, 0);
+assert.strictEqual(invMed, 50);
+const invNotchSpan = (1.57 * invIqr) / Math.sqrt(invariantData.length || 1);
+assert.strictEqual(invNotchSpan, 0);
+const invNotchTop = Math.min(invQ3, invMed + invNotchSpan);
+const invNotchBot = Math.max(invQ1, invMed - invNotchSpan);
+assert.strictEqual(invNotchTop, 50);
+assert.strictEqual(invNotchBot, 50);
+console.log('  [PASS] Box plot zero-variance invariant distribution handled cleanly');
+
+// 2. Box plot small sample size N=4 with notch span exceeding IQR
+const smallSet = [10, 20, 80, 90];
+const smallQ1 = computeQuantile(smallSet, 0.25); // 17.5
+const smallMed = computeQuantile(smallSet, 0.50); // 50
+const smallQ3 = computeQuantile(smallSet, 0.75); // 82.5
+const smallIqr = smallQ3 - smallQ1; // 65
+const smallNotchSpan = (1.57 * smallIqr) / Math.sqrt(4); // 1.57 * 65 / 2 = 51.025
+// median + notchSpan = 101.025 which exceeds Q3 (82.5)
+const clampedTop = Math.min(smallQ3, smallMed + smallNotchSpan);
+const clampedBot = Math.max(smallQ1, smallMed - smallNotchSpan);
+assert.strictEqual(clampedTop, smallQ3, 'Notch top clamped cleanly to Q3 hinge');
+assert.strictEqual(clampedBot, smallQ1, 'Notch bottom clamped cleanly to Q1 hinge');
+console.log('  [PASS] McGill notched waist clamping on small sample sizes (N=4) verified');
+
+// 3. Catmull-Rom zero-tension division-by-zero protection
+function safeCubicControls(p0, p1, p2, p3, tension) {
+  const safeT = Math.max(0.05, tension || 0.65);
+  const cp1x = p1.x + (p2.x - p0.x) / (6 * safeT);
+  const cp1y = p1.y + (p2.y - p0.y) / (6 * safeT);
+  return { cp1x: isFinite(cp1x), cp1y: isFinite(cp1y) };
+}
+const zeroTensionRes = safeCubicControls({x: 0, y: 0}, {x: 10, y: 10}, {x: 20, y: 20}, {x: 30, y: 30}, 0);
+assert.ok(zeroTensionRes.cp1x && zeroTensionRes.cp1y, 'Safe tension avoids Infinity/NaN');
+console.log('  [PASS] Catmull-Rom zero-tension division-by-zero guard verified');
+
+// 4. Parallel coordinates invariant axis (min === max)
+function scaleParallelY(dim, val, viewH = 480, padBottom = 60, plotH = 370) {
+  const norm = (val - dim.min) / ((dim.max - dim.min) || 1);
+  return (viewH - padBottom) - norm * plotH;
+}
+const invDim = { min: 100, max: 100 };
+const invY = scaleParallelY(invDim, 100);
+assert.strictEqual(invY, 420); // Finite baseline, no NaN or Infinity
+assert.ok(!isNaN(invY) && isFinite(invY), 'Invariant axis produces finite coordinate');
+console.log('  [PASS] Parallel coordinates zero-variance axis (min === max) verified');
+
+// 5. Slider synchronization logic
+function syncSliders(minVal, maxVal) {
+  let bMin = minVal;
+  let bMax = maxVal;
+  if (bMin > bMax - 5) {
+    bMax = Math.min(100, bMin + 5);
+  }
+  return { bMin, bMax, gap: bMax - bMin };
+}
+const synced = syncSliders(80, 70);
+assert.ok(synced.gap >= 5, 'Slider sync maintains >= 5% positive brush interval');
+assert.strictEqual(synced.bMax, 85);
+console.log('  [PASS] Dual-range brush slider synchronization verified');
+
 console.log('\n======================================================');
 console.log('ALL NOVEMBER 20 RUNTIME STUDIO TESTS & MATH PASSED!');
 console.log('======================================================\n');

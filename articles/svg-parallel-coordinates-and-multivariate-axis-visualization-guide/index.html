@@ -244,8 +244,8 @@
     .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
     .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
 
-    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 480px; }
-    .parallel-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; }
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 480px; user-select: none; touch-action: none; }
+    .parallel-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; cursor: crosshair; }
 
     .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
     .stat-item { display: flex; flex-direction: column; }
@@ -1063,13 +1063,13 @@ class SvgParallelCoordinatesEngine {
 
         const scaleX = idx => pad.left + idx * slotW;
         const scaleY = (dim, val) => {
-          const norm = (val - dim.min) / (dim.max - dim.min || 1);
+          const norm = (val - dim.min) / ((dim.max - dim.min) || 1);
           return (viewH - pad.bottom) - norm * plotH;
         };
 
         const targetDim = dimensions[brushAxisIdx];
-        const brushValMin = targetDim.min + (bMinPct / 100) * (targetDim.max - targetDim.min);
-        const brushValMax = targetDim.min + (bMaxPct / 100) * (targetDim.max - targetDim.min);
+        const brushValMin = targetDim.min + (bMinPct / 100) * ((targetDim.max - targetDim.min) || 1);
+        const brushValMax = targetDim.min + (bMaxPct / 100) * ((targetDim.max - targetDim.min) || 1);
 
         let activeCount = 0;
         let activeMarks = '';
@@ -1106,29 +1106,47 @@ class SvgParallelCoordinatesEngine {
 
         // Axes and Ticks
         let axisMarks = '';
+        let touchOverlays = '';
         dimensions.forEach((dim, idx) => {
           const ax = scaleX(idx);
-          axisMarks += `<line x1="${ax.toFixed(1)}" y1="${pad.top}" x2="${ax.toFixed(1)}" y2="${viewH - pad.bottom}" stroke="#444" stroke-width="1.5"/>`;
+          const isTarget = (idx === brushAxisIdx);
+          axisMarks += `<line x1="${ax.toFixed(1)}" y1="${pad.top}" x2="${ax.toFixed(1)}" y2="${viewH - pad.bottom}" stroke="${isTarget ? '#38BDF8' : '#444'}" stroke-width="${isTarget ? '2' : '1.5'}"/>`;
 
           // Header Label
-          axisMarks += `<text x="${ax.toFixed(1)}" y="${pad.top - 18}" fill="#FFF" font-family="'Inter', sans-serif" font-size="12" font-weight="700" text-anchor="middle">${dim.label}</text>`;
+          axisMarks += `<text x="${ax.toFixed(1)}" y="${pad.top - 18}" fill="${isTarget ? '#38BDF8' : '#FFF'}" font-family="'Inter', sans-serif" font-size="12" font-weight="700" text-anchor="middle">${dim.label}</text>`;
 
-          // Ticks
-          for (let t = 0; t <= 4; t++) {
-            const frac = t / 4;
-            const ty = (viewH - pad.bottom) - frac * plotH;
-            const tVal = dim.min + frac * (dim.max - dim.min);
+          // Ticks with invariant axis protection
+          const isInvariant = (dim.max === dim.min);
+          if (isInvariant) {
+            const ty = (viewH - pad.bottom) - 0.5 * plotH;
             axisMarks += `<line x1="${ax - 4}" y1="${ty.toFixed(1)}" x2="${ax + 4}" y2="${ty.toFixed(1)}" stroke="#666" stroke-width="1"/>`;
-            axisMarks += `<text x="${ax - 7}" y="${(ty + 3).toFixed(1)}" fill="#888" font-family="'JetBrains Mono', monospace" font-size="9.5" text-anchor="end">${tVal >= 1000 ? (tVal/1000).toFixed(1)+'k' : tVal.toFixed(tVal < 10 ? 1 : 0)}</text>`;
+            axisMarks += `<text x="${ax - 7}" y="${(ty + 3).toFixed(1)}" fill="#888" font-family="'JetBrains Mono', monospace" font-size="9.5" text-anchor="end">${dim.min}</text>`;
+          } else {
+            for (let t = 0; t <= 4; t++) {
+              const frac = t / 4;
+              const ty = (viewH - pad.bottom) - frac * plotH;
+              const tVal = dim.min + frac * (dim.max - dim.min);
+              axisMarks += `<line x1="${ax - 4}" y1="${ty.toFixed(1)}" x2="${ax + 4}" y2="${ty.toFixed(1)}" stroke="#666" stroke-width="1"/>`;
+              axisMarks += `<text x="${ax - 7}" y="${(ty + 3).toFixed(1)}" fill="#888" font-family="'JetBrains Mono', monospace" font-size="9.5" text-anchor="end">${tVal >= 1000 ? (tVal/1000).toFixed(1)+'k' : tVal.toFixed(tVal < 10 ? 1 : 0)}</text>`;
+            }
           }
+
+          // Invisible touch target overlay for WCAG 2.5.8 (min 24px)
+          touchOverlays += `<rect x="${(ax - 20).toFixed(1)}" y="${pad.top - 25}" width="40" height="${(plotH + 40).toFixed(1)}" fill="transparent" cursor="pointer" data-axis-index="${idx}"/>`;
         });
 
         // Brush Visual Indicator on target axis
         const targetAx = scaleX(brushAxisIdx);
         const yTopBrush = (viewH - pad.bottom) - (bMaxPct / 100) * plotH;
         const yBotBrush = (viewH - pad.bottom) - (bMinPct / 100) * plotH;
-        const brushH = Math.max(4, yBotBrush - yTopBrush);
-        const brushRect = `<rect x="${targetAx - 12}" y="${yTopBrush.toFixed(1)}" width="24" height="${brushH.toFixed(1)}" fill="rgba(56,189,248,0.22)" stroke="#38BDF8" stroke-width="1.5" rx="3"/>`;
+        const brushH = Math.max(6, yBotBrush - yTopBrush);
+        const brushRect = `
+          <g class="brush-indicator" cursor="ns-resize">
+            <rect x="${(targetAx - 12).toFixed(1)}" y="${yTopBrush.toFixed(1)}" width="24" height="${brushH.toFixed(1)}" fill="rgba(56,189,248,0.25)" stroke="#38BDF8" stroke-width="1.8" rx="3"/>
+            <line x1="${(targetAx - 8).toFixed(1)}" y1="${yTopBrush.toFixed(1)}" x2="${(targetAx + 8).toFixed(1)}" y2="${yTopBrush.toFixed(1)}" stroke="#FFFFFF" stroke-width="2"/>
+            <line x1="${(targetAx - 8).toFixed(1)}" y1="${yBotBrush.toFixed(1)}" x2="${(targetAx + 8).toFixed(1)}" y2="${yBotBrush.toFixed(1)}" stroke="#FFFFFF" stroke-width="2"/>
+          </g>
+        `;
 
         liveSvg.innerHTML = `
           <rect width="${viewW}" height="${viewH}" fill="#0A0A0A" rx="6"/>
@@ -1136,6 +1154,7 @@ class SvgParallelCoordinatesEngine {
           <g class="inactive-group">${inactiveMarks}</g>
           <g class="active-group">${activeMarks}</g>
           ${brushRect}
+          ${touchOverlays}
         `;
 
         // Update readouts
@@ -1147,16 +1166,105 @@ class SvgParallelCoordinatesEngine {
         statBrushRange.textContent = `[${bMinPct}% - ${bMaxPct}%]`;
       }
 
-      // Event listeners
+      // Interactive Pointer & Touch Dragging with setPointerCapture
+      let isDraggingBrush = false;
+
+      function getPointerSvgCoords(e) {
+        const rect = liveSvg.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 760;
+        const y = ((e.clientY - rect.top) / rect.height) * 480;
+        return { x, y };
+      }
+
+      function handleBrushDrag(e) {
+        const pt = getPointerSvgCoords(e);
+        const pad = { top: 50, right: 45, bottom: 60, left: 45 };
+        const plotH = 480 - pad.top - pad.bottom;
+        const pct = Math.max(0, Math.min(100, Math.round(((480 - pad.bottom - pt.y) / plotH) * 100)));
+
+        const curSpan = Math.max(10, parseInt(brushMaxSlider.value, 10) - parseInt(brushMinSlider.value, 10));
+        const halfSpan = Math.round(curSpan / 2);
+        const newMin = Math.max(0, Math.min(100 - curSpan, pct - halfSpan));
+        const newMax = newMin + curSpan;
+
+        brushMinSlider.value = newMin;
+        brushMaxSlider.value = newMax;
+        renderStudio();
+      }
+
+      liveSvg.addEventListener('pointerdown', e => {
+        const pt = getPointerSvgCoords(e);
+        const { dimensions } = generateDataset(presetSelect.value);
+        const k = dimensions.length;
+        const pad = { top: 50, right: 45, bottom: 60, left: 45 };
+        const plotW = 760 - pad.left - pad.right;
+        const slotW = plotW / (k - 1);
+
+        let closestIdx = 0;
+        let minDist = Infinity;
+        for (let i = 0; i < k; i++) {
+          const ax = pad.left + i * slotW;
+          const dist = Math.abs(pt.x - ax);
+          if (dist < minDist) {
+            minDist = dist;
+            closestIdx = i;
+          }
+        }
+
+        if (minDist <= 35 && pt.y >= pad.top - 25 && pt.y <= 480 - pad.bottom + 25) {
+          isDraggingBrush = true;
+          try { liveSvg.setPointerCapture(e.pointerId); } catch (_) {}
+          if (brushAxisSelect.value !== String(closestIdx)) {
+            brushAxisSelect.value = String(closestIdx);
+          }
+          handleBrushDrag(e);
+        }
+      });
+
+      liveSvg.addEventListener('pointermove', e => {
+        if (!isDraggingBrush) return;
+        handleBrushDrag(e);
+      });
+
+      const handlePointerUp = e => {
+        if (isDraggingBrush) {
+          try { liveSvg.releasePointerCapture(e.pointerId); } catch (_) {}
+          isDraggingBrush = false;
+        }
+      };
+
+      liveSvg.addEventListener('pointerup', handlePointerUp);
+      liveSvg.addEventListener('pointercancel', handlePointerUp);
+
+      // Event listeners with slider synchronization
       presetSelect.addEventListener('change', renderStudio);
       curveSelect.addEventListener('change', renderStudio);
       brushAxisSelect.addEventListener('change', renderStudio);
-      brushMinSlider.addEventListener('input', renderStudio);
-      brushMaxSlider.addEventListener('input', renderStudio);
+
+      brushMinSlider.addEventListener('input', () => {
+        let minV = parseInt(brushMinSlider.value, 10);
+        let maxV = parseInt(brushMaxSlider.value, 10);
+        if (minV > maxV - 5) {
+          brushMaxSlider.value = Math.min(100, minV + 5);
+        }
+        renderStudio();
+      });
+
+      brushMaxSlider.addEventListener('input', () => {
+        let minV = parseInt(brushMinSlider.value, 10);
+        let maxV = parseInt(brushMaxSlider.value, 10);
+        if (maxV < minV + 5) {
+          brushMinSlider.value = Math.max(0, maxV - 5);
+        }
+        renderStudio();
+      });
 
       // Copy Standalone SVG
       copyBtn.addEventListener('click', () => {
-        const svgSource = liveSvg.outerHTML;
+        let svgSource = liveSvg.outerHTML;
+        if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
+          svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(svgSource).then(() => {
             copyBtn.textContent = 'Copied to Clipboard!';

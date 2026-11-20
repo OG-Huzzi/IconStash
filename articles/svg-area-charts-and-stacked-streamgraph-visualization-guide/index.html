@@ -245,7 +245,7 @@
     .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
     .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
 
-    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 480px; }
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 480px; user-select: none; touch-action: none; }
     .area-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; }
 
     .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
@@ -1046,15 +1046,16 @@ class SvgStreamgraphEngine {
       }
 
       function getCubicControls(pts, i, tension) {
+        const safeTension = Math.max(0.05, tension || 0.65);
         const p0 = pts[Math.max(0, i - 1)];
         const p1 = pts[i];
         const p2 = pts[i + 1];
         const p3 = pts[Math.min(pts.length - 1, i + 2)];
 
-        const cp1x = p1.x + (p2.x - p0.x) / (6 * tension);
-        const cp1y = p1.y + (p2.y - p0.y) / (6 * tension);
-        const cp2x = p2.x - (p3.x - p1.x) / (6 * tension);
-        const cp2y = p2.y - (p3.y - p1.y) / (6 * tension);
+        const cp1x = p1.x + (p2.x - p0.x) / (6 * safeTension);
+        const cp1y = p1.y + (p2.y - p0.y) / (6 * safeTension);
+        const cp2x = p2.x - (p3.x - p1.x) / (6 * safeTension);
+        const cp2y = p2.y - (p3.y - p1.y) / (6 * safeTension);
 
         return { cp1x, cp1y, cp2x, cp2y };
       }
@@ -1209,8 +1210,10 @@ class SvgStreamgraphEngine {
         }
       }
 
-      // Pointer event for scrubbing
-      liveSvg.addEventListener('pointermove', e => {
+      // Pointer event for scrubbing with touch resilience & pointer capture
+      let isPointerDown = false;
+
+      function updateScrubFromEvent(e) {
         if (!cachedRenderState) return;
         const rect = liveSvg.getBoundingClientRect();
         const mouseX = ((e.clientX - rect.left) / rect.width) * 760;
@@ -1221,10 +1224,33 @@ class SvgStreamgraphEngine {
           activeScrubIndex = idx;
           renderStudio();
         }
+      }
+
+      liveSvg.addEventListener('pointerdown', e => {
+        isPointerDown = true;
+        try { liveSvg.setPointerCapture(e.pointerId); } catch (_) {}
+        updateScrubFromEvent(e);
       });
 
-      liveSvg.addEventListener('pointerleave', () => {
+      liveSvg.addEventListener('pointermove', e => {
+        updateScrubFromEvent(e);
+      });
+
+      const handlePointerEnd = e => {
+        if (isPointerDown) {
+          try { liveSvg.releasePointerCapture(e.pointerId); } catch (_) {}
+          isPointerDown = false;
+        }
         if (activeScrubIndex !== null) {
+          activeScrubIndex = null;
+          renderStudio();
+        }
+      };
+
+      liveSvg.addEventListener('pointerup', handlePointerEnd);
+      liveSvg.addEventListener('pointercancel', handlePointerEnd);
+      liveSvg.addEventListener('pointerleave', e => {
+        if (!isPointerDown && activeScrubIndex !== null) {
           activeScrubIndex = null;
           renderStudio();
         }
@@ -1238,7 +1264,10 @@ class SvgStreamgraphEngine {
 
       // Copy Standalone SVG
       copyBtn.addEventListener('click', () => {
-        const svgSource = liveSvg.outerHTML;
+        let svgSource = liveSvg.outerHTML;
+        if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
+          svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(svgSource).then(() => {
             copyBtn.textContent = 'Copied to Clipboard!';
