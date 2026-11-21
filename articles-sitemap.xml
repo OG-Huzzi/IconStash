@@ -26,7 +26,7 @@
   <url><loc>https://iconstash.io/articles/understanding-svg-viewbox-guide/</loc><lastmod>2026-07-20</lastmod></url>
   <url><loc>https://iconstash.io/articles/web-icon-libraries-benchmark-2026/</loc><lastmod>2026-07-20</lastmod></url>
   <url><loc>https://iconstash.io/articles/react-icons-complete-guide-2026/</loc><lastmod>2026-07-24</lastmod></url>
-  <url><loc>https://iconstash.io/articles/</loc><lastmod>2026-11-20</lastmod></url>
+  <url><loc>https://iconstash.io/articles/</loc><lastmod>2026-11-21</lastmod></url>
   <url><loc>https://iconstash.io/Listicles/best-free-icon-sets-2026/</loc><lastmod>2026-07-24</lastmod></url>
   <url><loc>https://iconstash.io/Glossary/icon-svg-terminology/</loc><lastmod>2026-07-24</lastmod></url>
   <url><loc>https://iconstash.io/articles/icon-licensing-explained-mit-apache-cc/</loc><lastmod>2026-07-25</lastmod></url>
@@ -268,6 +268,24 @@
   <url>
     <loc>https://iconstash.io/articles/svg-parallel-coordinates-and-multivariate-axis-visualization-guide/</loc>
     <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://iconstash.io/articles/svg-sunburst-charts-and-radial-treemap-hierarchy-guide/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://iconstash.io/articles/svg-violin-plots-and-kernel-density-distribution-guide/</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://iconstash.io/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide/</loc>
+    <lastmod>2026-11-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

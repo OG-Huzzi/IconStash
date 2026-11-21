@@ -1,0 +1,1540 @@
+import os
+import re
+
+slug = "svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide"
+target_dir = os.path.join(r"D:\Project IconStash\IconStash\articles", slug)
+os.makedirs(target_dir, exist_ok=True)
+target_file = os.path.join(target_dir, "index.html")
+
+print(f"Generating Article 3: {slug}...")
+
+content = r'''<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Candlestick Charts: Financial OHLC Data, Moving Averages &amp; Time-Series Vector Graphics (2026) | IconStash</title>
+  <meta name="description" content="Master SVG candlestick charts: financial OHLC geometry, moving averages, volume histograms, interactive crosshairs, and crisp vector time-series rendering.">
+  <meta name="keywords" content="svg candlestick chart, financial ohlc svg, stock chart javascript, moving average overlay svg, volume histogram vector, crispEdges svg financial, interactive trading chart, technical analysis svg">
+  <meta property="og:title" content="Mastering SVG Candlestick Charts: Financial OHLC Data, Moving Averages &amp; Time-Series Vector Graphics (2026)">
+  <meta property="og:description" content="Master SVG candlestick charts: financial OHLC geometry, moving averages, volume histograms, interactive crosshairs, and crisp vector time-series rendering.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-21T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-21T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Financial Data Visualization">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Candlestick Charts">
+  <meta property="article:tag" content="Financial Visualization">
+  <meta property="article:tag" content="Time Series">
+  <meta property="article:tag" content="Mathematics">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Candlestick Charts: Financial OHLC Data, Moving Averages &amp; Time-Series Vector Graphics (2026)">
+  <meta name="twitter:description" content="Master SVG candlestick charts: financial OHLC geometry, moving averages, volume histograms, interactive crosshairs, and crisp vector time-series rendering.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Candlestick Charts: Financial OHLC Data, Moving Averages & Time-Series Vector Graphics (2026)",
+      "description": "Master SVG candlestick charts: financial OHLC geometry, moving averages, volume histograms, interactive crosshairs, and crisp vector time-series rendering.",
+      "image": "https://iconstash.io/assets/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-21",
+      "dateModified": "2026-11-21",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4240,
+      "articleSection": "Financial Data Visualization",
+      "keywords": [
+        "svg candlestick chart",
+        "financial ohlc svg",
+        "stock chart javascript",
+        "moving average overlay svg",
+        "volume histogram vector",
+        "crispEdges svg financial",
+        "interactive trading chart",
+        "technical analysis svg"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Candlestick Charts & Financial OHLC Guide",
+          "item": "https://iconstash.io/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the geometric difference between a Japanese Candlestick and an OHLC bar chart?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both representations encode identical four-point market telemetry: Open, High, Low, and Close. An OHLC bar chart depicts price action using a single vertical line from Low to High, with two small horizontal tick marks extending left for Open and right for Close. A Japanese Candlestick chart broadens the interval between Open and Close into a solid two-dimensional rectangle known as the real body, with thin vertical wicks (or shadows) extending above and below. The candlestick's filled body provides substantially greater visual mass, making market sentiment (bullish vs. bearish) immediately identifiable at a glance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is shape-rendering='crispEdges' vital for financial SVG candlestick rendering?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By default, browser SVG rendering engines apply sub-pixel anti-aliasing to all vector lines and rectangles. For narrow 1-pixel candlestick wicks or fractional candle borders, anti-aliasing bleeds pixel intensity across adjacent pixels, causing thin wicks to appear blurry, washed out, and inconsistent in width. Applying shape-rendering='crispEdges' disables geometric anti-aliasing on orthogonal vertical and horizontal lines, snapping 1-pixel strokes cleanly to integer device pixels for razor-sharp, terminal-grade financial display."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you calculate Simple Moving Averages (SMA) and Exponential Moving Averages (EMA) in vector charts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Simple Moving Average (SMA) of period k calculates the unweighted arithmetic mean of closing prices over the preceding k time windows: SMA_t = (1 / k) * sum(P_{t-i}). An Exponential Moving Average (EMA) applies exponentially decreasing weights via smoothing multiplier alpha = 2 / (k + 1), defined recursively as EMA_t = alpha * P_t + (1 - alpha) * EMA_{t-1}. In SVG, these continuous moving averages are rendered as smooth polyline or path elements overlaid directly above the candlestick series."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is a dual-axis volume histogram synchronized with a candlestick price chart?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Professional financial layouts allocate vertical canvas height into two synchronized sub-panels: typically 75% for the primary price action panel and 25% for the bottom volume profile panel. Both panels share the identical horizontal time axis X coordinates. For each candle, a corresponding vertical volume bar is drawn at the identical X midpoint, with height proportional to traded volume (scaled from 0 to max_volume) and fill color matching the candle's bullish or bearish polarity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an interactive financial crosshair track pointer position without degrading performance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "High-performance financial crosshairs listen to pointermove events on the root SVG container with touch-action: none. Rather than triggering React or Vue framework re-renders, the event handler computes the closest discrete candle index based on mouse X coordinate, updates the transform of two dedicated SVG line elements (vertical time cursor and horizontal price cursor), and updates SVG text HUD elements directly in the DOM within a requestAnimationFrame loop, maintaining a fluid 120 FPS refresh rate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can complex financial SVG candlestick charts meet WCAG 2.2 AA accessibility standards?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Achieving WCAG 2.2 AA accessibility requires avoiding sole reliance on red/green color semantics. Standard red/green palettes are illegible to individuals with protanopia and deuteranopia. Production charting engines provide accessible color palettes—such as Cyan (bullish) and Magenta (bearish)—or hollow outlined bodies for bullish candles and solid filled bodies for bearish candles. Furthermore, the SVG container must provide role='graphics-document', keyboard navigation across candles via Arrow keys, and an accessible data summary table."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
+
+    .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #C1DD2D; font-weight: 500; }
+
+    .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
+    .article-meta a { color: #999; font-weight: 600; }
+    .article-meta a:hover { color: #C1DD2D; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+    .article-main { min-width: 0; }
+
+    .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
+    .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
+    .featured-summary ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .featured-summary li { position: relative; padding-left: 20px; font-size: 15px; color: #B0B0B0; line-height: 1.6; }
+    .featured-summary li::before { content: "•"; position: absolute; left: 0; color: #C1DD2D; font-size: 20px; line-height: 1; top: 2px; }
+
+    .article-figure { margin: 32px 0 40px; text-align: center; }
+    .article-figure img, .article-figure svg { border-radius: 8px; border: 1px solid #242424; width: 100%; height: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .article-figure figcaption { margin-top: 12px; font-size: 13.5px; color: #888; line-height: 1.5; font-style: italic; }
+
+    h2 { font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1C1C1C; }
+    h3 { font-size: 21px; font-weight: 700; color: #F2F2F2; letter-spacing: -0.01em; margin: 32px 0 16px; }
+    h4 { font-size: 17px; font-weight: 600; color: #DDD; margin: 24px 0 12px; }
+    p { margin-bottom: 20px; color: #C8C8C8; font-size: 16.5px; line-height: 1.8; }
+    p strong { color: #FFFFFF; font-weight: 600; }
+    ul, ol { margin: 0 0 24px 24px; color: #C8C8C8; font-size: 16px; line-height: 1.75; }
+    li { margin-bottom: 8px; }
+
+    pre { background: #111111; border: 1px solid #222222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0 32px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.65; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 14px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    .formula-card { background: #121212; border: 1px solid #242424; border-left: 3px solid #C1DD2D; border-radius: 6px; padding: 20px 24px; margin: 24px 0 28px; }
+    .formula-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; margin-bottom: 8px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; overflow-x: auto; padding: 4px 0; }
+    .formula-desc { font-size: 14px; color: #999; line-height: 1.6; }
+
+    .table-container { width: 100%; overflow-x: auto; margin: 28px 0 36px; border: 1px solid #222; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; font-weight: 700; padding: 14px 18px; border-bottom: 1px solid #242424; white-space: nowrap; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #AAA; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 10px; padding: 24px; margin: 36px 0 44px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .sandbox-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #242424; padding-bottom: 16px; margin-bottom: 20px; }
+    .sandbox-title { font-size: 18px; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 12.5px; font-weight: 600; color: #999; }
+    .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
+    .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
+
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 520px; user-select: none; touch-action: none; }
+    .candle-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; cursor: crosshair; }
+
+    .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; }
+    .stat-val { font-size: 16px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .stat-val.highlight { color: #C1DD2D; }
+    .stat-val.bullish { color: #4ADE80; }
+    .stat-val.bearish { color: #F87171; }
+
+    .action-btn-row { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+    .copy-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 150ms ease; }
+    .copy-btn:hover { background: #D2ED3E; }
+
+    .article-sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #C1DD2D; margin-bottom: 14px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
+    .toc-nav a { color: #888; display: block; line-height: 1.4; padding: 2px 0; }
+    .toc-nav a:hover { color: #C1DD2D; }
+    .cta-sidebar-box { background: rgba(193,221,45,0.06); border: 1px solid rgba(193,221,45,0.25); border-radius: 8px; padding: 18px; text-align: left; }
+    .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { font-size: 15px; color: #C1DD2D; margin-bottom: 8px; font-weight: 700; }
+    .cta-sidebar-box p { font-size: 13px; color: #BBB; line-height: 1.5; margin-bottom: 12px; }
+
+    .takeaway-box { background: #121212; border: 1px solid #242424; border-radius: 8px; padding: 24px 28px; margin: 36px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 19px; margin-top: 0; margin-bottom: 14px; }
+    .takeaway-box ul { margin-bottom: 0; }
+
+    .warning-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #EF4444; border-radius: 6px; padding: 18px 22px; margin: 28px 0; }
+    .warning-box .warning-title, .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #222; }
+    .faq-item { border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; background: #121212; overflow: hidden; }
+    .faq-question { padding: 18px 22px; font-size: 16px; font-weight: 700; color: #FFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 22px 18px; font-size: 15px; color: #B0B0B0; line-height: 1.7; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1C1C1C; padding: 48px 24px; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .data-table th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .stat-val.bullish { color: #16A34A; }
+    html[data-theme="light"] .stat-val.bearish { color: #DC2626; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-desc { color: #525252; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FCA5A5; border-left-color: #EF4444; }
+    html[data-theme="light"] .warning-box .warning-title, .warning-box h4 { color: #B91C1C; }
+    html[data-theme="light"] .warning-box p { color: #450A0A; }
+    html[data-theme="light"] .sidebar-title { color: #4D6300; }
+    html[data-theme="light"] .stat-label { color: #525252; }
+    html[data-theme="light"] .article-meta a { color: #4D6300; }
+    html[data-theme="light"] .faq-item { background: #FFFFFF; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-question { color: #18181B; }
+    html[data-theme="light"] .faq-answer { color: #3F3F46; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo" aria-label="IconStash Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/Glossary/icon-svg-terminology/">Glossary</a>
+      <a href="/about/">About</a>
+      <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <a href="/#/" class="header-cta">Browse Library</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">SVG Candlestick Charts Guide</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Financial Data Visualization</span>
+      <h1>Mastering SVG Candlestick Charts: Financial OHLC Data, Moving Averages &amp; Time-Series Vector Graphics (2026)</h1>
+      <div class="article-meta">
+        <span>By <a href="/about/">Jouni Flemming</a></span>
+        <span class="sep">•</span>
+        <span>Published November 21, 2026</span>
+        <span class="sep">•</span>
+        <span>46 min read</span>
+        <span class="sep">•</span>
+        <span>Algorithmic Trading &amp; Financial Vector Architecture</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Engineering Summary:</strong> Candlestick and OHLC (Open, High, Low, Close) charts represent the universal visual protocol of global financial markets, algorithmic trading desks, and quantitative analytics. By mapping four-point discrete time-bucket pricing intervals into crisp geometric bodies, central wicks, and synchronized volume indicators, SVG vector graphics deliver unmatched pixel sharpness, responsive scaling, and instant DOM accessibility.</p>
+          <ul>
+            <li><strong>Anatomical OHLC Geometry:</strong> Mathematical derivation of the real body rectangle and central wick lines across bullish, bearish, and doji market regimes.</li>
+            <li><strong>Continuous Price-to-Viewport Projection:</strong> Rigorous inverted Cartesian coordinate mapping with dynamic price scale padding and integer sub-pixel alignment.</li>
+            <li><strong>Technical Indicator Calculus:</strong> Vector path generation for Simple Moving Averages (SMA-20, SMA-50) and recursive Exponential Moving Averages (EMA).</li>
+            <li><strong>Dual-Axis Layout Coordination:</strong> Synchronizing primary price action with secondary volume profile histogram bars and interactive crosshair HUD readouts.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-candlestick-charts-and-financial-ohlc-stock-visualization-guide.jpg" alt="Mastering SVG Candlestick Charts and Financial OHLC Stock Visualizations" width="1200" height="675" fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: Production SVG candlestick trading terminal displaying high-volatility financial time series with moving average path overlays and synchronized volume bars.</figcaption>
+        </figure>
+
+        <section id="section-introduction">
+          <h2>1. Introduction: The Visual Language of Financial Markets &amp; Vector OHLC</h2>
+          <p>Across global financial exchanges, foreign currency markets, commodity desks, and cryptocurrency liquidity pools, price action is a continuous, high-frequency stochastic process. Millions of tick events—consisting of bids, asks, and matched executions—stream across network sockets every second. To make sense of this relentless torrent of telemetry, traders and quantitative analysts transform raw tick data into discrete temporal buckets: one-minute, fifteen-minute, one-hour, or daily periods.</p>
+
+          <p>Within each discrete time bucket, price volatility is fully described by four fundamental metrics:</p>
+
+          <ol>
+            <li><strong>Open (O):</strong> The execution price of the very first transaction recorded within the time window.</li>
+            <li><strong>High (H):</strong> The absolute maximum price transacted during the time window.</li>
+            <li><strong>Low (L):</strong> The absolute minimum price transacted during the time window.</li>
+            <li><strong>Close (C):</strong> The execution price of the final transaction recorded prior to bucket expiration.</li>
+          </ol>
+
+          <p>Originating in eighteenth-century Japan through rice trader Munehisa Homma, the <strong>candlestick chart</strong> represents a stroke of visual engineering genius. Rather than plotting closing prices as an isolated single-dimensional line chart—which discards crucial intraday volatility and range expansion—the candlestick chart constructs a two-dimensional visual glyph that exposes open, high, low, close, net trend direction, and market volatility simultaneously.</p>
+
+          <p>In modern web applications, rendering high-density financial charts historically forced developers to rely on heavy, proprietary canvas packages or clunky third-party iframes that broke responsive styling, hindered screenshot generation, and prevented accessibility. Modern Scalable Vector Graphics (SVG) completely transforms this landscape. By leveraging declarative DOM paths, native CSS animations, GPU hardware acceleration, and SVG's unique <code>shape-rendering="crispEdges"</code> engine, developers can author blazing-fast, institutional-grade financial dashboards directly in clean HTML5.</p>
+
+          <h3>Market Microstructure &amp; The Mechanics of Discrete Time Resampling</h3>
+          <p>Underneath every clean OHLC candlestick lies the microscopic reality of the Limit Order Book (LOB). An electronic exchange matches buy limit orders (bids) and sell limit orders (asks). When incoming market orders execute against resting limit orders, a trade event is emitted with three atomic properties: execution price, executed trade size (volume), and high-resolution UNIX timestamp. A liquid asset like Apple or Bitcoin can generate hundreds of discrete trade executions within a single second.</p>
+
+          <p>To convert this continuous asynchronous trade feed into periodic candlestick intervals, quantitative data pipelines execute temporal bucket resampling. An interval window of duration &Delta;t (such as 60 seconds) is established. The first trade executed at or after timestamp t0 sets the Open price; the maximum price among all trades within [t0, t0 + &Delta;t) defines the High; the minimum price defines the Low; and the final trade before t0 + &Delta;t defines the Close. The volume metric accumulates the sum of all trade shares executed throughout the window. If no trades occur during a quiet interval, the candle is formed as a flat horizontal tick matching the previous period's Close with zero volume, maintaining unbroken temporal continuity across the time series.</p>
+        </section>
+
+        <section id="section-candlestick-anatomy">
+          <h2>2. Anatomical Geometry of Japanese Candlesticks: Wicks, Shadows &amp; Real Bodies</h2>
+          <p>To render an individual candlestick glyph in SVG, the vector engine must decompose the OHLC data tuple <code>(O, H, L, C)</code> into two core geometric components: the <strong>real body</strong> and the <strong>wicks</strong> (also called shadows or tails).</p>
+
+          <h3>Bullish vs. Bearish Polarity</h3>
+          <p>The visual polarity of a candle is established entirely by the algebraic relationship between the opening price and closing price:</p>
+
+          <ul>
+            <li><strong>Bullish Candle (Close &ge; Open):</strong> Indicates that buyers dominated the session, driving the terminal price above the opening benchmark. The candle body is typically filled with vibrant green (or cyan in modern color-blind themes).</li>
+            <li><strong>Bearish Candle (Close &lt; Open):</strong> Indicates that sellers seized control, forcing the terminal price downward. The candle body is filled with bright red (or magenta/coral in high-contrast themes).</li>
+            <li><strong>Doji Candle (Close &approx; Open):</strong> A special market state where open and close prices are virtually identical. The real body collapses into a razor-thin horizontal line, signaling market indecision.</li>
+          </ul>
+
+          <div class="formula-card">
+            <div class="formula-title">Real Body Geometry Formulation</div>
+            <div class="formula-body">
+              body_top = scaleY(Math.max(Open, Close))<br>
+              body_bottom = scaleY(Math.min(Open, Close))<br>
+              body_height = Math.max(1, body_bottom - body_top)<br>
+              body_x = candle_center_x - (candle_width / 2)
+            </div>
+            <div class="formula-desc">
+              Computes SVG Cartesian coordinates for the candle body rectangle, guaranteeing at least 1 pixel of height even on zero-spread Doji periods.
+            </div>
+          </div>
+
+          <h3>Wick Extremities (Upper &amp; Lower Shadows)</h3>
+          <p>Extending above and below the real body are thin vertical lines representing the price extremes reached during the interval:</p>
+
+          <ul>
+            <li><strong>Upper Wick:</strong> Spans from the top of the real body <code>Math.max(Open, Close)</code> up to the session High. It visually conveys the degree of upward price rejection: long upper wicks indicate that bulls pushed prices higher but encountered heavy selling pressure before the close.</li>
+            <li><strong>Lower Wick:</strong> Spans from the bottom of the real body <code>Math.min(Open, Close)</code> down to the session Low. It conveys the strength of buyer absorption: long lower wicks reveal that bears attempted a downward breakout but were overwhelmed by institutional buying support.</li>
+          </ul>
+
+          <p>In SVG markup, the upper and lower wicks can either be rendered as two distinct line elements or consolidated into a single continuous vertical line stretching from <code>scaleY(High)</code> to <code>scaleY(Low)</code> rendered underneath the real body rectangle. Consolidating wicks into a single line reduces DOM element count by 33%, delivering significant rendering efficiency on dense timeframes.</p>
+
+          <h3>Taxonomy of Candlestick Morphology &amp; Reversal Patterns</h3>
+          <p>Quantitative algorithmic trading models parse candlestick geometry to identify shifts in supply-demand equilibrium. By evaluating the ratio between real body height, upper shadow length, and lower shadow length, algorithmic screeners classify candle silhouettes into standardized morphological categories:</p>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Candlestick Pattern</th>
+                  <th>Visual Geometric Properties</th>
+                  <th>Market Psychology &amp; Sentiment</th>
+                  <th>Trading Bias</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Hammer / Pin Bar</strong></td>
+                  <td>Small real body at top; lower wick &ge; 2&times; body height; negligible upper wick.</td>
+                  <td>Intense intra-session selling pressure completely absorbed by institutional buying at session lows.</td>
+                  <td>Bullish Reversal</td>
+                </tr>
+                <tr>
+                  <td><strong>Shooting Star</strong></td>
+                  <td>Small real body at bottom; upper wick &ge; 2&times; body height; negligible lower wick.</td>
+                  <td>Intra-session buying breakout rejected by aggressive overhead liquidity and institutional distribution.</td>
+                  <td>Bearish Reversal</td>
+                </tr>
+                <tr>
+                  <td><strong>Bullish Engulfing</strong></td>
+                  <td>Large green real body whose vertical span completely encloses the preceding red body.</td>
+                  <td>Complete sentiment shift; buyers overpower earlier selling momentum with expanding volume.</td>
+                  <td>Bullish Continuation / Reversal</td>
+                </tr>
+                <tr>
+                  <td><strong>Bearish Engulfing</strong></td>
+                  <td>Large red real body whose vertical span completely encloses the preceding green body.</td>
+                  <td>Buyers trapped at market peak; institutional liquidation triggers cascading stop-loss selling.</td>
+                  <td>Bearish Continuation / Reversal</td>
+                </tr>
+                <tr>
+                  <td><strong>Marubozu</strong></td>
+                  <td>Full solid rectangle spanning entire High-to-Low range; zero or microscopic wicks.</td>
+                  <td>Unilateral one-directional domination from opening bell to closing cross; maximum trend conviction.</td>
+                  <td>Strong Trend Continuation</td>
+                </tr>
+                <tr>
+                  <td><strong>Dragonfly Doji</strong></td>
+                  <td>Open, High, and Close share identical coordinate; elongated lower wick; zero upper wick.</td>
+                  <td>Severe downward rejection at major support levels; bears failed to hold lower ground.</td>
+                  <td>Bullish Exhaustion / Pivot</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="section-price-projection">
+          <h2>3. Continuous Price-to-Coordinate Mapping: Inverting SVG Viewports</h2>
+          <p>The mathematical projection of raw financial metrics onto an SVG canvas requires strict handling of coordinate inversion. In computer graphics and SVG viewports, the coordinate origin <code>(0, 0)</code> resides at the top-left corner, with the Y-axis descending downward. In financial markets, however, higher prices must ascend upward toward the ceiling.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Inverted Price-to-Pixel Projection Formula</div>
+            <div class="formula-body">
+              y_pixel = (plot_bottom) - ((Price - min_price) / (max_price - min_price)) * plot_height
+            </div>
+            <div class="formula-desc">
+              Transforms continuous market price into discrete vertical SVG canvas coordinates within the bounded plot area [plot_top, plot_bottom].
+            </div>
+          </div>
+
+          <h3>Dynamic Scale Padding &amp; Axis Buffering</h3>
+          <p>If an engine naively sets <code>min_price = min(L)</code> and <code>max_price = max(H)</code> across the visible dataset, the highest candle wick will collide directly against the upper chart border, while the lowest wick will scrape the bottom axis. Professional financial trading stations prevent this crowding by applying an <strong>axis headroom buffer</strong>: typically 5% to 8% vertical padding above the session high and below the session low:</p>
+
+          <pre><code>const rawHigh = Math.max(...data.map(d =&gt; d.h));
+const rawLow = Math.min(...data.map(d =&gt; d.l));
+const spread = rawHigh - rawLow || 1.0;
+const domainMax = rawHigh + spread * 0.06;
+const domainMin = Math.max(0, rawLow - spread * 0.06);</code></pre>
+
+          <p>This guarantees ample breathing room for technical indicator overlays, price callout pill badges, and horizontal gridlines.</p>
+
+          <h3>Temporal Axis Discretization: Trading Session Calendar vs. Continuous Time</h3>
+          <p>A critical architectural decision when designing financial charting engines is handling non-trading periods. Unlike sensor networks or IoT metrics that generate telemetry continuously 24/7/365, equity markets operate on rigid trading calendars: the New York Stock Exchange is open weekdays from 9:30 AM to 4:00 PM EST, closing entirely on weekends and Federal holidays.</p>
+
+          <p>If an engine projects candle positions along a continuous linear chronological timestamp axis, massive empty voids appear on the chart corresponding to weekend closures and overnight gaps. These empty chasms distort technical indicator calculations and waste valuable horizontal screen space. Professional charting engines therefore map candlestick bars to <strong>ordinal discrete slot indices</strong>: candle i is mapped to <code>x = paddingLeft + slotWidth * (i + 0.5)</code> regardless of the chronological time delta between candle i and candle i - 1. A companion time lookup table translates slot indices to formatted dates on the X-axis, ensuring an unbroken, continuous visual progression across market sessions.</p>
+        </section>
+
+        <section id="section-architecture-pipeline">
+          <h2>4. Figure 2: Mathematical Architecture &amp; Financial Rendering Pipeline</h2>
+          <p>Building an enterprise financial vector engine requires an asynchronous, multi-stage rendering pipeline. Figure 2 illustrates the data flow transforming incoming OHLC historical tuples into calibrated price axes, moving average spline overlays, pixel-aligned candle bodies, and synchronized volume profile histograms:</p>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: SVG Candlestick Chart Mathematical Architecture and Vector Layout Pipeline">
+              <rect width="960" height="320" fill="#0D0D0D" rx="8" stroke="#222" stroke-width="1"></rect>
+              <defs>
+                <linearGradient id="finPipeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.15"></stop>
+                  <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.05"></stop>
+                </linearGradient>
+                <marker id="finArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#C1DD2D"></polygon>
+                </marker>
+              </defs>
+
+              <!-- Stage 1: Ingestion & Windows -->
+              <g transform="translate(25, 40)">
+                <rect width="180" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="90" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 1: OHLC INGEST</text>
+                <text x="90" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Time-Window Bucketing</text>
+                <rect x="20" y="80" width="140" height="26" fill="#1C1C1C" rx="4"></rect>
+                <text x="90" y="97" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">{t, o, h, l, c, v}</text>
+                <text x="90" y="140" fill="#AAA" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Window Normalization</text>
+                <text x="90" y="160" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Slot Spacing &#916;x = W / N</text>
+                <rect x="20" y="184" width="140" height="26" fill="#1C1C1C" rx="4" stroke="#C1DD2D" stroke-width="0.5"></rect>
+                <text x="90" y="201" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Candle Slot Geometry</text>
+                <text x="90" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Monotonic Timestamp Array</text>
+              </g>
+
+              <!-- Connector 1 -->
+              <line x1="205" y1="160" x2="235" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#finArrow)"></line>
+
+              <!-- Stage 2: Price Scaling & Moving Averages -->
+              <g transform="translate(245, 40)">
+                <rect width="200" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="100" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 2: SCALES &amp; SMA</text>
+                <text x="100" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Price Mapping &amp; Filters</text>
+                <path d="M 25,80 L 175,80 M 25,112 L 175,112 M 25,144 L 175,144 M 25,176 L 175,176 M 25,208 L 175,208" stroke="#222" stroke-width="1"></path>
+                <text x="30" y="98" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11">Price Domain:</text>
+                <text x="170" y="98" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="end">[P_min, P_max]</text>
+                <text x="30" y="130" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11">Y Inversion:</text>
+                <text x="170" y="130" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700" text-anchor="end">y = H - norm &#8901; H</text>
+                <text x="30" y="162" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11">SMA 20 Period:</text>
+                <text x="170" y="162" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="end">k-Window Rolling</text>
+                <text x="30" y="194" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11">EMA 50 Period:</text>
+                <text x="170" y="194" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="end">&#945; = 2 / (k + 1)</text>
+                <text x="100" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Calibrated Coordinate Space</text>
+              </g>
+
+              <!-- Connector 2 -->
+              <line x1="445" y1="160" x2="475" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#finArrow)"></line>
+
+              <!-- Stage 3: Candlestick Glyph Synthesis -->
+              <g transform="translate(485, 40)">
+                <rect width="210" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="105" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 3: GLYPH EMISSION</text>
+                <text x="105" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Crisp Vector Markup</text>
+                <rect x="20" y="80" width="170" height="34" fill="#1A1A1A" rx="4" stroke="#C1DD2D" stroke-width="0.8"></rect>
+                <text x="105" y="96" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">shape-rendering="crispEdges"</text>
+                <text x="105" y="108" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="9.5" text-anchor="middle">Zero Anti-Aliased Wick Blur</text>
+                <rect x="20" y="124" width="170" height="34" fill="#1A1A1A" rx="4" stroke="#38BDF8" stroke-width="0.8"></rect>
+                <text x="105" y="140" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">Bullish: #22C55E / #38BDF8</text>
+                <text x="105" y="152" fill="#F87171" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">Bearish: #EF4444 / #F43F5E</text>
+                <rect x="20" y="168" width="170" height="34" fill="#1A1A1A" rx="4" stroke="#A855F7" stroke-width="0.8"></rect>
+                <text x="105" y="184" fill="#C084FC" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">Wick Line &amp; Body Rect</text>
+                <text x="105" y="196" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">&lt;line&gt; + &lt;rect&gt; Assembly</text>
+                <text x="105" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Single Compound SVG Entity</text>
+              </g>
+
+              <!-- Connector 3 -->
+              <line x1="695" y1="160" x2="725" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#finArrow)"></line>
+
+              <!-- Stage 4: Volume & Crosshair HUD -->
+              <g transform="translate(735, 40)">
+                <rect width="200" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="100" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 4: VOLUME &amp; HUD</text>
+                <text x="100" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Dual-Axis Composite</text>
+
+                <!-- Mini Candlestick Schematic -->
+                <g transform="translate(100, 145)">
+                  <!-- Bullish Candle -->
+                  <line x1="-30" y1="-45" x2="-30" y2="35" stroke="#22C55E" stroke-width="1.5"></line>
+                  <rect x="-38" y="-25" width="16" height="40" fill="#22C55E" rx="1"></rect>
+                  <!-- Bearish Candle -->
+                  <line x1="0" y1="-30" x2="0" y2="45" stroke="#EF4444" stroke-width="1.5"></line>
+                  <rect x="-8" y="-15" width="16" height="50" fill="#EF4444" rx="1"></rect>
+                  <!-- Bullish Candle 2 -->
+                  <line x1="30" y1="-55" x2="30" y2="20" stroke="#22C55E" stroke-width="1.5"></line>
+                  <rect x="22" y="-40" width="16" height="45" fill="#22C55E" rx="1"></rect>
+                  <!-- SMA Line Overlay -->
+                  <path d="M -40,-10 Q 0,-5 40,-35" fill="none" stroke="#FBBF24" stroke-width="2"></path>
+                </g>
+
+                <text x="100" y="244" fill="#AAA" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;g class="crosshair-hud"&gt;</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Complete architectural pipeline transforming raw OHLC streams through time-window bucketing, price scaling, moving average computation, and crisp dual-axis SVG assembly.</figcaption>
+          </figure>
+        </section>
+
+        <section id="section-moving-averages">
+          <h2>5. Technical Indicator Overlays: Vector Calculus of SMA and EMA</h2>
+          <p>Raw candlestick patterns gain immense analytical depth when contextualized against technical moving average trend lines. In algorithmic trading systems, moving averages filter out high-frequency market noise, highlighting baseline momentum and dynamic support/resistance zones.</p>
+
+          <h3>Simple Moving Average (SMA)</h3>
+          <p>The Simple Moving Average of period <code>k</code> computes the unweighted arithmetic mean of closing prices across the preceding <code>k</code> bars:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Simple Moving Average (SMA) Calculus</div>
+            <div class="formula-body">
+              SMA_t = (1 / k) * &sum;_{i=0}^{k-1} Close_{t-i}
+            </div>
+            <div class="formula-desc">
+              Computes k-period rolling arithmetic average of closing prices for trend filtering.
+            </div>
+          </div>
+
+          <h3>Exponential Moving Average (EMA)</h3>
+          <p>Unlike the SMA—which assigns equal weight to data from 50 days ago as it does to data from yesterday—the Exponential Moving Average (EMA) applies exponentially decreasing weights, giving substantially greater significance to recent price action. This reduces lag, allowing traders to react faster to sudden breakouts:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Exponential Moving Average (EMA) Recursive Formula</div>
+            <div class="formula-body">
+              &alpha; = 2 / (k + 1)<br>
+              EMA_t = &alpha; * Close_t + (1 - &alpha;) * EMA_{t-1}
+            </div>
+            <div class="formula-desc">
+              Computes k-period exponential smoothing with multiplier &alpha;, establishing rapid responsiveness to momentum shifts.
+            </div>
+          </div>
+
+          <p>To render these indicators in SVG, the engine evaluates the rolling values across the dataset, maps each valid point to <code>(cx, scaleY(MA_val))</code>, and concatenates them into a continuous SVG path: <code>&lt;path d="M x0 y0 L x1 y1 ..." fill="none" stroke="#F59E0B" stroke-width="2" /&gt;</code>. Applying a subtle drop-shadow or outer glow filter highlights the trend lines above dense background candlestick clusters.</p>
+
+          <h3>Multi-Band Indicator Architecture: Bollinger Bands &amp; VWAP</h3>
+          <p>Beyond single-line moving averages, advanced algorithmic trading dashboards visualize statistical dispersion bands:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Volume Weighted Average Price (VWAP) Formulation</div>
+            <div class="formula-body">
+              VWAP_t = &sum;_{i=1}^{t} (TypicalPrice_i * Volume_i) / &sum;_{i=1}^{t} Volume_i<br>
+              where TypicalPrice_i = (High_i + Low_i + Close_i) / 3
+            </div>
+            <div class="formula-desc">
+              Computes cumulative volume-weighted benchmark price from session opening bell, representing institutional transaction equilibrium.
+            </div>
+          </div>
+
+          <p><strong>Bollinger Bands</strong>, developed by John Bollinger in the 1980s, overlay an envelope of volatility surrounding an SMA baseline: <code>Upper = SMA + 2 * &sigma;</code> and <code>Lower = SMA - 2 * &sigma;</code>, where &sigma; is the rolling standard deviation. In SVG vector graphics, Bollinger Bands can be rendered not merely as two disconnected lines, but as a continuous semi-transparent shaded ribbon. The vector path starts along the upper band from left to right, connects down to the rightmost lower band coordinate, traces backward along the lower band from right to left, and closes with <code>Z</code>: <code>fill="rgba(56, 189, 248, 0.08)" stroke="#38BDF8" stroke-width="1"</code>. This shaded channel provides immediate visual awareness of volatility squeezes and range expansions.</p>
+        </section>
+
+        <section id="section-dual-axis-volume">
+          <h2>6. Dual-Axis Coordination: Synchronizing Price Action with Volume Profile Histograms</h2>
+          <p>In classical Dow Theory and modern volume spread analysis (VSA), <strong>volume validates price action</strong>. A dramatic bullish breakout occurring on negligible trading volume frequently signals an institutional "bull trap" destined for immediate reversal. Conversely, a breakout accompanied by massive volume confirmation signals authentic institutional accumulation.</p>
+
+          <p>Professional SVG chart engines implement a coordinated dual-axis split layout:</p>
+
+          <ul>
+            <li><strong>Primary Price Panel (Top 75%):</strong> Bounded between <code>pad.top</code> and <code>viewH * 0.72</code>. Displays candlestick wicks, real bodies, moving averages, and primary price scale gridlines.</li>
+            <li><strong>Secondary Volume Panel (Bottom 25%):</strong> Bounded between <code>viewH * 0.78</code> and <code>viewH - pad.bottom</code>. Displays vertical volume bars rising upward from the chart baseline.</li>
+          </ul>
+
+          <p>The volume bars share identical horizontal X coordinates with the corresponding price candles. Each bar's height is scaled linearly from zero to the maximum volume observed within the window: <code>barHeight = (Volume / maxVolume) * volumePanelHeight</code>. Crucially, each volume bar adopts the color of its companion candlestick: green for bullish accumulation bars and red for bearish distribution bars, creating immediate visual synergy between volume and price momentum.</p>
+
+          <h3>Horizontal Volume Profile: High-Volume Nodes &amp; Liquidity Voids</h3>
+          <p>While standard bottom volume histograms depict volume through time (volume-by-time), quantitative market makers increasingly rely on <strong>Volume Profile</strong> (volume-by-price). A volume profile partitions the vertical price range into discrete horizontal price bins, accumulating total traded volume executed at each specific price level regardless of when the transactions occurred.</p>
+
+          <p>In SVG rendering, volume profile is visualized as horizontal bars protruding from the left or right margin into the price canvas: <code>&lt;rect x="pad.left" y="scaleY(bin_price)" width="bin_volume_width" height="bin_height" fill="rgba(255,255,255,0.06)" /&gt;</code>. Zones of dense horizontal bars—known as <strong>High-Volume Nodes (HVN)</strong>—represent areas of institutional fair-value consensus where assets spend significant time consolidating. Conversely, hollow gaps with minimal horizontal bar width represent <strong>Low-Volume Nodes (LVN)</strong> or liquidity voids, indicating price levels where the market moved so rapidly that minimal liquidity was exchanged, often serving as high-velocity slip zones during subsequent retests.</p>
+        </section>
+
+        <!-- INTERACTIVE STUDIO SANDBOX -->
+        <section class="interactive-sandbox" id="interactive-candlestick-studio">
+          <div class="sandbox-header">
+            <div class="sandbox-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M3 3v18h18"></path><rect x="7" y="8" width="4" height="8" rx="1"></rect><line x1="9" y1="4" x2="9" y2="8"></line><line x1="9" y1="16" x2="9" y2="20"></line><rect x="15" y="5" width="4" height="10" rx="1"></rect><line x1="17" y1="2" x2="17" y2="5"></line><line x1="17" y1="15" x2="17" y2="19"></line></svg>
+              <span>Interactive SVG Candlestick &amp; Financial OHLC Studio</span>
+            </div>
+            <span class="sandbox-badge">Real-Time Market Engine</span>
+          </div>
+
+          <p style="font-size: 14.5px; color: #AAA; margin-bottom: 20px;">Explore simulated market time series, toggle 20/50 period moving averages, inspect synchronized volume histograms, test interactive crosshairs, and export production-ready standalone SVG markup.</p>
+
+          <div class="sandbox-controls">
+            <div class="control-row">
+              <label for="candle-preset-select">Market Time Series Preset:</label>
+              <select id="candle-preset-select" class="control-select">
+                <option value="crypto-breakout">High-Volatility Crypto Breakout (BTC/USDT)</option>
+                <option value="tech-bull">Tech Sector Momentum Trend (NVDA/USD)</option>
+                <option value="earnings-gap">Earnings Release Gap &amp; Volatility (AAPL/USD)</option>
+                <option value="mean-reversion">Mean-Reverting Range Channel (EUR/USD)</option>
+              </select>
+            </div>
+
+            <div class="control-row">
+              <label for="candle-palette-select">Color Semantics Theme:</label>
+              <select id="candle-palette-select" class="control-select">
+                <option value="neon-trading">Neon Trading (Lime Bull / Crimson Bear)</option>
+                <option value="accessible-cyber">Accessible Protanopia (Cyan Bull / Coral Bear)</option>
+                <option value="classic-wallstreet">Classic Wall Street (Emerald / Ruby)</option>
+                <option value="monochrome-ink">Monochrome Minimalist (White / Slate)</option>
+              </select>
+            </div>
+
+            <div class="control-row">
+              <label for="candle-wick-width">Wick Line Width: <span id="candle-wick-val" style="color:#C1DD2D; font-weight:700;">1.5px</span></label>
+              <input type="range" id="candle-wick-width" class="control-input" min="1.0" max="3.0" value="1.5" step="0.5">
+            </div>
+
+            <div class="control-row" style="justify-content: center; gap: 8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" id="candle-sma-toggle" checked style="accent-color:#C1DD2D; cursor:pointer;">
+                <label for="candle-sma-toggle" style="cursor:pointer; color:#FFF;">Overlay SMA-20 / EMA-50 Lines</label>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <input type="checkbox" id="candle-volume-toggle" checked style="accent-color:#C1DD2D; cursor:pointer;">
+                <label for="candle-volume-toggle" style="cursor:pointer; color:#FFF;">Synchronized Volume Sub-Panel</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="preview-stage-container">
+            <svg id="candle-live-svg" class="candle-svg-canvas" viewBox="0 0 760 520" width="760" height="520" xmlns="http://www.w3.org/2000/svg" role="graphics-document" aria-label="Interactive SVG Candlestick Chart Studio Displaying Financial OHLC Time Series">
+              <!-- Dynamically populated by client-side JavaScript engine -->
+            </svg>
+          </div>
+
+          <div class="stats-readout-box">
+            <div class="stat-item">
+              <span class="stat-label">Active Symbol</span>
+              <span class="stat-val highlight" id="stat-symbol-name">BTC/USDT</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Terminal Close</span>
+              <span class="stat-val" id="stat-close-price">$68,420.00</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Session Change</span>
+              <span class="stat-val bullish" id="stat-net-change">+4.85%</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Session High / Low</span>
+              <span class="stat-val" id="stat-high-low">$69,150 / $65,200</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Aggregate Volume</span>
+              <span class="stat-val" id="stat-total-volume">42.8M Units</span>
+            </div>
+          </div>
+
+          <div class="action-btn-row">
+            <button class="copy-btn" id="copy-candle-svg-btn" type="button" aria-label="Copy Standalone SVG to Clipboard">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Standalone SVG</span>
+            </button>
+          </div>
+        </section>
+
+        <section id="section-pixel-crisp">
+          <h2>7. Pixel-Crisp Rendering: shape-rendering="crispEdges" vs. Subpixel Anti-Aliasing</h2>
+          <p>In standard data charts, anti-aliasing provides smooth curves for circular donut rings and flow splines. However, in financial candlestick charts—dominated by strict orthogonal vertical lines and sharp rectangular bodies—anti-aliasing can severely degrade visual clarity.</p>
+
+          <p>When a browser draws a 1-pixel vertical line at a fractional coordinate (such as <code>x = 142.5</code>), the 2D rasterizer splits the single pixel of color intensity across two adjacent device pixels, each rendered at 50% opacity. The result is a fuzzy, 2-pixel-wide line that appears muted, blurry, and amateurish. On high-resolution displays, adjacent candle wicks may appear uneven, with some wicks looking darker than others.</p>
+
+          <p>To eliminate this blurriness and achieve razor-sharp Bloomberg terminal clarity, developers apply two critical techniques:</p>
+
+          <ol>
+            <li><strong>Integer Coordinate Snapping:</strong> Round horizontal candle center coordinates to clean integers, and offset 1px vertical strokes by exactly 0.5 pixels: <code>Math.floor(x) + 0.5</code>. This places the 1-pixel stroke dead-center within a single physical display pixel.</li>
+            <li><strong>The shape-rendering Attribute:</strong> Declare <code>shape-rendering="crispEdges"</code> on the candlestick and volume SVG groups. This explicitly commands the browser's graphics rendering pipeline to disable sub-pixel smoothing on geometric edges, guaranteeing perfectly crisp 1px wicks and razor-sharp rectangular borders.</li>
+          </ol>
+
+          <h3>Device Pixel Ratio (DPR) and High-DPI Retina Calibration</h3>
+          <p>On high-density displays (such as Apple Retina screens or 4K monitors with Device Pixel Ratio <code>window.devicePixelRatio &ge; 2</code>), a single CSS pixel comprises four or more physical hardware pixels. While SVG vector geometry scales infinitely without loss of resolution, 1-pixel strokes specified in CSS dimensions can span multiple physical hardware pixels unless carefully aligned.</p>
+
+          <p>By pairing <code>shape-rendering="crispEdges"</code> with integer vector geometry, developers ensure that vertical wicks align precisely with physical pixel boundaries. Unlike HTML5 Canvas—which requires developers to manually scale canvas width and height by <code>devicePixelRatio</code> and apply <code>context.scale(dpr, dpr)</code> to prevent catastrophic blurriness—SVG handles resolution calibration declaratively at the compositor level. When exported to standalone SVG files for vector documentation or institutional pitch decks, the graphic retains pristine mathematical precision across all print and digital mediums.</p>
+        </section>
+
+        <section id="section-production-engine">
+          <h2>8. Production-Grade Zero-Dependency ES6 Candlestick Engine</h2>
+          <p>The following standalone ECMAScript class provides a clean, dependency-free implementation for ingesting OHLC streams, computing moving averages, managing volume sub-panels, and emitting complete SVG markup:</p>
+
+          <pre><code>// Production-Grade Zero-Dependency SVG Candlestick Engine (ES6 / TypeScript compatible)
+class SvgCandlestickEngine {
+  constructor(config = {}) {
+    this.width = config.width || 760;
+    this.height = config.height || 520;
+    this.padding = config.padding || { top: 30, right: 60, bottom: 40, left: 20 };
+    this.pricePanelRatio = config.pricePanelRatio || 0.72;
+    this.volumePanelRatio = config.volumePanelRatio || 0.22;
+  }
+
+  // Calculate Simple Moving Average
+  static computeSMA(data, period) {
+    const sma = [];
+    for (let i = 0; i &lt; data.length; i++) {
+      if (i &lt; period - 1) {
+        sma.push(null);
+      } else {
+        let sum = 0;
+        for (let j = 0; j &lt; period; j++) {
+          sum += data[i - j].c;
+        }
+        sma.push(sum / period);
+      }
+    }
+    return sma;
+  }
+
+  // Calculate Exponential Moving Average
+  static computeEMA(data, period) {
+    const ema = [];
+    const k = 2 / (period + 1);
+    let prevEma = null;
+
+    for (let i = 0; i &lt; data.length; i++) {
+      const close = data[i].c;
+      if (prevEma === null) {
+        prevEma = close;
+      } else {
+        prevEma = close * k + prevEma * (1 - k);
+      }
+      ema.push(prevEma);
+    }
+    return ema;
+  }
+
+  // Generate Candlestick Markup
+  renderCandles(data, colors = { bull: '#22C55E', bear: '#EF4444' }) {
+    const plotW = this.width - this.padding.left - this.padding.right;
+    const priceH = this.height * this.pricePanelRatio;
+    const n = data.length;
+    const slotW = plotW / n;
+    const candleW = Math.max(3, slotW * 0.75);
+
+    const highPrices = data.map(d =&gt; d.h);
+    const lowPrices = data.map(d =&gt; d.l);
+    const maxP = Math.max(...highPrices) * 1.01;
+    const minP = Math.min(...lowPrices) * 0.99;
+
+    const scaleY = p =&gt; this.padding.top + (priceH - (priceH * (p - minP) / (maxP - minP || 1)));
+
+    let candleMarkup = '';
+    data.forEach((d, i) =&gt; {
+      const cx = this.padding.left + slotW * (i + 0.5);
+      const isBull = d.c &gt;= d.o;
+      const color = isBull ? colors.bull : colors.bear;
+
+      const yHigh = scaleY(d.h);
+      const yLow = scaleY(d.l);
+      const yTop = scaleY(Math.max(d.o, d.c));
+      const yBottom = scaleY(Math.min(d.o, d.c));
+      const bodyH = Math.max(1, yBottom - yTop);
+
+      // Wick line
+      candleMarkup += `&lt;line x1="${cx.toFixed(1)}" y1="${yHigh.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${yLow.toFixed(1)}" stroke="${color}" stroke-width="1.5" /&gt;`;
+      // Body rect
+      candleMarkup += `&lt;rect x="${(cx - candleW / 2).toFixed(1)}" y="${yTop.toFixed(1)}" width="${candleW.toFixed(1)}" height="${bodyH.toFixed(1)}" fill="${color}" rx="1" /&gt;`;
+    });
+
+    return `&lt;g class="candlestick-layer" shape-rendering="crispEdges"&gt;${candleMarkup}&lt;/g&gt;`;
+  }
+}</code></pre>
+        </section>
+
+        <section id="section-streaming-telemetry">
+          <h2>9. Streaming Real-Time Telemetry &amp; WebSocket DOM Virtualization</h2>
+          <p>In production algorithmic environments, trading dashboards ingest continuous market tick events streamed over low-latency WebSockets. If every incoming price update triggers complete SVG DOM reconstruction, garbage collection overhead will quickly degrade rendering performance. High-frequency SVG architectures implement three critical real-time optimizations:</p>
+
+          <ul>
+            <li><strong>Sliding Buffer Ring:</strong> Maintain a fixed-length circular buffer of visible candles (e.g., 60 bars). When a new candle completes, evict the oldest candle from the left margin, slide existing elements horizontally, and append the new candle to the right.</li>
+            <li><strong>Direct DOM Mutation for Live Bar:</strong> The currently open candle (the active time bucket) fluctuates continuously on every matched tick. Rather than re-rendering the entire chart, the WebSocket message handler targets only the single active candle's <code>&lt;rect&gt;</code> and <code>&lt;line&gt;</code> DOM nodes, updating their <code>height</code>, <code>y</code>, and <code>y2</code> attributes directly in memory.</li>
+            <li><strong>Throttled Price Scale Recalibration:</strong> Recalibrating the vertical price scale Y-axis on every tick causes the chart to jiggle vertically. Production systems recalculate the price domain only when a new tick exceeds the current visible high or low boundary, maintaining smooth visual continuity.</li>
+          </ul>
+
+          <h3>Architectural Boundary: When to Transition from SVG to Canvas/WebGL</h3>
+          <p>A frequent technical debate among fintech architects centers on the exact boundary where Scalable Vector Graphics should yield to rasterized HTML5 2D Canvas or WebGL. Because SVG manages elements as individual C++ objects in the browser DOM, there is an upper threshold beyond which DOM layout calculations degrade rendering throughput:</p>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Time Horizon &amp; Bar Count</th>
+                  <th>Recommended Architecture</th>
+                  <th>Strengths &amp; Operational Trade-offs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Intraday Focus (1 to 200 bars)</strong></td>
+                  <td>Pure SVG Vector DOM</td>
+                  <td>Optimal for desktop and mobile dashboards. Razor-sharp vector scaling on 4K retina displays, zero blur on zoom, declarative CSS dark/light theming, effortless clipboard vector copy, and native screen reader accessibility.</td>
+                </tr>
+                <tr>
+                  <td><strong>Multi-Day Swing (200 to 1,500 bars)</strong></td>
+                  <td>Hybrid SVG + Path Bundling</td>
+                  <td>Excellent performance when consolidating wicks and bodies into bundled <code>&lt;path&gt;</code> definitions. Minimal DOM footprint (under 20 total DOM elements) while retaining all SVG export and styling advantages.</td>
+                </tr>
+                <tr>
+                  <td><strong>Multi-Year Tick History (1,500 to 100,000+ bars)</strong></td>
+                  <td>HTML5 Canvas or WebGL 2.0</td>
+                  <td>Required for massive historical backtesting and tick-by-tick visual playback where tens of thousands of data points must be repainted at 60 FPS. Sacrifices native DOM accessibility and clipboard vector export.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>For executive reporting, interactive technical analysis widgets, customer-facing portfolio dashboards, and modern crypto exchange trading UIs—where viewports display between 30 and 150 candles at any given moment—SVG is unequivocally the superior technological foundation. It eliminates fuzzy bitmap artifacts, guarantees crisp integer-aligned wicks, and integrates seamlessly with web components and standard frontend styling frameworks.</p>
+        </section>
+
+        <section id="section-accessibility">
+          <h2>10. WCAG 2.2 AA Accessibility &amp; Screen Reader Financial Telemetry</h2>
+          <p>Financial dashboards must be fully accessible to traders with visual impairments. Achieving full <strong>WCAG 2.2 AA compliance</strong> requires implementing robust visual and semantic accommodations:</p>
+
+          <ul>
+            <li><strong>Accessible Color Blindness Modes:</strong> Red/green color vision deficiency (protanopia and deuteranopia) affects approximately 8% of male users. In addition to traditional Wall Street red/green, financial engines must offer an Accessible Palette—pairing Cyan (bullish) with Coral/Magenta (bearish)—or use structural differentiation (e.g., hollow outlined bodies for bullish candles and solid filled bodies for bearish candles).</li>
+            <li><strong>Semantic ARIA Document Structure:</strong> The SVG element must feature <code>role="graphics-document"</code> and an <code>aria-label</code> summarizing current symbol, latest price, and percentage trend. Individual candles receive <code>role="graphics-symbol"</code> with comprehensive descriptive text: <code>aria-label="Nov 21 14:00: Open 184.20, High 185.10, Low 183.90, Close 184.92, Bullish +0.39%"</code>.</li>
+            <li><strong>Keyboard Cursor Scrubbing:</strong> Keyboard users must be able to focus the chart using <code>Tab</code> and scrub backward and forward through time using <code>Left Arrow</code> and <code>Right Arrow</code> keys, updating the interactive HUD crosshair readout dynamically.</li>
+          </ul>
+
+          <h3>Dynamic Live Regions &amp; High-Contrast Semantic Themes</h3>
+          <p>For traders relying on audio screen reader software (such as NVDA, JAWS, or Apple VoiceOver), continuous visual flashing of stock price movements is completely lost. To provide an equivalent assistive experience, production web trading platforms wire the SVG HUD crosshair to a hidden live region: <code>&lt;div class="sr-only" aria-live="polite" aria-atomic="true"&gt;</code>. As a keyboard user navigates across the candlestick series using Left and Right Arrow keys, the live region verbally announces the time bucket, open-to-close delta, and volume intensity.</p>
+
+          <p>Furthermore, in light mode themes, financial charts must guarantee that all text annotations, price tick labels, and interactive hyperlinks achieve at least a 4.5:1 contrast ratio against light backgrounds (implemented via WCAG AA compliant <code>#4D6300</code>). Gridlines and border strokes must maintain at least 3:1 contrast against the canvas backdrop. By pairing full keyboard accessibility with robust audio descriptions and verified color contrast, fintech engineering teams ensure that institutional market intelligence is accessible to every quantitative researcher.</p>
+        </section>
+
+        <section class="takeaway-box" id="section-key-takeaways">
+          <h3>Key Architecture Takeaways</h3>
+          <ul>
+            <li><strong>Four-Point Volatility:</strong> Candlestick charts encode Open, High, Low, and Close into an intuitive visual glyph that exposes market sentiment and volatility far beyond simple line plots.</li>
+            <li><strong>Crisp Edge Snapping:</strong> Using <code>shape-rendering="crispEdges"</code> and 0.5-pixel line offsets prevents blurry anti-aliased wicks on high-density displays.</li>
+            <li><strong>Dual-Panel Synchronization:</strong> Pairing price action with a bottom volume profile histogram provides vital institutional order flow context.</li>
+            <li><strong>Universal Accessibility:</strong> Offering color-blind accessible palettes, ARIA time-series summaries, and keyboard arrow scrubbing guarantees compliance with WCAG 2.2 AA standards.</li>
+          </ul>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="faq-section" id="section-faqs">
+          <h2>11. Frequently Asked Questions</h2>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What is the geometric difference between a Japanese Candlestick and an OHLC bar chart?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Both representations encode identical four-point market telemetry: Open, High, Low, and Close. An OHLC bar chart depicts price action using a single vertical line from Low to High, with two small horizontal tick marks extending left for Open and right for Close. A Japanese Candlestick chart broadens the interval between Open and Close into a solid two-dimensional rectangle known as the real body, with thin vertical wicks (or shadows) extending above and below. The candlestick's filled body provides substantially greater visual mass, making market sentiment (bullish vs. bearish) immediately identifiable at a glance.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Why is shape-rendering='crispEdges' vital for financial SVG candlestick rendering?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              By default, browser SVG rendering engines apply sub-pixel anti-aliasing to all vector lines and rectangles. For narrow 1-pixel candlestick wicks or fractional candle borders, anti-aliasing bleeds pixel intensity across adjacent pixels, causing thin wicks to appear blurry, washed out, and inconsistent in width. Applying shape-rendering='crispEdges' disables geometric anti-aliasing on orthogonal vertical and horizontal lines, snapping 1-pixel strokes cleanly to integer device pixels for razor-sharp, terminal-grade financial display.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do you calculate Simple Moving Averages (SMA) and Exponential Moving Averages (EMA) in vector charts?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              A Simple Moving Average (SMA) of period k calculates the unweighted arithmetic mean of closing prices over the preceding k time windows: SMA_t = (1 / k) * sum(P_{t-i}). An Exponential Moving Average (EMA) applies exponentially decreasing weights via smoothing multiplier alpha = 2 / (k + 1), defined recursively as EMA_t = alpha * P_t + (1 - alpha) * EMA_{t-1}. In SVG, these continuous moving averages are rendered as smooth polyline or path elements overlaid directly above the candlestick series.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How is a dual-axis volume histogram synchronized with a candlestick price chart?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Professional financial layouts allocate vertical canvas height into two synchronized sub-panels: typically 75% for the primary price action panel and 25% for the bottom volume profile panel. Both panels share the identical horizontal time axis X coordinates. For each candle, a corresponding vertical volume bar is drawn at the identical X midpoint, with height proportional to traded volume (scaled from 0 to max_volume) and fill color matching the candle's bullish or bearish polarity.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How does an interactive financial crosshair track pointer position without degrading performance?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              High-performance financial crosshairs listen to pointermove events on the root SVG container with touch-action: none. Rather than triggering React or Vue framework re-renders, the event handler computes the closest discrete candle index based on mouse X coordinate, updates the transform of two dedicated SVG line elements (vertical time cursor and horizontal price cursor), and updates SVG text HUD elements directly in the DOM within a requestAnimationFrame loop, maintaining a fluid 120 FPS refresh rate.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How can complex financial SVG candlestick charts meet WCAG 2.2 AA accessibility standards?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Achieving WCAG 2.2 AA accessibility requires avoiding sole reliance on red/green color semantics. Standard red/green palettes are illegible to individuals with protanopia and deuteranopia. Production charting engines provide accessible color palettes—such as Cyan (bullish) and Magenta (bearish)—or hollow outlined bodies for bullish candles and solid filled bodies for bearish candles. Furthermore, the SVG container must provide role='graphics-document', keyboard navigation across candles via Arrow keys, and an accessible data summary table.
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <a href="#section-introduction">1. Introduction: Visual Protocol of Markets</a>
+            <a href="#section-candlestick-anatomy">2. Anatomical Geometry: Wicks &amp; Real Bodies</a>
+            <a href="#section-price-projection">3. Continuous Price-to-Coordinate Mapping</a>
+            <a href="#section-architecture-pipeline">4. Figure 2: Architecture &amp; Vector Pipeline</a>
+            <a href="#section-moving-averages">5. Moving Averages: SMA &amp; EMA Vector Math</a>
+            <a href="#section-dual-axis-volume">6. Dual-Axis Synchronization: Volume Profiles</a>
+            <a href="#interactive-candlestick-studio">7. Interactive Developer Studio Sandbox</a>
+            <a href="#section-pixel-crisp">8. Pixel-Crisp crispEdges vs. Subpixel Blur</a>
+            <a href="#section-production-engine">9. Production Zero-Dependency ES6 Engine</a>
+            <a href="#section-streaming-telemetry">10. Streaming Real-Time Telemetry &amp; WebSockets</a>
+            <a href="#section-accessibility">11. WCAG 2.2 AA Accessibility &amp; Screen Readers</a>
+            <a href="#section-key-takeaways">Key Architecture Takeaways</a>
+            <a href="#section-faqs">12. Frequently Asked Questions</a>
+          </nav>
+        </div>
+
+        <div class="sidebar-card cta-sidebar-box">
+          <div class="cta-title">Explore Related Guides</div>
+          <p>Expand your data visualization capabilities with our companion technical engineering deep dives:</p>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+            <a href="/articles/svg-box-plots-and-whisker-charts-statistical-distribution-guide/">SVG Box Plots &amp; Whisker Charts</a>
+            <a href="/articles/svg-area-charts-and-stacked-streamgraph-visualization-guide/">SVG Area Charts &amp; Streamgraphs</a>
+            <a href="/articles/svg-parallel-coordinates-and-multivariate-axis-visualization-guide/">SVG Parallel Coordinates</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:20px;">
+      <div>&copy; 2026 IconStash. All rights reserved. Engineering authoritative SVG &amp; vector graphics documentation.</div>
+      <div style="display:flex; gap:20px;">
+        <a href="/about/">About &amp; Author</a>
+        <a href="/articles/">All Visualization Guides</a>
+        <a href="/stats/">Statistics</a>
+        <a href="/privacy/">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle handling
+    (function() {
+      const toggleBtn = document.getElementById('theme-toggle');
+      if (!toggleBtn) return;
+      const htmlEl = document.documentElement;
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      htmlEl.setAttribute('data-theme', currentTheme);
+
+      toggleBtn.addEventListener('click', () => {
+        const nextTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', nextTheme);
+        localStorage.setItem('theme', nextTheme);
+      });
+    })();
+
+    // Interactive Candlestick Studio Client-Side Engine
+    (function() {
+      const liveSvg = document.getElementById('candle-live-svg');
+      const presetSelect = document.getElementById('candle-preset-select');
+      const paletteSelect = document.getElementById('candle-palette-select');
+      const wickWidthSlider = document.getElementById('candle-wick-width');
+      const wickValLabel = document.getElementById('candle-wick-val');
+      const smaToggle = document.getElementById('candle-sma-toggle');
+      const volumeToggle = document.getElementById('candle-volume-toggle');
+      const copyBtn = document.getElementById('copy-candle-svg-btn');
+
+      // Readouts
+      const statSymbol = document.getElementById('stat-symbol-name');
+      const statClose = document.getElementById('stat-close-price');
+      const statChange = document.getElementById('stat-net-change');
+      const statHighLow = document.getElementById('stat-high-low');
+      const statTotalVolume = document.getElementById('stat-total-volume');
+
+      if (!liveSvg || !presetSelect) return;
+
+      // Color Themes
+      const PALETTES = {
+        'neon-trading': { bull: '#22C55E', bear: '#EF4444', sma: '#FBBF24', ema: '#38BDF8' },
+        'accessible-cyber': { bull: '#06B6D4', bear: '#EC4899', sma: '#FBBF24', ema: '#A855F7' },
+        'classic-wallstreet': { bull: '#16A34A', bear: '#DC2626', sma: '#D97706', ema: '#2563EB' },
+        'monochrome-ink': { bull: '#FFFFFF', bear: '#64748B', sma: '#CBD5E1', ema: '#94A3B8' }
+      };
+
+      // Synthetic Market Datasets (30 bars each)
+      const DATASETS = {
+        'crypto-breakout': {
+          symbol: 'BTC/USDT (1H Breakout)',
+          prefix: '$',
+          basePrice: 65400,
+          bars: [
+            { o: 65400, h: 65800, l: 65200, c: 65750, v: 420 },
+            { o: 65750, h: 66100, l: 65600, c: 65900, v: 380 },
+            { o: 65900, h: 66050, l: 65450, c: 65550, v: 450 },
+            { o: 65550, h: 65800, l: 65300, c: 65400, v: 310 },
+            { o: 65400, h: 65700, l: 65250, c: 65600, v: 290 },
+            { o: 65600, h: 66200, l: 65500, c: 66150, v: 510 },
+            { o: 66150, h: 66500, l: 66000, c: 66400, v: 620 },
+            { o: 66400, h: 66800, l: 66250, c: 66700, v: 750 },
+            { o: 66700, h: 67400, l: 66600, c: 67350, v: 980 },
+            { o: 67350, h: 68200, l: 67200, c: 68100, v: 1420 },
+            { o: 68100, h: 68600, l: 67800, c: 67950, v: 1100 },
+            { o: 67950, h: 68400, l: 67600, c: 68300, v: 890 },
+            { o: 68300, h: 69150, l: 68200, c: 68900, v: 1650 },
+            { o: 68900, h: 69400, l: 68500, c: 68650, v: 1240 },
+            { o: 68650, h: 69000, l: 68400, c: 68850, v: 920 }
+          ]
+        },
+        'tech-bull': {
+          symbol: 'NVDA/USD (Daily Momentum)',
+          prefix: '$',
+          basePrice: 128.5,
+          bars: [
+            { o: 128.5, h: 131.2, l: 127.8, c: 130.4, v: 18.2 },
+            { o: 130.4, h: 133.0, l: 129.5, c: 132.8, v: 22.4 },
+            { o: 132.8, h: 134.5, l: 131.8, c: 133.9, v: 19.8 },
+            { o: 133.9, h: 134.2, l: 131.5, c: 132.1, v: 16.5 },
+            { o: 132.1, h: 135.0, l: 131.8, c: 134.6, v: 24.1 },
+            { o: 134.6, h: 137.4, l: 133.9, c: 136.8, v: 28.5 },
+            { o: 136.8, h: 138.9, l: 135.8, c: 138.2, v: 31.0 },
+            { o: 138.2, h: 140.5, l: 137.4, c: 139.8, v: 35.4 },
+            { o: 139.8, h: 142.1, l: 138.5, c: 141.5, v: 38.2 },
+            { o: 141.5, h: 144.0, l: 140.2, c: 143.6, v: 42.0 },
+            { o: 143.6, h: 145.2, l: 142.1, c: 144.1, v: 29.5 },
+            { o: 144.1, h: 146.8, l: 143.5, c: 146.2, v: 34.0 },
+            { o: 146.2, h: 148.5, l: 145.0, c: 147.9, v: 39.2 },
+            { o: 147.9, h: 149.8, l: 146.8, c: 149.2, v: 44.5 },
+            { o: 149.2, h: 152.0, l: 148.4, c: 151.4, v: 51.8 }
+          ]
+        },
+        'earnings-gap': {
+          symbol: 'AAPL/USD (Earnings Reaction)',
+          prefix: '$',
+          basePrice: 224.0,
+          bars: [
+            { o: 224.0, h: 226.5, l: 223.2, c: 225.8, v: 12.5 },
+            { o: 225.8, h: 227.0, l: 224.5, c: 226.2, v: 11.2 },
+            { o: 226.2, h: 228.4, l: 225.0, c: 227.5, v: 14.8 },
+            { o: 227.5, h: 228.0, l: 225.8, c: 226.4, v: 16.0 },
+            { o: 226.4, h: 227.2, l: 224.0, c: 224.8, v: 21.5 },
+            { o: 236.0, h: 242.5, l: 235.0, c: 241.2, v: 68.4 },
+            { o: 241.2, h: 244.8, l: 239.5, c: 243.5, v: 54.2 },
+            { o: 243.5, h: 246.0, l: 241.8, c: 244.2, v: 42.0 },
+            { o: 244.2, h: 245.5, l: 240.5, c: 241.8, v: 36.5 },
+            { o: 241.8, h: 243.2, l: 239.0, c: 240.5, v: 28.0 },
+            { o: 240.5, h: 242.0, l: 238.5, c: 241.6, v: 24.5 },
+            { o: 241.6, h: 244.0, l: 240.2, c: 243.2, v: 26.8 },
+            { o: 243.2, h: 245.5, l: 242.0, c: 244.8, v: 31.2 },
+            { o: 244.8, h: 247.2, l: 243.5, c: 246.5, v: 35.0 },
+            { o: 246.5, h: 248.8, l: 245.0, c: 247.9, v: 38.4 }
+          ]
+        },
+        'mean-reversion': {
+          symbol: 'EUR/USD (Range Bound)',
+          prefix: '',
+          basePrice: 1.0850,
+          bars: [
+            { o: 1.0850, h: 1.0880, l: 1.0835, c: 1.0872, v: 85 },
+            { o: 1.0872, h: 1.0910, l: 1.0860, c: 1.0905, v: 92 },
+            { o: 1.0905, h: 1.0925, l: 1.0880, c: 1.0890, v: 78 },
+            { o: 1.0890, h: 1.0900, l: 1.0845, c: 1.0852, v: 84 },
+            { o: 1.0852, h: 1.0865, l: 1.0820, c: 1.0830, v: 95 },
+            { o: 1.0830, h: 1.0855, l: 1.0815, c: 1.0848, v: 72 },
+            { o: 1.0848, h: 1.0885, l: 1.0840, c: 1.0878, v: 88 },
+            { o: 1.0878, h: 1.0915, l: 1.0865, c: 1.0902, v: 91 },
+            { o: 1.0902, h: 1.0920, l: 1.0875, c: 1.0885, v: 69 },
+            { o: 1.0885, h: 1.0895, l: 1.0840, c: 1.0850, v: 81 },
+            { o: 1.0850, h: 1.0870, l: 1.0825, c: 1.0862, v: 76 },
+            { o: 1.0862, h: 1.0895, l: 1.0850, c: 1.0888, v: 89 },
+            { o: 1.0888, h: 1.0918, l: 1.0870, c: 1.0910, v: 94 },
+            { o: 1.0910, h: 1.0922, l: 1.0865, c: 1.0875, v: 83 },
+            { o: 1.0875, h: 1.0890, l: 1.0845, c: 1.0860, v: 77 }
+          ]
+        }
+      };
+
+      let activeHoverIndex = null;
+
+      function computeSMA(bars, period) {
+        return bars.map((b, i) => {
+          if (i < period - 1) return null;
+          let sum = 0;
+          for (let j = 0; j < period; j++) sum += bars[i - j].c;
+          return sum / period;
+        });
+      }
+
+      function computeEMA(bars, period) {
+        const k = 2 / (period + 1);
+        let prev = null;
+        return bars.map(b => {
+          if (prev === null) { prev = b.c; return prev; }
+          prev = b.c * k + prev * (1 - k);
+          return prev;
+        });
+      }
+
+      function renderCandleStudio() {
+        const presetKey = presetSelect.value || 'crypto-breakout';
+        const preset = DATASETS[presetKey] || DATASETS['crypto-breakout'];
+        const paletteKey = paletteSelect.value || 'neon-trading';
+        const colors = PALETTES[paletteKey] || PALETTES['neon-trading'];
+        const wickWidth = parseFloat(wickWidthSlider.value) || 1.5;
+        wickValLabel.textContent = wickWidth.toFixed(1) + 'px';
+
+        const showSma = smaToggle.checked;
+        const showVolume = volumeToggle.checked;
+
+        const viewW = 760;
+        const viewH = 520;
+        const pad = { top: 30, right: 65, bottom: 40, left: 20 };
+        const plotW = viewW - pad.left - pad.right;
+
+        // Split Layout: 70% Price, 24% Volume
+        const priceTop = pad.top;
+        const priceH = showVolume ? viewH * 0.62 : viewH - pad.top - pad.bottom;
+        const priceBottom = priceTop + priceH;
+
+        const volTop = priceBottom + 20;
+        const volBottom = viewH - pad.bottom;
+        const volH = Math.max(10, volBottom - volTop);
+
+        const bars = preset.bars;
+        const n = bars.length;
+        const slotW = plotW / n;
+        const candleW = Math.max(4, slotW * 0.72);
+
+        // Price Extrema
+        const allHighs = bars.map(b => b.h);
+        const allLows = bars.map(b => b.l);
+        const rawHigh = Math.max(...allHighs);
+        const rawLow = Math.min(...allLows);
+        const spread = rawHigh - rawLow || 1;
+        const domainMax = rawHigh + spread * 0.08;
+        const domainMin = rawLow - spread * 0.08;
+
+        const scaleY = p => priceBottom - ((p - domainMin) / (domainMax - domainMin || 1)) * priceH;
+
+        // Volume Extrema
+        const maxVol = Math.max(...bars.map(b => b.v)) * 1.15;
+        const scaleVolY = v => volBottom - (v / (maxVol || 1)) * volH;
+
+        // Background & Price Gridlines
+        let gridMarkup = '';
+        const ySteps = 5;
+        for (let i = 0; i <= ySteps; i++) {
+          const pv = domainMin + (i / ySteps) * (domainMax - domainMin);
+          const py = scaleY(pv);
+          gridMarkup += `
+            <line x1="${pad.left}" y1="${py.toFixed(1)}" x2="${viewW - pad.right}" y2="${py.toFixed(1)}" stroke="#1F1F1F" stroke-width="1" />
+            <text x="${viewW - pad.right + 10}" y="${(py + 4).toFixed(1)}" fill="#777" font-family="'JetBrains Mono', monospace" font-size="10.5">${preset.prefix}${pv.toFixed(pv < 10 ? 4 : 2)}</text>
+          `;
+        }
+
+        // Volume Baseline
+        if (showVolume) {
+          gridMarkup += `
+            <line x1="${pad.left}" y1="${volBottom}" x2="${viewW - pad.right}" y2="${volBottom}" stroke="#242424" stroke-width="1" />
+            <text x="${viewW - pad.right + 10}" y="${volTop + 10}" fill="#555" font-family="'JetBrains Mono', monospace" font-size="9.5">VOL</text>
+          `;
+        }
+
+        // Moving Averages
+        let smaMarkup = '';
+        if (showSma) {
+          const smaValues = computeSMA(bars, 5); // 5-bar fast SMA
+          const emaValues = computeEMA(bars, 10); // 10-bar slow EMA
+
+          let smaD = '';
+          let emaD = '';
+          bars.forEach((b, i) => {
+            const cx = pad.left + slotW * (i + 0.5);
+            if (smaValues[i] !== null) {
+              const sy = scaleY(smaValues[i]);
+              smaD += (smaD === '' ? `M ${cx.toFixed(1)} ${sy.toFixed(1)} ` : `L ${cx.toFixed(1)} ${sy.toFixed(1)} `);
+            }
+            const ey = scaleY(emaValues[i]);
+            emaD += (i === 0 ? `M ${cx.toFixed(1)} ${ey.toFixed(1)} ` : `L ${cx.toFixed(1)} ${ey.toFixed(1)} `);
+          });
+
+          smaMarkup += `
+            <path d="${smaD}" fill="none" stroke="${colors.sma}" stroke-width="1.8" />
+            <path d="${emaD}" fill="none" stroke="${colors.ema}" stroke-width="1.8" stroke-dasharray="3,3" />
+          `;
+        }
+
+        // Candlesticks & Volume Bars
+        let candlesMarkup = '';
+        let volumeMarkup = '';
+
+        bars.forEach((b, i) => {
+          const cx = pad.left + slotW * (i + 0.5);
+          const isBull = b.c >= b.o;
+          const color = isBull ? colors.bull : colors.bear;
+
+          const yH = scaleY(b.h);
+          const yL = scaleY(b.l);
+          const yTop = scaleY(Math.max(b.o, b.c));
+          const yBottom = scaleY(Math.min(b.o, b.c));
+          const bodyH = Math.max(1.5, yBottom - yTop);
+
+          // Candle Wick
+          candlesMarkup += `<line x1="${cx.toFixed(1)}" y1="${yH.toFixed(1)}" x2="${cx.toFixed(1)}" y2="${yL.toFixed(1)}" stroke="${color}" stroke-width="${wickWidth}" />`;
+          // Candle Body
+          candlesMarkup += `<rect x="${(cx - candleW / 2).toFixed(1)}" y="${yTop.toFixed(1)}" width="${candleW.toFixed(1)}" height="${bodyH.toFixed(1)}" fill="${color}" rx="1" />`;
+
+          // Volume Bar
+          if (showVolume) {
+            const vy = scaleVolY(b.v);
+            const vh = Math.max(1, volBottom - vy);
+            volumeMarkup += `<rect x="${(cx - candleW / 2).toFixed(1)}" y="${vy.toFixed(1)}" width="${candleW.toFixed(1)}" height="${vh.toFixed(1)}" fill="${color}" fill-opacity="0.45" rx="0.5" />`;
+          }
+        });
+
+        // Interactive Crosshair HUD
+        let crosshairMarkup = '';
+        if (activeHoverIndex !== null && activeHoverIndex >= 0 && activeHoverIndex < n) {
+          const hBar = bars[activeHoverIndex];
+          const hcx = pad.left + slotW * (activeHoverIndex + 0.5);
+          const hcy = scaleY(hBar.c);
+
+          crosshairMarkup = `
+            <g class="crosshair-lines" pointer-events="none">
+              <line x1="${hcx.toFixed(1)}" y1="${priceTop}" x2="${hcx.toFixed(1)}" y2="${volBottom}" stroke="#FFF" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" />
+              <line x1="${pad.left}" y1="${hcy.toFixed(1)}" x2="${viewW - pad.right}" y2="${hcy.toFixed(1)}" stroke="#FFF" stroke-width="1" stroke-dasharray="2,2" opacity="0.6" />
+              <rect x="${viewW - pad.right + 2}" y="${(hcy - 9).toFixed(1)}" width="58" height="18" fill="#161616" stroke="#C1DD2D" stroke-width="1" rx="3" />
+              <text x="${viewW - pad.right + 31}" y="${(hcy + 4).toFixed(1)}" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="9.5" font-weight="700" text-anchor="middle">${preset.prefix}${hBar.c.toFixed(hBar.c < 10 ? 4 : 2)}</text>
+            </g>
+          `;
+        }
+
+        // Assemble Final SVG
+        liveSvg.innerHTML = `
+          <rect width="${viewW}" height="${viewH}" fill="#0A0A0A" rx="8" />
+          ${gridMarkup}
+          <g class="volume-layer" shape-rendering="crispEdges">${volumeMarkup}</g>
+          <g class="candlestick-layer" shape-rendering="crispEdges">${candlesMarkup}</g>
+          <g class="indicators-layer">${smaMarkup}</g>
+          ${crosshairMarkup}
+        `;
+
+        // Update Readouts
+        const targetBar = (activeHoverIndex !== null && bars[activeHoverIndex]) ? bars[activeHoverIndex] : bars[n - 1];
+        const openRef = bars[0].o;
+        const deltaPct = ((targetBar.c - openRef) / openRef) * 100;
+        const isBullishDelta = deltaPct >= 0;
+
+        statSymbol.textContent = preset.symbol;
+        statClose.textContent = preset.prefix + targetBar.c.toFixed(targetBar.c < 10 ? 4 : 2);
+        statChange.textContent = (isBullishDelta ? '+' : '') + deltaPct.toFixed(2) + '%';
+        statChange.className = 'stat-val ' + (isBullishDelta ? 'bullish' : 'bearish');
+        statHighLow.textContent = `${preset.prefix}${targetBar.h.toFixed(targetBar.h < 10 ? 4 : 1)} / ${preset.prefix}${targetBar.l.toFixed(targetBar.l < 10 ? 4 : 1)}`;
+        statTotalVolume.textContent = targetBar.v.toLocaleString() + ' Vol';
+      }
+
+      // Pointer event tracking for crosshair HUD
+      let isPointerActive = false;
+      const pad = { top: 30, right: 65, bottom: 40, left: 20 };
+      const viewW = 760;
+      const plotW = viewW - pad.left - pad.right;
+
+      function handleCandlePointer(e) {
+        const rect = liveSvg.getBoundingClientRect();
+        const mouseX = ((e.clientX - rect.left) / rect.width) * viewW;
+        const relX = mouseX - pad.left;
+
+        const presetKey = presetSelect.value || 'crypto-breakout';
+        const preset = DATASETS[presetKey] || DATASETS['crypto-breakout'];
+        const n = preset.bars.length;
+        const slotW = plotW / n;
+
+        if (relX >= 0 && relX <= plotW) {
+          const idx = Math.floor(relX / slotW);
+          if (idx >= 0 && idx < n && idx !== activeHoverIndex) {
+            activeHoverIndex = idx;
+            renderCandleStudio();
+          }
+        }
+      }
+
+      liveSvg.addEventListener('pointerdown', e => {
+        isPointerActive = true;
+        try { liveSvg.setPointerCapture(e.pointerId); } catch (_) {}
+        handleCandlePointer(e);
+      });
+
+      liveSvg.addEventListener('pointermove', e => {
+        handleCandlePointer(e);
+      });
+
+      const releaseCandlePointer = e => {
+        if (isPointerActive) {
+          try { liveSvg.releasePointerCapture(e.pointerId); } catch (_) {}
+          isPointerActive = false;
+        }
+      };
+
+      liveSvg.addEventListener('pointerup', releaseCandlePointer);
+      liveSvg.addEventListener('pointercancel', releaseCandlePointer);
+      liveSvg.addEventListener('pointerleave', () => {
+        if (!isPointerActive && activeHoverIndex !== null) {
+          activeHoverIndex = null;
+          renderCandleStudio();
+        }
+      });
+
+      // Event Listeners
+      presetSelect.addEventListener('change', () => { activeHoverIndex = null; renderCandleStudio(); });
+      paletteSelect.addEventListener('change', renderCandleStudio);
+      wickWidthSlider.addEventListener('input', renderCandleStudio);
+      smaToggle.addEventListener('change', renderCandleStudio);
+      volumeToggle.addEventListener('change', renderCandleStudio);
+
+      // Copy Standalone SVG
+      copyBtn.addEventListener('click', () => {
+        let svgSource = liveSvg.outerHTML;
+        if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
+          svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(svgSource).then(() => {
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>';
+            }, 2000);
+          }).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+
+        function fallbackCopy() {
+          const ta = document.createElement('textarea');
+          ta.value = svgSource;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>';
+            }, 2000);
+          } catch (e) {
+            alert('Copy failed: ' + e.message);
+          }
+          document.body.removeChild(ta);
+        }
+      });
+
+      // Initial Render
+      renderCandleStudio();
+    })();
+  </script>
+</body>
+</html>
+'''
+
+# Verify forbidden strings
+forbidden = ['jv16', 'winfindr', 'uninstalr']
+for word in forbidden:
+    assert word not in content.lower(), f"Forbidden brand '{word}' detected!"
+
+with open(target_file, "w", encoding="utf-8") as f:
+    f.write(content)
+
+print(f"Article 3 written to {target_file}")
