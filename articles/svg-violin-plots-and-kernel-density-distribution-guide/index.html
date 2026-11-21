@@ -678,10 +678,10 @@ C2 = P2 - (P3 - P1) / (6 * tension)</code></pre>
         <!-- INTERACTIVE STUDIO SANDBOX -->
         <section class="interactive-sandbox" id="interactive-violin-studio">
           <div class="sandbox-header">
-            <div class="sandbox-title">
+            <h2 class="sandbox-title" style="margin: 0; padding: 0; border: none; font-size: 18px;">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-              <span>Interactive SVG Violin Plot &amp; Kernel Density Studio</span>
-            </div>
+              <span>7. Interactive SVG Violin Plot &amp; Kernel Density Studio</span>
+            </h2>
             <span class="sandbox-badge">Real-Time Probability Engine</span>
           </div>
 
@@ -713,7 +713,7 @@ C2 = P2 - (P3 - P1) / (6 * tension)</code></pre>
             </div>
 
             <div class="control-row">
-              <label for="violin-flank-width">Violin Half-Width (px): <span id="violin-width-val" style="color:#C1DD2D; font-weight:700;">58px</span></label>
+              <label for="violin-flank-width">Violin Half-Width (px): <span id="violin-flank-width-val" style="color:#C1DD2D; font-weight:700;">58px</span></label>
               <input type="range" id="violin-flank-width" class="control-input" min="30" max="85" value="58" step="2">
             </div>
 
@@ -771,7 +771,7 @@ C2 = P2 - (P3 - P1) / (6 * tension)</code></pre>
         </section>
 
         <section id="section-asymmetric-split">
-          <h2>7. Asymmetric Split Violins for Multi-Group Comparative Analytics</h2>
+          <h2>8. Asymmetric Split Violins for Multi-Group Comparative Analytics</h2>
           <p>In modern industrial experimentation—such as A/B testing a new compression algorithm against a baseline or comparing API response latencies between Canary and Production clusters—analysts frequently compare two related sample distributions. Rendering two full, separate violin plots side-by-side doubles horizontal space consumption and impairs direct visual alignment.</p>
 
           <p>The <strong>asymmetric split violin plot</strong> solves this problem by bisecting the visual envelope down its central vertical spine. The left flank is dedicated exclusively to Cohort A (e.g., Control), while the right flank visualizes Cohort B (e.g., Experiment). Both halves share the exact same vertical measurement axis, enabling instant visual inspection of distribution shifts:</p>
@@ -841,7 +841,7 @@ C2 = P2 - (P3 - P1) / (6 * tension)</code></pre>
         </section>
 
         <section id="section-production-engine">
-          <h2>8. Production-Grade Zero-Dependency ES6 Violin Engine</h2>
+          <h2>9. Production-Grade Zero-Dependency ES6 Violin Engine</h2>
           <p>The following standalone ECMAScript class provides a clean, dependency-free implementation for computing Gaussian KDE, deriving Silverman bandwidths, generating Catmull-Rom splines, and assembling composite SVG violin plots:</p>
 
           <pre><code>// Production-Grade Zero-Dependency SVG Violin Plot Engine (ES6 / TypeScript compatible)
@@ -927,7 +927,7 @@ class SvgViolinEngine {
         </section>
 
         <section id="section-performance-rendering">
-          <h2>9. Rendering Performance, GPU Antialiasing &amp; Viewport Coordinate Normalization</h2>
+          <h2>10. Rendering Performance, GPU Antialiasing &amp; Viewport Coordinate Normalization</h2>
           <p>When visualizing dozens of violin distributions concurrently—such as profiling performance metrics across 50 microservice containers—performance optimization becomes crucial. Developers must account for three primary rendering dynamics:</p>
 
           <ol>
@@ -939,7 +939,7 @@ class SvgViolinEngine {
         </section>
 
         <section id="section-accessibility">
-          <h2>10. WCAG 2.2 AA Accessibility &amp; Screen Reader Representation</h2>
+          <h2>11. WCAG 2.2 AA Accessibility &amp; Screen Reader Representation</h2>
           <p>Continuous probability surfaces can be completely inaccessible to visually impaired users unless paired with programmatic metadata. To achieve full <strong>WCAG 2.2 AA compliance</strong>, vector violin plots must adhere to rigorous accessibility standards:</p>
 
           <ul>
@@ -961,7 +961,7 @@ class SvgViolinEngine {
 
         <!-- FAQ SECTION -->
         <section class="faq-section" id="section-faqs">
-          <h2>11. Frequently Asked Questions</h2>
+          <h2>12. Frequently Asked Questions</h2>
 
           <div class="faq-item">
             <div class="faq-question">

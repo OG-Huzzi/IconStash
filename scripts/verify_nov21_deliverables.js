@@ -16,6 +16,130 @@ function assert(condition, message) {
   }
 }
 
+function verifyClientDomSimulation(content, slug) {
+  function createMockElement(tag, attrs = {}) {
+    const el = {
+      tagName: tag.toUpperCase(),
+      attributes: { ...attrs },
+      id: attrs.id || '',
+      value: attrs.value || '',
+      checked: attrs.checked !== undefined ? attrs.checked : false,
+      textContent: '',
+      innerHTML: '',
+      children: [],
+      listeners: {},
+      style: {},
+      classList: {
+        classes: new Set(),
+        add(c) { this.classes.add(c); },
+        remove(c) { this.classes.delete(c); },
+        contains(c) { return this.classes.has(c); }
+      },
+      setAttribute(k, v) { this.attributes[k] = String(v); if (k === 'id') this.id = v; },
+      getAttribute(k) { return this.attributes[k] !== undefined ? this.attributes[k] : null; },
+      hasAttribute(k) { return this.attributes[k] !== undefined; },
+      addEventListener(event, fn) {
+        if (!this.listeners[event]) this.listeners[event] = [];
+        this.listeners[event].push(fn);
+      },
+      dispatchEvent(event) {
+        const fns = this.listeners[event.type] || [];
+        for (const fn of fns) fn(event);
+      },
+      setPointerCapture() {},
+      releasePointerCapture() {},
+      getBoundingClientRect() {
+        return { left: 0, top: 0, width: 760, height: 520, right: 760, bottom: 520 };
+      },
+      closest() { return null; },
+      appendChild(child) { this.children.push(child); return child; },
+      removeChild(child) {
+        const idx = this.children.indexOf(child);
+        if (idx !== -1) this.children.splice(idx, 1);
+        return child;
+      },
+      select() {}
+    };
+    Object.defineProperty(el, 'outerHTML', {
+      get() {
+        return `<${tag} id="${el.id}" ${Object.entries(el.attributes).map(([k,v]) => `${k}="${v}"`).join(' ')}>${el.innerHTML}</${tag}>`;
+      }
+    });
+    return el;
+  }
+
+  const elementsById = {};
+  const idMatches = [...content.matchAll(/<([a-zA-Z0-9\-]+)[^>]*\sid=["']([^"']+)["'][^>]*>/gi)];
+  for (const m of idMatches) {
+    const tag = m[1];
+    const id = m[2];
+    const fullTag = m[0];
+    const attrs = { id };
+    const valMatch = fullTag.match(/value=["']([^"']*)["']/i);
+    if (valMatch) attrs.value = valMatch[1];
+    if (fullTag.includes('checked')) attrs.checked = true;
+    elementsById[id] = createMockElement(tag, attrs);
+  }
+
+  const scriptMatch = content.match(/<script(?![^>]*application\/ld\+json)[^>]*>([\s\S]*?)<\/script>/i);
+  if (!scriptMatch) return { success: false, error: 'No client script block found' };
+  const jsCode = scriptMatch[1];
+
+  const doc = {
+    documentElement: createMockElement('html', { 'data-theme': 'dark' }),
+    body: createMockElement('body'),
+    getElementById(id) { return elementsById[id] || null; },
+    querySelector(sel) {
+      if (sel.startsWith('#')) return elementsById[sel.substring(1)] || null;
+      return null;
+    },
+    querySelectorAll() { return []; },
+    createElement(tag) { return createMockElement(tag); }
+  };
+
+  const sandbox = {
+    document: doc,
+    window: {
+      addEventListener() {},
+      setTimeout: (fn) => fn(),
+      clearTimeout() {},
+      alert() {}
+    },
+    localStorage: {
+      store: {},
+      getItem(k) { return this.store[k] || null; },
+      setItem(k, v) { this.store[k] = String(v); }
+    },
+    navigator: { clipboard: { writeText: () => Promise.resolve() } },
+    console: { log() {}, error() {}, warn() {} },
+    setTimeout: (fn) => fn(),
+    clearTimeout() {},
+    Math, parseInt, parseFloat, JSON, Promise, Date
+  };
+
+  const context = vm.createContext(sandbox);
+  try {
+    vm.runInContext(jsCode, context);
+  } catch (e) {
+    return { success: false, error: `Initial render error: ${e.message}` };
+  }
+
+  try {
+    for (const [id, el] of Object.entries(elementsById)) {
+      if (el.listeners['input']) el.dispatchEvent({ type: 'input' });
+      if (el.listeners['change']) el.dispatchEvent({ type: 'change' });
+      if (el.listeners['click']) el.dispatchEvent({ type: 'click', target: el });
+      if (el.listeners['pointerdown']) el.dispatchEvent({ type: 'pointerdown', pointerId: 1, clientX: 100, clientY: 100, target: el });
+      if (el.listeners['pointermove']) el.dispatchEvent({ type: 'pointermove', pointerId: 1, clientX: 150, clientY: 150, target: el });
+      if (el.listeners['pointerup']) el.dispatchEvent({ type: 'pointerup', pointerId: 1, clientX: 150, clientY: 150, target: el });
+      if (el.listeners['pointerleave']) el.dispatchEvent({ type: 'pointerleave', target: el });
+    }
+  } catch (e) {
+    return { success: false, error: `Event dispatch error: ${e.message}` };
+  }
+  return { success: true };
+}
+
 console.log('=== VERIFYING NOVEMBER 21, 2026 DELIVERABLES & SITE INTEGRATION ===\n');
 
 const deliverables = [
@@ -173,6 +297,10 @@ for (const item of deliverables) {
   }
   assert(scriptValid, `Client-side JavaScript syntax is valid V8 code in ${item.slug}`);
 
+  // 13b. Client-side DOM simulation execution and event dispatch
+  const domSimResult = verifyClientDomSimulation(content, item.slug);
+  assert(domSimResult.success, `Client-side DOM simulation and event dispatches execute without error in ${item.slug} (${domSimResult.error || 'clean'})`);
+
   // 14. Heading hierarchy without level skips
   const headings = [...content.matchAll(/<h([1-6])[^>]*>/gi)].map(m => parseInt(m[1], 10));
   let headingValid = true;
@@ -215,6 +343,29 @@ for (const item of deliverables) {
     }
   }
   assert(missingTargets.length === 0, `All ${allHashAnchors.length} hash anchors in ${item.slug} resolve to valid DOM id targets`);
+
+  // 17b. Table of Contents numbering synchronized with H2 headings
+  const tocAside = content.match(/<aside[\s\S]*?<\/aside>/);
+  if (tocAside) {
+    const tocNumberedLinks = [...tocAside[0].matchAll(/<a href="#([^"]+)">\s*(\d+)\.\s*([\s\S]*?)<\/a>/g)];
+    let tocDesyncs = [];
+    for (const tMatch of tocNumberedLinks) {
+      const targetId = tMatch[1];
+      const tocNum = parseInt(tMatch[2], 10);
+      const sectionMatch = content.match(new RegExp(`<section[^>]*id=["']${targetId}["'][\\s\\S]*?<h2[^>]*>([\\s\\S]*?)<\\/h2>`, 'i'));
+      if (sectionMatch) {
+        const cleanH2 = sectionMatch[1].replace(/<svg[\s\S]*?<\/svg>/gi, '').replace(/<[^>]+>/g, '').trim();
+        const numMatch = cleanH2.match(/^(\d+)\./) || cleanH2.match(/(\d+)\./);
+        if (numMatch) {
+          const h2Num = parseInt(numMatch[1], 10);
+          if (tocNum !== h2Num) {
+            tocDesyncs.push(`Target #${targetId}: TOC has ${tocNum}., H2 has ${h2Num}.`);
+          }
+        }
+      }
+    }
+    assert(tocDesyncs.length === 0, `Table of Contents numbering is synchronized with H2 headings in ${item.slug} (desyncs: ${tocDesyncs.join('; ') || 'none'})`);
+  }
 
   // 18. Touch handling & touch-action: none compliance
   assert(content.includes('.preview-stage-container') && content.includes('touch-action: none'), `touch-action: none is declared on canvas/container in ${item.slug}`);

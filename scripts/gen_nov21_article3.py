@@ -739,10 +739,10 @@ const domainMin = Math.max(0, rawLow - spread * 0.06);</code></pre>
         <!-- INTERACTIVE STUDIO SANDBOX -->
         <section class="interactive-sandbox" id="interactive-candlestick-studio">
           <div class="sandbox-header">
-            <div class="sandbox-title">
+            <h2 class="sandbox-title" style="margin: 0; padding: 0; border: none; font-size: 18px;">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2"><path d="M3 3v18h18"></path><rect x="7" y="8" width="4" height="8" rx="1"></rect><line x1="9" y1="4" x2="9" y2="8"></line><line x1="9" y1="16" x2="9" y2="20"></line><rect x="15" y="5" width="4" height="10" rx="1"></rect><line x1="17" y1="2" x2="17" y2="5"></line><line x1="17" y1="15" x2="17" y2="19"></line></svg>
-              <span>Interactive SVG Candlestick &amp; Financial OHLC Studio</span>
-            </div>
+              <span>7. Interactive SVG Candlestick &amp; Financial OHLC Studio</span>
+            </h2>
             <span class="sandbox-badge">Real-Time Market Engine</span>
           </div>
 
@@ -824,7 +824,7 @@ const domainMin = Math.max(0, rawLow - spread * 0.06);</code></pre>
         </section>
 
         <section id="section-pixel-crisp">
-          <h2>7. Pixel-Crisp Rendering: shape-rendering="crispEdges" vs. Subpixel Anti-Aliasing</h2>
+          <h2>8. Pixel-Crisp Rendering: shape-rendering="crispEdges" vs. Subpixel Anti-Aliasing</h2>
           <p>In standard data charts, anti-aliasing provides smooth curves for circular donut rings and flow splines. However, in financial candlestick charts—dominated by strict orthogonal vertical lines and sharp rectangular bodies—anti-aliasing can severely degrade visual clarity.</p>
 
           <p>When a browser draws a 1-pixel vertical line at a fractional coordinate (such as <code>x = 142.5</code>), the 2D rasterizer splits the single pixel of color intensity across two adjacent device pixels, each rendered at 50% opacity. The result is a fuzzy, 2-pixel-wide line that appears muted, blurry, and amateurish. On high-resolution displays, adjacent candle wicks may appear uneven, with some wicks looking darker than others.</p>
@@ -843,7 +843,7 @@ const domainMin = Math.max(0, rawLow - spread * 0.06);</code></pre>
         </section>
 
         <section id="section-production-engine">
-          <h2>8. Production-Grade Zero-Dependency ES6 Candlestick Engine</h2>
+          <h2>9. Production-Grade Zero-Dependency ES6 Candlestick Engine</h2>
           <p>The following standalone ECMAScript class provides a clean, dependency-free implementation for ingesting OHLC streams, computing moving averages, managing volume sub-panels, and emitting complete SVG markup:</p>
 
           <pre><code>// Production-Grade Zero-Dependency SVG Candlestick Engine (ES6 / TypeScript compatible)
@@ -930,7 +930,7 @@ class SvgCandlestickEngine {
         </section>
 
         <section id="section-streaming-telemetry">
-          <h2>9. Streaming Real-Time Telemetry &amp; WebSocket DOM Virtualization</h2>
+          <h2>10. Streaming Real-Time Telemetry &amp; WebSocket DOM Virtualization</h2>
           <p>In production algorithmic environments, trading dashboards ingest continuous market tick events streamed over low-latency WebSockets. If every incoming price update triggers complete SVG DOM reconstruction, garbage collection overhead will quickly degrade rendering performance. High-frequency SVG architectures implement three critical real-time optimizations:</p>
 
           <ul>
@@ -975,7 +975,7 @@ class SvgCandlestickEngine {
         </section>
 
         <section id="section-accessibility">
-          <h2>10. WCAG 2.2 AA Accessibility &amp; Screen Reader Financial Telemetry</h2>
+          <h2>11. WCAG 2.2 AA Accessibility &amp; Screen Reader Financial Telemetry</h2>
           <p>Financial dashboards must be fully accessible to traders with visual impairments. Achieving full <strong>WCAG 2.2 AA compliance</strong> requires implementing robust visual and semantic accommodations:</p>
 
           <ul>
@@ -1002,7 +1002,7 @@ class SvgCandlestickEngine {
 
         <!-- FAQ SECTION -->
         <section class="faq-section" id="section-faqs">
-          <h2>11. Frequently Asked Questions</h2>
+          <h2>12. Frequently Asked Questions</h2>
 
           <div class="faq-item">
             <div class="faq-question">
