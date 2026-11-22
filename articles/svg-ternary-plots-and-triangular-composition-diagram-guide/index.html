@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Ternary Plots: Triangular Composition Diagrams, Barycentric Coordinates &amp; Simplex Grids (2026) | IconStash</title>
+  <meta name="description" content="Master SVG ternary plots: barycentric-to-Cartesian coordinate transforms, triangular simplex grids, mixture phase diagrams, and accessible SVG rendering.">
+  <meta name="keywords" content="svg ternary plot, triangular composition diagram svg, barycentric coordinate transform, simplex grid svg, metallurgy phase diagram vector, soil texture triangle svg, d3 ternary alternative, accessible scientific visualization">
+  <meta property="og:title" content="Mastering SVG Ternary Plots: Triangular Composition Diagrams, Barycentric Coordinates &amp; Simplex Grids (2026)">
+  <meta property="og:description" content="Master SVG ternary plots: barycentric-to-Cartesian coordinate transforms, triangular simplex grids, mixture phase diagrams, and accessible SVG rendering.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-ternary-plots-and-triangular-composition-diagram-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-ternary-plots-and-triangular-composition-diagram-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-22T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-22T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Scientific Data Visualization">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Ternary Plots">
+  <meta property="article:tag" content="Scientific Visualization">
+  <meta property="article:tag" content="Barycentric Geometry">
+  <meta property="article:tag" content="Mathematics">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Ternary Plots: Triangular Composition Diagrams, Barycentric Coordinates &amp; Simplex Grids (2026)">
+  <meta name="twitter:description" content="Master SVG ternary plots: barycentric-to-Cartesian coordinate transforms, triangular simplex grids, mixture phase diagrams, and accessible SVG rendering.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-ternary-plots-and-triangular-composition-diagram-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-ternary-plots-and-triangular-composition-diagram-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Ternary Plots: Triangular Composition Diagrams, Barycentric Coordinates & Simplex Grids (2026)",
+      "description": "Master SVG ternary plots: barycentric-to-Cartesian coordinate transforms, triangular simplex grids, mixture phase diagrams, and accessible SVG rendering.",
+      "image": "https://iconstash.io/assets/articles/svg-ternary-plots-and-triangular-composition-diagram-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-22",
+      "dateModified": "2026-11-22",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-ternary-plots-and-triangular-composition-diagram-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4550,
+      "articleSection": "Scientific Data Visualization",
+      "keywords": [
+        "svg ternary plot",
+        "triangular composition diagram svg",
+        "barycentric coordinate transform",
+        "simplex grid svg",
+        "metallurgy phase diagram vector",
+        "soil texture triangle svg",
+        "d3 ternary alternative",
+        "accessible scientific visualization"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Ternary Plots & Composition Diagrams Guide",
+          "item": "https://iconstash.io/articles/svg-ternary-plots-and-triangular-composition-diagram-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the fundamental mathematical constraint governing a ternary plot?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A ternary plot visualizes three-component compositional systems where the variables (a, b, c) are constrained by a constant sum equation: a + b + c = 1 (or 100%). Geometrically, this constraint reduces a three-dimensional problem space into a two-dimensional planar simplex (an equilateral triangle). Any point inside the triangle represents a unique compositional mixture, where the perpendicular distance from each edge corresponds directly to the relative proportion of the opposite apex component."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the barycentric-to-Cartesian coordinate transformation work in SVG space?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Given three vertices V_A = (xA, yA), V_B = (xB, yB), and V_C = (xC, yC) forming an equilateral triangle in SVG space, any normalized compositional triplet (a, b, c) satisfying a + b + c = 1 maps to Cartesian coordinates via linear affine combination: P(x, y) = a * V_A + b * V_B + c * V_C. In component form, x = a*xA + b*xB + c*xC and y = a*yA + b*yB + c*yC. This guarantees that 100% of component A maps exactly onto vertex V_A, while binary mixtures along edges have zero contribution from the opposing vertex."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you calculate the inverse Cartesian-to-barycentric projection for interactive point picking?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When a user clicks or drags a pointer across the SVG canvas at coordinates (xp, yp), the engine must invert the transformation to recover (a, b, c). By solving the linear 2x2 system defined by triangle edge vectors, the barycentric coordinates are computed as signed triangle area ratios using determinants: a = ((yB - yC)*(xp - xC) + (xC - xB)*(yp - yC)) / det, b = ((yC - yA)*(xp - xC) + (xA - xC)*(yp - yC)) / det, where det = (yB - yC)*(xA - xC) + (xC - xB)*(yA - yC), and c = 1 - a - b. Coordinates are clamped between 0 and 1 to prevent pointer dragging outside the simplex."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are triangular grid lines constructed across the three compositional axes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A complete ternary grid consists of three intersecting families of parallel lines oriented at 60-degree and 120-degree angles. For component A, isolines of constant a (e.g., a = 0.2, 0.4, 0.6, 0.8) run parallel to the base edge connecting V_B and V_C. The start and end vertices of each grid line are computed by evaluating binary mixtures along the adjacent edges: one endpoint at (a, 1-a, 0) along edge AB and the other at (a, 0, 1-a) along edge AC. Repeating this procedure for components B and C forms an equilateral hexagonal coordinate grid."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What reading convention standardizes axis tick directions on ternary plots?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ternary diagrams follow two primary reading conventions: clockwise and counter-clockwise. The international standard (utilized in metallurgy and chemical engineering) adopts the clockwise convention: to read component A, follow the grid line running from the AB edge parallel to the BC base toward the AC axis. Axis ticks are angled at 60 degrees matching the parallel isolines, and tick labels explicitly indicate increasing percentage directions to eliminate ambiguity for researchers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an SVG ternary plot achieve WCAG 2.2 AA accessibility standards?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Achieving WCAG 2.2 AA requires providing non-visual and tactile access to compositional data. The root SVG container is annotated with role='graphics-document' and aria-roledescription='ternary composition diagram'. Individual data points carry role='graphics-symbol', tabindex='0' for keyboard navigation, and explicit labels (e.g., 'Alloy Sample 4: 55% Fe, 25% Ni, 20% Cr'). Furthermore, phase boundaries incorporate tactile dashed strokes and high-contrast color fills (> 3:1 against background), complemented by an off-screen accessible HTML table listing all compositional tuples."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
+
+    .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #C1DD2D; font-weight: 500; }
+
+    .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
+    .article-meta a { color: #999; font-weight: 600; }
+    .article-meta a:hover { color: #C1DD2D; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+    .article-main { min-width: 0; }
+
+    .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
+    .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
+    .featured-summary ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .featured-summary li { position: relative; padding-left: 20px; font-size: 15px; color: #B0B0B0; line-height: 1.6; }
+    .featured-summary li::before { content: "•"; position: absolute; left: 0; color: #C1DD2D; font-size: 20px; line-height: 1; top: 2px; }
+
+    .article-figure { margin: 32px 0 40px; text-align: center; }
+    .article-figure img, .article-figure svg { border-radius: 8px; border: 1px solid #242424; width: 100%; height: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .article-figure figcaption { margin-top: 12px; font-size: 13.5px; color: #888; line-height: 1.5; font-style: italic; }
+
+    h2 { font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1C1C1C; }
+    h3 { font-size: 21px; font-weight: 700; color: #F2F2F2; letter-spacing: -0.01em; margin: 32px 0 16px; }
+    h4 { font-size: 17px; font-weight: 600; color: #DDD; margin: 24px 0 12px; }
+    p { margin-bottom: 20px; color: #C8C8C8; font-size: 16.5px; line-height: 1.8; }
+    p strong { color: #FFFFFF; font-weight: 600; }
+    ul, ol { margin: 0 0 24px 24px; color: #C8C8C8; font-size: 16px; line-height: 1.75; }
+    li { margin-bottom: 8px; }
+
+    pre { background: #111111; border: 1px solid #222222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0 32px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.65; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 14px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    .formula-card { background: #121212; border: 1px solid #242424; border-left: 3px solid #C1DD2D; border-radius: 6px; padding: 20px 24px; margin: 24px 0 28px; }
+    .formula-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; margin-bottom: 8px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; overflow-x: auto; padding: 4px 0; }
+    .formula-desc { font-size: 14px; color: #999; line-height: 1.6; }
+
+    .table-container { width: 100%; overflow-x: auto; margin: 28px 0 36px; border: 1px solid #222; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; font-weight: 700; padding: 14px 18px; border-bottom: 1px solid #242424; white-space: nowrap; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #AAA; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 10px; padding: 24px; margin: 36px 0 44px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .sandbox-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #242424; padding-bottom: 16px; margin-bottom: 20px; }
+    .sandbox-title { font-size: 18px; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 12.5px; font-weight: 600; color: #999; }
+    .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
+    .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
+
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 520px; user-select: none; touch-action: none; }
+    .ternary-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; cursor: crosshair; }
+
+    .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; }
+    .stat-val { font-size: 16px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .action-btn-row { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+    .copy-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 150ms ease; }
+    .copy-btn:hover { background: #D2ED3E; }
+
+    .article-sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #C1DD2D; margin-bottom: 14px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
+    .toc-nav a { color: #888; display: block; line-height: 1.4; padding: 2px 0; }
+    .toc-nav a:hover { color: #C1DD2D; }
+    .cta-sidebar-box { background: rgba(193,221,45,0.06); border: 1px solid rgba(193,221,45,0.25); border-radius: 8px; padding: 18px; text-align: left; }
+    .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { font-size: 15px; color: #C1DD2D; margin-bottom: 8px; font-weight: 700; }
+    .cta-sidebar-box p { font-size: 13px; color: #BBB; line-height: 1.5; margin-bottom: 12px; }
+
+    .takeaway-box { background: #121212; border: 1px solid #242424; border-radius: 8px; padding: 24px 28px; margin: 36px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 19px; margin-top: 0; margin-bottom: 14px; }
+    .takeaway-box ul { margin-bottom: 0; }
+
+    .warning-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #EF4444; border-radius: 6px; padding: 18px 22px; margin: 28px 0; }
+    .warning-box .warning-title, .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #222; }
+    .faq-item { border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; background: #121212; overflow: hidden; }
+    .faq-question { padding: 18px 22px; font-size: 16px; font-weight: 700; color: #FFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 22px 18px; font-size: 15px; color: #B0B0B0; line-height: 1.7; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1C1C1C; padding: 48px 24px; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .data-table th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/stats/">Stats</a>
+      <a href="/about/">About</a>
+      <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle visual theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/articles/" class="header-cta">Browse 135 Guides</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">SVG Ternary Plots &amp; Composition Diagrams</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Scientific Data Visualization</span>
+      <h1>Mastering SVG Ternary Plots: Triangular Composition Diagrams, Barycentric Coordinates &amp; Simplex Grids (2026)</h1>
+      <div class="article-meta">
+        <span>Published by <a href="/about/">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>Updated November 22, 2026</span>
+        <span>•</span>
+        <span>36 min read</span>
+        <span>•</span>
+        <span>4,680 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Architecture Summary:</strong> Ternary plots (also termed triangular simplex diagrams, Gibbs triangles, or de Finetti diagrams) provide the canonical visual representation for three-component closed mixtures constrained by <code>a + b + c = 100%</code>. By mapping high-dimensional composition vectors onto a 2-simplex equilateral triangle via barycentric coordinate projections, ternary plots unlock intuitive exploration of metallurgical phase equilibria, soil texture classifications, chemical extraction solubilities, and multi-class machine learning probability vectors.</p>
+          <ul>
+            <li><strong>Barycentric Coordinate Calculus:</strong> Master linear affine transformations <code>P(x,y) = a V_A + b V_B + c V_C</code> and derive the inverse Cartesian-to-barycentric projection using 2D matrix determinants for interactive pointer tracking.</li>
+            <li><strong>Equilateral Simplex Grids:</strong> Procedurally construct three intersecting sets of 60-degree and 120-degree isolines with strict angular label alignment and clockwise reading conventions.</li>
+            <li><strong>Phase Boundaries &amp; Immiscibility Envelopes:</strong> Render smooth multi-phase binodal contours and tie-lines using cubic Bézier smoothing and SVG polygon clipping paths.</li>
+            <li><strong>Interactive Point Picking:</strong> Real-time pointer capture and gesture handling mapping screen touch coordinates to exact percentage mixtures with simplex edge clamping.</li>
+            <li><strong>Production Studio:</strong> Explore our interactive SVG Ternary Studio featuring austenitic stainless steel metallurgy, USDA soil textures, dynamic grid resolutions, and copy-ready SVG export.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-ternary-plots-and-triangular-composition-diagram-guide.jpg"
+               alt="Mastering SVG Ternary Plots and Triangular Composition Diagrams Graphic"
+               width="1200" height="675"
+               fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-precision SVG ternary plot illustrating equilateral simplex geometry, barycentric grid lines, interactive point picking, and chemical phase regions.</figcaption>
+        </figure>
+
+        <section id="section-foundations">
+          <h2>1. Geometric &amp; Chemical Foundations of Ternary Plots</h2>
+          <p>When scientists and data engineers analyze three-variable systems, standard 3D Cartesian scatter plots introduce severe perceptual liabilities: 3D perspective foreshortening warps geometric proportions, occludes background data points, and requires constant manual rotation. However, in physical chemistry, metallurgy, petrology, and machine learning, three variables frequently represent proportions of a closed whole: <code>a + b + c = 1</code> (or <code>100%</code>). This fundamental linear constraint reduces the system's degrees of freedom from three to two.</p>
+
+          <p>A ternary plot maps this 2-simplex onto an equilateral triangle. First formulated mathematically by J. Willard Gibbs in 1876, the geometry relies on Viviani's Theorem: the sum of the perpendicular distances from any interior point <code>P</code> to the three sides of an equilateral triangle is strictly constant and equal to the triangle's altitude <code>H</code>:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Viviani's Theorem Formulation</div>
+            <div class="formula-body">
+              h_A + h_B + h_C = H = \frac{\sqrt{3}}{2} \times L
+            </div>
+            <div class="formula-desc">
+              Where L is the side length of the equilateral triangle, and h_A, h_B, h_C represent the perpendicular distances to the edges opposing vertices A, B, and C.
+            </div>
+          </div>
+
+          <p>Consequently, the relative altitude of any point directly quantifies its composition: a point located at perpendicular distance <code>h_A</code> from the base opposite vertex <code>A</code> possesses component proportion <code>a = h_A / H</code>. When a mixture contains 100% of component <code>A</code>, it resides exactly on vertex <code>V_A</code>; when <code>a = 0%</code>, the point lies on the base edge connecting <code>V_B</code> and <code>V_C</code>.</p>
+
+          <h3>Critical Scientific &amp; Engineering Domains</h3>
+          <p>Ternary visualization is essential across multiple high-precision scientific disciplines:</p>
+
+          <ul>
+            <li><strong>Metallurgy &amp; Phase Equilibria:</strong> Material scientists chart ternary alloy systems (such as Iron-Chromium-Nickel austenitic stainless steels or Titanium-Aluminum-Vanadium aerospace alloys) to delineate solidus/liquidus melting boundaries and phase transformations (austenite, ferrite, martensite).</li>
+            <li><strong>Geotechnical Engineering &amp; Pedology:</strong> The USDA Soil Texture Triangle classifies soil samples into clay, silt, and sand fractions, governing agricultural water retention and civil foundation bearing capacities.</li>
+            <li><strong>Chemical Extraction &amp; Liquid-Liquid Equilibria:</strong> Chemical engineers map ternary liquid systems (e.g., Water-Ethanol-Toluene) to determine binodal solubility curves, plait points, and conjugate tie-lines for liquid extraction column design.</li>
+            <li><strong>Probabilistic Machine Learning &amp; Game Theory:</strong> Data scientists visualize 3-class classification probability distributions output by Softmax layers, and evolutionary game theorists map population strategy distributions in rock-paper-scissors dynamics.</li>
+          </ul>
+        
+          <h3>Higher-Dimensional Simplex Generalizations &amp; The Geometry of Quaternary Tetrahedrons</h3>
+          <p>The equilateral triangle is the two-dimensional member of the infinite family of regular simplices. In convex geometry, an n-simplex represents the simplest possible polytope in n dimensions: a 0-simplex is a point, a 1-simplex is a line segment, a 2-simplex is an equilateral triangle, and a 3-simplex is a regular tetrahedron. When chemical systems involve four components (such as quaternary metallurgy alloys containing Iron, Nickel, Chromium, and Molybdenum, or quaternary solvent systems in petroleum refining), the compositional state space occupies a three-dimensional tetrahedron bounded by four triangular faces.</p>
+          <p>Visualizing a 3-simplex on flat two-dimensional displays requires projecting isometric or pseudo-3D views of the tetrahedron, which introduces perspective distortion and internal visual occlusion. To maintain quantitative precision, engineers slice the quaternary tetrahedron along planar pseudobinary or pseudoternary sections—effectively fixing the concentration of the fourth component at a constant level (e.g., Mo = 5%) and rendering the remaining three degrees of freedom on a standard 2D SVG ternary plot. Understanding this dimensional reduction allows developers to build multi-tier visualization interfaces where interactive slider controls scrub through continuous planar cross-sections of higher-dimensional phase spaces.</p>
+</section>
+
+        <section id="section-barycentric-calculus">
+          <h2>2. Barycentric-to-Cartesian Coordinate Transformation Calculus</h2>
+          <p>To render ternary data on an SVG canvas, the graphics engine must execute forward barycentric-to-Cartesian projection. Let the three vertices of an equilateral triangle in 2D SVG canvas space be defined as <code>V_A = (x_A, y_A)</code> (the top apex), <code>V_B = (x_B, y_B)</code> (the bottom-left vertex), and <code>V_C = (x_C, y_C)</code> (the bottom-right vertex).</p>
+
+          <h3>Forward Barycentric Projection</h3>
+          <p>Given any normalized compositional tuple <code>(a, b, c)</code> where <code>a + b + c = 1</code> and <code>a, b, c &ge; 0</code>, its Cartesian SVG coordinates <code>(x, y)</code> represent a convex linear combination of the vertex coordinates:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Forward Barycentric Linear Combination</div>
+            <div class="formula-body">
+              P(x, y) = a \cdot V_A + b \cdot V_B + c \cdot V_C
+            </div>
+            <div class="formula-desc">
+              In scalar component form: x = a x_A + b x_B + c x_C &emsp; and &emsp; y = a y_A + b y_B + c y_C.
+            </div>
+          </div>
+
+          <p>For an equilateral triangle centered within an SVG viewport of width <code>W</code> and height <code>H_{view}</code>, with side length <code>L</code>, the vertex coordinates are defined as:</p>
+
+          <ul>
+            <li><code>x_A = c_x</code>, &emsp; <code>y_A = c_y - \frac{\sqrt{3}}{3} L</code> (Top Apex)</li>
+            <li><code>x_B = c_x - \frac{L}{2}</code>, &emsp; <code>y_B = c_y + \frac{\sqrt{3}}{6} L</code> (Bottom-Left Apex)</li>
+            <li><code>x_C = c_x + \frac{L}{2}</code>, &emsp; <code>y_C = c_y + \frac{\sqrt{3}}{6} L</code> (Bottom-Right Apex)</li>
+          </ul>
+
+          <h3>Inverse Cartesian-to-Barycentric Inversion</h3>
+          <p>When implementing interactive point picking, the engine must invert this mapping: given pointer mouse or touch coordinates <code>(x_p, y_p)</code>, compute the corresponding compositional percentages <code>(a, b, c)</code>. This requires solving the linear 2&times;2 system:</p>
+
+          <pre><code>// Exact inverse Cartesian-to-barycentric projection using 2D determinants
+function cartesianToBarycentric(xp, yp, vA, vB, vC) {
+  const det = (vB.y - vC.y) * (vA.x - vC.x) + (vC.x - vB.x) * (vA.y - vC.y);
+  if (Math.abs(det) &lt; 1e-6) return { a: 0.333, b: 0.333, c: 0.333 };
+
+  let a = ((vB.y - vC.y) * (xp - vC.x) + (vC.x - vB.x) * (yp - vC.y)) / det;
+  let b = ((vC.y - vA.y) * (xp - vC.x) + (vA.x - vC.x) * (yp - vC.y)) / det;
+  let c = 1.0 - a - b;
+
+  // Clamping to simplex boundary [0, 1]
+  a = Math.max(0, Math.min(1, a));
+  b = Math.max(0, Math.min(1, b));
+  c = Math.max(0, Math.min(1, c));
+
+  // Renormalize so sum equals exactly 1.0
+  const sum = a + b + c || 1;
+  return { a: a / sum, b: b / sum, c: c / sum };
+}</code></pre>
+
+          <p>This formulation guarantees mathematical stability even when the user drags the cursor slightly outside the physical boundaries of the triangular canvas.</p>
+        
+          <h3>Vector Cross-Products &amp; Areal Coordinates in Projective Geometry</h3>
+          <p>The historical origin of barycentric coordinates traces to August Ferdinand M&ouml;bius's seminal 1827 work <em>Der barycentrische Calcul</em>. M&ouml;bius conceived barycentric coordinates not merely as algebraic coefficients, but as physical center-of-mass weights: if point masses of magnitudes a, b, and c are placed at the vertices V_A, V_B, and V_C of a rigid triangular plate, the entire plate balances perfectly on a pivot point located at P(a, b, c).</p>
+          <p>Geometrically, this center-of-mass balance translates into signed areal coordinates. If we connect an arbitrary interior point P to the three vertices, the line segments partition the primary triangle into three smaller sub-triangles: &Delta;_A = &Delta;(P, V_B, V_C), &Delta;_B = &Delta;(P, V_C, V_A), and &Delta;_C = &Delta;(P, V_A, V_B). The barycentric coordinate associated with vertex V_A is mathematically equivalent to the ratio of the area of sub-triangle &Delta;_A to the total area of the primary triangle &Delta;_{total}:</p>
+          <div class="formula-card">
+            <div class="formula-title">Areal Coordinate Formulation</div>
+            <div class="formula-body">
+              a = rac{	ext{Area}(\Delta(P, V_B, V_C))}{	ext{Area}(\Delta(V_A, V_B, V_C))}, \quad
+              b = rac{	ext{Area}(\Delta(P, V_C, V_A))}{	ext{Area}(\Delta(V_A, V_B, V_C))}, \quad
+              c = rac{	ext{Area}(\Delta(P, V_A, V_B))}{	ext{Area}(\Delta(V_A, V_B, V_C))}
+            </div>
+            <div class="formula-desc">
+              The area of each sub-triangle is evaluated via the 2D vector cross-product determinant: Area = 0.5 * |(x_1 - x_3)(y_2 - y_1) - (x_1 - x_2)(y_3 - y_1)|.
+            </div>
+          </div>
+          <p>When P lies directly on vertex V_A, sub-triangle &Delta;_A encompasses the entire triangle while &Delta;_B and &Delta;_C collapse to zero area, yielding (1, 0, 0). Conversely, when P moves along the base edge opposing V_A, sub-triangle &Delta;_A has zero altitude and zero area, yielding a = 0. This areal duality provides an invaluable geometric invariant for validating client-side point picking calculations.</p>
+</section>
+
+        <section id="section-grid-topology">
+          <h2>3. Simplex Grid Generation &amp; Hexagonal Axis Topology</h2>
+          <p>Unlike Cartesian grids composed of two orthogonal sets of parallel lines (horizontal and vertical), a ternary simplex grid comprises three distinct families of parallel isolines oriented at 60&deg; and 120&deg; relative to the horizontal base.</p>
+
+          <h3>Clockwise vs. Counter-Clockwise Reading Conventions</h3>
+          <p>To avoid misreading proportions, ternary diagrams adhere to strict orientation rules:</p>
+
+          <ol>
+            <li><strong>Component A Isolines:</strong> Represent lines of constant <code>a</code>. Because vertex <code>A</code> sits at the top, lines of constant <code>a</code> are horizontal lines parallel to the base edge <code>BC</code>. As <code>a</code> decreases from 1.0 to 0.0, the isolines descend toward the base.</li>
+            <li><strong>Component B Isolines:</strong> Represent lines of constant <code>b</code>. These lines run parallel to the edge <code>AC</code> opposing vertex <code>B</code>, angled at 60&deg; to the horizontal.</li>
+            <li><strong>Component C Isolines:</strong> Represent lines of constant <code>c</code>. These lines run parallel to the edge <code>AB</code> opposing vertex <code>C</code>, angled at 120&deg; to the horizontal.</li>
+          </ol>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Apex Coordinate</th>
+                  <th>Opposing Base Edge</th>
+                  <th>Isoline Orientation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Component A</strong></td>
+                  <td>Top Apex <code>V_A</code></td>
+                  <td>Base Edge <code>BC</code></td>
+                  <td>Horizontal (0&deg;)</td>
+                </tr>
+                <tr>
+                  <td><strong>Component B</strong></td>
+                  <td>Bottom-Left <code>V_B</code></td>
+                  <td>Right Edge <code>AC</code></td>
+                  <td>Slanted Upward (60&deg;)</td>
+                </tr>
+                <tr>
+                  <td><strong>Component C</strong></td>
+                  <td>Bottom-Right <code>V_C</code></td>
+                  <td>Left Edge <code>AB</code></td>
+                  <td>Slanted Downward (120&deg;)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Procedurally generating these grid lines requires evaluating the endpoints of each line where it intersects the boundary edges of the simplex. For example, for an isoline of constant <code>a = 0.4</code>, the line starts at <code>(0.4, 0.6, 0.0)</code> along edge <code>AB</code> and terminates at <code>(0.4, 0.0, 0.6)</code> along edge <code>AC</code>.</p>
+        
+          <h3>Trilinear Coordinate Systems &amp; Perpendicular Offset Equations</h3>
+          <p>In classical projective geometry, mathematicians frequently distinguish between barycentric coordinates (a, b, c) and trilinear coordinates (x : y : z). While barycentric coordinates represent proportional mass fractions summing to unity, trilinear coordinates represent the raw physical perpendicular distances from point P to the three bounding line segments of the triangle.</p>
+          <p>In an equilateral triangle where all three edge lengths are identical (L_A = L_B = L_C = L), trilinear coordinates and barycentric coordinates become directly proportional: x = H * a, y = H * b, and z = H * c, where H is the triangle altitude. For general scalene or isosceles triangles, converting between trilinear and barycentric systems requires scaling by individual side lengths: a = (L_A * x) / (2 * Area). By standardizing our SVG rendering pipeline strictly on regular equilateral geometry, we guarantee that trilinear perpendicular distances scale linearly with barycentric percentages, eliminating complex trigonometric conversion overhead in high-frequency rendering loops.</p>
+</section>
+
+        <section id="section-architecture-pipeline">
+          <h2>4. Figure 2: Mathematical Architecture &amp; Vector Layout Pipeline</h2>
+          <p>Building an industrial-grade SVG ternary diagram requires an asynchronous, decoupled architectural pipeline. Figure 2 illustrates the deterministic data transformation sequence, moving from raw three-variable composition arrays through normalization, barycentric affine mapping, hexagonal grid synthesis, and hardware-accelerated DOM emission:</p>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: SVG Ternary Plot Mathematical Architecture and Vector Layout Pipeline">
+              <rect width="960" height="320" fill="#0D0D0D" rx="8" stroke="#222" stroke-width="1"></rect>
+              <defs>
+                <linearGradient id="ternPipeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.15"></stop>
+                  <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.05"></stop>
+                </linearGradient>
+                <marker id="terArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#C1DD2D"></polygon>
+                </marker>
+              </defs>
+
+              <!-- Stage 1: Composition Ingest -->
+              <g transform="translate(25, 40)">
+                <rect width="180" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="90" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 1: INGESTION</text>
+                <text x="90" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Compositional Data</text>
+                <rect x="20" y="80" width="140" height="26" fill="#1C1C1C" rx="4"></rect>
+                <text x="90" y="97" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">[{a, b, c, label}]</text>
+                <text x="90" y="140" fill="#AAA" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Sum Normalization</text>
+                <text x="90" y="160" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">s = a + b + c</text>
+                <rect x="20" y="184" width="140" height="26" fill="#1C1C1C" rx="4" stroke="#C1DD2D" stroke-width="0.5"></rect>
+                <text x="90" y="201" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Unit Simplex: &#8721; = 1</text>
+                <text x="90" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Bound Check: a,b,c &#8805; 0</text>
+              </g>
+
+              <!-- Connector 1 -->
+              <line x1="205" y1="160" x2="235" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#terArrow)"></line>
+
+              <!-- Stage 2: Simplex Geometry -->
+              <g transform="translate(245, 40)">
+                <rect width="200" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="100" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 2: SIMPLEX GEOM</text>
+                <text x="100" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Equilateral Vertices</text>
+                <rect x="20" y="80" width="160" height="30" fill="#181818" rx="4"></rect>
+                <text x="100" y="100" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">V_A, V_B, V_C Offsets</text>
+                <text x="100" y="140" fill="#AAA" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Hexagonal Grid Family</text>
+                <text x="100" y="160" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">0&#176;, 60&#176;, 120&#176; Isolines</text>
+                <rect x="20" y="184" width="160" height="26" fill="#181818" rx="4" stroke="#38BDF8" stroke-width="0.5"></rect>
+                <text x="100" y="201" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Boundary Intersections</text>
+                <text x="100" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Viviani Constant H</text>
+              </g>
+
+              <!-- Connector 2 -->
+              <line x1="445" y1="160" x2="475" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#terArrow)"></line>
+
+              <!-- Stage 3: Barycentric Mapping -->
+              <g transform="translate(485, 40)">
+                <rect width="210" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="105" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 3: BARY MAPPING</text>
+                <text x="105" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Affine Convex Transform</text>
+                <rect x="20" y="80" width="170" height="30" fill="#181818" rx="4"></rect>
+                <text x="105" y="100" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">P(x,y) = a V_A + b V_B + c V_C</text>
+                <text x="105" y="140" fill="#AAA" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Inverse Determinant Solv</text>
+                <text x="105" y="160" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">det = (yB-yC)(xA-xC) + ...</text>
+                <rect x="20" y="184" width="170" height="26" fill="#181818" rx="4" stroke="#C1DD2D" stroke-width="0.5"></rect>
+                <text x="105" y="201" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Simplex Edge Clamping</text>
+                <text x="105" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Pointer Drag Inversion</text>
+              </g>
+
+              <!-- Connector 3 -->
+              <line x1="695" y1="160" x2="725" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#terArrow)"></line>
+
+              <!-- Stage 4: DOM Scene Graph -->
+              <g transform="translate(735, 40)">
+                <rect width="200" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="100" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 4: SVG EMISSION</text>
+                <text x="100" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Reactive Scene Graph</text>
+                <rect x="20" y="80" width="160" height="26" fill="#181818" rx="4"></rect>
+                <text x="100" y="97" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;polygon&gt; Simplex Floor</text>
+                <rect x="20" y="112" width="160" height="26" fill="#181818" rx="4"></rect>
+                <text x="100" y="129" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;line&gt; Hex Grid Rules</text>
+                <rect x="20" y="144" width="160" height="26" fill="#181818" rx="4"></rect>
+                <text x="100" y="161" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;circle&gt; Mixture Nodes</text>
+                <rect x="20" y="176" width="160" height="26" fill="#181818" rx="4" stroke="#C1DD2D" stroke-width="0.5"></rect>
+                <text x="100" y="193" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">WCAG 2.2 AA ARIA</text>
+                <text x="100" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">60 FPS Hardware Render</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Architectural layout pipeline and barycentric coordinate mapping engine for SVG ternary plots.</figcaption>
+          </figure>
+        </section>
+
+        <section id="section-phase-space">
+          <h2>5. Phase Space Boundaries, Tie-Lines &amp; Binodal Contours</h2>
+          <p>Beyond plotting discrete sample points, ternary diagrams serve as the mathematical foundation for multi-phase thermodynamic maps. In chemical and metallurgical engineering, mixtures do not always form homogeneous single-phase solutions; under specific temperature and pressure regimes, the system separates into conjugate thermodynamic phases.</p>
+
+          <h3>Liquid-Liquid Immiscibility Envelopes (Binodal Curves)</h3>
+          <p>In a ternary extraction system (e.g., Water-Ethanol-Benzene), the binodal solubility curve demarcates the boundary between a single homogeneous liquid phase and a heterogeneous two-phase immiscibility region. In SVG vector syntax, the binodal envelope is rendered as a smooth closed path using cubic Bézier splines (<code>C</code> commands) fitted to empirical solubility data points, shaded with translucent fills to indicate multi-phase zones.</p>
+
+          <h3>Conjugate Tie-Lines and Lever-Rule Calculations</h3>
+          <p>Within the two-phase immiscibility envelope, any overall mixture composition <code>M</code> spontaneously separates into two conjugate equilibrium liquid phases represented by the endpoints <code>L_1</code> and <code>L_2</code> of a tie-line passing through <code>M</code>. The relative mass fraction of each phase is governed by the classical Gibbs Lever Rule:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">The Gibbs Lever Rule Formulation</div>
+            <div class="formula-body">
+              \frac{\text{Mass of Phase } L_1}{\text{Mass of Phase } L_2} = \frac{\text{Distance}(M, L_2)}{\text{Distance}(M, L_1)}
+            </div>
+            <div class="formula-desc">
+              The closer the overall mixture point M lies to endpoint L_1 along the SVG vector line, the greater the proportion of phase L_1 present in the physical system.
+            </div>
+          </div>
+
+          <p>In SVG visualization engines, tie-lines are drawn as subtle dashed line segments spanning between the binodal boundaries, with intermediate tick markers indicating phase fraction ratios.</p>
+        
+          <h3>Thermodynamic Free Energy Landscapes &amp; The Common Tangent Plane</h3>
+          <p>The physical topology of phase boundaries in ternary metallurgical and chemical systems is governed by the second law of thermodynamics. At constant temperature and pressure, an equilibrium compositional state minimizes the total Gibbs free energy of mixing G_{mix}(a, b, c). When plotted over the equilateral simplex, the Gibbs energy forms a continuous three-dimensional potential surface G(a, b).</p>
+          <p>If the potential surface is strictly convex (&nabla;^2 G &gt; 0 everywhere), the three components are mutually soluble across all proportions, forming a homogeneous single-phase solution. However, if the energy surface exhibits a double-well concave depression, the system minimizes its free energy by separating into two conjugate phases along a common tangent plane. The locus of points where the tangent plane contacts the energy surface generates the binodal solubility curve on the 2D ternary projection, while the second derivative zero-crossings (inflection points) define the spinodal decomposition limit where spontaneous barrier-free phase separation occurs.</p>
+          <p>In our SVG vector engine, these binodal contours are rendered as smooth parametric cubic B&eacute;zier splines fitted to experimental thermodynamic databases (such as CALPHAD thermodynamic datasets), providing material scientists with visually pristine, mathematically rigorous phase maps.</p>
+
+          <h3>Precision Coordinate Normalization &amp; Floating-Point Epsilon Bounds</h3>
+          <p>When ingesting raw experimental assay results from laboratory spectrometers or mass spectrometry instruments, raw component percentages rarely sum to exactly 100.000% due to measurement noise, trace contaminants, and instrument calibration variance (for example, reporting 49.98% A, 30.01% B, and 19.95% C, summing to 99.94%).</p>
+          <p>Attempting to map unnormalized triplets onto an equilateral simplex violates Viviani's geometric theorem: if a + b + c does not equal unity, the point cannot simultaneously satisfy all three perpendicular distance constraints, producing optical positioning errors where the point appears displaced relative to opposing grid axes. Our data ingestion pipeline applies strict closure normalization prior to rendering: each component is transformed as a_norm = a / (a + b + c), guaranteeing that the compositional triplet resides strictly within the simplex plane with zero mathematical contradiction.</p>
+</section>
+
+        <section id="section-interactive-picking">
+          <h2>6. Interactive Point Picking &amp; Cartesian-to-Barycentric Inversion</h2>
+          <p>A static ternary diagram forces users to manually squint along three angled grid axes to estimate composition percentages. A modern developer-grade SVG visualization transforms the diagram into a dynamic analytical instrument through interactive point picking.</p>
+
+          <h3>Handling Pointer Events Across the Simplex</h3>
+          <p>By attaching <code>pointerdown</code>, <code>pointermove</code>, and <code>pointerup</code> event listeners to the SVG canvas, users can click anywhere inside the triangle or drag an interactive cursor around the canvas. On each event, the engine captures screen coordinates, maps them through the inverse barycentric matrix, clamps the resulting tuple to <code>[0, 1]</code>, and updates live percentage readouts in real time.</p>
+
+          <h3>Pointer Capture &amp; Touch-Action Compatibility</h3>
+          <p>On mobile touchscreens and high-precision styluses, dragging a cursor can trigger native browser page scrolling or pinch-to-zoom gestures. To guarantee fluid interaction, the container declares CSS <code>touch-action: none; user-select: none;</code>, and the pointer event handler immediately calls <code>liveSvg.setPointerCapture(e.pointerId)</code>. This ensures uninterrupted drag tracking even if the cursor temporarily drifts outside the browser viewport.</p>
+        
+          <h3>Real-Time Gesture Smoothing &amp; Pointer Event Recovery</h3>
+          <p>In high-frequency interactive canvas applications, dragging a cursor across an SVG simplex fires hundreds of <code>pointermove</code> events per second. If the application executes DOM mutations and re-evaluates complex layout strings synchronously within every event handler, JavaScript thread execution can lag behind the browser's display refresh cycle, inducing perceptible visual stutter and input latency.</p>
+          <p>Our ternary engine mitigates input lag by decoupling pointer event capture from DOM scene graph synchronization using a <code>requestAnimationFrame</code> render scheduler. When pointer events arrive, the handler simply updates volatile coordinate cache variables <code>(lastX, lastY)</code> without touching the DOM. The animation frame loop evaluates inverse barycentric projection and flushes DOM updates once per display refresh (typically 60Hz or 120Hz on ProMotion displays), ensuring silky-smooth point tracking with zero dropped frames.</p>
+          <p>Additionally, mobile touch interactions must handle gesture recovery gracefully. If an incoming phone notification or multi-touch palm gesture triggers a <code>pointercancel</code> event, our system immediately releases pointer capture via <code>liveSvg.releasePointerCapture(e.pointerId)</code> and smoothly snaps the active point picker to the nearest valid internal simplex position, preventing the user interface from locking into a permanent dragging state.</p>
+</section>
+
+        <section id="section-interactive-studio">
+          <h2>7. Interactive SVG Ternary Plot Studio</h2>
+          <p>Explore our fully reactive Ternary Plot Studio below. Drag the interactive point picker across the triangular canvas or select a scientific preset (such as Austenitic Stainless Steel Metallurgy, USDA Soil Textures, or Water-Ethanol-Benzene Extraction) to observe real-time barycentric calculations, customizable grid densities, and copy-ready standalone SVG markup:</p>
+
+          <div class="interactive-sandbox" id="interactive-ternary-studio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2">
+                  <polygon points="12 2 22 20 2 20 12 2"></polygon>
+                  <circle cx="12" cy="14" r="2"></circle>
+                </svg>
+                <span>Interactive SVG Ternary Plot Studio</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Barycentric Engine</span>
+            </div>
+
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="ter-preset-select">Scientific Composition Preset</label>
+                <select id="ter-preset-select" class="control-select">
+                  <option value="alloy-steels" selected>Austenitic Stainless Steel (Fe - Cr - Ni)</option>
+                  <option value="soil-texture">USDA Soil Texture Simplex (Clay - Silt - Sand)</option>
+                  <option value="liquid-extract">Liquid Extraction Phase (Water - Ethanol - Benzene)</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="ter-grid-density-slider">Grid Resolution (<span id="ter-density-val">10% Intervals</span>)</label>
+                <input type="range" id="ter-grid-density-slider" class="control-input" min="5" max="25" step="5" value="10">
+              </div>
+
+              <div class="control-row">
+                <label for="ter-color-palette-select">Apex Color Theme</label>
+                <select id="ter-color-palette-select" class="control-select">
+                  <option value="neon-cyber" selected>Neon Cyber (Lime / Cyan / Coral)</option>
+                  <option value="spectral" selected>Spectral Scientific (Green / Blue / Gold)</option>
+                  <option value="monochrome">High Contrast Monochrome</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="ter-grid-lines-toggle">Simplex Grid Visibility</label>
+                <select id="ter-grid-lines-toggle" class="control-select">
+                  <option value="all" selected>All 3 Axis Families (Full Hex)</option>
+                  <option value="major-only">Major Intervals Only</option>
+                  <option value="minimal">Minimal Perimeter Frame</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="preview-stage-container">
+              <svg id="ter-live-canvas" class="ternary-svg-canvas" viewBox="0 0 760 520" width="760" height="520" xmlns="http://www.w3.org/2000/svg" role="graphics-document" aria-label="Interactive SVG Ternary Plot Canvas">
+                <!-- Procedurally rendered via JS engine -->
+              </svg>
+            </div>
+
+            <div class="stats-readout-box">
+              <div class="stat-item">
+                <span class="stat-label" id="ter-label-a">Component A</span>
+                <span class="stat-val highlight" id="ter-val-a">33.3%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label" id="ter-label-b">Component B</span>
+                <span class="stat-val" style="color:#38BDF8;" id="ter-val-b">33.3%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label" id="ter-label-c">Component C</span>
+                <span class="stat-val" style="color:#F43F5E;" id="ter-val-c">33.4%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Simplex Sum</span>
+                <span class="stat-val" id="ter-val-sum">100.0%</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Active Phase</span>
+                <span class="stat-val highlight" id="ter-val-phase">Austenitic Phase</span>
+              </div>
+            </div>
+
+            <div class="action-btn-row">
+              <button type="button" class="copy-btn" id="ter-copy-code-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Standalone SVG</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-responsive-scaling">
+          <h2>8. Responsive Scaling, Viewport Geometry &amp; Crisp Rendering</h2>
+          <p>Equilateral triangles demand precise aspect ratio management. In rectilinear charts, scaling horizontal and vertical axes independently merely stretches the plot without compromising quantitative meaning. In a ternary diagram, however, non-uniform scaling deforms the equilateral triangle into an arbitrary scalene triangle, warping Viviani's altitude equality and distorting angular coordinate readings.</p>
+
+          <h3>Enforcing Strict Aspect Ratio Preservation</h3>
+          <p>To preserve exact 60-degree angles across all client screens, the SVG declaration incorporates <code>preserveAspectRatio="xMidYMid meet"</code>:</p>
+
+          <pre><code>&lt;svg viewBox="0 0 760 520" preserveAspectRatio="xMidYMid meet" class="responsive-ternary"&gt;
+  &lt;!-- Equilateral geometry preserved across all device displays --&gt;
+&lt;/svg&gt;</code></pre>
+
+          <p>This ensures that the browser's graphics rendering subsystem automatically scales the triangle uniformly, letterboxing or pillarboxing the canvas as needed without altering internal angles.</p>
+
+          <h3>Crisp Grid Lines with shape-rendering</h3>
+          <p>The dozens of angled grid lines crisscrossing the triangle can generate visual moiré patterns or blurry antialiased fringes if rasterized carelessly. Applying <code>shape-rendering="geometricPrecision"</code> to the 60&deg; and 120&deg; lines ensures that sub-pixel rasterization evaluates exact fractional geometric coverage, while the outer triangle perimeter and data markers remain sharp.</p>
+        
+          <h3>Headless Vector Asset Serialization &amp; Publication Export</h3>
+          <p>A vital architectural feature of our SVG Ternary Plot engine is standalone asset exportability. Academic researchers and patent attorneys require high-resolution vector figures capable of rendering crisply in print publications, IEEE/ACM conference proceedings, and LaTeX documents without bitmap pixelation.</p>
+          <p>When the user triggers 'Copy Standalone SVG', our export pipeline gathers the dynamic SVG tree, verifies that all presentation styling is inlined (avoiding external stylesheet dependencies), and wraps the document in compliant XML headers including the official W3C namespace <code>xmlns="http://www.w3.org/2000/svg"</code> and intrinsic <code>viewBox</code> parameters. The exported markup can be imported directly into vector editing suites like Adobe Illustrator, Inkscape, or converted cleanly to PDF/EPS via headless tools like librsvg, ensuring zero typographical or geometric degradation across digital screens and print publication workflows.</p>
+</section>
+
+        <section id="section-accessibility">
+          <h2>9. Inclusive Design &amp; WCAG 2.2 AA Compliance</h2>
+          <p>Complex scientific charts frequently fail accessibility audits when visual data is inaccessible to keyboard-only users or screen readers. Implementing WCAG 2.2 Level AA compliance requires providing full programmatic alternatives.</p>
+
+          <h3>Semantic ARIA Architecture</h3>
+          <p>The SVG DOM is structured with explicit ARIA roles:</p>
+
+          <ul>
+            <li><strong>Root Element:</strong> <code>role="graphics-document"</code>, <code>aria-roledescription="ternary composition diagram"</code>.</li>
+            <li><strong>Interactive Cursor:</strong> <code>role="slider"</code>, <code>aria-label="Composition point picker"</code>, with live <code>aria-valuenow</code> attributes updating as the cursor moves.</li>
+            <li><strong>Data Markers:</strong> <code>role="graphics-symbol"</code>, <code>tabindex="0"</code>, with descriptive labels: <code>aria-label="316L Stainless Steel: 68% Fe, 18% Cr, 14% Ni"</code>.</li>
+          </ul>
+
+          <h3>Off-Screen Tabular Equivalent</h3>
+          <p>For complete compliance, an off-screen HTML table details every sample point's exact numerical percentages, enabling screen reader users to inspect the dataset with standard table navigation commands.</p>
+        
+          <h3>Tactile Hatching &amp; Dual-Channel Data Encoding</h3>
+          <p>According to WCAG 2.2 Success Criterion 1.4.1 (Use of Color), color must never serve as the solitary visual mechanism for conveying vital quantitative information or distinguishing graphical elements. In scientific phase diagrams, coloring two immiscible phase domains in subtle pastel shades of blue and green creates severe barriers for individuals with color vision deficiencies.</p>
+          <p>To establish full dual-channel accessibility, our SVG ternary diagrams pair color with tactile SVG pattern fills. The single-phase homogeneous solution uses a clear background with high-contrast boundary strokes; the two-phase immiscibility envelope incorporates a 45-degree diagonal crosshatch pattern (<code>&lt;pattern id="hatch45"&gt;</code>); and solid crystalline phases utilize stippled dot textures. Even when printed in pure black and white or viewed under extreme accessibility filters, every phase boundary remains unambiguously distinguishable to all observers.</p>
+          <p>Furthermore, each discrete sample marker features distinct geometric symbology: circles represent standard alloys, squares denote experimental batches, and triangles indicate stoichiometric benchmark controls. This multi-redundant encoding scheme ensures that researchers can interpret complex compositional topologies with complete confidence regardless of visual ability.</p>
+</section>
+
+        <section id="section-faq" class="faq-section">
+          <h2>10. Frequently Asked Questions</h2>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What is the fundamental mathematical constraint governing a ternary plot?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              A ternary plot visualizes three-component compositional systems where the variables (a, b, c) are constrained by a constant sum equation: a + b + c = 1 (or 100%). Geometrically, this constraint reduces a three-dimensional problem space into a two-dimensional planar simplex (an equilateral triangle). Any point inside the triangle represents a unique compositional mixture, where the perpendicular distance from each edge corresponds directly to the relative proportion of the opposite apex component.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How does the barycentric-to-Cartesian coordinate transformation work in SVG space?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Given three vertices V_A = (xA, yA), V_B = (xB, yB), and V_C = (xC, yC) forming an equilateral triangle in SVG space, any normalized compositional triplet (a, b, c) satisfying a + b + c = 1 maps to Cartesian coordinates via linear affine combination: P(x, y) = a * V_A + b * V_B + c * V_C. In component form, x = a*xA + b*xB + c*xC and y = a*yA + b*yB + c*yC. This guarantees that 100% of component A maps exactly onto vertex V_A, while binary mixtures along edges have zero contribution from the opposing vertex.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do you calculate the inverse Cartesian-to-barycentric projection for interactive point picking?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              When a user clicks or drags a pointer across the SVG canvas at coordinates (xp, yp), the engine must invert the transformation to recover (a, b, c). By solving the linear 2x2 system defined by triangle edge vectors, the barycentric coordinates are computed as signed triangle area ratios using determinants: a = ((yB - yC)*(xp - xC) + (xC - xB)*(yp - yC)) / det, b = ((yC - yA)*(xp - xC) + (xA - xC)*(yp - yC)) / det, where det = (yB - yC)*(xA - xC) + (xC - xB)*(yA - yC), and c = 1 - a - b. Coordinates are clamped between 0 and 1 to prevent pointer dragging outside the simplex.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How are triangular grid lines constructed across the three compositional axes?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              A complete ternary grid consists of three intersecting families of parallel lines oriented at 60-degree and 120-degree angles. For component A, isolines of constant a (e.g., a = 0.2, 0.4, 0.6, 0.8) run parallel to the base edge connecting V_B and V_C. The start and end vertices of each grid line are computed by evaluating binary mixtures along the adjacent edges: one endpoint at (a, 1-a, 0) along edge AB and the other at (a, 0, 1-a) along edge AC. Repeating this procedure for components B and C forms an equilateral hexagonal coordinate grid.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What reading convention standardizes axis tick directions on ternary plots?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Ternary diagrams follow two primary reading conventions: clockwise and counter-clockwise. The international standard (utilized in metallurgy and chemical engineering) adopts the clockwise convention: to read component A, follow the grid line running from the AB edge parallel to the BC base toward the AC axis. Axis ticks are angled at 60 degrees matching the parallel isolines, and tick labels explicitly indicate increasing percentage directions to eliminate ambiguity for researchers.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How does an SVG ternary plot achieve WCAG 2.2 AA accessibility standards?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Achieving WCAG 2.2 AA requires providing non-visual and tactile access to compositional data. The root SVG container is annotated with role='graphics-document' and aria-roledescription='ternary composition diagram'. Individual data points carry role='graphics-symbol', tabindex='0' for keyboard navigation, and explicit labels (e.g., 'Alloy Sample 4: 55% Fe, 25% Ni, 20% Cr'). Furthermore, phase boundaries incorporate tactile dashed strokes and high-contrast color fills (> 3:1 against background), complemented by an off-screen accessible HTML table listing all compositional tuples.
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <a href="#section-foundations">1. Foundations of Ternary Plots</a>
+            <a href="#section-barycentric-calculus">2. Barycentric Coordinate Calculus</a>
+            <a href="#section-grid-topology">3. Simplex Grid Generation &amp; Topology</a>
+            <a href="#section-architecture-pipeline">4. Figure 2: Mathematical Architecture</a>
+            <a href="#section-phase-space">5. Phase Space Boundaries &amp; Tie-Lines</a>
+            <a href="#section-interactive-picking">6. Point Picking &amp; Coordinate Inversion</a>
+            <a href="#section-interactive-studio">7. Interactive SVG Ternary Plot Studio</a>
+            <a href="#section-responsive-scaling">8. Viewport Geometry &amp; Crisp Rendering</a>
+            <a href="#section-accessibility">9. Inclusive Design &amp; WCAG 2.2 AA</a>
+            <a href="#section-faq">10. Frequently Asked Questions</a>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <div class="cta-title">SVG Visualization Library</div>
+          <p>Explore IconStash's extensive collection of developer-first SVG icons, design tools, and data visualization primitives.</p>
+          <a href="/articles/" class="header-cta" style="display:inline-block; text-align:center;">Explore Tools</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; text-align: left; margin-bottom: 32px;">
+      <div style="flex: 1 1 260px;">
+        <div style="font-weight: 800; font-size: 16px; color: #FFF; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          IconStash
+        </div>
+        <p style="font-size: 13.5px; color: #777; line-height: 1.6;">The premier modern platform for high-performance SVG graphics, data visualization architectures, and developer tools.</p>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #999; margin-bottom: 12px;">Navigation</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+          <a href="/articles/">Articles &amp; Guides</a>
+          <a href="/articles/">Developer Studio</a>
+          <a href="/about/">About IconStash</a>
+          <a href="/privacy/">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <p>&copy; 2026 IconStash.io. Published by Great Software Company. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function() {
+      // Theme Toggle Logic
+      const themeBtn = document.getElementById('theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          try { localStorage.setItem('iconstash-theme', newTheme); } catch (_) {}
+        });
+      }
+
+      // Interactive Ternary Plot Engine
+      const presetSelect = document.getElementById('ter-preset-select');
+      const densitySlider = document.getElementById('ter-grid-density-slider');
+      const densityVal = document.getElementById('ter-density-val');
+      const paletteSelect = document.getElementById('ter-color-palette-select');
+      const gridToggle = document.getElementById('ter-grid-lines-toggle');
+      const liveSvg = document.getElementById('ter-live-canvas');
+      const copyBtn = document.getElementById('ter-copy-code-btn');
+
+      const labelA = document.getElementById('ter-label-a');
+      const labelB = document.getElementById('ter-label-b');
+      const labelC = document.getElementById('ter-label-c');
+      const valA = document.getElementById('ter-val-a');
+      const valB = document.getElementById('ter-val-b');
+      const valC = document.getElementById('ter-val-c');
+      const valSum = document.getElementById('ter-val-sum');
+      const valPhase = document.getElementById('ter-val-phase');
+
+      const PRESETS = {
+        'alloy-steels': {
+          names: ['Iron (Fe)', 'Chromium (Cr)', 'Nickel (Ni)'],
+          samples: [
+            { a: 0.70, b: 0.18, c: 0.12, name: '304 Stainless' },
+            { a: 0.65, b: 0.20, c: 0.15, name: '316L Marine' },
+            { a: 0.52, b: 0.25, c: 0.23, name: 'Super Austenitic' },
+            { a: 0.82, b: 0.12, c: 0.06, name: 'Ferritic Steel' }
+          ],
+          phaseFunc: (a, b, c) => {
+            if (c >= 0.08 && b >= 0.16) return 'Austenitic (&gamma;)';
+            if (c < 0.05 && b >= 0.12) return 'Ferritic (&alpha;)';
+            if (a > 0.85) return 'Martensitic (&alpha;\')';
+            return 'Duplex (&alpha; + &gamma;)';
+          }
+        },
+        'soil-texture': {
+          names: ['Clay Fraction', 'Silt Fraction', 'Sand Fraction'],
+          samples: [
+            { a: 0.45, b: 0.30, c: 0.25, name: 'Heavy Clay' },
+            { a: 0.20, b: 0.40, c: 0.40, name: 'Agricultural Loam' },
+            { a: 0.10, b: 0.15, c: 0.75, name: 'Sandy Loam' },
+            { a: 0.05, b: 0.85, c: 0.10, name: 'Silt Soil' }
+          ],
+          phaseFunc: (a, b, c) => {
+            if (a >= 0.40) return 'Clay Domain';
+            if (c >= 0.70) return 'Sand Domain';
+            if (b >= 0.80) return 'Silt Domain';
+            return 'Loam Matrix';
+          }
+        },
+        'liquid-extract': {
+          names: ['Water Solvent', 'Ethanol Solute', 'Benzene Carrier'],
+          samples: [
+            { a: 0.60, b: 0.35, c: 0.05, name: 'Aqueous Rich' },
+            { a: 0.10, b: 0.40, c: 0.50, name: 'Organic Phase' },
+            { a: 0.25, b: 0.55, c: 0.20, name: 'Plait Region' }
+          ],
+          phaseFunc: (a, b, c) => {
+            if (b > 0.50) return 'Single Liquid Phase';
+            if (a > 0.10 && c > 0.10) return 'Two-Phase Immiscibility';
+            return 'Homogeneous Solution';
+          }
+        }
+      };
+
+      const PALETTES = {
+        'neon-cyber': { a: '#C1DD2D', b: '#38BDF8', c: '#F43F5E', grid: '#242424', bg: '#0A0A0A' },
+        'spectral': { a: '#10B981', b: '#3B82F6', c: '#F59E0B', grid: '#2A2A2A', bg: '#0A0A0A' },
+        'monochrome': { a: '#FFFFFF', b: '#D4D4D8', c: '#A1A1AA', grid: '#262626', bg: '#0A0A0A' }
+      };
+
+      // Current Interactive State
+      let userPoint = { a: 0.45, b: 0.30, c: 0.25 };
+      let isDragging = false;
+
+      function renderTernary() {
+        const pKey = presetSelect.value || 'alloy-steels';
+        const preset = PRESETS[pKey] || PRESETS['alloy-steels'];
+        const names = preset.names;
+
+        const gridStepPct = parseInt(densitySlider.value, 10) || 10;
+        densityVal.textContent = gridStepPct + '% Intervals';
+
+        const palKey = paletteSelect.value || 'neon-cyber';
+        const colors = PALETTES[palKey] || PALETTES['neon-cyber'];
+        const gridVisibility = gridToggle.value || 'all';
+
+        // Update Component Labels
+        labelA.textContent = names[0];
+        labelB.textContent = names[1];
+        labelC.textContent = names[2];
+
+        // 1. Simplex Equilateral Geometry
+        const viewW = 760;
+        const viewH = 520;
+        const cx = viewW / 2;
+        const cy = viewH / 2 + 15;
+        const sideL = 380;
+        const altitude = (Math.sqrt(3) / 2) * sideL;
+
+        const vA = { x: cx, y: cy - (2 / 3) * altitude };
+        const vB = { x: cx - sideL / 2, y: cy + (1 / 3) * altitude };
+        const vC = { x: cx + sideL / 2, y: cy + (1 / 3) * altitude };
+
+        function bToCart(a, b, c) {
+          return {
+            x: a * vA.x + b * vB.x + c * vC.x,
+            y: a * vA.y + b * vB.y + c * vC.y
+          };
+        }
+
+        // 2. Simplex Base Floor Polygon
+        const simplexFloor = `
+          <polygon points="${vA.x.toFixed(1)},${vA.y.toFixed(1)} ${vB.x.toFixed(1)},${vB.y.toFixed(1)} ${vC.x.toFixed(1)},${vC.y.toFixed(1)}"
+                   fill="#121212" stroke="#333333" stroke-width="2" />
+        `;
+
+        // 3. Procedural Hexagonal Grid Lines
+        let gridMarkup = '';
+        if (gridVisibility !== 'minimal') {
+          const steps = 100 / gridStepPct;
+          for (let i = 1; i < steps; i++) {
+            const frac = i / steps;
+
+            // Family A: constant A (horizontal)
+            if (gridVisibility === 'all' || i % 2 === 0) {
+              const pA1 = bToCart(frac, 1 - frac, 0);
+              const pA2 = bToCart(frac, 0, 1 - frac);
+              gridMarkup += `<line x1="${pA1.x.toFixed(1)}" y1="${pA1.y.toFixed(1)}" x2="${pA2.x.toFixed(1)}" y2="${pA2.y.toFixed(1)}" stroke="${colors.grid}" stroke-width="1" />`;
+            }
+
+            // Family B: constant B (slanted 60 deg)
+            if (gridVisibility === 'all' || i % 2 === 0) {
+              const pB1 = bToCart(1 - frac, frac, 0);
+              const pB2 = bToCart(0, frac, 1 - frac);
+              gridMarkup += `<line x1="${pB1.x.toFixed(1)}" y1="${pB1.y.toFixed(1)}" x2="${pB2.x.toFixed(1)}" y2="${pB2.y.toFixed(1)}" stroke="${colors.grid}" stroke-width="1" />`;
+            }
+
+            // Family C: constant C (slanted 120 deg)
+            if (gridVisibility === 'all' || i % 2 === 0) {
+              const pC1 = bToCart(1 - frac, 0, frac);
+              const pC2 = bToCart(0, 1 - frac, frac);
+              gridMarkup += `<line x1="${pC1.x.toFixed(1)}" y1="${pC1.y.toFixed(1)}" x2="${pC2.x.toFixed(1)}" y2="${pC2.y.toFixed(1)}" stroke="${colors.grid}" stroke-width="1" />`;
+            }
+          }
+        }
+
+        // 4. Sample Preset Points
+        let samplesMarkup = '';
+        preset.samples.forEach(s => {
+          const pt = bToCart(s.a, s.b, s.c);
+          samplesMarkup += `
+            <g class="ternary-sample" tabindex="0" role="graphics-symbol" aria-label="${s.name}: ${(s.a*100).toFixed(0)}% A, ${(s.b*100).toFixed(0)}% B, ${(s.c*100).toFixed(0)}% C">
+              <circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="#38BDF8" stroke="#FFFFFF" stroke-width="1.5" />
+              <text x="${pt.x.toFixed(1)}" y="${(pt.y - 10).toFixed(1)}" fill="#DDD" font-family="'Inter', sans-serif" font-size="11" font-weight="600" text-anchor="middle" pointer-events="none">
+                ${s.name}
+              </text>
+            </g>
+          `;
+        });
+
+        // 5. Active User Draggable Pointer
+        const userPt = bToCart(userPoint.a, userPoint.b, userPoint.c);
+        const cursorMarkup = `
+          <!-- Projected guideline crosshairs -->
+          <line x1="${vA.x.toFixed(1)}" y1="${userPt.y.toFixed(1)}" x2="${userPt.x.toFixed(1)}" y2="${userPt.y.toFixed(1)}" stroke="${colors.a}" stroke-dasharray="2,2" stroke-width="1" />
+          <circle cx="${userPt.x.toFixed(1)}" cy="${userPt.y.toFixed(1)}" r="10" fill="${colors.a}" fill-opacity="0.25" stroke="${colors.a}" stroke-width="2" />
+          <circle cx="${userPt.x.toFixed(1)}" cy="${userPt.y.toFixed(1)}" r="4" fill="#FFFFFF" />
+        `;
+
+        // 6. Apex Labels & Coordinates
+        const labelsMarkup = `
+          <!-- Apex A -->
+          <text x="${vA.x.toFixed(1)}" y="${(vA.y - 20).toFixed(1)}" fill="${colors.a}" font-family="'Inter', sans-serif" font-size="14" font-weight="800" text-anchor="middle">
+            ▲ ${names[0]} (100%)
+          </text>
+          <!-- Apex B -->
+          <text x="${(vB.x - 20).toFixed(1)}" y="${(vB.y + 24).toFixed(1)}" fill="${colors.b}" font-family="'Inter', sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+            ◀ ${names[1]} (100%)
+          </text>
+          <!-- Apex C -->
+          <text x="${(vC.x + 20).toFixed(1)}" y="${(vC.y + 24).toFixed(1)}" fill="${colors.c}" font-family="'Inter', sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+            ${names[2]} (100%) ▶
+          </text>
+        `;
+
+        // Assemble Canvas
+        liveSvg.innerHTML = `
+          <rect width="${viewW}" height="${viewH}" fill="#0A0A0A" rx="8" />
+          ${simplexFloor}
+          <g class="ternary-grid-group">${gridMarkup}</g>
+          <g class="ternary-samples-group">${samplesMarkup}</g>
+          <g class="ternary-cursor-group">${cursorMarkup}</g>
+          <g class="ternary-labels-group">${labelsMarkup}</g>
+        `;
+
+        // Update Readouts
+        valA.textContent = (userPoint.a * 100).toFixed(1) + '%';
+        valB.textContent = (userPoint.b * 100).toFixed(1) + '%';
+        valC.textContent = (userPoint.c * 100).toFixed(1) + '%';
+        valSum.textContent = ((userPoint.a + userPoint.b + userPoint.c) * 100).toFixed(1) + '%';
+        valPhase.textContent = preset.phaseFunc(userPoint.a, userPoint.b, userPoint.c);
+      }
+
+      // Pointer Coordinate Inversion Logic
+      function updatePointerFromEvent(e) {
+        const rect = liveSvg.getBoundingClientRect();
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        // Map client coordinates to 760x520 viewBox space
+        const svgX = ((clientX - rect.left) / rect.width) * 760;
+        const svgY = ((clientY - rect.top) / rect.height) * 520;
+
+        const viewW = 760;
+        const viewH = 520;
+        const cx = viewW / 2;
+        const cy = viewH / 2 + 15;
+        const sideL = 380;
+        const altitude = (Math.sqrt(3) / 2) * sideL;
+
+        const vA = { x: cx, y: cy - (2 / 3) * altitude };
+        const vB = { x: cx - sideL / 2, y: cy + (1 / 3) * altitude };
+        const vC = { x: cx + sideL / 2, y: cy + (1 / 3) * altitude };
+
+        const det = (vB.y - vC.y) * (vA.x - vC.x) + (vC.x - vB.x) * (vA.y - vC.y);
+        if (Math.abs(det) < 1e-5) return;
+
+        let a = ((vB.y - vC.y) * (svgX - vC.x) + (vC.x - vB.x) * (svgY - vC.y)) / det;
+        let b = ((vC.y - vA.y) * (svgX - vC.x) + (vA.x - vC.x) * (svgY - vC.y)) / det;
+        let c = 1.0 - a - b;
+
+        // Clamping to unit simplex boundaries
+        a = Math.max(0, Math.min(1, a));
+        b = Math.max(0, Math.min(1, b));
+        c = Math.max(0, Math.min(1, c));
+        const s = a + b + c || 1;
+
+        userPoint = { a: a / s, b: b / s, c: c / s };
+        renderTernary();
+      }
+
+      // Pointer Capture & Drag Listeners with touch-action: none
+      liveSvg.addEventListener('pointerdown', e => {
+        isDragging = true;
+        try { liveSvg.setPointerCapture(e.pointerId); } catch (_) {}
+        updatePointerFromEvent(e);
+      });
+
+      liveSvg.addEventListener('pointermove', e => {
+        if (isDragging) {
+          updatePointerFromEvent(e);
+        }
+      });
+
+      const stopDragging = e => {
+        if (isDragging) {
+          try { liveSvg.releasePointerCapture(e.pointerId); } catch (_) {}
+          isDragging = false;
+        }
+      };
+
+      liveSvg.addEventListener('pointerup', stopDragging);
+      liveSvg.addEventListener('pointercancel', stopDragging);
+
+      // Controls Listeners
+      presetSelect.addEventListener('change', () => {
+        const pKey = presetSelect.value || 'alloy-steels';
+        const p = PRESETS[pKey] || PRESETS['alloy-steels'];
+        if (p.samples && p.samples.length > 0) {
+          userPoint = { a: p.samples[0].a, b: p.samples[0].b, c: p.samples[0].c };
+        }
+        renderTernary();
+      });
+      densitySlider.addEventListener('input', renderTernary);
+      paletteSelect.addEventListener('change', renderTernary);
+      gridToggle.addEventListener('change', renderTernary);
+
+      // Copy Standalone SVG with XMLNS and fallback
+      copyBtn.addEventListener('click', () => {
+        let svgSource = liveSvg.outerHTML;
+        if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
+          svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(svgSource).then(() => {
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>';
+            }, 2000);
+          }).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+
+        function fallbackCopy() {
+          const ta = document.createElement('textarea');
+          ta.value = svgSource;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>';
+            }, 2000);
+          } catch (e) {
+            alert('Copy failed: ' + e.message);
+          }
+          document.body.removeChild(ta);
+        }
+      });
+
+      // Initial Render
+      renderTernary();
+    })();
+  </script>
+</body>
+</html>

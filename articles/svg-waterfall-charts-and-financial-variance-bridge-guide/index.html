@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering SVG Waterfall Charts: Financial Variance Bridges, Cumulative Offsets &amp; Delta Connectors (2026) | IconStash</title>
+  <meta name="description" content="Master SVG waterfall charts: cumulative offset mathematics, financial variance bridges, floating delta bars, subtotal pillars, and accessible rendering.">
+  <meta name="keywords" content="svg waterfall chart, financial variance bridge svg, cumulative offset mathematics, floating bar chart svg, ebitda bridge vector, svg step connector path, d3 waterfall alternative, accessible financial visualization">
+  <meta property="og:title" content="Mastering SVG Waterfall Charts: Financial Variance Bridges, Cumulative Offsets &amp; Delta Connectors (2026)">
+  <meta property="og:description" content="Master SVG waterfall charts: cumulative offset mathematics, financial variance bridges, floating delta bars, subtotal pillars, and accessible rendering.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-waterfall-charts-and-financial-variance-bridge-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-waterfall-charts-and-financial-variance-bridge-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-22T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-22T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Financial Data Visualization">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="Waterfall Charts">
+  <meta property="article:tag" content="Financial Visualization">
+  <meta property="article:tag" content="Mathematics">
+  <meta property="article:tag" content="Data Architecture">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mastering SVG Waterfall Charts: Financial Variance Bridges, Cumulative Offsets &amp; Delta Connectors (2026)">
+  <meta name="twitter:description" content="Master SVG waterfall charts: cumulative offset mathematics, financial variance bridges, floating delta bars, subtotal pillars, and accessible rendering.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-waterfall-charts-and-financial-variance-bridge-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-waterfall-charts-and-financial-variance-bridge-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering SVG Waterfall Charts: Financial Variance Bridges, Cumulative Offsets & Delta Connectors (2026)",
+      "description": "Master SVG waterfall charts: cumulative offset mathematics, financial variance bridges, floating delta bars, subtotal pillars, and accessible rendering.",
+      "image": "https://iconstash.io/assets/articles/svg-waterfall-charts-and-financial-variance-bridge-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-22",
+      "dateModified": "2026-11-22",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-waterfall-charts-and-financial-variance-bridge-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4480,
+      "articleSection": "Financial Data Visualization",
+      "keywords": [
+        "svg waterfall chart",
+        "financial variance bridge svg",
+        "cumulative offset mathematics",
+        "floating bar chart svg",
+        "ebitda bridge vector",
+        "svg step connector path",
+        "d3 waterfall alternative",
+        "accessible financial visualization"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Waterfall Charts & Financial Variance Guide",
+          "item": "https://iconstash.io/articles/svg-waterfall-charts-and-financial-variance-bridge-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the mathematical distinction between a standard bar chart and an SVG waterfall chart?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In a standard bar chart, every bar originates from a shared, static baseline (typically y = 0), and bar height represents an independent absolute value. In contrast, an SVG waterfall chart (also known as a variance bridge) renders sequential floating columns where each intermediate step's vertical origin is defined dynamically by the cumulative sum of all prior increments and decrements. Each intermediate bar's vertical coordinate is computed as y_base = min(S_{i-1}, S_i) in world space, visually bridging the transition between initial and final financial states."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you handle negative values and crossings below zero in SVG coordinate space?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because SVG canvas coordinates invert the vertical Cartesian axis (y = 0 resides at the top of the viewport and increases downward), rendering negative financial balances requires bidirectional vertical projection. When an intermediate running sum crosses below the zero datum line, the bar's upper edge corresponds to the higher numerical value while its lower edge extends downward past the zero line. The developer must project world coordinates through a linear transformation y_svg = y_top + (y_max - v) * (plot_height / (y_max - y_min)), calculating bar height as abs(delta) * scale."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are horizontal stepped bridge connectors constructed between adjacent waterfall bars?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bridge connectors are discrete SVG path or line elements that visually link the trailing cumulative balance of step i with the leading origin of step i+1. In vector space, the connector spans from x1 = x_i + bar_width to x2 = x_{i+1} at a constant vertical level y = y_scale(S_i). Rendering these connectors with shape-rendering='crispEdges' and subtle dashed strokes prevents optical anti-aliasing blurring and reinforces the continuous stepped narrative of the variance reconciliation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What visual semantics distinguish total baseline pillars from floating delta bars?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Total baseline pillars (such as Starting Revenue, Intermediate Gross Profit, and Ending Net Income) originate directly from the zero baseline (y = y_zero) and represent cumulative net positions. Floating delta bars represent incremental positive contributions (gains, revenue expansion) or negative decrements (costs, churn, taxation). High-performing financial dashboards assign neutral or branded solid fills to total pillars, vibrant green or cyan tones to positive additions, and distinct coral or crimson tones to negative deductions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can dynamic numerical labels avoid overlapping on narrow or tightly packed waterfall bars?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Label collision avoidance in waterfall charts relies on adaptive placement logic. If a bar's height exceeds the label's typographical bounding box (typically >= 24 pixels), the label is centered inside the bar in contrasting white text. If the bar is too short, positive delta labels are hoisted 8 pixels above the top edge, while negative delta labels are pushed 16 pixels below the lower edge. For compact horizontal screens, numbers are formatted with standard financial currency suffixes (e.g., $1.4M or ($320K))."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an SVG waterfall chart achieve strict WCAG 2.2 AA accessibility compliance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Achieving WCAG 2.2 AA compliance requires multi-layered accessible architecture. The root SVG container carries role='graphics-document' with aria-roledescription='financial waterfall chart' and an informative aria-label. Individual variance bars are tagged with role='graphics-symbol' or role='listitem', containing detailed aria-labels detailing step name, variance delta, and resulting cumulative subtotal. Furthermore, an off-screen accessible HTML data table or ARIA live region ensures screen reader users receive structured tabular data without visual reliance."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
+
+    .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #C1DD2D; font-weight: 500; }
+
+    .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
+    .article-meta a { color: #999; font-weight: 600; }
+    .article-meta a:hover { color: #C1DD2D; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+    .article-main { min-width: 0; }
+
+    .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
+    .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
+    .featured-summary ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .featured-summary li { position: relative; padding-left: 20px; font-size: 15px; color: #B0B0B0; line-height: 1.6; }
+    .featured-summary li::before { content: "•"; position: absolute; left: 0; color: #C1DD2D; font-size: 20px; line-height: 1; top: 2px; }
+
+    .article-figure { margin: 32px 0 40px; text-align: center; }
+    .article-figure img, .article-figure svg { border-radius: 8px; border: 1px solid #242424; width: 100%; height: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .article-figure figcaption { margin-top: 12px; font-size: 13.5px; color: #888; line-height: 1.5; font-style: italic; }
+
+    h2 { font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1C1C1C; }
+    h3 { font-size: 21px; font-weight: 700; color: #F2F2F2; letter-spacing: -0.01em; margin: 32px 0 16px; }
+    h4 { font-size: 17px; font-weight: 600; color: #DDD; margin: 24px 0 12px; }
+    p { margin-bottom: 20px; color: #C8C8C8; font-size: 16.5px; line-height: 1.8; }
+    p strong { color: #FFFFFF; font-weight: 600; }
+    ul, ol { margin: 0 0 24px 24px; color: #C8C8C8; font-size: 16px; line-height: 1.75; }
+    li { margin-bottom: 8px; }
+
+    pre { background: #111111; border: 1px solid #222222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0 32px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.65; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 14px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    .formula-card { background: #121212; border: 1px solid #242424; border-left: 3px solid #C1DD2D; border-radius: 6px; padding: 20px 24px; margin: 24px 0 28px; }
+    .formula-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; margin-bottom: 8px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; overflow-x: auto; padding: 4px 0; }
+    .formula-desc { font-size: 14px; color: #999; line-height: 1.6; }
+
+    .table-container { width: 100%; overflow-x: auto; margin: 28px 0 36px; border: 1px solid #222; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    th { background: #141414; color: #FFF; font-weight: 700; padding: 14px 18px; border-bottom: 1px solid #242424; white-space: nowrap; }
+    td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #AAA; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 10px; padding: 24px; margin: 36px 0 44px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .sandbox-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #242424; padding-bottom: 16px; margin-bottom: 20px; }
+    .sandbox-title { font-size: 18px; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 12.5px; font-weight: 600; color: #999; }
+    .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
+    .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
+
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 520px; user-select: none; touch-action: none; }
+    .waterfall-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; cursor: default; }
+
+    .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; }
+    .stat-val { font-size: 16px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .action-btn-row { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+    .copy-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 150ms ease; }
+    .copy-btn:hover { background: #D2ED3E; }
+
+    .article-sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #C1DD2D; margin-bottom: 14px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
+    .toc-nav a { color: #888; display: block; line-height: 1.4; padding: 2px 0; }
+    .toc-nav a:hover { color: #C1DD2D; }
+    .cta-sidebar-box { background: rgba(193,221,45,0.06); border: 1px solid rgba(193,221,45,0.25); border-radius: 8px; padding: 18px; text-align: left; }
+    .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { font-size: 15px; color: #C1DD2D; margin-bottom: 8px; font-weight: 700; }
+    .cta-sidebar-box p { font-size: 13px; color: #BBB; line-height: 1.5; margin-bottom: 12px; }
+
+    .takeaway-box { background: #121212; border: 1px solid #242424; border-radius: 8px; padding: 24px 28px; margin: 36px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 19px; margin-top: 0; margin-bottom: 14px; }
+    .takeaway-box ul { margin-bottom: 0; }
+
+    .warning-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #EF4444; border-radius: 6px; padding: 18px 22px; margin: 28px 0; }
+    .warning-box .warning-title, .warning-box h4 { color: #F87171; font-size: 15px; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #222; }
+    .faq-item { border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; background: #121212; overflow: hidden; }
+    .faq-question { padding: 18px 22px; font-size: 16px; font-weight: 700; color: #FFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 22px 18px; font-size: 15px; color: #B0B0B0; line-height: 1.7; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1C1C1C; padding: 48px 24px; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box .cta-title, .cta-sidebar-box h4 { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .data-table th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/stats/">Stats</a>
+      <a href="/about/">About</a>
+      <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle visual theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/articles/" class="header-cta">Browse 135 Guides</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">SVG Waterfall Charts &amp; Variance Bridges</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Financial Data Visualization</span>
+      <h1>Mastering SVG Waterfall Charts: Financial Variance Bridges, Cumulative Offsets &amp; Delta Connectors (2026)</h1>
+      <div class="article-meta">
+        <span>Published by <a href="/about/">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>Updated November 22, 2026</span>
+        <span>•</span>
+        <span>34 min read</span>
+        <span>•</span>
+        <span>4,620 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Executive Architecture Summary:</strong> SVG waterfall charts (frequently designated in financial engineering as variance bridges, walk charts, or flying bricks) represent one of the most critical visual instruments in modern analytical reporting. Rather than anchoring bars to a shared zero line, waterfall charts model sequential financial mechanics through cumulative floating offsets, visually deconstructing how positive gains and negative decrements transform an initial balance into a final bottom-line result.</p>
+          <ul>
+            <li><strong>Mathematical Accumulator Engine:</strong> Master recursive running-sum offsets <code>S_i = S_{i-1} + &Delta;_i</code>, dynamic baseline derivation <code>y_base = min(S_{i-1}, S_i)</code>, and coordinate transformations between raw currency metrics and inverted SVG viewport pixels.</li>
+            <li><strong>Stepped Delta Connectors:</strong> Implement pixel-perfect horizontal bridge lines bridging consecutive balance intervals with zero visual jitter using SVG path trajectories and sub-pixel snapping.</li>
+            <li><strong>Bidirectional Zero Crossing:</strong> Robust handling of financial deficits, operating losses, and sub-zero cumulative positions across negative quadrants without geometric inversion artifacts.</li>
+            <li><strong>Dynamic Typography &amp; Accounting Layouts:</strong> Enterprise collision avoidance positioning labels above positive steps, below negative steps, and centered within large pillars with parentheses-wrapped accounting formatting.</li>
+            <li><strong>Production Studio:</strong> Explore our interactive SVG Waterfall Studio featuring real-time financial walks, customizable step widths, color schemes, and standalone copy-ready SVG export.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-waterfall-charts-and-financial-variance-bridge-guide.jpg"
+               alt="Mastering SVG Waterfall Charts and Financial Variance Bridges Graphic"
+               width="1200" height="675"
+               fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: High-precision SVG financial variance bridge illustrating cumulative offsets, floating delta bars, subtotal pillars, and stepped connector geometry.</figcaption>
+        </figure>
+
+        <section id="section-taxonomy">
+          <h2>1. Anatomical Taxonomy of Waterfall Charts &amp; Variance Bridges</h2>
+          <p>Financial decision-makers rely heavily on waterfall charts because traditional bar charts and line graphs fail to convey causal attribution. When executive leadership reviews quarterly earnings, knowing that EBITDA moved from $12.4M in Q1 to $15.1M in Q2 is insufficient; they require an exact, auditable accounting of the discrete operational drivers that caused that delta. A financial variance bridge visualizes this transformation step by step, isolating volume growth, price realizations, cost of goods sold (COGS) inflations, headcount expansions, and foreign exchange currency tailwinds.</p>
+
+          <p>From an architectural standpoint, an SVG waterfall chart is composed of four distinct visual and mathematical entities:</p>
+
+          <ol>
+            <li><strong>Total Baseline Pillars (Anchors):</strong> The opening and closing columns of the chart (and occasional major intermediate checkpoints such as Gross Margin or Operating Profit). These bars originate directly from the ground datum line (<code>y = 0</code> in financial space) and extend upward or downward to represent absolute cumulative balances. In visual hierarchy, total pillars carry heavier visual weight and neutral styling.</li>
+            <li><strong>Floating Delta Columns:</strong> The intermediate operational steps representing positive increments (revenue expansion, cost savings, favorable variances) or negative decrements (churn, supply chain inflation, marketing expenditures). Crucially, these bars do not touch the baseline; their vertical position floats in space, suspended between the cumulative balance preceding the step and the balance resulting from the step.</li>
+            <li><strong>Stepped Bridge Connectors:</strong> Horizontal or stepped vector paths that span the interstitial horizontal gap between adjacent columns. These lines connect the trailing edge of step <code>i</code> to the leading edge of step <code>i+1</code> at the exact vertical height of the intermediate balance, visually guiding the viewer's eye across the mathematical continuum.</li>
+            <li><strong>Reference Zero Datum &amp; Grid Matrix:</strong> An explicit horizontal reference line representing zero balance, supplemented by subtle horizontal rule grids that enable immediate quantitative reading across the full financial domain.</li>
+          </ol>
+
+          <h3>Enterprise Use Cases: Strategic M&amp;A, SaaS Metrics &amp; Budget Allocations</h3>
+          <p>Across enterprise software and capital markets, waterfall visualizations fulfill distinct strategic mandates depending on the operational domain:</p>
+
+          <ul>
+            <li><strong>Corporate Finance &amp; EBITDA Bridges:</strong> In merger and acquisition due diligence, private equity sponsors construct EBITDA walks to demonstrate how pro-forma earnings bridge to post-synergy EBITDA. Every discrete operational initiative—such as supply chain consolidation, vendor renegotiation, and shared services automation—receives its own floating bar, validating valuation multiples.</li>
+            <li><strong>SaaS Annual Recurring Revenue (ARR) Decompositions:</strong> In subscription cloud software, companies track Net Revenue Retention (NRR) through sequential ARR walks. The chart starts at Beginning ARR, adds New Logo Bookings and Expansion/Upsell ARR, subtracts Downgrade Contraction and Churn ARR, and arrives at Ending ARR. This decomposition reveals at a glance whether growth is organically driven by customer expansion or masked by costly customer replacement cycles.</li>
+            <li><strong>Manufacturing Standard Costing &amp; Absorption Variances:</strong> In industrial manufacturing, plant controllers deploy variance bridges to dissect differences between standard budgeted unit costs and actual realized costs. The chart isolates purchase price variance (PPV), material usage variance (MUV), labor rate variance, and manufacturing overhead volume absorption.</li>
+          </ul>
+
+          <p>Understanding these diverse domain requirements allows developers to engineer versatile SVG chart components that seamlessly accommodate varying scales, positive and negative baselines, and specialized accounting notation rules.</p>
+        
+          <h3>Behavioral Psychology of Visual Financial Narratives</h3>
+          <p>The cognitive efficacy of waterfall charts is deeply anchored in human perceptual psychology. As established by Jacques Bertin in his foundational treatise <em>Semiology of Graphics</em>, retinal variables such as position along an axis, size, and planar orientation carry varying cognitive loads. When executives view a static tabular income statement, the brain must mentally compute every line-item delta, straining working memory and obscuring the relative magnitude of operational headwinds.</p>
+          <p>By translating numerical variance into continuous spatial motion—where positive increments lift the eye upward and negative decrements cascade downward—the waterfall chart leverages pre-attentive visual processing. Viewers perceive the net trajectory of the business within 150 milliseconds, before conscious analytical processing begins. This perceptual velocity makes the waterfall chart the undisputed lingua franca for corporate board presentations, quarterly earnings webcasts, and investment committee deliberations.</p>
+</section>
+
+        <section id="section-mathematics">
+          <h2>2. Mathematical Coordinate Calculus &amp; Cumulative Offsets</h2>
+          <p>The mathematical heart of any waterfall visualization engine is the cumulative sum accumulator. Given an ordered sequence of <code>N</code> financial events where each event is defined by a tuple <code>E_i = (label_i, &Delta;_i, type_i)</code>, the engine must calculate the running balance <code>S_i</code> at every discrete stage:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Cumulative Sum Accumulator Formulation</div>
+            <div class="formula-body">
+              S_0 = 0, &emsp; S_i = S_{i-1} + &Delta;_i &emsp; (for delta steps)
+            </div>
+            <div class="formula-desc">
+              For total anchor pillars, &Delta;_i represents the full balance and S_i = &Delta;_i. For intermediate floating delta bars, S_i records the progressive net balance after applying the step's delta.
+            </div>
+          </div>
+
+          <p>With the cumulative sequence established, determining the spatial coordinates of each bar requires calculating its lower bound <code>y_{low, i}</code> and upper bound <code>y_{high, i}</code> in financial value space. The critical distinction between positive increments and negative decrements governs these bounds:</p>
+
+          <ul>
+            <li><strong>For a positive delta (&Delta;_i &gt; 0):</strong> The bar starts at the previous cumulative sum <code>S_{i-1}</code> and extends upward to the new cumulative sum <code>S_i</code>. Therefore, in financial space:
+              <code>y_{low, i} = S_{i-1}</code> and <code>y_{high, i} = S_i</code>.
+            </li>
+            <li><strong>For a negative delta (&Delta;_i &lt; 0):</strong> The bar starts at the new, lower cumulative sum <code>S_i</code> and extends upward to the previous cumulative sum <code>S_{i-1}</code>. Thus:
+              <code>y_{low, i} = S_i</code> and <code>y_{high, i} = S_{i-1}</code>.
+            </li>
+            <li><strong>For a total baseline pillar:</strong> The bar always anchors to zero (or the chart floor) and terminates at the current balance:
+              <code>y_{low, i} = min(0, S_i)</code> and <code>y_{high, i} = max(0, S_i)</code>.
+            </li>
+          </ul>
+
+          <p>Expressed as a generalized, branchless mathematical formulation, the financial bounding box of any floating delta bar is simply:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Generalized Floating Bar Bounds</div>
+            <div class="formula-body">
+              y_{bottom, i} = min(S_{i-1}, S_i), &emsp; y_{top, i} = max(S_{i-1}, S_i)
+            </div>
+            <div class="formula-desc">
+              The absolute financial height of the bar is always |&Delta;_i| = y_{top, i} - y_{bottom, i}, regardless of whether the variance is positive, negative, or crossing the zero axis.
+            </div>
+          </div>
+
+          <h3>Projecting World Coordinates into Inverted SVG Canvas Space</h3>
+          <p>In standard Cartesian mathematics, vertical coordinates increase toward the ceiling. In the SVG coordinate system, the origin <code>(0, 0)</code> resides at the top-left corner of the viewport, and the vertical axis <code>y</code> increases downward toward the floor. To map financial values into SVG pixel coordinates, developers must execute a linear affine transformation with inverted vertical orientation.</p>
+
+          <p>Let <code>V_{min}</code> and <code>V_{max}</code> represent the minimum and maximum financial values displayed on the vertical axis (including appropriate visual padding), let <code>H_{plot}</code> denote the pixel height of the plotting area, and let <code>Y_{top}</code> define the top margin offset. The transformation function <code>T_y(v)</code> mapping a financial value <code>v</code> to an SVG pixel coordinate <code>y_{svg}</code> is formulated as:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Inverted SVG Linear Scale Transform</div>
+            <div class="formula-body">
+              T_y(v) = Y_{top} + (V_{max} - v) &times; \frac{H_{plot}}{V_{max} - V_{min}}
+            </div>
+            <div class="formula-desc">
+              When v = V_{max}, T_y(v) yields Y_{top} (top of canvas). When v = V_{min}, T_y(v) yields Y_{top} + H_{plot} (bottom of canvas). When v = 0, T_y(0) calculates the exact pixel coordinate of the zero baseline datum.
+            </div>
+          </div>
+
+          <p>Because higher financial values map to smaller pixel coordinates in SVG, the top coordinate of the SVG <code>&lt;rect&gt;</code> element is generated from <code>T_y(y_{top, i})</code>, and its pixel height is computed as:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">SVG Bar Pixel Height &amp; Top Coordinate</div>
+            <div class="formula-body">
+              y_{rect} = T_y(y_{top, i}), &emsp; h_{rect} = |T_y(y_{top, i}) - T_y(y_{bottom, i})|
+            </div>
+            <div class="formula-desc">
+              This guarantees that the SVG rect is strictly defined with non-negative height and positioned at the correct visual altitude without coordinate overflow.
+            </div>
+          </div>
+
+          <h3>Floating-Point Arithmetic Guarantees &amp; Currency Epsilon Tolerances</h3>
+          <p>A frequent bug encountered in client-side financial rendering engines stems from IEEE 754 double-precision binary floating-point representation. Operations such as adding <code>0.1 + 0.2</code> yield <code>0.30000000000000004</code>. In a financial bridge spanning twenty discrete ledger adjustments, accumulating raw floating-point numbers can introduce cumulative rounding drift, causing the computed ending balance to deviate slightly from the reported balance.</p>
+
+          <p>To eliminate rounding drift, enterprise visualization engines implement two defensive patterns. First, raw financial values are converted to integer micro-units (such as integer cents or basis points) prior to accumulation, ensuring exact integer addition across all intermediate steps. Second, when checking whether the computed ending balance matches the target anchor pillar, the system applies an epsilon comparison rather than strict equality:</p>
+
+          <pre><code>// Safe currency accumulation and epsilon validation
+function accumulateLedgerWithEpsilon(steps, reportedEndTotal) {
+  let runningCents = 0;
+  const processed = steps.map(step =&gt; {
+    const deltaCents = Math.round(step.val * 100);
+    const startCents = runningCents;
+    if (step.type === 'delta') {
+      runningCents += deltaCents;
+    } else if (step.type === 'total') {
+      runningCents = deltaCents;
+    }
+    return {
+      name: step.name,
+      val: step.val,
+      start: startCents / 100,
+      end: runningCents / 100,
+      type: step.type
+    };
+  });
+
+  const computedEnd = runningCents / 100;
+  const diff = Math.abs(computedEnd - reportedEndTotal);
+  if (diff &gt; 1e-4) {
+    console.warn(`Variance reconciliation mismatch: computed ${computedEnd} vs reported ${reportedEndTotal}`);
+  }
+  return processed;
+}</code></pre>
+        
+          <h3>Bidirectional Zero-Crossing Geometry &amp; Deficit Transitions</h3>
+          <p>A sophisticated edge case in financial modeling occurs when a business transitions from positive operational solvency into an interim negative cash deficit before recovering to positive net balances (or vice versa). In standard bar charts, a bar crossing zero is split into two disjointed segments across the x-axis. In a waterfall chart, however, the bar must visually bridge across the zero datum line in a single contiguous column.</p>
+          <p>Consider an intermediate step starting at +$2.5M and declining by -$4.0M, terminating at -$1.5M. In financial space, the bar spans the interval [-1.5, +2.5]. In SVG canvas space, our linear transformation cleanly projects this interval: <code>y_{top} = T_y(+2.5)</code> and <code>y_{bottom} = T_y(-1.5)</code>, with height <code>h = |T_y(2.5) - T_y(-1.5)|</code>. The horizontal zero datum line passes directly through the body of the floating column at <code>y_{zero} = T_y(0)</code>, providing an immediate visual cue that the company dipped into deficit territory during that specific fiscal phase.</p>
+</section>
+
+        <section id="section-svg-paths">
+          <h2>3. SVG Path Construction for Floating Bars &amp; Stepped Bridges</h2>
+          <p>While basic waterfall charts can be constructed using discrete SVG <code>&lt;rect&gt;</code> elements, high-performance financial systems often compile the entire visualization into unified SVG path commands or combine styled rects with procedural connector trajectories. Let us analyze both implementation patterns.</p>
+
+          <h3>Discrete Rectangles vs. Unified Path Synthesis</h3>
+          <p>When using discrete SVG elements, each floating column is instantiated as a <code>&lt;rect&gt;</code> accompanied by an optional rounded corner radius (<code>rx</code>). However, applying <code>rx</code> uniformly to all four corners can produce confusing visual artifacts: in a variance bridge, floating bars represent contiguous flows, and rounding the bottom of a negative bar or the top of a positive bar can visually disconnect the column from its stepped bridge line.</p>
+
+          <p>To achieve professional financial aesthetics, enterprise charts employ directional corner rounding via custom SVG <code>&lt;path&gt;</code> definitions. For example, a positive delta bar rounds only its top two corners, while a negative delta bar rounds only its bottom two corners:</p>
+
+          <pre><code>// Procedural path generator for a directional rounded waterfall bar
+function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
+  const r = Math.min(radius, width / 2, height / 2);
+  if (r &lt;= 0) {
+    return `M ${x} ${y} h ${width} v ${height} h ${-width} Z`;
+  }
+  if (isPositive) {
+    // Round top-left and top-right corners only
+    return `M ${x} ${y + height} ` +
+           `V ${y + r} ` +
+           `A ${r} ${r} 0 0 1 ${x + r} ${y} ` +
+           `H ${x + width - r} ` +
+           `A ${r} ${r} 0 0 1 ${x + width} ${y + r} ` +
+           `V ${y + height} Z`;
+  } else {
+    // Round bottom-left and bottom-right corners only
+    return `M ${x} ${y} ` +
+           `H ${x + width} ` +
+           `V ${y + height - r} ` +
+           `A ${r} ${r} 0 0 1 ${x + width - r} ${y + height} ` +
+           `H ${x + r} ` +
+           `A ${r} ${r} 0 0 1 ${x} ${y + height - r} Z`;
+  }
+}</code></pre>
+
+          <h3>Stepped Bridge Line Trajectories</h3>
+          <p>The stepped connector links the trailing cumulative edge of step <code>i</code> with the leading origin of step <code>i+1</code>. In horizontal pixel layout, let step <code>i</code> occupy horizontal interval <code>[x_i, x_i + W_{bar}]</code>, and let step <code>i+1</code> occupy horizontal interval <code>[x_{i+1}, x_{i+1} + W_{bar}]</code>. The bridge line must span the interstitial gutter between <code>x_i + W_{bar}</code> and <code>x_{i+1}</code>.</p>
+
+          <p>The vertical altitude of this connector corresponds exactly to the cumulative balance at the conclusion of step <code>i</code>: <code>y_{conn} = T_y(S_i)</code>. In SVG syntax, this is rendered as a clean, single-segment horizontal line:</p>
+
+          <pre><code>&lt;line x1="x_i + W_bar" y1="y_conn" x2="x_{i+1}" y2="y_conn"
+      stroke="#444444" stroke-width="1.5" stroke-dasharray="3,3"
+      shape-rendering="crispEdges" /&gt;</code></pre>
+
+          <p>By declaring <code>shape-rendering="crispEdges"</code>, the browser engine disables sub-pixel antialiasing for the connector, snapping the 1.5-pixel line onto integer device coordinates. This prevents the fuzzy, washed-out appearance common in unoptimized vector graphics.</p>
+
+          <h3>Procedural Filter Synthesis: SVG Drop Shadows &amp; Neon Glows</h3>
+          <p>Modern high-contrast analytical interfaces often incorporate subtle drop shadows or neon glows to separate floating columns from background reference grids. While CSS <code>box-shadow</code> does not apply to internal SVG vector paths, developers can define hardware-accelerated SVG filters in the <code>&lt;defs&gt;</code> block:</p>
+
+          <pre><code>&lt;defs&gt;
+  &lt;filter id="barShadow" x="-10%" y="-10%" width="120%" height="130%"&gt;
+    &lt;feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.5" /&gt;
+  &lt;/filter&gt;
+  &lt;filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%"&gt;
+    &lt;feGaussianBlur stdDeviation="2" result="coloredBlur" /&gt;
+    &lt;feMerge&gt;
+      &lt;feMergeNode in="coloredBlur" /&gt;
+      &lt;feMergeNode in="SourceGraphic" /&gt;
+    &lt;/feMerge&gt;
+  &lt;/filter&gt;
+&lt;/defs&gt;</code></pre>
+
+          <p>Applying <code>filter="url(#barShadow)"</code> to floating rectangles provides optical depth, visually lifting floating delta bars above the background grid plane without incurring significant GPU rasterization penalties.</p>
+        </section>
+
+        <section id="section-architecture-pipeline">
+          <h2>4. Figure 2: Mathematical Architecture &amp; Vector Layout Pipeline</h2>
+          <p>High-reliability financial visualization systems decouple business logic from rendering mechanics. Figure 2 illustrates the end-to-end mathematical data pipeline of our SVG Waterfall Chart Engine, transforming raw financial ledger inputs through cumulative accumulation, domain scaling, collision-free label derivation, and responsive DOM emission:</p>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: SVG Waterfall Chart Mathematical Architecture and Vector Layout Pipeline">
+              <rect width="960" height="320" fill="#0D0D0D" rx="8" stroke="#222" stroke-width="1"></rect>
+              <defs>
+                <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#C1DD2D" stop-opacity="0.15"></stop>
+                  <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.05"></stop>
+                </linearGradient>
+                <marker id="wfArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#C1DD2D"></polygon>
+                </marker>
+              </defs>
+
+              <!-- Stage 1: Ledger Ingest -->
+              <g transform="translate(25, 40)">
+                <rect width="180" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="90" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 1: INGESTION</text>
+                <text x="90" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Financial Ledger</text>
+                <rect x="20" y="80" width="140" height="26" fill="#1C1C1C" rx="4"></rect>
+                <text x="90" y="97" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">[{name, &#916;v, type}]</text>
+                <text x="90" y="140" fill="#AAA" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Sequential Audit</text>
+                <text x="90" y="160" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Anchor Tagging</text>
+                <rect x="20" y="184" width="140" height="26" fill="#1C1C1C" rx="4" stroke="#C1DD2D" stroke-width="0.5"></rect>
+                <text x="90" y="201" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Variance Validation</text>
+                <text x="90" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">&#8721; Deltas = Net End</text>
+              </g>
+
+              <!-- Connector 1 -->
+              <line x1="205" y1="160" x2="235" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#wfArrow)"></line>
+
+              <!-- Stage 2: Accumulator -->
+              <g transform="translate(245, 40)">
+                <rect width="200" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="100" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 2: ACCUMULATOR</text>
+                <text x="100" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Running Balance Matrix</text>
+                <rect x="20" y="80" width="160" height="30" fill="#181818" rx="4"></rect>
+                <text x="100" y="100" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">S_i = S_{i-1} + &#916;_i</text>
+                <text x="100" y="140" fill="#AAA" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Bounding Intervals</text>
+                <text x="100" y="160" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">y_{low} = min(S_{i-1}, S_i)</text>
+                <rect x="20" y="184" width="160" height="26" fill="#181818" rx="4" stroke="#38BDF8" stroke-width="0.5"></rect>
+                <text x="100" y="201" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Zero-Crossing Check</text>
+                <text x="100" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Extents: [V_{min}, V_{max}]</text>
+              </g>
+
+              <!-- Connector 2 -->
+              <line x1="445" y1="160" x2="475" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#wfArrow)"></line>
+
+              <!-- Stage 3: Spatial Projection -->
+              <g transform="translate(485, 40)">
+                <rect width="210" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="105" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 3: PROJECTION</text>
+                <text x="105" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Inverted Coordinate Scale</text>
+                <rect x="20" y="80" width="170" height="30" fill="#181818" rx="4"></rect>
+                <text x="105" y="100" fill="#FFF" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">T_y(v) = Y_0 + (V_{max}-v)&#215;s</text>
+                <text x="105" y="140" fill="#AAA" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Step Gutter Calculus</text>
+                <text x="105" y="160" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">x_i = X_0 + i &#215; (W + G)</text>
+                <rect x="20" y="184" width="170" height="26" fill="#181818" rx="4" stroke="#C1DD2D" stroke-width="0.5"></rect>
+                <text x="105" y="201" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">Connectors: y = T_y(S_i)</text>
+                <text x="105" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">crispEdges Alignment</text>
+              </g>
+
+              <!-- Connector 3 -->
+              <line x1="695" y1="160" x2="725" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#wfArrow)"></line>
+
+              <!-- Stage 4: DOM Scene Graph -->
+              <g transform="translate(735, 40)">
+                <rect width="200" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="100" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">STAGE 4: SVG EMISSION</text>
+                <text x="100" y="58" fill="#FFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Reactive Scene Graph</text>
+                <rect x="20" y="80" width="160" height="26" fill="#181818" rx="4"></rect>
+                <text x="100" y="97" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;rect&gt; Floating Bars</text>
+                <rect x="20" y="112" width="160" height="26" fill="#181818" rx="4"></rect>
+                <text x="100" y="129" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;line&gt; Step Bridges</text>
+                <rect x="20" y="144" width="160" height="26" fill="#181818" rx="4"></rect>
+                <text x="100" y="161" fill="#888" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">&lt;text&gt; Adaptive Labels</text>
+                <rect x="20" y="176" width="160" height="26" fill="#181818" rx="4" stroke="#C1DD2D" stroke-width="0.5"></rect>
+                <text x="100" y="193" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="middle">ARIA / WCAG AA Tags</text>
+                <text x="100" y="244" fill="#666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">60 FPS Hardware Render</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Architectural data pipeline and vector layout engine for high-precision SVG waterfall charts.</figcaption>
+          </figure>
+        </section>
+
+        <section id="section-visual-scaffolding">
+          <h2>5. Stepped Delta Connectors &amp; Visual Scaffolding</h2>
+          <p>The visual grammar of a waterfall chart conveys credibility through restraint. While consumer charting packages often burden charts with garish gradients and gratuitous 3D skeuomorphism, institutional finance and engineering executive dashboards prioritize clarity, scannability, and high contrast.</p>
+
+          <h3>Color Semantics: Profit, Loss &amp; Total Pillars</h3>
+          <p>Color choices must immediately inform the user of operational causality without creating visual friction:</p>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Element Category</th>
+                  <th>Dark Theme Hex</th>
+                  <th>Light Theme Hex</th>
+                  <th>Semantic Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Starting / Ending Total Pillars</strong></td>
+                  <td><code>#38BDF8</code> (Sky Blue) / <code>#A3A3A3</code></td>
+                  <td><code>#0284C7</code> / <code>#525252</code></td>
+                  <td>Represents net balance anchors; neutral tone prevents conflation with variance gains or losses.</td>
+                </tr>
+                <tr>
+                  <td><strong>Positive Variances (Gains)</strong></td>
+                  <td><code>#C1DD2D</code> (Neon Lime) / <code>#22C55E</code></td>
+                  <td><code>#4D6300</code> / <code>#16A34A</code></td>
+                  <td>Highlights revenue expansions, operating margin gains, and favorable budget variances.</td>
+                </tr>
+                <tr>
+                  <td><strong>Negative Variances (Losses)</strong></td>
+                  <td><code>#EF4444</code> (Coral Red) / <code>#F43F5E</code></td>
+                  <td><code>#DC2626</code> / <code>#E11D48</code></td>
+                  <td>Clearly flags cost inflations, customer churn, operating expenditures, and headwinds.</td>
+                </tr>
+                <tr>
+                  <td><strong>Bridge Connectors</strong></td>
+                  <td><code>#404040</code> (Dashed 3,3)</td>
+                  <td><code>#D4D4D8</code> (Dashed 3,3)</td>
+                  <td>Provides subtle horizontal eye tracking across steps without dominating foreground data.</td>
+                </tr>
+                <tr>
+                  <td><strong>Zero Datum Reference</strong></td>
+                  <td><code>#525252</code> (Solid 1.5px)</td>
+                  <td><code>#A1A1AA</code> (Solid 1.5px)</td>
+                  <td>Marks the fundamental dividing boundary between positive net assets and negative liabilities.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Subtotal Pillars: Checkpointing Financial Milestones</h3>
+          <p>In extensive multi-stage bridges (such as an Income Statement Walk from Gross Revenue to Net Free Cash Flow), inserting intermediate subtotal pillars is essential. For example, after applying Cost of Goods Sold to Gross Revenue, an intermediate pillar for Gross Profit provides a visual breather before proceeding through Sales &amp; Marketing, Research &amp; Development, and General &amp; Administrative expenditures.</p>
+
+          <p>From an algorithmic perspective, a subtotal pillar is treated identically to an ending total pillar: it draws from <code>y = 0</code> to the current cumulative sum <code>S_i</code>, resetting the relative visual frame for subsequent floating operational deltas.</p>
+        
+          <h3>Connector Styling Variations: Dashed Orthogonal vs. Subtle Diagonal Ramps</h3>
+          <p>While standard financial practice dictates orthogonal horizontal dashed connectors (<code>stroke-dasharray="3,3"</code>), certain institutional design systems favor subtle diagonal connector ramps or shaded transition trapezoids. A diagonal ramp connects <code>(x_i + W, y_{start})</code> directly to <code>(x_{i+1}, y_{end})</code>, forming a continuous polygonal slope across the step gap.</p>
+          <p>However, empirical user testing consistently demonstrates that orthogonal horizontal lines provide superior quantitative precision. Because the human visual cortex excels at aligning horizontal collinear edges against vertical scales, a flat horizontal bridge line allows viewers to visually extrapolate the prior cumulative level directly across the next bar, establishing a reliable visual anchor for measuring the subsequent delta.</p>
+</section>
+
+        <section id="section-label-collision">
+          <h2>6. Label Placement &amp; Dynamic Collision Avoidance</h2>
+          <p>One of the most persistent failure modes in automated charting systems is label collision. When two adjacent variance steps are minuscule (such as a $15K software license variance followed by a $12K travel expense adjustment in a $50M portfolio), naive label placement code renders text blocks directly atop one another, transforming critical financial data into unreadable ink blots.</p>
+
+          <h3>Three-Zone Adaptive Label Allocation</h3>
+          <p>Our production layout engine evaluates the bounding dimensions of each column against the typography footprint, routing the label through three deterministic zones:</p>
+
+          <ol>
+            <li><strong>Interior Center Zone:</strong> If the pixel height of the bar satisfies <code>h_{rect} &ge; 28px</code>, the numerical value is centered within the interior of the rectangle. In dark mode, high-contrast white text (<code>#FFFFFF</code>) ensures immediate readability.</li>
+            <li><strong>Superior Exterior Zone (Positive Steps):</strong> If <code>&Delta;_i &gt; 0</code> and <code>h_{rect} &lt; 28px</code>, the label is elevated above the bar's upper edge: <code>y_{text} = y_{rect} - 8px</code> with <code>text-anchor="middle"</code>.</li>
+            <li><strong>Inferior Exterior Zone (Negative Steps):</strong> If <code>&Delta;_i &lt; 0</code> and <code>h_{rect} &lt; 28px</code>, the label is depressed below the bar's lower edge: <code>y_{text} = y_{rect} + h_{rect} + 16px</code> with <code>text-anchor="middle"</code>.</li>
+          </ol>
+
+          <h3>Standard Financial Typography &amp; Accounting Parentheses</h3>
+          <p>In accordance with GAAP and IFRS financial reporting standards, negative financial variances should be formatted with accounting parentheses rather than hyphenated minus signs. For instance, negative four hundred thousand dollars is rendered as <code>($400K)</code> or <code>($0.4M)</code> rather than <code>-$400K</code>. Our formatting pipeline implements clean scaling:</p>
+
+          <pre><code>function formatFinancialValue(val, currency = '$') {
+  const isNeg = val &lt; 0;
+  const absVal = Math.abs(val);
+  let str = '';
+  if (absVal &gt;= 1e9) {
+    str = (absVal / 1e9).toFixed(1) + 'B';
+  } else if (absVal &gt;= 1e6) {
+    str = (absVal / 1e6).toFixed(1) + 'M';
+  } else if (absVal &gt;= 1e3) {
+    str = (absVal / 1e3).toFixed(0) + 'K';
+  } else {
+    str = absVal.toLocaleString();
+  }
+  return isNeg ? `(${currency}${str})` : `${currency}${str}`;
+}</code></pre>
+        </section>
+
+        <section id="section-interactive-studio">
+          <h2>7. Interactive SVG Financial Waterfall Studio</h2>
+          <p>Explore our fully reactive developer studio below. Toggle between real-world financial variance datasets (including SaaS Net Revenue Retention walks, FY26 EBITDA Reconciliation, and Gross Margin expansion bridges), adjust bar geometry and connector opacity in real time, and copy standalone, production-ready SVG markup directly to your clipboard:</p>
+
+          <div class="interactive-sandbox" id="interactive-waterfall-studio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2">
+                  <path d="M3 3v18h18"></path>
+                  <path d="M7 16h3v-4H7v4z"></path>
+                  <path d="M12 12h3V8h-3v4z"></path>
+                  <path d="M17 8h3V4h-3v4z"></path>
+                </svg>
+                <span>Interactive SVG Financial Waterfall Studio</span>
+              </div>
+              <span class="sandbox-badge">Real-Time Vector Math</span>
+            </div>
+
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="wf-preset-select">Financial Bridge Preset</label>
+                <select id="wf-preset-select" class="control-select">
+                  <option value="ebitda-walk" selected>FY26 EBITDA Reconciliation Bridge</option>
+                  <option value="saas-arr-walk">Enterprise SaaS ARR Expansion / Churn</option>
+                  <option value="gross-margin-walk">Manufacturing Gross Margin Analysis</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="wf-bar-width-slider">Bar Width (<span id="wf-bar-width-val">46px</span>)</label>
+                <input type="range" id="wf-bar-width-slider" class="control-input" min="28" max="64" step="2" value="46">
+              </div>
+
+              <div class="control-row">
+                <label for="wf-connector-opacity-slider">Connector Opacity (<span id="wf-connector-val">0.75</span>)</label>
+                <input type="range" id="wf-connector-opacity-slider" class="control-input" min="0.1" max="1.0" step="0.05" value="0.75">
+              </div>
+
+              <div class="control-row">
+                <label for="wf-color-palette-select">Color Scheme</label>
+                <select id="wf-color-palette-select" class="control-select">
+                  <option value="neon-cyber" selected>Cyber Neon (Lime / Coral / Sky)</option>
+                  <option value="classic-fin">Wall Street Classic (Green / Red / Navy)</option>
+                  <option value="emerald-rose">Modern Emerald &amp; Rose</option>
+                </select>
+              </div>
+
+              <div class="control-row">
+                <label for="wf-label-toggle">Value Labels</label>
+                <select id="wf-label-toggle" class="control-select">
+                  <option value="all" selected>All Values Displayed</option>
+                  <option value="totals-only">Totals &amp; Subtotals Only</option>
+                  <option value="compact">Abbreviated (K / M)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="preview-stage-container">
+              <svg id="wf-live-canvas" class="waterfall-svg-canvas" viewBox="0 0 760 480" width="760" height="480" xmlns="http://www.w3.org/2000/svg" role="graphics-document" aria-label="Interactive SVG Waterfall Chart Canvas">
+                <!-- Procedurally rendered via JS engine -->
+              </svg>
+            </div>
+
+            <div class="stats-readout-box">
+              <div class="stat-item">
+                <span class="stat-label">Opening Anchor</span>
+                <span class="stat-val" id="wf-stat-start">$0M</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Total Gains</span>
+                <span class="stat-val highlight" id="wf-stat-gains">+$0M</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Total Losses</span>
+                <span class="stat-val" style="color:#EF4444;" id="wf-stat-losses">($0M)</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Closing Net</span>
+                <span class="stat-val highlight" id="wf-stat-end">$0M</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Net Variance</span>
+                <span class="stat-val" id="wf-stat-net-delta">+0%</span>
+              </div>
+            </div>
+
+            <div class="action-btn-row">
+              <button type="button" class="copy-btn" id="wf-copy-code-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Standalone SVG</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-performance-optimization">
+          <h2>8. Responsive Viewport Scaling &amp; Performance Optimization</h2>
+          <p>High-frequency financial applications (such as trading risk dashboards and executive ERP portals) often re-render waterfall charts dynamically as filters or real-time simulation parameters fluctuate. Delivering fluid 60 frames-per-second performance while maintaining pristine responsive scaling demands careful vector engineering.</p>
+
+          <h3>Fluid Responsive Geometry with viewBox</h3>
+          <p>Setting fixed <code>width</code> and <code>height</code> pixel values on the root SVG element restricts the chart to static desktop dimensions, causing awkward clipping on tablet viewports and horizontal overflow on mobile screens. Instead, declare an intrinsic aspect ratio using the <code>viewBox</code> attribute alongside responsive CSS rules:</p>
+
+          <pre><code>&lt;svg viewBox="0 0 760 480" preserveAspectRatio="xMidYMid meet" class="responsive-waterfall"&gt;
+  &lt;!-- Vector content rendered in virtual 760x480 coordinate space --&gt;
+&lt;/svg&gt;</code></pre>
+
+          <p>By pairing <code>preserveAspectRatio="xMidYMid meet"</code> with CSS rules <code>width: 100%; height: auto; max-width: 100%;</code>, the SVG graphics engine automatically scales all rects, connector lines, and text labels proportionately across any parent container width without requiring CPU-intensive JavaScript recalculations.</p>
+
+          <h3>Vector-Effect Non-Scaling-Stroke</h3>
+          <p>When an SVG scales down onto smaller mobile screens, border strokes and dashed connector lines can become hair-thin or vanish entirely as GPU rasterizers round sub-pixel stroke widths below 0.5 pixels. Applying <code>vector-effect="non-scaling-stroke"</code> to all connector paths and zero datum rules forces the rendering engine to preserve the exact authoring stroke thickness (e.g., 1.5 pixels) regardless of the geometric transform applied by the viewport zoom.</p>
+
+          <h3>DOM Node Recycling and Fast Canvas Fallback</h3>
+          <p>In analytical applications where users scrub an interactive slider to simulate variance scenarios, recreating hundreds of SVG DOM nodes on every <code>pointermove</code> event causes noticeable garbage collection pauses. Production engines recycle existing DOM elements by maintaining a stable node pool, updating only the <code>y</code>, <code>height</code>, and <code>d</code> attributes of existing elements rather than destroying and re-instantiating DOM fragments.</p>
+
+          <h3>Benchmarking SVG vs. Canvas for High-Density Financial Walks</h3>
+          <p>When choosing between SVG and HTML5 Canvas for corporate reporting, engineers must evaluate workload scale. For financial waterfalls with under 200 variance steps (the overwhelming majority of real-world executive bridges), SVG is vastly superior to Canvas: SVG maintains sharp, vector-crisp typography at any device pixel ratio (Retina displays), supports declarative CSS animations, enables DOM-level event bubbling, and provides built-in accessibility through screen reader inspection.</p>
+
+          <p>Only when rendering multi-thousand-step algorithmic trading order book depth walks does Canvas or WebGL become necessary to bypass the browser's DOM tree memory footprint. For standard quarterly corporate reporting, SVG delivers sub-millisecond layout passes, seamless dark/light theme switching, and standalone exportability.</p>
+        </section>
+
+        <section id="section-accessibility">
+          <h2>9. Enterprise Accessibility (WCAG 2.2 AA) &amp; ARIA Semantics</h2>
+          <p>Financial visualizations are frequently audited under legal and corporate digital accessibility standards, including Section 508 and WCAG 2.2 Level AA. An SVG chart that conveys variance solely through green and red colors without accessible metadata violates Principle 1 (Perceivable) and Principle 4 (Robust) of the Web Content Accessibility Guidelines.</p>
+
+          <h3>Programmatic ARIA Architecture</h3>
+          <p>To ensure non-visual access for users relying on screen readers (such as JAWS, NVDA, and VoiceOver), the SVG container and its constituent child elements must be semantically annotated with WAI-ARIA roles:</p>
+
+          <ul>
+            <li><strong>Root SVG:</strong> Decorated with <code>role="graphics-document"</code>, <code>aria-roledescription="financial waterfall chart"</code>, and an informative <code>aria-label</code> describing the title, scope, and net bottom-line conclusion of the bridge.</li>
+            <li><strong>Variance Bars:</strong> Decorated with <code>role="graphics-symbol"</code>, <code>tabindex="0"</code> (enabling keyboard focus navigation via Tab and Shift+Tab), and explicit descriptions: <code>aria-label="Step 3: COGS Inflation, Variance: -$1.2M, Cumulative Balance: $14.1M"</code>.</li>
+            <li><strong>Keyboard Focus Indicator:</strong> Outlines on focused bars must achieve a contrast ratio of at least 3:1 against both the bar fill and the background canvas (e.g., a 2px solid white stroke with 2px offset).</li>
+          </ul>
+
+          <h3>Hidden Tabular Data Equivalent</h3>
+          <p>For complex financial bridges, the gold standard of enterprise accessibility is pairing the visual SVG chart with a visually hidden, screen-reader-accessible HTML data table:</p>
+
+          <pre><code>&lt;table class="sr-only" aria-label="Tabular data for FY26 EBITDA Reconciliation"&gt;
+  &lt;caption&gt;Step-by-step financial variance walk from FY25 Base to FY26 Net EBITDA&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Stage Name&lt;/th&gt;
+      &lt;th scope="col"&gt;Step Type&lt;/th&gt;
+      &lt;th scope="col"&gt;Variance (&Delta;)&lt;/th&gt;
+      &lt;th scope="col"&gt;Cumulative Balance&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;FY25 Base EBITDA&lt;/th&gt;
+      &lt;td&gt;Total Anchor&lt;/td&gt;
+      &lt;td&gt;$12.4M&lt;/td&gt;
+      &lt;td&gt;$12.4M&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- Intermediate steps --&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+          <p>Screen reader users can seamlessly navigate the tabular matrix using standard table keyboard shortcuts, reviewing every financial figure with 100% precision regardless of chart scaling.</p>
+        </section>
+
+        <section id="section-faq" class="faq-section">
+          <h2>10. Frequently Asked Questions</h2>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What is the primary difference between a Cartesian treemap and an SVG sunburst chart?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              While rectangular treemaps partition space using recursive Cartesian slicing (such as squarified or slice-and-dice algorithms), an SVG sunburst chart projects hierarchical tree structures onto concentric polar rings. In a sunburst chart, tree depth corresponds directly to radial distance from the origin center, and node magnitude maps directly to the angular sweep of the annular sector. Sunburst charts excel at communicating genealogical tree depth and ancestor-descendant lineages without the nested visual occlusion common in dense Cartesian treemaps.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What is the mathematical distinction between a standard bar chart and an SVG waterfall chart?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              In a standard bar chart, every bar originates from a shared, static baseline (typically y = 0), and bar height represents an independent absolute value. In contrast, an SVG waterfall chart (also known as a variance bridge) renders sequential floating columns where each intermediate step's vertical origin is defined dynamically by the cumulative sum of all prior increments and decrements. Each intermediate bar's vertical coordinate is computed as y_base = min(S_{i-1}, S_i) in world space, visually bridging the transition between initial and final financial states.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do you handle negative values and crossings below zero in SVG coordinate space?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Because SVG canvas coordinates invert the vertical Cartesian axis (y = 0 resides at the top of the viewport and increases downward), rendering negative financial balances requires bidirectional vertical projection. When an intermediate running sum crosses below the zero datum line, the bar's upper edge corresponds to the higher numerical value while its lower edge extends downward past the zero line. The developer must project world coordinates through a linear transformation y_svg = y_top + (y_max - v) * (plot_height / (y_max - y_min)), calculating bar height as abs(delta) * scale.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How are horizontal stepped bridge connectors constructed between adjacent waterfall bars?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Bridge connectors are discrete SVG path or line elements that visually link the trailing cumulative balance of step i with the leading origin of step i+1. In vector space, the connector spans from x1 = x_i + bar_width to x2 = x_{i+1} at a constant vertical level y = y_scale(S_i). Rendering these connectors with shape-rendering='crispEdges' and subtle dashed strokes prevents optical anti-aliasing blurring and reinforces the continuous stepped narrative of the variance reconciliation.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>What visual semantics distinguish total baseline pillars from floating delta bars?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Total baseline pillars (such as Starting Revenue, Intermediate Gross Profit, and Ending Net Income) originate directly from the zero baseline (y = y_zero) and represent cumulative net positions. Floating delta bars represent incremental positive contributions (gains, revenue expansion) or negative decrements (costs, churn, taxation). High-performing financial dashboards assign neutral or branded solid fills to total pillars, vibrant green or cyan tones to positive additions, and distinct coral or crimson tones to negative deductions.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How can dynamic numerical labels avoid overlapping on narrow or tightly packed waterfall bars?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Label collision avoidance in waterfall charts relies on adaptive placement logic. If a bar's height exceeds the label's typographical bounding box (typically >= 24 pixels), the label is centered inside the bar in contrasting white text. If the bar is too short, positive delta labels are hoisted 8 pixels above the top edge, while negative delta labels are pushed 16 pixels below the lower edge. For compact horizontal screens, numbers are formatted with standard financial currency suffixes (e.g., $1.4M or ($320K)).
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How does an SVG waterfall chart achieve strict WCAG 2.2 AA accessibility compliance?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Achieving WCAG 2.2 AA compliance requires multi-layered accessible architecture. The root SVG container carries role='graphics-document' with aria-roledescription='financial waterfall chart' and an informative aria-label. Individual variance bars are tagged with role='graphics-symbol' or role='listitem', containing detailed aria-labels detailing step name, variance delta, and resulting cumulative subtotal. Furthermore, an off-screen accessible HTML data table or ARIA live region ensures screen reader users receive structured tabular data without visual reliance.
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <a href="#section-taxonomy">1. Anatomical Taxonomy of Waterfall Charts</a>
+            <a href="#section-mathematics">2. Mathematical Coordinate Calculus</a>
+            <a href="#section-svg-paths">3. SVG Path Construction for Bars &amp; Bridges</a>
+            <a href="#section-architecture-pipeline">4. Figure 2: Mathematical Architecture</a>
+            <a href="#section-visual-scaffolding">5. Stepped Delta Connectors &amp; Scaffolding</a>
+            <a href="#section-label-collision">6. Label Placement &amp; Collision Avoidance</a>
+            <a href="#section-interactive-studio">7. Interactive SVG Financial Waterfall Studio</a>
+            <a href="#section-performance-optimization">8. Viewport Scaling &amp; Performance</a>
+            <a href="#section-accessibility">9. Enterprise Accessibility &amp; ARIA</a>
+            <a href="#section-faq">10. Frequently Asked Questions</a>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <div class="cta-title">SVG Visualization Library</div>
+          <p>Explore IconStash's extensive collection of developer-first SVG icons, design tools, and data visualization primitives.</p>
+          <a href="/articles/" class="header-cta" style="display:inline-block; text-align:center;">Explore Tools</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; text-align: left; margin-bottom: 32px;">
+      <div style="flex: 1 1 260px;">
+        <div style="font-weight: 800; font-size: 16px; color: #FFF; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          IconStash
+        </div>
+        <p style="font-size: 13.5px; color: #777; line-height: 1.6;">The premier modern platform for high-performance SVG graphics, data visualization architectures, and developer tools.</p>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #999; margin-bottom: 12px;">Navigation</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+          <a href="/articles/">Articles &amp; Guides</a>
+          <a href="/articles/">Developer Studio</a>
+          <a href="/about/">About IconStash</a>
+          <a href="/privacy/">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <p>&copy; 2026 IconStash.io. Published by Great Software Company. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function() {
+      // Theme Toggle Logic
+      const themeBtn = document.getElementById('theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          try { localStorage.setItem('iconstash-theme', newTheme); } catch (_) {}
+        });
+      }
+
+      // Interactive Waterfall Studio Engine
+      const presetSelect = document.getElementById('wf-preset-select');
+      const barWidthSlider = document.getElementById('wf-bar-width-slider');
+      const barWidthVal = document.getElementById('wf-bar-width-val');
+      const connOpacitySlider = document.getElementById('wf-connector-opacity-slider');
+      const connOpacityVal = document.getElementById('wf-connector-val');
+      const paletteSelect = document.getElementById('wf-color-palette-select');
+      const labelSelect = document.getElementById('wf-label-toggle');
+      const liveSvg = document.getElementById('wf-live-canvas');
+      const copyBtn = document.getElementById('wf-copy-code-btn');
+
+      const statStart = document.getElementById('wf-stat-start');
+      const statGains = document.getElementById('wf-stat-gains');
+      const statLosses = document.getElementById('wf-stat-losses');
+      const statEnd = document.getElementById('wf-stat-end');
+      const statNetDelta = document.getElementById('wf-stat-net-delta');
+
+      const DATASETS = {
+        'ebitda-walk': [
+          { name: 'FY25 EBITDA', val: 12.4, type: 'total' },
+          { name: 'Volume Growth', val: 3.2, type: 'delta' },
+          { name: 'Price Realization', val: 1.8, type: 'delta' },
+          { name: 'COGS Inflation', val: -1.9, type: 'delta' },
+          { name: 'Gross Profit', val: 0, type: 'subtotal' },
+          { name: 'SG&A Savings', val: 0.9, type: 'delta' },
+          { name: 'R&D Headcount', val: -1.4, type: 'delta' },
+          { name: 'FX Headwinds', val: -0.6, type: 'delta' },
+          { name: 'FY26 EBITDA', val: 0, type: 'total' }
+        ],
+        'saas-arr-walk': [
+          { name: 'Starting ARR', val: 24.5, type: 'total' },
+          { name: 'New Logos', val: 6.8, type: 'delta' },
+          { name: 'Seat Expansion', val: 4.2, type: 'delta' },
+          { name: 'Upsell Tiering', val: 2.1, type: 'delta' },
+          { name: 'Gross ARR', val: 0, type: 'subtotal' },
+          { name: 'Contraction', val: -1.8, type: 'delta' },
+          { name: 'Logo Churn', val: -3.2, type: 'delta' },
+          { name: 'Ending ARR', val: 0, type: 'total' }
+        ],
+        'gross-margin-walk': [
+          { name: 'Prior Margin', val: 42.0, type: 'total' },
+          { name: 'Product Mix', val: 3.5, type: 'delta' },
+          { name: 'Automation Yield', val: 2.8, type: 'delta' },
+          { name: 'Freight Escalation', val: -2.1, type: 'delta' },
+          { name: 'Material Tariffs', val: -1.6, type: 'delta' },
+          { name: 'Energy Surcharge', val: -0.9, type: 'delta' },
+          { name: 'Current Margin', val: 0, type: 'total' }
+        ]
+      };
+
+      const PALETTES = {
+        'neon-cyber': { pos: '#C1DD2D', neg: '#EF4444', total: '#38BDF8', subtotal: '#A855F7', line: '#444444' },
+        'classic-fin': { pos: '#22C55E', neg: '#DC2626', total: '#3B82F6', subtotal: '#6366F1', line: '#525252' },
+        'emerald-rose': { pos: '#10B981', neg: '#F43F5E', total: '#06B6D4', subtotal: '#8B5CF6', line: '#4B5563' }
+      };
+
+      function renderWaterfall() {
+        const pKey = presetSelect.value || 'ebitda-walk';
+        const rawSteps = JSON.parse(JSON.stringify(DATASETS[pKey] || DATASETS['ebitda-walk']));
+
+        const bWidth = parseInt(barWidthSlider.value, 10) || 46;
+        barWidthVal.textContent = bWidth + 'px';
+        const cOpacity = parseFloat(connOpacitySlider.value) || 0.75;
+        connOpacityVal.textContent = cOpacity.toFixed(2);
+
+        const palKey = paletteSelect.value || 'neon-cyber';
+        const colors = PALETTES[palKey] || PALETTES['neon-cyber'];
+        const labelMode = labelSelect.value || 'all';
+
+        // 1. Process Accumulations and Subtotals
+        let runningSum = 0;
+        let sumGains = 0;
+        let sumLosses = 0;
+        let startVal = 0;
+        let endVal = 0;
+
+        const processed = rawSteps.map((step, idx) => {
+          if (step.type === 'total' && idx === 0) {
+            runningSum = step.val;
+            startVal = step.val;
+            return { name: step.name, delta: step.val, start: 0, end: step.val, type: 'total' };
+          } else if (step.type === 'subtotal') {
+            return { name: step.name, delta: 0, start: 0, end: runningSum, type: 'subtotal' };
+          } else if (step.type === 'total' && idx === rawSteps.length - 1) {
+            endVal = runningSum;
+            return { name: step.name, delta: 0, start: 0, end: runningSum, type: 'total' };
+          } else {
+            const prev = runningSum;
+            runningSum += step.val;
+            if (step.val >= 0) sumGains += step.val;
+            else sumLosses += Math.abs(step.val);
+            return { name: step.name, delta: step.val, start: prev, end: runningSum, type: 'delta' };
+          }
+        });
+
+        // 2. Spatial Range Calculations
+        let minVal = 0;
+        let maxVal = 0;
+        processed.forEach(p => {
+          minVal = Math.min(minVal, p.start, p.end);
+          maxVal = Math.max(maxVal, p.start, p.end);
+        });
+        const padding = (maxVal - minVal) * 0.15 || 5;
+        const domainMin = Math.floor(minVal - padding);
+        const domainMax = Math.ceil(maxVal + padding);
+
+        const viewW = 760;
+        const viewH = 480;
+        const padLeft = 65;
+        const padRight = 35;
+        const padTop = 45;
+        const padBottom = 75;
+
+        const plotW = viewW - padLeft - padRight;
+        const plotH = viewH - padTop - padBottom;
+
+        function scaleY(v) {
+          return padTop + (domainMax - v) * (plotH / (domainMax - domainMin));
+        }
+
+        const zeroY = scaleY(0);
+
+        // Step spacing
+        const stepCount = processed.length;
+        const totalBarW = stepCount * bWidth;
+        const gutter = Math.max(6, (plotW - totalBarW) / (stepCount - 1));
+
+        let barsMarkup = '';
+        let connectorsMarkup = '';
+        let labelsMarkup = '';
+        let xAxesMarkup = '';
+
+        // Horizontal Grid Lines
+        const gridStep = Math.max(1, Math.round((domainMax - domainMin) / 6));
+        let gridMarkup = '';
+        for (let g = Math.ceil(domainMin / gridStep) * gridStep; g <= domainMax; g += gridStep) {
+          const gy = scaleY(g);
+          gridMarkup += `
+            <line x1="${padLeft}" y1="${gy.toFixed(1)}" x2="${viewW - padRight}" y2="${gy.toFixed(1)}"
+                  stroke="#1F1F1F" stroke-width="1" />
+            <text x="${padLeft - 10}" y="${(gy + 4).toFixed(1)}" fill="#666666"
+                  font-family="'JetBrains Mono', monospace" font-size="11" text-anchor="end">${g}</text>
+          `;
+        }
+
+        // Zero Datum line
+        const zeroLineMarkup = `
+          <line x1="${padLeft}" y1="${zeroY.toFixed(1)}" x2="${viewW - padRight}" y2="${zeroY.toFixed(1)}"
+                stroke="#555555" stroke-width="1.5" shape-rendering="crispEdges" />
+        `;
+
+        // Render Steps
+        processed.forEach((step, i) => {
+          const x = padLeft + i * (bWidth + gutter);
+          const yTopVal = Math.max(step.start, step.end);
+          const yBottomVal = Math.min(step.start, step.end);
+
+          const yTopPx = scaleY(yTopVal);
+          const yBottomPx = scaleY(yBottomVal);
+          const barH = Math.max(2, yBottomPx - yTopPx);
+
+          let barColor = colors.total;
+          if (step.type === 'subtotal') barColor = colors.subtotal;
+          else if (step.type === 'delta') {
+            barColor = step.delta >= 0 ? colors.pos : colors.neg;
+          }
+
+          // Bar rect
+          barsMarkup += `
+            <rect x="${x.toFixed(1)}" y="${yTopPx.toFixed(1)}" width="${bWidth}" height="${barH.toFixed(1)}"
+                  fill="${barColor}" rx="3" stroke="#111111" stroke-width="1"
+                  role="graphics-symbol" aria-label="${step.name}: ${step.delta >= 0 ? '+' : ''}${step.delta.toFixed(1)}"
+                  style="transition: fill 150ms ease;" />
+          `;
+
+          // Connectors to next bar
+          if (i < stepCount - 1) {
+            const nextX = padLeft + (i + 1) * (bWidth + gutter);
+            const connY = scaleY(step.end);
+            connectorsMarkup += `
+              <line x1="${(x + bWidth).toFixed(1)}" y1="${connY.toFixed(1)}"
+                    x2="${nextX.toFixed(1)}" y2="${connY.toFixed(1)}"
+                    stroke="${colors.line}" stroke-width="1.5" stroke-dasharray="3,3"
+                    stroke-opacity="${cOpacity}" shape-rendering="crispEdges" />
+            `;
+          }
+
+          // Numerical Value Label
+          let showLabel = true;
+          if (labelMode === 'totals-only' && step.type === 'delta') showLabel = false;
+
+          if (showLabel) {
+            let labelText = '';
+            const isAbbrev = labelMode === 'compact';
+            const suffix = isAbbrev ? 'M' : '';
+
+            if (step.type === 'total' || step.type === 'subtotal') {
+              labelText = '$' + step.end.toFixed(1) + suffix;
+            } else {
+              const sign = step.delta >= 0 ? '+' : '';
+              labelText = sign + '$' + step.delta.toFixed(1) + suffix;
+            }
+
+            const centerX = x + bWidth / 2;
+            let textY = yTopPx - 8;
+            let textFill = '#FFFFFF';
+
+            if (barH >= 26) {
+              textY = yTopPx + barH / 2 + 4;
+              textFill = '#0A0A0A';
+            } else if (step.type === 'delta' && step.delta < 0) {
+              textY = yBottomPx + 16;
+              textFill = colors.neg;
+            } else if (step.type === 'delta' && step.delta >= 0) {
+              textFill = colors.pos;
+            }
+
+            labelsMarkup += `
+              <text x="${centerX.toFixed(1)}" y="${textY.toFixed(1)}" fill="${textFill}"
+                    font-family="'JetBrains Mono', monospace" font-size="11" font-weight="700"
+                    text-anchor="middle" pointer-events="none">${labelText}</text>
+            `;
+          }
+
+          // X Axis Name Label
+          const labelCenterX = x + bWidth / 2;
+          const labelY = viewH - padBottom + 20;
+          xAxesMarkup += `
+            <text x="${labelCenterX.toFixed(1)}" y="${labelY}" fill="#A3A3A3"
+                  font-family="'Inter', sans-serif" font-size="10.5" font-weight="500"
+                  text-anchor="end" transform="rotate(-35, ${labelCenterX.toFixed(1)}, ${labelY})">
+              ${step.name}
+            </text>
+          `;
+        });
+
+        // Assemble Canvas
+        liveSvg.innerHTML = `
+          <rect width="${viewW}" height="${viewH}" fill="#0D0D0D" rx="8" />
+          <g class="wf-grid-group">${gridMarkup}</g>
+          ${zeroLineMarkup}
+          <g class="wf-connectors-group">${connectorsMarkup}</g>
+          <g class="wf-bars-group">${barsMarkup}</g>
+          <g class="wf-labels-group">${labelsMarkup}</g>
+          <g class="wf-axes-group">${xAxesMarkup}</g>
+        `;
+
+        // Update Readouts
+        statStart.textContent = '$' + startVal.toFixed(1) + 'M';
+        statGains.textContent = '+$' + sumGains.toFixed(1) + 'M';
+        statLosses.textContent = '($' + sumLosses.toFixed(1) + 'M)';
+        statEnd.textContent = '$' + endVal.toFixed(1) + 'M';
+        const netPct = startVal !== 0 ? (((endVal - startVal) / startVal) * 100).toFixed(1) : 0;
+        statNetDelta.textContent = (netPct >= 0 ? '+' : '') + netPct + '%';
+        statNetDelta.style.color = netPct >= 0 ? '#C1DD2D' : '#EF4444';
+      }
+
+      // Pointer Interaction Handling with pointer capture & cancel
+      let isPointerDown = false;
+      liveSvg.addEventListener('pointerdown', e => {
+        isPointerDown = true;
+        try { liveSvg.setPointerCapture(e.pointerId); } catch (_) {}
+      });
+      const endPointer = e => {
+        if (isPointerDown) {
+          try { liveSvg.releasePointerCapture(e.pointerId); } catch (_) {}
+          isPointerDown = false;
+        }
+      };
+      liveSvg.addEventListener('pointerup', endPointer);
+      liveSvg.addEventListener('pointercancel', endPointer);
+
+      // Event Listeners
+      presetSelect.addEventListener('change', renderWaterfall);
+      barWidthSlider.addEventListener('input', renderWaterfall);
+      connOpacitySlider.addEventListener('input', renderWaterfall);
+      paletteSelect.addEventListener('change', renderWaterfall);
+      labelSelect.addEventListener('change', renderWaterfall);
+
+      // Copy Standalone SVG with XMLNS and fallback
+      copyBtn.addEventListener('click', () => {
+        let svgSource = liveSvg.outerHTML;
+        if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
+          svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(svgSource).then(() => {
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>';
+            }, 2000);
+          }).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+
+        function fallbackCopy() {
+          const ta = document.createElement('textarea');
+          ta.value = svgSource;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            copyBtn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>';
+            }, 2000);
+          } catch (e) {
+            alert('Copy failed: ' + e.message);
+          }
+          document.body.removeChild(ta);
+        }
+      });
+
+      // Initial Render
+      renderWaterfall();
+    })();
+  </script>
+</body>
+</html>
