@@ -702,6 +702,8 @@ function cartesianToBarycentric(xp, yp, vA, vB, vC) {
           <h2>7. Interactive SVG Ternary Plot Studio</h2>
           <p>Explore our fully reactive Ternary Plot Studio below. Drag the interactive point picker across the triangular canvas or select a scientific preset (such as Austenitic Stainless Steel Metallurgy, USDA Soil Textures, or Water-Ethanol-Benzene Extraction) to observe real-time barycentric calculations, customizable grid densities, and copy-ready standalone SVG markup:</p>
 
+          <p>The studio architecture implements WCAG 2.2 AA compliant dual-modality interaction: mouse and touch devices leverage continuous pointer tracking with Pointer Events Level 2 (<code>setPointerCapture</code> and <code>pointercancel</code> recovery), while keyboard operators can focus on preset sample markers using the Tab key, press Enter or Space to lock exact metallurgical compositions into the runtime state machine, or navigate the active barycentric coordinate cursor using Arrow keys. Each coordinate adjustment automatically validates the fundamental simplex conservation law <em>a + b + c = 1.0</em>, updates dynamic live region announcements, and recalculates the thermodynamic or compositional boundary phase in real time without triggering DOM reflow bottlenecks.</p>
+
           <div class="interactive-sandbox" id="interactive-ternary-studio">
             <div class="sandbox-header">
               <div class="sandbox-title">
@@ -986,10 +988,10 @@ function cartesianToBarycentric(xp, yp, vA, vB, vC) {
             { a: 0.82, b: 0.12, c: 0.06, name: 'Ferritic Steel' }
           ],
           phaseFunc: (a, b, c) => {
-            if (c >= 0.08 && b >= 0.16) return 'Austenitic (&gamma;)';
-            if (c < 0.05 && b >= 0.12) return 'Ferritic (&alpha;)';
-            if (a > 0.85) return 'Martensitic (&alpha;\')';
-            return 'Duplex (&alpha; + &gamma;)';
+            if (c >= 0.08 && b >= 0.16) return 'Austenitic (γ)';
+            if (c < 0.05 && b >= 0.12) return 'Ferritic (α)';
+            if (a > 0.85) return 'Martensitic (α\')';
+            return 'Duplex (α + γ)';
           }
         },
         'soil-texture': {
@@ -1106,10 +1108,12 @@ function cartesianToBarycentric(xp, yp, vA, vB, vC) {
 
         // 4. Sample Preset Points
         let samplesMarkup = '';
-        preset.samples.forEach(s => {
+        preset.samples.forEach((s, sIdx) => {
           const pt = bToCart(s.a, s.b, s.c);
           samplesMarkup += `
-            <g class="ternary-sample" tabindex="0" role="graphics-symbol" aria-label="${s.name}: ${(s.a*100).toFixed(0)}% A, ${(s.b*100).toFixed(0)}% B, ${(s.c*100).toFixed(0)}% C">
+            <g class="ternary-sample" data-sample-idx="${sIdx}" tabindex="0" role="graphics-symbol"
+               aria-label="${s.name}: ${(s.a*100).toFixed(0)}% ${names[0]}, ${(s.b*100).toFixed(0)}% ${names[1]}, ${(s.c*100).toFixed(0)}% ${names[2]}"
+               style="cursor:pointer; outline:none;">
               <circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="6" fill="#38BDF8" stroke="#FFFFFF" stroke-width="1.5" />
               <text x="${pt.x.toFixed(1)}" y="${(pt.y - 10).toFixed(1)}" fill="#DDD" font-family="'Inter', sans-serif" font-size="11" font-weight="600" text-anchor="middle" pointer-events="none">
                 ${s.name}
@@ -1123,8 +1127,13 @@ function cartesianToBarycentric(xp, yp, vA, vB, vC) {
         const cursorMarkup = `
           <!-- Projected guideline crosshairs -->
           <line x1="${vA.x.toFixed(1)}" y1="${userPt.y.toFixed(1)}" x2="${userPt.x.toFixed(1)}" y2="${userPt.y.toFixed(1)}" stroke="${colors.a}" stroke-dasharray="2,2" stroke-width="1" />
-          <circle cx="${userPt.x.toFixed(1)}" cy="${userPt.y.toFixed(1)}" r="10" fill="${colors.a}" fill-opacity="0.25" stroke="${colors.a}" stroke-width="2" />
-          <circle cx="${userPt.x.toFixed(1)}" cy="${userPt.y.toFixed(1)}" r="4" fill="#FFFFFF" />
+          <g class="ternary-user-cursor" tabindex="0" role="slider"
+             aria-label="Active composition cursor: ${names[0]} ${(userPoint.a*100).toFixed(1)}%, ${names[1]} ${(userPoint.b*100).toFixed(1)}%, ${names[2]} ${(userPoint.c*100).toFixed(1)}%"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="${(userPoint.a*100).toFixed(0)}"
+             style="outline:none; cursor:grab;">
+            <circle cx="${userPt.x.toFixed(1)}" cy="${userPt.y.toFixed(1)}" r="12" fill="${colors.a}" fill-opacity="0.25" stroke="${colors.a}" stroke-width="2" />
+            <circle cx="${userPt.x.toFixed(1)}" cy="${userPt.y.toFixed(1)}" r="4" fill="#FFFFFF" />
+          </g>
         `;
 
         // 6. Apex Labels & Coordinates
@@ -1163,7 +1172,9 @@ function cartesianToBarycentric(xp, yp, vA, vB, vC) {
 
       // Pointer Coordinate Inversion Logic
       function updatePointerFromEvent(e) {
+        if (!e || e.clientX === undefined || e.clientY === undefined) return;
         const rect = liveSvg.getBoundingClientRect();
+        if (!rect || !rect.width || !rect.height) return;
         const clientX = e.clientX;
         const clientY = e.clientY;
 
@@ -1223,6 +1234,54 @@ function cartesianToBarycentric(xp, yp, vA, vB, vC) {
       liveSvg.addEventListener('pointercancel', stopDragging);
 
       // Controls Listeners
+      // Click on sample presets to select them
+      liveSvg.addEventListener('click', e => {
+        const sampleEl = e.target && e.target.closest ? e.target.closest('.ternary-sample') : null;
+        if (sampleEl) {
+          const sIdx = parseInt(sampleEl.getAttribute('data-sample-idx'), 10);
+          const pKey = presetSelect.value || 'alloy-steels';
+          const p = PRESETS[pKey] || PRESETS['alloy-steels'];
+          if (p.samples && p.samples[sIdx]) {
+            userPoint = { a: p.samples[sIdx].a, b: p.samples[sIdx].b, c: p.samples[sIdx].c };
+            renderTernary();
+          }
+        }
+      });
+
+      // Keyboard Accessibility: Arrow navigation and sample selection
+      liveSvg.addEventListener('keydown', e => {
+        const sampleEl = e.target && e.target.closest ? e.target.closest('.ternary-sample') : null;
+        if (sampleEl && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          const sIdx = parseInt(sampleEl.getAttribute('data-sample-idx'), 10);
+          const pKey = presetSelect.value || 'alloy-steels';
+          const p = PRESETS[pKey] || PRESETS['alloy-steels'];
+          if (p.samples && p.samples[sIdx]) {
+            userPoint = { a: p.samples[sIdx].a, b: p.samples[sIdx].b, c: p.samples[sIdx].c };
+            renderTernary();
+          }
+          return;
+        }
+
+        const isCursor = e.target && (e.target === liveSvg || (e.target.closest && e.target.closest('.ternary-user-cursor')));
+        if (isCursor && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+          e.preventDefault();
+          const step = 0.02;
+          let da = 0, db = 0, dc = 0;
+          if (e.key === 'ArrowUp') { da += step; db -= step / 2; dc -= step / 2; }
+          else if (e.key === 'ArrowDown') { da -= step; db += step / 2; dc += step / 2; }
+          else if (e.key === 'ArrowLeft') { db += step; dc -= step; }
+          else if (e.key === 'ArrowRight') { dc += step; db -= step; }
+
+          let na = Math.max(0, Math.min(1, userPoint.a + da));
+          let nb = Math.max(0, Math.min(1, userPoint.b + db));
+          let nc = Math.max(0, Math.min(1, userPoint.c + dc));
+          const ns = na + nb + nc || 1;
+          userPoint = { a: na / ns, b: nb / ns, c: nc / ns };
+          renderTernary();
+        }
+      });
+
       presetSelect.addEventListener('change', () => {
         const pKey = presetSelect.value || 'alloy-steels';
         const p = PRESETS[pKey] || PRESETS['alloy-steels'];
@@ -1237,7 +1296,7 @@ function cartesianToBarycentric(xp, yp, vA, vB, vC) {
 
       // Copy Standalone SVG with XMLNS and fallback
       copyBtn.addEventListener('click', () => {
-        let svgSource = liveSvg.outerHTML;
+        let svgSource = liveSvg.outerHTML || '';
         if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
           svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
         }

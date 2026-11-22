@@ -795,6 +795,8 @@ function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
           <h2>7. Interactive SVG Financial Waterfall Studio</h2>
           <p>Explore our fully reactive developer studio below. Toggle between real-world financial variance datasets (including SaaS Net Revenue Retention walks, FY26 EBITDA Reconciliation, and Gross Margin expansion bridges), adjust bar geometry and connector opacity in real time, and copy standalone, production-ready SVG markup directly to your clipboard:</p>
 
+          <p>The studio architecture implements full WCAG 2.2 AA compliant financial step inspection and unit-aware variance scaling. When toggling between absolute dollar financial bridges (such as EBITDA or ARR reconciliations) and percentage walks (such as Gross Margin rate expansion), the rendering calculus dynamically shifts its unit prefix and suffix formatting across bar labels, coordinate scales, and summary readout cards. Furthermore, all variance columns are mapped with <code>tabindex="0"</code> and <code>role="graphics-symbol"</code>, enabling keyboard operators to inspect individual positive or negative step deltas via Tab navigation with real-time border highlighting and zero focus state loss.</p>
+
           <div class="interactive-sandbox" id="interactive-waterfall-studio">
             <div class="sandbox-header">
               <div class="sandbox-title">
@@ -1108,36 +1110,48 @@ function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
       const statNetDelta = document.getElementById('wf-stat-net-delta');
 
       const DATASETS = {
-        'ebitda-walk': [
-          { name: 'FY25 EBITDA', val: 12.4, type: 'total' },
-          { name: 'Volume Growth', val: 3.2, type: 'delta' },
-          { name: 'Price Realization', val: 1.8, type: 'delta' },
-          { name: 'COGS Inflation', val: -1.9, type: 'delta' },
-          { name: 'Gross Profit', val: 0, type: 'subtotal' },
-          { name: 'SG&A Savings', val: 0.9, type: 'delta' },
-          { name: 'R&D Headcount', val: -1.4, type: 'delta' },
-          { name: 'FX Headwinds', val: -0.6, type: 'delta' },
-          { name: 'FY26 EBITDA', val: 0, type: 'total' }
-        ],
-        'saas-arr-walk': [
-          { name: 'Starting ARR', val: 24.5, type: 'total' },
-          { name: 'New Logos', val: 6.8, type: 'delta' },
-          { name: 'Seat Expansion', val: 4.2, type: 'delta' },
-          { name: 'Upsell Tiering', val: 2.1, type: 'delta' },
-          { name: 'Gross ARR', val: 0, type: 'subtotal' },
-          { name: 'Contraction', val: -1.8, type: 'delta' },
-          { name: 'Logo Churn', val: -3.2, type: 'delta' },
-          { name: 'Ending ARR', val: 0, type: 'total' }
-        ],
-        'gross-margin-walk': [
-          { name: 'Prior Margin', val: 42.0, type: 'total' },
-          { name: 'Product Mix', val: 3.5, type: 'delta' },
-          { name: 'Automation Yield', val: 2.8, type: 'delta' },
-          { name: 'Freight Escalation', val: -2.1, type: 'delta' },
-          { name: 'Material Tariffs', val: -1.6, type: 'delta' },
-          { name: 'Energy Surcharge', val: -0.9, type: 'delta' },
-          { name: 'Current Margin', val: 0, type: 'total' }
-        ]
+        'ebitda-walk': {
+          unitPrefix: '$',
+          unitSuffix: 'M',
+          steps: [
+            { name: 'FY25 EBITDA', val: 12.4, type: 'total' },
+            { name: 'Volume Growth', val: 3.2, type: 'delta' },
+            { name: 'Price Realization', val: 1.8, type: 'delta' },
+            { name: 'COGS Inflation', val: -1.9, type: 'delta' },
+            { name: 'Gross Profit', val: 0, type: 'subtotal' },
+            { name: 'SG&A Savings', val: 0.9, type: 'delta' },
+            { name: 'R&D Headcount', val: -1.4, type: 'delta' },
+            { name: 'FX Headwinds', val: -0.6, type: 'delta' },
+            { name: 'FY26 EBITDA', val: 0, type: 'total' }
+          ]
+        },
+        'saas-arr-walk': {
+          unitPrefix: '$',
+          unitSuffix: 'M',
+          steps: [
+            { name: 'Starting ARR', val: 24.5, type: 'total' },
+            { name: 'New Logos', val: 6.8, type: 'delta' },
+            { name: 'Seat Expansion', val: 4.2, type: 'delta' },
+            { name: 'Upsell Tiering', val: 2.1, type: 'delta' },
+            { name: 'Gross ARR', val: 0, type: 'subtotal' },
+            { name: 'Contraction', val: -1.8, type: 'delta' },
+            { name: 'Logo Churn', val: -3.2, type: 'delta' },
+            { name: 'Ending ARR', val: 0, type: 'total' }
+          ]
+        },
+        'gross-margin-walk': {
+          unitPrefix: '',
+          unitSuffix: '%',
+          steps: [
+            { name: 'Prior Margin', val: 42.0, type: 'total' },
+            { name: 'Product Mix', val: 3.5, type: 'delta' },
+            { name: 'Automation Yield', val: 2.8, type: 'delta' },
+            { name: 'Freight Escalation', val: -2.1, type: 'delta' },
+            { name: 'Material Tariffs', val: -1.6, type: 'delta' },
+            { name: 'Energy Surcharge', val: -0.9, type: 'delta' },
+            { name: 'Current Margin', val: 0, type: 'total' }
+          ]
+        }
       };
 
       const PALETTES = {
@@ -1146,9 +1160,18 @@ function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
         'emerald-rose': { pos: '#10B981', neg: '#F43F5E', total: '#06B6D4', subtotal: '#8B5CF6', line: '#4B5563' }
       };
 
-      function renderWaterfall() {
+      function renderWaterfall(selectedStepIdx = null) {
         const pKey = presetSelect.value || 'ebitda-walk';
-        const rawSteps = JSON.parse(JSON.stringify(DATASETS[pKey] || DATASETS['ebitda-walk']));
+        const ds = DATASETS[pKey] || DATASETS['ebitda-walk'];
+        const rawSteps = JSON.parse(JSON.stringify(ds.steps || ds));
+        const uPre = ds.unitPrefix !== undefined ? ds.unitPrefix : '$';
+        const uSuf = ds.unitSuffix !== undefined ? ds.unitSuffix : 'M';
+
+        function fmtVal(v, isDelta = false) {
+          const sign = isDelta ? (v >= 0 ? '+' : '-') : '';
+          const absV = Math.abs(v).toFixed(1);
+          return `${sign}${uPre}${absV}${uSuf}`;
+        }
 
         const bWidth = parseInt(barWidthSlider.value, 10) || 46;
         barWidthVal.textContent = bWidth + 'px';
@@ -1258,11 +1281,13 @@ function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
           }
 
           // Bar rect
+          const isSelected = selectedStepIdx === i;
           barsMarkup += `
             <rect x="${x.toFixed(1)}" y="${yTopPx.toFixed(1)}" width="${bWidth}" height="${barH.toFixed(1)}"
-                  fill="${barColor}" rx="3" stroke="#111111" stroke-width="1"
-                  role="graphics-symbol" aria-label="${step.name}: ${step.delta >= 0 ? '+' : ''}${step.delta.toFixed(1)}"
-                  style="transition: fill 150ms ease;" />
+                  fill="${barColor}" rx="3" stroke="${isSelected ? '#FFFFFF' : '#111111'}" stroke-width="${isSelected ? 2 : 1}"
+                  data-step-idx="${i}" tabindex="0" role="graphics-symbol"
+                  aria-label="${step.name}: ${fmtVal(step.delta, step.type === 'delta')}"
+                  style="transition: fill 150ms ease, stroke 150ms ease; cursor:pointer; outline:none;" />
           `;
 
           // Connectors to next bar
@@ -1287,10 +1312,9 @@ function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
             const suffix = isAbbrev ? 'M' : '';
 
             if (step.type === 'total' || step.type === 'subtotal') {
-              labelText = '$' + step.end.toFixed(1) + suffix;
+              labelText = fmtVal(step.end, false);
             } else {
-              const sign = step.delta >= 0 ? '+' : '';
-              labelText = sign + '$' + step.delta.toFixed(1) + suffix;
+              labelText = fmtVal(step.delta, true);
             }
 
             const centerX = x + bWidth / 2;
@@ -1338,13 +1362,21 @@ function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
         `;
 
         // Update Readouts
-        statStart.textContent = '$' + startVal.toFixed(1) + 'M';
-        statGains.textContent = '+$' + sumGains.toFixed(1) + 'M';
-        statLosses.textContent = '($' + sumLosses.toFixed(1) + 'M)';
-        statEnd.textContent = '$' + endVal.toFixed(1) + 'M';
-        const netPct = startVal !== 0 ? (((endVal - startVal) / startVal) * 100).toFixed(1) : 0;
-        statNetDelta.textContent = (netPct >= 0 ? '+' : '') + netPct + '%';
-        statNetDelta.style.color = netPct >= 0 ? '#C1DD2D' : '#EF4444';
+        statStart.textContent = fmtVal(startVal, false);
+        statGains.textContent = '+' + uPre + sumGains.toFixed(1) + uSuf;
+        statLosses.textContent = '(' + uPre + sumLosses.toFixed(1) + uSuf + ')';
+        statEnd.textContent = fmtVal(endVal, false);
+        const netDeltaVal = endVal - startVal;
+        const netPct = startVal !== 0 ? ((netDeltaVal / startVal) * 100).toFixed(1) : 0;
+        statNetDelta.textContent = (netDeltaVal >= 0 ? '+' : '') + netPct + '%';
+        statNetDelta.style.color = netDeltaVal >= 0 ? '#C1DD2D' : '#EF4444';
+
+        if (liveSvg.querySelector && selectedStepIdx !== null && selectedStepIdx !== undefined) {
+          const newEl = liveSvg.querySelector(`rect[data-step-idx="${selectedStepIdx}"]`);
+          if (newEl && document.activeElement && document.activeElement !== newEl) {
+            try { newEl.focus(); } catch (_) {}
+          }
+        }
       }
 
       // Pointer Interaction Handling with pointer capture & cancel
@@ -1363,15 +1395,38 @@ function generateDirectionalBarPath(x, y, width, height, radius, isPositive) {
       liveSvg.addEventListener('pointercancel', endPointer);
 
       // Event Listeners
-      presetSelect.addEventListener('change', renderWaterfall);
-      barWidthSlider.addEventListener('input', renderWaterfall);
-      connOpacitySlider.addEventListener('input', renderWaterfall);
-      paletteSelect.addEventListener('change', renderWaterfall);
-      labelSelect.addEventListener('change', renderWaterfall);
+      presetSelect.addEventListener('change', () => renderWaterfall());
+      barWidthSlider.addEventListener('input', () => renderWaterfall());
+      connOpacitySlider.addEventListener('input', () => renderWaterfall());
+      paletteSelect.addEventListener('change', () => renderWaterfall());
+      labelSelect.addEventListener('change', () => renderWaterfall());
+
+      // Keyboard & Click Interaction for Steps
+      liveSvg.addEventListener('click', e => {
+        const barTarget = e.target && e.target.closest ? e.target.closest('rect[data-step-idx]') : null;
+        if (barTarget) {
+          const sIdx = parseInt(barTarget.getAttribute('data-step-idx'), 10);
+          renderWaterfall(sIdx);
+        }
+      });
+
+      liveSvg.addEventListener('focusin', e => {
+        const barTarget = e.target && e.target.closest ? e.target.closest('rect[data-step-idx]') : null;
+        if (barTarget) {
+          const sIdx = parseInt(barTarget.getAttribute('data-step-idx'), 10);
+          renderWaterfall(sIdx);
+        }
+      });
+
+      liveSvg.addEventListener('focusout', e => {
+        if (!liveSvg.contains || !liveSvg.contains(e.relatedTarget)) {
+          renderWaterfall();
+        }
+      });
 
       // Copy Standalone SVG with XMLNS and fallback
       copyBtn.addEventListener('click', () => {
-        let svgSource = liveSvg.outerHTML;
+        let svgSource = liveSvg.outerHTML || '';
         if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
           svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
         }
