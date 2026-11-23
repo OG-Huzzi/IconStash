@@ -77,6 +77,7 @@ interface SearchWorkerSingleton {
   meta: SearchMeta | null;
   metaPromise: Promise<{ manifest: ChunkManifest; meta: SearchMeta }> | null;
   chunkCache: ChunkLRUCache<LibraryChunkPayload>;
+  visibleIcons: Map<number, ResolvedIcon>;
   pendingConcept: Map<number, PendingConceptRequest>;
   pendingAdhocQuery: Map<number, PendingConceptRequest>;
   onResults: ((msg: Extract<SearchWorkerResponse, { type: 'RESULTS' }>) => void) | null;
@@ -90,8 +91,9 @@ declare global {
 const DEFAULT_INDEX_URL = '/index/v1/search.bin';
 const DEFAULT_META_URL = '/index/v1/search-meta.json';
 const DEFAULT_MANIFEST_URL = '/chunks/v1/manifest.json';
-const MAX_RAM_CHUNKS = 4;
-const MAX_RAM_BYTES = 18 * 1024 * 1024;
+const MAX_RAM_CHUNKS = 6;
+const MAX_RAM_BYTES = 24 * 1024 * 1024;
+const MAX_VISIBLE_ICON_CACHE = 400;
 const QUERY_DEBOUNCE_MS = 60;
 
 const BASE_NAME_SUFFIX_RE =
@@ -131,6 +133,7 @@ function getSingleton(): SearchWorkerSingleton {
         maxChunks: MAX_RAM_CHUNKS,
         maxBytes: MAX_RAM_BYTES,
       }),
+      visibleIcons: new Map(),
       pendingConcept: new Map(),
       pendingAdhocQuery: new Map(),
       onResults: null,
@@ -579,6 +582,9 @@ class ExplorerStore {
    * Returns `null` if the icon's shard is not currently resident in RAM.
    */
   getIconPayload(iconIndex: number): ResolvedIcon | null {
+    const sg = getSingleton();
+    const cached = sg.visibleIcons.get(iconIndex);
+    if (cached) return cached;
     const manifest = this.manifest;
     if (!manifest || iconIndex < 0) return null;
 
@@ -655,6 +661,24 @@ class ExplorerStore {
     );
 
     if (loadedAny && !signal?.aborted) {
+      // Populate bounded visibleIconCache so icons stay rendered even if >6 libraries share a viewport
+      const vMap = getSingleton().visibleIcons;
+      for (let i = 0; i < iconIndices.length; i++) {
+        const idx = iconIndices[i];
+        if (vMap.has(idx)) continue;
+        const loc = resolveShardForIcon(manifest, idx);
+        if (!loc) continue;
+        const chunk = getSingleton().chunkCache.get(loc.shard.url);
+        if (!chunk) continue;
+        const decoded = decodeResolvedIcon(chunk, idx, loc.localOffset);
+        if (decoded) {
+          vMap.set(idx, decoded);
+          if (vMap.size > MAX_VISIBLE_ICON_CACHE) {
+            const firstKey = vMap.keys().next().value;
+            if (firstKey !== undefined) vMap.delete(firstKey);
+          }
+        }
+      }
       this.chunkVersion++;
     }
   }

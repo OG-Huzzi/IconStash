@@ -129,7 +129,7 @@
 
   const previewSvg = $derived.by(() => {
     if (!activeIcon) return '';
-    const previewDim = Math.min(160, Math.max(16, custom.size));
+    const previewDim = Math.min(160, Math.max(96, custom.size));
     return renderCustomizedSvg(activeIcon, {
       ...renderOptions,
       size: previewDim,
@@ -542,11 +542,12 @@
           class:bg-light={effectivePreviewBg === 'light'}
           class:checkered-dot={effectivePreviewBg === 'checkered'}
           id="dp-preview-box"
-          style={effectivePreviewBg === 'light'
+          data-preview-dim={Math.min(156, Math.max(96, custom.size))}
+          style={'--dp-preview-dim:' + Math.min(156, Math.max(96, custom.size)) + 'px;' + (effectivePreviewBg === 'light'
             ? 'background:#ffffff;'
             : effectivePreviewBg === 'dark'
               ? 'background:#0a0a0a;'
-              : ''}
+              : '')}
         >
           {@html previewSvg}
         </div>
@@ -1655,6 +1656,8 @@
 </aside>
 
 <style>
+  #dp-preview-box :global(svg) { width: var(--dp-preview-dim, 112px) !important; height: var(--dp-preview-dim, 112px) !important; max-width: 156px; max-height: 156px; flex-shrink: 0; }
+
   .color-swatches-row {
     display: flex;
     flex-wrap: wrap;

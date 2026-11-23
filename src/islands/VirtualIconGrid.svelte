@@ -42,7 +42,14 @@
   let containerWidth = $state(960);
   let containerHeight = $state(680);
 
-  const metrics = $derived(DENSITY_METRICS[previewState.density] ?? DENSITY_METRICS.compact);
+  const baseMetrics = $derived(DENSITY_METRICS[previewState.density] ?? DENSITY_METRICS.compact);
+  const metrics = $derived.by(() => {
+    const g = previewState.gridSize;
+    const cardSize = Math.max(baseMetrics.cardSize, g + 28);
+    const extraH = previewState.density === 'comfortable' ? 30 : 8;
+    const rowHeight = Math.max(baseMetrics.rowHeight, cardSize + extraH);
+    return { cardSize, rowHeight };
+  });
   const columns = $derived(
     Math.max(1, Math.floor((containerWidth + GRID_GAP) / (metrics.cardSize + GRID_GAP))),
   );
@@ -217,7 +224,7 @@
   bind:this={scrollContainerEl}
   tabindex="0"
   aria-label="Icon results"
-  style="--ic-tile-size: {metrics.cardSize}px; --card-size: {metrics.cardSize}px; --card-row-height: {metrics.rowHeight}px;"
+  style="--ic-size: {previewState.gridSize}px; --ic-tile-size: {metrics.cardSize}px; --card-size: {metrics.cardSize}px; --card-row-height: {metrics.rowHeight}px;"
 >
   {#if explorerState.error}
     <div id="library-error-card" class="error-card">
@@ -372,7 +379,6 @@
     --ic-color: currentColor;
     --ic-stroke: 1.75;
     --ic-stroke-width: 1.75;
-    --ic-size: 24px;
     --ic-rot: 0deg;
     --ic-flip-x: 1;
     --ic-flip-y: 1;

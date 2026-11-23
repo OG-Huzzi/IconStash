@@ -547,7 +547,7 @@
               <span class="lib-count">{formatNumber(totalCatalogIcons)}</span>
             </button>
 
-            <div class="sidebar-card" id="lib-card-section" class:expanded={libsExpanded}>
+            <div class="sidebar-card" id="lib-card-section" class:open={libsExpanded}>
               <button
                 type="button"
                 class="filter-header lib-toggle"
@@ -621,7 +621,7 @@
         </section>
 
         <!-- Styles Filter (All + 7 Styles) -->
-        <section class="sidebar-card expandable" id="style-section" class:expanded={stylesExpanded}>
+        <section class="sidebar-card expandable" id="style-section" class:open={stylesExpanded}>
           <button
             type="button"
             class="filter-header style-toggle"
@@ -666,7 +666,7 @@
         </section>
 
         <!-- Categories Filter (All 16 Categories) -->
-        <section class="sidebar-card expandable" id="category-section" class:expanded={categoriesExpanded}>
+        <section class="sidebar-card expandable" id="category-section" class:open={categoriesExpanded}>
           <button
             type="button"
             class="filter-header category-toggle"
@@ -745,7 +745,7 @@
         </section>
 
         <!-- Live Color & Stroke Preview Controls -->
-        <section class="sidebar-card expandable" id="customize-section" class:expanded={customizeExpanded}>
+        <section class="sidebar-card expandable" id="customize-section" class:open={customizeExpanded}>
           <button
             type="button"
             class="filter-header category-toggle"
@@ -920,6 +920,7 @@
           </div>
 
           <div class="toolbar-right">
+            <a href="/api/" class="toolbar-api-link" title="Free static API &amp; MCP server for developers">API &amp; MCP</a>
             <div class="density-toggle" role="group" aria-label="Grid density">
               {#each (['compact', 'default', 'comfortable'] as readonly GridDensity[]) as mode (mode)}
                 <button
@@ -962,63 +963,7 @@
                 : 'Select'}
             </button>
 
-            <button
-              type="button"
-              id="draw-open"
-              class="glass-btn"
-              title="Draw your own icon"
-              onclick={() => inspectorState.openDraw()}
-            >
-              Draw an Icon
-            </button>
-
-            <button
-              type="button"
-              id="compare-toggle"
-              class="glass-btn"
-              title="Compare this icon across all libraries"
-              onclick={() =>
-                inspectorState.openCompare(
-                  inspectorState.activeIcon?.name ?? explorerState.query ?? '',
-                )}
-            >
-              Compare
-            </button>
-
-            <button
-              type="button"
-              id="collections-toggle"
-              class="glass-btn"
-              title="Your Collections & Favorites"
-              onclick={() => inspectorState.openCollections()}
-            >
-              Collections
-              {#if favoritesCount > 0}
-                <span class="badge" id="collection-badge">{favoritesCount}</span>
-              {/if}
-            </button>
-
-            <button
-              type="button"
-              id="shortcuts-btn"
-              class="glass-btn"
-              title="Keyboard shortcuts (?)"
-              aria-label="Keyboard shortcuts"
-              onclick={() => inspectorState.openShortcuts()}
-            >
-              ?
-            </button>
-
-            <button
-              type="button"
-              id="theme-toggle"
-              class="glass-btn"
-              title="Toggle theme"
-              onclick={() => previewState.toggleTheme()}
-            >
-              {previewState.theme === 'dark' ? 'Light' : 'Dark'}
-            </button>
-          </div>
+            </div>
         </div>
 
         <!-- Virtualized Icon Grid (<= 180 DOM tiles) -->
