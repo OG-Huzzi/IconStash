@@ -983,7 +983,6 @@
     align-items: center;
     gap: 12px;
     padding: 8px 16px;
-    border-bottom: 1px solid var(--border, #1f1f1f);
     background: var(--bg-base, #0a0a0a);
   }
 
@@ -1365,7 +1364,6 @@
     flex-wrap: wrap;
     gap: 10px;
     padding: 10px 16px;
-    border-bottom: 1px solid var(--border, #1f1f1f);
   }
 
   .toolbar-left,

@@ -17,7 +17,9 @@
     "test:unit": "vitest run tests/unit",
     "test:workers": "vitest run tests/workers",
     "test:all": "vitest run",
-    "test:perf": "playwright test tests/perf"
+    "test:perf": "playwright test tests/perf",
+    "build:release": "node scripts/build-release.mjs",
+    "test:sdk": "node --test tests/unit/sdk-mcp-compat.test.mjs"
   },
   "dependencies": {
     "@astrojs/svelte": "latest",
