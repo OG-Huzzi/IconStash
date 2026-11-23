@@ -39,6 +39,18 @@
     jsxImport?: string;
   };
 
+  const FORMAT_OPTIONS: ReadonlyArray<{ id: CodeFormat; label: string; desc: string }> = [
+    { id: 'svg', label: 'SVG', desc: 'vector code' },
+    { id: 'xml', label: 'XML', desc: 'svg file' },
+    { id: 'jsx', label: 'JSX', desc: 'react' },
+    { id: 'vue', label: 'Vue', desc: 'component' },
+    { id: 'svelte', label: 'Svelte', desc: 'component' },
+    { id: 'angular', label: 'Angular', desc: 'template' },
+    { id: 'html', label: 'HTML img', desc: 'fallback' },
+    { id: 'css', label: 'CSS bg', desc: 'mask' },
+    { id: 'base64', label: 'Base64', desc: 'data uri' },
+  ];
+
   const TEXTURE_OPTIONS: ReadonlyArray<{ id: SurfaceTexture; label: string }> = [
     { id: 'none', label: 'None' },
     { id: 'paper', label: 'Paper' },
