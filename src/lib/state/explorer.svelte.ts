@@ -90,7 +90,8 @@ declare global {
 const DEFAULT_INDEX_URL = '/index/v1/search.bin';
 const DEFAULT_META_URL = '/index/v1/search-meta.json';
 const DEFAULT_MANIFEST_URL = '/chunks/v1/manifest.json';
-const MAX_RAM_CHUNKS = 5;
+const MAX_RAM_CHUNKS = 4;
+const MAX_RAM_BYTES = 18 * 1024 * 1024;
 const QUERY_DEBOUNCE_MS = 60;
 
 const BASE_NAME_SUFFIX_RE =
@@ -128,6 +129,7 @@ function getSingleton(): SearchWorkerSingleton {
       metaPromise: null,
       chunkCache: new ChunkLRUCache<LibraryChunkPayload>({
         maxChunks: MAX_RAM_CHUNKS,
+        maxBytes: MAX_RAM_BYTES,
       }),
       pendingConcept: new Map(),
       pendingAdhocQuery: new Map(),
@@ -782,3 +784,14 @@ class ExplorerStore {
 }
 
 export const explorerState = new ExplorerStore();
+
+if (typeof window !== "undefined") {
+  window.addEventListener("pagehide", () => {
+    const sg = globalThis.__ICONSTASH_SEARCH_WORKER__;
+    if (sg?.worker) {
+      sg.worker.terminate();
+      sg.worker = null;
+      sg.ready = false;
+    }
+  });
+}
