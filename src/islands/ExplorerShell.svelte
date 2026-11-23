@@ -22,6 +22,7 @@
   import { formatCode } from '../lib/svg/codegen';
   import { downloadBlob } from '../lib/export/client';
   import VirtualIconGrid from './VirtualIconGrid.svelte';
+  import { LIBRARY_BADGE_SVGS } from '../lib/library-icons';
 
   interface Props {
     initialLibrary?: string;
@@ -420,6 +421,14 @@
       window.removeEventListener('iconstash:open-collections', onOpenCollections);
     };
   });
+  $effect(() => {
+    if (typeof document === 'undefined') return;
+    const el = document.getElementById('result-count');
+    if (el) {
+      el.textContent = formatNumber(explorerState.totalMatches || totalCatalogIcons);
+      el.classList.remove('hidden');
+    }
+  });
 </script>
 
 <div class="explorer-shell">
@@ -555,7 +564,7 @@
                 aria-expanded={libsExpanded}
                 onclick={() => (libsExpanded = !libsExpanded)}
               >
-                <h2>Libraries List ({libraries.length})</h2>
+                <h2>Libraries List</h2>
                 <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="m6 9 6 6 6-6" />
                 </svg>
@@ -566,54 +575,21 @@
                   {#each filteredLibraries as lib (lib.slug)}
                     {@const isChecked = (explorerState.selectedLibMask & (1 << lib.id)) !== 0}
                     {@const liveCount = explorerState.libraryCounts[lib.id] ?? lib.count}
-                    <div class="lib-row-wrapper">
-                      <label
-                        class="lib-row"
-                        class:active={isChecked}
-                        data-slug={lib.slug}
-                      >
-                        <input
-                          class="lib-check"
-                          type="checkbox"
-                          value={lib.slug}
-                          checked={isChecked}
-                          onchange={() => explorerState.toggleLibrary(lib.id)}
-                        />
-                        <span class="lib-dot" style="background: {lib.color || '#C1DD2D'};" aria-hidden="true"></span>
-                        <span class="lib-name">{lib.name}</span>
-                        <span class="lib-count">{formatNumber(liveCount)}</span>
-                      </label>
-                      <div class="lib-row-meta">
-                        {#if lib.npmPackage}
-                          <button
-                            type="button"
-                            class="lib-meta-btn"
-                            title="Copy npm install {lib.npmPackage}"
-                            aria-label="Copy npm install command for {lib.name}"
-                            onclick={() =>
-                              void copyText(
-                                `npm install ${lib.npmPackage}`,
-                                `Copied: npm install ${lib.npmPackage}`,
-                              )}
-                          >
-                            npm
-                          </button>
-                        {/if}
-                        {#if lib.docsUrl}
-                          <a
-                            class="lib-meta-btn"
-                            href={lib.docsUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="{lib.name} official documentation"
-                            aria-label="{lib.name} documentation"
-                          >
-                            docs
-                          </a>
-                        {/if}
-                      </div>
-                    </div>
-                  {/each}
+                    <label class="lib-row" class:active={isChecked} data-slug={lib.slug}>
+                    <span class="lib-badge">
+                      {@html LIBRARY_BADGE_SVGS[lib.slug] ?? '<svg class="lib-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>'}
+                    </span>
+                    <span class="lib-name">{lib.name}</span>
+                    <span class="lib-count">{formatNumber(liveCount)}</span>
+                    <input
+                      class="lib-check"
+                      type="checkbox"
+                      value={lib.slug}
+                      checked={isChecked}
+                      onchange={() => explorerState.toggleLibrary(lib.id)}
+                    />
+                  </label>
+                {/each}
                 </div>
               {/if}
             </div>
@@ -909,13 +885,11 @@
               {#if !explorerState.ready && explorerState.loading}
                 Loading icon index...
               {:else}
-                Showing {formatNumber(explorerState.totalMatches)} icons
+                {hasActiveFilters ? `Showing ${formatNumber(explorerState.totalMatches)} icons` : `All icons: ${formatNumber(explorerState.totalMatches)}`}
               {/if}
             </span>
             {#if explorerState.ready && explorerState.elapsedMs > 0}
-              <span class="muted" id="load-status">
-                ({explorerState.elapsedMs.toFixed(1)}ms)
-              </span>
+              <span class="muted" id="load-status"></span>
             {/if}
           </div>
 
@@ -967,6 +941,14 @@
         </div>
 
         <!-- Virtualized Icon Grid (<= 180 DOM tiles) -->
+        <div class="ad-slot top-ad has-api-banner">
+          <a class="api-strip api-strip-ad" href="/api/" aria-label="Explore the free IconStash API and MCP server">
+            <span class="api-strip-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13 5l-2 14"/></svg></span>
+            <span class="api-strip-text"><strong>Free API &amp; MCP</strong> &mdash; use all 134,701 icons in your app, build, or AI assistant.</span>
+            <span class="api-strip-cta">Explore <span aria-hidden="true">&rarr;</span></span>
+          </a>
+        </div>
+
         <VirtualIconGrid
           bind:this={gridRef}
           bind:focusedPos
@@ -1031,7 +1013,7 @@
   }
 
   .search-input-wrapper:focus-within {
-    border-color: var(--control-blue, #c1dd2d);
+    border-color: transparent;
   }
 
   .search-icon {

@@ -93,7 +93,7 @@ const DEFAULT_META_URL = '/index/v1/search-meta.json';
 const DEFAULT_MANIFEST_URL = '/chunks/v1/manifest.json';
 const MAX_RAM_CHUNKS = 6;
 const MAX_RAM_BYTES = 24 * 1024 * 1024;
-const MAX_VISIBLE_ICON_CACHE = 400;
+const MAX_VISIBLE_ICON_CACHE = 1200;
 const QUERY_DEBOUNCE_MS = 60;
 
 const BASE_NAME_SUFFIX_RE =
@@ -635,42 +635,22 @@ class ExplorerStore {
     const manifest = this.manifest;
     if (!manifest || iconIndices.length === 0) return;
 
-    const cache = getSingleton().chunkCache;
-    const urlsToLoad = new Set<string>();
+    const sg = getSingleton();
+    const cache = sg.chunkCache;
+    const vMap = sg.visibleIcons;
+
+    const byShardUrl = new Map<string, Array<{ iconIndex: number; localOffset: number }>>();
+    const urlsToLoad: string[] = [];
 
     for (let i = 0; i < iconIndices.length; i++) {
-      const loc = resolveShardForIcon(manifest, iconIndices[i]);
-      if (loc && !cache.has(loc.shard.url)) {
-        urlsToLoad.add(loc.shard.url);
-        if (urlsToLoad.size >= MAX_RAM_CHUNKS) break;
-      }
-    }
+      const idx = iconIndices[i];
+      if (vMap.has(idx)) continue;
+      const loc = resolveShardForIcon(manifest, idx);
+      if (!loc) continue;
 
-    if (urlsToLoad.size === 0) return;
-
-    let loadedAny = false;
-    await Promise.allSettled(
-      Array.from(urlsToLoad).map(async (url) => {
-        try {
-          await cache.load(url, { signal });
-          loadedAny = true;
-        } catch (err) {
-          if (err instanceof Error && err.name === 'AbortError') return;
-        }
-      }),
-    );
-
-    if (loadedAny && !signal?.aborted) {
-      // Populate bounded visibleIconCache so icons stay rendered even if >6 libraries share a viewport
-      const vMap = getSingleton().visibleIcons;
-      for (let i = 0; i < iconIndices.length; i++) {
-        const idx = iconIndices[i];
-        if (vMap.has(idx)) continue;
-        const loc = resolveShardForIcon(manifest, idx);
-        if (!loc) continue;
-        const chunk = getSingleton().chunkCache.get(loc.shard.url);
-        if (!chunk) continue;
-        const decoded = decodeResolvedIcon(chunk, idx, loc.localOffset);
+      const existing = cache.get(loc.shard.url);
+      if (existing) {
+        const decoded = decodeResolvedIcon(existing, idx, loc.localOffset);
         if (decoded) {
           vMap.set(idx, decoded);
           if (vMap.size > MAX_VISIBLE_ICON_CACHE) {
@@ -678,31 +658,80 @@ class ExplorerStore {
             if (firstKey !== undefined) vMap.delete(firstKey);
           }
         }
+        continue;
       }
-      this.chunkVersion++;
-    }
-  }
 
-  /** Pin a single icon record in the bounded 50-item pinned map so Inspector/Compare survive eviction. */
-  pinIcon(icon: ResolvedIcon): void {
-    const rec: PinnedIconRecord = {
-      id: icon.id,
-      iconIndex: icon.iconIndex ?? -1,
-      name: icon.name,
-      svgBody: icon.svgBody ?? icon.svgPath ?? '',
-      viewBox: icon.viewBox ?? '0 0 24 24',
-      strokeWidth: icon.strokeWidth ?? 0,
-      flags: icon.flags ?? 0,
-      librarySlug: icon.librarySlug ?? '',
-      libraryName: icon.libraryName ?? icon.library ?? '',
-    };
-    getSingleton().chunkCache.pinIcon(rec);
+      let list = byShardUrl.get(loc.shard.url);
+      if (!list) {
+        list = [];
+        byShardUrl.set(loc.shard.url, list);
+        urlsToLoad.push(loc.shard.url);
+      }
+      list.push({ iconIndex: idx, localOffset: loc.localOffset });
+    }
+
+    if (urlsToLoad.length === 0) return;
+
+    for (let b = 0; b < urlsToLoad.length; b += 4) {
+      if (signal?.aborted) return;
+      const batch = urlsToLoad.slice(b, b + 4);
+      let loadedInBatch = false;
+
+      await Promise.allSettled(
+        batch.map(async (url) => {
+          try {
+            const chunk = await cache.load(url, { signal });
+            if (signal?.aborted || !chunk) return;
+            const items = byShardUrl.get(url);
+            if (items) {
+              for (let j = 0; j < items.length; j++) {
+                const { iconIndex, localOffset } = items[j];
+                const decoded = decodeResolvedIcon(chunk, iconIndex, localOffset);
+                if (decoded) {
+                  vMap.set(iconIndex, decoded);
+                  if (vMap.size > MAX_VISIBLE_ICON_CACHE) {
+                    const firstKey = vMap.keys().next().value;
+                    if (firstKey !== undefined) vMap.delete(firstKey);
+                  }
+                }
+              }
+            }
+            loadedInBatch = true;
+          } catch (err) {
+            if (err instanceof Error && err.name === 'AbortError') return;
+          }
+        }),
+      );
+
+      if (loadedInBatch && !signal?.aborted) {
+        this.chunkVersion++;
+      }
+    }
   }
 
   /**
    * Finds cross-library concept matches for an icon name (e.g. "home", "arrow-right").
    * Uses the search worker's concept-matching engine and hydrates up to 48 matches.
    */
+  pinIcon(icon: ResolvedIcon): void {
+    const rec: PinnedIconRecord = {
+      iconIndex: icon.iconIndex ?? -1,
+      flags: icon.flags ?? 0,
+      id: icon.id,
+      name: icon.name,
+      svgBody: icon.svgBody ?? '',
+      viewBox: icon.viewBox ?? '0 0 24 24',
+      strokeWidth: icon.strokeWidth ?? 2,
+      librarySlug: icon.librarySlug ?? '',
+      libraryName: icon.libraryName ?? '',
+    };
+    getSingleton().chunkCache.pinIcon(rec);
+  }
+
+  getPinnedIcon(id: string): PinnedIconRecord | undefined {
+    return getSingleton().chunkCache.getPinnedIcon(id);
+  }
+
   async findConceptMatches(name: string): Promise<ResolvedIcon[]> {
     const base = extractConceptBaseName(name);
     if (!base) return [];

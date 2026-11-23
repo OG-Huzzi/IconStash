@@ -525,7 +525,7 @@ export class BinarySearchEngine {
         libMask,
         catMask,
         styleMask,
-        sort,
+        sort === 'relevance' ? 'library' : sort,
         limit,
         libraryCounts,
         categoryCounts,

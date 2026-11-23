@@ -33,7 +33,7 @@
   const SUGGESTION_CHIPS = ['camera', 'arrow', 'user', 'chart', 'download', 'lock'] as const;
 
   const DENSITY_METRICS: Record<GridDensity, { cardSize: number; rowHeight: number }> = {
-    compact: { cardSize: 64, rowHeight: 72 },
+    compact: { cardSize: 60, rowHeight: 68 },
     default: { cardSize: 80, rowHeight: 88 },
     comfortable: { cardSize: 100, rowHeight: 118 },
   };
@@ -377,8 +377,8 @@
     height: calc(100vh - 120px);
     min-height: 520px;
     --ic-color: currentColor;
-    --ic-stroke: 1.75;
-    --ic-stroke-width: 1.75;
+    --ic-stroke: 1.5;
+    --ic-stroke-width: 1.5;
     --ic-rot: 0deg;
     --ic-flip-x: 1;
     --ic-flip-y: 1;
@@ -386,6 +386,7 @@
   }
 
   .ic-tile {
+    color: var(--icon-color, #a1a1aa);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -421,7 +422,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--ic-color, var(--icon-color, #888888));
+    color: var(--ic-color, var(--icon-color, #a1a1aa));
     transform: rotate(var(--ic-rot, 0deg)) scaleX(var(--ic-flip-x, 1)) scaleY(var(--ic-flip-y, 1));
     filter: blur(var(--ic-blur, 0px));
   }
