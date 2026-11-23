@@ -39,30 +39,6 @@
     jsxImport?: string;
   };
 
-  const COLOR_SWATCHES = [
-    '#2563eb',
-    '#C1DD2D',
-    '#ffffff',
-    '#111111',
-    '#ff6b6b',
-    '#00c3ff',
-    '#a855f7',
-    '#f59e0b',
-    '#10b981',
-  ] as const;
-
-  const FORMAT_OPTIONS: ReadonlyArray<{ id: CodeFormat; label: string; desc: string }> = [
-    { id: 'svg', label: 'SVG', desc: 'vector code' },
-    { id: 'xml', label: 'XML', desc: 'svg file' },
-    { id: 'jsx', label: 'JSX', desc: 'react' },
-    { id: 'vue', label: 'Vue', desc: 'component' },
-    { id: 'svelte', label: 'Svelte', desc: 'component' },
-    { id: 'angular', label: 'Angular', desc: 'template' },
-    { id: 'html', label: 'HTML img', desc: 'fallback' },
-    { id: 'css', label: 'CSS bg', desc: 'mask' },
-    { id: 'base64', label: 'Base64', desc: 'data uri' },
-  ];
-
   const TEXTURE_OPTIONS: ReadonlyArray<{ id: SurfaceTexture; label: string }> = [
     { id: 'none', label: 'None' },
     { id: 'paper', label: 'Paper' },
@@ -802,24 +778,6 @@
             Gradient
           </button>
         </div>
-
-        {#if !custom.gradient.on}
-          <div class="color-swatches-row" aria-label="Color presets">
-            {#each COLOR_SWATCHES as swatch}
-              <button
-                type="button"
-                class="color-preset"
-                class:active={custom.color.toLowerCase() === swatch.toLowerCase()}
-                class:bordered={swatch === '#ffffff' || swatch === '#111111'}
-                style={`background:${swatch}`}
-                title={swatch}
-                aria-label={`Set color ${swatch}`}
-                disabled={colorLocked}
-                onclick={() => handleColorChange(swatch)}
-              ></button>
-            {/each}
-          </div>
-        {/if}
 
         <div id="gradient-controls" class:hidden={!custom.gradient.on || colorLocked}>
           <div class="grad-preview" id="grad-preview" style={`background:${gradBarCss}`}></div>

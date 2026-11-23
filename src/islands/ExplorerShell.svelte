@@ -49,7 +49,7 @@
   // Sidebar & collapsible card toggles
   let sidebarCollapsed = $state(false);
   let mobileSidebarOpen = $state(false);
-  let libsExpanded = $state(true);
+  let libsExpanded = $state(false);
   let stylesExpanded = $state(false);
   let categoriesExpanded = $state(false);
   let customizeExpanded = $state(false);
