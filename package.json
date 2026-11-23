@@ -1,0 +1,40 @@
+{
+  "name": "iconstash-v2",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check && tsc --noEmit",
+    "build:chunks": "node scripts/build-chunks.mjs",
+    "build:index": "node scripts/build-search-index.mjs",
+    "build:api": "node scripts/generate-api.js",
+    "build:data": "npm run build:chunks && npm run build:index",
+    "build:icons:smoke": "node scripts/generate-icon-pages.mjs --limit 500 --out dist/icons",
+    "build:icons:tarball": "node scripts/generate-icon-pages.mjs --tarball release/iconstash-icons.tar.gz",
+    "test:unit": "vitest run tests/unit",
+    "test:workers": "vitest run tests/workers",
+    "test:all": "vitest run",
+    "test:perf": "playwright test tests/perf"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "latest",
+    "@tailwindcss/vite": "^4.3.5",
+    "@tanstack/svelte-virtual": "^3.13.54",
+    "astro": "^7.4.13",
+    "fflate": "^0.8.2",
+    "idb-keyval": "^6.2.1",
+    "svelte": "^5.59.1",
+    "tailwindcss": "^4.3.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@playwright/test": "latest",
+    "@types/node": "^22.0.0",
+    "svelte-check": "latest",
+    "typescript": "^5.8.0",
+    "vitest": "^3.1.0"
+  }
+}

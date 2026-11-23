@@ -95,3 +95,11 @@ sitemap-audit-report.md
 # captures, synthesized audio) — never served, never part of the static site
 videos/
 marketing/
+
+# IconStash v2 generated build & runtime outputs
+node_modules/
+dist/
+.astro/
+release/
+public/chunks/v1/
+public/index/v1/
