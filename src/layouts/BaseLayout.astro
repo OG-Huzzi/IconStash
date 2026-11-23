@@ -1,0 +1,118 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/app.css';
+import SeoHead, { type Props as SeoHeadProps } from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+
+export interface Props extends SeoHeadProps {
+  bodyClass?: string;
+  activeNav?: 'icons' | 'library' | 'category' | 'style' | 'none';
+  showHeader?: boolean;
+  showSearch?: boolean;
+  showSidebarToggle?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  robots,
+  ogType,
+  ogTitle,
+  ogDescription,
+  ogImage,
+  ogImageAlt,
+  twitterTitle,
+  twitterDescription,
+  jsonLd,
+  includePlausible,
+  bodyClass = '',
+  activeNav = 'icons',
+  showHeader = true,
+  showSearch = true,
+  showSidebarToggle = true,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <script is:inline>
+      (() => {
+        const applyStoredTheme = () => {
+          let theme = 'dark';
+          try {
+            const primary = localStorage.getItem('iconvault-theme');
+            const fallback = localStorage.getItem('theme');
+            if (primary === 'light' || primary === 'dark') {
+              theme = primary;
+            } else if (fallback === 'light' || fallback === 'dark') {
+              theme = fallback;
+            }
+            localStorage.setItem('iconvault-theme', theme);
+            localStorage.setItem('theme', theme);
+          } catch (_) {
+            theme = 'dark';
+          }
+          document.documentElement.dataset.theme = theme;
+        };
+        applyStoredTheme();
+        document.addEventListener('astro:after-swap', applyStoredTheme);
+      })();
+    </script>
+
+    <SeoHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      robots={robots}
+      ogType={ogType}
+      ogTitle={ogTitle}
+      ogDescription={ogDescription}
+      ogImage={ogImage}
+      ogImageAlt={ogImageAlt}
+      twitterTitle={twitterTitle}
+      twitterDescription={twitterDescription}
+      jsonLd={jsonLd}
+      includePlausible={includePlausible}
+    />
+
+    <ClientRouter />
+  </head>
+  <body class={bodyClass || undefined}>
+    <div class="bg-canvas" aria-hidden="true">
+      <div class="mesh-orb orb-1"></div>
+      <div class="mesh-orb orb-2"></div>
+      <div class="mesh-orb orb-3"></div>
+      <div class="mesh-orb orb-4"></div>
+      <div class="corner-glow glow-tl"></div>
+      <div class="corner-glow glow-br"></div>
+      <div class="scanlines"></div>
+      <div class="noise"></div>
+    </div>
+
+    <div class="app-shell">
+      {showHeader && (
+        <Header
+          activeNav={activeNav}
+          showSearch={showSearch}
+          showSidebarToggle={showSidebarToggle}
+        />
+      )}
+
+      <slot />
+    </div>
+
+    <slot name="overlays" />
+
+    <div id="toast-container" aria-live="polite"></div>
+
+    <script is:inline>
+      if ('serviceWorker' in navigator && location.protocol === 'https:') {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,269 @@
+---
+export interface Props {
+  activeNav?: 'icons' | 'library' | 'category' | 'style' | 'none';
+  showSearch?: boolean;
+  showSidebarToggle?: boolean;
+}
+
+const {
+  activeNav = 'icons',
+  showSearch = true,
+  showSidebarToggle = true,
+} = Astro.props;
+---
+
+<header id="main-header">
+  <div class="header-left">
+    {showSidebarToggle && (
+      <button
+        class="icon-btn mobile-only"
+        id="sidebar-toggle"
+        title="Open filters"
+        aria-label="Open filters"
+        aria-expanded="false"
+        aria-controls="left-sidebar"
+        type="button"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    )}
+    <a class="logo" id="logo-btn" href="/" aria-label="IconStash.io home">
+      <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2 21 7v10l-9 5-9-5V7l9-5Z" />
+        <path d="m8 9 4-2 4 2v6l-4 2-4-2V9Z" />
+      </svg>
+      <span class="logo-text">IconStash<span class="logo-io">.io</span></span>
+    </a>
+  </div>
+
+  <div class="header-center">
+    {showSearch && (
+      <>
+        <div class="search-container" id="search-shell">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4.4-4.4" />
+            </svg>
+            <input
+              id="main-search"
+              type="search"
+              placeholder="Search 134,701 icons... ( press / )"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search icons"
+            />
+            <button class="search-clear hidden" id="search-clear" type="button" aria-label="Clear search">x</button>
+          </div>
+          <div id="search-autocomplete" class="autocomplete hidden" role="listbox"></div>
+        </div>
+        <div class="search-results-count hidden" id="result-count">0</div>
+      </>
+    )}
+  </div>
+
+  <div class="header-right">
+    <a href="/" class:list={['nav-link', { active: activeNav === 'icons' }]} id="nav-icons-btn">Icons</a>
+    <button class="nav-link" id="draw-open" type="button" title="Draw your own icon">Draw</button>
+    <button class="nav-link" id="compare-toggle" type="button" title="Compare this icon across all libraries">Compare</button>
+    <button class="nav-link" id="collections-toggle" type="button" title="Your Collection">
+      Favorites<span class="badge hidden" id="collection-badge">0</span>
+    </button>
+    <button class="nav-link" id="theme-toggle" type="button" title="Toggle theme">Light</button>
+    <button
+      class="icon-btn nav-menu-btn"
+      id="nav-menu-btn"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div class="nav-menu" id="nav-menu" role="menu" aria-label="Site menu">
+  <button type="button" role="menuitem" data-nav="nav-icons-btn">Icons<span>&rsaquo;</span></button>
+  <button type="button" role="menuitem" data-nav="draw-open">Draw an icon<span>&rsaquo;</span></button>
+  <button type="button" role="menuitem" data-nav="compare-toggle">Compare<span>&rsaquo;</span></button>
+  <button type="button" role="menuitem" data-nav="collections-toggle">Favorites<span>&rsaquo;</span></button>
+  <button type="button" role="menuitem" data-nav="theme-toggle">Light / Dark theme<span>&rsaquo;</span></button>
+</div>
+
+<script>
+  let cleanupHeader: (() => void) | null = null;
+
+  function initHeaderShell() {
+    cleanupHeader?.();
+    const ac = new AbortController();
+    const { signal } = ac;
+
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('theme-toggle');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const navMenuBtn = document.getElementById('nav-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+    const drawBtn = document.getElementById('draw-open');
+    const compareBtn = document.getElementById('compare-toggle');
+    const collectionsBtn = document.getElementById('collections-toggle');
+    const searchInput = document.getElementById('main-search') as HTMLInputElement | null;
+    const searchClear = document.getElementById('search-clear');
+
+    const syncThemeLabel = (theme: string) => {
+      root.dataset.theme = theme;
+      if (themeToggle) {
+        themeToggle.textContent = theme === 'light' ? 'Dark' : 'Light';
+      }
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) {
+        metaTheme.setAttribute('content', theme === 'light' ? '#F9F9F9' : '#0A0A0A');
+      }
+    };
+
+    const currentTheme = root.dataset.theme === 'light' ? 'light' : 'dark';
+    syncThemeLabel(currentTheme);
+
+    themeToggle?.addEventListener(
+      'click',
+      () => {
+        const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        syncThemeLabel(next);
+        try {
+          localStorage.setItem('iconvault-theme', next);
+          localStorage.setItem('theme', next);
+        } catch {
+          // Ignore storage quota / privacy mode errors
+        }
+        window.dispatchEvent(new CustomEvent('iconstash:theme-change', { detail: { theme: next } }));
+      },
+      { signal }
+    );
+
+    sidebarToggle?.addEventListener(
+      'click',
+      () => {
+        const isOpen = document.body.classList.toggle('sidebar-open');
+        sidebarToggle.setAttribute('aria-expanded', String(isOpen));
+      },
+      { signal }
+    );
+
+    const closeNavMenu = () => {
+      if (!navMenu || !navMenuBtn) return;
+      navMenu.classList.remove('open');
+      navMenuBtn.setAttribute('aria-expanded', 'false');
+    };
+
+    navMenuBtn?.addEventListener(
+      'click',
+      (event) => {
+        event.stopPropagation();
+        if (!navMenu) return;
+        const isOpen = navMenu.classList.toggle('open');
+        navMenuBtn.setAttribute('aria-expanded', String(isOpen));
+      },
+      { signal }
+    );
+
+    navMenu?.addEventListener(
+      'click',
+      (event) => {
+        const target = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>('[data-nav]');
+        if (!target) return;
+        const navId = target.dataset.nav;
+        closeNavMenu();
+        if (navId) {
+          document.getElementById(navId)?.click();
+        }
+      },
+      { signal }
+    );
+
+    document.addEventListener(
+      'click',
+      (event) => {
+        if (navMenu?.classList.contains('open')) {
+          const target = event.target as Node | null;
+          if (target && !navMenu.contains(target) && !navMenuBtn?.contains(target)) {
+            closeNavMenu();
+          }
+        }
+      },
+      { signal }
+    );
+
+    drawBtn?.addEventListener(
+      'click',
+      () => window.dispatchEvent(new CustomEvent('iconstash:open-draw')),
+      { signal }
+    );
+    compareBtn?.addEventListener(
+      'click',
+      () => window.dispatchEvent(new CustomEvent('iconstash:open-compare')),
+      { signal }
+    );
+    collectionsBtn?.addEventListener(
+      'click',
+      () => window.dispatchEvent(new CustomEvent('iconstash:open-collections')),
+      { signal }
+    );
+
+    searchInput?.addEventListener(
+      'input',
+      () => {
+        const value = searchInput.value;
+        searchClear?.classList.toggle('hidden', value.length === 0);
+        window.dispatchEvent(new CustomEvent('iconstash:search-input', { detail: { query: value } }));
+      },
+      { signal }
+    );
+
+    searchClear?.addEventListener(
+      'click',
+      () => {
+        if (!searchInput) return;
+        searchInput.value = '';
+        searchClear.classList.add('hidden');
+        searchInput.focus();
+        window.dispatchEvent(new CustomEvent('iconstash:search-input', { detail: { query: '' } }));
+      },
+      { signal }
+    );
+
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key === 'Escape' && navMenu?.classList.contains('open')) {
+          closeNavMenu();
+        }
+        if (
+          event.key === '/' &&
+          searchInput &&
+          !event.ctrlKey &&
+          !event.metaKey &&
+          !event.altKey
+        ) {
+          const tag = (document.activeElement?.tagName || '').toUpperCase();
+          if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') {
+            event.preventDefault();
+            searchInput.focus();
+          }
+        }
+      },
+      { signal }
+    );
+
+    cleanupHeader = () => ac.abort();
+  }
+
+  document.addEventListener('astro:page-load', initHeaderShell);
+  document.addEventListener('astro:before-swap', () => {
+    cleanupHeader?.();
+    cleanupHeader = null;
+  });
+</script>

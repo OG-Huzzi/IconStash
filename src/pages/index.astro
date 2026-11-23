@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import ExplorerShell from '../islands/ExplorerShell.svelte';
+import InspectorDrawer from '../islands/InspectorDrawer.svelte';
+import CollectionsTray from '../islands/CollectionsTray.svelte';
+import CompareModal from '../islands/CompareModal.svelte';
+import SvgDrawModal from '../islands/SvgDrawModal.svelte';
+
+const title = 'IconStash - 134,701 Free SVG & PNG Icons | Search 28 Libraries';
+const description =
+  'Search, compare, customize, copy, and download 134,701 free SVG and PNG icons across 28 open-source libraries. Set any size, color, or export instantly.';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://iconstash.io/#website',
+    name: 'IconStash',
+    alternateName: 'IconStash Icon Search Engine',
+    url: 'https://iconstash.io/',
+    description:
+      'Free browser-based icon search engine unifying 28 open-source icon libraries — 134,701 SVG icons — with live customization and one-click export to SVG, PNG, and React JSX.',
+    inLanguage: 'en',
+    publisher: { '@id': 'https://iconstash.io/#organization' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': 'https://iconstash.io/#organization',
+    name: 'IconStash',
+    url: 'https://iconstash.io/',
+    logo: { '@type': 'ImageObject', url: 'https://iconstash.io/logo.png' },
+    sameAs: ['https://greatsoftwarecompany.com'],
+    founder: {
+      '@type': 'Person',
+      name: 'Jouni Flemming',
+      url: 'https://iconstash.io/about/',
+    },
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'Great Software Company',
+      url: 'https://greatsoftwarecompany.com',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    '@id': 'https://iconstash.io/#webapp',
+    name: 'IconStash',
+    url: 'https://iconstash.io/',
+    applicationCategory: 'DesignApplication',
+    applicationSubCategory: 'Icon Search Engine',
+    operatingSystem: 'Any (web browser)',
+    browserRequirements: 'Requires JavaScript. Runs in any modern browser.',
+    description:
+      'Search 134,701 SVG icons across 28 open-source libraries in one interface. Recolor, resize, and export to SVG, PNG, React JSX, Vue, CSS, HTML, or an SVG sprite. 100% client-side, no login.',
+    featureList: [
+      'Instant search across 28 icon libraries',
+      '134,701 SVG icons',
+      'Live color and stroke-width customization',
+      'Export to SVG, PNG, React JSX, Vue, CSS, HTML, SVG sprite',
+      'Compare the same icon across libraries',
+      'No login, no API key, works offline after first load',
+    ],
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    isAccessibleForFree: true,
+    publisher: { '@id': 'https://iconstash.io/#organization' },
+  },
+];
+
+const HOME_CATEGORIES = [
+  { slug: 'media', name: 'Media', sub: 'Photography' },
+  { slug: 'communication', name: 'Communication', sub: 'Messaging' },
+  { slug: 'commerce', name: 'Commerce', sub: 'Payments' },
+  { slug: 'navigation', name: 'Navigation', sub: 'Maps' },
+  { slug: 'files', name: 'Files', sub: 'Documents' },
+  { slug: 'editing', name: 'Editing', sub: 'Design' },
+  { slug: 'devices', name: 'Devices', sub: 'Hardware' },
+  { slug: 'development', name: 'Development', sub: 'Code' },
+  { slug: 'security', name: 'Security', sub: 'Privacy' },
+  { slug: 'health', name: 'Health', sub: 'Medical' },
+  { slug: 'weather', name: 'Weather', sub: 'Nature' },
+  { slug: 'transport', name: 'Transport', sub: 'Travel' },
+  { slug: 'social', name: 'Social', sub: 'People' },
+  { slug: 'time', name: 'Time', sub: 'Productivity' },
+  { slug: 'data', name: 'Data', sub: 'Charts' },
+  { slug: 'interface', name: 'Interface', sub: 'Controls' },
+] as const;
+
+const FEATURED_LIBRARIES = [
+  { slug: 'lucide', name: 'Lucide', count: '1,979', desc: 'Beautiful and consistent outline icons' },
+  { slug: 'tabler', name: 'Tabler Icons', count: '6,324', desc: 'Interface icons for product design' },
+  { slug: 'phosphor', name: 'Phosphor', count: '9,198', desc: 'Flexible icons across weights and fills' },
+  { slug: 'material', name: 'Material Design Icons', count: '14,001', desc: 'Community Material Design icon catalog' },
+  { slug: 'remix', name: 'Remix Icons', count: '3,244', desc: 'Neutral symbol system for products and interfaces' },
+  { slug: 'iconoir', name: 'Iconoir', count: '2,020', desc: 'Icons crafted for modern interfaces' },
+  { slug: 'heroicons', name: 'Heroicons', count: '1,297', desc: 'Outline and solid icons from Tailwind Labs' },
+  { slug: 'bootstrap', name: 'Bootstrap Icons', count: '2,090', desc: 'Official Bootstrap SVG icon library' },
+] as const;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://iconstash.io/"
+  ogTitle="IconStash - 134,701 Free SVG & PNG Icons"
+  ogDescription="Search, customize, copy, and download 134,701 free SVG vector and PNG icons across 28 open-source libraries. Multi-resolution ZIP packs and clean vector code."
+  ogImageAlt="IconStash - 134,701 Free SVG & PNG Icons"
+  twitterTitle="IconStash — 134,701 Free SVG & PNG Icons"
+  twitterDescription="Search 134,701 icons across 28 open-source libraries. Customize, copy JSX/SVG, export PNG — free, 94.5% need no attribution."
+  jsonLd={jsonLd}
+  activeNav="icons"
+>
+  <h1 class="sr-only">Compare, animate, export - 134,701 free, open-source icons</h1>
+
+  <div class="workspace">
+    <ExplorerShell client:load />
+    <InspectorDrawer client:idle />
+  </div>
+
+  <section class="sr-only" aria-label="Browse IconStash catalog">
+    <h2>Categories</h2>
+    <ul>
+      {HOME_CATEGORIES.map((cat) => (
+        <li>
+          <h3><a href={`/category/${cat.slug}/`}>{cat.name}</a></h3>
+          <p>{cat.sub}</p>
+        </li>
+      ))}
+    </ul>
+    <h2>Featured Libraries</h2>
+    <ul>
+      {FEATURED_LIBRARIES.map((lib) => (
+        <li>
+          <h3><a href={`/library/${lib.slug}/`}>{lib.name}</a></h3>
+          <p>{lib.count} icons - {lib.desc}</p>
+        </li>
+      ))}
+    </ul>
+    <Footer />
+  </section>
+
+  <Fragment slot="overlays">
+    <CollectionsTray client:idle />
+    <CompareModal client:idle />
+    <SvgDrawModal client:idle />
+  </Fragment>
+</BaseLayout>

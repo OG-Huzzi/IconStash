@@ -1,0 +1,35 @@
+---
+import '../styles/app.css';
+import type { LegacyHtmlPage } from '../lib/legacy-pages';
+
+interface Props {
+  page: LegacyHtmlPage;
+}
+
+const { page } = Astro.props;
+const langMatch = page.htmlAttrs.match(/\blang=["']([^"']+)["']/i);
+const lang = langMatch ? langMatch[1] : 'en';
+const bodyClassMatch = page.bodyAttrs.match(/\bclass=["']([^"']+)["']/i);
+const bodyClass = bodyClassMatch ? bodyClassMatch[1] : undefined;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <Fragment set:html={page.headHtml} />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('iconvault-theme') || localStorage.getItem('theme');
+          if (t === 'light' || t === 'dark') {
+            document.documentElement.setAttribute('data-theme', t);
+            localStorage.setItem('iconvault-theme', t);
+            localStorage.setItem('theme', t);
+          }
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <Fragment set:html={page.bodyHtml} />
+  </body>
+</html>

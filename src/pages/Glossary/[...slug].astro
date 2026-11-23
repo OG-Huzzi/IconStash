@@ -1,0 +1,15 @@
+---
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { listLegacyHtmlRoutes, readLegacyHtmlPage } from '../../lib/legacy-pages';
+
+export function getStaticPaths() {
+  return listLegacyHtmlRoutes('Glossary').map((entry) => ({
+    params: { slug: entry.slug },
+    props: { filePath: entry.filePath },
+  }));
+}
+
+const { filePath } = Astro.props;
+const page = readLegacyHtmlPage(filePath);
+---
+<EditorialLayout page={page} />

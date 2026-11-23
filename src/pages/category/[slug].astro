@@ -1,0 +1,256 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import ExplorerShell from '../../islands/ExplorerShell.svelte';
+import InspectorDrawer from '../../islands/InspectorDrawer.svelte';
+import CollectionsTray from '../../islands/CollectionsTray.svelte';
+import CompareModal from '../../islands/CompareModal.svelte';
+import SvgDrawModal from '../../islands/SvgDrawModal.svelte';
+
+interface CategoryMeta {
+  slug: string;
+  name: string;
+  sub: string;
+  blurb: string;
+  count: number;
+}
+
+export function getStaticPaths() {
+  const defs: Array<Omit<CategoryMeta, 'count'>> = [
+    { slug: 'media', name: 'Media', sub: 'Photography', blurb: 'camera, video, audio and gallery icons for players, editors and media libraries' },
+    { slug: 'communication', name: 'Communication', sub: 'Messaging', blurb: 'mail, chat, phone and notification icons for inboxes, messaging and alerts' },
+    { slug: 'commerce', name: 'Commerce', sub: 'Payments', blurb: 'cart, wallet, card and receipt icons for checkout, billing and storefronts' },
+    { slug: 'navigation', name: 'Navigation', sub: 'Maps', blurb: 'arrow, chevron, map and direction icons for menus, breadcrumbs and wayfinding' },
+    { slug: 'files', name: 'Files', sub: 'Documents', blurb: 'file, folder, archive and clipboard icons for document managers and upload flows' },
+    { slug: 'editing', name: 'Editing', sub: 'Design', blurb: 'pen, crop, palette and layout icons for editors, design tools and creative apps' },
+    { slug: 'devices', name: 'Devices', sub: 'Hardware', blurb: 'phone, laptop, watch and server icons for device panels and hardware dashboards' },
+    { slug: 'development', name: 'Development', sub: 'Code', blurb: 'terminal, git, bug and API icons for developer tools, CI dashboards and repos' },
+    { slug: 'security', name: 'Security', sub: 'Privacy', blurb: 'lock, shield, key and fingerprint icons for auth flows, permissions and trust badges' },
+    { slug: 'health', name: 'Health', sub: 'Medical', blurb: 'heart, pulse, pill and stethoscope icons for health apps, records and triage tools' },
+    { slug: 'weather', name: 'Weather', sub: 'Nature', blurb: 'sun, cloud, rain and wind icons for forecasts, climate dashboards and outdoor apps' },
+    { slug: 'transport', name: 'Transport', sub: 'Travel', blurb: 'car, plane, train and luggage icons for logistics, booking and delivery products' },
+    { slug: 'social', name: 'Social', sub: 'People', blurb: 'user, team, profile and emoji icons for accounts, directories and community features' },
+    { slug: 'time', name: 'Time', sub: 'Productivity', blurb: 'clock, calendar, timer and history icons for scheduling, deadlines and activity logs' },
+    { slug: 'data', name: 'Data', sub: 'Charts', blurb: 'chart, graph, table and trend icons for analytics, reporting and BI dashboards' },
+    { slug: 'interface', name: 'Interface', sub: 'Controls', blurb: 'toggle, slider, checkbox and other control icons for forms, settings and UI chrome' },
+  ];
+
+  const counts = new Map<string, number>();
+  try {
+    const metaPath = path.resolve(process.cwd(), 'public/index/v1/search-meta.json');
+    const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+    const names: string[] = Array.isArray(meta.categories) ? meta.categories : [];
+    const byCat: number[] = Array.isArray(meta.counts?.byCategory) ? meta.counts.byCategory : [];
+    names.forEach((name, idx) => {
+      counts.set(name.toLowerCase(), byCat[idx] ?? 0);
+    });
+  } catch {
+    // Fallback to zero if metadata not yet built
+  }
+
+  const allCategories: CategoryMeta[] = defs.map((def) => ({
+    ...def,
+    count: counts.get(def.name.toLowerCase()) ?? 0,
+  }));
+
+  return allCategories.map((category) => ({
+    params: { slug: category.slug },
+    props: { category, allCategories },
+  }));
+}
+
+interface Props {
+  category: CategoryMeta;
+  allCategories: CategoryMeta[];
+}
+
+const SITE_URL = 'https://iconstash.io';
+const TOTAL_LIBRARIES = 28;
+
+const STYLES = [
+  { slug: 'outline', name: 'Outline' },
+  { slug: 'solid', name: 'Solid' },
+  { slug: 'duotone', name: 'Duotone' },
+  { slug: 'fill', name: 'Fill' },
+  { slug: 'bold', name: 'Bold' },
+  { slug: 'thin', name: 'Thin' },
+  { slug: 'light', name: 'Light' },
+] as const;
+
+const { category, allCategories } = Astro.props;
+const totalFmt = category.count.toLocaleString('en-US');
+const canonical = `${SITE_URL}/category/${category.slug}/`;
+const title = `${category.name} Icons — ${totalFmt} Free SVG Icons | IconStash`;
+
+const rawDescription = `${totalFmt} free ${category.name.toLowerCase()} icons — ${category.blurb}. Compare ${TOTAL_LIBRARIES} libraries, copy SVG or export PNG. No login.`;
+const description =
+  rawDescription.length > 158
+    ? `${totalFmt} free ${category.name.toLowerCase()} icons — ${category.blurb}. Compare ${TOTAL_LIBRARIES} libraries, copy SVG, export PNG.`
+    : rawDescription;
+
+const faqs: [string, string][] = [
+  [
+    `What are ${category.name.toLowerCase()} icons?`,
+    `${category.name} icons cover ${category.blurb}. IconStash indexes ${totalFmt} icons in this category across ${TOTAL_LIBRARIES} icon libraries, so you can compare how different sets draw the same concept before committing to one.`,
+  ],
+  [
+    `Which icon library has the best ${category.name.toLowerCase()} icons?`,
+    `It depends on the look you want. For a minimal, consistent outline set, <a href="/library/lucide/">Lucide</a> is the usual default; for multiple weights from one library, <a href="/library/phosphor/">Phosphor</a> gives you six; for maximum breadth, <a href="/library/fluent/">Fluent UI Icons</a> and <a href="/library/materialsymbols/">Material Symbols</a> offer the largest catalogs.`,
+  ],
+  [
+    `Can I download ${category.name.toLowerCase()} icons as PNG?`,
+    `Yes. Every icon in this category can be exported as PNG at 16, 32, 64, 128, 256, or 512 pixels, generated client-side from the original vector. You can also copy the raw SVG, export a React component, or build an SVG sprite.`,
+  ],
+  [
+    `Are these ${category.name.toLowerCase()} icons free for commercial use?`,
+    `The libraries indexed here are MIT, Apache 2.0, ISC, CC BY 4.0, or CC0 licensed, all of which permit commercial use. CC BY sets — such as <a href="/library/solar/">Solar Icons</a> — require attribution, so check the license shown on each icon page if you cannot provide credit.`,
+  ],
+  [
+    `How do I pick the right ${category.name.toLowerCase()} icon?`,
+    `Start from recognition rather than style. Choose the glyph your users already associate with the action, then pick the library whose weight matches your interface — lighter sets like <a href="/library/remix/">Remix Icon</a> suit dense UI, heavier sets like <a href="/library/solar/">Solar</a> suit marketing and empty states.`,
+  ],
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'IconStash', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: 'Icon Categories', item: `${SITE_URL}/category/` },
+      { '@type': 'ListItem', position: 3, name: `${category.name} Icons`, item: canonical },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${category.name} Icons`,
+    url: canonical,
+    description: `Index of ${totalFmt} ${category.name.toLowerCase()} icons on IconStash across ${TOTAL_LIBRARIES} open-source icon libraries.`,
+    isPartOf: { '@type': 'WebSite', name: 'IconStash', url: `${SITE_URL}/` },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: category.count,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a.replace(/<[^>]+>/g, '') },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+  activeNav="category"
+  bodyClass="pseo-page"
+>
+  <div class="hub-shell-main">
+    <section class="hub-seo-band">
+      <div class="pseo-document">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">IconStash</a> / <a href="/category/">Categories</a> / <span>{category.name} Icons</span>
+        </nav>
+
+        <section class="hero">
+          <div class="preview">
+            <div class="hub-stats">
+              <div class="hub-stat"><b>{totalFmt}</b><span>Icons</span></div>
+              <div class="hub-stat"><b>{TOTAL_LIBRARIES}</b><span>Libraries</span></div>
+              <div class="hub-stat"><b>{category.sub}</b><span>Focus</span></div>
+              <div class="hub-stat"><b>SVG</b><span>&amp; PNG</span></div>
+            </div>
+          </div>
+          <div>
+            <h1>{category.name} Icons</h1>
+            <p class="lead">
+              {totalFmt} free {category.name.toLowerCase()} icons indexed across {TOTAL_LIBRARIES} open-source libraries — {category.blurb}. Compare how each library draws the same icon, then copy the SVG or export a PNG.
+            </p>
+            <div class="cta">
+              <a class="btn primary" href="/library/">Browse {category.name.toLowerCase()} icons by library</a>
+              <a class="btn" href="/compare/">Compare libraries</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <div class="workspace hub-explorer-stage">
+      <ExplorerShell client:load initialCategory={category.slug} />
+      <InspectorDrawer client:idle />
+    </div>
+
+    <section class="hub-seo-details">
+      <div class="pseo-document">
+        <p class="section-title">About {category.name} icons</p>
+        <div class="grid wide">
+          <article class="card">
+            <h2>What this category covers</h2>
+            <p>
+              The {category.name.toLowerCase()} category collects icons for {category.blurb}. Because IconStash indexes {TOTAL_LIBRARIES} libraries side by side, a single search here returns the same concept drawn by many different design teams — which is the fastest way to find an icon that matches your product's existing visual language.
+            </p>
+            <p>
+              Every result links to a page with the full SVG source, a live preview you can recolour and resize, PNG export at six sizes, and a ready-to-paste React snippet. Nothing is locked behind an account, and the icons come from libraries you can install directly from npm.
+            </p>
+          </article>
+        </div>
+
+        <p class="section-title">Browse other categories</p>
+        <div class="grid">
+          <article class="card">
+            <p class="hub-links">
+              {allCategories.filter((c) => c.slug !== category.slug).map((c, idx) => (
+                <>
+                  {idx > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={`/category/${c.slug}/`}>{c.name} icons</a>
+                </>
+              ))}
+            </p>
+          </article>
+        </div>
+
+        <p class="section-title">Frequently asked questions</p>
+        <div class="grid wide">
+          {faqs.map(([q, a]) => (
+            <article class="card faq-item">
+              <h2>{q}</h2>
+              <p set:html={a} />
+            </article>
+          ))}
+        </div>
+
+        <p class="section-title">Browse by style</p>
+        <div class="grid">
+          <article class="card">
+            <p class="hub-links">
+              {STYLES.map((s, idx) => (
+                <>
+                  {idx > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={`/style/${s.slug}/`}>{s.name} icons</a>
+                </>
+              ))}
+            </p>
+          </article>
+        </div>
+
+        <Footer />
+      </div>
+    </section>
+  </div>
+
+  <Fragment slot="overlays">
+    <CollectionsTray client:idle />
+    <CompareModal client:idle />
+    <SvgDrawModal client:idle />
+  </Fragment>
+</BaseLayout>

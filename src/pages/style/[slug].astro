@@ -1,0 +1,300 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import ExplorerShell from '../../islands/ExplorerShell.svelte';
+import InspectorDrawer from '../../islands/InspectorDrawer.svelte';
+import CollectionsTray from '../../islands/CollectionsTray.svelte';
+import CompareModal from '../../islands/CompareModal.svelte';
+import SvgDrawModal from '../../islands/SvgDrawModal.svelte';
+
+interface StyleMeta {
+  slug: string;
+  name: string;
+  title: string;
+  blurb: string;
+  tip: string;
+  count: number;
+}
+
+export function getStaticPaths() {
+  const defs: Array<Omit<StyleMeta, 'count'>> = [
+    {
+      slug: 'outline',
+      name: 'Outline',
+      title: 'Outline Icons',
+      blurb: 'stroke-based icons with no fill, drawn as open paths on a consistent grid',
+      tip: 'Outline icons read as light and technical. They suit dense interfaces, dashboards, and any layout where a filled icon would feel heavy. Watch contrast on coloured or photographic backgrounds — thin strokes can disappear.',
+    },
+    {
+      slug: 'solid',
+      name: 'Solid',
+      title: 'Solid Icons',
+      blurb: 'fully filled icons with no internal stroke, carrying the most visual weight of any style',
+      tip: 'Solid icons are the standard choice for active navigation, selected filters, and primary actions. Used everywhere they make an interface feel heavy, so most products pair them with an outline set for default state.',
+    },
+    {
+      slug: 'duotone',
+      name: 'Duotone',
+      title: 'Duotone Icons',
+      blurb: 'two-tone icons that layer a lighter secondary pass behind a heavier primary form',
+      tip: 'Duotone adds depth without full colour, which is why it works well in empty states, feature cards, and onboarding. It is visually heavy, so avoid it in dense toolbars and small tables.',
+    },
+    {
+      slug: 'fill',
+      name: 'Fill',
+      title: 'Fill Icons',
+      blurb: 'filled icon variants — the same concepts as outline sets, rendered as solid shapes',
+      tip: 'Fill variants are the usual way to express state: outline for available, filled for active or selected. Because they mirror their outline counterparts, switching between them does not shift your layout.',
+    },
+    {
+      slug: 'bold',
+      name: 'Bold',
+      title: 'Bold Icons',
+      blurb: 'heavy-weight icons with thickened strokes or filled mass for maximum emphasis',
+      tip: 'Bold icons work at large sizes and in marketing layouts where a regular-weight icon looks weak. They lose definition below about 20px, so avoid them in compact controls.',
+    },
+    {
+      slug: 'thin',
+      name: 'Thin',
+      title: 'Thin Icons',
+      blurb: 'light-stroke icons drawn with the thinnest weights available in each library',
+      tip: 'Thin icons look refined next to large type in spacious layouts. They lose contrast against busy backgrounds and beside small text, so keep them out of dense tables and toolbars.',
+    },
+    {
+      slug: 'light',
+      name: 'Light',
+      title: 'Light Icons',
+      blurb: 'light-weight icons, typically a 300-weight cut, for interfaces that need a softer touch',
+      tip: 'Light icons suit editorial layouts, premium products, and generous spacing. At 12–16px beside small text they become hard to scan — use a regular or bold weight there instead.',
+    },
+  ];
+
+  const counts = new Map<string, number>();
+  try {
+    const metaPath = path.resolve(process.cwd(), 'public/index/v1/search-meta.json');
+    const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+    const names: string[] = Array.isArray(meta.styles) ? meta.styles : [];
+    const byStyle: number[] = Array.isArray(meta.counts?.byStyle) ? meta.counts.byStyle : [];
+    names.forEach((name, idx) => {
+      counts.set(name.toLowerCase(), byStyle[idx] ?? 0);
+    });
+  } catch {
+    // Fallback to zero if metadata not yet built
+  }
+
+  const allStyles: StyleMeta[] = defs.map((def) => ({
+    ...def,
+    count: counts.get(def.slug) ?? 0,
+  }));
+
+  return allStyles.map((styleMeta) => ({
+    params: { slug: styleMeta.slug },
+    props: { styleMeta, allStyles },
+  }));
+}
+
+interface Props {
+  styleMeta: StyleMeta;
+  allStyles: StyleMeta[];
+}
+
+const SITE_URL = 'https://iconstash.io';
+const TOTAL_LIBRARIES = 28;
+const TOTAL_CATEGORIES = 16;
+
+const CATEGORIES = [
+  { slug: 'media', name: 'Media' },
+  { slug: 'communication', name: 'Communication' },
+  { slug: 'commerce', name: 'Commerce' },
+  { slug: 'navigation', name: 'Navigation' },
+  { slug: 'files', name: 'Files' },
+  { slug: 'editing', name: 'Editing' },
+  { slug: 'devices', name: 'Devices' },
+  { slug: 'development', name: 'Development' },
+  { slug: 'security', name: 'Security' },
+  { slug: 'health', name: 'Health' },
+  { slug: 'weather', name: 'Weather' },
+  { slug: 'transport', name: 'Transport' },
+  { slug: 'social', name: 'Social' },
+  { slug: 'time', name: 'Time' },
+  { slug: 'data', name: 'Data' },
+  { slug: 'interface', name: 'Interface' },
+] as const;
+
+const { styleMeta, allStyles } = Astro.props;
+const totalFmt = styleMeta.count.toLocaleString('en-US');
+const canonical = `${SITE_URL}/style/${styleMeta.slug}/`;
+const title = `${styleMeta.title} — ${totalFmt} Free SVG Icons | IconStash`;
+
+const rawDescription = `${totalFmt} free ${styleMeta.name.toLowerCase()} icons — ${styleMeta.blurb}. Compare ${TOTAL_LIBRARIES} libraries, copy SVG or export PNG. No login.`;
+const description =
+  rawDescription.length > 158
+    ? `${totalFmt} free ${styleMeta.name.toLowerCase()} icons — ${styleMeta.blurb}. Compare ${TOTAL_LIBRARIES} libraries, copy SVG, export PNG.`
+    : rawDescription;
+
+const faqs: [string, string][] = [
+  [
+    `What are ${styleMeta.name.toLowerCase()} icons?`,
+    `${styleMeta.name} icons are ${styleMeta.blurb}. IconStash indexes ${totalFmt} of them across ${TOTAL_LIBRARIES} open-source libraries, so you can compare the same drawing style as interpreted by different design teams.`,
+  ],
+  [`When should I use ${styleMeta.name.toLowerCase()} icons?`, styleMeta.tip],
+  [
+    `Which libraries include ${styleMeta.name.toLowerCase()} icons?`,
+    `Multiple open-source sets on IconStash ship ${styleMeta.name.toLowerCase()} variants, including <a href="/library/phosphor/">Phosphor</a>, <a href="/library/solar/">Solar Icons</a>, <a href="/library/material/">Material Design Icons</a>, and <a href="/library/lucide/">Lucide</a>. Open any library hub to see its full style range alongside install instructions.`,
+  ],
+  [
+    `Can I export ${styleMeta.name.toLowerCase()} icons as PNG?`,
+    `Yes. Every icon on IconStash exports to PNG at 16, 32, 64, 128, 256, or 512 pixels, generated in the browser from the original vector so it stays crisp at any size. You can also copy the raw SVG, export a React component, or build an SVG sprite.`,
+  ],
+  [
+    `Are these ${styleMeta.name.toLowerCase()} icons free for commercial use?`,
+    `The libraries indexed here are MIT, Apache 2.0, ISC, CC BY 4.0, or CC0 licensed, all of which permit commercial use. CC BY sets such as <a href="/library/solar/">Solar Icons</a> require attribution — check the license shown on each icon page if you cannot provide credit.`,
+  ],
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'IconStash', item: `${SITE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: 'Icon Styles', item: `${SITE_URL}/style/` },
+      { '@type': 'ListItem', position: 3, name: styleMeta.title, item: canonical },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: styleMeta.title,
+    url: canonical,
+    description: `Index of ${totalFmt} ${styleMeta.name.toLowerCase()} icons on IconStash across ${TOTAL_LIBRARIES} open-source icon libraries.`,
+    isPartOf: { '@type': 'WebSite', name: 'IconStash', url: `${SITE_URL}/` },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: styleMeta.count,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a.replace(/<[^>]+>/g, '') },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  jsonLd={jsonLd}
+  activeNav="style"
+  bodyClass="pseo-page"
+>
+  <div class="hub-shell-main">
+    <section class="hub-seo-band">
+      <div class="pseo-document">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">IconStash</a> / <a href="/style/">Styles</a> / <span>{styleMeta.title}</span>
+        </nav>
+
+        <section class="hero">
+          <div class="preview">
+            <div class="hub-stats">
+              <div class="hub-stat"><b>{totalFmt}</b><span>Icons</span></div>
+              <div class="hub-stat"><b>{TOTAL_LIBRARIES}</b><span>Libraries</span></div>
+              <div class="hub-stat"><b>{TOTAL_CATEGORIES}</b><span>Categories</span></div>
+              <div class="hub-stat"><b>SVG</b><span>&amp; PNG</span></div>
+            </div>
+          </div>
+          <div>
+            <h1>{styleMeta.title}</h1>
+            <p class="lead">
+              {totalFmt} free {styleMeta.name.toLowerCase()} icons indexed across {TOTAL_LIBRARIES} open-source libraries — {styleMeta.blurb}. Preview, recolour, and export without an account.
+            </p>
+            <div class="cta">
+              <a class="btn primary" href="/">Search all {styleMeta.name.toLowerCase()} icons</a>
+              <a class="btn" href="/library/">Browse by library</a>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <div class="workspace hub-explorer-stage">
+      <ExplorerShell client:load initialStyle={styleMeta.slug} />
+      <InspectorDrawer client:idle />
+    </div>
+
+    <section class="hub-seo-details">
+      <div class="pseo-document">
+        <p class="section-title">About {styleMeta.name.toLowerCase()} icons</p>
+        <div class="grid wide">
+          <article class="card">
+            <h2>What this style means</h2>
+            <p>
+              {styleMeta.name} icons are {styleMeta.blurb}. IconStash classifies icons by style across all {TOTAL_LIBRARIES} indexed libraries, so you can hold the weight constant and compare how different design teams solve the same icon.
+            </p>
+            <p>
+              <strong>When to use them.</strong> {styleMeta.tip}
+            </p>
+            <p>
+              Every icon links to a page with the full SVG source, a live preview you can recolour and resize, PNG export at six sizes, and a ready-to-paste React snippet.
+            </p>
+          </article>
+        </div>
+
+        <p class="section-title">{styleMeta.name} icons by category</p>
+        <div class="grid">
+          <article class="card">
+            <p class="hub-links">
+              {CATEGORIES.map((c, idx) => (
+                <>
+                  {idx > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={`/category/${c.slug}/`}>{c.name} icons</a>
+                </>
+              ))}
+            </p>
+          </article>
+        </div>
+
+        <p class="section-title">Browse other styles</p>
+        <div class="grid">
+          <article class="card">
+            <p class="hub-links">
+              {allStyles.filter((s) => s.slug !== styleMeta.slug).map((s, idx) => (
+                <>
+                  {idx > 0 && <span aria-hidden="true"> · </span>}
+                  <a href={`/style/${s.slug}/`}>{s.name} icons</a>
+                </>
+              ))}
+            </p>
+          </article>
+        </div>
+
+        <p class="section-title">Frequently asked questions</p>
+        <div class="grid wide">
+          {faqs.map(([q, a]) => (
+            <article class="card faq-item">
+              <h2>{q}</h2>
+              <p set:html={a} />
+            </article>
+          ))}
+        </div>
+
+        <Footer />
+      </div>
+    </section>
+  </div>
+
+  <Fragment slot="overlays">
+    <CollectionsTray client:idle />
+    <CompareModal client:idle />
+    <SvgDrawModal client:idle />
+  </Fragment>
+</BaseLayout>
