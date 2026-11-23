@@ -9,6 +9,7 @@
    * live color/stroke/size/transform updates purely via CSS custom properties.
    */
 
+  import { untrack } from 'svelte';
   import { createVirtualizer } from '@tanstack/svelte-virtual';
   import { explorerState, type ResolvedIcon } from '../lib/state/explorer.svelte';
   import { previewState, type GridDensity } from '../lib/state/preview.svelte';
@@ -68,11 +69,13 @@
     const size = metrics.rowHeight;
     const overscan = effectiveOverscan;
     const el = scrollContainerEl;
-    $rowVirtualizer.setOptions({
-      count,
-      getScrollElement: () => el,
-      estimateSize: () => size,
-      overscan,
+    untrack(() => {
+      $rowVirtualizer.setOptions({
+        count,
+        getScrollElement: () => el,
+        estimateSize: () => size,
+        overscan,
+      });
     });
   });
 
@@ -261,8 +264,8 @@
     </div>
   {:else}
     <div
-      id="virtual-grid-spacer"
-      style="height: {totalHeight}px; width: 100%; position: relative;"
+      id="virtual-grid-stage"
+      style="height: {totalHeight}px; width: 100%; position: relative; opacity: 1;"
     >
       {#each virtualRows as vRow (vRow.key)}
         {@const startPos = vRow.index * columns}
@@ -363,7 +366,9 @@
     overflow-x: hidden;
     position: relative;
     padding: 8px 16px 24px;
-    contain: strict;
+    contain: layout style;
+    height: calc(100vh - 120px);
+    min-height: 520px;
     --ic-color: currentColor;
     --ic-stroke: 1.75;
     --ic-stroke-width: 1.75;

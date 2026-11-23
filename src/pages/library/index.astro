@@ -1,0 +1,7 @@
+---
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { readLegacyHtmlPage } from '../../lib/legacy-pages';
+
+const page = readLegacyHtmlPage('library/index.html');
+---
+<EditorialLayout page={page} />

@@ -399,11 +399,32 @@
 
     return cleanup;
   });
+  $effect(() => {
+    if (typeof window === 'undefined') return;
+    const onHeaderSearch = (e: Event) => {
+      const q = (e as CustomEvent<{ query?: string }>).detail?.query ?? '';
+      searchDraft = q;
+      explorerState.setQuery(q);
+    };
+    const onOpenDraw = () => inspectorState.openDraw();
+    const onOpenCompare = () => inspectorState.openCompare(inspectorState.activeIcon?.name ?? explorerState.query ?? 'home');
+    const onOpenCollections = () => inspectorState.openCollections();
+    window.addEventListener('iconstash:search-input', onHeaderSearch);
+    window.addEventListener('iconstash:open-draw', onOpenDraw);
+    window.addEventListener('iconstash:open-compare', onOpenCompare);
+    window.addEventListener('iconstash:open-collections', onOpenCollections);
+    return () => {
+      window.removeEventListener('iconstash:search-input', onHeaderSearch);
+      window.removeEventListener('iconstash:open-draw', onOpenDraw);
+      window.removeEventListener('iconstash:open-compare', onOpenCompare);
+      window.removeEventListener('iconstash:open-collections', onOpenCollections);
+    };
+  });
 </script>
 
 <div class="explorer-shell">
   <!-- Search & Quick Nav Header Bar -->
-  <div class="explorer-topbar">
+  <div class="explorer-topbar" style="display:none">
     <div class="topbar-left">
       <button
         type="button"

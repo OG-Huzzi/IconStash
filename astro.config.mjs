@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://iconstash.io',
   output: 'static',
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   build: {
     format: 'directory',
   },
