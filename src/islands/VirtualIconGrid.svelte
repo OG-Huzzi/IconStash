@@ -367,15 +367,14 @@
 
 <style>
   #virtual-grid-container {
-    flex: 1;
+    flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    padding: 8px 16px 24px;
-    contain: layout style;
-    height: calc(100vh - 120px);
-    min-height: 520px;
+    padding: 0 4px 0 0;
+    contain: layout paint;
+    overscroll-behavior: contain;
     --ic-color: currentColor;
     --ic-stroke: 1.5;
     --ic-stroke-width: 1.5;

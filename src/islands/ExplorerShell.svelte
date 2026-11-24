@@ -150,7 +150,16 @@
 
   const favoritesCount = $derived(collectionsState.favorites.length);
 
-  function formatNumber(n: number): string {
+  function closeMobileSidebar(): void {
+    mobileSidebarOpen = false;
+    if (typeof document !== "undefined") {
+      document.body.classList.remove("sidebar-open");
+      const btn = document.getElementById("sidebar-toggle");
+      if (btn) btn.setAttribute("aria-expanded", "false");
+    }
+  }
+
+    function formatNumber(n: number): string {
     return n.toLocaleString('en-US');
   }
 
@@ -438,7 +447,7 @@
       <button
         type="button"
         class="icon-btn mobile-only"
-        id="sidebar-toggle"
+        data-hidden-sidebar-toggle="true"
         title="Open filters"
         aria-label="Open filters"
         aria-expanded={mobileSidebarOpen}
@@ -813,7 +822,9 @@
     </aside>
 
     <!-- Main Grid Region -->
-    <main id="main-content">
+    <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <main id="main-content" onclickcapture={(e) => { if (typeof document !== "undefined" && document.body.classList.contains("sidebar-open")) { e.stopPropagation(); e.preventDefault(); closeMobileSidebar(); } }}>
       <section id="grid-view" class="route-view active">
         <h2 class="sr-only">
           Browse {formatNumber(totalCatalogIcons)} free SVG and PNG icons across 28 open-source libraries
