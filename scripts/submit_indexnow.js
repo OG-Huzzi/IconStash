@@ -1,13 +1,13 @@
-const https = require('https');
+import https from 'https';
 
 const payload = JSON.stringify({
   host: 'iconstash.io',
   key: 'e11c5bc79c6d4824bb883b2723c0fa6a',
   keyLocation: 'https://iconstash.io/e11c5bc79c6d4824bb883b2723c0fa6a.txt',
   urlList: [
-    'https://iconstash.io/articles/svg-waterfall-charts-and-financial-variance-bridge-guide/',
-    'https://iconstash.io/articles/svg-chord-diagrams-and-bilateral-flow-matrix-guide/',
-    'https://iconstash.io/articles/svg-ternary-plots-and-triangular-composition-diagram-guide/'
+    'https://iconstash.io/articles/svg-line-charts-and-multi-series-time-series-guide/',
+    'https://iconstash.io/articles/svg-blob-generator-and-organic-shapes-guide/',
+    'https://iconstash.io/articles/shadcn-ui-icons-complete-guide-2026/'
   ]
 });
 
