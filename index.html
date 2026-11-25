@@ -29,17 +29,17 @@
   <link rel="canonical" href="https://iconstash.io/">
   <link rel="icon" type="image/svg+xml" href="favicon.svg?v=20260602-brandlogo">
   <link rel="apple-touch-icon" href="favicon.jpeg?v=20260601-favicon">
-  <link rel="preload" as="style" href="style.css?v=20261115-api-banner2">
+  <link rel="preload" as="style" href="style.css?v=20261121-draw5">
   <link rel="preload" as="script" href="vendor/fuse.min.js?v=20260530-preloadall">
   <link rel="preload" as="script" href="icons.js?v=20261113-api-mcp">
   <link rel="preload" as="script" href="search.js?v=20261113-api-mcp">
   <link rel="prefetch" as="script" href="search.worker.js?v=20261113-api-mcp">
   <link rel="prefetch" as="script" href="collections.js?v=20261113-api-mcp">
   <link rel="prefetch" as="script" href="ui.js?v=20261113-api-mcp">
-  <link rel="prefetch" as="script" href="app.js?v=20261113-api-mcp">
+  <link rel="prefetch" as="script" href="app.js?v=20261121-draw5">
   <link rel="prefetch" as="fetch" href="data/prerender/libraries/lucide/chunk-1.html">
   <link rel="prefetch" as="fetch" href="data/prerender/libraries/lucide/chunk-2.html">
-  <link rel="stylesheet" href="style.css?v=20261115-api-banner2">
+  <link rel="stylesheet" href="style.css?v=20261121-draw5">
   <script src="vendor/fuse.min.js?v=20260530-preloadall" defer></script>
   <script type="application/ld+json">
   [{
@@ -941,18 +941,21 @@ curl https://iconstash.io/api/v1/libraries.json</code></pre>
     </div>
     <div class="modal-content draw-layout">
       <div class="draw-toolbar">
-        <button type="button" class="draw-tool active" data-dtool="pen" title="Pen — draw freehand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
-        <button type="button" class="draw-tool" data-dtool="rect" title="Rectangle — hold Shift for square"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="16" height="12" rx="1"></rect></svg></button>
-        <button type="button" class="draw-tool" data-dtool="ellipse" title="Ellipse — hold Shift for circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="9" ry="6.5"></ellipse></svg></button>
-        <button type="button" class="draw-tool" data-dtool="line" title="Line — hold Shift to snap 45°"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19 19 5"></path></svg></button>
-        <button type="button" class="draw-tool" data-dtool="eraser" title="Eraser — click or drag over a stroke to remove it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H9L4 15a1.5 1.5 0 0 1 0-2.1L12.9 4a1.5 1.5 0 0 1 2.1 0l5 5a1.5 1.5 0 0 1 0 2.1L13 18"></path></svg></button>
+        <button type="button" class="draw-tool active" data-dtool="pen" title="Pen — draw freehand (P)" aria-label="Pen tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
+        <button type="button" class="draw-tool" data-dtool="rect" title="Rectangle — hold Shift for square (R)" aria-label="Rectangle tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="16" height="12" rx="1"></rect></svg></button>
+        <button type="button" class="draw-tool" data-dtool="ellipse" title="Ellipse — hold Shift for circle (O)" aria-label="Ellipse tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="9" ry="6.5"></ellipse></svg></button>
+        <button type="button" class="draw-tool" data-dtool="line" title="Line — hold Shift to snap 45° (L)" aria-label="Line tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19 19 5"></path></svg></button>
+        <button type="button" class="draw-tool" data-dtool="eraser" title="Eraser — click a stroke to remove it (E)" aria-label="Eraser tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H9L4 15a1.5 1.5 0 0 1 0-2.1L12.9 4a1.5 1.5 0 0 1 2.1 0l5 5a1.5 1.5 0 0 1 0 2.1L13 18"></path></svg></button>
         <span class="draw-toolbar-sep"></span>
-        <button type="button" class="draw-tool" id="draw-ref-toggle" title="Trace over the icon you have open" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-        <button type="button" class="draw-tool active" id="draw-grid-toggle" title="Toggle grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"></path></svg></button>
+        <button type="button" class="draw-tool" id="draw-fill-toggle" title="Fill closed shapes — rectangle &amp; ellipse (F)" aria-label="Toggle shape fill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 3 9 9-8 8-9-9 8-8Z"></path><path d="M4 20h16"></path><path d="M19 14c1.2 1.4 2 2.4 2 3.2a2 2 0 0 1-4 0c0-.8.8-1.8 2-3.2Z"></path></svg></button>
+        <button type="button" class="draw-tool" id="draw-snap-toggle" title="Snap points to the 0.5 grid (S)" aria-label="Toggle snap to grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v8a6 6 0 0 0 12 0V4h-4v8a2 2 0 0 1-4 0V4Z"></path><path d="M6 8h4M14 8h4"></path></svg></button>
+        <button type="button" class="draw-tool" id="draw-ref-toggle" title="Trace over the icon you have open" aria-label="Toggle reference icon" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+        <button type="button" class="draw-tool active" id="draw-grid-toggle" title="Grid: Lines — click to cycle Lines / Dots / Off (G)" aria-label="Cycle grid style"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"></path></svg></button>
+        <span class="draw-grid-label" id="draw-grid-label">Lines</span>
         <span class="draw-toolbar-sep"></span>
-        <button type="button" class="draw-tool" id="draw-undo" title="Undo (Ctrl+Z)" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"></path><path d="M4 9h10a6 6 0 0 1 6 6v1"></path></svg></button>
-        <button type="button" class="draw-tool" id="draw-redo" title="Redo (Ctrl+Y)" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"></path><path d="M20 9H10a6 6 0 0 0-6 6v1"></path></svg></button>
-        <button type="button" class="draw-tool" id="draw-clear" title="Clear canvas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"></path><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg></button>
+        <button type="button" class="draw-tool" id="draw-undo" title="Undo (Ctrl+Z)" aria-label="Undo" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"></path><path d="M4 9h10a6 6 0 0 1 6 6v1"></path></svg></button>
+        <button type="button" class="draw-tool" id="draw-redo" title="Redo (Ctrl+Y)" aria-label="Redo" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"></path><path d="M20 9H10a6 6 0 0 0-6 6v1"></path></svg></button>
+        <button type="button" class="draw-tool" id="draw-clear" title="Clear canvas" aria-label="Clear canvas" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"></path><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg></button>
         <span class="draw-status" id="draw-status">0 strokes</span>
       </div>
       <div class="draw-canvas-wrap">
@@ -960,12 +963,13 @@ curl https://iconstash.io/api/v1/libraries.json</code></pre>
           <g id="draw-grid"></g>
           <g id="draw-reference" class="draw-reference"></g>
           <g id="draw-shapes"></g>
-          <path id="draw-preview" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.45" d=""></path>
+          <path id="draw-preview" fill="none" stroke="#C1DD2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d=""></path>
         </svg>
       </div>
       <div class="draw-options">
-        <label class="draw-option">Stroke <input type="range" id="draw-width" class="neon-slider" aria-label="Draw stroke width" min="0.5" max="4" step="0.25" value="2"><span id="draw-width-val">2</span></label>
+        <label class="draw-option">Stroke <input type="range" id="draw-width" class="neon-slider" aria-label="Draw stroke width" min="0.25" max="6" step="0.25" value="2"><span id="draw-width-val">2</span></label>
         <label class="draw-option">Color <input type="color" id="draw-color" value="#C1DD2D" aria-label="Stroke color"></label>
+        <label class="draw-option">PNG <select id="draw-png-size" class="draw-select" aria-label="PNG export size"><option value="128">128</option><option value="256" selected>256</option><option value="512">512</option><option value="1024">1024</option></select></label>
         <span class="draw-ref-label" id="draw-ref-label"></span>
       </div>
       <div class="draw-actions">
@@ -1003,7 +1007,7 @@ curl https://iconstash.io/api/v1/libraries.json</code></pre>
   <script src="search.js?v=20261113-api-mcp" defer></script>
   <script src="collections.js?v=20261113-api-mcp" defer></script>
   <script src="ui.js?v=20261113-api-mcp" defer></script>
-  <script src="app.js?v=20261113-api-mcp" defer></script>
+  <script src="app.js?v=20261121-draw5" defer></script>
 </body>
 </html>
 

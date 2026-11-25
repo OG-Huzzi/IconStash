@@ -3619,12 +3619,16 @@
 
   // ===== Draw your own icon =====
   const DRAW_DRAFT_KEY = "iconstash-draw-draft";
+  const DRAW_GRID_MODES = ["lines", "dots", "off"];
   const draw = {
     tool: "pen",
     paths: [],
     color: "#C1DD2D",
     strokeWidth: 2,
-    showGrid: true,
+    gridMode: "lines",
+    fillMode: false,
+    snap: false,
+    pngSize: 256,
     showRef: false,
     refIconId: "",
     active: null,
@@ -3642,8 +3646,12 @@
   function drawPointFromEvent(event) {
     const canvas = $("draw-canvas");
     const rect = canvas.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * 24;
-    const y = ((event.clientY - rect.top) / rect.height) * 24;
+    let x = ((event.clientX - rect.left) / rect.width) * 24;
+    let y = ((event.clientY - rect.top) / rect.height) * 24;
+    if (draw.snap) {
+      x = Math.round(x * 2) / 2;
+      y = Math.round(y * 2) / 2;
+    }
     return {
       x: drawRound(Math.min(24, Math.max(0, x))),
       y: drawRound(Math.min(24, Math.max(0, y)))
@@ -3741,13 +3749,18 @@
     return "M " + r(a.x) + " " + r(a.y) + " L " + r(b.x) + " " + r(b.y);
   }
 
-  function drawSetPreview(dAttr) {
-    $("draw-preview").setAttribute("d", dAttr || "");
+  function drawSetPreview(dAttr, filled = false) {
+    const preview = $("draw-preview");
+    preview.setAttribute("d", dAttr || "");
+    preview.setAttribute("stroke", draw.color);
+    preview.setAttribute("stroke-width", draw.strokeWidth);
+    preview.setAttribute("fill", filled ? draw.color : "none");
+    preview.setAttribute("opacity", filled ? "0.5" : "1");
   }
 
   function drawRenderShapes() {
     $("draw-shapes").innerHTML = draw.paths.map((p, i) =>
-      '<path data-draw-path="' + i + '" d="' + p.d + '" fill="none" stroke="' + draw.color + '" stroke-width="' + draw.strokeWidth + '" stroke-linecap="round" stroke-linejoin="round"></path>'
+      '<path data-draw-path="' + i + '" d="' + p.d + '" fill="' + (p.fill ? draw.color : "none") + '" stroke="' + draw.color + '" stroke-width="' + draw.strokeWidth + '" stroke-linecap="round" stroke-linejoin="round" ' + (p.fill ? 'paint-order="fill stroke" ' : '') + '></path>'
     ).join("");
     $("draw-status").textContent = draw.paths.length + (draw.paths.length === 1 ? " stroke" : " strokes");
     $("draw-undo").disabled = draw.undoStack.length === 0;
@@ -3756,21 +3769,30 @@
   }
 
   function drawBuildGrid() {
-    let lines = "";
-    for (let i = 4; i < 24; i += 4) {
-      lines += '<line class="draw-grid-line" x1="' + i + '" y1="0" x2="' + i + '" y2="24" vector-effect="non-scaling-stroke"></line>';
-      lines += '<line class="draw-grid-line" x1="0" y1="' + i + '" x2="24" y2="' + i + '" vector-effect="non-scaling-stroke"></line>';
+    const grid = $("draw-grid");
+    const mode = draw.gridMode;
+    let markup = "";
+    if (mode === "dots") {
+      markup =
+        '<defs><pattern id="draw-dots" width="1" height="1" patternUnits="userSpaceOnUse">' +
+        '<circle class="draw-grid-dot" cx="0.5" cy="0.5" r="0.08" stroke="none"></circle>' +
+        '</pattern></defs>' +
+        '<rect x="0" y="0" width="24" height="24" fill="url(#draw-dots)" stroke="none"></rect>';
+    } else if (mode === "lines") {
+      let lines = "";
+      for (let i = 4; i < 24; i += 4) {
+        lines += '<line class="draw-grid-line" x1="' + i + '" y1="0" x2="' + i + '" y2="24" vector-effect="non-scaling-stroke"></line>';
+        lines += '<line class="draw-grid-line" x1="0" y1="' + i + '" x2="24" y2="' + i + '" vector-effect="non-scaling-stroke"></line>';
+      }
+      markup = lines;
     }
-    const markup =
-      '<defs><pattern id="draw-dots" width="1" height="1" patternUnits="userSpaceOnUse">' +
-      '<circle class="draw-grid-dot" cx="0.5" cy="0.5" r="0.07" stroke="none"></circle>' +
-      '</pattern></defs>' +
-      '<rect x="0" y="0" width="24" height="24" fill="url(#draw-dots)" stroke="none"></rect>' +
-      lines +
-      '<line class="draw-grid-center" x1="12" y1="0" x2="12" y2="24" vector-effect="non-scaling-stroke"></line>' +
-      '<line class="draw-grid-center" x1="0" y1="12" x2="24" y2="12" vector-effect="non-scaling-stroke"></line>';
-    $("draw-grid").innerHTML = markup;
-    $("draw-grid").style.display = draw.showGrid ? "" : "none";
+    if (mode !== "off") {
+      markup +=
+        '<line class="draw-grid-center" x1="12" y1="0" x2="12" y2="24" vector-effect="non-scaling-stroke"></line>' +
+        '<line class="draw-grid-center" x1="0" y1="12" x2="24" y2="12" vector-effect="non-scaling-stroke"></line>';
+    }
+    grid.innerHTML = markup;
+    grid.style.display = mode === "off" ? "none" : "";
   }
 
   function drawSetReference() {
@@ -3787,7 +3809,15 @@
 
   function drawSaveDraft() {
     try {
-      localStorage.setItem(DRAW_DRAFT_KEY, JSON.stringify({ paths: draw.paths, color: draw.color, strokeWidth: draw.strokeWidth }));
+      localStorage.setItem(DRAW_DRAFT_KEY, JSON.stringify({
+        paths: draw.paths,
+        color: draw.color,
+        strokeWidth: draw.strokeWidth,
+        gridMode: draw.gridMode,
+        fillMode: draw.fillMode,
+        snap: draw.snap,
+        pngSize: draw.pngSize
+      }));
     } catch (error) { /* storage unavailable */ }
   }
 
@@ -3799,6 +3829,10 @@
       if (Array.isArray(saved.paths)) draw.paths = saved.paths.filter((p) => p && typeof p.d === "string");
       if (typeof saved.color === "string") draw.color = saved.color;
       if (Number.isFinite(saved.strokeWidth)) draw.strokeWidth = saved.strokeWidth;
+      if (DRAW_GRID_MODES.includes(saved.gridMode)) draw.gridMode = saved.gridMode;
+      if (typeof saved.fillMode === "boolean") draw.fillMode = saved.fillMode;
+      if (typeof saved.snap === "boolean") draw.snap = saved.snap;
+      if (Number.isFinite(saved.pngSize) && saved.pngSize > 0) draw.pngSize = saved.pngSize;
     } catch (error) { /* corrupted draft */ }
   }
 
@@ -3847,8 +3881,14 @@
       if (draw.beforeSnapshot != null) drawEraseAt(event);
       return;
     }
-    if (!draw.active) return;
+    // A move with no mouse button held is hover, never a stroke. This also
+    // recovers safely if a pointerup was missed (e.g. release outside window).
+    if (event.pointerType === "mouse" && (event.buttons & 1) === 0) {
+      if (draw.active) { draw.active = null; drawSetPreview(""); }
+      return;
+    }
     const pt = drawPointFromEvent(event);
+    if (!draw.active) return;
     const session = draw.active;
     if (session.tool === "pen") {
       const last = session.points[session.points.length - 1];
@@ -3857,7 +3897,8 @@
       drawSetPreview(session.points.map((p, i) => (i ? "L " : "M ") + p.x + " " + p.y).join(" "));
     } else {
       session.end = drawConstrain(session.start, pt, event.shiftKey, session.tool);
-      drawSetPreview(drawShapePath(session.tool, session.start, session.end));
+      const filled = draw.fillMode && (session.tool === "rect" || session.tool === "ellipse");
+      drawSetPreview(drawShapePath(session.tool, session.start, session.end), filled);
     }
   }
 
@@ -3884,7 +3925,8 @@
     if (!dAttr) return;
     drawPushUndo(draw.beforeSnapshot != null ? draw.beforeSnapshot : drawSnapshot());
     draw.beforeSnapshot = null;
-    draw.paths.push({ d: dAttr });
+    const filled = session.tool === "rect" || session.tool === "ellipse" ? draw.fillMode : false;
+    draw.paths.push({ d: dAttr, fill: filled });
     drawRenderShapes();
     drawSaveDraft();
   }
@@ -3896,7 +3938,7 @@
       librarySlug: "iconstash",
       style: "stroke",
       viewBox: "0 0 24 24",
-      svgPath: draw.paths.map((p) => '<path d="' + p.d + '"></path>').join("")
+      svgPath: draw.paths.map((p) => '<path d="' + p.d + '"' + (p.fill ? ' fill="currentColor" paint-order="fill stroke"' : '') + '></path>').join("")
     };
   }
 
@@ -3921,18 +3963,25 @@
 
   async function drawDownloadPng() {
     if (!draw.paths.length) { ui().toast("Draw something first", "info"); return; }
-    ui().toast("Generating 256px PNG", "info");
-    await iconTools().exportPNG(drawnIconObject(), 256, drawExportOptions());
+    ui().toast("Generating " + draw.pngSize + "px PNG", "info");
+    await iconTools().exportPNG(drawnIconObject(), draw.pngSize, drawExportOptions());
     ui().toast("PNG downloaded", "success");
   }
 
   function drawSyncToolbar() {
     ui().qsa(".draw-tool[data-dtool]").forEach((btn) => btn.classList.toggle("active", btn.dataset.dtool === draw.tool));
     $("draw-canvas").classList.toggle("erasing", draw.tool === "eraser");
-    $("draw-grid-toggle").classList.toggle("active", draw.showGrid);
+    const gridBtn = $("draw-grid-toggle");
+    gridBtn.classList.toggle("active", draw.gridMode !== "off");
+    gridBtn.title = "Grid: " + draw.gridMode + " — click to cycle Lines / Dots / Off (G)";
+    $("draw-grid-label").textContent = draw.gridMode;
+    $("draw-fill-toggle").classList.toggle("active", draw.fillMode);
+    $("draw-snap-toggle").classList.toggle("active", draw.snap);
     $("draw-width").value = draw.strokeWidth;
     $("draw-width-val").textContent = draw.strokeWidth;
     $("draw-color").value = draw.color;
+    $("draw-png-size").value = String(draw.pngSize);
+    drawSetPreview($("draw-preview").getAttribute("d") || "");
   }
 
   function openDrawModal() {
@@ -3959,9 +4008,21 @@
       drawSetReference();
     });
     $("draw-grid-toggle").addEventListener("click", () => {
-      draw.showGrid = !draw.showGrid;
-      $("draw-grid").style.display = draw.showGrid ? "" : "none";
+      const i = DRAW_GRID_MODES.indexOf(draw.gridMode);
+      draw.gridMode = DRAW_GRID_MODES[(i + 1) % DRAW_GRID_MODES.length];
+      drawBuildGrid();
       drawSyncToolbar();
+      drawSaveDraft();
+    });
+    $("draw-fill-toggle").addEventListener("click", () => {
+      draw.fillMode = !draw.fillMode;
+      drawSyncToolbar();
+      drawSaveDraft();
+    });
+    $("draw-snap-toggle").addEventListener("click", () => {
+      draw.snap = !draw.snap;
+      drawSyncToolbar();
+      drawSaveDraft();
     });
     $("draw-undo").addEventListener("click", drawUndo);
     $("draw-redo").addEventListener("click", drawRedo);
@@ -3976,11 +4037,17 @@
       draw.strokeWidth = Number(event.target.value) || 2;
       $("draw-width-val").textContent = draw.strokeWidth;
       drawRenderShapes();
+      drawSyncToolbar();
       drawSaveDraft();
     });
     $("draw-color").addEventListener("input", (event) => {
       draw.color = event.target.value;
       drawRenderShapes();
+      drawSyncToolbar();
+      drawSaveDraft();
+    });
+    $("draw-png-size").addEventListener("change", (event) => {
+      draw.pngSize = Number(event.target.value) || 256;
       drawSaveDraft();
     });
     const canvas = $("draw-canvas");
@@ -3988,6 +4055,15 @@
     canvas.addEventListener("pointermove", drawCanvasMove);
     canvas.addEventListener("pointerup", drawCanvasUp);
     canvas.addEventListener("pointercancel", drawCanvasUp);
+    window.addEventListener("pointerup", () => {
+      if (draw.active) { draw.active = null; drawSetPreview(""); }
+    });
+    canvas.addEventListener("lostpointercapture", () => {
+      if (draw.active) {
+        draw.active = null;
+        drawSetPreview("");
+      }
+    });
     $("draw-copy").addEventListener("click", drawCopySvg);
     $("draw-download-svg").addEventListener("click", drawDownloadSvg);
     $("draw-download-png").addEventListener("click", drawDownloadPng);
@@ -4784,6 +4860,18 @@
         event.preventDefault();
         drawRedo();
         return;
+      }
+      if (drawModalOpen && !editing && !event.ctrlKey && !event.metaKey && !event.altKey) {
+        const key = event.key.toLowerCase();
+        const toolKeys = { p: "pen", r: "rect", o: "ellipse", l: "line", e: "eraser" };
+        if (toolKeys[key]) {
+          draw.tool = toolKeys[key];
+          drawSyncToolbar();
+          return;
+        }
+        if (key === "g") { $("draw-grid-toggle").click(); return; }
+        if (key === "s") { $("draw-snap-toggle").click(); return; }
+        if (key === "f") { $("draw-fill-toggle").click(); return; }
       }
       if (event.key === "/" && !editing) {
         event.preventDefault();
