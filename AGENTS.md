@@ -19,9 +19,10 @@
 
 ## 2. Git Isolation Rules (NON-NEGOTIABLE)
 
-1. **Active Branch Only:** All v2 work MUST stay on branch `rebuild/astro-svelte-v2`.
-2. **NEVER touch `main` or `origin`:**
-   - Do **NOT** `git checkout main`, `git merge`, `git rebase` onto `main`, or `git push origin ...`.
+1. **Active Branch Only:** Keep isolated v2 work on `rebuild/astro-svelte-v2` unless working on another branch at the user's request.
+2. **No Unprompted Pushes to `main` or `origin`:**
+   - Do **NOT** `git checkout main`, `git merge`, `git rebase` onto `main`, or `git push origin ...` unprompted.
+   - **Explicit User Push Exception:** When the user explicitly instructs you to commit and/or push changes to GitHub (including to `main` or `origin`), run the requested `git add`, `git commit`, and `git push` commands directly.
    - `.github/workflows/deploy.yml` triggers an immediate production VPS webhook (`https://iconstash.io/deploy.php`) on any push to `main`.
 3. **Never Commit Generated Build Outputs:**
    - Keep `dist/`, `release/`, `public/chunks/v1/`, `public/index/v1/`, `node_modules/`, and generated 134k+ `icons/` HTML pages out of Git (`.gitignore`).

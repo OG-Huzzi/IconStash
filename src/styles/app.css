@@ -1072,7 +1072,13 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
   color: var(--text-primary);
   border-color: var(--neon-green, #c1dd2d);
 }
-.top-ad { flex: 0 0 90px; }
+.top-ad {
+  flex: 0 0 90px;
+  width: calc(100% - var(--grid-right-inset, 0px));
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 .error-card {
   display: flex;
   align-items: center;
@@ -1101,7 +1107,10 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
 }
 .library-break {
   grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
   min-height: 58px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: 11px;
@@ -1111,14 +1120,15 @@ body.sidebar-collapsed .sidebar-collapse svg { transform: rotate(180deg); }
   border: 1px solid var(--glass-border);
   background: var(--glass-1);
   color: var(--text-primary);
+  overflow: hidden;
   contain: content;
   content-visibility: auto;
   contain-intrinsic-size: auto 58px;
 }
 .library-break:first-child { margin-top: 0; }
-.library-break .lib-badge { width: 28px; height: 28px; color: var(--icon-strong); }
+.library-break .lib-badge { width: 28px; height: 28px; flex-shrink: 0; color: var(--icon-strong); }
 .library-break .lib-icon { width: 22px; height: 22px; }
-.library-break h2 { font-size: 16px; line-height: 1.2; }
+.library-break h2 { font-size: 16px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .library-break p { color: var(--text-secondary); font: 600 11px var(--font-mono); margin-top: 2px; }
 .inline-grid-ad { grid-column: 1 / -1; min-height: 90px; }
 .inline-grid-ad { display: none !important; }
@@ -3440,23 +3450,14 @@ kbd { min-width: 28px; text-align: center; padding: 4px 7px; border-radius: 6px;
 #advance-panel .range-label { margin: 8px 0 4px; gap: 8px; }
 .fx-grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
 @media (min-width: 1024px) and (max-width: 1560px) {
-  .workspace:has(#advance-panel.open) #detail-panel:not(.closed) {
-    position: absolute;
-    top: 0;
-    right: var(--advance-w);
-    bottom: 0;
-    width: min(var(--detail-width), calc(100vw - var(--advance-w) - 16px));
-    margin-left: 0;
-    z-index: 41;
-    box-shadow: -14px 0 36px rgba(0, 0, 0, 0.45);
+  .workspace:has(#advance-panel.open) {
+    --detail-width: clamp(275px, 22vw, 340px);
   }
-  #advance-panel.open {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: var(--advance-w);
-    z-index: 42;
+  .workspace:has(#advance-panel.open) #advance-panel {
+    --advance-w: clamp(265px, 21vw, 320px);
+  }
+  .workspace:has(#advance-panel.open) #detail-panel .panel-header h2 {
+    max-width: 175px;
   }
 }
 @media (max-width: 1023px) {

@@ -40,6 +40,7 @@
 
   let colorWheelEl = $state<HTMLInputElement | null>(null);
   let gridRef = $state<ReturnType<typeof VirtualIconGrid> | null>(null);
+  let gridRightInset = $state(4);
 
   let searchDraft = $state('');
   let libFilterQuery = $state('');
@@ -802,7 +803,7 @@
     <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <main id="main-content" onclickcapture={(e) => { if (typeof document !== "undefined" && document.body.classList.contains("sidebar-open")) { e.stopPropagation(); e.preventDefault(); closeMobileSidebar(); } }}>
-      <section id="grid-view" class="route-view active">
+      <section id="grid-view" class="route-view active" style="--grid-right-inset: {gridRightInset}px;">
         <h2 class="sr-only">
           Browse {formatNumber(totalCatalogIcons)} free SVG and PNG icons across 28 open-source libraries
         </h2>
@@ -941,6 +942,9 @@
         <VirtualIconGrid
           bind:this={gridRef}
           bind:focusedPos
+          onGridInsetChange={(inset) => {
+            gridRightInset = inset;
+          }}
           onSuggestionClick={(term) => {
             searchDraft = term;
             syncHeaderSearch(term);

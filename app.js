@@ -623,30 +623,35 @@
   }
 
   function isGroupedSearchMode() {
-    return Boolean(state.searchQuery) &&
-      (!state.sort || state.sort === "relevance") &&
-      state.selectedLibraries.size !== 1;
+    return (!state.sort || state.sort === "relevance") && state.filteredIcons.length > 0;
   }
 
   function groupSearchResultsByLibrary() {
-    if (!isGroupedSearchMode() || state.filteredIcons.length < 2) {
+    if (!isGroupedSearchMode()) {
       state.searchGroupRows = null;
       return;
     }
-    const buckets = new Map();
-    const order = [];
-    for (const icon of state.filteredIcons) {
-      let bucket = buckets.get(icon.librarySlug);
-      if (!bucket) {
-        bucket = [];
-        buckets.set(icon.librarySlug, bucket);
-        order.push(icon.librarySlug);
+    if (state.filteredIcons.length >= 2) {
+      const buckets = new Map();
+      for (const icon of state.filteredIcons) {
+        let bucket = buckets.get(icon.librarySlug);
+        if (!bucket) {
+          bucket = [];
+          buckets.set(icon.librarySlug, bucket);
+        }
+        bucket.push(icon);
       }
-      bucket.push(icon);
+      const grouped = [];
+      for (const lib of state.libraries) {
+        const bucket = buckets.get(lib.slug);
+        if (bucket) {
+          grouped.push(...bucket);
+          buckets.delete(lib.slug);
+        }
+      }
+      for (const bucket of buckets.values()) grouped.push(...bucket);
+      state.filteredIcons = grouped;
     }
-    const grouped = [];
-    for (const slug of order) grouped.push(...buckets.get(slug));
-    state.filteredIcons = grouped;
     state.searchGroupRows = null;
     state.groupLayoutKey = "";
   }
@@ -1916,6 +1921,8 @@
     if (!els.gridContainer) return;
     state.containerWidth = els.gridContainer.clientWidth;
     state.containerHeight = els.gridContainer.clientHeight;
+    const inset = Math.max(0, els.gridContainer.offsetWidth - els.gridContainer.clientWidth);
+    els.gridView?.style.setProperty("--grid-right-inset", `${inset}px`);
   }
 
   function calculateGrid() {
@@ -4385,6 +4392,16 @@
       }
       ensureDesktopDetail();
     });
+    if (typeof ResizeObserver !== "undefined" && els.gridContainer) {
+      const gridResizeObserver = new ResizeObserver(() => {
+        measureContainer();
+        calculateGrid();
+        if (!state.prerender.active) {
+          updateVirtualScroll(true);
+        }
+      });
+      gridResizeObserver.observe(els.gridContainer);
+    }
     els.iconGrid.addEventListener("click", handleGridClick);
     els.iconGrid.addEventListener("focusin", (event) => {
       const card = event.target.closest(".icon-card");

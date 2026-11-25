@@ -15,21 +15,27 @@
   import { previewState, type GridDensity } from '../lib/state/preview.svelte';
   import { inspectorState } from '../lib/state/inspector.svelte';
   import { collectionsState } from '../lib/state/collections.svelte';
+  import { LIBRARY_BADGE_SVGS } from '../lib/library-icons';
+  import type { LibraryManifestEntry } from '../lib/protocol/types';
 
   interface Props {
     focusedPos?: number;
     onFocusPos?: (pos: number) => void;
     onSuggestionClick?: (term: string) => void;
+    onGridInsetChange?: (insetPx: number) => void;
   }
 
   let {
     focusedPos = $bindable(-1),
     onFocusPos,
     onSuggestionClick,
+    onGridInsetChange,
   }: Props = $props();
 
   const MAX_MOUNTED_TILES = 180;
   const GRID_GAP = 8;
+  const HEADER_BANNER_HEIGHT = 58;
+  const HEADER_ROW_HEIGHT = HEADER_BANNER_HEIGHT + GRID_GAP;
   const SUGGESTION_CHIPS = ['camera', 'arrow', 'user', 'chart', 'download', 'lock'] as const;
 
   const DENSITY_METRICS: Record<GridDensity, { cardSize: number; rowHeight: number }> = {
@@ -37,6 +43,19 @@
     default: { cardSize: 80, rowHeight: 88 },
     comfortable: { cardSize: 100, rowHeight: 118 },
   };
+
+  interface LibraryGridSection {
+    lib: LibraryManifestEntry | null;
+    startPos: number;
+    count: number;
+    showHeader: boolean;
+    startRow: number;
+    rowCount: number;
+  }
+
+  type VirtualGridRow =
+    | { type: 'header'; lib: LibraryManifestEntry; count: number; key: string }
+    | { type: 'cards'; startPos: number; count: number; key: string };
 
   let scrollContainerEl = $state<HTMLDivElement | null>(null);
   let containerWidth = $state(960);
@@ -53,8 +72,200 @@
   const columns = $derived(
     Math.max(1, Math.floor((containerWidth + GRID_GAP) / (metrics.cardSize + GRID_GAP))),
   );
-  const totalMatches = $derived(explorerState.resultIndices.length);
-  const rowCount = $derived(Math.ceil(totalMatches / columns));
+
+  function findLibraryIdForIndex(
+    iconIndex: number,
+    libraries: LibraryManifestEntry[],
+    hintId: number,
+  ): number {
+    if (hintId >= 0 && hintId < libraries.length) {
+      const hintLib = libraries[hintId];
+      if (iconIndex >= hintLib.startIndex && iconIndex <= hintLib.endIndex) {
+        return hintId;
+      }
+      if (hintId + 1 < libraries.length) {
+        const nextLib = libraries[hintId + 1];
+        if (iconIndex >= nextLib.startIndex && iconIndex <= nextLib.endIndex) {
+          return hintId + 1;
+        }
+      }
+    }
+    let lo = 0;
+    let hi = libraries.length - 1;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      const lib = libraries[mid];
+      if (iconIndex < lib.startIndex) {
+        hi = mid - 1;
+      } else if (iconIndex > lib.endIndex) {
+        lo = mid + 1;
+      } else {
+        return mid;
+      }
+    }
+    return 0;
+  }
+
+  const groupedOrder = $derived.by(() => {
+    const indices = explorerState.resultIndices;
+    const manifest = explorerState.manifest;
+    const total = indices.length;
+    const groupByLibrary =
+      Boolean(manifest) &&
+      (explorerState.sort === 'relevance' || explorerState.sort === 'library');
+
+    if (!groupByLibrary || !manifest || total === 0) {
+      return {
+        orderedIndices: indices,
+        groups:
+          total > 0
+            ? [{ lib: null as LibraryManifestEntry | null, startPos: 0, count: total, showHeader: false }]
+            : ([] as { lib: LibraryManifestEntry | null; startPos: number; count: number; showHeader: boolean }[]),
+      };
+    }
+
+    const libs = manifest.libraries;
+    const libCount = libs.length;
+    const counts = new Int32Array(libCount);
+    let hintId = 0;
+    let maxLibSeen = -1;
+    let monotonic = true;
+
+    for (let i = 0; i < total; i++) {
+      const libId = findLibraryIdForIndex(indices[i], libs, hintId);
+      hintId = libId;
+      if (libId < maxLibSeen) {
+        monotonic = false;
+      } else {
+        maxLibSeen = libId;
+      }
+      counts[libId]++;
+    }
+
+    let orderedIndices: Uint32Array;
+    if (monotonic) {
+      orderedIndices = indices;
+    } else {
+      orderedIndices = new Uint32Array(total);
+      const cursors = new Int32Array(libCount);
+      let offset = 0;
+      for (let l = 0; l < libCount; l++) {
+        cursors[l] = offset;
+        offset += counts[l];
+      }
+      hintId = 0;
+      for (let i = 0; i < total; i++) {
+        const idx = indices[i];
+        const libId = findLibraryIdForIndex(idx, libs, hintId);
+        hintId = libId;
+        orderedIndices[cursors[libId]++] = idx;
+      }
+    }
+
+    const groups: { lib: LibraryManifestEntry; startPos: number; count: number; showHeader: boolean }[] = [];
+    let pos = 0;
+    for (let l = 0; l < libCount; l++) {
+      const count = counts[l];
+      if (count > 0) {
+        groups.push({ lib: libs[l], startPos: pos, count, showHeader: true });
+        pos += count;
+      }
+    }
+
+    return { orderedIndices, groups };
+  });
+
+  const layoutModel = $derived.by(() => {
+    const cols = columns;
+    const sections: LibraryGridSection[] = [];
+    let currentRow = 0;
+    let sigParts = '';
+
+    for (const g of groupedOrder.groups) {
+      const cardRows = Math.ceil(g.count / cols);
+      const rowCount = (g.showHeader ? 1 : 0) + cardRows;
+      sections.push({
+        lib: g.lib,
+        startPos: g.startPos,
+        count: g.count,
+        showHeader: g.showHeader,
+        startRow: currentRow,
+        rowCount,
+      });
+      sigParts += `${g.lib?.id ?? 'flat'}:${currentRow}:${rowCount}|`;
+      currentRow += rowCount;
+    }
+
+    return {
+      sections,
+      totalRowCount: currentRow,
+      signature: `${sigParts}${metrics.rowHeight}`,
+    };
+  });
+
+  function getRowAt(rowIndex: number, sections: LibraryGridSection[] = layoutModel.sections, cols: number = columns): VirtualGridRow | null {
+    if (rowIndex < 0 || sections.length === 0) return null;
+
+    let lo = 0;
+    let hi = sections.length - 1;
+    let found = 0;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (sections[mid].startRow <= rowIndex) {
+        found = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+
+    const sec = sections[found];
+    const localRow = rowIndex - sec.startRow;
+    if (localRow < 0 || localRow >= sec.rowCount) return null;
+
+    if (sec.showHeader && localRow === 0 && sec.lib) {
+      return {
+        type: 'header',
+        lib: sec.lib,
+        count: sec.count,
+        key: `hdr-${sec.lib.slug}`,
+      };
+    }
+
+    const cardRowOffset = sec.showHeader ? localRow - 1 : localRow;
+    const startPos = sec.startPos + cardRowOffset * cols;
+    const remaining = sec.startPos + sec.count - startPos;
+    const count = Math.min(cols, Math.max(0, remaining));
+    return {
+      type: 'cards',
+      startPos,
+      count,
+      key: `cards-${sec.lib?.slug ?? 'flat'}-${cardRowOffset}`,
+    };
+  }
+
+  function rowIndexForResultPos(targetPos: number): number {
+    const sections = layoutModel.sections;
+    if (sections.length === 0) return 0;
+    let lo = 0;
+    let hi = sections.length - 1;
+    let found = 0;
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (sections[mid].startPos <= targetPos) {
+        found = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+    const sec = sections[found];
+    const cardRow = Math.floor(Math.max(0, targetPos - sec.startPos) / columns);
+    return sec.startRow + (sec.showHeader ? 1 : 0) + cardRow;
+  }
+
+  const totalMatches = $derived(groupedOrder.orderedIndices.length);
+  const rowCount = $derived(layoutModel.totalRowCount);
 
   // Hard mathematical cap so mounted `[data-icon-tile]` count NEVER exceeds 180
   const maxMountedRows = $derived(Math.max(1, Math.floor(MAX_MOUNTED_TILES / columns)));
@@ -66,23 +277,32 @@
   const rowVirtualizer = createVirtualizer<HTMLDivElement, HTMLDivElement>({
     count: 0,
     getScrollElement: () => scrollContainerEl,
-    estimateSize: () => 72,
+    estimateSize: () => 88,
     overscan: 2,
   });
 
-  // Keep virtualizer synced when result count, column count, density, or viewport changes
+  // Keep virtualizer synced when result count, grouped layout, density, or viewport changes
   $effect(() => {
     const count = rowCount;
-    const size = metrics.rowHeight;
+    const rowHeight = metrics.rowHeight;
     const overscan = effectiveOverscan;
     const el = scrollContainerEl;
+    const cols = columns;
+    const sections = layoutModel.sections;
+    const _sig = layoutModel.signature;
+
     untrack(() => {
       $rowVirtualizer.setOptions({
         count,
         getScrollElement: () => el,
-        estimateSize: () => size,
+        getItemKey: (index) => getRowAt(index, sections, cols)?.key ?? index,
+        estimateSize: (index) => {
+          const row = getRowAt(index, sections, cols);
+          return row?.type === 'header' ? HEADER_ROW_HEIGHT : rowHeight;
+        },
         overscan,
       });
+      $rowVirtualizer.measure();
     });
   });
 
@@ -94,24 +314,22 @@
     }
   });
 
-  // Observe grid viewport width/height with strict teardown on unmount
+  // Observe grid viewport width/height and scrollbar inset with strict teardown on unmount
   $effect(() => {
     const el = scrollContainerEl;
     if (!el || typeof ResizeObserver === 'undefined') return;
 
     const updateRect = () => {
-      const rect = el.getBoundingClientRect();
-      if (rect.width > 0) containerWidth = rect.width;
-      if (rect.height > 0) containerHeight = rect.height;
+      const innerW = Math.max(0, el.clientWidth - 4);
+      const clientH = el.clientHeight;
+      if (innerW > 0) containerWidth = innerW;
+      if (clientH > 0) containerHeight = clientH;
+      onGridInsetChange?.(Math.max(0, el.offsetWidth - el.clientWidth) + 4);
     };
     updateRect();
 
-    const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      if (!entry) return;
-      const { width, height } = entry.contentRect;
-      if (width > 0) containerWidth = width;
-      if (height > 0) containerHeight = height;
+    const observer = new ResizeObserver(() => {
+      updateRect();
     });
     observer.observe(el);
 
@@ -130,7 +348,21 @@
     };
   });
 
-  const virtualRows = $derived($rowVirtualizer.getVirtualItems().slice(0, maxMountedRows));
+  const virtualRows = $derived.by(() => {
+    const items = $rowVirtualizer.getVirtualItems();
+    const out: { vRow: (typeof items)[number]; row: VirtualGridRow }[] = [];
+    let tileCount = 0;
+    for (const vRow of items) {
+      const row = getRowAt(vRow.index);
+      if (!row) continue;
+      if (row.type === 'cards') {
+        if (tileCount + row.count > MAX_MOUNTED_TILES && out.length > 0) break;
+        tileCount += row.count;
+      }
+      out.push({ vRow, row });
+    }
+    return out;
+  });
   const totalHeight = $derived($rowVirtualizer.getTotalSize());
 
   // Hydrate shards required for mounted virtual rows plus a 3-row lookahead.
@@ -161,7 +393,7 @@
 
   $effect(() => {
     const rows = virtualRows;
-    const indices = explorerState.resultIndices;
+    const indices = groupedOrder.orderedIndices;
     const manifest = explorerState.manifest;
     const cols = columns;
     const _ver = explorerState.chunkVersion;
@@ -169,9 +401,13 @@
     if (!manifest || indices.length === 0 || rows.length === 0) return;
 
     const needed: number[] = [];
+    let maxCardPos = 0;
     for (let r = 0; r < rows.length; r++) {
-      const startPos = rows[r].index * cols;
-      const endPos = Math.min(startPos + cols, indices.length);
+      const row = rows[r].row;
+      if (row.type !== 'cards') continue;
+      const startPos = row.startPos;
+      const endPos = Math.min(startPos + row.count, indices.length);
+      if (endPos > maxCardPos) maxCardPos = endPos;
       for (let pos = startPos; pos < endPos; pos++) {
         const idx = indices[pos];
         if (!untrack(() => explorerState.getIconPayload(idx))) {
@@ -180,8 +416,7 @@
       }
     }
 
-    const lastRowIndex = rows[rows.length - 1]?.index ?? 0;
-    const prefetchStart = (lastRowIndex + 1) * cols;
+    const prefetchStart = maxCardPos;
     const prefetchEnd = Math.min(indices.length, prefetchStart + cols * 3);
     for (let pos = prefetchStart; pos < prefetchEnd; pos++) {
       const idx = indices[pos];
@@ -205,9 +440,10 @@
 
     void explorerState.ensureChunksForIndices(needed, signal).then(() => {
       if (signal?.aborted) return;
-      const stillMissing = rows.some((row) => {
-        const s = row.index * cols;
-        const e = Math.min(s + cols, indices.length);
+      const stillMissing = rows.some(({ row }) => {
+        if (row.type !== 'cards') return false;
+        const s = row.startPos;
+        const e = Math.min(s + row.count, indices.length);
         for (let p = s; p < e; p++) {
           if (!explorerState.getIconPayload(indices[p])) return true;
         }
@@ -264,7 +500,7 @@
     focusedPos = clamped;
     onFocusPos?.(clamped);
 
-    const targetRow = Math.floor(clamped / columns);
+    const targetRow = rowIndexForResultPos(clamped);
     $rowVirtualizer.scrollToIndex(targetRow, { align: 'auto' });
 
     if (typeof window !== 'undefined') {
@@ -336,92 +572,108 @@
       id="virtual-grid-stage"
       style="height: {totalHeight}px; width: 100%; position: relative; opacity: 1;"
     >
-      {#each virtualRows as vRow (vRow.key)}
-        {@const startPos = vRow.index * columns}
-        {@const rowSliceLen = Math.min(columns, Math.max(0, totalMatches - startPos))}
-        <div
-          class="ic-virtual-row"
-          data-row-index={vRow.index}
-          style="position: absolute; top: 0; left: 0; width: 100%; height: {metrics.rowHeight}px; transform: translateY({vRow.start}px); display: grid; grid-template-columns: repeat({columns}, minmax(0, 1fr)); gap: {GRID_GAP}px; align-items: stretch;"
-        >
-          {#each { length: rowSliceLen } as _, colOffset (startPos + colOffset)}
-            {@const pos = startPos + colOffset}
-            {@const iconIndex = explorerState.resultIndices[pos]}
-            {@const icon = resolveTile(iconIndex, explorerState.chunkVersion)}
-            {@const isFav = icon ? collectionsState.isFavorite(icon.id) : false}
-            {@const isSelected = icon ? collectionsState.selectedIds.has(icon.id) : false}
-            {@const isActive = icon ? inspectorState.activeIcon?.id === icon.id : false}
-            <!-- svelte-ignore a11y_no_noninteractive_element_to_interactive_role -->
-            <article
-              class="icon-card ic-tile"
-              class:active={isActive}
-              class:selected={isSelected}
-              class:loading-tile={!icon}
-              data-icon-tile=""
-              data-result-pos={pos}
-              data-icon-index={iconIndex}
-              data-id={icon?.id ?? ''}
-              data-library={icon?.librarySlug ?? ''}
-              data-filled={icon ? (icon.isFilled ? 'true' : 'false') : 'false'}
-              tabindex="0"
-              role="button"
-              aria-label={icon ? `${icon.name} from ${icon.libraryName}` : 'Loading icon'}
-              aria-pressed={collectionsState.selectMode ? isSelected : isActive}
-              title={icon ? `${icon.name} (${icon.libraryName})` : 'Loading...'}
-              onclick={() => handleTileClick(icon, pos)}
-              onkeydown={(e) => handleTileKeydown(e, icon, pos)}
-              onfocus={() => {
-                focusedPos = pos;
-                onFocusPos?.(pos);
-              }}
-            >
-              {#if icon}
-                {#if collectionsState.selectMode}
-                  <span class="select-check" class:checked={isSelected} aria-hidden="true">
-                    {#if isSelected}✓{/if}
-                  </span>
-                {:else}
-                  <button
-                    type="button"
-                    class="card-favorite-btn"
-                    class:favorited={isFav}
-                    data-favorite-id={icon.id}
-                    aria-label={isFav ? `Remove ${icon.name} from Favorites` : `Add ${icon.name} to Favorites`}
-                    title={isFav ? 'Remove from Favorites' : 'Add to Favorites'}
-                    onclick={(e) => handleFavoriteClick(e, icon)}
-                  >
-                    <svg viewBox="0 0 24 24" fill={isFav ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" aria-hidden="true">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      {#each virtualRows as { vRow, row } (vRow.key)}
+        {#if row.type === 'header'}
+          <div
+            class="ic-library-row"
+            data-row-index={vRow.index}
+            style="position: absolute; top: 0; left: 0; width: 100%; height: {HEADER_ROW_HEIGHT}px; transform: translateY({vRow.start}px);"
+          >
+            <div class="library-break" data-library-break={row.lib.slug}>
+              <span class="lib-badge" aria-hidden="true">
+                {@html LIBRARY_BADGE_SVGS[row.lib.slug] ?? ''}
+              </span>
+              <div class="library-break-meta">
+                <h2>{row.lib.name}</h2>
+                <p>{row.count.toLocaleString('en-US')} icons</p>
+              </div>
+            </div>
+          </div>
+        {:else}
+          <div
+            class="ic-virtual-row"
+            data-row-index={vRow.index}
+            style="position: absolute; top: 0; left: 0; width: 100%; height: {metrics.rowHeight}px; transform: translateY({vRow.start}px); display: grid; grid-template-columns: repeat({columns}, minmax(0, 1fr)); gap: {GRID_GAP}px; align-items: stretch;"
+          >
+            {#each { length: row.count } as _, colOffset (row.startPos + colOffset)}
+              {@const pos = row.startPos + colOffset}
+              {@const iconIndex = groupedOrder.orderedIndices[pos]}
+              {@const icon = resolveTile(iconIndex, explorerState.chunkVersion)}
+              {@const isFav = icon ? collectionsState.isFavorite(icon.id) : false}
+              {@const isSelected = icon ? collectionsState.selectedIds.has(icon.id) : false}
+              {@const isActive = icon ? inspectorState.activeIcon?.id === icon.id : false}
+              <!-- svelte-ignore a11y_no_noninteractive_element_to_interactive_role -->
+              <article
+                class="icon-card ic-tile"
+                class:active={isActive}
+                class:selected={isSelected}
+                class:loading-tile={!icon}
+                data-icon-tile=""
+                data-result-pos={pos}
+                data-icon-index={iconIndex}
+                data-id={icon?.id ?? ''}
+                data-library={icon?.librarySlug ?? ''}
+                data-filled={icon ? (icon.isFilled ? 'true' : 'false') : 'false'}
+                tabindex="0"
+                role="button"
+                aria-label={icon ? `${icon.name} from ${icon.libraryName}` : 'Loading icon'}
+                aria-pressed={collectionsState.selectMode ? isSelected : isActive}
+                title={icon ? `${icon.name} (${icon.libraryName})` : 'Loading...'}
+                onclick={() => handleTileClick(icon, pos)}
+                onkeydown={(e) => handleTileKeydown(e, icon, pos)}
+                onfocus={() => {
+                  focusedPos = pos;
+                  onFocusPos?.(pos);
+                }}
+              >
+                {#if icon}
+                  {#if collectionsState.selectMode}
+                    <span class="select-check" class:checked={isSelected} aria-hidden="true">
+                      {#if isSelected}✓{/if}
+                    </span>
+                  {:else}
+                    <button
+                      type="button"
+                      class="card-favorite-btn"
+                      class:favorited={isFav}
+                      data-favorite-id={icon.id}
+                      aria-label={isFav ? `Remove ${icon.name} from Favorites` : `Add ${icon.name} to Favorites`}
+                      title={isFav ? 'Remove from Favorites' : 'Add to Favorites'}
+                      onclick={(e) => handleFavoriteClick(e, icon)}
+                    >
+                      <svg viewBox="0 0 24 24" fill={isFav ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                      </svg>
+                    </button>
+                  {/if}
+
+                  <div class="icon-wrap">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox={icon.viewBox}
+                      width="100%"
+                      height="100%"
+                      fill={icon.isFilled ? 'currentColor' : 'none'}
+                      stroke={icon.isFilled ? 'none' : 'currentColor'}
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      role="img"
+                      aria-hidden="true"
+                    >
+                      {@html icon.svgBody}
                     </svg>
-                  </button>
-                {/if}
+                  </div>
 
-                <div class="icon-wrap">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox={icon.viewBox}
-                    width="100%"
-                    height="100%"
-                    fill={icon.isFilled ? 'currentColor' : 'none'}
-                    stroke={icon.isFilled ? 'none' : 'currentColor'}
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    role="img"
-                    aria-hidden="true"
-                  >
-                    {@html icon.svgBody}
-                  </svg>
-                </div>
-
-                {#if previewState.density === 'comfortable'}
-                  <span class="card-name">{icon.name}</span>
+                  {#if previewState.density === 'comfortable'}
+                    <span class="card-name">{icon.name}</span>
+                  {/if}
+                {:else}
+                  <div class="icon-skeleton" aria-hidden="true"></div>
                 {/if}
-              {:else}
-                <div class="icon-skeleton" aria-hidden="true"></div>
-              {/if}
-            </article>
-          {/each}
-        </div>
+              </article>
+            {/each}
+          </div>
+        {/if}
       {/each}
     </div>
   {/if}
@@ -444,6 +696,40 @@
     --ic-flip-x: 1;
     --ic-flip-y: 1;
     --ic-blur: 0px;
+  }
+
+  .ic-library-row {
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 8px;
+  }
+
+  .ic-library-row .library-break {
+    width: 100%;
+    height: 58px;
+    min-height: 58px;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .library-break-meta {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .library-break-meta h2 {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .library-break-meta p {
+    margin: 2px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .ic-tile {
