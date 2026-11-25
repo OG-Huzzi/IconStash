@@ -8,7 +8,7 @@
 //   - /chunks/v1/* & /data/*: EXPLICITLY EXCLUDED — owned exclusively by
 //       IndexedDB (iconstash-v2) so browser storage is never doubled.
 
-const VERSION = "v2-20261123";
+const VERSION = "v2-20261125-instant";
 const SHELL_CACHE = `iconstash-v2-shell-${VERSION}`;
 const INDEX_CACHE = `iconstash-v2-index-${VERSION}`;
 

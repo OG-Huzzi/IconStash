@@ -477,7 +477,7 @@ class ExplorerStore {
         // then stream the full 6.7 MB search.bin index in the background worker.
         if (seeded.length > 0) {
           const firstWarm = this.ensureChunksForIndices(
-            Array.from(seeded.subarray(0, Math.min(120, seeded.length))),
+            Array.from(seeded.subarray(0, Math.min(200, seeded.length))),
           );
           await Promise.race([firstWarm, new Promise<void>((r) => setTimeout(r, 400))]);
         }
@@ -707,6 +707,7 @@ class ExplorerStore {
 
     const byShardUrl = new Map<string, Array<{ iconIndex: number; localOffset: number }>>();
     const urlsToLoad: string[] = [];
+    let decodedFromRam = false;
 
     for (let i = 0; i < iconIndices.length; i++) {
       const idx = iconIndices[i];
@@ -719,6 +720,7 @@ class ExplorerStore {
         const decoded = decodeResolvedIcon(existing, idx, loc.localOffset);
         if (decoded) {
           vMap.set(idx, decoded);
+          decodedFromRam = true;
           if (vMap.size > MAX_VISIBLE_ICON_CACHE) {
             const firstKey = vMap.keys().next().value;
             if (firstKey !== undefined) vMap.delete(firstKey);
@@ -734,6 +736,10 @@ class ExplorerStore {
         urlsToLoad.push(loc.shard.url);
       }
       list.push({ iconIndex: idx, localOffset: loc.localOffset });
+    }
+
+    if (decodedFromRam) {
+      this.chunkVersion++;
     }
 
     if (urlsToLoad.length === 0) return;

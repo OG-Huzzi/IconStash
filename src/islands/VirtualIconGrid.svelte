@@ -133,29 +133,38 @@
   const virtualRows = $derived($rowVirtualizer.getVirtualItems().slice(0, maxMountedRows));
   const totalHeight = $derived($rowVirtualizer.getTotalSize());
 
-  // Reset active abort controller only when the result set itself changes (new search/filter) or unmounts,
-  // so ResizeObserver layout refinements never cancel an in-flight visible shard download.
-  let gridLoadController: AbortController | null = null;
+  // Hydrate shards required for mounted virtual rows plus a 3-row lookahead.
+  // Never attach an abort signal for top-of-grid initial rows (scrollTop === 0) so
+  // layout/ResizeObserver updates never cancel the first visible icon chunk and leave skeletons.
+  let scrollAbortController: AbortController | null = null;
+  let retryTimer: ReturnType<typeof setTimeout> | null = null;
+  let retryCount = 0;
 
   $effect(() => {
     const _indices = explorerState.resultIndices;
-    gridLoadController?.abort();
-    gridLoadController = new AbortController();
-    const currentController = gridLoadController;
+    retryCount = 0;
+    if (retryTimer !== null) {
+      clearTimeout(retryTimer);
+      retryTimer = null;
+    }
+    scrollAbortController?.abort();
+    scrollAbortController = null;
     return () => {
-      currentController.abort();
-      if (gridLoadController === currentController) {
-        gridLoadController = null;
+      if (retryTimer !== null) {
+        clearTimeout(retryTimer);
+        retryTimer = null;
       }
+      scrollAbortController?.abort();
+      scrollAbortController = null;
     };
   });
 
-  // Hydrate the shards required for mounted virtual rows plus a small forward buffer
   $effect(() => {
     const rows = virtualRows;
     const indices = explorerState.resultIndices;
     const manifest = explorerState.manifest;
     const cols = columns;
+    const _ver = explorerState.chunkVersion;
 
     if (!manifest || indices.length === 0 || rows.length === 0) return;
 
@@ -164,7 +173,10 @@
       const startPos = rows[r].index * cols;
       const endPos = Math.min(startPos + cols, indices.length);
       for (let pos = startPos; pos < endPos; pos++) {
-        needed.push(indices[pos]);
+        const idx = indices[pos];
+        if (!untrack(() => explorerState.getIconPayload(idx))) {
+          needed.push(idx);
+        }
       }
     }
 
@@ -172,12 +184,43 @@
     const prefetchStart = (lastRowIndex + 1) * cols;
     const prefetchEnd = Math.min(indices.length, prefetchStart + cols * 3);
     for (let pos = prefetchStart; pos < prefetchEnd; pos++) {
-      needed.push(indices[pos]);
+      const idx = indices[pos];
+      if (!untrack(() => explorerState.getIconPayload(idx))) {
+        needed.push(idx);
+      }
     }
 
-    if (needed.length === 0) return;
+    if (needed.length === 0) {
+      retryCount = 0;
+      return;
+    }
 
-    void explorerState.ensureChunksForIndices(needed, gridLoadController?.signal);
+    const isScrolledDown = (scrollContainerEl?.scrollTop ?? 0) > 120;
+    let signal: AbortSignal | undefined;
+    if (isScrolledDown) {
+      scrollAbortController?.abort();
+      scrollAbortController = new AbortController();
+      signal = scrollAbortController.signal;
+    }
+
+    void explorerState.ensureChunksForIndices(needed, signal).then(() => {
+      if (signal?.aborted) return;
+      const stillMissing = rows.some((row) => {
+        const s = row.index * cols;
+        const e = Math.min(s + cols, indices.length);
+        for (let p = s; p < e; p++) {
+          if (!explorerState.getIconPayload(indices[p])) return true;
+        }
+        return false;
+      });
+      if (stillMissing && retryCount < 2 && retryTimer === null) {
+        retryCount++;
+        retryTimer = setTimeout(() => {
+          retryTimer = null;
+          void explorerState.ensureChunksForIndices(needed);
+        }, 250 * retryCount);
+      }
+    });
   });
 
   function resolveTile(iconIndex: number, _version: number): ResolvedIcon | null {
