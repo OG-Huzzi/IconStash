@@ -426,10 +426,9 @@ class ExplorerStore {
     this.bindWorkerCallbacks();
 
     try {
-      const [{ meta }] = await Promise.all([
-        this.ensureManifestAndMeta(),
-        this.ensureWorkerReady(),
-      ]);
+      // Fetch tiny manifest + meta first so the initial grid has zero bandwidth
+      // contention against the 6.7 MB search.bin index on slow links.
+      const { manifest, meta } = await this.ensureManifestAndMeta();
 
       if (opts.initialQuery !== undefined) {
         this.query = sanitizeSearchQuery(opts.initialQuery);
@@ -461,6 +460,43 @@ class ExplorerStore {
         this.selectedStyleMask = 0;
       }
 
+      const canFastSeed =
+        !this.query &&
+        this.selectedCatMask === 0 &&
+        this.selectedStyleMask === 0 &&
+        this.sort === 'relevance';
+
+      if (canFastSeed) {
+        const seeded = this.buildSeedIndicesFromManifest(manifest, opts.initialLibrary);
+        this.resultIndices = seeded;
+        this.totalMatches = seeded.length;
+        this.loading = false;
+        this.ready = true;
+
+        // Give the first visible icon chunk full network bandwidth (capped at 400ms),
+        // then stream the full 6.7 MB search.bin index in the background worker.
+        if (seeded.length > 0) {
+          const firstWarm = this.ensureChunksForIndices(
+            Array.from(seeded.subarray(0, Math.min(120, seeded.length))),
+          );
+          await Promise.race([firstWarm, new Promise<void>((r) => setTimeout(r, 400))]);
+        }
+
+        const seededLibMask = this.selectedLibMask;
+        await this.ensureWorkerReady();
+        if (
+          this.query ||
+          this.selectedCatMask !== 0 ||
+          this.selectedStyleMask !== 0 ||
+          this.sort !== 'relevance' ||
+          this.selectedLibMask !== seededLibMask
+        ) {
+          this.dispatchQuery();
+        }
+        return;
+      }
+
+      await this.ensureWorkerReady();
       this.ready = true;
       this.dispatchQuery();
     } catch (err) {
@@ -469,9 +505,39 @@ class ExplorerStore {
     }
   }
 
+  private buildSeedIndicesFromManifest(
+    manifest: ChunkManifest,
+    initialLibrary?: string,
+  ): Uint32Array {
+    if (initialLibrary) {
+      const target = initialLibrary.trim().toLowerCase();
+      const lib = manifest.libraries.find((l) => l.slug.toLowerCase() === target);
+      if (lib && lib.count > 0) {
+        const out = new Uint32Array(lib.count);
+        for (let i = 0; i < lib.count; i++) {
+          out[i] = lib.startIndex + i;
+        }
+        return out;
+      }
+    }
+    const total = manifest.totalIcons;
+    const out = new Uint32Array(total);
+    for (let i = 0; i < total; i++) {
+      out[i] = i;
+    }
+    return out;
+  }
+
   private dispatchQuery(): void {
     const singleton = getSingleton();
-    if (!singleton.worker || !singleton.ready) return;
+    if (!singleton.worker || !singleton.ready) {
+      void this.ensureWorkerReady()
+        .then(() => {
+          if (singleton.ready) this.dispatchQuery();
+        })
+        .catch(() => {});
+      return;
+    }
 
     if (singleton.activeQueryId > 0) {
       const cancelMsg: SearchWorkerRequest = {

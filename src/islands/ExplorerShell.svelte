@@ -962,16 +962,20 @@
   .explorer-shell {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 0%;
+    min-width: 0;
     min-height: 0;
+    width: 100%;
     height: 100%;
     position: relative;
   }
 
   .workspace {
-    flex: 1;
+    flex: 1 1 0%;
     display: flex;
+    min-width: 0;
     min-height: 0;
+    width: 100%;
     overflow: hidden;
     position: relative;
   }

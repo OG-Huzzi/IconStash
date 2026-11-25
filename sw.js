@@ -13,18 +13,18 @@
 // Library JSON is deliberately NOT cached here: app.js already stores it in
 // IndexedDB, and caching it twice duplicated up to ~280 MB per origin.
 
-const VERSION = "20261113-api-mcp";
+const VERSION = "20261125-fast";
 const SHELL_CACHE = `iconstash-shell-${VERSION}`;
 const CHUNK_CACHE = `iconstash-prerender-chunks-${VERSION}`;
 
 const SHELL_ASSETS = [
   "index.html",
   `style.css?v=${VERSION}`,
-  `icons.js?v=${VERSION}`,
-  `ui.js?v=${VERSION}`,
-  `search.js?v=${VERSION}`,
-  `search.worker.js?v=${VERSION}`,
-  `collections.js?v=${VERSION}`,
+  "icons.js?v=20261113-api-mcp",
+  "ui.js?v=20261113-api-mcp",
+  "search.js?v=20261113-api-mcp",
+  "search.worker.js?v=20260606-mobilelag",
+  "collections.js?v=20261113-api-mcp",
   `app.js?v=${VERSION}`,
   "vendor/fuse.min.js?v=20260530-preloadall",
   "favicon.svg"

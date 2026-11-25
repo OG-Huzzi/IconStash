@@ -112,6 +112,11 @@ const FEATURED_LIBRARIES = [
   jsonLd={jsonLd}
   activeNav="icons"
 >
+  <Fragment slot="head">
+    <link rel="preload" as="fetch" crossorigin="anonymous" href="/chunks/v1/manifest.json" />
+    <link rel="preload" as="fetch" crossorigin="anonymous" href="/index/v1/search-meta.json" />
+    <link rel="preload" as="fetch" crossorigin="anonymous" href="/chunks/v1/lucide.json" />
+  </Fragment>
   <h1 class="sr-only">Compare, animate, export - 134,701 free, open-source icons</h1>
 
   <div class="workspace">

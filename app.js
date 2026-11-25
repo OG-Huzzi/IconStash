@@ -233,16 +233,16 @@
   const REQUEST_TIMEOUT_MS = 30000;
   const BACKGROUND_LIBRARY_TIMEOUT_MS = 25000;
   const FOREGROUND_LIBRARY_TIMEOUT_MS = 45000;
-  const BACKGROUND_PRELOAD_CONCURRENCY = 4;
-  const MOBILE_BACKGROUND_PRELOAD_CONCURRENCY = 2;
-  const MOBILE_BACKGROUND_PRELOAD_DELAY_MS = 120;
+  const BACKGROUND_PRELOAD_CONCURRENCY = 6;
+  const MOBILE_BACKGROUND_PRELOAD_CONCURRENCY = 4;
+  const MOBILE_BACKGROUND_PRELOAD_DELAY_MS = 20;
   const MOBILE_GRID_BATCH_SIZE = 480;
   const MOBILE_SCROLL_PREFETCH_PX = 5200;
   const MOBILE_PRERENDER_PREFETCH_AHEAD = 8;
   const MOBILE_INITIAL_PRERENDER_LIBS = 12;
   const MOBILE_LIBRARY_CHUNK_SIZE = 500;
   const MOBILE_CHUNK_FETCH_ATTEMPTS = 2;
-  const MOBILE_CHUNK_RETRY_DELAY_MS = 400;
+  const MOBILE_CHUNK_RETRY_DELAY_MS = 250;
   const isMobile = window.innerWidth < 768 || /Android|iPhone|iPad/i.test(navigator.userAgent);
 
   function gridBatchSize() {
@@ -1283,7 +1283,7 @@
   }
 
   function shouldUseMobileChunkedLibrary(lib) {
-    return isMobile && mobileChunkCount(lib) > 0;
+    return mobileChunkCount(lib) > 0;
   }
 
   function mergedMobileChunkBuffer(slug) {
@@ -1291,8 +1291,7 @@
   }
 
   function shouldShowMobileChunkProgress(slug) {
-    return isMobile &&
-      state.selectedLibraries.size === 1 &&
+    return state.selectedLibraries.size === 1 &&
       state.selectedLibraries.has(slug) &&
       !els.gridView.classList.contains("hidden");
   }
@@ -1467,43 +1466,50 @@
     return params.get(param) || "";
   }
 
+  let backgroundSyncInFlight = false;
+
   async function loadAllLibrariesInBackground() {
-    // Let the first paint finish, then start warming libraries after a comfortable delay.
-    await new Promise((resolve) => setTimeout(resolve, isMobile ? 3500 : 2500));
+    backgroundSyncInFlight = true;
+    try {
+      // Let the first paint settle briefly, then warm all libraries in parallel.
+      await new Promise((resolve) => setTimeout(resolve, isMobile ? 250 : 120));
 
-    const prioritySlug = slugForInitialRoute() || (state.selectedLibraries.size === 1 ? Array.from(state.selectedLibraries)[0] : "");
-    if (prioritySlug && !state.loadedLibraries.has(prioritySlug)) {
-      try {
-        await loadLibrary(prioritySlug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
-      } catch (e) {
-        console.error(`Priority background load error for ${prioritySlug}:`, e);
-      }
-    }
-    
-    // Prioritize loading based on tiers (Tiers 1 & 2 first, followed by 3 & 4)
-    const priorityList = state.libraries
-      .filter((lib) => !state.loadedLibraries.has(lib.slug) && !state.loadingLibraries.has(lib.slug))
-      .sort((a, b) => (a.tier || 4) - (b.tier || 4));
-
-    let cursor = 0;
-    const workerCount = Math.min(isMobile ? MOBILE_BACKGROUND_PRELOAD_CONCURRENCY : BACKGROUND_PRELOAD_CONCURRENCY, priorityList.length);
-    const preloadNext = async () => {
-      while (cursor < priorityList.length) {
-        const lib = priorityList[cursor];
-        cursor += 1;
-        if (!lib || state.loadedLibraries.has(lib.slug) || state.loadingLibraries.has(lib.slug)) continue;
+      const prioritySlug = slugForInitialRoute() || (state.selectedLibraries.size === 1 ? Array.from(state.selectedLibraries)[0] : "");
+      if (prioritySlug && !state.loadedLibraries.has(prioritySlug)) {
         try {
-          // Yield between starts so the UI stays responsive while everything is queued.
-          await new Promise((resolve) => setTimeout(resolve, 300));
-          await loadLibrary(lib.slug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
+          await loadLibrary(prioritySlug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
         } catch (e) {
-          console.error(`Background load error for ${lib.slug}:`, e);
+          console.error(`Priority background load error for ${prioritySlug}:`, e);
         }
       }
-    };
 
-    await Promise.all(Array.from({ length: workerCount }, preloadNext));
-    finishBackgroundSyncStatus();
+      // Prioritize loading based on tiers (Tiers 1 & 2 first, followed by 3 & 4)
+      const priorityList = state.libraries
+        .filter((lib) => !state.loadedLibraries.has(lib.slug) && !state.loadingLibraries.has(lib.slug))
+        .sort((a, b) => (a.tier || 4) - (b.tier || 4));
+
+      let cursor = 0;
+      const workerCount = Math.min(isMobile ? MOBILE_BACKGROUND_PRELOAD_CONCURRENCY : BACKGROUND_PRELOAD_CONCURRENCY, priorityList.length);
+      const preloadNext = async () => {
+        while (cursor < priorityList.length) {
+          const lib = priorityList[cursor];
+          cursor += 1;
+          if (!lib || state.loadedLibraries.has(lib.slug) || state.loadingLibraries.has(lib.slug)) continue;
+          try {
+            await loadLibrary(lib.slug, { isBackground: true, timeoutMs: BACKGROUND_LIBRARY_TIMEOUT_MS });
+            await new Promise((resolve) => setTimeout(resolve, MOBILE_BACKGROUND_PRELOAD_DELAY_MS));
+          } catch (e) {
+            console.error(`Background load error for ${lib.slug}:`, e);
+          }
+        }
+      };
+
+      await Promise.all(Array.from({ length: workerCount }, preloadNext));
+      finishBackgroundSyncStatus();
+    } finally {
+      backgroundSyncInFlight = false;
+      scheduleSearchIndex(true);
+    }
   }
 
   function finishBackgroundSyncStatus() {
@@ -1584,8 +1590,8 @@
             console.warn(`Failed to load background chunk ${chunkNumber} for ${lib.slug}:`, err);
           }
 
-          // Yield to main thread for 120ms to keep mobile main thread 100% fluid & responsive
-          await new Promise((resolve) => setTimeout(resolve, 120));
+          // Yield briefly between chunks so UI and input remain responsive
+          await new Promise((resolve) => setTimeout(resolve, 16));
         }
 
         // Clean up mobile chunk buffers once all chunks have completed loading
@@ -1749,14 +1755,24 @@
     els.libraryError.classList.add("hidden");
   }
 
-  function scheduleSearchIndex() {
+  function scheduleSearchIndex(immediate = false) {
     clearTimeout(searchIndexTimer);
+    if (!immediate && backgroundSyncInFlight && !state.searchQuery) {
+      // Avoid rebuilding the search worker index 28 times while background libraries stream;
+      // rebuild periodically or as soon as streaming completes / user searches.
+      searchIndexTimer = setTimeout(() => {
+        searchIndexTimer = 0;
+        window.IconStashSearch.buildSearchIndex(Array.from(state.icons.values()));
+      }, 1500);
+      return;
+    }
     searchIndexTimer = setTimeout(() => {
       searchIndexTimer = 0;
       const build = () => window.IconStashSearch.buildSearchIndex(Array.from(state.icons.values()));
-      if ("requestIdleCallback" in window) requestIdleCallback(build, { timeout: 1600 });
+      if (immediate) build();
+      else if ("requestIdleCallback" in window) requestIdleCallback(build, { timeout: 900 });
       else setTimeout(build, 0);
-    }, 240);
+    }, immediate ? 20 : 240);
   }
 
   function scheduleBackgroundFilter(slug) {
@@ -1800,7 +1816,13 @@
 
   function applyFilters(options = {}) {
     const sessionId = ++currentSearchSessionId;
-    
+
+    if (searchIndexTimer) {
+      clearTimeout(searchIndexTimer);
+      searchIndexTimer = 0;
+      window.IconStashSearch.buildSearchIndex(Array.from(state.icons.values()));
+    }
+
     resetPrerenderGrid();
     const filters = {
       librarySlugs: state.selectedLibraries,
@@ -1839,6 +1861,7 @@
       buildRows();
       if (options.resetScroll) els.gridContainer.scrollTop = 0;
       updateVirtualScroll(true);
+      checkViewportFill();
       renderSuggestions();
 
       if (state.filteredIcons.length === 0) {
@@ -5126,8 +5149,8 @@
     await prepareInitialIconsForRoute();
     generateSitemap();
     await handleRoute();
-    // Delay background sync until the initial page has finished loading and rendering
-    setTimeout(triggerBackgroundSync, 2000);
+    // Warm remaining libraries immediately after initial paint without stalling first interaction
+    setTimeout(triggerBackgroundSync, 150);
   }
 
   document.addEventListener("DOMContentLoaded", () => {

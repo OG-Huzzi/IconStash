@@ -133,7 +133,24 @@
   const virtualRows = $derived($rowVirtualizer.getVirtualItems().slice(0, maxMountedRows));
   const totalHeight = $derived($rowVirtualizer.getTotalSize());
 
-  // Hydrate only the shards required for the currently mounted virtual rows
+  // Reset active abort controller only when the result set itself changes (new search/filter) or unmounts,
+  // so ResizeObserver layout refinements never cancel an in-flight visible shard download.
+  let gridLoadController: AbortController | null = null;
+
+  $effect(() => {
+    const _indices = explorerState.resultIndices;
+    gridLoadController?.abort();
+    gridLoadController = new AbortController();
+    const currentController = gridLoadController;
+    return () => {
+      currentController.abort();
+      if (gridLoadController === currentController) {
+        gridLoadController = null;
+      }
+    };
+  });
+
+  // Hydrate the shards required for mounted virtual rows plus a small forward buffer
   $effect(() => {
     const rows = virtualRows;
     const indices = explorerState.resultIndices;
@@ -151,14 +168,16 @@
       }
     }
 
+    const lastRowIndex = rows[rows.length - 1]?.index ?? 0;
+    const prefetchStart = (lastRowIndex + 1) * cols;
+    const prefetchEnd = Math.min(indices.length, prefetchStart + cols * 3);
+    for (let pos = prefetchStart; pos < prefetchEnd; pos++) {
+      needed.push(indices[pos]);
+    }
+
     if (needed.length === 0) return;
 
-    const controller = new AbortController();
-    void explorerState.ensureChunksForIndices(needed, controller.signal);
-
-    return () => {
-      controller.abort();
-    };
+    void explorerState.ensureChunksForIndices(needed, gridLoadController?.signal);
   });
 
   function resolveTile(iconIndex: number, _version: number): ResolvedIcon | null {

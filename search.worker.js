@@ -13,7 +13,29 @@ try {
 
 let fuse = null;
 let iconsList = [];
+let searchRows = [];
 let currentQueryId = null;
+
+const FUSE_BUILD_CAP = 20000;
+
+function buildFastRows(icons) {
+  const len = icons.length;
+  const rows = new Array(len);
+  for (let i = 0; i < len; i++) {
+    const icon = icons[i];
+    const nameLower = String(icon.name || "").toLowerCase();
+    const hay = [
+      nameLower,
+      icon.librarySlug || "",
+      icon.category || "",
+      icon.subCategory || "",
+      ...(icon.tags || []),
+      ...(icon.nameVariants || [])
+    ].join(" ").toLowerCase();
+    rows[i] = { icon, nameLower, hay };
+  }
+  return rows;
+}
 
 // Helper functions for matching
 function tokenize(value) {
@@ -23,29 +45,38 @@ function tokenize(value) {
     .filter(Boolean);
 }
 
-function textFallback(list, query) {
+function fastSearch(rows, query, filters) {
   const words = tokenize(query);
-  if (!words.length) return list;
-  return list
-    .map((icon) => {
-      const haystack = [
-        icon.name,
-        icon.library,
-        icon.librarySlug,
-        icon.category,
-        icon.subCategory,
-        ...(icon.tags || []),
-        ...(icon.nameVariants || [])
-      ].join(" ").toLowerCase();
-      let score = 0;
-      for (const word of words) {
-        if (haystack.includes(word)) score += icon.name.toLowerCase().includes(word) ? 4 : 1;
+  if (!words.length) return [];
+  const slugs = filters && filters.librarySlugs ? new Set(filters.librarySlugs) : null;
+  const styleFilter = filters && filters.style && filters.style !== "all" ? filters.style : "";
+  const categoryFilter = filters && filters.category ? filters.category : "";
+  const matches = [];
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const icon = row.icon;
+    if (slugs && slugs.size > 0 && !slugs.has(icon.librarySlug)) continue;
+    if (styleFilter && icon.style !== styleFilter) continue;
+    if (categoryFilter && icon.category !== categoryFilter) continue;
+    let score = 0;
+    let allWordsMatch = true;
+    for (let w = 0; w < words.length; w++) {
+      const word = words[w];
+      if (row.nameLower === word) score += 10;
+      else if (row.nameLower.startsWith(word)) score += 6;
+      else if (row.nameLower.includes(word)) score += 4;
+      else if (row.hay.includes(word)) score += 1;
+      else {
+        allWordsMatch = false;
+        break;
       }
-      return score ? { icon, score } : null;
-    })
-    .filter(Boolean)
-    .sort((a, b) => b.score - a.score || (b.icon.popularity || 0) - (a.icon.popularity || 0))
-    .map((entry) => entry.icon);
+    }
+    if (allWordsMatch && score > 0) {
+      matches.push({ icon, score });
+    }
+  }
+  matches.sort((a, b) => b.score - a.score || (b.icon.popularity || 0) - (a.icon.popularity || 0));
+  return matches.map((entry) => entry.icon);
 }
 
 self.onmessage = function (e) {
@@ -53,7 +84,8 @@ self.onmessage = function (e) {
   
   if (type === 'init') {
     iconsList = data || [];
-    if (typeof Fuse !== 'undefined') {
+    searchRows = buildFastRows(iconsList);
+    if (typeof Fuse !== 'undefined' && iconsList.length <= FUSE_BUILD_CAP) {
       fuse = new Fuse(iconsList, {
         includeScore: true,
         threshold: 0.32,
@@ -70,6 +102,10 @@ self.onmessage = function (e) {
           { name: "librarySlug", weight: 0.06 }
         ]
       });
+    } else {
+      // For full 25k–134k icon sets, Fuse index construction freezes the worker for 5–10s;
+      // use linear pre-lowercased token scan (~15–30ms across 134k icons).
+      fuse = null;
     }
     self.postMessage({ type: 'indexed' });
   } else if (type === 'search') {
@@ -101,22 +137,19 @@ self.onmessage = function (e) {
         // Global search using Fuse index directly
         const searchResults = fuse.search(q);
         results = searchResults.map(r => r.item);
-      } else {
-        if (fuse) {
-          // If we have filters, search the subset using Fuse results filtered, or fall back
-          const searchResults = fuse.search(q);
-          const slugs = filters && filters.librarySlugs ? new Set(filters.librarySlugs) : null;
-          results = [];
-          for (let i = 0; i < searchResults.length; i++) {
-            const item = searchResults[i].item;
-            if (slugs && slugs.size > 0 && !slugs.has(item.librarySlug)) continue;
-            if (filters && filters.style && filters.style !== "all" && item.style !== filters.style) continue;
-            if (filters && filters.category && item.category !== filters.category) continue;
-            results.push(item);
-          }
-        } else {
-          results = textFallback(results, q);
+      } else if (fuse) {
+        const searchResults = fuse.search(q);
+        const slugs = filters && filters.librarySlugs ? new Set(filters.librarySlugs) : null;
+        results = [];
+        for (let i = 0; i < searchResults.length; i++) {
+          const item = searchResults[i].item;
+          if (slugs && slugs.size > 0 && !slugs.has(item.librarySlug)) continue;
+          if (filters && filters.style && filters.style !== "all" && item.style !== filters.style) continue;
+          if (filters && filters.category && item.category !== filters.category) continue;
+          results.push(item);
         }
+      } else {
+        results = fastSearch(searchRows, q, filters);
       }
     }
 
