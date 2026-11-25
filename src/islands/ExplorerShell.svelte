@@ -38,7 +38,6 @@
     initialQuery,
   }: Props = $props();
 
-  let searchInputEl = $state<HTMLInputElement | null>(null);
   let colorWheelEl = $state<HTMLInputElement | null>(null);
   let gridRef = $state<ReturnType<typeof VirtualIconGrid> | null>(null);
 
@@ -48,7 +47,9 @@
 
   // Sidebar & collapsible card toggles
   let sidebarCollapsed = $state(false);
-  let mobileSidebarOpen = $state(false);
+  let mobileSidebarOpen = $state(
+    typeof document !== 'undefined' && document.body.classList.contains('sidebar-open'),
+  );
   let libsExpanded = $state(false);
   let stylesExpanded = $state(false);
   let categoriesExpanded = $state(false);
@@ -74,14 +75,29 @@
     };
   });
 
-  // Sync sidebar body classes for CSS layout compatibility
+  // Sync desktop collapsed state without clobbering Header.astro's mobile sidebar-open state
   $effect(() => {
     if (typeof document === 'undefined') return;
     document.body.classList.toggle('sidebar-collapsed', sidebarCollapsed);
-    document.body.classList.toggle('sidebar-open', mobileSidebarOpen);
     return () => {
       document.body.classList.remove('sidebar-collapsed');
       document.body.classList.remove('sidebar-open');
+    };
+  });
+
+  $effect(() => {
+    if (typeof window === 'undefined') return;
+    const onSidebarToggle = (e: Event) => {
+      const open = (e as CustomEvent<{ open?: boolean }>).detail?.open;
+      if (typeof open === 'boolean') {
+        mobileSidebarOpen = open;
+      } else if (typeof document !== 'undefined') {
+        mobileSidebarOpen = document.body.classList.contains('sidebar-open');
+      }
+    };
+    window.addEventListener('iconstash:sidebar-toggle', onSidebarToggle);
+    return () => {
+      window.removeEventListener('iconstash:sidebar-toggle', onSidebarToggle);
     };
   });
 
@@ -152,14 +168,25 @@
 
   function closeMobileSidebar(): void {
     mobileSidebarOpen = false;
-    if (typeof document !== "undefined") {
-      document.body.classList.remove("sidebar-open");
-      const btn = document.getElementById("sidebar-toggle");
-      if (btn) btn.setAttribute("aria-expanded", "false");
+    if (typeof document !== 'undefined') {
+      document.body.classList.remove('sidebar-open');
+      const btn = document.getElementById('sidebar-toggle');
+      if (btn) {
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open filters');
+        btn.title = 'Open filters';
+      }
+      window.dispatchEvent(new CustomEvent('iconstash:sidebar-toggle', { detail: { open: false } }));
     }
   }
 
-    function formatNumber(n: number): string {
+  function syncHeaderSearch(query: string): void {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('iconstash:search-sync', { detail: { query } }));
+    }
+  }
+
+  function formatNumber(n: number): string {
     return n.toLocaleString('en-US');
   }
 
@@ -167,16 +194,12 @@
     return style.charAt(0).toUpperCase() + style.slice(1);
   }
 
-  function handleSearchInput(event: Event): void {
-    const val = (event.currentTarget as HTMLInputElement).value;
-    searchDraft = val;
-    explorerState.setQuery(val);
-  }
-
   function clearSearchInput(): void {
     searchDraft = '';
     explorerState.setQuery('');
-    searchInputEl?.focus();
+    syncHeaderSearch('');
+    const headerInput = document.getElementById('main-search') as HTMLInputElement | null;
+    headerInput?.focus();
   }
 
   async function copyText(text: string, toastMsg: string): Promise<void> {
@@ -266,8 +289,9 @@
       // `/` focuses search bar when not typing in an input
       if (event.key === '/' && !editable && !hasModifier && !event.altKey) {
         event.preventDefault();
-        searchInputEl?.focus();
-        searchInputEl?.select();
+        const headerInput = document.getElementById('main-search') as HTMLInputElement | null;
+        headerInput?.focus();
+        headerInput?.select();
         return;
       }
 
@@ -309,9 +333,9 @@
           inspectorState.closeInspector();
           return;
         }
-        if (mobileSidebarOpen) {
+        if (mobileSidebarOpen || document.body.classList.contains('sidebar-open')) {
           event.preventDefault();
-          mobileSidebarOpen = false;
+          closeMobileSidebar();
           return;
         }
         if (collectionsState.selectMode) {
@@ -441,65 +465,6 @@
 </script>
 
 <div class="explorer-shell">
-  <!-- Search & Quick Nav Header Bar -->
-  <div class="explorer-topbar" style="display:none">
-    <div class="topbar-left">
-      <button
-        type="button"
-        class="icon-btn mobile-only"
-        data-hidden-sidebar-toggle="true"
-        title="Open filters"
-        aria-label="Open filters"
-        aria-expanded={mobileSidebarOpen}
-        aria-controls="left-sidebar"
-        onclick={() => (mobileSidebarOpen = !mobileSidebarOpen)}
-      >
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </button>
-    </div>
-
-    <div class="header-center">
-      <div class="search-container" id="search-shell">
-        <div class="search-input-wrapper">
-          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <circle cx="11" cy="11" r="7" />
-            <path d="m20 20-4.4-4.4" />
-          </svg>
-          <input
-            bind:this={searchInputEl}
-            id="main-search"
-            type="search"
-            value={searchDraft}
-            oninput={handleSearchInput}
-            placeholder="Search {formatNumber(totalCatalogIcons)} icons... ( press / )"
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Search icons"
-          />
-          <button
-            type="button"
-            class="search-clear"
-            class:hidden={searchDraft.length === 0}
-            id="search-clear"
-            aria-label="Clear search"
-            onclick={clearSearchInput}
-          >
-            x
-          </button>
-        </div>
-      </div>
-      <div
-        class="search-results-count"
-        class:hidden={!explorerState.ready}
-        id="result-count"
-      >
-        {formatNumber(explorerState.totalMatches)}
-      </div>
-    </div>
-  </div>
-
   <!-- Main Workspace: Collapsible Filter Sidebar + Virtual Grid -->
   <div class="workspace">
     <button
@@ -531,6 +496,17 @@
       class:open={mobileSidebarOpen}
       aria-label="Filters"
     >
+      <div class="mobile-sidebar-header">
+        <span>Filters</span>
+        <button
+          type="button"
+          class="close-btn mobile-sidebar-close"
+          aria-label="Close filters"
+          onclick={closeMobileSidebar}
+        >
+          <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
+      </div>
       <div class="sidebar-content">
         <!-- Libraries Filter (All 28 Libraries) -->
         <section class="filter-section">
@@ -814,6 +790,7 @@
           onclick={() => {
             searchDraft = '';
             explorerState.clearFilters();
+            syncHeaderSearch('');
           }}
         >
           Clear All Filters
@@ -882,6 +859,7 @@
               onclick={() => {
                 searchDraft = '';
                 explorerState.clearFilters();
+                syncHeaderSearch('');
               }}
             >
               Clear all
@@ -965,6 +943,7 @@
           bind:focusedPos
           onSuggestionClick={(term) => {
             searchDraft = term;
+            syncHeaderSearch(term);
           }}
         />
       </section>
@@ -989,89 +968,16 @@
     position: relative;
   }
 
-  .explorer-topbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 16px;
-    background: var(--bg-base, #0a0a0a);
-  }
-
-  .header-center {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .search-container {
-    flex: 1;
-    position: relative;
-  }
-
-  .search-input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg-surface, #111111);
-    border: 1px solid var(--border, #1f1f1f);
-    border-radius: var(--radius-button, 6px);
-    padding: 0 10px;
-    height: 38px;
-  }
-
-  .search-input-wrapper:focus-within {
-    border-color: transparent;
-  }
-
-  .search-icon {
-    width: 14px;
-    height: 14px;
-    fill: none;
-    stroke: var(--text-muted, #8a8a8a);
-    stroke-width: 2;
-    flex-shrink: 0;
-  }
-
-  #main-search {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: var(--text-primary, #f2f2f2);
-    font-size: 13px;
-    outline: none;
-    min-width: 0;
-  }
-
-  .search-clear {
-    background: transparent;
-    border: none;
-    color: var(--text-muted, #8a8a8a);
-    cursor: pointer;
-    font-size: 13px;
-    padding: 2px 6px;
-  }
-
-  .search-clear.hidden,
-  .search-results-count.hidden {
-    display: none;
-  }
-
-  .search-results-count {
-    font-size: 12px;
-    font-family: var(--font-mono, monospace);
-    color: var(--text-secondary, #888888);
-    white-space: nowrap;
-  }
-
   .workspace {
     flex: 1;
     display: flex;
     min-height: 0;
     overflow: hidden;
     position: relative;
+  }
+
+  .mobile-sidebar-header {
+    display: none;
   }
 
   #left-sidebar {
@@ -1087,6 +993,31 @@
     width: 0;
     border-right: none;
     overflow: hidden;
+  }
+
+  @media (max-width: 1199px) {
+    .mobile-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border, #1f1f1f);
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary, #888888);
+    }
+
+    .mobile-sidebar-close {
+      width: 30px;
+      height: 30px;
+    }
+
+    #left-sidebar {
+      width: min(280px, 85vw);
+    }
   }
 
   .sidebar-content {
@@ -1374,7 +1305,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 10px 16px;
+    padding: 6px 0;
   }
 
   .toolbar-left,
@@ -1383,6 +1314,29 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+  }
+
+  @media (max-width: 767px) {
+    .main-toolbar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .toolbar-left {
+      justify-content: flex-start;
+    }
+
+    .toolbar-right {
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .density-toggle {
+      display: none;
+    }
   }
 
   #grid-status {
@@ -1401,6 +1355,12 @@
     border: 1px solid var(--border, #1f1f1f);
     border-radius: var(--radius-button, 6px);
     overflow: hidden;
+  }
+
+  @media (max-width: 420px) {
+    .density-toggle {
+      display: none;
+    }
   }
 
   .density-btn {
@@ -1441,6 +1401,7 @@
     background: var(--btn-primary-bg, #c1dd2d);
     color: var(--btn-primary-text, #0a0a0a);
     border-color: var(--btn-primary-bg, #c1dd2d);
+    font-weight: 700;
   }
 
   .badge {

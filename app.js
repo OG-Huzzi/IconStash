@@ -2681,6 +2681,7 @@
     }
 
     els.detailPanel.classList.remove("closed");
+    $("detail-backdrop")?.classList.add("open");
     renderDetailWithMeta(icon, { updateSeo: true });
     updateFocusedCard();
     syncGridToDetailPanel();
@@ -2702,6 +2703,7 @@
     }
 
     els.detailPanel.classList.remove("closed");
+    $("detail-backdrop")?.classList.add("open");
     renderDetailWithMeta(icon);
     updateFocusedCard();
     syncGridToDetailPanel();
@@ -2762,6 +2764,7 @@
 
   function closeDetail(routeHome = true) {
     els.detailPanel.classList.add("closed");
+    $("detail-backdrop")?.classList.remove("open");
     setAdvanceMode(false);
     state.currentIconId = "";
     detailMetaLoadingId = "";
@@ -4069,32 +4072,70 @@
     $("draw-download-png").addEventListener("click", drawDownloadPng);
   }
 
-  // ===== Mobile nav menu =====
+  // ===== Mobile nav menu & sidebar helpers =====
+  function setMobileSidebarOpen(open) {
+    const bodyOpen = document.body.classList.toggle("sidebar-open", Boolean(open));
+    const toggle = els.sidebarToggle || $("sidebar-toggle");
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", String(bodyOpen));
+      const label = bodyOpen ? "Close filters" : "Open filters";
+      toggle.setAttribute("aria-label", label);
+      toggle.title = label;
+    }
+    return bodyOpen;
+  }
+
+  function closeNavMenu() {
+    const btn = $("nav-menu-btn");
+    const menu = $("nav-menu");
+    if (menu) menu.classList.remove("open");
+    if (btn) btn.setAttribute("aria-expanded", "false");
+  }
+
   function initNavMenu() {
     const btn = $("nav-menu-btn");
     const menu = $("nav-menu");
-    if (!btn || !menu) return;
+    if (!btn || !menu || btn.dataset.bound === "1") return;
+    btn.dataset.bound = "1";
     btn.addEventListener("click", (event) => {
       event.stopPropagation();
+      if (document.body.classList.contains("sidebar-open")) {
+        setMobileSidebarOpen(false);
+      }
       const open = menu.classList.toggle("open");
       btn.setAttribute("aria-expanded", String(open));
     });
     document.addEventListener("click", (event) => {
-      if (!menu.classList.contains("open")) return;
-      if (menu.contains(event.target) || btn.contains(event.target)) return;
-      menu.classList.remove("open");
-      btn.setAttribute("aria-expanded", "false");
+      if (menu.classList.contains("open")) {
+        if (!menu.contains(event.target) && !btn.contains(event.target)) {
+          closeNavMenu();
+        }
+      }
+      if (document.body.classList.contains("sidebar-open")) {
+        const sidebar = els.sidebar || $("left-sidebar");
+        const toggle = els.sidebarToggle || $("sidebar-toggle");
+        if (
+          sidebar &&
+          !sidebar.contains(event.target) &&
+          (!toggle || !toggle.contains(event.target)) &&
+          !btn.contains(event.target)
+        ) {
+          setMobileSidebarOpen(false);
+        }
+      }
     });
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && menu.classList.contains("open")) {
-        menu.classList.remove("open");
-        btn.setAttribute("aria-expanded", "false");
+      if (event.key === "Escape") {
+        if (menu.classList.contains("open")) {
+          closeNavMenu();
+        } else if (document.body.classList.contains("sidebar-open")) {
+          setMobileSidebarOpen(false);
+        }
       }
     });
     ui().qsa("#nav-menu [data-nav]").forEach((item) => item.addEventListener("click", () => {
       const target = $(item.dataset.nav);
-      menu.classList.remove("open");
-      btn.setAttribute("aria-expanded", "false");
+      closeNavMenu();
       if (target) target.click();
     }));
   }
@@ -4107,9 +4148,10 @@
       navIconsBtn.addEventListener("click", (event) => {
         event.preventDefault();
         ui().closeModals();
-        clearAllFilters({ skipRender: true });
+        const alreadySearch = window.location.hash === "#/search";
+        clearAllFilters({ skipRender: !alreadySearch });
         // "Icons" returns to the workspace; the top-left logo is the home link.
-        window.location.hash = "#/search";
+        if (!alreadySearch) window.location.hash = "#/search";
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
@@ -4355,18 +4397,22 @@
     setupCollectionEvents();
     setupKeyboard();
     els.themeToggle.addEventListener("click", toggleTheme);
-    els.sidebarToggle.addEventListener("click", () => {
-      const open = document.body.classList.toggle("sidebar-open");
-      els.sidebarToggle.setAttribute("aria-expanded", String(open));
-      const label = open ? "Close filters" : "Open filters";
-      els.sidebarToggle.setAttribute("aria-label", label);
-      els.sidebarToggle.title = label;
+    els.sidebarToggle?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeNavMenu();
+      const open = setMobileSidebarOpen(!document.body.classList.contains("sidebar-open"));
       if (open) {
         const firstControl = els.sidebar?.querySelector("input, a, button");
         if (firstControl) firstControl.focus({ preventScroll: true });
       } else {
         els.sidebarToggle.focus({ preventScroll: true });
       }
+    });
+    $("sidebar-backdrop")?.addEventListener("click", () => {
+      setMobileSidebarOpen(false);
+    });
+    $("detail-backdrop")?.addEventListener("click", () => {
+      closeDetail(false);
     });
     els.sidebarCollapse.addEventListener("click", () => {
       const collapsed = document.body.classList.toggle("sidebar-collapsed");
@@ -4574,6 +4620,7 @@
       els.autocomplete.classList.add("hidden");
       state.currentIconId = icon.id;
       els.detailPanel.classList.remove("closed");
+      $("detail-backdrop")?.classList.add("open");
       renderDetailWithMeta(icon);
       updateFocusedCard();
       warmLibraryAfterPrerenderClick(slug, icon.id);

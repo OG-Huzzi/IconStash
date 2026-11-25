@@ -69,6 +69,12 @@ class PreviewStore {
     if (typeof document !== 'undefined') {
       applyThemeToDocument(this.theme);
       writeThemeToStorage(this.theme);
+      window.addEventListener('iconstash:theme-change', (event) => {
+        const next = (event as CustomEvent<{ theme?: ThemeMode }>).detail?.theme;
+        if (next === 'light' || next === 'dark') {
+          this.theme = next;
+        }
+      });
     }
   }
 

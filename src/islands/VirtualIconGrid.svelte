@@ -469,14 +469,31 @@
     background: transparent;
     color: var(--text-muted, #8a8a8a);
     opacity: 0;
+    pointer-events: none;
     cursor: pointer;
     transition: opacity 120ms ease, color 120ms ease;
+  }
+
+  .card-favorite-btn svg {
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
   }
 
   .ic-tile:hover .card-favorite-btn,
   .ic-tile:focus-within .card-favorite-btn,
   .card-favorite-btn.favorited {
     opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    .card-favorite-btn,
+    .ic-tile:hover .card-favorite-btn,
+    .ic-tile:focus-within .card-favorite-btn,
+    .card-favorite-btn.favorited {
+      pointer-events: none;
+    }
   }
 
   .card-favorite-btn.favorited {

@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 ---
 
-<header id="main-header">
+<header id="main-header" class:list={[{ 'no-search': !showSearch }]}>
   <div class="header-left">
     {showSidebarToggle && (
       <button
@@ -106,6 +106,8 @@ const {
     const root = document.documentElement;
     const themeToggle = document.getElementById('theme-toggle');
     const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+    const leftSidebar = document.getElementById('left-sidebar');
     const navMenuBtn = document.getElementById('nav-menu-btn');
     const navMenu = document.getElementById('nav-menu');
     const drawBtn = document.getElementById('draw-open');
@@ -113,6 +115,10 @@ const {
     const collectionsBtn = document.getElementById('collections-toggle');
     const searchInput = document.getElementById('main-search') as HTMLInputElement | null;
     const searchClear = document.getElementById('search-clear');
+
+    if (sidebarToggle && !leftSidebar) {
+      sidebarToggle.classList.add('hidden');
+    }
 
     const syncThemeLabel = (theme: string) => {
       root.dataset.theme = theme;
@@ -144,25 +150,49 @@ const {
       { signal }
     );
 
-    sidebarToggle?.addEventListener(
-      'click',
-      () => {
-        const isOpen = document.body.classList.toggle('sidebar-open');
-        sidebarToggle.setAttribute('aria-expanded', String(isOpen));
-      },
-      { signal }
-    );
-
     const closeNavMenu = () => {
       if (!navMenu || !navMenuBtn) return;
       navMenu.classList.remove('open');
       navMenuBtn.setAttribute('aria-expanded', 'false');
     };
 
+    const setSidebarOpen = (open: boolean) => {
+      document.body.classList.toggle('sidebar-open', open);
+      if (sidebarToggle) {
+        sidebarToggle.setAttribute('aria-expanded', String(open));
+        const label = open ? 'Close filters' : 'Open filters';
+        sidebarToggle.setAttribute('aria-label', label);
+        sidebarToggle.title = label;
+      }
+      window.dispatchEvent(new CustomEvent('iconstash:sidebar-toggle', { detail: { open } }));
+    };
+
+    sidebarToggle?.addEventListener(
+      'click',
+      (event) => {
+        event.stopPropagation();
+        closeNavMenu();
+        const isOpen = !document.body.classList.contains('sidebar-open');
+        setSidebarOpen(isOpen);
+      },
+      { signal }
+    );
+
+    sidebarBackdrop?.addEventListener(
+      'click',
+      () => {
+        setSidebarOpen(false);
+      },
+      { signal }
+    );
+
     navMenuBtn?.addEventListener(
       'click',
       (event) => {
         event.stopPropagation();
+        if (document.body.classList.contains('sidebar-open')) {
+          setSidebarOpen(false);
+        }
         if (!navMenu) return;
         const isOpen = navMenu.classList.toggle('open');
         navMenuBtn.setAttribute('aria-expanded', String(isOpen));
@@ -187,10 +217,21 @@ const {
     document.addEventListener(
       'click',
       (event) => {
+        const target = event.target as Node | null;
         if (navMenu?.classList.contains('open')) {
-          const target = event.target as Node | null;
           if (target && !navMenu.contains(target) && !navMenuBtn?.contains(target)) {
             closeNavMenu();
+          }
+        }
+        if (document.body.classList.contains('sidebar-open')) {
+          if (
+            target &&
+            leftSidebar &&
+            !leftSidebar.contains(target) &&
+            !sidebarToggle?.contains(target) &&
+            !navMenuBtn?.contains(target)
+          ) {
+            setSidebarOpen(false);
           }
         }
       },
@@ -235,11 +276,28 @@ const {
       { signal }
     );
 
+    window.addEventListener(
+      'iconstash:search-sync',
+      (event) => {
+        if (!searchInput) return;
+        const next = (event as CustomEvent<{ query?: string }>).detail?.query ?? '';
+        if (searchInput.value !== next) {
+          searchInput.value = next;
+        }
+        searchClear?.classList.toggle('hidden', next.length === 0);
+      },
+      { signal }
+    );
+
     document.addEventListener(
       'keydown',
       (event) => {
-        if (event.key === 'Escape' && navMenu?.classList.contains('open')) {
-          closeNavMenu();
+        if (event.key === 'Escape') {
+          if (navMenu?.classList.contains('open')) {
+            closeNavMenu();
+          } else if (document.body.classList.contains('sidebar-open')) {
+            setSidebarOpen(false);
+          }
         }
         if (
           event.key === '/' &&
@@ -261,6 +319,9 @@ const {
     cleanupHeader = () => ac.abort();
   }
 
+  if (document.readyState !== 'loading') {
+    initHeaderShell();
+  }
   document.addEventListener('astro:page-load', initHeaderShell);
   document.addEventListener('astro:before-swap', () => {
     cleanupHeader?.();

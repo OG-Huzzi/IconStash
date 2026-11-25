@@ -481,6 +481,19 @@
 
 <svelte:window onclick={handleGlobalClick} />
 
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+  class="detail-backdrop"
+  class:open={Boolean(activeIcon)}
+  id="detail-backdrop"
+  aria-hidden="true"
+  onclick={() => {
+    advanceOpen = false;
+    inspectorState.closeInspector();
+  }}
+></div>
+
 <aside
   id="detail-panel"
   class:closed={!activeIcon}

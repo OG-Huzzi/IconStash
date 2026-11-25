@@ -137,6 +137,12 @@
     html[data-theme="light"] .cta-banner h3 { color: #0A0A0A; }
     html[data-theme="light"] .cta-banner p { color: #525252; }
     html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    @media (max-width: 960px) {
+      .site-header { padding: 0 16px; }
+      .site-header nav { gap: 10px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .page-wrap { padding: 36px 16px 72px; }
+    }
   </style>
 </head>
 <body>
