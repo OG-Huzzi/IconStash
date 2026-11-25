@@ -184,18 +184,18 @@ html = r"""<!DOCTYPE html>
     svg { max-width: 100%; display: inline-block; vertical-align: middle; }
 
     .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
-    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
-    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; flex-shrink: 0; white-space: nowrap; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; flex-shrink: 0; }
     .site-header nav { display: flex; gap: 24px; align-items: center; }
     .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
     .site-header nav a:hover { color: #F2F2F2; }
-    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; white-space: nowrap; }
     .header-cta:hover { background: #D2ED3E; }
-    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; flex-shrink: 0; }
     .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
 
     .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
-    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; flex-wrap: wrap; }
     .breadcrumb a { color: #888; }
     .breadcrumb a:hover { color: #C1DD2D; }
     .breadcrumb .sep { color: #444; }
@@ -203,7 +203,7 @@ html = r"""<!DOCTYPE html>
 
     .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
     .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
-    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-hero h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
     .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
     .article-meta a { color: #999; font-weight: 600; }
     .article-meta a:hover { color: #C1DD2D; }
@@ -211,6 +211,15 @@ html = r"""<!DOCTYPE html>
     .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
     .article-main { min-width: 0; }
     @media (max-width: 980px) { .article-layout { grid-template-columns: 1fr; } .article-sidebar { position: static; } }
+    @media (max-width: 768px) {
+      .site-header { padding: 0 16px; }
+      .site-header nav { gap: 10px; }
+      .site-header nav a:not(.header-cta) { display: none; }
+      .header-cta { padding: 6px 12px; font-size: 12.5px; }
+      .page-container { padding: 20px 16px 64px; }
+      .interactive-sandbox { padding: 16px; }
+      .preview-stage-container { padding: 12px; min-height: 260px; }
+    }
 
     .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
     .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
@@ -392,7 +401,7 @@ html = r"""<!DOCTYPE html>
     </nav>
   </header>
 
-  <div class="page-container">
+  <main class="page-container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">IconStash</a>
       <span class="sep">/</span>
@@ -1005,7 +1014,7 @@ function buildMorphKeyframeValues(baseSeed, count = 8, radius = 150, contrast = 
         </div>
       </aside>
     </div>
-  </div>
+  </main>
 
   <footer class="site-footer">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; text-align: left; margin-bottom: 32px;">
@@ -1031,6 +1040,13 @@ function buildMorphKeyframeValues(baseSeed, count = 8, radius = 150, contrast = 
 
   <script>
     (function() {
+      try {
+        const savedTheme = localStorage.getItem('iconstash-theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+      } catch (_) {}
+
       const themeBtn = document.getElementById('theme-toggle');
       if (themeBtn) {
         themeBtn.addEventListener('click', () => {
@@ -1105,10 +1121,15 @@ function buildMorphKeyframeValues(baseSeed, count = 8, radius = 150, contrast = 
         const n = pts.length;
         if (n < 3) return '';
         const k = tension / 6;
-        const fx = (v) => normW ? ((v - (CX - 180)) / 360).toFixed(3) : v.toFixed(2);
-        const fy = (v) => normH ? ((v - (CY - 180)) / 360).toFixed(3) : v.toFixed(2);
-
-        let d = `M ${fx(pts[0].x)} ${fy(pts[0].y)}`;
+        const segs = [];
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        const track = (x, y) => {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        };
+        track(pts[0].x, pts[0].y);
         for (let i = 0; i < n; i++) {
           const p0 = pts[(i - 1 + n) % n];
           const p1 = pts[i];
@@ -1118,7 +1139,20 @@ function buildMorphKeyframeValues(baseSeed, count = 8, radius = 150, contrast = 
           const cp1y = p1.y + (p2.y - p0.y) * k;
           const cp2x = p2.x - (p3.x - p1.x) * k;
           const cp2y = p2.y - (p3.y - p1.y) * k;
-          d += ` C ${fx(cp1x)} ${fy(cp1y)}, ${fx(cp2x)} ${fy(cp2y)}, ${fx(p2.x)} ${fy(p2.y)}`;
+          track(cp1x, cp1y);
+          track(cp2x, cp2y);
+          track(p2.x, p2.y);
+          segs.push({ cp1x, cp1y, cp2x, cp2y, x: p2.x, y: p2.y });
+        }
+        const span = Math.max(1e-3, maxX - minX, maxY - minY);
+        const padX = (span - (maxX - minX)) * 0.5;
+        const padY = (span - (maxY - minY)) * 0.5;
+        const fx = (v) => normW ? (0.02 + 0.96 * ((v - minX + padX) / span)).toFixed(3) : v.toFixed(2);
+        const fy = (v) => normH ? (0.02 + 0.96 * ((v - minY + padY) / span)).toFixed(3) : v.toFixed(2);
+
+        let d = `M ${fx(pts[0].x)} ${fy(pts[0].y)}`;
+        for (const s of segs) {
+          d += ` C ${fx(s.cp1x)} ${fy(s.cp1y)}, ${fx(s.cp2x)} ${fy(s.cp2y)}, ${fx(s.x)} ${fy(s.y)}`;
         }
         return d + ' Z';
       }

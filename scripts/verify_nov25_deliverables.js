@@ -351,8 +351,15 @@ for (const item of deliverables) {
   }
   assert(tocDesyncs.length === 0, 'TOC numbering synchronized 1:1 with H2 headings');
 
-  // 16. Touch & Pointer Capture
-  assert(content.includes('touch-action: none') && content.includes('user-select: none') && content.includes('setPointerCapture') && content.includes('pointercancel'), 'Touch action, user-select, pointer capture & cancel present');
+  // 16. Touch & Pointer Capture (drag canvases) + Landmark + Theme Persistence + Mobile Header
+  if (item.slug !== 'shadcn-ui-icons-complete-guide-2026') {
+    assert(content.includes('touch-action: none') && content.includes('user-select: none') && content.includes('setPointerCapture') && content.includes('pointercancel'), 'Touch action, user-select, pointer capture & cancel present');
+  } else {
+    assert(content.includes('touch-action: none') && content.includes('user-select: none') && content.includes('syncSlotSelection'), 'Touch action, user-select & in-place slot selection present');
+  }
+  assert(content.includes('<main class="page-container">') && content.includes('</main>'), '<main> landmark wraps page content');
+  assert(content.includes("localStorage.getItem('iconstash-theme')") && content.includes("localStorage.setItem('iconstash-theme'"), 'Theme preference persists across reloads');
+  assert(content.includes('@media (max-width: 768px)') && content.includes('flex-shrink: 0'), 'Mobile 375px header responsive rules and logo flex-shrink present');
 
   // 17. XML validity of inline SVGs
   const noScript = content.replace(/<script[\s\S]*?<\/script>/gi, '');
