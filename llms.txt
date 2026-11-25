@@ -14,7 +14,7 @@ IconStash (https://iconstash.io) is a 100% client-side web app built by Great So
 - Rendering: 100% client-side (works offline after first load)
 - Export formats: SVG, PNG (16–512px), React JSX, Vue, CSS, HTML, SVG sprite
 - Data snapshot: 2026-05-05
-- Last updated: 2026-11-22
+- Last updated: 2026-11-25
 
 ## Largest Libraries
 - Fluent UI Icons — 20,170 (MIT, Microsoft)
@@ -236,6 +236,9 @@ Every concept page lists the same icon as rendered by every library that has it,
 - [Mastering SVG Waterfall Charts & Financial Variance Bridges: Running Totals, Floating Rectangles & Bridge Geometry (2026)](https://iconstash.io/articles/svg-waterfall-charts-and-financial-variance-bridge-guide/)
 - [Mastering SVG Chord Diagrams & Bilateral Flow Matrices: Radial Arcs, Quadratic Ribbons & Circular Geometries (2026)](https://iconstash.io/articles/svg-chord-diagrams-and-bilateral-flow-matrix-guide/)
 - [Mastering SVG Ternary Plots & Triangular Composition Diagrams: Barycentric Coordinates, Equilateral Grid Math & Phase Triangles (2026)](https://iconstash.io/articles/svg-ternary-plots-and-triangular-composition-diagram-guide/)
+- [Mastering SVG Line Charts & Multi-Series Time-Series Graphs: Monotone Cubic Splines, Bisector Crosshairs & Axis Scaling (2026)](https://iconstash.io/articles/svg-line-charts-and-multi-series-time-series-guide/)
+- [SVG Blob Generator & Organic Shapes: Catmull-Rom Splines, Seeded PRNG & CSS clip-path Morphing (2026)](https://iconstash.io/articles/svg-blob-generator-and-organic-shapes-guide/)
+- [Shadcn UI Icons Complete Guide (2026): Lucide vs. Phosphor vs. Hugeicons vs. Tabler & CLI Migration](https://iconstash.io/articles/shadcn-ui-icons-complete-guide-2026/)
 - [All articles](https://iconstash.io/articles/)
 
 ## Library Comparisons & Alternatives
@@ -276,4 +279,4 @@ Q: How do I compare the same icon across libraries? A: Open any concept page suc
 
 Q: Can I browse icons by library, category, or style? A: Yes — https://iconstash.io/library/, https://iconstash.io/category/, and https://iconstash.io/style/ each index the full catalogue.
 
-Last updated: 2026-11-22
+Last updated: 2026-11-25

@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <title>SVG Blob Generator: Organic Shapes &amp; Clip-Path (2026) | IconStash</title>
+  <meta name="description" content="Build deterministic SVG blob generators with Catmull-Rom cubic Bezier splines, Mulberry32 PRNG seeds, CSS clip-path masking, and smooth SMIL/CSS morphing.">
+  <meta name="keywords" content="svg blob generator, svg blob, organic svg shapes, how to create svg blobs, catmull-rom spline svg blob, css clip-path blob, animated svg blob, objectBoundingBox svg mask">
+  <meta property="og:title" content="SVG Blob Generator &amp; Organic Shapes: Catmull-Rom Splines, Seeded PRNG &amp; CSS clip-path Morphing (2026)">
+  <meta property="og:description" content="Build deterministic SVG blob generators with Catmull-Rom cubic Bezier splines, Mulberry32 PRNG seeds, CSS clip-path masking, and smooth SMIL/CSS morphing.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://iconstash.io/articles/svg-blob-generator-and-organic-shapes-guide/">
+  <meta property="og:image" content="https://iconstash.io/assets/articles/svg-blob-generator-and-organic-shapes-guide.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="675">
+  <meta property="og:site_name" content="IconStash">
+  <meta property="article:published_time" content="2026-11-25T00:00:00Z">
+  <meta property="article:modified_time" content="2026-11-25T00:00:00Z">
+  <meta property="article:author" content="Jouni Flemming">
+  <meta property="article:section" content="Vector Graphics Engineering">
+  <meta property="article:tag" content="SVG">
+  <meta property="article:tag" content="SVG Blob">
+  <meta property="article:tag" content="Catmull-Rom Spline">
+  <meta property="article:tag" content="CSS clip-path">
+  <meta property="article:tag" content="Generative Geometry">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SVG Blob Generator &amp; Organic Shapes: Catmull-Rom Splines, Seeded PRNG &amp; CSS clip-path Morphing (2026)">
+  <meta name="twitter:description" content="Build deterministic SVG blob generators with Catmull-Rom cubic Bezier splines, Mulberry32 PRNG seeds, CSS clip-path masking, and smooth SMIL/CSS morphing.">
+  <meta name="twitter:image" content="https://iconstash.io/assets/articles/svg-blob-generator-and-organic-shapes-guide.jpg">
+  <link rel="canonical" href="https://iconstash.io/articles/svg-blob-generator-and-organic-shapes-guide/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "SVG Blob Generator & Organic Shapes: Catmull-Rom Splines, Seeded PRNG & CSS clip-path Morphing (2026)",
+      "description": "Build deterministic SVG blob generators with Catmull-Rom cubic Bezier splines, Mulberry32 PRNG seeds, CSS clip-path masking, and smooth SMIL/CSS morphing.",
+      "image": "https://iconstash.io/assets/articles/svg-blob-generator-and-organic-shapes-guide.jpg",
+      "author": {
+        "@type": "Person",
+        "name": "Jouni Flemming",
+        "url": "https://iconstash.io/about/",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "IconStash",
+        "url": "https://iconstash.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://iconstash.io/logo.png"
+        },
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Great Software Company",
+          "url": "https://greatsoftwarecompany.com"
+        }
+      },
+      "datePublished": "2026-11-25",
+      "dateModified": "2026-11-25",
+      "mainEntityOfPage": "https://iconstash.io/articles/svg-blob-generator-and-organic-shapes-guide/",
+      "inLanguage": "en-US",
+      "wordCount": 4092,
+      "articleSection": "Vector Graphics Engineering",
+      "keywords": [
+        "svg blob generator",
+        "svg blob",
+        "organic svg shapes",
+        "how to create svg blobs",
+        "catmull-rom spline svg blob",
+        "css clip-path blob",
+        "animated svg blob"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "IconStash",
+          "item": "https://iconstash.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Articles",
+          "item": "https://iconstash.io/articles/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Blob Generator & Organic Shapes Guide",
+          "item": "https://iconstash.io/articles/svg-blob-generator-and-organic-shapes-guide/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does a programmatic SVG blob generator create smooth organic curves?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An SVG blob generator samples N points around a circle at evenly spaced polar angles, perturbs each point's radius within a bounded irregularity range, and connects the closed loop using Catmull-Rom to cubic Bezier conversion so every anchor has C1 tangent continuity with zero sharp corners."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why should SVG blob generators use a seeded PRNG instead of Math.random()?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Calling Math.random() produces different path coordinates on the server and client, triggering React or Next.js hydration mismatch warnings and unpredictable visual shifts. Using a deterministic seeded PRNG like Mulberry32 guarantees identical SVG path strings across SSR, client hydration, and shareable design tokens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does CSS clip-path: path(...) fail to resize responsively on images, and how do you fix it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Raw CSS clip-path: path(...) coordinates are evaluated in fixed CSS pixels rather than percentages, causing masks to clip awkwardly when an image or card scales across viewports. Fixing this requires defining an SVG clipPath with clipPathUnits='objectBoundingBox' and normalizing all coordinates into the [0, 1] unit square."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you animate an SVG blob morphing smoothly without glitching?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Smooth path morphing in CSS d: path(...) or SMIL animate requires every keyframe path to contain the exact same number and order of SVG path commands (identical vertex count N and identical C command structure). Keep N constant across keyframes and vary only the numeric control point coordinates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you prevent random SVG blobs from twisting or self-intersecting?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Self-intersection happens when radial jitter exceeds roughly 50% of the base radius or when angular jitter causes adjacent vertices to swap angular order. Clamping radial contrast below 0.45 * R, keeping polar angles strictly monotonic, and capping Catmull-Rom tension at or below 1.2 prevents loop artifacts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are SVG blobs better than CSS border-radius blobs for web performance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CSS eight-value border-radius blobs are limited to four convex corner ellipses and cannot produce concave lobes or multi-wave contours. Inline SVG blobs support arbitrary lobe counts, multi-stop gradients, responsive objectBoundingBox image masks, and crisp vector clipping in under 500 bytes of gzipped HTML."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should decorative SVG blobs be marked up for WCAG 2.2 AA accessibility?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Purely decorative background blobs must carry aria-hidden='true' and focusable='false' so screen readers skip them cleanly. If an animated blob runs continuously, wrap its CSS transition or SMIL keyframe inside a prefers-reduced-motion: reduce guard so motion-sensitive users experience a calm static silhouette."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { background: #0A0A0A; color: #F2F2F2; font: 400 17px/1.8 "Inter", system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C1DD2D; text-decoration: none; transition: color 150ms ease; }
+    a:hover { color: #D2ED3E; }
+    ::selection { background: rgba(193,221,45,0.25); color: #fff; }
+    svg { max-width: 100%; display: inline-block; vertical-align: middle; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid #1F1F1F; padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
+    .site-header .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; color: #F2F2F2; }
+    .site-header .logo svg { width: 24px; height: 24px; color: #C1DD2D; }
+    .site-header nav { display: flex; gap: 24px; align-items: center; }
+    .site-header nav a { color: #888; font-size: 14px; font-weight: 500; }
+    .site-header nav a:hover { color: #F2F2F2; }
+    .header-cta { background: #C1DD2D; color: #0A0A0A !important; font-weight: 700; padding: 7px 16px; border-radius: 6px; font-size: 13px; transition: background 150ms ease; }
+    .header-cta:hover { background: #D2ED3E; }
+    .theme-toggle-btn { background: #1A1A1A; border: 1px solid #2E2E2E; color: #888; width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 150ms ease; }
+    .theme-toggle-btn:hover { color: #F2F2F2; border-color: #444; }
+
+    .page-container { max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #666; margin-bottom: 24px; }
+    .breadcrumb a { color: #888; }
+    .breadcrumb a:hover { color: #C1DD2D; }
+    .breadcrumb .sep { color: #444; }
+    .breadcrumb .current { color: #C1DD2D; font-weight: 500; }
+
+    .article-hero { margin-bottom: 40px; border-bottom: 1px solid #1F1F1F; padding-bottom: 32px; }
+    .article-hero .tag { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; background: rgba(193,221,45,0.08); border: 1px solid rgba(193,221,45,0.2); padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+    .article-hero h1 { font-size: 40px; font-weight: 900; line-height: 1.2; color: #FFFFFF; letter-spacing: -0.03em; margin-bottom: 16px; max-width: 1040px; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; font-size: 14px; color: #777; }
+    .article-meta a { color: #999; font-weight: 600; }
+    .article-meta a:hover { color: #C1DD2D; }
+
+    .article-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 48px; align-items: start; }
+    .article-main { min-width: 0; }
+    @media (max-width: 980px) { .article-layout { grid-template-columns: 1fr; } .article-sidebar { position: static; } }
+
+    .featured-summary { background: #121212; border: 1px solid #242424; border-left: 4px solid #C1DD2D; border-radius: 8px; padding: 24px 28px; margin-bottom: 36px; }
+    .featured-summary p { font-size: 17px; line-height: 1.7; color: #E5E5E5; margin-bottom: 14px; }
+    .featured-summary ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .featured-summary li { position: relative; padding-left: 20px; font-size: 15px; color: #B0B0B0; line-height: 1.6; }
+    .featured-summary li::before { content: "•"; position: absolute; left: 0; color: #C1DD2D; font-size: 20px; line-height: 1; top: 2px; }
+
+    .article-figure { margin: 32px 0 40px; text-align: center; }
+    .article-figure img, .article-figure svg { border-radius: 8px; border: 1px solid #242424; width: 100%; height: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .article-figure figcaption { margin-top: 12px; font-size: 13.5px; color: #888; line-height: 1.5; font-style: italic; }
+
+    h2 { font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 48px 0 20px; padding-top: 24px; border-top: 1px solid #1C1C1C; }
+    h3 { font-size: 21px; font-weight: 700; color: #F2F2F2; letter-spacing: -0.01em; margin: 32px 0 16px; }
+    h4 { font-size: 17px; font-weight: 600; color: #DDD; margin: 24px 0 12px; }
+    p { margin-bottom: 20px; color: #C8C8C8; font-size: 16.5px; line-height: 1.8; }
+    p strong { color: #FFFFFF; font-weight: 600; }
+    ul, ol { margin: 0 0 24px 24px; color: #C8C8C8; font-size: 16px; line-height: 1.75; }
+    li { margin-bottom: 8px; }
+
+    pre { background: #111111; border: 1px solid #222222; border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0 32px; font-family: "JetBrains Mono", monospace; font-size: 13.5px; line-height: 1.65; color: #E5E5E5; }
+    code { font-family: "JetBrains Mono", monospace; font-size: 14px; background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 4px; color: #C1DD2D; }
+    pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+    .formula-card { background: #121212; border: 1px solid #242424; border-left: 3px solid #C1DD2D; border-radius: 6px; padding: 20px 24px; margin: 24px 0 28px; }
+    .formula-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #C1DD2D; margin-bottom: 8px; }
+    .formula-body { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px; overflow-x: auto; padding: 4px 0; }
+    .formula-desc { font-size: 14px; color: #999; line-height: 1.6; }
+
+    .table-container { width: 100%; overflow-x: auto; margin: 28px 0 36px; border: 1px solid #222; border-radius: 8px; }
+    table.data-table { width: 100%; border-collapse: collapse; font-size: 14.5px; text-align: left; }
+    .data-table th { background: #141414; color: #FFF; font-weight: 700; padding: 14px 18px; border-bottom: 1px solid #242424; white-space: nowrap; }
+    .data-table td { padding: 14px 18px; border-bottom: 1px solid #1A1A1A; color: #AAA; vertical-align: top; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .interactive-sandbox { background: #121212; border: 1px solid #262626; border-radius: 10px; padding: 24px; margin: 36px 0 44px; box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+    .sandbox-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #242424; padding-bottom: 16px; margin-bottom: 20px; }
+    .sandbox-title { font-size: 18px; font-weight: 800; color: #FFF; display: flex; align-items: center; gap: 8px; }
+    .sandbox-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; background: rgba(193,221,45,0.12); color: #C1DD2D; padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(193,221,45,0.25); }
+    .sandbox-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .control-row { display: flex; flex-direction: column; gap: 6px; }
+    .control-row label { font-size: 12.5px; font-weight: 600; color: #999; }
+    .control-select, .control-input { background: #1A1A1A; border: 1px solid #333; border-radius: 6px; color: #FFF; padding: 8px 12px; font-size: 13.5px; outline: none; font-family: inherit; }
+    .control-select:focus, .control-input:focus { border-color: #C1DD2D; }
+    .secondary-btn { background: #1E1E1E; border: 1px solid #383838; color: #F2F2F2; padding: 8px 14px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 150ms ease; }
+    .secondary-btn:hover { border-color: #C1DD2D; color: #C1DD2D; }
+
+    .preview-stage-container { background: #0D0D0D; border: 1px solid #222; border-radius: 8px; padding: 20px; display: flex; justify-content: center; align-items: center; position: relative; min-height: 440px; user-select: none; touch-action: none; }
+    .blob-svg-canvas { width: 100%; max-width: 760px; height: auto; touch-action: none; cursor: grab; }
+    .blob-svg-canvas:active { cursor: grabbing; }
+
+    .stats-readout-box { background: #161616; border: 1px solid #262626; border-radius: 8px; padding: 14px 18px; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+    .stat-item { display: flex; flex-direction: column; }
+    .stat-label { font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600; }
+    .stat-val { font-size: 15.5px; font-weight: 800; color: #FFF; font-family: "JetBrains Mono", monospace; }
+    .stat-val.highlight { color: #C1DD2D; }
+
+    .action-btn-row { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; margin-top: 16px; }
+    .copy-btn { background: #C1DD2D; color: #0A0A0A; border: none; padding: 9px 20px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 150ms ease; }
+    .copy-btn:hover { background: #D2ED3E; }
+
+    .article-sidebar { position: sticky; top: 82px; display: flex; flex-direction: column; gap: 24px; }
+    .sidebar-card { background: #121212; border: 1px solid #222; border-radius: 8px; padding: 20px; }
+    .sidebar-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #C1DD2D; margin-bottom: 14px; }
+    .toc-nav { display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
+    .toc-nav a { color: #888; display: block; line-height: 1.4; padding: 2px 0; }
+    .toc-nav a:hover { color: #C1DD2D; }
+    .cta-sidebar-box { background: rgba(193,221,45,0.06); border: 1px solid rgba(193,221,45,0.25); border-radius: 8px; padding: 18px; text-align: left; }
+    .cta-sidebar-box .cta-title { font-size: 15px; color: #C1DD2D; margin-bottom: 8px; font-weight: 700; }
+    .cta-sidebar-box p { font-size: 13px; color: #BBB; line-height: 1.5; margin-bottom: 12px; }
+
+    .takeaway-box { background: #121212; border: 1px solid #242424; border-radius: 8px; padding: 24px 28px; margin: 36px 0; }
+    .takeaway-box h3 { color: #C1DD2D; font-size: 19px; margin-top: 0; margin-bottom: 14px; }
+    .takeaway-box ul { margin-bottom: 0; }
+
+    .warning-box { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-left: 4px solid #EF4444; border-radius: 6px; padding: 18px 22px; margin: 28px 0; }
+    .warning-box .warning-title { color: #F87171; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .warning-box p { color: #E5E5E5; margin-bottom: 0; font-size: 14.5px; }
+
+    .faq-section { margin-top: 56px; padding-top: 32px; border-top: 1px solid #222; }
+    .faq-item { border: 1px solid #222; border-radius: 8px; margin-bottom: 14px; background: #121212; overflow: hidden; }
+    .faq-question { padding: 18px 22px; font-size: 16px; font-weight: 700; color: #FFF; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 22px 18px; font-size: 15px; color: #B0B0B0; line-height: 1.7; }
+
+    .site-footer { background: #0A0A0A; border-top: 1px solid #1C1C1C; padding: 48px 24px; text-align: center; font-size: 14px; color: #666; margin-top: 80px; }
+    .site-footer a { color: #888; }
+    .site-footer a:hover { color: #C1DD2D; }
+
+    /* Light Theme Contrast Rules (WCAG 2.2 AA Compliant) */
+    html[data-theme="light"] body { background: #FAFAFA; color: #171717; }
+    html[data-theme="light"] .site-header { background: rgba(250,250,250,0.88); border-bottom-color: #E5E5E5; }
+    html[data-theme="light"] .site-header .logo { color: #171717; }
+    html[data-theme="light"] .site-header nav a { color: #525252; }
+    html[data-theme="light"] .site-header nav a:hover { color: #0A0A0A; }
+    html[data-theme="light"] .article-hero h1 { color: #0A0A0A; }
+    html[data-theme="light"] h2 { color: #0A0A0A; border-top-color: #E5E5E5; }
+    html[data-theme="light"] h3 { color: #171717; }
+    html[data-theme="light"] h4 { color: #262626; }
+    html[data-theme="light"] p, html[data-theme="light"] ul, html[data-theme="light"] ol { color: #383838; }
+    html[data-theme="light"] strong { color: #0A0A0A; }
+    html[data-theme="light"] .featured-summary { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .featured-summary p { color: #18181B; }
+    html[data-theme="light"] .featured-summary li { color: #3F3F46; }
+    html[data-theme="light"] pre { background: #F4F4F5; border-color: #E4E4E7; color: #18181B; }
+    html[data-theme="light"] pre code { background: transparent; color: #18181B; }
+    html[data-theme="light"] code { background: #E4E4E7; color: #4D6300; }
+    html[data-theme="light"] a { color: #4D6300; }
+    html[data-theme="light"] a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb a { color: #4D6300; }
+    html[data-theme="light"] .breadcrumb a:hover { color: #364600; }
+    html[data-theme="light"] .breadcrumb .current { color: #171717; }
+    html[data-theme="light"] .breadcrumb .sep { color: #A1A1AA; }
+    html[data-theme="light"] .toc-nav a { color: #3F3F46; }
+    html[data-theme="light"] .toc-nav a:hover { color: #4D6300; }
+    html[data-theme="light"] .site-footer a { color: #4D6300; }
+    html[data-theme="light"] .site-footer a:hover { color: #364600; }
+    html[data-theme="light"] .article-hero .tag { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .site-footer { background: #FAFAFA; border-top-color: #E5E5E5; }
+    html[data-theme="light"] .sidebar-card { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .cta-sidebar-box { background: #ECFDF5; border-color: #A7F3D0; }
+    html[data-theme="light"] .cta-sidebar-box .cta-title { color: #064E3B; }
+    html[data-theme="light"] .cta-sidebar-box p { color: #047857; }
+    html[data-theme="light"] .table-container { border-color: #E4E4E7; }
+    html[data-theme="light"] .data-table th { background: #F4F4F5; color: #18181B; border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .data-table td { border-bottom-color: #E4E4E7; color: #3F3F46; }
+    html[data-theme="light"] .interactive-sandbox { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-header { border-bottom-color: #E4E4E7; }
+    html[data-theme="light"] .sandbox-title { color: #18181B; }
+    html[data-theme="light"] .control-row label { color: #4B5563; }
+    html[data-theme="light"] .preview-stage-container { background: #F9FAFB; border-color: #D1D5DB; }
+    html[data-theme="light"] .control-select, html[data-theme="light"] .control-input { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .secondary-btn { background: #FFFFFF; border-color: #D1D5DB; color: #18181B; }
+    html[data-theme="light"] .stats-readout-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .stat-val { color: #18181B; }
+    html[data-theme="light"] .stat-val.highlight { color: #4D6300; }
+    html[data-theme="light"] .sandbox-badge { background: #E4E4E7; color: #4D6300; border-color: #D4D4D8; }
+    html[data-theme="light"] .formula-card { background: #F4F4F5; border-color: #E4E4E7; border-left-color: #849E00; }
+    html[data-theme="light"] .formula-body { color: #18181B; }
+    html[data-theme="light"] .formula-title { color: #4D6300; }
+    html[data-theme="light"] .formula-desc { color: #52525B; }
+    html[data-theme="light"] .takeaway-box { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .takeaway-box h3 { color: #4D6300; }
+    html[data-theme="light"] .warning-box { background: #FEF2F2; border-color: #FECACA; border-left-color: #DC2626; }
+    html[data-theme="light"] .warning-box .warning-title { color: #991B1B; }
+    html[data-theme="light"] .warning-box p { color: #7F1D1D; }
+    html[data-theme="light"] .faq-item { background: #F4F4F5; border-color: #E4E4E7; }
+    html[data-theme="light"] .faq-question { color: #18181B; }
+    html[data-theme="light"] .faq-answer { color: #3F3F46; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+        <polyline points="2 17 12 22 22 17"></polyline>
+        <polyline points="2 12 12 17 22 12"></polyline>
+      </svg>
+      <span>IconStash</span>
+    </a>
+    <nav>
+      <a href="/articles/">Articles</a>
+      <a href="/stats/">Stats</a>
+      <a href="/about/">About</a>
+      <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle visual theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <a href="/articles/" class="header-cta">Browse 138 Guides</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">IconStash</a>
+      <span class="sep">/</span>
+      <a href="/articles/">Articles</a>
+      <span class="sep">/</span>
+      <span class="current">SVG Blob Generator &amp; Organic Shapes</span>
+    </nav>
+
+    <header class="article-hero">
+      <span class="tag">Vector Graphics Engineering</span>
+      <h1>SVG Blob Generator &amp; Organic Shapes: Catmull-Rom Splines, Seeded PRNG &amp; CSS clip-path Morphing (2026)</h1>
+      <div class="article-meta">
+        <span>Published by <a href="/about/">Jouni Flemming</a></span>
+        <span>•</span>
+        <span>Updated November 25, 2026</span>
+        <span>•</span>
+        <span>29 min read</span>
+        <span>•</span>
+        <span>4,092 words</span>
+      </div>
+    </header>
+
+    <div class="article-layout">
+      <article class="article-main">
+        <div class="featured-summary">
+          <p><strong>Direct Answer:</strong> To generate smooth, deterministic organic SVG blobs in JavaScript, sample N points around a circle with a seeded PRNG (Mulberry32), bound radial jitter below 45% of the radius to avoid self-intersection, convert cyclic neighbors into cubic Bézier curves via Catmull-Rom splines, and normalize coordinates to <code>[0, 1]</code> for responsive <code>objectBoundingBox</code> CSS masking.</p>
+          <ul>
+            <li><strong>Cyclic Catmull-Rom Calculus:</strong> Derive closed-loop cubic Bézier control handles with C1 tangent continuity, adjustable tension, and zero angular seams.</li>
+            <li><strong>Hydration-Safe Mulberry32 Seeds:</strong> Eliminate Next.js and Astro SSR hydration mismatches by replacing <code>Math.random()</code> with deterministic 32-bit integer seeds.</li>
+            <li><strong>Responsive Image Masks:</strong> Discover why pixel-locked <code>clip-path: path(...)</code> fails across breakpoints and how normalized <code>clipPathUnits="objectBoundingBox"</code> scales fluidly to any card or avatar.</li>
+            <li><strong>Interactive SVG Blob Studio:</strong> Tweak vertex count, irregularity, spline tension, and seed live—or drag individual radial handles directly on canvas—then copy standalone SVG or responsive CSS <code>clip-path</code> code.</li>
+          </ul>
+        </div>
+
+        <figure class="article-figure">
+          <img src="/assets/articles/svg-blob-generator-and-organic-shapes-guide.jpg"
+               alt="Layered translucent organic SVG blob shapes with Catmull-Rom Bezier handles and polar radial grid"
+               width="1200" height="675"
+               fetchpriority="high" decoding="async">
+          <figcaption>Figure 1: Procedural SVG organic blob geometry showing polar radial construction spokes, anchor vertices, and smooth Catmull-Rom cubic Bézier contours.</figcaption>
+        </figure>
+
+        <section id="section-organic-anatomy">
+          <h2>1. Anatomy of Procedural Organic SVG Blobs in Modern UI</h2>
+          <p><strong>Short Answer:</strong> Procedural SVG blobs replace heavy raster PNG masks and rigid CSS boxes with sub-500-byte vector silhouettes that scale infinitely, support multi-stop gradients and responsive image clipping, and animate fluidly at 60 frames per second without network overhead.</p>
+
+          <p>Organic amorphous shapes—universally dubbed "blobs" across design systems—soften rigid rectangular CSS grids across SaaS hero sections, founder portrait masks, interactive AI assistant indicators, and ambient background textures. Instead of exporting dozens of 180 KB transparent PNGs from Figma whenever a marketing team launches a new landing page, frontend engineers can synthesize infinite bespoke shapes directly in ~400 bytes of inline SVG markup.</p>
+
+          <p>Before writing spline math, however, it helps to evaluate all three web-native techniques for rendering organic shapes: pure CSS eight-value <code>border-radius</code>, inline SVG <code>&lt;path&gt;</code> geometry, and SVG <code>&lt;clipPath&gt;</code> masking. Each approach carries distinct geometric ceilings and browser compositing behavior.</p>
+
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Technique</th>
+                  <th scope="col">Lobe Complexity</th>
+                  <th scope="col">Concave Indents</th>
+                  <th scope="col">Responsive Image Masking</th>
+                  <th scope="col">Animation Support</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>CSS <code>border-radius</code> (8-value)</strong></td>
+                  <td>Strictly 4 corners</td>
+                  <td>Impossible (always convex)</td>
+                  <td>Native via <code>overflow: hidden</code></td>
+                  <td>Hardware-friendly CSS transitions</td>
+                </tr>
+                <tr>
+                  <td><strong>Inline SVG <code>&lt;path&gt;</code></strong></td>
+                  <td>Arbitrary (4 to 24+ lobes)</td>
+                  <td>Full convex + concave waves</td>
+                  <td>Via sibling overlay or mask</td>
+                  <td>CSS <code>d: path()</code> &amp; SMIL <code>&lt;animate&gt;</code></td>
+                </tr>
+                <tr>
+                  <td><strong>SVG <code>objectBoundingBox</code> Clip</strong></td>
+                  <td>Arbitrary (4 to 24+ lobes)</td>
+                  <td>Full convex + concave waves</td>
+                  <td>100% responsive across all sizes</td>
+                  <td>Animate inner <code>&lt;path&gt;</code> directly</td>
+                </tr>
+                <tr>
+                  <td><strong>CSS <code>clip-path: path(...)</code></strong></td>
+                  <td>Arbitrary</td>
+                  <td>Full convex + concave waves</td>
+                  <td>Broken (locked to fixed CSS px)</td>
+                  <td>CSS transition if vertex count matches</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>As the matrix demonstrates, CSS eight-value <code>border-radius</code> (such as <code>62% 38% 46% 54% / 60% 63% 37% 40%</code>) is fine for subtle rounded pebbles, yet it can never draw a peanut silhouette, a flowing multi-lobed fluid drop, or an asymmetric backdrop because ellipses cannot bend inward into concave valleys. True organic geometry requires piecewise cubic Bézier splines driven by polar sampling.</p>
+
+          <h3>Why SVG Blobs Improve Core Web Vitals &amp; Design Consistency</h3>
+          <p>Replacing raster hero cutouts with inline SVG blobs eliminates external image requests from the critical rendering path, protecting Largest Contentful Paint (LCP). Even when paired with subtle blur filters—covered in depth in our <a href="/articles/svg-mesh-gradients-and-generative-shading-guide/">SVG mesh gradients guide</a> and <a href="/articles/svg-wave-generators-and-organic-section-dividers-guide/">SVG wave dividers guide</a>—keeping the core vector path compact ensures negligible DOM overhead and instant first paint across slow mobile connections.</p>
+
+          <h3>Multi-Layer Blob Compositions &amp; Brand Color Harmonies</h3>
+          <p>Single flat blobs look minimal, yet flagship SaaS hero sections achieve editorial depth by pairing two or three complementary organic layers inside a single shared <code>&lt;svg&gt;</code> coordinate frame. A proven visual recipe combines a primary filled gradient silhouette at <code>opacity="0.92"</code>, a slightly rotated secondary hollow stroke ring (<code>fill="none" stroke-dasharray="6 4"</code>) offset by 12 pixels, and a subtle dotted texture pattern masked strictly to the lower quadrant. Because every layer shares one <code>viewBox</code>, the composition scales proportionally as an atomic brand illustration without alignment drift across desktop and tablet breakpoints.</p>
+
+          <h3>Static SVG Blobs vs. WebGL Noise Shaders</h3>
+          <p>Designers occasionally debate whether ambient hero backgrounds should use animated SVG blobs or WebGL GLSL Perlin-noise shaders. While WebGL shaders excel at full-bleed fluid smoke textures, they spin up a dedicated GPU rendering context, consume significant mobile battery, and often flash blank white frames before JavaScript boots. Inline SVG blobs render instantaneously inside initial server-side HTML with zero GPU context overhead, crisp vector edges on 4K displays, and clean CSS variable integration for instant dark-to-light theme switching.</p>
+        </section>
+
+        <section id="section-polar-sampling">
+          <h2>2. Polar Radial Perturbation &amp; Self-Intersection Bounds</h2>
+          <p><strong>Short Answer:</strong> To prevent generated SVG blobs from folding over themselves into tangled figure-eights, place N vertices at strictly ordered polar angles around a center point and constrain radial perturbation strictly below 45% of the base radius so adjacent control handles never cross.</p>
+
+          <p>Every closed organic blob begins as a circle discretized into <code>N</code> radial spokes. Let the SVG canvas center reside at <code>(C_x, C_y)</code> with nominal base radius <code>R</code>. For each vertex index <code>i = 0, 1, …, N - 1</code>, we compute a base polar angle <code>θ_i = (2π × i) ÷ N</code>.</p>
+
+          <p>If we leave every radius equal to <code>R</code>, the resulting spline forms a near-perfect circle. To introduce organic asymmetry, we modulate each spoke's radius <code>r_i</code> using a bounded contrast parameter <code>c ∈ [0, 0.45]</code> and pseudo-random sample <code>u_i ∈ [-1, 1]</code>:</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Bounded Polar Vertex Sampling</div>
+            <div class="formula-body">
+              θ_i = (2π × i) ÷ N + δ_θ, &emsp; r_i = R × (1 + c × u_i)<br>
+              x_i = C_x + r_i × cos(θ_i), &emsp; y_i = C_y + r_i × sin(θ_i)
+            </div>
+            <div class="formula-desc">
+              Restricting contrast c ≤ 0.45 ensures r_min ≥ 0.55 × R and r_max ≤ 1.45 × R, preventing deep inward spikes from colliding across the center or twisting cubic Bézier loops.
+            </div>
+          </div>
+
+          <h3>Guarding Angular Jitter Against Winding Inversion</h3>
+          <p>Adding slight angular jitter <code>δ_θ</code> breaks mechanical radial symmetry so blobs feel hand-sculpted rather than like gear cogs. However, if two adjacent vertices perturb toward one another by more than half the angular sector width <code>Δθ = 2π ÷ N</code>, their winding order flips—causing the spline to whip backward into a sharp bowtie cusp. Clamping angular jitter strictly inside <code>[-0.28 × Δθ, +0.28 × Δθ]</code> guarantees monotonic clockwise traversal around the origin while preserving natural asymmetry.</p>
+
+          <h3>Harmonic Fourier Blobs for Ultra-Smooth Silhouettes</h3>
+          <p>An alternative to per-spoke random jitter is harmonic superposition—summing two or three low-frequency sine/cosine waves around the perimeter: <code>r(θ) = R × (1 + a_2 × cos(2θ + φ_2) + a_3 × cos(3θ + φ_3))</code>. Harmonic blobs look extraordinarily fluid because low-order harmonics naturally couple opposite sides of the contour, though pure spoke perturbation offers richer local lobe control when users want to drag individual vertices interactively.</p>
+
+          <h3>Bounding-Box Recentering &amp; Visual Weight Balance</h3>
+          <p>When asymmetric radial jitter elongates three consecutive vertices on the right side while pulling the left side inward, the resulting blob drifts noticeably off-center inside its container—even though every spoke originated from <code>(C_x, C_y)</code>. Professional blob generators solve this visual imbalance by computing the geometric centroid <code>(G_x, G_y)</code> or bounding-box midpoint <code>((x_min + x_max) ÷ 2, (y_min + y_max) ÷ 2)</code> across all sampled vertices and translating every point by <code>(C_x - G_x, C_y - G_y)</code> before spline construction. Recentering guarantees that avatar masks and hero badges sit optically centered inside circular or square UI frames.</p>
+        </section>
+
+        <section id="section-catmull-rom">
+          <h2>3. Catmull-Rom to Closed Cubic Bézier Spline Mathematics</h2>
+          <p><strong>Short Answer:</strong> Converting a closed polygon of N vertices into a smooth SVG blob requires wrapping neighbor lookups modulo N so the last vertex connects seamlessly back to vertex 0, then transforming Catmull-Rom tangents scaled by tension τ into explicit SVG cubic Bézier <code>C</code> control points.</p>
+
+          <p>Many quick tutorials draw blobs using SVG quadratic <code>Q</code> midpoint chaining (connecting midpoints between vertices with each vertex acting as the quadratic control point). While quadratic midpoints are easy to code, they suffer from a major limitation: the curve <em>never passes through the actual control vertices</em>, and you have zero control over curvature tension or loop fullness. Converting <strong>Catmull-Rom splines</strong> to SVG cubic Bézier (<code>C</code>) segments fixes both flaws: the blob passes cleanly through every radial vertex, maintains C1 tangent continuity across every seam, and lets designers dial tension smoothly from taut pebbles to plump cushions.</p>
+
+          <h3>Modulo Wraparound &amp; Cubic Control Point Formulas</h3>
+          <p>For segment <code>i</code> running from anchor <code>P_1 = pts[i]</code> to <code>P_2 = pts[(i + 1) mod N]</code>, we inspect the prior neighbor <code>P_0 = pts[(i - 1 + N) mod N]</code> and next neighbor <code>P_3 = pts[(i + 2) mod N]</code>. Using modular arithmetic ensures segment <code>N - 1 → 0</code> shares the exact same tangent symmetry as every interior segment—eliminating the ugly pinch seam that plagues naive open-curve implementations.</p>
+
+          <div class="formula-card">
+            <div class="formula-title">Closed Catmull-Rom to SVG Cubic Bézier Mapping</div>
+            <div class="formula-body">
+              CP1 = P_1 + ((P_2 - P_0) ÷ 6) × τ<br>
+              CP2 = P_2 - ((P_3 - P_1) ÷ 6) × τ
+            </div>
+            <div class="formula-desc">
+              At standard Catmull-Rom tension τ = 1.0, each control handle extends 1/6th of the chord vector between surrounding neighbors. Reducing τ toward 0.3 tightens lobes toward rounded polygons; increasing τ toward 1.3 swells curves into lush pillows.
+            </div>
+          </div>
+
+          <pre><code>// Closed-Loop Catmull-Rom to SVG Cubic Bezier Path Converter
+function catmullRomToClosedSvgPath(points, tension = 1.0) {
+  const n = points.length;
+  if (n &lt; 3) return '';
+
+  const k = tension / 6;
+  let d = `M ${points[0].x.toFixed(2)} ${points[0].y.toFixed(2)}`;
+
+  for (let i = 0; i &lt; n; i++) {
+    const p0 = points[(i - 1 + n) % n];
+    const p1 = points[i];
+    const p2 = points[(i + 1) % n];
+    const p3 = points[(i + 2) % n];
+
+    const cp1x = p1.x + (p2.x - p0.x) * k;
+    const cp1y = p1.y + (p2.y - p0.y) * k;
+    const cp2x = p2.x - (p3.x - p1.x) * k;
+    const cp2y = p2.y - (p3.y - p1.y) * k;
+
+    d += ` C ${cp1x.toFixed(2)} ${cp1y.toFixed(2)}, ${cp2x.toFixed(2)} ${cp2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
+  }
+
+  return d + ' Z';
+}</code></pre>
+
+          <h3>Computing Visual Area Balance via the Shoelace Formula</h3>
+          <p>When rendering multiple blobs in a grid or testing regularity metrics inside a design tool, engineers often compute the signed area of the vertex ring using Gauss's Shoelace Formula: <code>A = 0.5 × |∑ (x_i × y_{i+1} - x_{i+1} × y_i)|</code>. Comparing the polygon area against the reference circle area <code>π × R²</code> gives a clean irregularity ratio for automated visual regression checks.</p>
+
+          <h3>Quadratic Midpoint Chains vs. Cubic Catmull-Rom vs. Centripetal Splines</h3>
+          <p>It is worth comparing three spline families frequently cited in vector graphics engineering. Quadratic midpoint chaining (<code>Q</code>) averages adjacent points to place on-curve knots, producing very compact paths at the expense of shrinking the overall radius whenever vertex count is low. Uniform Catmull-Rom cubic splines (<code>C</code>) pass directly through every sampled vertex with clean C1 tangent continuity and tunable tension <code>τ</code>, making them ideal for interactive handles. Centripetal Catmull-Rom (parameterized by chord-length power <code>α = 0.5</code>) adds mathematical immunity to cusps even when neighboring vertices sit unevenly close together—an important upgrade if users drag two control points near each other inside a custom editor.</p>
+        </section>
+
+        <section id="section-architecture-pipeline">
+          <h2>4. Figure 2: Deterministic SVG Blob Synthesis Pipeline</h2>
+          <p>Modern frontend pipelines demand reproducibility. Figure 2 maps our deterministic blob architecture from an integer seed through Mulberry32 sampling, bounded polar perturbation, cyclic Catmull-Rom Bézier synthesis, and dual export emitters targeting both standalone <code>&lt;svg&gt;</code> illustrations and normalized <code>[0, 1]</code> CSS masks.</p>
+
+          <figure class="article-figure">
+            <svg viewBox="0 0 960 320" width="960" height="320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Figure 2: Deterministic SVG Blob Generator Architecture Pipeline">
+              <rect width="960" height="320" fill="#0D0D0D" rx="8" stroke="#222222" stroke-width="1"></rect>
+              <defs>
+                <marker id="blArrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#C1DD2D"></polygon>
+                </marker>
+              </defs>
+
+              <g transform="translate(24, 40)">
+                <rect width="196" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="98" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="700" text-anchor="middle">STAGE 1: SEEDED PRNG</text>
+                <text x="98" y="56" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Mulberry32 Engine</text>
+                <rect x="18" y="78" width="160" height="28" fill="#1C1C1C" rx="4"></rect>
+                <text x="98" y="96" fill="#A3A3A3" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">seed: 4208 -&gt; u_i [0,1)</text>
+                <text x="98" y="136" fill="#CCCCCC" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">SSR Hydration Parity</text>
+                <text x="98" y="156" fill="#888888" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">Zero Math.random()</text>
+                <rect x="18" y="182" width="160" height="28" fill="#1C1C1C" rx="4" stroke="#C1DD2D" stroke-width="0.6"></rect>
+                <text x="98" y="200" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">Shareable Seed Token</text>
+                <text x="98" y="228" fill="#666666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">100% Reproducible</text>
+              </g>
+
+              <line x1="220" y1="160" x2="250" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#blArrow)"></line>
+
+              <g transform="translate(258, 40)">
+                <rect width="196" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="98" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="700" text-anchor="middle">STAGE 2: POLAR RING</text>
+                <text x="98" y="56" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Bounded Perturbation</text>
+                <rect x="18" y="78" width="160" height="28" fill="#1C1C1C" rx="4"></rect>
+                <text x="98" y="96" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">r_i = R * (1 + c * u_i)</text>
+                <text x="98" y="136" fill="#CCCCCC" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">N = 4..14 Spokes</text>
+                <text x="98" y="156" fill="#888888" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">c &lt;= 0.45 Safety Clamp</text>
+                <rect x="18" y="182" width="160" height="28" fill="#1C1C1C" rx="4" stroke="#38BDF8" stroke-width="0.6"></rect>
+                <text x="98" y="200" fill="#38BDF8" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">Monotonic Angles</text>
+                <text x="98" y="228" fill="#666666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Zero Self-Intersection</text>
+              </g>
+
+              <line x1="454" y1="160" x2="484" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#blArrow)"></line>
+
+              <g transform="translate(492, 40)">
+                <rect width="196" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="98" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="700" text-anchor="middle">STAGE 3: SPLINE SOLVER</text>
+                <text x="98" y="56" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Cyclic Catmull-Rom</text>
+                <rect x="18" y="78" width="160" height="28" fill="#1C1C1C" rx="4"></rect>
+                <text x="98" y="96" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">CP1 = P1 + (P2-P0)*t/6</text>
+                <text x="98" y="136" fill="#CCCCCC" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">Modulo N Wraparound</text>
+                <text x="98" y="156" fill="#888888" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">C1 Tangent Continuity</text>
+                <rect x="18" y="182" width="160" height="28" fill="#1C1C1C" rx="4" stroke="#A855F7" stroke-width="0.6"></rect>
+                <text x="98" y="200" fill="#A855F7" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">M ... C ... Z Closed</text>
+                <text x="98" y="228" fill="#666666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Editable Drag Handles</text>
+              </g>
+
+              <line x1="688" y1="160" x2="718" y2="160" stroke="#C1DD2D" stroke-width="2" marker-end="url(#blArrow)"></line>
+
+              <g transform="translate(726, 40)">
+                <rect width="210" height="240" fill="#141414" stroke="#262626" rx="6"></rect>
+                <text x="105" y="32" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="11.5" font-weight="700" text-anchor="middle">STAGE 4: TARGET EXPORT</text>
+                <text x="105" y="56" fill="#FFFFFF" font-family="'Inter', sans-serif" font-size="13" font-weight="600" text-anchor="middle">Dual Vector Output</text>
+                <rect x="18" y="78" width="174" height="28" fill="#1C1C1C" rx="4"></rect>
+                <text x="105" y="96" fill="#FFFFFF" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">Standalone SVG Markup</text>
+                <text x="105" y="136" fill="#CCCCCC" font-family="'Inter', sans-serif" font-size="12" text-anchor="middle">objectBoundingBox [0,1]</text>
+                <text x="105" y="156" fill="#888888" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">CSS clip-path: url(#id)</text>
+                <rect x="18" y="182" width="174" height="28" fill="#1C1C1C" rx="4" stroke="#C1DD2D" stroke-width="0.6"></rect>
+                <text x="105" y="200" fill="#C1DD2D" font-family="'JetBrains Mono', monospace" font-size="10.5" text-anchor="middle">SMIL / CSS Morph Ready</text>
+                <text x="105" y="228" fill="#666666" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">Identical Vertex Parity</text>
+              </g>
+            </svg>
+            <figcaption>Figure 2: Four-stage deterministic SVG blob synthesis pipeline combining Mulberry32 seeded PRNG, bounded polar coordinates, cyclic Catmull-Rom splines, and responsive mask export.</figcaption>
+          </figure>
+        </section>
+
+        <section id="section-seeded-prng">
+          <h2>5. Deterministic Seeded PRNG (Mulberry32) for SSR &amp; Hydration</h2>
+          <p><strong>Short Answer:</strong> Calling <code>Math.random()</code> inside a React, Next.js, or Astro blob component causes server-rendered HTML and client hydration trees to disagree, triggering console errors and visible layout jumps. Replacing <code>Math.random()</code> with a 6-line Mulberry32 seeded PRNG guarantees identical vector paths on every render.</p>
+
+          <p>In modern server-rendered web frameworks, components execute once on Node.js during SSR or static generation and a second time in the browser during hydration. If your blob generator relies on <code>Math.random()</code>, the browser immediately throws a React Hydration Mismatch warning because the server's <code>d="M 312.40..."</code> string differs from the client's <code>d="M 289.15..."</code> string—forcing React to discard the server DOM and repaint the hero visual mid-load.</p>
+
+          <p>Mulberry32 is an ultra-fast, 32-bit state pseudo-random number generator with clean statistical distribution that operates deterministically from any integer seed:</p>
+
+          <pre><code>// Deterministic Mulberry32 Seeded PRNG (Zero Dependencies)
+function createSeededRng(seed) {
+  let state = seed &gt;&gt;&gt; 0;
+  return function nextFloat() {
+    state = (state + 0x6D2B79F5) | 0;
+    let t = Math.imul(state ^ (state &gt;&gt;&gt; 15), 1 | state);
+    t = (t + Math.imul(t ^ (t &gt;&gt;&gt; 7), 61 | t)) ^ t;
+    return ((t ^ (t &gt;&gt;&gt; 14)) &gt;&gt;&gt; 0) / 4294967296;
+  };
+}
+
+// Generate deterministic blob vertices from any integer seed
+function generateSeededBlobPoints(seed, count, cx, cy, baseRadius, contrast) {
+  const rand = createSeededRng(seed);
+  const angleStep = (Math.PI * 2) / count;
+  const points = [];
+
+  for (let i = 0; i &lt; count; i++) {
+    const uRadius = rand() * 2 - 1; // [-1, 1]
+    const uAngle = rand() * 2 - 1;  // [-1, 1]
+    const theta = i * angleStep + uAngle * angleStep * 0.22;
+    const radius = baseRadius * (1 + contrast * uRadius);
+    points.push({
+      x: cx + radius * Math.cos(theta),
+      y: cy + radius * Math.sin(theta)
+    });
+  }
+  return points;
+}</code></pre>
+
+          <p>Because the entire blob shape collapses into a single integer token such as <code>seed=4208</code>, teams can store tiny numeric seeds in CMS entries or URL query strings instead of bloating JSON payloads with long coordinate arrays, and reliably reproduce identical brand illustrations across web, iOS, and PDF exports.</p>
+
+          <h3>Hashing Strings to Deterministic Seeds via FNV-1a</h3>
+          <p>What if you want every user profile, workspace slug, or blog category to receive a unique, consistent organic avatar frame without manually assigning integer IDs? Feed any UTF-8 string—such as an email hash or route slug—through a compact 32-bit FNV-1a hash function before initializing Mulberry32: start with offset basis <code>2166136261</code>, XOR each character code, and multiply by the FNV prime <code>16777619</code> using <code>Math.imul</code>. Every distinct workspace slug maps deterministically to a signature silhouette across server renders, client views, and email PNG exports.</p>
+
+          <h3>Non-Square ViewBoxes &amp; Elliptical Aspect Stretching</h3>
+          <p>Hero section backgrounds frequently occupy wide 16:9 or 21:9 banners rather than square 1:1 avatars. Instead of forcing a circular base radius <code>R</code> into a square box and stretching the SVG via <code>preserveAspectRatio="none"</code> (which distorts stroke widths unevenly), parameterize separate horizontal and vertical base radii <code>(R_x, R_y)</code> inside the polar sampler: <code>x_i = C_x + R_x × (1 + c × u_i) × cos(θ_i)</code> and <code>y_i = C_y + R_y × (1 + c × u_i) × sin(θ_i)</code>. Elliptical polar sampling fills wide banners naturally while keeping outline strokes perfectly uniform around every curve.</p>
+        </section>
+
+        <section id="section-css-clip-path">
+          <h2>6. CSS clip-path Masking, Normalized objectBoundingBox &amp; Morphing</h2>
+          <p><strong>Short Answer:</strong> Raw CSS <code>clip-path: path("M ...")</code> uses fixed pixel units and breaks on fluid containers. To mask responsive photos and cards cleanly at any aspect ratio, place the blob inside an inline SVG <code>&lt;clipPath clipPathUnits="objectBoundingBox"&gt;</code> with coordinates normalized into <code>[0, 1]</code>, then reference <code>clip-path: url(#blob-mask)</code>.</p>
+
+          <p>One of the highest-friction moments in CSS layout engineering occurs when a developer pastes an exported <code>500 × 500</code> SVG blob path straight into <code>clip-path: path("M 420 250 C ...")</code> on a responsive <code>width: 100%</code> profile card. Unlike SVG's <code>viewBox</code>, the CSS <code>path()</code> function currently has no native unit scaling in standard CSS—every number inside <code>path()</code> is interpreted rigidly as CSS pixels! On a 320px mobile card, the right half of the 500px blob gets sliced straight off; on a 720px desktop card, the blob shrinks into the top-left corner.</p>
+
+          <h3>The Bulletproof Solution: clipPathUnits="objectBoundingBox"</h3>
+          <p>The SVG specification provides an elegant native remedy covered in our <a href="/articles/css-clip-path-and-svg-masking-guide/">CSS clip-path and SVG masking deep dive</a>: setting <code>clipPathUnits="objectBoundingBox"</code> maps <code>(0, 0)</code> to the top-left corner of any HTML element and <code>(1, 1)</code> to its bottom-right corner regardless of pixel width or height. Simply divide every coordinate generated on a <code>[0..W] × [0..H]</code> canvas by <code>W</code> and <code>H</code> respectively:</p>
+
+          <pre><code>&lt;!-- Hidden zero-size SVG defining a fluid percentage-free clip mask --&gt;
+&lt;svg width="0" height="0" style="position:absolute;" aria-hidden="true"&gt;
+  &lt;defs&gt;
+    &lt;clipPath id="responsive-blob-mask" clipPathUnits="objectBoundingBox"&gt;
+      &lt;path d="M 0.84 0.50 C 0.86 0.72, 0.68 0.91, 0.48 0.89 C 0.25 0.87, 0.09 0.69, 0.12 0.47 C 0.15 0.25, 0.34 0.08, 0.56 0.11 C 0.77 0.14, 0.82 0.28, 0.84 0.50 Z" /&gt;
+    &lt;/clipPath&gt;
+  &lt;/defs&gt;
+&lt;/svg&gt;
+
+&lt;!-- Scales responsively to 200px, 480px, or 1200px cards automatically --&gt;
+&lt;img src="/team/founder.jpg" alt="Portrait" class="blob-avatar" /&gt;
+
+&lt;style&gt;
+  .blob-avatar {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    clip-path: url(#responsive-blob-mask);
+  }
+&lt;/style&gt;</code></pre>
+
+          <div class="warning-box">
+            <div class="warning-title">Avoid display: none on Inline ClipPath Host SVGs</div>
+            <p>Never hide your shared <code>&lt;clipPath&gt;</code> or <code>&lt;defs&gt;</code> SVG container with <code>display: none;</code>. In Firefox and older Chromium builds, <code>display: none</code> removes the SVG subtree from the layout render tree, causing <code>clip-path: url(#responsive-blob-mask)</code> to fall back to an unclipped rectangle. Always use <code>width="0" height="0" style="position:absolute; pointer-events:none;"</code> instead.</p>
+          </div>
+
+          <h3>Vertex-Parity Rules for Smooth CSS &amp; SMIL Blob Morphing</h3>
+          <p>Animating between two organic blob shapes via CSS <code>transition: d 0.6s ease</code> or SMIL <code>&lt;animate attributeName="d"&gt;</code> works purely on the GPU compositor—provided both paths share identical command arity. Every keyframe must start with one <code>M</code> command followed by the exact same count of cubic <code>C</code> commands and one closing <code>Z</code>. If State A uses 6 vertices and State B uses 8 vertices, the browser abandons interpolation and snaps abruptly between frames.</p>
+
+          <h3>Preserving Drop Shadows Around Clipped Blob Containers</h3>
+          <p>A notorious CSS gotcha strikes designers who apply <code>box-shadow: 0 20px 40px rgba(0,0,0,0.4)</code> directly onto an element masked with <code>clip-path: url(#responsive-blob-mask)</code>. Because <code>clip-path</code> trims everything outside the clip boundary—including CSS box shadows and borders—the shadow disappears completely. To cast a soft organic shadow around a clipped blob photo or card, wrap the clipped element inside a parent <code>&lt;div&gt;</code> and apply <code>filter: drop-shadow(0 18px 32px rgba(0,0,0,0.45))</code> to the outer wrapper instead.</p>
+
+          <h3>CSS mask-image vs. clip-path for Soft Feathered Edges</h3>
+          <p>While <code>clip-path</code> creates razor-sharp boolean vector boundaries (100% opaque inside, 100% transparent outside), designers occasionally want organic silhouettes with translucent feathered edges or internal halftone fadeouts. In those scenarios, switch from <code>clip-path</code> to CSS <code>mask-image: url("data:image/svg+xml,...")</code> with <code>mask-size: 100% 100%</code>. Because alpha masks respect Gaussian blur gradients inside the referenced SVG, you can render soft glowing organic portraits without clipping harsh edges—keeping the data URI compact by URL-encoding only minimal characters as outlined in our <a href="/articles/svg-to-base64-and-data-uri-guide/">SVG to Data URI guide</a>.</p>
+        </section>
+
+        <section id="section-interactive-studio">
+          <h2>7. Interactive SVG Organic Blob Studio</h2>
+          <p>Design custom organic blobs in real time below. Dial in a deterministic integer <strong>Seed</strong> (or hit Randomize), adjust vertex count, radial irregularity, and Catmull-Rom tension, or switch to <strong>Wireframe + Control Handles</strong> to inspect and drag individual radial vertices directly with your mouse, touchscreen, or keyboard arrows. Export either standalone SVG markup or a ready-to-use normalized <code>objectBoundingBox</code> CSS mask.</p>
+          <p>Every interactive control below maps directly to the mathematical parameters derived in Sections 2 and 3. Increasing <strong>Vertices</strong> subdivides the polar circle into tighter angular sectors, transitioning silhouettes from soft three-lobe pebbles into complex multi-wave ribbons. Increasing <strong>Contrast</strong> widens radial variance toward the <code>0.44</code> safety boundary, while dialing <strong>Tension</strong> below <code>0.60</code> pulls Catmull-Rom tangent handles inward toward crisp geometric facets.</p>
+          <p>To fine-tune a single lobe manually without regenerating the entire seed, drag any handle radially on the canvas (supported via pointer capture on both desktop mice and mobile touchscreens) or press <code>Tab</code> to focus a handle and nudge its radius using <code>ArrowUp</code> and <code>ArrowDown</code>. When exporting via <strong>Copy Standalone SVG</strong>, transient handle circles are stripped automatically so your pasted markup contains only clean production geometry.</p>
+
+          <div class="interactive-sandbox" id="interactive-blob-studio">
+            <div class="sandbox-header">
+              <div class="sandbox-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2">
+                  <path d="M12 3c4.5 0 8 3 8 7.5 0 5-4 10.5-8.5 10.5S4 16.5 4 11.5C4 6.5 7.5 3 12 3z"></path>
+                </svg>
+                <span>Interactive SVG Organic Blob Studio</span>
+              </div>
+              <span class="sandbox-badge">Catmull-Rom + Mulberry32</span>
+            </div>
+
+            <div class="sandbox-controls">
+              <div class="control-row">
+                <label for="blob-seed-input">Deterministic Seed</label>
+                <div style="display:flex; gap:8px;">
+                  <input type="number" id="blob-seed-input" class="control-input" min="1" max="999999" value="4208" style="width:100%;">
+                  <button type="button" id="blob-random-btn" class="secondary-btn">Randomize</button>
+                </div>
+              </div>
+
+              <div class="control-row">
+                <label for="blob-vertices-slider">Vertices (<span id="blob-vertices-val">8</span> lobes)</label>
+                <input type="range" id="blob-vertices-slider" class="control-input" min="4" max="14" step="1" value="8">
+              </div>
+
+              <div class="control-row">
+                <label for="blob-contrast-slider">Contrast (<span id="blob-contrast-val">0.28</span>)</label>
+                <input type="range" id="blob-contrast-slider" class="control-input" min="0.05" max="0.44" step="0.01" value="0.28">
+              </div>
+
+              <div class="control-row">
+                <label for="blob-tension-slider">Tension (<span id="blob-tension-val">1.00</span>)</label>
+                <input type="range" id="blob-tension-slider" class="control-input" min="0.20" max="1.35" step="0.05" value="1.00">
+              </div>
+
+              <div class="control-row">
+                <label for="blob-style-select">Fill &amp; Geometry Mode</label>
+                <select id="blob-style-select" class="control-select">
+                  <option value="lime-cyan" selected>Lime-to-Cyan Gradient</option>
+                  <option value="solid-lime">Solid Electric Lime</option>
+                  <option value="wireframe">Wireframe + Editable Handles</option>
+                  <option value="glass-glow">Translucent Layered Glow</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="preview-stage-container">
+              <svg id="blob-live-canvas" class="blob-svg-canvas" viewBox="0 0 760 440" width="760" height="440" xmlns="http://www.w3.org/2000/svg" role="graphics-document" aria-label="Interactive SVG Blob Generator Canvas">
+              </svg>
+            </div>
+
+            <div class="stats-readout-box" aria-live="polite">
+              <div class="stat-item">
+                <span class="stat-label">Active Seed</span>
+                <span class="stat-val highlight" id="blob-stat-seed">#4208</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Cubic Segments</span>
+                <span class="stat-val" id="blob-stat-segs">8 C-splines</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Polygon Area</span>
+                <span class="stat-val" id="blob-stat-area">0 px²</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Path Bytes</span>
+                <span class="stat-val" id="blob-stat-bytes">0 B</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Self-Overlap Risk</span>
+                <span class="stat-val highlight" id="blob-stat-safety">Safe (&lt;45%)</span>
+              </div>
+            </div>
+
+            <div class="action-btn-row">
+              <button type="button" class="secondary-btn" id="blob-copy-css-btn">Copy CSS objectBoundingBox Mask</button>
+              <button type="button" class="copy-btn" id="blob-copy-code-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Standalone SVG</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="section-morphing-engine">
+          <h2>8. Production ES6 Blob Engine &amp; Smooth Keyframe Morphing</h2>
+          <p><strong>Short Answer:</strong> To build a smooth, battery-friendly ambient morphing blob in production, precompute 3 to 4 seeded paths with identical vertex counts at initialization, cycle between them using SMIL <code>&lt;animate attributeName="d"&gt;</code> or CSS <code>d: path(...)</code>, and pause animation when <code>prefers-reduced-motion: reduce</code> is active.</p>
+
+          <p>Continuously recalculating spline strings on every <code>requestAnimationFrame</code> tick burns unnecessary main-thread JavaScript CPU cycles on mobile devices. Instead, let our deterministic generator emit 3 or 4 closed path keyframes once during build or mount, and hand interpolation completely over to the browser's native SVG/CSS compositor:</p>
+
+          <pre><code>// Generate 4 vertex-matched SMIL morph keyframes from sequential seeds
+function buildMorphKeyframeValues(baseSeed, count = 8, radius = 150, contrast = 0.26) {
+  const frames = [];
+  for (let k = 0; k &lt; 4; k++) {
+    const pts = generateSeededBlobPoints(baseSeed + k * 97, count, 250, 250, radius, contrast);
+    frames.push(catmullRomToClosedSvgPath(pts, 1.0));
+  }
+  // Repeat frame 0 at the end so the loop closes seamlessly with zero jump
+  frames.push(frames[0]);
+  return frames.join('; ');
+}
+
+/* Usage inside declarative SVG:
+&lt;path fill="url(#brand-grad)"&gt;
+  &lt;animate attributeName="d"
+           dur="12s"
+           repeatCount="indefinite"
+           values="M ... Z; M ... Z; M ... Z; M ... Z; M ... Z" /&gt;
+&lt;/path&gt;
+*/</code></pre>
+
+          <h3>Rounding Coordinates for Compact SVG Payloads</h3>
+          <p>JavaScript floats emit 15 decimal digits (such as <code>214.8392019482714</code>), bloating SVG path sizes by 3x without visible benefit. Rounding coordinates to 2 decimal places (<code>toFixed(2)</code>) for pixel canvases—or 3 decimal places (<code>toFixed(3)</code>) for normalized <code>[0, 1]</code> <code>objectBoundingBox</code> masks—cuts payload size by up to 65% while remaining sub-pixel accurate on 4x Retina screens. Check our <a href="/articles/how-to-optimize-svg-icons-for-web-performance/">SVG optimization playbook</a> for automated SVGO precision flags.</p>
+
+          <h3>Packaging Reusable React &amp; Tailwind Blob Components</h3>
+          <p>In React 19 and Next.js design systems, encapsulate your blob engine into a pure zero-client-JS server component accepting <code>seed</code>, <code>lobes</code>, <code>contrast</code>, and <code>className</code> props. Scope any internal <code>&lt;linearGradient id&gt;</code> or <code>&lt;clipPath id&gt;</code> identifiers using React's built-in <code>useId()</code> hook so rendering six seeded blob cards on the same pricing grid never triggers duplicate SVG ID collisions.</p>
+
+          <h3>Interactive Hover-Morphing Buttons &amp; CSS Custom Property Switching</h3>
+          <p>Beyond passive hero backdrops, organic SVG blobs make tactile micro-interaction backdrops behind primary call-to-action buttons and feature icons. In Chromium and Safari, assigning a <code>d: path("...")</code> property inside CSS allows a pure <code>:hover</code> selector to morph between two vertex-matched Catmull-Rom paths over <code>350ms cubic-bezier(0.22, 1, 0.36, 1)</code> with zero JavaScript event listeners. For Firefox compatibility where CSS <code>d</code> transitions remain gated behind path syntax nuances, fall back smoothly to a subtle <code>transform: scale(1.06) rotate(4deg)</code> transition so every browser receives responsive tactile feedback.</p>
+
+          <h3>Comparing SMIL, CSS d-Path &amp; RequestAnimationFrame Morphing</h3>
+          <p>Choosing the right animation driver depends on whether the morph reacts to continuous user input or follows a fixed ambient loop. Pure CSS <code>d: path()</code> transitions excel for binary hover and active state switches because no JavaScript loop runs while idle. Declarative SMIL <code>&lt;animate attributeName="d"&gt;</code> shines for continuous ambient breathing loops inside standalone SVG assets (including <code>&lt;img src="blob.svg"&gt;</code> tags where external JavaScript cannot execute). Only reach for a JavaScript <code>requestAnimationFrame</code> interpolation loop when the blob must deform dynamically in response to scroll progress, audio FFT frequencies, or cursor proximity physics.</p>
+        </section>
+
+        <section id="section-accessibility-perf">
+          <h2>9. Performance, Accessibility (WCAG 2.2 AA) &amp; Decorative Hiding</h2>
+          <p><strong>Short Answer:</strong> Decorative hero blobs must declare <code>aria-hidden="true"</code> and <code>focusable="false"</code> so screen readers ignore non-semantic shapes, while morphing loops must respect <code>prefers-reduced-motion: reduce</code> and avoid stacking heavy live <code>feGaussianBlur</code> filters over large scrolling viewports.</p>
+
+          <p>When designers layer glowing ambient blobs behind hero headlines, two subtle performance and accessibility pitfalls arise:</p>
+
+          <ul>
+            <li><strong>GPU Rasterization Bottlenecks with Large Blurs:</strong> Applying CSS <code>filter: blur(80px)</code> or SVG <code>&lt;feGaussianBlur stdDeviation="40"&gt;</code> directly on a morphing <code>&lt;path&gt;</code> forces the browser GPU to re-blur an enormous bounding texture every frame. Instead, morph the sharp vector shape inside a pre-blurred static wrapper, or promote the layer with <code>will-change: transform</code> only during active transitions.</li>
+            <li><strong>Semantic Hiding for Assistive Technology:</strong> Unless a blob carries explicit data meaning (such as an interactive custom shape editor), screen readers should never pause on an unlabeled graphic node. Add <code>aria-hidden="true"</code> and <code>focusable="false"</code> to every decorative backdrop <code>&lt;svg&gt;</code>.</li>
+            <li><strong>Motion Sensitivity Compliance:</strong> Under WCAG 2.2 SC 2.3.3 (Animation from Interactions), ambient morphing animations must honor <code>@media (prefers-reduced-motion: reduce)</code> by freezing transitions or pausing SMIL playback via <code>svg.pauseAnimations()</code>.</li>
+            <li><strong>High-Contrast Text Overlays:</strong> Whenever white or dark typography sits directly over a lime-cyan gradient blob, verify worst-case text contrast across the brightest stop in the gradient so text maintains at least a <code>4.5:1</code> ratio.</li>
+            <li><strong>Email Clients &amp; High-Resolution Print Fallbacks:</strong> Most desktop email clients strip inline <code>&lt;svg&gt;</code> tags and ignore CSS <code>clip-path</code> rules entirely. When exporting marketing templates for transactional email or PDF invoices, rasterize your seeded blob composition offscreen via HTML5 Canvas or Playwright to a crisp 2x PNG or embed the vector blob inside a PDF-safe static SVG without CSS variables or animated SMIL tags.</li>
+          </ul>
+
+          <div class="takeaway-box">
+            <h3>Production Engineering Checklist for SVG Blobs</h3>
+            <ul>
+              <li>Always drive procedural blob generation with a <strong>deterministic seeded PRNG</strong> like Mulberry32 to prevent SSR hydration mismatches.</li>
+              <li>Clamp radial contrast below <code>0.45</code> and angular jitter below <code>0.28 × Δθ</code> so blobs never self-intersect.</li>
+              <li>Use <code>clipPathUnits="objectBoundingBox"</code> normalized to <code>[0, 1]</code> whenever masking responsive HTML cards or user avatars.</li>
+              <li>Never apply <code>display: none</code> to an inline SVG holding referenced <code>&lt;clipPath&gt;</code> or <code>&lt;linearGradient&gt;</code> definitions.</li>
+              <li>Keep vertex count identical across keyframes for glitch-free CSS or SMIL morphing.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="section-faq" class="faq-section">
+          <h2>10. Frequently Asked Questions</h2>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How does a programmatic SVG blob generator create smooth organic curves?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              An SVG blob generator samples N points around a circle at evenly spaced polar angles, perturbs each point's radius within a bounded irregularity range, and connects the closed loop using Catmull-Rom to cubic Bézier conversion so every anchor has C1 tangent continuity with zero sharp corners.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Why should SVG blob generators use a seeded PRNG instead of Math.random()?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Calling <code>Math.random()</code> produces different path coordinates on the server and client, triggering React or Next.js hydration mismatch warnings and unpredictable visual shifts. Using a deterministic seeded PRNG like Mulberry32 guarantees identical SVG path strings across SSR, client hydration, and shareable design tokens.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Why does CSS clip-path: path(...) fail to resize responsively on images, and how do you fix it?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Raw CSS <code>clip-path: path(...)</code> coordinates are evaluated in fixed CSS pixels rather than percentages, causing masks to clip awkwardly when an image or card scales across viewports. Fixing this requires defining an SVG <code>&lt;clipPath&gt;</code> with <code>clipPathUnits="objectBoundingBox"</code> and normalizing all coordinates into the <code>[0, 1]</code> unit square.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do you animate an SVG blob morphing smoothly without glitching?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Smooth path morphing in CSS <code>d: path(...)</code> or SMIL <code>&lt;animate&gt;</code> requires every keyframe path to contain the exact same number and order of SVG path commands (identical vertex count N and identical <code>C</code> command structure). Keep N constant across keyframes and vary only the numeric control point coordinates.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How do you prevent random SVG blobs from twisting or self-intersecting?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Self-intersection happens when radial jitter exceeds roughly 50% of the base radius or when angular jitter causes adjacent vertices to swap angular order. Clamping radial contrast below <code>0.45 × R</code>, keeping polar angles strictly monotonic, and capping Catmull-Rom tension at or below <code>1.2</code> prevents loop artifacts.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Are SVG blobs better than CSS border-radius blobs for web performance?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              CSS eight-value <code>border-radius</code> blobs are limited to four convex corner ellipses and cannot produce concave lobes or multi-wave contours. Inline SVG blobs support arbitrary lobe counts, multi-stop gradients, responsive <code>objectBoundingBox</code> image masks, and crisp vector clipping in under 500 bytes of gzipped HTML.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How should decorative SVG blobs be marked up for WCAG 2.2 AA accessibility?</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Purely decorative background blobs must carry <code>aria-hidden="true"</code> and <code>focusable="false"</code> so screen readers skip them cleanly. If an animated blob runs continuously, wrap its CSS transition or SMIL keyframe inside a <code>prefers-reduced-motion: reduce</code> guard so motion-sensitive users experience a calm static silhouette.
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Table of Contents</div>
+          <nav class="toc-nav">
+            <a href="#section-organic-anatomy">1. Anatomy of Organic SVG Blobs</a>
+            <a href="#section-polar-sampling">2. Polar Sampling &amp; Overlap Bounds</a>
+            <a href="#section-catmull-rom">3. Catmull-Rom Cubic Spline Math</a>
+            <a href="#section-architecture-pipeline">4. Figure 2: Synthesis Pipeline</a>
+            <a href="#section-seeded-prng">5. Deterministic Mulberry32 Seeds</a>
+            <a href="#section-css-clip-path">6. CSS clip-path &amp; objectBoundingBox</a>
+            <a href="#section-interactive-studio">7. Interactive SVG Blob Studio</a>
+            <a href="#section-morphing-engine">8. ES6 Engine &amp; SMIL Morphing</a>
+            <a href="#section-accessibility-perf">9. Performance &amp; Accessibility</a>
+            <a href="#section-faq">10. Frequently Asked Questions</a>
+          </nav>
+        </div>
+
+        <div class="cta-sidebar-box">
+          <div class="cta-title">Browse 134,701 Free SVG Icons</div>
+          <p>Search 28 open-source icon libraries in one instant client-side interface with live SVG, PNG &amp; React export.</p>
+          <a href="/" class="header-cta" style="display:inline-block; text-align:center;">Open IconStash</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; text-align: left; margin-bottom: 32px;">
+      <div style="flex: 1 1 260px;">
+        <div style="font-weight: 800; font-size: 16px; color: #FFF; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C1DD2D" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          IconStash
+        </div>
+        <p style="font-size: 13.5px; color: #777; line-height: 1.6;">Open-source SVG icon search engine and developer graphics engineering resource covering 28 libraries and 134,701 vector icons.</p>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #999; margin-bottom: 12px;">Navigation</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13.5px;">
+          <a href="/articles/">Articles &amp; Guides</a>
+          <a href="/stats/">Icon Statistics</a>
+          <a href="/about/">About IconStash</a>
+          <a href="/privacy/">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <p>&copy; 2026 IconStash.io. Published by Great Software Company. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function() {
+      const themeBtn = document.getElementById('theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          try { localStorage.setItem('iconstash-theme', newTheme); } catch (_) {}
+        });
+      }
+
+      const seedInput = document.getElementById('blob-seed-input');
+      const randomBtn = document.getElementById('blob-random-btn');
+      const verticesSlider = document.getElementById('blob-vertices-slider');
+      const verticesVal = document.getElementById('blob-vertices-val');
+      const contrastSlider = document.getElementById('blob-contrast-slider');
+      const contrastVal = document.getElementById('blob-contrast-val');
+      const tensionSlider = document.getElementById('blob-tension-slider');
+      const tensionVal = document.getElementById('blob-tension-val');
+      const styleSelect = document.getElementById('blob-style-select');
+      const liveSvg = document.getElementById('blob-live-canvas');
+      const copyBtn = document.getElementById('blob-copy-code-btn');
+      const copyCssBtn = document.getElementById('blob-copy-css-btn');
+
+      const statSeed = document.getElementById('blob-stat-seed');
+      const statSegs = document.getElementById('blob-stat-segs');
+      const statArea = document.getElementById('blob-stat-area');
+      const statBytes = document.getElementById('blob-stat-bytes');
+      const statSafety = document.getElementById('blob-stat-safety');
+
+      function mulberry32(seed) {
+        let a = seed >>> 0;
+        return function() {
+          a = (a + 0x6D2B79F5) | 0;
+          let t = Math.imul(a ^ (a >>> 15), 1 | a);
+          t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      const CX = 380;
+      const CY = 220;
+      const BASE_R = 140;
+
+      let currentPoints = [];
+      let customOffsets = null;
+      let draggedIdx = null;
+
+      function regeneratePoints() {
+        const seed = Math.max(1, parseInt(seedInput.value, 10) || 4208);
+        const count = parseInt(verticesSlider.value, 10) || 8;
+        const contrast = parseFloat(contrastSlider.value) || 0.28;
+        const rand = mulberry32(seed);
+        const step = (Math.PI * 2) / count;
+        const pts = [];
+        for (let i = 0; i < count; i++) {
+          const uR = rand() * 2 - 1;
+          const uA = rand() * 2 - 1;
+          const theta = i * step + uA * step * 0.22;
+          const r = BASE_R * (1 + contrast * uR);
+          pts.push({
+            x: CX + r * Math.cos(theta),
+            y: CY + r * Math.sin(theta),
+            theta,
+            r
+          });
+        }
+        currentPoints = pts;
+        customOffsets = null;
+      }
+
+      function buildBlobPath(pts, tension, normW = null, normH = null) {
+        const n = pts.length;
+        if (n < 3) return '';
+        const k = tension / 6;
+        const fx = (v) => normW ? ((v - (CX - 180)) / 360).toFixed(3) : v.toFixed(2);
+        const fy = (v) => normH ? ((v - (CY - 180)) / 360).toFixed(3) : v.toFixed(2);
+
+        let d = `M ${fx(pts[0].x)} ${fy(pts[0].y)}`;
+        for (let i = 0; i < n; i++) {
+          const p0 = pts[(i - 1 + n) % n];
+          const p1 = pts[i];
+          const p2 = pts[(i + 1) % n];
+          const p3 = pts[(i + 2) % n];
+          const cp1x = p1.x + (p2.x - p0.x) * k;
+          const cp1y = p1.y + (p2.y - p0.y) * k;
+          const cp2x = p2.x - (p3.x - p1.x) * k;
+          const cp2y = p2.y - (p3.y - p1.y) * k;
+          d += ` C ${fx(cp1x)} ${fy(cp1y)}, ${fx(cp2x)} ${fy(cp2y)}, ${fx(p2.x)} ${fy(p2.y)}`;
+        }
+        return d + ' Z';
+      }
+
+      function shoelaceArea(pts) {
+        let sum = 0;
+        for (let i = 0; i < pts.length; i++) {
+          const a = pts[i];
+          const b = pts[(i + 1) % pts.length];
+          sum += a.x * b.y - b.x * a.y;
+        }
+        return Math.abs(sum) * 0.5;
+      }
+
+      function renderBlob(includeHandles = true) {
+        const seed = Math.max(1, parseInt(seedInput.value, 10) || 4208);
+        const count = parseInt(verticesSlider.value, 10) || 8;
+        const contrast = parseFloat(contrastSlider.value) || 0.28;
+        const tension = parseFloat(tensionSlider.value) || 1.0;
+        const styleMode = styleSelect.value || 'lime-cyan';
+
+        verticesVal.textContent = String(count);
+        contrastVal.textContent = contrast.toFixed(2);
+        tensionVal.textContent = tension.toFixed(2);
+
+        if (!currentPoints.length || currentPoints.length !== count) {
+          regeneratePoints();
+        }
+
+        const pathD = buildBlobPath(currentPoints, tension);
+        const k = tension / 6;
+
+        let guideGrid = '';
+        for (let rRing = 50; rRing <= 180; rRing += 45) {
+          guideGrid += `<circle cx="${CX}" cy="${CY}" r="${rRing}" fill="none" stroke="#181818" stroke-width="1" />`;
+        }
+        guideGrid += `<line x1="${CX - 200}" y1="${CY}" x2="${CX + 200}" y2="${CY}" stroke="#1B1B1B" stroke-width="1" />`;
+        guideGrid += `<line x1="${CX}" y1="${CY - 190}" x2="${CX}" y2="${CY + 190}" stroke="#1B1B1B" stroke-width="1" />`;
+
+        let blobMarkup = '';
+        if (styleMode === 'lime-cyan') {
+          blobMarkup = `<path d="${pathD}" fill="url(#blobGrad)" stroke="#C1DD2D" stroke-width="1.5" stroke-opacity="0.6" />`;
+        } else if (styleMode === 'solid-lime') {
+          blobMarkup = `<path d="${pathD}" fill="#C1DD2D" />`;
+        } else if (styleMode === 'glass-glow') {
+          blobMarkup = `
+            <path d="${pathD}" fill="url(#blobGrad)" fill-opacity="0.28" stroke="#38BDF8" stroke-width="2" />
+            <path d="${pathD}" fill="none" stroke="#C1DD2D" stroke-width="1" stroke-dasharray="6,4" transform="scale(0.86) translate(${(CX * 0.162).toFixed(1)}, ${(CY * 0.162).toFixed(1)})" />
+          `;
+        } else {
+          blobMarkup = `<path d="${pathD}" fill="rgba(193,221,45,0.08)" stroke="#C1DD2D" stroke-width="2.5" />`;
+        }
+
+        let handlesMarkup = '';
+        if (includeHandles && (styleMode === 'wireframe' || draggedIdx !== null)) {
+          const n = currentPoints.length;
+          for (let i = 0; i < n; i++) {
+            const p0 = currentPoints[(i - 1 + n) % n];
+            const p1 = currentPoints[i];
+            const p2 = currentPoints[(i + 1) % n];
+            const cp1x = p1.x + (p2.x - p0.x) * k;
+            const cp1y = p1.y + (p2.y - p0.y) * k;
+            const isActive = draggedIdx === i;
+            handlesMarkup += `
+              <line x1="${CX}" y1="${CY}" x2="${p1.x.toFixed(1)}" y2="${p1.y.toFixed(1)}" stroke="#2A2A2A" stroke-width="1" stroke-dasharray="3,3" />
+              <line x1="${p1.x.toFixed(1)}" y1="${p1.y.toFixed(1)}" x2="${cp1x.toFixed(1)}" y2="${cp1y.toFixed(1)}" stroke="#38BDF8" stroke-width="1" stroke-opacity="0.7" />
+              <circle cx="${cp1x.toFixed(1)}" cy="${cp1y.toFixed(1)}" r="3" fill="#38BDF8" pointer-events="none" />
+              <circle cx="${p1.x.toFixed(1)}" cy="${p1.y.toFixed(1)}" r="${isActive ? '7' : '5.5'}"
+                      fill="${isActive ? '#FFFFFF' : '#C1DD2D'}" stroke="#0D0D0D" stroke-width="2"
+                      data-vertex-idx="${i}" tabindex="0" role="slider"
+                      aria-label="Blob vertex ${i + 1}" aria-valuemin="45" aria-valuemax="205" aria-valuenow="${Math.round(p1.r)}"
+                      style="cursor:grab; outline:none;" />
+            `;
+          }
+        } else if (includeHandles) {
+          currentPoints.forEach((p1, i) => {
+            handlesMarkup += `
+              <circle cx="${p1.x.toFixed(1)}" cy="${p1.y.toFixed(1)}" r="4"
+                      fill="#C1DD2D" fill-opacity="0.55" stroke="#0D0D0D" stroke-width="1.5"
+                      data-vertex-idx="${i}" tabindex="0" role="slider"
+                      aria-label="Drag or adjust blob vertex ${i + 1}" aria-valuemin="45" aria-valuemax="205" aria-valuenow="${Math.round(p1.r)}"
+                      style="cursor:grab; outline:none;" />
+            `;
+          });
+        }
+
+        liveSvg.innerHTML = `
+          <rect width="760" height="440" fill="#0D0D0D" rx="8" />
+          <defs>
+            <linearGradient id="blobGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#C1DD2D" />
+              <stop offset="100%" stop-color="#38BDF8" />
+            </linearGradient>
+          </defs>
+          <g class="blob-guides">${guideGrid}</g>
+          <g class="blob-shape">${blobMarkup}</g>
+          <g class="blob-handles">${handlesMarkup}</g>
+        `;
+
+        const area = Math.round(shoelaceArea(currentPoints));
+        statSeed.textContent = customOffsets ? `#${seed} (edited)` : `#${seed}`;
+        statSegs.textContent = `${count} C-splines`;
+        statArea.textContent = `${area.toLocaleString()} px²`;
+        statBytes.textContent = `${pathD.length} B`;
+        statSafety.textContent = contrast <= 0.44 ? 'Safe (<45%)' : 'High Tension';
+      }
+
+      function updateVertexFromPointer(clientX, clientY, vIdx) {
+        const rect = liveSvg.getBoundingClientRect();
+        if (!rect || !rect.width || !rect.height) return;
+        const sx = ((clientX - rect.left) / rect.width) * 760;
+        const sy = ((clientY - rect.top) / rect.height) * 440;
+        const p = currentPoints[vIdx];
+        if (!p) return;
+        const dx = sx - CX;
+        const dy = sy - CY;
+        const dist = Math.max(45, Math.min(205, Math.hypot(dx, dy)));
+        p.r = dist;
+        p.x = CX + dist * Math.cos(p.theta);
+        p.y = CY + dist * Math.sin(p.theta);
+        customOffsets = true;
+        renderBlob(true);
+      }
+
+      liveSvg.addEventListener('pointerdown', e => {
+        const target = e.target && e.target.closest ? e.target.closest('circle[data-vertex-idx]') : null;
+        if (target) {
+          draggedIdx = parseInt(target.getAttribute('data-vertex-idx'), 10);
+          try { liveSvg.setPointerCapture(e.pointerId); } catch (_) {}
+          updateVertexFromPointer(e.clientX, e.clientY, draggedIdx);
+        }
+      });
+
+      liveSvg.addEventListener('pointermove', e => {
+        if (draggedIdx !== null) {
+          updateVertexFromPointer(e.clientX, e.clientY, draggedIdx);
+        }
+      });
+
+      const endPointer = e => {
+        if (draggedIdx !== null) {
+          try { liveSvg.releasePointerCapture(e.pointerId); } catch (_) {}
+          draggedIdx = null;
+          renderBlob(true);
+        }
+      };
+      liveSvg.addEventListener('pointerup', endPointer);
+      liveSvg.addEventListener('pointercancel', endPointer);
+
+      liveSvg.addEventListener('keydown', e => {
+        const target = e.target && e.target.closest ? e.target.closest('circle[data-vertex-idx]') : null;
+        if (!target) return;
+        const idx = parseInt(target.getAttribute('data-vertex-idx'), 10);
+        const p = currentPoints[idx];
+        if (!p) return;
+        if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          p.r = Math.min(205, p.r + 6);
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          p.r = Math.max(45, p.r - 6);
+        } else {
+          return;
+        }
+        p.x = CX + p.r * Math.cos(p.theta);
+        p.y = CY + p.r * Math.sin(p.theta);
+        customOffsets = true;
+        renderBlob(true);
+        if (liveSvg.querySelector) {
+          const refocused = liveSvg.querySelector(`circle[data-vertex-idx="${idx}"]`);
+          if (refocused && refocused.focus) {
+            try { refocused.focus(); } catch (_) {}
+          }
+        }
+      });
+
+      seedInput.addEventListener('input', () => { regeneratePoints(); renderBlob(true); });
+      verticesSlider.addEventListener('input', () => { regeneratePoints(); renderBlob(true); });
+      contrastSlider.addEventListener('input', () => { regeneratePoints(); renderBlob(true); });
+      tensionSlider.addEventListener('input', () => renderBlob(true));
+      styleSelect.addEventListener('change', () => renderBlob(true));
+
+      randomBtn.addEventListener('click', () => {
+        seedInput.value = String(Math.floor(1000 + Math.random() * 89999));
+        regeneratePoints();
+        renderBlob(true);
+      });
+
+      function copyTextWithFallback(text, btn, defaultHtml) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied to Clipboard!';
+            setTimeout(() => { btn.innerHTML = defaultHtml; }, 2000);
+          }).catch(() => fallbackCopy(text, btn, defaultHtml));
+        } else {
+          fallbackCopy(text, btn, defaultHtml);
+        }
+      }
+
+      function fallbackCopy(text, btn, defaultHtml) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          btn.textContent = 'Copied to Clipboard!';
+          setTimeout(() => { btn.innerHTML = defaultHtml; }, 2000);
+        } catch (e) {
+          alert('Copy failed: ' + e.message);
+        }
+        document.body.removeChild(ta);
+      }
+
+      copyBtn.addEventListener('click', () => {
+        renderBlob(false);
+        let svgSource = liveSvg.outerHTML || '';
+        if (!svgSource.includes('xmlns="http://www.w3.org/2000/svg"')) {
+          svgSource = svgSource.replace(/<svg\b/, '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+        renderBlob(true);
+        copyTextWithFallback(svgSource, copyBtn, '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Standalone SVG</span>');
+      });
+
+      copyCssBtn.addEventListener('click', () => {
+        const tension = parseFloat(tensionSlider.value) || 1.0;
+        const normPath = buildBlobPath(currentPoints, tension, 360, 360);
+        const snippet = `<svg width="0" height="0" style="position:absolute;" aria-hidden="true">\n  <defs>\n    <clipPath id="blob-mask" clipPathUnits="objectBoundingBox">\n      <path d="${normPath}" />\n    </clipPath>\n  </defs>\n</svg>\n<style>\n  .blob-masked { clip-path: url(#blob-mask); }\n</style>`;
+        copyTextWithFallback(snippet, copyCssBtn, 'Copy CSS objectBoundingBox Mask');
+      });
+
+      regeneratePoints();
+      renderBlob(true);
+    })();
+  </script>
+</body>
+</html>
